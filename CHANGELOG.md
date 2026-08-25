@@ -6,6 +6,29 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Nouveau tableau final, à cinq profondeurs de parallaxe (LOT-71)
+
+- `demo-final` est **retracé** : un gaufre unique de 24×24, bien plus dense que l'ancien final
+  multi-salles — deux clés, un interrupteur à bascule, un bloc sur plaque, un ascenseur à
+  plateformes synchronisées, trois puits à wall jump et une cheminée. Il gagne deux plans de
+  parallaxe (**ciel** et **proche**) en plus des trois du LOT-70 ; `demo-synthese` passe en
+  cadrage par salle.
+- **Deux dangers retirés**, sans lesquels le tableau était **invincible** — démontré, pas
+  supposé. Le danger statique (17, 9) ne laissait à la rangée 9 que deux trouées, l'une mortelle
+  et l'autre débouchant sur un danger permanent, avec une fenêtre d'esquive d'une seule image. Le
+  danger mobile (7, 22) balayait exactement le couloir du bas : impossible de l'attendre (il vient
+  à vous), de le doubler en marchant (0,05 case par pas contre 0,033, dans le même sens) ni de le
+  franchir en ruée (0,25 par pas contre une case de large).
+- Le **parcours scripté** du garde-fou système est réécrit en 25 phases documentées. Il est
+  désormais porté par `ScriptedLevelSequence.h`, dont la copie était restée sur l'ancien tracé
+  50×26 — le test de récompense la rejouait, et le personnage n'y quittait pas son point
+  d'apparition.
+- Plafond de pas du garde-fou porté de 3 000 à 9 000 : ce seul tableau en demande près de 4 000,
+  dont de longues attentes devant les dangers temporisés. C'est une borne de terminaison, pas une
+  mesure de difficulté.
+- Les quatre niveaux touchés sont **réindentés** à deux espaces, comme `LevelWriter` le fait
+  désormais : ils étaient ressortis de l'éditeur en un bloc compact d'une seule ligne.
+
 ### Solveur IA — une IA maison qui termine les niveaux (LOT-ANNEXE-01 à 21)
 
 Le jeu gagne un **solveur autonome**, écrit **de zéro** : aucun framework d'apprentissage
