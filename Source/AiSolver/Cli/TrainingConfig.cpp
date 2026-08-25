@@ -3,14 +3,37 @@
 
 #include "AiSolver/Cli/TrainingConfig.h"
 
+#include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <system_error>
 
 #include <nlohmann/json.hpp>
 
 namespace aisolver::cli {
 
 namespace {
+
+/// Affecte @p target depuis la cle @p key de @p root, si elle est presente **et** du bon type.
+///
+/// Une valeur presente mais du mauvais type (`{"gamma": "abc"}`) est ignoree : le defaut documente
+/// reste en place. `get<T>()` seul leverait un `nlohmann::json::type_error` -- aucune exception ne
+/// doit franchir cette frontiere (`EX-NFR-040`), et cette fonction n'a pas de canal d'erreur, la
+/// configuration resolue etant toujours complete par construction. Meme convention que
+/// `Replay/ReplayFile.cpp`.
+template <typename T>
+void readNumber(const nlohmann::json& root, const char* key, T& target) {
+    if (root.contains(key) && root[key].is_number()) {
+        target = root[key].get<T>();
+    }
+}
+
+/// @copydoc readNumber
+void readString(const nlohmann::json& root, const char* key, std::string& target) {
+    if (root.contains(key) && root[key].is_string()) {
+        target = root[key].get<std::string>();
+    }
+}
 
 void applyJsonFile(const std::filesystem::path& configFile, TrainingConfig& config) {
     std::ifstream file(configFile);
@@ -28,64 +51,25 @@ void applyJsonFile(const std::filesystem::path& configFile, TrainingConfig& conf
         return;
     }
 
-    if (root.contains("populationSize")) {
-        config.evolutionary.populationSize = root["populationSize"].get<std::size_t>();
-    }
-    if (root.contains("tournamentSize")) {
-        config.evolutionary.tournamentSize = root["tournamentSize"].get<int>();
-    }
-    if (root.contains("mutationRate")) {
-        config.evolutionary.mutationRate = root["mutationRate"].get<float>();
-    }
-    if (root.contains("mutationStrength")) {
-        config.evolutionary.mutationStrength = root["mutationStrength"].get<float>();
-    }
-    if (root.contains("requiredConsecutiveSuccesses")) {
-        config.stopping.requiredConsecutiveSuccesses =
-            root["requiredConsecutiveSuccesses"].get<int>();
-    }
-    if (root.contains("maxGenerations")) {
-        config.stopping.maxGenerations = root["maxGenerations"].get<int>();
-    }
-    if (root.contains("hiddenSize")) {
-        config.hiddenSize = root["hiddenSize"].get<std::size_t>();
-    }
-    if (root.contains("gamma")) {
-        config.gamma = root["gamma"].get<float>();
-    }
-    if (root.contains("learningRate")) {
-        config.learningRate = root["learningRate"].get<float>();
-    }
-    if (root.contains("optimizer")) {
-        config.optimizer = root["optimizer"].get<std::string>();
-    }
-    if (root.contains("episodes")) {
-        config.episodes = root["episodes"].get<std::size_t>();
-    }
-    if (root.contains("dqnReplayCapacity")) {
-        config.dqnReplayCapacity = root["dqnReplayCapacity"].get<std::size_t>();
-    }
-    if (root.contains("dqnBatchSize")) {
-        config.dqnBatchSize = root["dqnBatchSize"].get<std::size_t>();
-    }
-    if (root.contains("dqnWarmupSize")) {
-        config.dqnWarmupSize = root["dqnWarmupSize"].get<std::size_t>();
-    }
-    if (root.contains("dqnUpdatePeriodSteps")) {
-        config.dqnUpdatePeriodSteps = root["dqnUpdatePeriodSteps"].get<std::size_t>();
-    }
-    if (root.contains("dqnTargetSyncPeriodSteps")) {
-        config.dqnTargetSyncPeriodSteps = root["dqnTargetSyncPeriodSteps"].get<std::size_t>();
-    }
-    if (root.contains("dqnEpsilonStart")) {
-        config.dqnEpsilonStart = root["dqnEpsilonStart"].get<float>();
-    }
-    if (root.contains("dqnEpsilonEnd")) {
-        config.dqnEpsilonEnd = root["dqnEpsilonEnd"].get<float>();
-    }
-    if (root.contains("dqnEpsilonDecaySteps")) {
-        config.dqnEpsilonDecaySteps = root["dqnEpsilonDecaySteps"].get<std::size_t>();
-    }
+    readNumber(root, "populationSize", config.evolutionary.populationSize);
+    readNumber(root, "tournamentSize", config.evolutionary.tournamentSize);
+    readNumber(root, "mutationRate", config.evolutionary.mutationRate);
+    readNumber(root, "mutationStrength", config.evolutionary.mutationStrength);
+    readNumber(root, "requiredConsecutiveSuccesses", config.stopping.requiredConsecutiveSuccesses);
+    readNumber(root, "maxGenerations", config.stopping.maxGenerations);
+    readNumber(root, "hiddenSize", config.hiddenSize);
+    readNumber(root, "gamma", config.gamma);
+    readNumber(root, "learningRate", config.learningRate);
+    readString(root, "optimizer", config.optimizer);
+    readNumber(root, "episodes", config.episodes);
+    readNumber(root, "dqnReplayCapacity", config.dqnReplayCapacity);
+    readNumber(root, "dqnBatchSize", config.dqnBatchSize);
+    readNumber(root, "dqnWarmupSize", config.dqnWarmupSize);
+    readNumber(root, "dqnUpdatePeriodSteps", config.dqnUpdatePeriodSteps);
+    readNumber(root, "dqnTargetSyncPeriodSteps", config.dqnTargetSyncPeriodSteps);
+    readNumber(root, "dqnEpsilonStart", config.dqnEpsilonStart);
+    readNumber(root, "dqnEpsilonEnd", config.dqnEpsilonEnd);
+    readNumber(root, "dqnEpsilonDecaySteps", config.dqnEpsilonDecaySteps);
 }
 
 void applyOverrides(const CommandLineOverrides& overrides, TrainingConfig& config) {
@@ -154,6 +138,15 @@ bool writeTrainingConfigJson(const TrainingConfig& config, const std::filesystem
 
     file << root.dump(2);
     return file.good();
+}
+
+std::size_t hiddenSizeForModel(const std::filesystem::path& modelPath) {
+    std::error_code error;
+    const std::filesystem::path configPath = modelPath.parent_path() / "config.json";
+    if (!std::filesystem::exists(configPath, error) || error) {
+        return training::evolutionary::DEFAULT_HIDDEN_SIZE;
+    }
+    return loadTrainingConfig(configPath, CommandLineOverrides{}).hiddenSize;
 }
 
 }  // namespace aisolver::cli

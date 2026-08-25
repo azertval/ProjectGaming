@@ -5,6 +5,7 @@
 
 #include <memory>
 
+#include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Eval/ActionDecodingMode.h"
 #include "AiSolver/Eval/ActorCriticTrainedPolicy.h"
@@ -33,8 +34,11 @@ std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const Q
     const std::string algoStd = algo.toStdString();
 
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const training::evolutionary::NetworkTopology topology = training::evolutionary::policyTopology(
-        inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    // Taille relue du run qui a produit le modele, jamais supposee : voir
+    // `cli::hiddenSizeForModel`.
+    const std::size_t hiddenSize = cli::hiddenSizeForModel(model);
+    const training::evolutionary::NetworkTopology topology =
+        training::evolutionary::policyTopology(inputSize, hiddenSize);
     Rng scratchRng(0);
 
     eval::BenchmarkConfig config;
@@ -43,7 +47,7 @@ std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const Q
 
     eval::BenchmarkResult result;
     if (algoStd == "avance") {
-        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize, scratchRng);
+        training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), model)) {
             return std::nullopt;
         }

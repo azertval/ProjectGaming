@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 
 #include "AiSolver/Cli/ArgParsing.h"
 #include "AiSolver/Cli/TrainingConfig.h"
@@ -39,6 +40,23 @@
 namespace aisolver::cli {
 
 namespace {
+
+/// @return Valeur de @p text, absente si le texte n'est pas **entierement** un nombre du type
+/// attendu.
+///
+/// Extraction par flux plutot que `std::sto*` : un argument invalide (`--seed abc`) doit produire
+/// le message d'usage de la sous-commande, jamais une exception non rattrapee qui termine le
+/// processus. La consommation totale est verifiee, sans quoi `12abc` passerait pour `12`.
+template <typename T>
+std::optional<T> parseNumber(const std::string& text) {
+    std::istringstream stream(text);
+    T value{};
+    stream >> value;
+    if (stream.fail() || !stream.eof()) {
+        return std::nullopt;
+    }
+    return value;
+}
 
 std::unique_ptr<optim::IOptimizer> makeOptimizer(const std::string& name, float learningRate) {
     if (name == "adam") {
@@ -92,8 +110,13 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
     TrainArgs result;
     result.level = *level;
     result.algo = *algo;
-    if (const std::optional<std::string> seed = findOption(args, "--seed"); seed.has_value()) {
-        result.seed = std::stoull(*seed);
+    if (const std::optional<std::string> value = findOption(args, "--seed"); value.has_value()) {
+        const std::optional<std::uint64_t> parsed = parseNumber<std::uint64_t>(*value);
+        if (!parsed) {
+            error = "train : --seed attend un entier positif, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.seed = *parsed;
     }
     if (const std::optional<std::string> config = findOption(args, "--config");
         config.has_value()) {
@@ -105,22 +128,47 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
     }
     if (const std::optional<std::string> value = findOption(args, "--population-size");
         value.has_value()) {
-        result.populationSize = static_cast<std::size_t>(std::stoull(*value));
+        const std::optional<std::size_t> parsed = parseNumber<std::size_t>(*value);
+        if (!parsed) {
+            error = "train : --population-size attend un entier positif, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.populationSize = *parsed;
     }
     if (const std::optional<std::string> value = findOption(args, "--mutation-rate");
         value.has_value()) {
-        result.mutationRate = std::stof(*value);
+        const std::optional<float> parsed = parseNumber<float>(*value);
+        if (!parsed) {
+            error = "train : --mutation-rate attend un nombre, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.mutationRate = *parsed;
     }
     if (const std::optional<std::string> value = findOption(args, "--episodes");
         value.has_value()) {
-        result.episodes = static_cast<std::size_t>(std::stoull(*value));
+        const std::optional<std::size_t> parsed = parseNumber<std::size_t>(*value);
+        if (!parsed) {
+            error = "train : --episodes attend un entier positif, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.episodes = *parsed;
     }
     if (const std::optional<std::string> value = findOption(args, "--learning-rate");
         value.has_value()) {
-        result.learningRate = std::stof(*value);
+        const std::optional<float> parsed = parseNumber<float>(*value);
+        if (!parsed) {
+            error = "train : --learning-rate attend un nombre, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.learningRate = *parsed;
     }
     if (const std::optional<std::string> value = findOption(args, "--gamma"); value.has_value()) {
-        result.gamma = std::stof(*value);
+        const std::optional<float> parsed = parseNumber<float>(*value);
+        if (!parsed) {
+            error = "train : --gamma attend un nombre, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.gamma = *parsed;
     }
     if (const std::optional<std::string> value = findOption(args, "--optimizer");
         value.has_value()) {
@@ -155,9 +203,14 @@ std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& ar
     result.model = *model;
     result.algo = *algo;
     result.level = *level;
-    if (const std::optional<std::string> repetitions = findOption(args, "--repetitions");
-        repetitions.has_value()) {
-        result.repetitions = std::stoi(*repetitions);
+    if (const std::optional<std::string> value = findOption(args, "--repetitions");
+        value.has_value()) {
+        const std::optional<int> parsed = parseNumber<int>(*value);
+        if (!parsed) {
+            error = "evaluate : --repetitions attend un entier, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.repetitions = *parsed;
     }
     if (const std::optional<std::string> report = findOption(args, "--report");
         report.has_value()) {
@@ -198,8 +251,13 @@ std::optional<ExportReplayArgs> parseExportReplayArgs(const std::vector<std::str
     result.algo = *algo;
     result.level = *level;
     result.output = *output;
-    if (const std::optional<std::string> seed = findOption(args, "--seed"); seed.has_value()) {
-        result.seed = std::stoull(*seed);
+    if (const std::optional<std::string> value = findOption(args, "--seed"); value.has_value()) {
+        const std::optional<std::uint64_t> parsed = parseNumber<std::uint64_t>(*value);
+        if (!parsed) {
+            error = "export-replay : --seed attend un entier positif, recu '" + *value + "'";
+            return std::nullopt;
+        }
+        result.seed = *parsed;
     }
     return result;
 }
@@ -367,8 +425,9 @@ int runTrain(const TrainArgs& args) {
 
 int runEvaluate(const EvaluateArgs& args) {
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const training::evolutionary::NetworkTopology topology = training::evolutionary::policyTopology(
-        inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    const std::size_t hiddenSize = hiddenSizeForModel(args.model);
+    const training::evolutionary::NetworkTopology topology =
+        training::evolutionary::policyTopology(inputSize, hiddenSize);
     Rng scratchRng(0);
 
     eval::BenchmarkConfig config;
@@ -377,7 +436,7 @@ int runEvaluate(const EvaluateArgs& args) {
 
     eval::BenchmarkResult result;
     if (args.algo == "avance") {
-        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize, scratchRng);
+        training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "evaluate : impossible de charger le modele : " << args.model << "\n";
             return 1;
@@ -418,15 +477,16 @@ int runEvaluate(const EvaluateArgs& args) {
 
 int runExportReplay(const ExportReplayArgs& args) {
     const std::size_t inputSize = ObservationEncoder().inputSize();
-    const training::evolutionary::NetworkTopology topology = training::evolutionary::policyTopology(
-        inputSize, training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    const std::size_t hiddenSize = hiddenSizeForModel(args.model);
+    const training::evolutionary::NetworkTopology topology =
+        training::evolutionary::policyTopology(inputSize, hiddenSize);
     Rng scratchRng(0);
     const AlgorithmLabels labels = labelsFor(args.algo);
     HeadlessLevelEnvironment environment;
 
     std::optional<training::DeterministicReplayResult> replay;
     if (args.algo == "avance") {
-        training::QNetwork network(inputSize, training::QNetwork::kDefaultHiddenSize, scratchRng);
+        training::QNetwork network(inputSize, hiddenSize, scratchRng);
         if (!nn::loadWeights(network.network(), args.model)) {
             std::cerr << "export-replay : impossible de charger le modele : " << args.model << "\n";
             return 1;
