@@ -19,8 +19,12 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
                                                HeadlessLevelEnvironment& environment,
                                                const std::filesystem::path& levelPath,
                                                int stuckThreshold) {
-    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
-    PROJECTGAMING_ASSERT(loaded, "replayBestIndividual : le niveau doit se charger");
+    if (!environment.reset(levelPath)) {
+        // Voir `evaluateFitness` : l'assertion ne garde rien en Release. Un rejeu vide est refuse
+        // par l'appelant, la ou un `step()` sur un monde vide serait indefini.
+        PROJECTGAMING_ASSERT(false, "replayBestIndividual : le niveau doit se charger");
+        return DeterministicReplayResult{};
+    }
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
