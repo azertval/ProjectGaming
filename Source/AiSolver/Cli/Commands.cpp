@@ -4,17 +4,13 @@
 #include "AiSolver/Cli/Commands.h"
 
 #include <iostream>
-#include <limits>
 #include <memory>
 
 #include "AiSolver/Cli/ArgParsing.h"
 #include "AiSolver/Cli/TrainingConfig.h"
-#include "AiSolver/Env/ActionDecoding.h"
-#include "AiSolver/Env/ActionSpace.h"
 #include "AiSolver/Env/Episode.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
-#include "AiSolver/Env/Reward.h"
 #include "AiSolver/Eval/ActionDecodingMode.h"
 #include "AiSolver/Eval/ActorCriticTrainedPolicy.h"
 #include "AiSolver/Eval/AdvancedAlgorithmTrainedPolicy.h"
@@ -36,11 +32,9 @@
 #include "AiSolver/Training/Advanced/DqnTrainer.h"
 #include "AiSolver/Training/Advanced/QNetwork.h"
 #include "AiSolver/Training/ArgmaxRollout.h"
-#include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
 #include "AiSolver/Training/ReplayExport.h"
-#include "Core/Physics/PlayerSpawn.h"
 
 namespace aisolver::cli {
 

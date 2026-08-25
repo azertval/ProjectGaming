@@ -220,9 +220,8 @@ ReplayLoadResult readReplay(const std::filesystem::path& path) {
         replay.finalReward = root[FIELD_FINAL_REWARD].get<float>();
     }
 
-    // Absents sur un fichier formatVersion == 1 (avant LOT-ANNEXE-17) : valeur sentinelle plutot
-    // que d'echouer la lecture -- ces fichiers restent des rejeux valides, seulement moins
-    // renseignes.
+    // Champs propres a la version 2 : absents d'un fichier en version 1, qui reste un rejeu
+    // valide -- seulement moins renseigne. Valeur sentinelle plutot qu'echec de lecture.
     if (root.contains(FIELD_TOTAL_DURATION_SECONDS)) {
         if (!root[FIELD_TOTAL_DURATION_SECONDS].is_number()) {
             return ReplayLoadResult{

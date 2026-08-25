@@ -30,8 +30,10 @@ LevelCompleteScreen::LevelCompleteScreen(QWidget* parent)
     connect(_ui->returnToMenuButton, &QPushButton::clicked, this,
             &LevelCompleteScreen::returnToMenuRequested);
 
-    // autoDefault : cf. PauseScreen.cpp -- même widget qui n'est pas un vrai QDialog, même bug
-    // réel trouvé en jeu (Entrée sans effet, seule Espace fonctionnait).
+    // Qt n'active `autoDefault` que sur un bouton dont un ancêtre est un vrai QDialog. Ces
+    // écrans n'en sont pas (même affichés comme fenêtre `Qt::Dialog`), et sans ce réglage
+    // explicite un bouton qui a le focus ne répond qu'à Espace, jamais à Entrée. Posé sur
+    // chacun pour que le bouton *ayant le focus* réponde à Entrée, quel qu'il soit.
     for (QPushButton* const button : findChildren<QPushButton*>()) {
         button->setAutoDefault(true);
     }

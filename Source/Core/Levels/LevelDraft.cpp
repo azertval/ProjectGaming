@@ -135,9 +135,8 @@ void LevelDraft::setExitInternal(int column, int row) {
 }
 
 void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetPosition) {
-    // [[maybe_unused]] : switchTile ne sert qu'au PROJECTGAMING_ASSERT qui suit, lequel se
-    // compile en ((void)0) en Release (NDEBUG) -- sans cet attribut, la variable serait "non
-    // utilisee" (C4189, /WX) uniquement dans cette configuration, jamais en Debug.
+    // switchTile n'est lu que par l'assertion qui suit, laquelle disparait en Release : son
+    // usage depend donc de la configuration, d'ou l'attribut.
     [[maybe_unused]] const TileType switchTile =
         _tileMap.inBounds(switchPosition.column, switchPosition.row)
             ? _tileMap.tile(switchPosition.column, switchPosition.row)
@@ -433,9 +432,9 @@ void LevelDraft::setSkinSet(std::optional<std::string> skinSet) {
     _skinSet = std::move(skinSet);
 }
 
-// Budgets et capacites : tous les quatre annulables comme les autres proprietes de niveau
-// (fond, jeu de skins, cadrage). Les deux budgets ne l'etaient PAS avant ce lot -- seul manque
-// dans la famille, corrige ici (LOT-67).
+// Budgets et capacites : tous les quatre annulables, comme toute autre propriete de niveau
+// (fond, jeu de skins, cadrage). Un mutateur de brouillon sans pas d'historique serait le seul
+// de sa famille a ne pas se defaire.
 void LevelDraft::setJumpBudget(int jumpBudget) {
     pushUndo();
     _jumpBudget = jumpBudget;

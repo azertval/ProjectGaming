@@ -13,7 +13,7 @@
 
 /**
  * @file AiSolver/Replay/ReplayFile.h
- * @brief Format de rejeu v1 : séquence d'actions gagnante exportée par un entraînement
+ * @brief Format de rejeu v2 : séquence d'actions gagnante exportée par un entraînement
  * (`LOT-ANNEXE-07`, `EX-IA-008`).
  */
 
@@ -24,10 +24,9 @@ namespace aisolver {
  *        `core::kLevelFormatVersion` (`EX-LVL-005`) : un fichier sans champ `formatVersion` est lu
  *        comme la version initiale (0), sans erreur.
  *
- * Passée à `2` par `LOT-ANNEXE-17` (TACHE-02, stabilisation du format v1) : ajout de
- * `totalDurationSeconds` et `algorithmId`. Un fichier `formatVersion == 1` (écrit avant ce lot,
- * sans ces deux champs) reste lisible sans erreur — ils sont alors pris à leur valeur sentinelle
- * (`0.0f` et `""`).
+ * La version 2 ajoute `totalDurationSeconds` et `algorithmId` à la version 1. La lecture reste
+ * ascendante : un fichier en version 1 ne porte pas ces deux champs et se lit sans erreur, avec
+ * leur valeur sentinelle (`0.0f` et `""`).
  */
 inline constexpr std::uint32_t kReplayFormatVersion = 2;
 

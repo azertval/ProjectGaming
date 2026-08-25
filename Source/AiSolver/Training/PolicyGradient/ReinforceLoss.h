@@ -21,9 +21,9 @@ namespace aisolver::training {
  * @brief Construit le graphe de la perte REINFORCE moyenne sur l'épisode :
  * `mean_t(-log(pi(a_t|s_t)) * G_t)`.
  *
- * Délègue à `computeWeightedPolicyGradientLoss` (`Training/PolicyGradientLoss.h`,
- * `LOT-ANNEXE-13` TACHE-02 : formule factorisée avec `computeActorCriticLoss`, poids = retour brut
- * ici plutôt que l'avantage) — comportement strictement inchangé depuis `LOT-ANNEXE-12`.
+ * Délègue à `computeWeightedPolicyGradientLoss` (`Training/PolicyGradientLoss.h`), formule
+ * commune à REINFORCE et à l'acteur-critique : seul le poids change, le **retour brut** ici,
+ * l'avantage pour `computeActorCriticLoss`.
  *
  * Convention de signe : la perte est déjà le **négatif** de l'objectif de policy gradient (à
  * minimiser par un optimiseur de descente de gradient standard, `LOT-ANNEXE-04`).

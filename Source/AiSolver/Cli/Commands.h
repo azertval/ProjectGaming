@@ -73,11 +73,23 @@ struct ExportReplayArgs {
 [[nodiscard]] std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args,
                                                       std::string& error);
 
-/// @copydoc parseTrainArgs
+/**
+ * @brief Analyse les arguments de `evaluate` (hors nom de sous-commande).
+ * @param args Arguments bruts (ex. `argv[2..]`).
+ * @param error Rempli d'un message explicite si l'analyse échoue.
+ * @return Les arguments analysés, ou `std::nullopt` si `--level`, `--algo` ou `--model` manquent,
+ *         ou si `--algo` n'est pas l'une des quatre valeurs acceptées.
+ */
 [[nodiscard]] std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& args,
                                                             std::string& error);
 
-/// @copydoc parseTrainArgs
+/**
+ * @brief Analyse les arguments de `export-replay` (hors nom de sous-commande).
+ * @param args Arguments bruts (ex. `argv[2..]`).
+ * @param error Rempli d'un message explicite si l'analyse échoue.
+ * @return Les arguments analysés, ou `std::nullopt` si `--level`, `--algo`, `--model` ou
+ *         `--output` manquent, ou si `--algo` n'est pas l'une des quatre valeurs acceptées.
+ */
 [[nodiscard]] std::optional<ExportReplayArgs> parseExportReplayArgs(
     const std::vector<std::string>& args, std::string& error);
 

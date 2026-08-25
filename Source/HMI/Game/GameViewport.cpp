@@ -1354,13 +1354,10 @@ std::string GameViewport::currentGameLevelName() const {
     if (!_gameMode || _gameLevel >= _gameLevels.size()) {
         return {};
     }
-    // Nom de fichier COMPLET (extension comprise), pas `.stem()` : ce nom sert aussi
-    // d'identifiant de progression (LOT-59 TACHE-05/06, `hmi::Progression`/`hmi::isLevelUnlocked`)
-    // comparé aux entrées de `core::LevelSequence::levels`, qui portent l'extension -- un `.stem()`
-    // ici désynchronisait silencieusement les deux formats (bug réel trouvé en jeu : la progression
-    // s'écrivait mais ne débloquait jamais rien, aucun nom ne correspondait jamais). La séquence
-    // affiche déjà ses entrées avec extension ailleurs (`hmi::LevelSelectScreen`), donc pas
-    // d'incohérence nouvelle côté affichage.
+    // Nom de fichier COMPLET, extension comprise : ce nom sert d'identifiant de progression
+    // (`hmi::Progression`/`hmi::isLevelUnlocked`) et se compare aux entrées de
+    // `core::LevelSequence::levels`, qui portent l'extension. Un `.stem()` ici produirait un
+    // identifiant qui ne correspondrait a aucune entree de la séquence, sans erreur visible.
     return _gameLevels[_gameLevel].filename().string();
 }
 

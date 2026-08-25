@@ -27,6 +27,8 @@ Tensor<float> TileWindowEncoder::encode(const core::TileMap& tiles,
                 continue;  // vecteur nul par defaut (Tensor initialise a T{})
             }
             const auto channel = static_cast<std::size_t>(tiles.tile(column, row));
+            // Somme calculee en int, puis convertie : convertir chaque operande d'abord
+            // elargirait le calcul lui-meme, ce que `bugprone-misplaced-widening-cast` refuse.
             const int windowRowIndex = dr + _radius;
             const int windowColumnIndex = dc + _radius;
             const auto windowRow = static_cast<std::size_t>(windowRowIndex);
