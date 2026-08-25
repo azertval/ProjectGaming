@@ -225,6 +225,7 @@ add_executable(ProjectGaming
     # Widgets Qt de l'habillage pixel art (LOT-68) : peintres au-dessus de la geometrie pure
     # ci-dessus, promus dans les .ui. Non compiles dans UnitTests (dependent de Qt).
     Interface/PixelFrameWidget.cpp
+    Interface/PixelFocusCaret.cpp
     Interface/PixelMenuButton.cpp
     Interface/ThemeIcons.cpp
     Interface/ActionCatalog.cpp

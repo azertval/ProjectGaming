@@ -6,7 +6,7 @@ que les décisions d'habillage restent traçables au même titre que les exigenc
 
 ## Ce qui est livré
 
-`ecrans-jeu-pixel-art.html` — page autonome présentant les huit planches. Généré, jamais édité à la
+`ecrans-jeu-pixel-art.html` — page autonome présentant les neuf planches. Généré, jamais édité à la
 main :
 
 ```bash
@@ -19,7 +19,7 @@ python .design-mockups/build_page.py
 |---|---|
 | `_page_head.html` | En-tête de la page **et** habillage des planches (portée identité). C'est ce bloc CSS qui devient la section identité de `Source/Elements/Themes/theme.qss`. |
 | `_page_tail.html` | Section « Où on en est » : décisions prises et points restés ouverts. |
-| `_body_*.frag` | Une planche par fichier — six écrans, les trois directions comparées, le système de design. |
+| `_body_*.frag` | Une planche par fichier — sept écrans, les trois directions comparées, le système de design. |
 | `_caret.frag` | Le curseur de focus, en SVG à pixels entiers. Substitué à `@CARET@` par le générateur. |
 | `build_page.py` | Assemble la page : légendes, pastilles, mise à l'échelle des planches. |
 | `_assemble.sh`, `*.dc.html` | Variante « canevas de design » (un artboard par écran). |
@@ -34,6 +34,9 @@ jour, le canevas se monte à partir d'eux sans rien redessiner.
 
 - Les libellés sont ceux de `Source/Elements/Localization/fr.lang`, **mot pour mot** — aucun texte
   inventé, sans quoi la maquette promettrait ce que le jeu ne dit pas.
+- La **palette** des planches et celle de `hmi::identityTokens()` sont vérifiées identiques à
+  chaque Pull Request par `scripts/check_design_tokens.py` : une maquette qui ne décrit plus le
+  jeu ne sert plus à décider quoi que ce soit.
 - Les planches sont dessinées à 1280 × 720, la taille de la fenêtre de jeu, et remises à l'échelle
   par la page : les proportions sont donc exactes, pas approchées.
 - Les grandeurs y sont celles du facteur **×2** (`hmi::pixelArtScale` pour une fenêtre 720p).

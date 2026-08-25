@@ -3,6 +3,7 @@
 
 #include "HMI/Interface/AiModeScreen.h"
 
+#include <QApplication>
 #include <QComboBox>
 #include <QFileDialog>
 #include <QLabel>
@@ -20,6 +21,7 @@
 #include "HMI/Ai/EvaluationHelper.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
+#include "HMI/Interface/PixelFocusCaret.h"
 #include "HMI/Localization/Localization.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_AiModeScreen.h"
@@ -62,6 +64,14 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     const SpacingTokens& spacing = identityTokens().spacing;
     _ui->outerLayout->setContentsMargins(spacing.extraLarge * 2, spacing.extraLarge,
                                          spacing.extraLarge * 2, spacing.extraLarge);
+
+    // Marque explicite de focus (EX-IHM-071). Le suivi est branche sur le focus de
+    // L'APPLICATION, mais filtre par l'ecran : PixelFocusCaret::follow se masque de lui-meme des
+    // que le controle focalise n'est pas un descendant de son hote, donc l'ouverture d'un autre
+    // ecran ou d'une boite de dialogue efface la marque sans traitement particulier ici.
+    _focusCaret = new PixelFocusCaret(this);
+    connect(qApp, &QApplication::focusChanged, this,
+            [this](QWidget*, QWidget* now) { _focusCaret->follow(now); });
 
     connect(_ui->backButton, &QPushButton::clicked, this, &AiModeScreen::backRequested);
     _ui->backButton->setAutoDefault(true);
