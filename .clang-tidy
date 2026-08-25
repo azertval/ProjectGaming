@@ -62,10 +62,10 @@ Checks: >
 #    `PROJECTGAMING_ASSERT`, qui utilisent l'idiome standard `do { ... } while (0)` (protection
 #    syntaxique d'une macro multi-instructions) -- aucune n'est une boucle do-while ecrite par un
 #    developpeur.
-#  - pro-bounds-pointer-arithmetic (4 remontees) : toutes sur `donnees.data() + y * largeur` passe
-#    a `std::memcpy` pour une copie de ligne d'image (toImage(), DecorsPanel.cpp/
-#    AssetThumbnailView.cpp) -- idiome standard de copie memoire en masse, deja borne par la boucle
-#    englobante.
+#  - pro-bounds-pointer-arithmetic (5 remontees) : toutes sur `donnees.data() + y * largeur` passe
+#    a `std::memcpy` pour une copie de ligne d'image (AssetThumbnailView.cpp, PalettePanel.cpp,
+#    PixelCanvas.cpp, TexturePanel.cpp, TextureLoader.cpp) -- idiome standard de copie memoire en
+#    masse, deja borne par la boucle englobante.
 #  - pro-type-vararg (2 remontees) : toutes deux sur `std::snprintf` avec taille de tampon explicite
 #    -- l'exception « vararg sur, taille bornee » que les Core Guidelines elles-memes reconnaissent
 #    (Type.1), pas un appel C vararg non protege.
