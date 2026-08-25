@@ -13,15 +13,15 @@
 #include "AiSolver/Env/ActionSpace.h"
 
 /**
- * @brief `actionCount()` vaut exactement 24 (3 directions x 2 x 2 x 2), verifie explicitement.
- * \castest{<b>`actionCount()` vaut exactement 24.</b><br/>
+ * @brief `actionCount()` vaut exactement 48 (3 directions x 2 x 2 x 2 x 2), verifie explicitement.
+ * \castest{<b>`actionCount()` vaut exactement 48.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Lire `aisolver::actionCount()`.<br/>
- * \tattendu La valeur est 24.}
+ * \tattendu La valeur est 48.}
  */
 TEST(ActionSpaceTest, NombreTotalDeCombinaisons) {
-    EXPECT_EQ(aisolver::actionCount(), 24u);
+    EXPECT_EQ(aisolver::actionCount(), 48u);
 }
 
 /**
@@ -41,22 +41,23 @@ TEST(ActionSpaceTest, BijectionIndiceVersActionVersIndice) {
 }
 
 /**
- * @brief Aucune collision entre deux indices differents : les 24 actions sont deux a deux
+ * @brief Aucune collision entre deux indices differents : les 48 actions sont deux a deux
  * distinctes.
- * \castest{<b>Les 24 actions sont deux a deux distinctes.</b><br/>
+ * \castest{<b>Les 48 actions sont deux a deux distinctes.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Convertir chaque action de `[0, actionCount())` en `core::PlayerInput` via
  * `toPlayerInput`.<br/>2. Comparer chaque paire.<br/>
- * \tattendu Aucune paire de `core::PlayerInput` produite n'est identique sur les quatre champs
- * pilotes par l'espace d'action (`moveX`/`jumpPressed`/`jumpHeld`/`dashPressed`).}
+ * \tattendu Aucune paire de `core::PlayerInput` produite n'est identique sur les cinq champs
+ * pilotes par l'espace d'action (`moveX`/`jumpPressed`/`jumpHeld`/`dashPressed`/
+ * `interactPressed`).}
  */
 TEST(ActionSpaceTest, AucuneCollisionEntreActions) {
-    std::set<std::tuple<float, bool, bool, bool>> seen;
+    std::set<std::tuple<float, bool, bool, bool, bool>> seen;
     for (std::size_t index = 0; index < aisolver::actionCount(); ++index) {
         const core::PlayerInput input = aisolver::toPlayerInput(aisolver::actionAt(index));
-        const auto key =
-            std::make_tuple(input.moveX, input.jumpPressed, input.jumpHeld, input.dashPressed);
+        const auto key = std::make_tuple(input.moveX, input.jumpPressed, input.jumpHeld,
+                                         input.dashPressed, input.interactPressed);
         EXPECT_TRUE(seen.insert(key).second) << "collision a l'indice " << index;
     }
     EXPECT_EQ(seen.size(), aisolver::actionCount());
@@ -88,18 +89,20 @@ TEST(ActionSpaceTest, TraductionDirectionVersMoveX) {
 }
 
 /**
- * @brief `toPlayerInput` reporte fidelement `jumpPressed`/`jumpHeld`/`dashPressed`.
- * \castest{<b>Traduction fidele des trois booleens de l'action.</b><br/>
+ * @brief `toPlayerInput` reporte fidelement `jumpPressed`/`jumpHeld`/`dashPressed`/
+ * `interactPressed`.
+ * \castest{<b>Traduction fidele des quatre booleens de l'action.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Construire une action avec les trois booleens a `true`.<br/>2. Traduire via
+ * \tetapes 1. Construire une action avec les quatre booleens a `true`.<br/>2. Traduire via
  * `toPlayerInput`.<br/>
- * \tattendu Les trois champs correspondants de `core::PlayerInput` valent `true`.}
+ * \tattendu Les quatre champs correspondants de `core::PlayerInput` valent `true`.}
  */
 TEST(ActionSpaceTest, TraductionBooleensFidele) {
-    const aisolver::Action action{aisolver::Direction::None, true, true, true};
+    const aisolver::Action action{aisolver::Direction::None, true, true, true, true};
     const core::PlayerInput input = aisolver::toPlayerInput(action);
     EXPECT_TRUE(input.jumpPressed);
     EXPECT_TRUE(input.jumpHeld);
     EXPECT_TRUE(input.dashPressed);
+    EXPECT_TRUE(input.interactPressed);
 }

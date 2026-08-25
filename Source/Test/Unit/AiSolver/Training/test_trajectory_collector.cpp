@@ -202,7 +202,7 @@ TEST(TrajectoryCollectorTest, DeterminismeAGraineFixee) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Politique proche de l'uniforme.<br/>2. Collecter une trentaine d'épisodes courts,
  * cumuler les indices d'action rencontrés.<br/>
- * \tattendu Au moins 8 indices d'action distincts sur les 24 de l'espace.}
+ * \tattendu Au moins 8 indices d'action distincts sur les 48 de l'espace.}
  */
 TEST(TrajectoryCollectorTest, CouvertureNonDegenereeDeLEspaceDAction) {
     const TrivialLevelDirectory level("couverture");

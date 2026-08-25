@@ -125,10 +125,11 @@ TEST(ActionDecodingTest, StochastiqueReproduitLaDistributionSansBiais) {
  */
 TEST(ActionDecodingTest, TemperatureBasseQuasiDeterministe) {
     aisolver::Tensor<float> distribution({aisolver::actionCount()});
+    const float remaining = 0.1f / static_cast<float>(aisolver::actionCount() - 1);
     for (std::size_t index = 0; index < aisolver::actionCount(); ++index) {
-        distribution.data()[index] = 0.02f;
+        distribution.data()[index] = remaining;
     }
-    distribution.data()[2] = 1.0f - 0.02f * static_cast<float>(aisolver::actionCount() - 1);
+    distribution.data()[2] = 0.9f;
 
     aisolver::Rng rng(7);
     constexpr int TRIALS = 1000;
