@@ -51,6 +51,7 @@ void applyJsonFile(const std::filesystem::path& configFile, TrainingConfig& conf
         return;
     }
 
+    readString(root, "algo", config.algo);
     readNumber(root, "populationSize", config.evolutionary.populationSize);
     readNumber(root, "tournamentSize", config.evolutionary.tournamentSize);
     readNumber(root, "mutationRate", config.evolutionary.mutationRate);
@@ -116,6 +117,7 @@ bool writeTrainingConfigJson(const TrainingConfig& config, const std::filesystem
     }
 
     nlohmann::ordered_json root;
+    root["algo"] = config.algo;
     root["populationSize"] = config.evolutionary.populationSize;
     root["tournamentSize"] = config.evolutionary.tournamentSize;
     root["mutationRate"] = config.evolutionary.mutationRate;

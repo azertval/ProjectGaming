@@ -90,6 +90,19 @@ public:
                          EnvironmentConfig environmentConfig = {});
 
     /**
+     * @brief Branche @p onStatsRow sur l'enregistreur de statistiques de la session.
+     *
+     * La session **possède** son enregistreur : elle seule écrit le CSV du run. Un appelant qui
+     * veut suivre la progression (afficher un tableau, tracer une courbe) passe par ici plutôt que
+     * d'ouvrir un second enregistreur sur le même fichier — deux flux en troncature sur un même
+     * chemin se marcheraient dessus, et le rappel du second ne serait jamais appelé.
+     * @param onStatsRow Appelé après chaque génération journalisée, avec la ligne écrite.
+     */
+    void setOnStatsRow(std::function<void(const TrainingStatsRow&)> onStatsRow) {
+        _recorder.setOnRecord(std::move(onStatsRow));
+    }
+
+    /**
      * @brief Exécute des générations jusqu'à ce que le champion reste invaincu et résolvant
      * pendant `StoppingConfig::requiredConsecutiveSuccesses` générations consécutives, ou jusqu'à
      * `StoppingConfig::maxGenerations`, selon ce qui survient en premier.

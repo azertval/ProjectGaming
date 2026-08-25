@@ -6,6 +6,7 @@
 #include <chrono>
 #include <fstream>
 #include <memory>
+#include <optional>
 #include <sstream>
 
 #include "AiSolver/Cli/TrainingConfig.h"
@@ -107,6 +108,7 @@ void TrainingWorker::run() {
                                               _request.episodes,       _request.learningRate,
                                               _request.gamma,          std::nullopt};
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
+    config.algo = _request.algo.toStdString();
     if (!_request.optimizer.isEmpty()) {
         config.optimizer = _request.optimizer.toStdString();
     }
@@ -141,10 +143,11 @@ void TrainingWorker::run() {
 
     const auto shouldStop = [this] { return _stopRequested.load(); };
 
-    TrainingStatsRecorder recorder(statsPath);
-    recorder.setOnRecord([this](const TrainingStatsRow& row) {
-        emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-    });
+    // Un seul ecrivain par fichier de statistiques. Le chemin evolutionniste passe par
+    // `LevelTrainingSession`, qui possede le sien ; les chemins par gradient construisent celui-ci
+    // au moment ou ils en ont besoin. En construire un ici pour tout le monde ouvrirait un second
+    // flux en troncature sur le meme chemin des que l'algorithme est evolutionniste.
+    std::optional<TrainingStatsRecorder> recorder;
 
     // Aperçu périodique du champion courant (pg/ac/avance) : un rejeu Argmax déterministe complet
     // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par kPreviewInterval,
@@ -178,6 +181,10 @@ void TrainingWorker::run() {
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
                                                config.stopping, _request.seed, statsPath);
+
+        session.setOnStatsRow([this](const TrainingStatsRow& row) {
+            emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
+        });
 
         int evoGeneration = 0;
         training::TrainingResult result =
@@ -250,13 +257,14 @@ void TrainingWorker::run() {
         // l'entrainement, elle reste valide tout du long (memes poids, mis a jour en place),
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, levelPath,
-                                           reinforceConfig, recorder, levelName);
+                                           reinforceConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
         if (!nn::saveWeights(*policy, modelPath)) {
             emit failed(QStringLiteral("Echec de sauvegarde du modele."));
@@ -287,13 +295,14 @@ void TrainingWorker::run() {
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = _request.seed;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
-                                             environment, levelPath, actorCriticConfig, recorder,
+                                             environment, levelPath, actorCriticConfig, *recorder,
                                              levelName);
         trainer.run(config.episodes, true, shouldStop);
         if (!nn::saveWeights(*policy, modelPath)) {
@@ -331,13 +340,14 @@ void TrainingWorker::run() {
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
         dqnConfig.seedBase = _request.seed;
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment, levelPath,
-                                     dqnConfig, recorder, levelName);
+                                     dqnConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
         if (!nn::saveWeights(mainNetwork.network(), modelPath)) {
             emit failed(QStringLiteral("Echec de sauvegarde du modele."));

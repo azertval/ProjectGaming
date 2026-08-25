@@ -27,6 +27,13 @@ namespace aisolver::cli {
  * effectivement utilisés.
  */
 struct TrainingConfig {
+    /// Identifiant court de l'algorithme du run (`evo`/`pg`/`ac`/`avance`).
+    ///
+    /// Ne vient pas d'un fichier de configuration mais de la ligne de commande (`--algo`) ou de
+    /// l'écran Mode IA ; il est journalisé ici parce qu'un run n'est **pas relisible sans lui** :
+    /// le modèle sauvegardé ne porte que des poids, et c'est l'algorithme qui dit sur quelle
+    /// topologie les recharger.
+    std::string algo = "evo";
     /// Évolutionniste (`LOT-ANNEXE-10`) : taille de population, mutation, sélection.
     training::evolutionary::EvolutionaryConfig evolutionary{};
     /// Critère d'arrêt de la session évolutionniste (`LOT-ANNEXE-11`).

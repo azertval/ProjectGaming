@@ -81,15 +81,18 @@ private slots:
 
 private:
     [[nodiscard]] QString selectedAlgo() const;
+    /// @return Traduction de @p key dans la langue courante, vide tant que `retranslateUi` n'a pas
+    ///         été appelé (l'écran affiche alors les libellés du `.ui`).
+    [[nodiscard]] QString text(const char* key) const;
     void setTrainingControlsEnabled(bool enabled);
     void teardownWorker();
 
     std::unique_ptr<Ui::AiModeScreen> _ui;
     std::unique_ptr<QThread> _workerThread;
     TrainingWorker* _worker = nullptr;  ///< Possédé par `_workerThread` (deleteLater), pas `_ui`.
-    QString _lastRunModelPath;
-    QString _lastRunReplayPath;
-    QString _lastRunAlgo;
+    /// Catalogue courant, mémorisé par `retranslateUi` : les messages d'état produits pendant un
+    /// entraînement doivent être traduits eux aussi, longtemps après la construction.
+    const Localization* _loc = nullptr;
 };
 
 }  // namespace hmi
