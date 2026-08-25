@@ -32,10 +32,11 @@ namespace aisolver::training::evolutionary {
  * correspondants des deux parents (moyenne élément par élément des `Tensor` de poids).
  *
  * Déterministe une fois les deux parents choisis : @p rng n'intervient jamais dans le calcul de la
- * moyenne, seulement pour matérialiser le réseau enfant via `buildNetwork` (poids immédiatement
- * écrasés ci-dessous) — conservé en paramètre pour une éventuelle variante future (hors périmètre
- * ici), et déviation pragmatique du signature de l'épic (`topology` ajouté : `nn::Network` n'est
- * pas introspectable après construction, la topologie doit être fournie explicitement).
+ * moyenne, seulement pour matérialiser le réseau enfant via `buildNetwork`, dont les poids sont
+ * immédiatement écrasés par la moyenne — conservé en paramètre pour une éventuelle variante
+ * future (hors périmètre ici). Écart assumé à la signature de l'épic : `topology` est ajouté en
+ * paramètre parce qu'un `nn::Network` n'est pas introspectable après construction — la topologie
+ * doit être fournie explicitement.
  */
 [[nodiscard]] Individual crossover(const Individual& parentA, const Individual& parentB,
                                    const NetworkTopology& topology, Rng& rng);

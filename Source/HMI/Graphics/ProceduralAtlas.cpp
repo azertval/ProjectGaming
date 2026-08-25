@@ -21,11 +21,10 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std:
 }
 
 // Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe). Rangée
-// (`TextureAtlas::TILES_PER_SIDE` par ligne, actuellement `6`) : les cinq premières colonnes de
-// chaque ligne reprennent **exactement** les couleurs historiques (`TILES_PER_SIDE == 5`, avant
-// l'ajout de la sixième colonne pour la plateforme mobile, `EX-GP-026`, `LOT-63`) — un simple
-// agrandissement de la grille ne doit jamais redécaler silencieusement les couleurs des tuiles
-// existantes. Les cases au-delà de la colonne 4 (ou de la ligne 4, avant cet agrandissement) sont
+// (`TextureAtlas::TILES_PER_SIDE` par ligne, actuellement `6`). INVARIANT : la couleur des cinq
+// premières colonnes de chaque ligne ne dépend PAS de la largeur de la grille -- agrandir l'atlas
+// ne doit jamais redécaler silencieusement les couleurs des tuiles déjà posées dans les niveaux
+// livrés. Les cases au-delà de la colonne 4 sont
 // soit réservées (damier de transparence, toujours la DERNIÈRE case, qui se déplace donc avec la
 // grille), soit remplacées par un masque de forme (`slopeShapePixel`, leur couleur de base ici n'a
 // pas d'importance, remplie de noir par convention), à l'exception de trois cases occupées par les

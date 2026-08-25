@@ -113,12 +113,11 @@ std::optional<LoadedTexture> createTexture(const RhiContext& context, int width,
         return std::nullopt;
     }
 
-    // L'image deposee doit POSSEDER ses pixels : le televersement n'a pas lieu ici, mais au moment
-    // ou l'appelant soumet le lot -- typiquement plusieurs appels plus loin, alors que le vecteur
-    // @p pixels appartient a l'appelant et a pu disparaitre entre-temps. Une QImage construite sur
-    // le pointeur brut ne copie rien et laisserait le lot pointer dans le vide (defaut constate au
-    // test de rendu hors ecran : couleurs aleatoires d'une execution a l'autre). D'ou la copie,
-    // payee une fois par texture chargee.
+    // INVARIANT DE DUREE DE VIE : l'image deposee dans le lot doit POSSEDER ses pixels. Le
+    // televersement n'a pas lieu ici mais au moment ou l'appelant soumet le lot -- typiquement
+    // plusieurs appels plus loin, alors que @p pixels appartient a l'appelant et a pu disparaitre
+    // entre-temps. Une QImage construite sur le pointeur brut ne copierait rien : le lot lirait
+    // une memoire qui ne lui appartient pas. D'ou la copie, payee une fois par texture chargee.
     QImage owned(width, height, QImage::Format_RGBA8888);
     std::memcpy(owned.bits(), pixels.data(), pixels.size() * sizeof(std::uint32_t));
     QRhiTextureUploadDescription upload({0, 0, QRhiTextureSubresourceUploadDescription(owned)});

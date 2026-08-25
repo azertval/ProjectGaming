@@ -41,8 +41,8 @@ bool rowIsSlopeGround(const TileMap& tiles, const Vector2& pos, const Vector2& s
 // Choix technique (voir en-tête) : on résout AXE PAR AXE. Chaque axe est un balayage 1D continu.
 // L'avantage décisif sur la méthode diagonale « Minkowski + slabs » est le CLAMP DIRECT : on cale
 // la position sur la coordonnée entière du mur (ex. `col - size.x`), sans jamais faire
-// `pos += delta * t` — donc AUCUNE dérive flottante qui ferait « coller » au mur (bug du bord
-// interne constaté au test « glissement »).
+// `pos += delta * t`. INVARIANT : une position résolue est une coordonnée de mur exacte, jamais
+// une interpolation — donc aucune dérive flottante ne peut faire « coller » au mur.
 
 // Balayage 1D sur l'axe X. Renvoie l'abscisse résolue du coin haut-gauche ; règle sign à
 // -1 (mur à droite → normale vers la gauche), +1 (mur à gauche) ou 0 (aucun contact).

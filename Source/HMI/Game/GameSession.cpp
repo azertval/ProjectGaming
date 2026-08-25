@@ -82,9 +82,9 @@ PlayerClipKind proceduralClipKindFor(const std::string& clipName) {
     return PlayerClipKind::Idle;
 }
 
-// Zoom et marge visuelle communs aux trois modes de cadrage (LOT-64) : meme valeur que celle
-// utilisee par le mode par salle avant ce lot (LOT-32), reprise pour les deux autres modes --
-// aucune raison visuelle de faire varier la marge selon le mode retenu.
+// Zoom et marge visuelle communs aux trois modes de cadrage (LOT-64) : une marge UNIQUE, la meme
+// quel que soit le mode -- aucune raison visuelle de la faire varier, et une marge par mode se
+// verrait comme un saut a chaque changement de cadrage.
 constexpr float CAMERA_FIT_MARGIN = 0.92f;
 }  // namespace
 
@@ -413,8 +413,9 @@ void GameSession::applyMechanismVisual(core::Entity entity, bool active,
     // du rendu. On ignore la region retournee (calculee sans connaitre l'etat), seuls la source et
     // l'index servent a retrouver l'asset et ses dimensions.
     const core::Sprite& sprite = _world.getComponent<core::Sprite>(entity);
-    // Axes skin/surcharge (LOT-51) tous deux visibles par defaut : mode compose, une valeur est
-    // donc toujours renvoyee, comme avant ce lot -- GameSession n'expose jamais ces axes.
+    // Axes skin/surcharge (LOT-51) tous deux visibles par defaut : en mode compose, une valeur est
+    // TOUJOURS renvoyee. GameSession n'expose pas ces axes -- ce sont des outils d'inspection de
+    // l'editeur, sans objet en jeu.
     const TileAppearance appearance =
         resolveTileAppearance(RenderMode::Texture, sprite.region, &tag, textures).value();
 

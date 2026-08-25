@@ -49,9 +49,9 @@ struct PaletteThumbnail {
 /**
  * @brief Choisit la vignette à afficher pour un type de tuile dans la palette.
  *
- * Peindre sans voir ce que l'on pose serait une régression d'usage introduite par le `LOT-42`
- * lui-même : dès que le canevas affiche des textures, une palette qui continue de montrer des
- * pastilles de couleur fait choisir « la tuile violette » à l'aveugle.
+ * INVARIANT : ce que la palette montre est ce que le canevas posera. Dès lors que le canevas
+ * affiche des textures, une palette qui montrerait encore des pastilles de couleur ferait choisir
+ * « la tuile violette » à l'aveugle.
  *
  * Applique **exactement** la même priorité que le canevas (`hmi::resolveTileAppearance`) — mode
  * Physique → couleur plate ; sinon skin assigné ; sinon damier. Les deux ne peuvent diverger que

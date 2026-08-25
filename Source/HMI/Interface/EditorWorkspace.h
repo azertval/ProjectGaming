@@ -72,15 +72,14 @@ struct WorkspaceDressing {
 /**
  * @brief Espaces dans lesquels @p panel est affiché.
  *
- * **Un masque, pas une valeur unique**, depuis le `LOT-69` TACHE-08. La déclaration précédente
- * était *totale* — « chaque panneau appartient à exactement un espace » — et cela ne tient plus :
- * le canevas, l'historique et la palette servent **à la fois** à l'atelier pixel art et au mode
- * création. Dupliquer les docks serait pire (deux canevas, deux historiques, deux états à tenir
- * synchronisés) ; le masque dit simplement la vérité.
+ * **Un masque, pas une valeur unique** (`LOT-69` TACHE-08) : un panneau peut servir à plusieurs
+ * espaces à la fois — le canevas, l'historique et la palette appartiennent aussi bien à l'atelier
+ * pixel art qu'au mode création. Les dupliquer par espace coûterait deux canevas, deux
+ * historiques et deux états à tenir synchronisés.
  *
- * La garde de complétude change en conséquence : elle vérifiait « exactement un espace », elle
- * vérifie désormais « **masque non vide** ». Un panneau sans espace resterait affiché partout, ce
- * qui viderait la séparation de son sens — et ne se verrait qu'à l'écran, jamais en relecture.
+ * GARDE DE COMPLÉTUDE : le masque d'un panneau n'est **jamais vide**. Un panneau sans espace
+ * resterait affiché partout, ce qui viderait la séparation de son sens — et ne se verrait qu'à
+ * l'écran, jamais en relecture.
  * @param panel Panneau interrogé.
  * @return Le masque des espaces qui l'affichent ; jamais vide.
  */

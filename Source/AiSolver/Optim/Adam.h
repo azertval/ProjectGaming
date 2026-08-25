@@ -21,6 +21,24 @@ namespace aisolver::optim {
  * récente — plus robuste au choix du taux d'apprentissage que `Sgd`, au prix d'un état interne
  * plus riche par paramètre.
  *
+ * Mise à jour appliquée à chaque paramètre, au pas *t* (`g` = gradient courant) :
+ *
+ *     m <- beta1 * m + (1 - beta1) * g              (moyenne du gradient)
+ *     v <- beta2 * v + (1 - beta2) * g^2            (moyenne du carre du gradient)
+ *     mChapeau = m / (1 - beta1^t)                  (correction de biais)
+ *     vChapeau = v / (1 - beta2^t)
+ *     theta   <- theta - lr * mChapeau / (racine(vChapeau) + epsilon)
+ *
+ * La **correction de biais** n'est pas un raffinement : `m` et `v` partent de zéro, donc les
+ * premières moyennes sont tirées vers zéro d'autant plus fort que `beta` est proche de 1. Sans
+ * elle, les tout premiers pas seraient très en deçà de leur amplitude voulue — or ce sont ceux
+ * qui décident de la trajectoire. Le facteur `1 - beta^t` tend vers 1, la correction s'efface
+ * donc d'elle-même ensuite ; c'est ce qui justifie le compteur de pas dans l'état.
+ *
+ * Diviser par `racine(vChapeau)` normalise le pas par l'amplitude récente du gradient : chaque
+ * paramètre avance d'un pas comparable, quelle que soit l'échelle de sa dérivée. `epsilon` ne
+ * fait qu'éviter la division par zéro quand le gradient est nul depuis longtemps.
+ *
  * L'état (moments `m`/`v`, compteur de pas) persiste d'un appel à `step` à l'autre : une même
  * instance ne doit servir qu'un seul réseau (le compteur de pas est partagé par tous les
  * paramètres passés à `step`, pas remis à zéro entre deux réseaux distincts).

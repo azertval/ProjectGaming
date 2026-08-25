@@ -87,10 +87,9 @@ struct CameraFramingConfig {
 /**
  * @brief Résout le cadrage effectif d'un niveau à partir du champ **déclaré** (peut être absent).
  *
- * Unique endroit incarnant la règle de repli (`EX-LVL-006`) : un niveau sans mode déclaré se
- * comporte **exactement** comme avant ce lot -- niveau entier s'il tient dans une salle de taille
- * par défaut, par salle sinon (la règle historique, `LOT-16`/`LOT-32`). Un mode déclaré
- * explicitement est retourné tel quel, sans substitution.
+ * Unique endroit incarnant la règle de repli (`EX-LVL-006`) : un niveau **sans** mode déclaré est
+ * cadré sur le niveau entier s'il tient dans une salle de taille par défaut, et par salle sinon.
+ * Un mode déclaré explicitement est retourné tel quel, sans substitution.
  * @param declared    Cadrage déclaré dans le fichier, ou `std::nullopt` si le champ est absent.
  * @param levelWidth  Largeur du niveau, en cases (> 0).
  * @param levelHeight Hauteur du niveau, en cases (> 0).
