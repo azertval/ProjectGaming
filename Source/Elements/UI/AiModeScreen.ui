@@ -133,6 +133,7 @@
              <property name="orientation"><enum>Qt::Horizontal</enum></property>
             </spacer>
            </item>
+           <item><widget class="QComboBox" name="generationCombo"><property name="enabled"><bool>false</bool></property></widget></item>
            <item><widget class="QPushButton" name="previewButton"><property name="text"><string>Voir en jeu</string></property><property name="enabled"><bool>false</bool></property></widget></item>
           </layout>
          </item>
