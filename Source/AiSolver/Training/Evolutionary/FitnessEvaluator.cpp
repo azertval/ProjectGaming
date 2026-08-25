@@ -36,6 +36,8 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
     EpisodeStatus status = EpisodeStatus::Ongoing;
     int stepCount = 0;
 
+    ObjectiveDistanceFieldCache distanceFieldCache;
+
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -45,9 +47,10 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
         const Action action = decodeArgmax(distribution);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
-        const GridDistanceField distanceField =
-            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         cumulativeReward += computeReward(rewardConfig, distanceField, previousBox,
                                           stepObservation.playerBox, stepObservation.outcome);
 

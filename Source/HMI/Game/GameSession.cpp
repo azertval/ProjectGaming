@@ -899,7 +899,7 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
     // consomment sa position DEJA a jour pour ce pas.
     _platforms->update();
     refreshPlatformVisuals();
-    const std::vector<core::PlatformSample> platformSamples = _platforms->samples();
+    const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
 
     // 1ter. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
     // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent.

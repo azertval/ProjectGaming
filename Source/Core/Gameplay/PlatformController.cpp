@@ -37,10 +37,12 @@ PlatformController::PlatformController(const Level& level) : _configs(level.plat
     for (const MovingPlatformConfig& config : _configs) {
         _paths.push_back(buildPlatformPath(config));
     }
+    refreshSamples();
 }
 
-void PlatformController::update() noexcept {
+void PlatformController::update() {
     ++_stepCount;
+    refreshSamples();
 }
 
 Aabb PlatformController::boxAtStep(std::size_t index, long long stepCount) const noexcept {
@@ -65,13 +67,11 @@ Vector2 PlatformController::deltaAt(std::size_t index) const noexcept {
     return boxAt(index).min - previousBoxAt(index).min;
 }
 
-std::vector<PlatformSample> PlatformController::samples() const {
-    std::vector<PlatformSample> result;
-    result.reserve(_configs.size());
+void PlatformController::refreshSamples() {
+    _samples.resize(_configs.size());
     for (std::size_t index = 0; index < _configs.size(); ++index) {
-        result.push_back(sampleAt(index));
+        _samples[index] = sampleAt(index);
     }
-    return result;
 }
 
 bool restsOnTopOfPlatform(const Aabb& box, const Aabb& platformBox) noexcept {

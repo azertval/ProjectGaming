@@ -39,14 +39,35 @@ float computeReward(const RewardConfig& config, const GridDistanceField& distanc
 
 GridDistanceField buildObjectiveDistanceField(const core::Level& level,
                                               const core::MechanismController& mechanisms) {
-    std::vector<core::GridPosition> targets{level.exit()};
     const std::vector<core::Mechanism>& links = mechanisms.mechanisms();
+    std::vector<core::GridPosition> targets;
+    targets.reserve(1 + links.size());  // la sortie, plus au plus un declencheur par mecanisme
+    targets.push_back(level.exit());
     for (std::size_t index = 0; index < links.size(); ++index) {
         if (!mechanisms.isDoorOpen(index)) {
             targets.push_back(links[index].switchPosition);
         }
     }
     return GridDistanceField(mechanisms.collisionMap(), targets);
+}
+
+const GridDistanceField& ObjectiveDistanceFieldCache::field(
+    const core::Level& level, const core::MechanismController& mechanisms) {
+    const std::size_t mechanismCount = mechanisms.mechanisms().size();
+
+    bool stillValid = _field.has_value() && _doorsOpen.size() == mechanismCount;
+    for (std::size_t index = 0; stillValid && index < mechanismCount; ++index) {
+        stillValid = _doorsOpen[index] == mechanisms.isDoorOpen(index);
+    }
+
+    if (!stillValid) {
+        _doorsOpen.resize(mechanismCount);
+        for (std::size_t index = 0; index < mechanismCount; ++index) {
+            _doorsOpen[index] = mechanisms.isDoorOpen(index);
+        }
+        _field = buildObjectiveDistanceField(level, mechanisms);
+    }
+    return *_field;
 }
 
 }  // namespace aisolver

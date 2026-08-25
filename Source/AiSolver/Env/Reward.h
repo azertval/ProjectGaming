@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include <optional>
+#include <vector>
+
 #include "AiSolver/Env/GridDistanceField.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/Level.h"
@@ -40,18 +43,15 @@ struct RewardConfig {
 /**
  * @brief Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.
  *
- * La distance est une distance de plus court chemin sur la grille, respectant les murs
- * (`GridDistanceField`, amendement `LOT-ANNEXE-08` motivé par `EX-IA-023` : la distance euclidienne
- * en ligne droite, utilisée avant cet amendement, pénalisait les pas de détour pourtant nécessaires
- * autour d'un mur, un signal actif contre la bonne politique plutôt que simplement imparfait). Le
- * centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées
- * monde, 1 case = 1 unité monde, même convention que `HMI::GameViewport::cellAt`).
+ * La progression se mesure en distance de plus court chemin sur la grille, murs compris
+ * (`GridDistanceField`, `EX-IA-023`) : c'est la seule mesure qui récompense un détour imposé par
+ * la géométrie du niveau. Le centre de la boîte du personnage est converti en case de grille
+ * (partie entière des coordonnées monde, 1 case = 1 unité monde, même convention que
+ * `HMI::GameViewport::cellAt`).
  * @param config Constantes de la fonction de récompense.
- * @param distanceField Champ de distances vers l'objectif immédiat courant -- pas nécessairement la
- *        sortie seule (`buildObjectiveDistanceField`, amendement `LOT-ANNEXE-21` : sans cela, une
- *        porte verrouillée encore fermée se comporte comme un raccourci fantôme vers la sortie dans
- *        le calcul, ce qui punit le détour par sa clé pourtant nécessaire -- même défaut que
- *        `EX-IA-023` ci-dessus, déplacé des murs statiques vers les mécanismes).
+ * @param distanceField Champ de distances vers l'objectif **immédiat** courant, pas vers la sortie
+ *        seule (`buildObjectiveDistanceField`) : une porte verrouillée fermée n'est pas un chemin,
+ *        et le détour par sa clé doit donc compter comme une progression.
  * @param previousBox Boîte du personnage avant ce pas.
  * @param currentBox Boîte du personnage après ce pas.
  * @param outcome Issue du niveau à l'issue de ce pas.
@@ -73,13 +73,47 @@ struct RewardConfig {
  * son déclencheur réduit la distance exactement comme s'approcher de la sortie le ferait une fois
  * le chemin dégagé -- sans connaître ni l'ordre de résolution attendu ni la nature du mécanisme
  * (générique, ne nécessite aucune modification quand un niveau ajoute de nouveaux mécanismes).
- * À reconstruire à chaque pas (coût négligeable, `LOT-ANNEXE-08`) : l'ensemble des cibles change dès
- * qu'une porte s'ouvre.
+ * L'ensemble des cibles ne dépend que de l'état ouvert/fermé des portes : le champ reste valide
+ * tant qu'aucune porte ne change d'état, et n'a donc à être reconstruit qu'à ce moment-là.
  * @param level Niveau chargé (sortie, liaisons de mécanismes).
  * @param mechanisms Contrôleur de mécanismes du pas courant (état ouvert/fermé, grille de
  *        collision à jour).
  */
 [[nodiscard]] GridDistanceField buildObjectiveDistanceField(
     const core::Level& level, const core::MechanismController& mechanisms);
+
+/**
+ * @brief Champ de distances vers l'objectif immédiat, reconstruit seulement lorsqu'il cesse
+ * d'être valide.
+ *
+ * `buildObjectiveDistanceField` coûte un BFS sur toute la grille, là où la récompense en a besoin
+ * à chaque pas de simulation. Or ce que le champ décrit -- l'ensemble des cibles **et** la grille
+ * de collision -- ne dépend que de l'état ouvert/fermé des portes : `core::MechanismController`
+ * n'écrit dans sa grille qu'à l'ouverture ou à la fermeture d'une porte. Le vecteur de ces états
+ * est donc une signature complète du champ, et sa comparaison coûte le nombre de mécanismes du
+ * niveau au lieu de sa surface.
+ *
+ * Le champ rendu est numériquement identique à celui d'une reconstruction systématique : ce cache
+ * ne change aucune récompense, il supprime un recalcul.
+ *
+ * Une instance par boucle d'épisode, déclarée **hors** de la boucle des pas.
+ */
+class ObjectiveDistanceFieldCache {
+public:
+    /**
+     * @brief Champ valide pour l'état courant de @p mechanisms, reconstruit si une porte a changé
+     *        d'état depuis l'appel précédent.
+     * @param level Niveau chargé (sortie, liaisons de mécanismes).
+     * @param mechanisms Contrôleur de mécanismes du pas courant.
+     * @return Référence sur le champ mémorisé, valable jusqu'au prochain appel.
+     */
+    [[nodiscard]] const GridDistanceField& field(const core::Level& level,
+                                                 const core::MechanismController& mechanisms);
+
+private:
+    std::optional<GridDistanceField> _field;
+    /// État ouvert/fermé de chaque porte au moment où `_field` a été construit.
+    std::vector<bool> _doorsOpen;
+};
 
 }  // namespace aisolver
