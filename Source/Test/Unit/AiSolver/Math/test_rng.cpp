@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_rng.cpp
  * @brief Tests unitaires du générateur pseudo-aléatoire déterministe `aisolver::Rng`

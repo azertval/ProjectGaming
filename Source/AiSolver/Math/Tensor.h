@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -45,6 +48,12 @@ namespace detail {
  *
  * Stockage contigu *row-major*, tampon partagé par pointeur intelligent : les vues (`view()`)
  * réinterprètent le même tampon sans copie, `clone()` en produit une copie profonde indépendante.
+ *
+ * @warning La copie implicite **partage** le tampon, elle ne le duplique pas : deux `Tensor`
+ * copiés l'un de l'autre écrivent dans la même mémoire. C'est ce qui rend `view()` gratuit, mais
+ * cela vaut aussi pour un simple passage par valeur -- `autodiff::variable(observation)` construit
+ * ainsi un nœud dont `value` aliase l'observation d'origine. Utiliser `clone()` dès qu'une copie
+ * indépendante est attendue.
  *
  * @tparam T Type des éléments (seule `Tensor<float>` est testée et utilisée en pratique).
  */
@@ -94,7 +103,8 @@ public:
         return (*_buffer)[offsetOf(indices)];
     }
 
-    /// @return Pointeur brut sur le tampon (premier élément de la vue courante).
+    /// @return Pointeur brut sur le début du tampon partagé -- jamais décalé par la vue : une vue
+    /// n'est qu'un jeu de dimensions et de pas sur ce même tampon.
     [[nodiscard]] T* data() {
         return _buffer->data();
     }

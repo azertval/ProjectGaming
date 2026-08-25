@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_serialization.cpp
  * @brief Tests unitaires de `aisolver::nn::saveWeights`/`loadWeights` (LOT-ANNEXE-03, TACHE-04) :

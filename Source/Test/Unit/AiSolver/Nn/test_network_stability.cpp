@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_network_stability.cpp
  * @brief Stabilité numérique et gradient d'un `aisolver::nn::Network` complet, plusieurs couches

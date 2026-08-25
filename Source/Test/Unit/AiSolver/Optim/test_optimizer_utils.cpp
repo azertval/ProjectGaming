@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_optimizer_utils.cpp
  * @brief Tests unitaires de `aisolver::optim::zeroGrad` (LOT-ANNEXE-04, TACHE-01).

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_weight_init.cpp
  * @brief Tests statistiques de `aisolver::nn::initializeWeights` (LOT-ANNEXE-03, TACHE-04) :
