@@ -92,7 +92,7 @@ tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 
 | Dossier | Rôle |
 |---------|------|
-| `Documentation/` | Documentation publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail), `Manuel/` (manuel utilisateur), **Guide du développeur**, **Cahier de test**, et référence de code. |
+| `Documentation/` | Documentation publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` et `Lot-Annexe/` (lots de travail), `Manuel/` (manuel utilisateur), **Guide du développeur** et **Guide annexe** (notions d'apprentissage automatique), **Cahier de test**, et référence de code. |
 | `Source/` | Code source, réparti par fonction. |
 | `.github/workflows/` | Intégration continue (voir plus bas). |
 
@@ -102,6 +102,7 @@ tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 |--------------|---------|
 | `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance à DirectX**. |
 | `HMI/` | Présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu Direct3D 11 du jeu embarqué dans un viewport, et les entrées. Dépend de `Core`, jamais l'inverse. |
+| `AiSolver/` | Solveur **IA** maison, écrit sans framework d'apprentissage automatique : tenseurs, autodiff, réseaux de neurones, optimiseurs, environnement de simulation sans fenêtre, algorithmes d'entraînement et outil `aisolver-cli`. Dépend de `Core`, jamais l'inverse. |
 | `Elements/` | Assets et éléments statiques (sprites, tuiles, sons, niveaux). |
 | `Test/` | Tests **unitaires** (`Unit/`), **d'intégration** (`Integration/`) et **système** (`Systeme/`) — GoogleTest. |
 

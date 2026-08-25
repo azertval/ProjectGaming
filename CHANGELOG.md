@@ -6,6 +6,95 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Solveur IA — une IA maison qui termine les niveaux (LOT-ANNEXE-01 à 21)
+
+Le jeu gagne un **solveur autonome**, écrit **de zéro** : aucun framework d'apprentissage
+automatique, aucune dépendance Python, aucune inférence en temps réel dans le jeu. L'agent
+s'entraîne hors ligne sur un niveau, et ce qu'il en rapporte est une **séquence d'actions
+déterministe** rejouée à l'identique par le moteur. `Core` et `HMI` ne gagnent aucune dépendance :
+tout vit dans une bibliothèque `Source/AiSolver/` et un exécutable `aisolver-cli`.
+
+**Fondations numériques.** Un `Tensor` N-dimensionnel à formes et pas explicites, à tampon partagé
+(les vues ne copient rien), et un générateur aléatoire à graine explicite — tout l'aléatoire du
+programme en découle, ce qui rend chaque entraînement reproductible. Par-dessus, un **moteur de
+différentiation automatique** en mode inverse : un graphe d'opérations construit à la volée, puis
+parcouru en sens inverse pour obtenir les gradients. Puis une bibliothèque de **réseaux de
+neurones** (couches denses, initialisation Xavier/He, fonctions d'activation, sérialisation des
+poids) et deux **optimiseurs**, SGD à moment et Adam.
+
+**Rendre le jeu jouable par une machine.** `HeadlessLevelEnvironment` fait tourner un niveau
+**sans fenêtre ni GPU**, en répliquant pas à pas l'ordre de résolution de la partie réelle —
+plateformes mobiles, blocs poussés, mécanismes, physique du personnage, dangers. Un test système
+permanent compare les deux trajectoires : l'agent ne peut pas apprendre une physique que le joueur
+n'aurait pas.
+
+L'état du jeu est traduit en tenseur par trois encodeurs complémentaires : une **fenêtre de tuiles**
+centrée sur le personnage encodée par catégorie, un **vecteur d'état** du personnage (vitesse,
+appuis, budgets restants), et l'**état des mécanismes** visibles. En sortie, un **espace d'action
+discret** : le produit des directions, du saut, du maintien de saut, du dash et de l'interaction.
+Le décodage se fait au maximum ou par tirage à température.
+
+**Le signal d'apprentissage.** La récompense mesure la progression en **distance de plus court
+chemin sur la grille**, pas à vol d'oiseau : c'est la seule mesure qui récompense un détour imposé
+par un mur. Elle vise l'**objectif immédiat** — tant qu'une porte est verrouillée, sa clé compte
+comme un but à part entière, sans que rien n'ait à connaître l'ordre de résolution attendu. Chaque
+épisode se clôt sur une issue explicite : gagné, mort, bloqué, ou budget épuisé.
+
+**Quatre algorithmes, et de quoi les comparer.** Un **algorithme évolutionniste** d'abord (sélection
+par tournoi, croisement, mutation gaussienne) : le chemin le plus court vers un agent qui finit
+réellement un niveau, et la ligne de base de tout le reste. Puis trois algorithmes par gradient —
+**REINFORCE**, **acteur-critique** (qui réduit la variance en soustrayant une valeur d'état
+apprise), et **DQN** avec tampon de rejeu, réseau cible et exploration ε-décroissante. Un harnais de
+**benchmark** les met en regard à graines fixées, et une campagne d'**évaluation hors-niveau**
+mesure ce qu'un modèle entraîné sur un tableau donne sur les autres.
+
+**Journalisation et rejeu.** Chaque entraînement écrit un CSV de statistiques par génération ou par
+épisode (meilleure récompense, moyenne, écart-type, taux de réussite), et un **format de rejeu**
+versionné qui porte la séquence d'entrées, l'empreinte du niveau d'origine et les métadonnées
+d'entraînement. Un rejeu dont le niveau a changé depuis l'export est **refusé au chargement**, avec
+un message explicite, jamais joué à moitié.
+
+**Deux façons de s'en servir.** En ligne de commande, `aisolver-cli` expose `train`, `evaluate` et
+`export-replay`. Dans le jeu, un écran **Mode IA** lance un entraînement dans un fil séparé, montre
+les statistiques arriver, et permet de rejouer en scène le meilleur individu obtenu.
+
+**Garde-fou d'intégration continue.** Un script vérifie que chaque rejeu publié reste synchronisé
+avec le niveau qu'il référence — une réimplémentation Python pure de l'empreinte utilisée par le
+C++, donc sans binaire à construire. Sans lui, un rééquilibrage de niveau pourrait périmer un rejeu
+versionné pendant des semaines sans qu'aucune Pull Request ne le signale.
+
+### Qualité (audit de release)
+
+- **Champ de distance mis en cache.** Le champ de plus court chemin qui alimente la récompense était
+  reconstruit par un parcours en largeur complet **à chaque pas de simulation**, dans les cinq
+  boucles d'entraînement. Or il ne dépend que de l'état ouvert/fermé des portes : il n'est
+  désormais reconstruit qu'à ce moment-là. Les résultats numériques sont identiques — c'est un
+  recalcul supprimé, pas un changement de comportement. Mesuré en Debug :
+  `DqnTrainerTest.ReproductibiliteIntegrale` passe de 15,1 s à 5,9 s, et la comparaison de
+  convergence REINFORCE/acteur-critique de 62,0 s à 41,9 s.
+- **Échantillons de plateformes mis en cache** dans `core::PlatformController`, recalculés par
+  `update()` au lieu d'être reconstruits à chaque lecture : ils sont lus plusieurs fois par pas, par
+  la physique du personnage, la poussée des blocs et l'interpolation d'affichage.
+- **Copie de grille supprimée** dans l'environnement sans fenêtre, qui dupliquait toute la grille de
+  collision des mécanismes à chaque pas là où la partie réelle en prenait déjà une référence.
+- **Température neutre court-circuitée** au décodage stochastique : à température 1 la pondération
+  est l'identité, et c'est le seul réglage utilisé à l'entraînement.
+- **Robustesse de lecture** : la comparaison de convergence ne suppose plus que le CSV qu'elle lit
+  est bien formé — colonne absente, ligne tronquée ou champ non numérique ne provoquent plus ni
+  accès hors bornes ni exception traversant la frontière du module.
+- **Format des fichiers de niveau** : l'écrivain de niveaux produisait un JSON compact sur une seule
+  ligne, seul écrivain JSON du projet dans ce cas. Il indente désormais à deux espaces comme tous
+  les autres — un niveau est un fichier versionné, dont la relecture en revue suppose un diff ligne
+  à ligne.
+- **En-têtes SPDX** ajoutés sur les 32 fichiers de code qui en manquaient encore.
+- **Commentaires** : une trentaine de commentaires racontaient l'historique d'une correction (« bug
+  réel trouvé en jeu », « corrigé au LOT-xx », « avant cet amendement ») plutôt que la règle que le
+  code applique. Réécrits pour énoncer la contrainte, pas l'anecdote.
+- **Documentation de code** : blocs Doxygen qui contredisaient la signature ou le comportement
+  décrit (constructeur documenté comme multi-source, champs présentés comme des méthodes, version de
+  format périmée, `@copydoc` propageant une description fausse), et avertissement ajouté sur le
+  partage de tampon à la copie d'un `Tensor`.
+
 ### Parallaxe à trois profondeurs des tableaux qui défilent (LOT-70)
 
 - `demo-mouvement` (suivi continu) et `demo-final` (caméra par salle) — les deux seuls tableaux
@@ -35,7 +124,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   déjà documentées à côté des fichiers concernés mais nulle part rassemblées. Il détaille aussi les
   trois obligations concrètes que le lien dynamique à Qt impose — et pourquoi passer Qt en lien
   statique serait une décision de licence, pas d'optimisation.
-- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur les 516 fichiers de code du
+- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur tous les fichiers de code du
   dépôt. Ils marquent le **code, et lui seul** : images, sons, polices et bibliothèques tierces
   gardent leur propre licence. La précision est écrite dans le README et les notices, parce que
   l'inverse serait facile à croire et faux.

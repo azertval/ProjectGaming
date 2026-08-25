@@ -1,6 +1,6 @@
 # LOT-ANNEXE-21 — Mode IA (IHM) {#lot-annexe-21}
 
-> Statut : **en cours**. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-20](@ref
+> Statut : **fait**. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-20](@ref
 > lot-annexe-20) à ce titre).
 
 ## Objectif
@@ -88,9 +88,9 @@ capacités déjà cadrées par les lots amont — voir leurs sections « Notions
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-training-worker.md) | Hooks `AiSolver` + `TrainingWorker` | `Source/AiSolver`, `Source/HMI/Ai` | 🔄 |
-| [TACHE-02](tache-02-ai-mode-screen.md) | Écran `AiModeScreen` (trois onglets) | `Source/HMI/Interface`, `Source/Elements/UI` | ⬜ |
-| [TACHE-03](tache-03-integration-menu.md) | Intégration au menu principal | `Source/HMI/Interface` | ⬜ |
+| [TACHE-01](tache-01-training-worker.md) | Hooks `AiSolver` + `TrainingWorker` | `Source/AiSolver`, `Source/HMI/Ai` | ✅ |
+| [TACHE-02](tache-02-ai-mode-screen.md) | Écran `AiModeScreen` (trois onglets) | `Source/HMI/Interface`, `Source/Elements/UI` | ✅ |
+| [TACHE-03](tache-03-integration-menu.md) | Intégration au menu principal | `Source/HMI/Interface` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis le menu principal, « Mode IA » ouvre un écran à trois onglets ; « Regarder l'IA jouer »
