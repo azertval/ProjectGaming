@@ -530,9 +530,8 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     switch (screen) {
         case ScreenId::Menu:
             _stack->setCurrentWidget(_menu);
-            // Rafraîchi ICI plutôt que dans showMenu() (bug réel trouvé en jeu, LOT-59 TACHE-07 :
-            // « Continuer » ne s'activait jamais) : la plupart des retours au menu ne passent PAS
-            // par la méthode showMenu() -- returnToMenuFromLevelComplete/quitPauseToMenu/
+            // Rafraîchi ICI plutôt que dans showMenu() : la plupart des retours au menu ne passent
+            // PAS par cette méthode -- returnToMenuFromLevelComplete/quitPauseToMenu/
             // closeLevelSelect résolvent chacun leur PROPRE ScreenEvent directement. Poser le
             // rafraîchissement ici couvre TOUTE transition qui atterrit sur Menu, quel que soit
             // l'événement, sans avoir à le dupliquer dans chaque poignée de retour.
@@ -2152,9 +2151,9 @@ void MainWindow::refreshStatusHelp() {
 }
 
 void MainWindow::showTransientStatusMessage(const QString& message, int timeoutMs) {
-    // Timeout 0 (par defaut de showMessage) : le message reste affiche jusqu'a restauration
-    // explicite par _statusMessageTimer, plutot que d'etre vide silencieusement par Qt (defaut
-    // corrige, LOT-57 TACHE-01).
+    // Timeout laisse a 0 (defaut de showMessage) : le message reste affiche jusqu'a la
+    // restauration explicite par _statusMessageTimer, seul maitre de sa duree de vie. Confier ce
+    // delai a Qt le viderait sans que le timer le sache.
     statusBar()->showMessage(message);
     _statusMessageTimer->start(timeoutMs);
 }

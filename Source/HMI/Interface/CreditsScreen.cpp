@@ -26,7 +26,9 @@ CreditsScreen::CreditsScreen(QWidget* parent)
                                             spacing.extraLarge * 3, spacing.extraLarge * 2);
 
     connect(_ui->backButton, &QPushButton::clicked, this, &CreditsScreen::backRequested);
-    _ui->backButton->setAutoDefault(true);  // meme piege Entree que MainMenu (LOT-59 TACHE-07).
+    // Sans autoDefault explicite, Entree reste sans effet sur ce bouton : cet ecran n'est pas un
+    // vrai QDialog (meme regle Qt que MainMenu).
+    _ui->backButton->setAutoDefault(true);
 }
 
 CreditsScreen::~CreditsScreen() = default;

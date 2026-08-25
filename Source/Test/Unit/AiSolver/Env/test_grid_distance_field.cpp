@@ -121,11 +121,11 @@ TEST(GridDistanceFieldTest, CaseHorsGrilleRenvoieLaSentinelle) {
 TEST(GridDistanceFieldTest, MultiCiblesDistanceALaPlusProche) {
     const core::TileMap map(10, 10);
     const std::vector<core::GridPosition> targets{core::GridPosition{0, 0},
-                                                   core::GridPosition{9, 9}};
+                                                  core::GridPosition{9, 9}};
     const aisolver::GridDistanceField field(map, targets);
 
-    EXPECT_EQ(field.distance(core::GridPosition{1, 0}), 1);   // Proche de (0,0).
-    EXPECT_EQ(field.distance(core::GridPosition{8, 9}), 1);   // Proche de (9,9).
+    EXPECT_EQ(field.distance(core::GridPosition{1, 0}), 1);  // Proche de (0,0).
+    EXPECT_EQ(field.distance(core::GridPosition{8, 9}), 1);  // Proche de (9,9).
     EXPECT_EQ(field.distance(core::GridPosition{0, 0}), 0);
     EXPECT_EQ(field.distance(core::GridPosition{9, 9}), 0);
 }
@@ -143,8 +143,8 @@ TEST(GridDistanceFieldTest, MultiCiblesDistanceALaPlusProche) {
 TEST(GridDistanceFieldTest, MultiCiblesIgnoreUneCibleSolideOuHorsGrille) {
     core::TileMap map(5, 5);
     map.setTile(1, 1, core::TileType::Solid);
-    const std::vector<core::GridPosition> targets{core::GridPosition{1, 1}, core::GridPosition{6, 6},
-                                                   core::GridPosition{4, 4}};
+    const std::vector<core::GridPosition> targets{
+        core::GridPosition{1, 1}, core::GridPosition{6, 6}, core::GridPosition{4, 4}};
     const aisolver::GridDistanceField field(map, targets);
 
     EXPECT_EQ(field.distance(core::GridPosition{4, 4}), 0);

@@ -20,8 +20,8 @@
 /**
  * @file AiSolver/Training/ActorCritic/ActorCriticTrainer.h
  * @brief Boucle d'entraînement acteur-critique par épisodes (`LOT-ANNEXE-13`, TACHE-03,
- * `EX-IA-014`) — étend `ReinforceTrainer` (`LOT-ANNEXE-12`) d'un second réseau et d'un second
- * optimiseur.
+ * `EX-IA-014`) — même ossature de boucle que `ReinforceTrainer` (`LOT-ANNEXE-12`), sans lien de
+ * code avec lui, augmentée d'un second réseau et d'un second optimiseur.
  */
 
 namespace aisolver::training {

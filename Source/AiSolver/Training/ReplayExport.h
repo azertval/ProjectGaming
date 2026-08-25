@@ -15,7 +15,7 @@
 
 /**
  * @file AiSolver/Training/ReplayExport.h
- * @brief Export d'un rejeu déterministe au format v1 (`LOT-ANNEXE-11`, `EX-IA-012`), et point
+ * @brief Export d'un rejeu déterministe au format v2 (`LOT-ANNEXE-11`, `EX-IA-012`), et point
  * d'entrée minimal assemblant `LevelTrainingSession` → `replayBestIndividual` → `exportReplay`.
  */
 
@@ -39,7 +39,7 @@ struct ReplayExportResult {
 };
 
 /**
- * @brief Écrit `replay` au format de rejeu v1 (`LOT-ANNEXE-07`, `Source/AiSolver/Replay`), sauf si
+ * @brief Écrit `replay` au format de rejeu v2 (`LOT-ANNEXE-07`, `Source/AiSolver/Replay`), sauf si
  * `solved` est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture
  * partielle).
  * @param replay        Rejeu produit par `replayBestIndividual` (séquence, statut, récompense).
@@ -69,8 +69,8 @@ struct TrainAndExportOutcome {
  * @brief Point d'entrée minimal : entraîne `levelPath` (`LevelTrainingSession`), rejoue le meilleur
  * individu final (`replayBestIndividual`), puis exporte la séquence obtenue (`exportReplay`).
  *
- * Volontairement minimal (pas d'options, pas de reprise) : un usage manuel réel de ce lot, l'outil
- * ergonomique (CLI) restant hors périmètre (`LOT-ANNEXE-19`, génération 5).
+ * Volontairement minimal : ni options ni reprise. C'est la brique que `aisolver-cli` enveloppe
+ * (`Cli/Commands.cpp`), pas l'interface d'usage.
  * @param levelPath      Chemin du fichier de niveau **unique** à entraîner.
  * @param topology       Topologie du réseau de chaque individu.
  * @param config         Paramètres de l'algorithme évolutionniste.

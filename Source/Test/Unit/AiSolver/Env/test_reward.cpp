@@ -197,7 +197,8 @@ TEST(RewardTest, PorteVerrouilleeFermeeCibleLaCleTantQueLaSortieEstInatteignable
     const core::GridPosition entry{0, 0};
     const core::GridPosition keyPosition{1, 0};
     const core::GridPosition exit{4, 0};
-    const std::vector<core::Mechanism> mechanisms{core::Mechanism{keyPosition, core::GridPosition{2, 0}}};
+    const std::vector<core::Mechanism> mechanisms{
+        core::Mechanism{keyPosition, core::GridPosition{2, 0}}};
     const core::Level level("test", map, entry, exit, mechanisms);
     const core::MechanismController mechanismController(level);
 

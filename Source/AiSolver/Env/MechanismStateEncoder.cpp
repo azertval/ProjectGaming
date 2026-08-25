@@ -53,9 +53,11 @@ Tensor<float> MechanismStateEncoder::encode(const core::MechanismController& mec
                                             const core::DangerController& dangers,
                                             const core::Level& level, core::GridPosition center,
                                             int radius) const {
-    const int windowSize = 2 * radius + 1;
-    const auto size = static_cast<std::size_t>(windowSize);
-    Tensor<float> result({static_cast<std::size_t>(kChannelCount), size, size});
+    // Cote de la fenetre carree centree sur `center` : calcule en int, puis converti -- convertir
+    // avant l'addition elargirait le calcul (`bugprone-misplaced-widening-cast`).
+    const int windowSideInTiles = 2 * radius + 1;
+    const auto windowSide = static_cast<std::size_t>(windowSideInTiles);
+    Tensor<float> result({static_cast<std::size_t>(kChannelCount), windowSide, windowSide});
 
     // Canal 0 : porte ouverte, une case par mecanisme (mechanism.doorPosition).
     const std::vector<core::Mechanism>& mechanismList = mechanisms.mechanisms();
