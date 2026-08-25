@@ -4,10 +4,11 @@
 [![Documentation](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml/badge.svg)](https://github.com/azertval/ProjectGaming/actions/workflows/docs.yml)
 [![Release](https://github.com/azertval/ProjectGaming/actions/workflows/release.yml/badge.svg)](https://github.com/azertval/ProjectGaming/releases/latest)
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-00599C)
-![Direct3D 11](https://img.shields.io/badge/Direct3D-11-8A2BE2)
+![Qt QRhi](https://img.shields.io/badge/Qt%20QRhi-Direct3D%2011-8A2BE2)
 
-Jeu 2D de plateforme / puzzle développé **from scratch** en **C++20 / Direct3D 11**
-(Windows), sans moteur tiers.
+Jeu 2D de plateforme / puzzle développé **from scratch** en **C++20** (Windows), sans moteur
+tiers. Le rendu passe par **QRhi**, la couche d'accès au GPU de Qt, qui retient **Direct3D 11**
+par défaut sous Windows.
 
 - 📖 **Documentation en ligne** : <https://azertval.github.io/ProjectGaming/>
 - ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/ProjectGaming/releases/latest>
@@ -18,10 +19,10 @@ Jeu 2D de plateforme / puzzle développé **from scratch** en **C++20 / Direct3D
 ProjectGaming est un moteur de jeu 2D maison. Ses partis pris :
 
 - **Séparation stricte** entre la logique (`Core`) et la présentation (`HMI`) :
-  `Core` est indépendant de DirectX et de la fenêtre, donc **testable sans GPU**.
+  `Core` est indépendant du GPU et de la fenêtre, donc **testable sans GPU**.
 - **ECS maison** (sparse sets) : entités = identifiants, composants = données pures,
   systèmes = logique, exécutés à **pas de temps fixe déterministe**.
-- **Rendu pixel art** en Direct3D 11 (tuiles 16 px, échantillonnage *nearest*).
+- **Rendu pixel art** via **QRhi** (tuiles 16 px, échantillonnage *nearest*).
 - **Éditeur de niveaux** intégré pour permettre à des non-développeurs de créer du
   contenu (peinture, mécanismes, undo/redo, essai immédiat), et **décors issus de
   photos converties en pixel art** (post-MVP).
@@ -100,8 +101,8 @@ tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 
 | Sous-dossier | Contenu |
 |--------------|---------|
-| `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance à DirectX**. |
-| `HMI/` | Présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu Direct3D 11 du jeu embarqué dans un viewport, et les entrées. Dépend de `Core`, jamais l'inverse. |
+| `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance au GPU ni à la fenêtre**. |
+| `HMI/` | Présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu du jeu (via **QRhi**) embarqué dans un viewport, et les entrées. Dépend de `Core`, jamais l'inverse. |
 | `AiSolver/` | Solveur **IA** maison, écrit sans framework d'apprentissage automatique : tenseurs, autodiff, réseaux de neurones, optimiseurs, environnement de simulation sans fenêtre, algorithmes d'entraînement et outil `aisolver-cli`. Dépend de `Core`, jamais l'inverse. |
 | `Elements/` | Assets et éléments statiques (sprites, tuiles, sons, niveaux). |
 | `Test/` | Tests **unitaires** (`Unit/`), **d'intégration** (`Integration/`) et **système** (`Systeme/`) — GoogleTest. |

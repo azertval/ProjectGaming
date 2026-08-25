@@ -1,6 +1,6 @@
 # Elements/Fonts/
 
-Polices bitmap pour l'affichage de texte **dans la scène rendue** (viewport Direct3D 11) : atlas de
+Polices bitmap pour l'affichage de texte **dans la scène rendue** (viewport QRhi) : atlas de
 glyphes PNG accompagné de ses métriques.
 
 Le texte de l'**interface hors-jeu** (menus, options, éditeur) ne passe pas par ici : il est rendu

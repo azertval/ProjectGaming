@@ -3,8 +3,9 @@
 Cette page explique comment une entité ECS (@ref guide-ecs) — une simple combinaison de données —
 finit par apparaître comme une image à l'écran, en partant des notions de base du rendu temps réel
 pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics`, sur une surface fournie
-par le viewport Qt (`Source/HMI/Game`) ; c'est la seule partie du moteur qui dépend de Direct3D 11
-(`Core` en reste totalement indépendant, @ref guide-boucle et `EX-ARCH-040`).
+par le viewport Qt (`Source/HMI/Game`) ; c'est la seule partie du moteur qui dépend du GPU, via
+**QRhi** (voir plus bas — `Core` en reste totalement indépendant, @ref guide-boucle et
+`EX-ARCH-040`).
 
 ## Vocabulaire de base : GPU, swap chain, back buffer
 
@@ -302,15 +303,13 @@ symétriques du repli procédural + upload GPU :
 
 1. **Décodage** (`decodeImageFile`) : `QImage::load` puis `convertToFormat(Format_RGBA8888)` — Qt
    est déjà une dépendance depuis `LOT-34`, donc aucune bibliothèque supplémentaire. `RGBA8888` est
-   choisi **non prémultiplié** : le blend state de `SpriteBatch` utilise
-   `D3D11_BLEND_SRC_ALPHA`/`D3D11_BLEND_INV_SRC_ALPHA` (alpha simple), pas
-   `D3D11_BLEND_ONE` — un format prémultiplié donnerait des couleurs assombries aux bords
-   transparents.
-2. **Upload GPU** (`createTexture`) : exactement le même chemin `CreateTexture2D`
-   (`D3D11_TEXTURE2D_DESC`, `DXGI_FORMAT_R8G8B8A8_UNORM`, `D3D11_USAGE_IMMUTABLE`, un seul niveau de
-   mip) + `CreateShaderResourceView` que la génération procédurale — les deux chemins partagent
-   cette fonction, il n'existe qu'un seul endroit qui parle à Direct3D pour créer une texture
-   d'atlas.
+   choisi **non prémultiplié** : le blend de `SpriteBatch` utilise
+   `QRhiGraphicsPipeline::SrcAlpha`/`OneMinusSrcAlpha` (alpha simple), pas `One` — un format
+   prémultiplié donnerait des couleurs assombries aux bords transparents.
+2. **Upload GPU** (`createTexture`) : exactement le même chemin `QRhi::newTexture`
+   (`QRhiTexture::RGBA8`, un seul niveau de mip) puis `QRhiResourceUpdateBatch::uploadTexture` que
+   la génération procédurale — les deux chemins partagent cette fonction, il n'existe qu'un seul
+   endroit qui crée une texture d'atlas sur le GPU.
 
 La résolution du chemin d'asset (`hmi::AssetPaths`, `HMI/Graphics/AssetPaths.h`) est, elle, une
 classe **pure** (aucune dépendance fenêtre/GPU/Qt) : elle résout un nom de fichier logique vers un
@@ -731,7 +730,7 @@ peint qui exploiterait vraiment la profondeur — ce dernier est un acte de *lev
 Le texte de l'interface **hors-jeu** (menus, libellés, options) ne se dessine toujours **pas** avec
 ce pipeline : c'est une préoccupation entièrement différente, portée par les **widgets Qt** de
 l'IHM (@ref guide-ihm-qt), dans une couche indépendante de la caméra du monde. Mais depuis `LOT-52`,
-le pipeline Direct3D sait de nouveau afficher du texte **dans la scène de jeu** — l'ancienne police
+le pipeline de rendu sait de nouveau afficher du texte **dans la scène de jeu** — l'ancienne police
 bitmap « maison », retirée avec l'IHM « maison » au `LOT-38`, est réintroduite du bon côté de la
 frontière (`SpriteBatch`, pas Qt) et rebranchée sur les fondations de `LOT-40` (calque `UI`,
 `TextureCache`, contrat d'asset) plutôt que sur son ancien chemin.
@@ -744,7 +743,7 @@ cohérence avec les dimensions décodées du PNG. Aucun asset n'est livré pour 
 `atlas.png`, sur un repli **procédural** déterministe (`hmi::buildProceduralFont`, glyphes 5×7
 pixels blancs sur fond transparent, ASCII imprimable et accents français `é è à ç ù ê î ô û`) — le
 jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Comme `TextureAtlas`, `BitmapFont`
-possède sa **propre** ressource Direct3D (pas de passage par `TextureCache` : elle n'est chargée
+possède sa **propre** texture GPU (`QRhiTexture`, pas de passage par `TextureCache` : elle n'est chargée
 qu'une fois au démarrage, sans rechargement à chaud). Un point de code non couvert est substitué
 par un glyphe de remplacement (`?` par défaut), jamais un trou silencieux. La mesure d'une chaîne
 (`hmi::measureText`) est **pure** : elle ne dépend que des métriques, pas du GPU, ce qui permet de

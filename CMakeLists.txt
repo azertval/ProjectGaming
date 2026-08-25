@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.21)
 # pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(ProjectGaming
     VERSION 0.1.1
-    DESCRIPTION "Jeu 2D de plateforme/puzzle en C++/DirectX"
+    DESCRIPTION "Jeu 2D de plateforme/puzzle en C++/Qt QRhi"
     LANGUAGES CXX)
 
 # --- Standard C++ ---

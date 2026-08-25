@@ -1,7 +1,7 @@
 # Source/HMI/
 
 Couche de **présentation** : l'unique application du projet, `ProjectGaming` — une application **Qt**
-qui embarque le **rendu Direct3D 11 du jeu** dans un viewport et l'entoure de l'IHM (menu, options,
+qui embarque le **rendu du jeu** (via **QRhi**) dans un viewport et l'entoure de l'IHM (menu, options,
 éditeur de niveau). Depuis le `LOT-38`, l'IHM « maison » et l'exécutable historique ont été retirés :
 ce dossier est la seule cible exécutable (voir `CMakeLists.txt`).
 
@@ -15,7 +15,7 @@ hors code dans [`../Elements/`](../Elements/README.md) (`UI/`, `Themes/`).
 |---|---|
 | [`Platform/`](Platform/README.md)   | Provisionnement bas niveau (répertoire de l'exécutable). |
 | [`Input/`](Input/README.md)         | Entrées : état, mapping, remappage clavier/manette, pont Qt→`Key`. |
-| [`Graphics/`](Graphics/README.md)   | Rendu Direct3D 11 (device, sprites, caméra, brouillon d'édition). |
+| [`Graphics/`](Graphics/README.md)   | Rendu via **QRhi** (pipeline 2D, sprites, caméra, brouillon d'édition). |
 | `Game/`      | Simulation d'un niveau (`GameSession`) et viewport Qt jeu/édition (`GameViewport`). |
 | [`Localization/`](Localization/README.md) | Catalogue de traduction. |
 | `Interface/` | Fenêtre principale, menu, options, remappage (widgets Qt). |

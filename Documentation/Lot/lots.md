@@ -91,6 +91,21 @@ c'est un identifiant stable, jamais réordonné.
 
 ## Apres le programme `0.1.0`
 
+Le `LOT-71` — **livre** — retrace `demo-final`, qui fermait la sequence sur un enchainement de
+salles sans densite : un gaufre unique de 24x24 y reunit desormais deux cles, un interrupteur a
+bascule, un bloc sur plaque, un ascenseur a plateformes synchronisees, trois puits a wall jump et
+une cheminee. Il porte la parallaxe a **cinq** plans, la ou le `LOT-70` en avait pose trois. Deux
+dangers en ont ete **retires** : le tableau etait invincible, et ca se demontre — l'un ne laissait
+qu'une fenetre d'esquive d'une seule image, l'autre balayait exactement le couloir du bas sans
+qu'aucune allure ne permette de le doubler. Le parcours scripte du garde-fou systeme est reecrit en
+25 phases documentees, et son plafond de pas porte de 3 000 a 9 000 — une borne de terminaison, pas
+une mesure de difficulte.
+
+Comme le `LOT-68`, et contrairement aux `LOT-69`/`LOT-70`, il n'a **pas de dossier de lot dedie** :
+il ne cadre aucun systeme nouveau. Ce qu'il change vit dans les fichiers de niveau eux-memes, dans
+`Source/Test/Systeme/ScriptedLevelSequence.h` et dans le `CHANGELOG.md` — un dossier de lot n'y
+aurait rien ajoute que de la redite.
+
 Le [LOT-70](@ref lot-70) — **livre** — repond au manque explicitement consigne par le `LOT-69`
 TACHE-10 : la migration des plans picturaux n'avait livre qu'un report fidele de l'ancien habillage,
 jamais une fresque exploitant reellement la profondeur. Il ajoute un troisieme plan, lointain, aux
@@ -101,7 +116,7 @@ dedie malgre sa taille modeste, faute d'un programme qui l'aurait deja prevu.
 Le [LOT-69](@ref lot-69) — **livre** — est le premier lot d'ampleur d'apres-programme, et le premier
 a **retirer** un systeme livre plutot qu'a en ajouter un : les decors-sprites du `LOT-49`/`LOT-50`
 cedent la place a des **plans picturaux** peints dans l'editeur, avec parallaxe reglable.
-Contrairement aux `LOT-67`/`LOT-68`, il a un **dossier de lot dedie** : sa surface (dix taches, dont
+Contrairement au `LOT-68`, il a un **dossier de lot dedie** : sa surface (dix taches, dont
 le portage du rendu sur QRhi et le retrait d'un sous-systeme entier) le justifie amplement.
 
 Le `LOT-68` poursuit dans la meme veine : refonte de l'interface, en deux volets — degraissage
