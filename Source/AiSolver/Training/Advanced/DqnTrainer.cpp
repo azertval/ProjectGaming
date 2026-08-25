@@ -73,8 +73,11 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         if (shouldStop && shouldStop()) {
             return;
         }
-        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
-        PROJECTGAMING_ASSERT(loaded, "DqnTrainer::run : le niveau doit se charger");
+        if (!_environment.reset(_levelPath)) {
+            // Voir `evaluateFitness` : l'assertion ne garde rien en Release.
+            PROJECTGAMING_ASSERT(false, "DqnTrainer::run : le niveau doit se charger");
+            return;
+        }
 
         // Boite/etat de depart : meme convention que TrajectoryCollector (LOT-ANNEXE-12) --
         // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().

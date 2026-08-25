@@ -17,8 +17,13 @@ namespace aisolver::training::evolutionary {
 
 FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironment& environment,
                                   const std::filesystem::path& levelPath, int stuckThreshold) {
-    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
-    PROJECTGAMING_ASSERT(loaded, "evaluateFitness : le niveau doit se charger");
+    if (!environment.reset(levelPath)) {
+        // Niveau illisible : l'assertion signale l'erreur de deploiement en Debug, mais elle ne
+        // garde rien en Release. La pire fitness possible ecarte l'individu de toute selection,
+        // au lieu de laisser `step()` s'executer sur un monde vide.
+        PROJECTGAMING_ASSERT(false, "evaluateFitness : le niveau doit se charger");
+        return FitnessEvaluation{std::numeric_limits<float>::lowest(), 0, EpisodeStatus::Ongoing};
+    }
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
