@@ -69,7 +69,8 @@ private slots:
     void onLaunchTraining();
     void onStopTraining();
     void onTrainingProgress(int index, double bestReward, double meanReward, double successRate);
-    void onTrainingPreviewReady(QString modelPath, QString algo, QString levelPath);
+    void onTrainingPreviewReady(QString replayPath, QString algo, QString levelPath,
+                                int generation);
     void onTrainingFinished(bool solved, QString modelPath, QString statsPath, QString configPath,
                             QString replayPath, bool replayExported);
     void onTrainingFailed(QString message);
@@ -86,7 +87,6 @@ private:
     std::unique_ptr<Ui::AiModeScreen> _ui;
     std::unique_ptr<QThread> _workerThread;
     TrainingWorker* _worker = nullptr;  ///< Possédé par `_workerThread` (deleteLater), pas `_ui`.
-    QString _lastPreviewReplayPath;
     QString _lastRunModelPath;
     QString _lastRunReplayPath;
     QString _lastRunAlgo;

@@ -63,9 +63,12 @@ signals:
     /// journalisé (`TrainingStatsRecorder::setOnRecord`, `LOT-ANNEXE-09`/`21`).
     void progress(int index, double bestReward, double meanReward, double successRate);
 
-    /// @brief Un aperçu du champion courant a été écrit sur disque (`LOT-ANNEXE-21`) :
-    /// `modelPath` charge directement via `nn::loadWeights` sur la topologie de `algo`.
-    void previewReady(QString modelPath, QString algo, QString levelPath);
+    /// @brief Un aperçu du champion courant a été écrit sur disque (`LOT-ANNEXE-21`), sous un
+    /// fichier propre à `generation` (jamais écrasé par l'aperçu suivant) : `replayPath` se charge
+    /// directement via `aisolver::readReplay`, `generation` est le numéro de génération
+    /// (évolutif) ou d'épisode (par gradient) auquel il correspond, permettant à l'IHM de
+    /// proposer un choix parmi les aperçus déjà reçus plutôt que le seul plus récent.
+    void previewReady(QString replayPath, QString algo, QString levelPath, int generation);
 
     /// @brief Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable.
     void finished(bool solved, QString modelPath, QString statsPath, QString configPath,

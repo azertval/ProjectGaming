@@ -121,7 +121,13 @@ void TrainingWorker::run() {
     const std::filesystem::path modelPath = runDir / "model.bin";
     const std::filesystem::path replayPath = runDir / "replay.json";
     const std::filesystem::path configPath = runDir / "config.json";
-    const std::filesystem::path previewPath = runDir / "preview.json";
+    const std::filesystem::path previewsDir = runDir / "previews";
+
+    // Un fichier par generation/episode (jamais ecrase) : le seul moyen pour l'IHM de proposer un
+    // choix de generation dans "Voir en jeu" plutot que le seul apercu le plus recent.
+    const auto previewPathFor = [&previewsDir](int generation) {
+        return previewsDir / ("gen_" + std::to_string(generation) + ".json");
+    };
 
     if (!cli::writeTrainingConfigJson(config, configPath)) {
         emit failed(QStringLiteral("Impossible d'ecrire la configuration : %1")
@@ -144,7 +150,7 @@ void TrainingWorker::run() {
     // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par kPreviewInterval,
     // même raison que le chemin évolutionniste (`onGenerationChampion` ci-dessous).
     const auto maybeEmitPreview = [&](eval::TrainedPolicy& evalPolicy, const std::string& name,
-                                      const std::string& id) {
+                                      const std::string& id, int generation) {
         const Clock::time_point now = Clock::now();
         if (now - lastPreview < kPreviewInterval) {
             return;
@@ -153,10 +159,11 @@ void TrainingWorker::run() {
         HeadlessLevelEnvironment previewEnvironment;
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, previewEnvironment, levelPath);
+        const std::filesystem::path previewPath = previewPathFor(generation);
         if (replay &&
             writePreviewReplay(*replay, levelPath, previewPath, name, _request.seed, id)) {
             emit previewReady(QString::fromStdString(previewPath.string()),
-                              QString::fromStdString(id), _request.levelPath);
+                              QString::fromStdString(id), _request.levelPath, generation);
         }
     };
 
@@ -172,8 +179,10 @@ void TrainingWorker::run() {
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
                                                config.stopping, _request.seed, statsPath);
 
+        int evoGeneration = 0;
         training::TrainingResult result =
             session.run(shouldStop, [&](const training::evolutionary::Individual& champion) {
+                ++evoGeneration;
                 const Clock::time_point now = Clock::now();
                 if (now - lastPreview < kPreviewInterval) {
                     return;
@@ -195,10 +204,12 @@ void TrainingWorker::run() {
                     }());
                 const training::DeterministicReplayResult replay =
                     training::replayBestIndividual(scratch, previewEnvironment, levelPath);
+                const std::filesystem::path previewPath = previewPathFor(evoGeneration);
                 if (writePreviewReplay(replay, levelPath, previewPath, algorithmName, _request.seed,
                                        algorithmId)) {
                     emit previewReady(QString::fromStdString(previewPath.string()),
-                                      QString::fromStdString(algorithmId), _request.levelPath);
+                                      QString::fromStdString(algorithmId), _request.levelPath,
+                                      evoGeneration);
                 }
             });
         solved = result.solved;
@@ -242,7 +253,7 @@ void TrainingWorker::run() {
         recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, levelPath,
                                            reinforceConfig, recorder, levelName);
@@ -279,7 +290,7 @@ void TrainingWorker::run() {
         recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
                                              environment, levelPath, actorCriticConfig, recorder,
@@ -323,7 +334,7 @@ void TrainingWorker::run() {
         recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment, levelPath,
                                      dqnConfig, recorder, levelName);

@@ -69,8 +69,9 @@ AiModeScreen::AiModeScreen(QWidget* parent)
             &AiModeScreen::onLaunchTraining);
     connect(_ui->stopTrainingButton, &QPushButton::clicked, this, &AiModeScreen::onStopTraining);
     connect(_ui->previewButton, &QPushButton::clicked, this, [this] {
-        if (!_lastPreviewReplayPath.isEmpty()) {
-            emit replayRequested(_lastPreviewReplayPath);
+        const QString path = _ui->generationCombo->currentData().toString();
+        if (!path.isEmpty()) {
+            emit replayRequested(path);
         }
     });
 
@@ -127,8 +128,11 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     _ui->stopTrainingButton->setToolTip(
         tr("Arrête l'entraînement à la prochaine génération/épisode. Le meilleur individu obtenu "
            "jusqu'ici reste sauvegardé."));
+    _ui->generationCombo->setToolTip(
+        tr("Génération (évolutif) ou épisode (autres algorithmes) dont l'aperçu sera rejoué par "
+           "« Voir en jeu »."));
     _ui->previewButton->setToolTip(
-        tr("Rejoue le meilleur individu de la génération/l'épisode courant dans la scène du "
+        tr("Rejoue le meilleur individu de la génération/l'épisode sélectionné dans la scène du "
            "niveau."));
 
     _ui->runCombo->setToolTip(
@@ -290,7 +294,8 @@ void AiModeScreen::onLaunchTraining() {
 
     _ui->statsTable->setRowCount(0);
     _ui->previewButton->setEnabled(false);
-    _lastPreviewReplayPath.clear();
+    _ui->generationCombo->setEnabled(false);
+    _ui->generationCombo->clear();
     setTrainingControlsEnabled(false);
     _ui->trainingStatusLabel->setText(tr("Entraînement en cours…"));
 
@@ -325,9 +330,19 @@ void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanR
                                           .arg(QString::number(bestReward, 'f', 3)));
 }
 
-void AiModeScreen::onTrainingPreviewReady(QString modelPath, QString /*algo*/,
-                                          QString /*levelPath*/) {
-    _lastPreviewReplayPath = modelPath;  // chemin du rejeu d'aperçu (voir TrainingWorker::run).
+void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algo*/,
+                                          QString /*levelPath*/, int generation) {
+    // Un aperçu par génération/épisode, jamais écrasé (voir TrainingWorker::run) : on suit la
+    // dernière génération reçue tant que l'utilisateur n'a pas sélectionné une génération
+    // antérieure pour l'examiner pendant que l'entraînement continue.
+    const bool wasFollowingLatest = _ui->generationCombo->count() == 0 ||
+                                    _ui->generationCombo->currentIndex() ==
+                                        _ui->generationCombo->count() - 1;
+    _ui->generationCombo->addItem(tr("Génération %1").arg(generation), replayPath);
+    if (wasFollowingLatest) {
+        _ui->generationCombo->setCurrentIndex(_ui->generationCombo->count() - 1);
+    }
+    _ui->generationCombo->setEnabled(true);
     _ui->previewButton->setEnabled(true);
 }
 
