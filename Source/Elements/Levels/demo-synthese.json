@@ -6,7 +6,23 @@
   "dashBudget": 1,
   "background": "test_industrial.png",
   "cameraFraming": {
-    "mode": "wholeLevel"
+    "mode": "perRoom",
+    "roomWidthTiles": 23,
+    "roomHeightTiles": 7,
+    "zones": [
+      {
+        "x": 0,
+        "y": 0,
+        "width": 23,
+        "height": 7
+      },
+      {
+        "x": 23,
+        "y": 0,
+        "width": 23,
+        "height": 7
+      }
+    ]
   },
   "tiles": [
     {
