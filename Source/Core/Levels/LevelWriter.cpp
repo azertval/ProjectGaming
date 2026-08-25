@@ -318,7 +318,10 @@ std::string LevelWriter::buildJson(
         root["parallax"] = false;
     }
 
-    return root.dump();
+    // Indentation a deux espaces et saut de ligne final, comme tout ecrivain JSON du projet
+    // (rejeu, configuration d'entrainement, progression, raccourcis) : un niveau est un fichier
+    // versionne, dont la relecture en revue de code suppose un diff ligne a ligne.
+    return root.dump(2) + "\n";
 }
 
 }  // namespace core
