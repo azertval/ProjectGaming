@@ -177,8 +177,9 @@ TEST(PlaneTest, RemovePlaneRetireAuRangDonne) {
 TEST(PlaneTest, ChaqueMutateurEstAnnulableEtRefaisable) {
     LevelDraft draft = draftWithPlanes(2);
 
-    // Le vecteur de mutations couvre TOUS les mutateurs de plan : c'est ce test qui empeche de
-    // reintroduire l'oubli de pushUndo() corrige apres coup au LOT-67 sur les budgets de niveau.
+    // REGLE VERIFIEE ICI : tout mutateur de plan empile un pushUndo(). Le vecteur ci-dessous les
+    // enumere EXHAUSTIVEMENT -- ajouter un mutateur sans l'ajouter ici laisserait une mutation
+    // non annulable, invisible autrement qu'a l'usage.
     draft.setPlaneDensity(0, 8);
     EXPECT_EQ(draft.planes()[0].pixelsPerUnit, 8);
     ASSERT_TRUE(draft.canUndo());

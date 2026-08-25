@@ -172,8 +172,9 @@ private:
     /// l'expiration d'un message transitoire, pour la restaurer.
     void refreshStatusHelp();
     /// Affiche @p message pour @p timeoutMs dans la barre d'état, puis restaure l'aide contextuelle
-    /// (`refreshStatusHelp`) — remplace `QStatusBar::showMessage`'s minuteur interne, qui laissait
-    /// la barre vide à l'expiration au lieu de reprendre la main.
+    /// (`refreshStatusHelp`). La barre d'état n'est jamais laissée vide : à l'expiration d'un
+    /// message transitoire, elle reprend l'aide du contexte courant. C'est pourquoi le minuteur est
+    /// porté ici et non délégué à `QStatusBar::showMessage`, dont l'expiration ne rappelle rien.
     void showTransientStatusMessage(const QString& message, int timeoutMs);
     /// Met en avant le panneau associé à @p tool (`hmi::panelForTool`), si le réglage est actif et
     /// que l'utilisateur n'a rien imposé lui-même (`LOT-57` TACHE-02) — jamais un masquage, une

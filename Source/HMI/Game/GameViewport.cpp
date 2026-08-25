@@ -926,13 +926,12 @@ void GameViewport::initialize(QRhiCommandBuffer* commandBuffer) {
     if (_rhiContext.rhi == rhi()) {
         return;  // même interface : les ressources déjà créées restent valides.
     }
-    // Une session en cours ne survit pas a la liberation ci-dessous (elle tient l'atlas, la police
-    // et le lot de sprites) : on retient ce qu'il faudra REMONTER, sinon l'ecran retombe
-    // silencieusement sur le brouillon -- defaut reel constate au portage QRhi, ou « Jouer »
-    // depuis le menu affichait le niveau en mode edition. Le cas nominal n'est meme pas un
-    // changement d'interface tardif : c'est la TOUTE PREMIERE image. Le viewport n'est peint
-    // qu'une fois affiche, donc initialize() passe APRES startGame(), qui a deja demande la
-    // session.
+    // initialize() s'execute APRES startGame() dans le cas NOMINAL : le viewport n'est peint
+    // qu'une fois affiche, donc la premiere image arrive alors qu'une session est deja demandee.
+    // Or une session ne survit pas a la liberation ci-dessous -- elle tient l'atlas, la police et
+    // le lot de sprites. D'ou la regle : memoriser ce qu'il faudra REMONTER avant de liberer, et
+    // le remonter apres. Sans cela, l'etat affiche serait celui du brouillon d'edition et non
+    // celui de la session demandee.
     // Exclut le rejeu (LOT-ANNEXE-18) : `_replayPlayback` a sa propre branche de remontee
     // ci-dessous, `startPlaytest()` reconstruirait une session depuis le brouillon d'edition, sans
     // rapport avec le niveau du rejeu en cours.

@@ -36,10 +36,10 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._cameraFraming = level.cameraFraming();
     draft._airJumps = level.airJumps();
     draft._dashCharges = level.dashCharges();
-    // Plans picturaux et drapeau de parallaxe (LOT-69). Les oublier ici ne casse rien
-    // visiblement : le brouillon s'ouvre, s'edite et s'enregistre -- mais il se reenregistre SANS
-    // ses plans, donc ouvrir un niveau habille puis le sauver en effacait tout l'habillage. Defaut
-    // constate a l'essai, invisible en relecture parce que le champ manquant ne fait rien echouer.
+    // Plans picturaux et drapeau de parallaxe (LOT-69). INVARIANT DE CE CONSTRUCTEUR : fromLevel
+    // recopie TOUS les champs de Level, sans exception. Un brouillon reenregistre doit etre
+    // equivalent au niveau d'origine -- un champ non recopie ne fait echouer aucun appel, il
+    // s'efface simplement au premier enregistrement. Ajouter un champ a Level, c'est l'ajouter ici.
     draft._planes = level.planes();
     draft._parallaxEnabled = level.parallaxEnabled();
     return draft;

@@ -29,10 +29,10 @@ class Localization;
  *
  * Patron identique à `KeybindingsWidget` (touches de jeu) : chaque action affiche sa touche
  * courante, cliquer capture la **prochaine touche pressée** (échange auto si déjà prise),
- * persistée immédiatement dans le fichier partagé. `bindingsChanged` signale à l'appelant de
- * resynchroniser les raccourcis effectifs des `QAction` (`hmi::EditorActions::applyShortcuts`),
- * sans quoi un remappage ici resterait invisible dans le menu/la barre d'outils — exactement le
- * défaut que ce lot corrige.
+ * persistée immédiatement dans le fichier partagé. `bindingsChanged` **oblige** l'appelant à
+ * resynchroniser les raccourcis effectifs des `QAction` (`hmi::EditorActions::applyShortcuts`) :
+ * ce widget écrit la liaison, il ne touche pas aux actions, et un remappage non resynchronisé
+ * resterait invisible dans le menu et la barre d'outils.
  */
 class EditorKeybindingsWidget : public QWidget {
     Q_OBJECT

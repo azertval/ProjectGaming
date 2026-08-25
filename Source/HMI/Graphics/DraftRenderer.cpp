@@ -217,8 +217,8 @@ void DraftRenderer::composeGrid(const core::LevelDraft& draft) {
     }
 
     // Frontieres de salles (RoomGrid, LOT-32), a la taille RESOLUE du niveau (LOT-64 : reglable,
-    // valeurs par defaut sinon -- jamais les seules constantes desormais, memes remarque que
-    // composeCameraFraming ci-dessous pour le mode "par salle") : plus epaisses, teinte ambre.
+    // valeurs par defaut sinon) : plus epaisses, teinte ambre. Meme remarque que
+    // composeCameraFraming pour le mode "par salle".
     const core::CameraFramingConfig& framing = draft.cameraFraming();
     const int roomWidthTiles = framing.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles);
     const int roomHeightTiles = framing.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles);

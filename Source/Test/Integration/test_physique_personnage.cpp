@@ -2285,10 +2285,10 @@ TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantL
         const float minTop = minTopYReached(core::TileType::ConcaveDownLeft, startX, -1.0f);
         EXPECT_GT(minTop, 2.9f) << "ConcaveDownLeft, offset=" << offset << " (marche a gauche)";
     }
-    // Même défaut, même correctif générique (indépendant du type de tuile) : vérifié aussi sur les
-    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de
-    // ce lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
-    // l'autre » (`h = x` / `h = 1 - x`), même mécanisme de disparition de colonne en marchant.
+    // Même SILHOUETTE, donc même règle : les pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`)
+    // sont épaisses d'un côté et fines de l'autre (`h = x` / `h = 1 - x`), comme les arrondis
+    // concaves ci-dessus. La règle ne dépend pas du type de tuile mais de cette silhouette, d'où
+    // la vérification sur les deux familles.
     for (float offset = 0.60f; offset <= 0.95f; offset += 0.05f) {
         const float startX = static_cast<float>(CEILING_COLUMN) + offset;
         const float minTop = minTopYReached(core::TileType::SlopeDownRight, startX, 1.0f);

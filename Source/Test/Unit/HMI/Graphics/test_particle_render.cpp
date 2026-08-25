@@ -21,7 +21,10 @@ hmi::TextureHandle texture = &textureStorage;
 hmi::SceneTextures testTextures() {
     hmi::SceneTextures textures;
     textures.atlas = texture;
-    textures.atlasWidth = 80;  // 5 colonnes x 16 px (hmi::TextureAtlas::TILES_PER_SIDE)
+    // Atlas FICTIF de 5 x 10 tuiles de 16 px, volontairement independant de
+    // hmi::TextureAtlas::TILES_PER_SIDE : ce test verifie le decoupage des quads de particules a
+    // partir d'une region deja calculee, jamais la geometrie de l'atlas reel.
+    textures.atlasWidth = 80;
     textures.atlasHeight = 160;
     return textures;
 }
