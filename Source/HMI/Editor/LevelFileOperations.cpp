@@ -17,24 +17,24 @@ namespace hmi {
 namespace {
 
 // Charge un niveau, en fait un brouillon renommé, valide, écrit à `target`. Facteur commun à
-// rename/duplicate. Renvoie un FileOpResult (jamais d'exception).
-[[nodiscard]] FileOpResult writeRenamed(const std::filesystem::path& source,
-                                        const std::string& newName,
-                                        const std::filesystem::path& target) {
+// rename/duplicate. Renvoie un FileOperationResult (jamais d'exception).
+[[nodiscard]] FileOperationResult writeRenamed(const std::filesystem::path& source,
+                                               const std::string& newName,
+                                               const std::filesystem::path& target) {
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(source);
     if (!loaded.ok()) {
-        return FileOpResult::failure("Niveau source illisible : " + loaded.error);
+        return FileOperationResult::failure("Niveau source illisible : " + loaded.error);
     }
     core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
     draft.setName(newName);
     core::LevelLoadResult validated = draft.toLevel();
     if (!validated.ok()) {
-        return FileOpResult::failure("Niveau invalide : " + validated.error);
+        return FileOperationResult::failure("Niveau invalide : " + validated.error);
     }
     if (!core::LevelWriter::saveToFile(*validated.level, target)) {
-        return FileOpResult::failure("Échec de l'écriture du fichier.");
+        return FileOperationResult::failure("Échec de l'écriture du fichier.");
     }
-    return FileOpResult::success(target);
+    return FileOperationResult::success(target);
 }
 
 }  // namespace
@@ -70,18 +70,19 @@ std::vector<std::filesystem::path> LevelFileOperations::list() const {
     return levels;
 }
 
-FileOpResult LevelFileOperations::create(const std::string& name, int width, int height) const {
+FileOperationResult LevelFileOperations::create(const std::string& name, int width,
+                                                int height) const {
     const std::string trimmed = hmi::trimLevelName(name);
     if (!hmi::isValidLevelName(name)) {
-        return FileOpResult::failure("Nom de niveau invalide.");
+        return FileOperationResult::failure("Nom de niveau invalide.");
     }
     if (width < 2 || height < 1) {
-        return FileOpResult::failure("Dimensions trop petites.");
+        return FileOperationResult::failure("Dimensions trop petites.");
     }
     const std::filesystem::path target = pathForName(trimmed);
     std::error_code error;
     if (std::filesystem::exists(target, error)) {
-        return FileOpResult::failure("Un niveau porte déjà ce nom.");
+        return FileOperationResult::failure("Un niveau porte déjà ce nom.");
     }
     // Niveau minimal valide : grille vide + une entrée et une sortie distinctes (coins bas).
     core::LevelDraft draft = core::LevelDraft::empty(trimmed, width, height);
@@ -89,39 +90,39 @@ FileOpResult LevelFileOperations::create(const std::string& name, int width, int
     draft.setExit(width - 1, height - 1);
     core::LevelLoadResult validated = draft.toLevel();
     if (!validated.ok()) {
-        return FileOpResult::failure("Niveau invalide : " + validated.error);
+        return FileOperationResult::failure("Niveau invalide : " + validated.error);
     }
     if (!core::LevelWriter::saveToFile(*validated.level, target)) {
-        return FileOpResult::failure("Échec de l'écriture du fichier.");
+        return FileOperationResult::failure("Échec de l'écriture du fichier.");
     }
-    return FileOpResult::success(target);
+    return FileOperationResult::success(target);
 }
 
-FileOpResult LevelFileOperations::rename(const std::filesystem::path& source,
-                                         const std::string& newName) const {
+FileOperationResult LevelFileOperations::rename(const std::filesystem::path& source,
+                                                const std::string& newName) const {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
-        return FileOpResult::failure("Niveau introuvable.");
+        return FileOperationResult::failure("Niveau introuvable.");
     }
     const std::string trimmed = hmi::trimLevelName(newName);
     if (!hmi::isValidLevelName(newName)) {
-        return FileOpResult::failure("Nom de niveau invalide.");
+        return FileOperationResult::failure("Nom de niveau invalide.");
     }
     const std::filesystem::path target = pathForName(trimmed);
     if (target != source && std::filesystem::exists(target, error)) {
-        return FileOpResult::failure("Un niveau porte déjà ce nom.");
+        return FileOperationResult::failure("Un niveau porte déjà ce nom.");
     }
-    const FileOpResult written = writeRenamed(source, trimmed, target);
-    if (written.ok && target != source) {
+    const FileOperationResult written = writeRenamed(source, trimmed, target);
+    if (written.ok() && target != source) {
         std::filesystem::remove(source, error);  // retire l'ancien fichier (échec non bloquant).
     }
     return written;
 }
 
-FileOpResult LevelFileOperations::duplicate(const std::filesystem::path& source) const {
+FileOperationResult LevelFileOperations::duplicate(const std::filesystem::path& source) const {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
-        return FileOpResult::failure("Niveau introuvable.");
+        return FileOperationResult::failure("Niveau introuvable.");
     }
     const std::string base = source.stem().string();
     // Cherche un nom de copie disponible : « base (copie) », « base (copie 2) », …
@@ -132,15 +133,15 @@ FileOpResult LevelFileOperations::duplicate(const std::filesystem::path& source)
     return writeRenamed(source, candidate, pathForName(candidate));
 }
 
-FileOpResult LevelFileOperations::remove(const std::filesystem::path& source) {
+FileOperationResult LevelFileOperations::remove(const std::filesystem::path& source) {
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
-        return FileOpResult::failure("Niveau introuvable.");
+        return FileOperationResult::failure("Niveau introuvable.");
     }
     if (!std::filesystem::remove(source, error)) {
-        return FileOpResult::failure("Échec de la suppression.");
+        return FileOperationResult::failure("Échec de la suppression.");
     }
-    return FileOpResult::success(source);
+    return FileOperationResult::success(source);
 }
 
 }  // namespace hmi

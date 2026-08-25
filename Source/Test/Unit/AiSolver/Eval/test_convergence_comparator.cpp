@@ -18,28 +18,28 @@
 
 #include <gtest/gtest.h>
 
+#include "../Training/TrivialLevelFixture.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
+#include "AiSolver/Eval/ConvergenceComparator.h"
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
-#include "AiSolver/Training/ActorCritic/ConvergenceComparator.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
-#include "TrivialLevelFixture.h"
 
 using aisolver::EnvironmentConfig;
 using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
 using aisolver::Rng;
 using aisolver::TrainingStatsRecorder;
+using aisolver::eval::analyzeRun;
+using aisolver::eval::compareConvergence;
 using aisolver::optim::Sgd;
 using aisolver::training::ActorCriticConfig;
 using aisolver::training::ActorCriticTrainer;
-using aisolver::training::analyzeRun;
-using aisolver::training::compareConvergence;
 using aisolver::training::CriticNetwork;
 using aisolver::training::ReinforceConfig;
 using aisolver::training::ReinforceTrainer;
@@ -301,7 +301,7 @@ void writeRawCsv(const std::filesystem::path& path, const std::string& content) 
  */
 TEST(ConvergenceComparatorTest, FichierAbsentRendDesMetriquesNeutres) {
     const std::filesystem::path directory = syntheticDirectory("absent");
-    const aisolver::training::RunConvergenceMetrics metrics =
+    const aisolver::eval::RunConvergenceMetrics metrics =
         analyzeRun(directory / "inexistant.csv", 5.0f, 10);
 
     EXPECT_FALSE(metrics.episodesToThreshold.has_value());
@@ -326,7 +326,7 @@ TEST(ConvergenceComparatorTest, EnTeteSansColonneBestRewardRendDesMetriquesNeutr
     const std::filesystem::path csv = syntheticDirectory("entete") / "run.csv";
     writeRawCsv(csv, "index,meanReward\n0,10\n1,20\n2,30\n");
 
-    const aisolver::training::RunConvergenceMetrics metrics = analyzeRun(csv, 5.0f, 10);
+    const aisolver::eval::RunConvergenceMetrics metrics = analyzeRun(csv, 5.0f, 10);
 
     EXPECT_FALSE(metrics.episodesToThreshold.has_value());
     EXPECT_FLOAT_EQ(metrics.finalWindowMeanReward, 0.0f);
@@ -347,7 +347,7 @@ TEST(ConvergenceComparatorTest, LigneTronqueeIgnoreeSansPerdreLeResteDuFichier) 
     const std::filesystem::path csv = syntheticDirectory("tronquee") / "run.csv";
     writeRawCsv(csv, "index,bestReward\n0,10\n1\n2,20\n");
 
-    const aisolver::training::RunConvergenceMetrics metrics = analyzeRun(csv, 15.0f, 10);
+    const aisolver::eval::RunConvergenceMetrics metrics = analyzeRun(csv, 15.0f, 10);
 
     EXPECT_FLOAT_EQ(metrics.finalWindowMeanReward, 15.0f);
     ASSERT_TRUE(metrics.episodesToThreshold.has_value());
@@ -369,7 +369,7 @@ TEST(ConvergenceComparatorTest, ChampNonNumeriqueIgnoreSansPerdreLeResteDuFichie
     const std::filesystem::path csv = syntheticDirectory("non_numerique") / "run.csv";
     writeRawCsv(csv, "index,bestReward\n0,10\nabc,abc\n2,20\n");
 
-    const aisolver::training::RunConvergenceMetrics metrics = analyzeRun(csv, 15.0f, 10);
+    const aisolver::eval::RunConvergenceMetrics metrics = analyzeRun(csv, 15.0f, 10);
 
     EXPECT_FLOAT_EQ(metrics.finalWindowMeanReward, 15.0f);
     ASSERT_TRUE(metrics.episodesToThreshold.has_value());

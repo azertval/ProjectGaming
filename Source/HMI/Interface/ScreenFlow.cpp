@@ -46,7 +46,7 @@ ScreenDressing dressingFor(ScreenId screen) noexcept {
                                   .gamepadNavigationActive = true,
                                   .overlayVisible = false};
         case ScreenId::Pause:
-        case ScreenId::NiveauTermine:
+        case ScreenId::LevelComplete:
             // Recouvrement par-dessus Game (EX-GP-041, TACHE-02) : même habillage que Game (la
             // scène reste dessinée derrière), sauf navigation manette (menu de recouvrement,
             // pas de personnage à piloter) et overlayVisible.
@@ -132,7 +132,7 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = ScreenId::Pause,
                                        .optionsReturnTo = ScreenId::Menu};
                 case ScreenEvent::LevelSucceeded:
-                    return ScreenState{.screen = ScreenId::NiveauTermine,
+                    return ScreenState{.screen = ScreenId::LevelComplete,
                                        .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
@@ -158,7 +158,7 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                 default:
                     return std::nullopt;
             }
-        case ScreenId::NiveauTermine:
+        case ScreenId::LevelComplete:
             switch (event) {
                 case ScreenEvent::ContinueAfterLevel:
                 case ScreenEvent::ReplayLevel:

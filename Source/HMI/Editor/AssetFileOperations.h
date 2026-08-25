@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "HMI/Editor/LevelFileOperations.h"  // hmi::FileOpResult (résultat partagé)
+#include "HMI/Editor/FileOperationResult.h"
 #include "HMI/Graphics/AssetContract.h"
 
 /**
@@ -22,8 +22,8 @@ namespace hmi {
  * @brief Opérations sur les fichiers d'un dossier d'assets, **sans dépendance Qt/GPU**.
  *
  * Pendant exact de `hmi::LevelFileOperations`, dont elle réutilise le type de résultat
- * (`hmi::FileOpResult`) : même contrat, jamais d'exception vers l'appelant (`EX-NFR-040`), chaque
- * opération renvoie un résultat exploitable (`EX-NFR-010`).
+ * (`hmi::FileOperationResult`) : même contrat, jamais d'exception vers l'appelant (`EX-NFR-040`),
+ * chaque opération renvoie un résultat exploitable (`EX-NFR-010`).
  *
  * Deux différences avec les niveaux justifient une classe séparée plutôt qu'une réutilisation
  * directe :
@@ -57,18 +57,19 @@ public:
      * @param decodedHeight  Hauteur de l'image déjà décodée, en pixels.
      * @return Le résultat, avec le chemin copié en cas de succès.
      */
-    [[nodiscard]] FileOpResult import(const std::filesystem::path& sourceFile, AssetFamily family,
-                                      int decodedWidth, int decodedHeight) const;
+    [[nodiscard]] FileOperationResult import(const std::filesystem::path& sourceFile,
+                                             AssetFamily family, int decodedWidth,
+                                             int decodedHeight) const;
 
     /// Renomme le fichier @p source en @p newStem, en conservant son extension d'origine.
-    [[nodiscard]] FileOpResult rename(const std::filesystem::path& source,
-                                      const std::string& newStem) const;
+    [[nodiscard]] FileOperationResult rename(const std::filesystem::path& source,
+                                             const std::string& newStem) const;
 
     /// Duplique @p source sous un nom unique (« … (copie) », « … (copie 2) », …).
-    [[nodiscard]] FileOpResult duplicate(const std::filesystem::path& source) const;
+    [[nodiscard]] FileOperationResult duplicate(const std::filesystem::path& source) const;
 
     /// Supprime le fichier @p source.
-    [[nodiscard]] static FileOpResult remove(const std::filesystem::path& source);
+    [[nodiscard]] static FileOperationResult remove(const std::filesystem::path& source);
 
 private:
     /// Chemin d'un nom de fichier (sans extension) dans le dossier géré, avec l'extension donnée.

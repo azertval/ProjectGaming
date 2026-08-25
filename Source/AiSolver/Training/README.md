@@ -11,7 +11,7 @@ distingue est la façon dont elles cherchent, pas ce qu'elles cherchent.
 | `Evolutionary/` | Algorithme **évolutionniste** : sélection par tournoi, croisement, mutation gaussienne, élitisme. Le chemin le plus court vers un agent qui finit réellement un niveau, et la ligne de base de tout le reste. |
 | `PolicyGradient/` | **REINFORCE** : collecte de trajectoires, retour actualisé par pas, perte construite comme un graphe d'autodiff. |
 | `ActorCritic/` | **Acteur-critique** : réduit la variance en soustrayant au retour une valeur d'état apprise (l'*avantage*). |
-| `Advanced/` | **DQN** : réseau de valeur d'action, tampon de rejeu, réseau cible, exploration ε-décroissante. |
+| `Dqn/` | **DQN** : réseau de valeur d'action, tampon de rejeu, réseau cible, exploration ε-décroissante. |
 
 Pièces communes, à la racine du dossier :
 - `LevelTrainingSession` — boucle d'entraînement pour un unique niveau, avec critère d'arrêt.

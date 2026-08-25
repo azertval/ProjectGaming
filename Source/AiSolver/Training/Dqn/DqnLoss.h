@@ -6,11 +6,11 @@
 #include <vector>
 
 #include "AiSolver/Math/Autodiff/Node.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
-#include "AiSolver/Training/Advanced/ReplayBuffer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
+#include "AiSolver/Training/Dqn/ReplayBuffer.h"
 
 /**
- * @file AiSolver/Training/Advanced/DqnLoss.h
+ * @file AiSolver/Training/Dqn/DqnLoss.h
  * @brief Perte de Bellman (erreur quadratique) de DQN (`LOT-ANNEXE-14`, TACHE-01, `EX-IA-015`).
  */
 

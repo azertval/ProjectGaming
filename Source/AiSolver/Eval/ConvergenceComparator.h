@@ -9,7 +9,7 @@
 #include <vector>
 
 /**
- * @file AiSolver/Training/ActorCritic/ConvergenceComparator.h
+ * @file AiSolver/Eval/ConvergenceComparator.h
  * @brief Comparaison chiffrée de convergence entre plusieurs runs d'un même algorithme, à partir
  * des CSV `TrainingStatsRecorder` (`LOT-ANNEXE-13`, TACHE-04, `EX-IA-014`).
  *
@@ -21,7 +21,7 @@
  * rester robuste à un ajout de colonne futur dans `Stats/CsvFormat.h`.
  */
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 /// Métriques de convergence d'un unique run (un CSV).
 struct RunConvergenceMetrics {
@@ -68,4 +68,4 @@ struct ConvergenceReport {
     const std::vector<std::filesystem::path>& csvPaths, float rewardThreshold,
     int finalWindowSize = 10);
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

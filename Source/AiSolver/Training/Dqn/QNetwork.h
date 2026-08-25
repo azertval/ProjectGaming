@@ -12,7 +12,7 @@
 #include "AiSolver/Nn/Network.h"
 
 /**
- * @file AiSolver/Training/Advanced/QNetwork.h
+ * @file AiSolver/Training/Dqn/QNetwork.h
  * @brief Réseau de valeur d'action `Q(s, ·)` (`LOT-ANNEXE-14`, TACHE-01, `EX-IA-015`).
  */
 

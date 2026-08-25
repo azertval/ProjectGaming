@@ -47,8 +47,8 @@ struct ActorCriticConfig {
  * partagé (`Stats/TrainingStatsRecorder.h`, volontairement agnostique de tout algorithme, cf. son
  * en-tête), la perte du critique est journalisée dans un fichier CSV **séparé**, minimal
  * (`index,criticLoss`), optionnel. `TrainingStatsRecorder` continue de recevoir des lignes de
- * schéma strictement identique à `ReinforceTrainer` : `ConvergenceComparator` (TACHE-04) peut donc
- * lire les runs des deux algorithmes sans aucun traitement spécial de colonnes.
+ * schéma strictement identique à `ReinforceTrainer` : `eval::ConvergenceComparator` (TACHE-04) peut
+ * donc lire les runs des deux algorithmes sans aucun traitement spécial de colonnes.
  */
 class ActorCriticTrainer {
 public:

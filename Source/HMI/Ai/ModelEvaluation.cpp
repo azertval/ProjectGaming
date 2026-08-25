@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "HMI/Ai/EvaluationHelper.h"
+#include "HMI/Ai/ModelEvaluation.h"
 
 #include <memory>
 
@@ -18,7 +18,7 @@
 #include "AiSolver/Math/Rng.h"
 #include "AiSolver/Nn/Network.h"
 #include "AiSolver/Nn/Serialization.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 
 namespace hmi {

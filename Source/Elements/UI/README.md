@@ -18,4 +18,4 @@ Assets **Qt déclaratifs** de l'IHM, éditables hors code (Qt Designer) et compi
 > Piège XML : `--` est **interdit à l'intérieur d'un commentaire**, et `uic` le refuse sans
 > indulgence. Employer le tiret cadratin.
 - `resources.qrc` — ressource Qt embarquée ; référence le thème `../Themes/theme.qss` (alias
-  `:/resources/theme.qss`, chargé par `HMI/main.cpp`).
+  `:/resources/theme.qss`, chargé par `HMI/Main.cpp`).

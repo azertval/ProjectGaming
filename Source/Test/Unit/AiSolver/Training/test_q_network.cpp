@@ -10,7 +10,7 @@
 
 #include "AiSolver/Env/ActionSpace.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 
 using aisolver::actionCount;
 using aisolver::Rng;

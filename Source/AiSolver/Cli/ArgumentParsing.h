@@ -9,7 +9,7 @@
 #include <vector>
 
 /**
- * @file AiSolver/Cli/ArgParsing.h
+ * @file AiSolver/Cli/ArgumentParsing.h
  * @brief Analyse minimale d'arguments `--nom valeur` maison (`LOT-ANNEXE-19`, TACHE-01,
  * `EX-IA-020`), sans dépendance tierce.
  */

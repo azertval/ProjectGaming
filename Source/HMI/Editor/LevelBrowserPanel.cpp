@@ -32,8 +32,8 @@ constexpr int PATH_ROLE = Qt::UserRole + 1;
 }
 
 // Signale l'échec éventuel d'une opération à l'utilisateur (jamais silencieux) et le journalise.
-void reportIfError(QWidget* parent, const QString& title, const FileOpResult& result) {
-    if (!result.ok) {
+void reportIfError(QWidget* parent, const QString& title, const FileOperationResult& result) {
+    if (!result.ok()) {
         HMI_LOG_WARNING("Niveaux : operation fichier echouee : " + result.error);
         QMessageBox::warning(parent, title, QString::fromStdString(result.error));
     }
@@ -99,8 +99,8 @@ void LevelBrowserPanel::onNew() {
         return;
     }
     const LevelFileOperations ops(_dir);
-    const FileOpResult result = ops.create(name.toStdString(), 24, 14);  // taille par défaut
-    if (result.ok) {
+    const FileOperationResult result = ops.create(name.toStdString(), 24, 14);  // taille par défaut
+    if (result.ok()) {
         HMI_LOG_INFO("Niveaux : cree « " + name.toStdString() + " ».");
     }
     reportIfError(this, t(_loc, "level.operation_failed"), result);

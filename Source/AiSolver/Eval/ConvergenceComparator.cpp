@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/ActorCritic/ConvergenceComparator.h"
+#include "AiSolver/Eval/ConvergenceComparator.h"
 
 #include <algorithm>
 #include <cmath>
@@ -11,7 +11,7 @@
 
 #include "Core/Diagnostics/Assert.h"
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 namespace {
 
@@ -152,4 +152,4 @@ ConvergenceReport compareConvergence(const std::vector<std::filesystem::path>& c
     return report;
 }
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

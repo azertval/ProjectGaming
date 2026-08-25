@@ -7,7 +7,7 @@
 #include <optional>
 
 /**
- * @file HMI/Ai/EvaluationHelper.h
+ * @file HMI/Ai/ModelEvaluation.h
  * @brief Évaluation d'un modèle entraîné depuis l'onglet Validation & sauvegarde
  * (`LOT-ANNEXE-21`, `EX-IA-022`) : seule fonction libre de `HMI/Ai` en dehors de
  * `TrainingWorker` — même portée d'amendement documentée dans l'epic du lot (`HMI/Ai`

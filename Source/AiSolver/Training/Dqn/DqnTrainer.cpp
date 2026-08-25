@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
 
 #include <limits>
 
@@ -10,7 +10,7 @@
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Env/Reward.h"
 #include "AiSolver/Math/Autodiff/Node.h"
-#include "AiSolver/Training/Advanced/DqnLoss.h"
+#include "AiSolver/Training/Dqn/DqnLoss.h"
 #include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "Core/Diagnostics/Assert.h"
 #include "Core/Physics/PlayerSpawn.h"

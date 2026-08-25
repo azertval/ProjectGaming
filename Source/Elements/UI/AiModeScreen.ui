@@ -47,7 +47,7 @@
            <item><widget class="QRadioButton" name="algoEvoRadio"><property name="text"><string>Évolutif</string></property><property name="checked"><bool>true</bool></property></widget></item>
            <item><widget class="QRadioButton" name="algoPgRadio"><property name="text"><string>REINFORCE</string></property></widget></item>
            <item><widget class="QRadioButton" name="algoAcRadio"><property name="text"><string>Acteur-critique</string></property></widget></item>
-           <item><widget class="QRadioButton" name="algoAvanceRadio"><property name="text"><string>DQN</string></property></widget></item>
+           <item><widget class="QRadioButton" name="advancedAlgorithmRadio"><property name="text"><string>DQN</string></property></widget></item>
           </layout>
          </item>
 
