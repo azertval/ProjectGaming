@@ -196,3 +196,50 @@ TEST(SerializationTest, RejetFichierAbsent) {
 
     EXPECT_FALSE(aisolver::nn::loadWeights(*network, tempDir.filePath("n_existe_pas.ainn")));
 }
+
+/**
+ * @brief Un fichier annoncant des dimensions qu'il ne porte pas est refuse sans allouer.
+ * \castest{<b>Serialization : rejet d'une forme surdimensionnee, sans allocation geante.</b><br/>
+ * \tcat Unitaire · Nn<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire un fichier valide en entete, dont le premier tenseur annonce un rang
+ * aberrant.<br/>2. Recommencer avec un rang correct mais une dimension enorme, sans les valeurs
+ * correspondantes.<br/>3. `loadWeights` sur les deux.<br/>
+ * \tattendu Les deux fichiers sont refuses. Rang et dimensions viennent du fichier : sans
+ * validation prealable, une forme aberrante dimensionnerait l'allocation avant meme que la lecture
+ * n'echoue.}
+ */
+TEST(SerializationTest, RejetFormeSurdimensionneeSansAllouer) {
+    TempDirectory tempDir;
+
+    const auto writeHeader = [](std::ofstream& stream, std::uint32_t layerCount) {
+        stream.write(reinterpret_cast<const char*>(&aisolver::nn::WEIGHTS_FILE_MAGIC),
+                     sizeof(std::uint32_t));
+        stream.write(reinterpret_cast<const char*>(&aisolver::nn::WEIGHTS_FILE_VERSION),
+                     sizeof(std::uint32_t));
+        stream.write(reinterpret_cast<const char*>(&layerCount), sizeof(layerCount));
+    };
+
+    const std::filesystem::path rangAberrant = tempDir.filePath("rang_aberrant.ainn");
+    {
+        std::ofstream stream(rangAberrant, std::ios::binary);
+        writeHeader(stream, 1);
+        const std::uint64_t rank = 1ULL << 40;
+        stream.write(reinterpret_cast<const char*>(&rank), sizeof(rank));
+    }
+
+    const std::filesystem::path dimensionEnorme = tempDir.filePath("dimension_enorme.ainn");
+    {
+        std::ofstream stream(dimensionEnorme, std::ios::binary);
+        writeHeader(stream, 1);
+        const std::uint64_t rank = 2;
+        const std::uint64_t huge = 1ULL << 40;
+        stream.write(reinterpret_cast<const char*>(&rank), sizeof(rank));
+        stream.write(reinterpret_cast<const char*>(&huge), sizeof(huge));
+        stream.write(reinterpret_cast<const char*>(&huge), sizeof(huge));
+    }
+
+    std::unique_ptr<Network> network = buildNetwork(8008);
+    EXPECT_FALSE(aisolver::nn::loadWeights(*network, rangAberrant));
+    EXPECT_FALSE(aisolver::nn::loadWeights(*network, dimensionEnorme));
+}

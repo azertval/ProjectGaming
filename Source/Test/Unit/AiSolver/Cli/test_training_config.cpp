@@ -14,6 +14,7 @@
 #include <gtest/gtest.h>
 
 #include "AiSolver/Cli/TrainingConfig.h"
+#include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 
 using aisolver::cli::CommandLineOverrides;
 using aisolver::cli::loadTrainingConfig;
@@ -134,4 +135,57 @@ TEST(WriteTrainingConfigJsonTest, EcritUneConfigurationRelueEtIdentique) {
     EXPECT_FLOAT_EQ(reloaded.gamma, 0.87f);
     EXPECT_EQ(reloaded.optimizer, "adam");
     std::filesystem::remove(path);
+}
+
+/**
+ * @brief Une valeur du mauvais type dans le fichier laisse le defaut en place, sans lever.
+ * \castest{Valeur JSON du mauvais type -> defaut conserve, aucune exception.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Ecrire un fichier ou `gamma` est une chaine et `episodes` un booleen.<br/>2.
+ * `loadTrainingConfig` sur ce fichier.<br/>
+ * \tattendu Les deux champs gardent leur valeur par defaut, le champ bien type du meme fichier est
+ * pris en compte, et aucune exception ne franchit la frontiere du module (`EX-NFR-040`).}
+ */
+TEST(LoadTrainingConfigTest, ValeurDuMauvaisTypeIgnoreeSansLever) {
+    const std::filesystem::path path = scratchFile("mauvais_type.json");
+    {
+        std::ofstream file(path);
+        file << R"({"gamma": "abc", "episodes": true, "optimizer": "adam"})";
+    }
+    const TrainingConfig defaults;
+
+    const TrainingConfig loaded = loadTrainingConfig(path, CommandLineOverrides{});
+
+    EXPECT_FLOAT_EQ(loaded.gamma, defaults.gamma);
+    EXPECT_EQ(loaded.episodes, defaults.episodes);
+    EXPECT_EQ(loaded.optimizer, "adam");  // le champ bien type du meme fichier reste lu
+    std::filesystem::remove(path);
+}
+
+/**
+ * @brief La taille de couche cachee d'un modele est relue dans le `config.json` de son run.
+ * \castest{Taille de couche cachee resolue depuis le config.json voisin du modele.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Ecrire un `config.json` portant une `hiddenSize` differente du defaut, dans un
+ * dossier de run.<br/>2. Appeler `hiddenSizeForModel` sur le chemin d'un modele de ce
+ * dossier.<br/>3. Recommencer sans `config.json`.<br/>
+ * \tattendu La taille du fichier est renvoyee, et le defaut documente lorsque le fichier est
+ * absent — sans quoi tout modele entraine avec une autre taille serait irrecuperable.}
+ */
+TEST(HiddenSizeForModelTest, ResolueDepuisLeConfigDuRunSinonDefaut) {
+    const std::filesystem::path runDir = scratchFile("run_hidden_size");
+    std::filesystem::create_directories(runDir);
+    const std::filesystem::path model = runDir / "model.bin";
+
+    TrainingConfig config;
+    config.hiddenSize = aisolver::training::evolutionary::DEFAULT_HIDDEN_SIZE + 9;
+    ASSERT_TRUE(writeTrainingConfigJson(config, runDir / "config.json"));
+    EXPECT_EQ(aisolver::cli::hiddenSizeForModel(model), config.hiddenSize);
+
+    std::filesystem::remove(runDir / "config.json");
+    EXPECT_EQ(aisolver::cli::hiddenSizeForModel(model),
+              aisolver::training::evolutionary::DEFAULT_HIDDEN_SIZE);
+    std::filesystem::remove_all(runDir);
 }

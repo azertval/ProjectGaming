@@ -106,7 +106,7 @@ TEST(LevelTrainingSessionTest, ArretParPlafondDeGenerations) {
 TEST(LevelTrainingSessionTest, ReinitialisationDuCompteurDeSuccesConsecutifs) {
     // Trois succès consecutifs du meme champion : le compteur progresse.
     int counter = 0;
-    counter = updateConsecutiveStableWins(counter, /*sameChampionAsBefore=*/false,
+    counter = updateConsecutiveStableWins(counter, /*sameFitnessAsBefore=*/false,
                                           /*resolvingNow=*/true);
     EXPECT_EQ(counter, 1);
     counter = updateConsecutiveStableWins(counter, true, true);
@@ -115,13 +115,13 @@ TEST(LevelTrainingSessionTest, ReinitialisationDuCompteurDeSuccesConsecutifs) {
     EXPECT_EQ(counter, 3);
 
     // Un nouveau champion qui resout aussi : rupture, redemarre a 1 (pas de progression a tort).
-    counter = updateConsecutiveStableWins(counter, /*sameChampionAsBefore=*/false,
+    counter = updateConsecutiveStableWins(counter, /*sameFitnessAsBefore=*/false,
                                           /*resolvingNow=*/true);
     EXPECT_EQ(counter, 1);
 
     // Le meme champion, mais qui ne resout plus (ne devrait jamais arriver en pratique puisque
     // deterministe, mais la fonction doit rester correcte) : remis a zero.
-    counter = updateConsecutiveStableWins(counter, /*sameChampionAsBefore=*/true,
+    counter = updateConsecutiveStableWins(counter, /*sameFitnessAsBefore=*/true,
                                           /*resolvingNow=*/false);
     EXPECT_EQ(counter, 0);
 }

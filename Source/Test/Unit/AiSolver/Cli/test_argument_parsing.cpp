@@ -233,3 +233,28 @@ TEST(ParseExportReplayArgsTest, AnalyseUnAppelValide) {
     EXPECT_EQ(parsed->algo, "avance");
     EXPECT_EQ(parsed->seed, 3u);
 }
+
+/**
+ * @brief Une valeur numerique invalide produit un message d'usage, jamais un plantage.
+ * \castest{Argument numerique invalide -> refus explicite, aucune exception.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. `parseTrainArgs` avec `--seed abc`.<br/>2. Recommencer avec `--seed 12abc`, qui
+ * commence par un nombre sans en etre un.<br/>
+ * \tattendu Les deux appels renvoient `std::nullopt` avec un message citant l'option et la valeur
+ * recue — `std::stoull` levait une exception non rattrapee, qui terminait le processus.}
+ */
+TEST(ParseTrainArgsTest, ValeurNumeriqueInvalideRefuseeSansLever) {
+    std::string error;
+    const std::optional<TrainArgs> lettres =
+        parseTrainArgs({"--level", "n.json", "--algo", "evo", "--seed", "abc"}, error);
+    EXPECT_FALSE(lettres.has_value());
+    EXPECT_NE(error.find("--seed"), std::string::npos) << error;
+    EXPECT_NE(error.find("abc"), std::string::npos) << error;
+
+    error.clear();
+    const std::optional<TrainArgs> partiel =
+        parseTrainArgs({"--level", "n.json", "--algo", "evo", "--seed", "12abc"}, error);
+    EXPECT_FALSE(partiel.has_value()) << "une valeur partiellement numerique doit etre refusee";
+    EXPECT_FALSE(error.empty());
+}

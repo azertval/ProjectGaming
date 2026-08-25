@@ -3,6 +3,7 @@
 
 #include "AiSolver/Nn/Serialization.h"
 
+#include <cstdint>
 #include <fstream>
 #include <utility>
 #include <vector>
@@ -38,21 +39,59 @@ bool readUint64(std::ifstream& stream, std::uint64_t& value) {
     return static_cast<bool>(stream);
 }
 
+/// Rang maximal accepté à la lecture. Le format n'écrit que des tenseurs de rang 1 (biais) ou 2
+/// (poids) ; la marge couvre une évolution du format sans jamais laisser un fichier corrompu
+/// dimensionner une allocation.
+constexpr std::uint64_t MAX_TENSOR_RANK = 4;
+
+/// @return Nombre d'octets restant à lire dans @p stream, position courante rétablie.
+std::streamoff remainingBytes(std::ifstream& stream) {
+    const std::streampos current = stream.tellg();
+    stream.seekg(0, std::ios::end);
+    const std::streampos end = stream.tellg();
+    stream.seekg(current);
+    return end - current;
+}
+
 /// Lit une forme (rang puis dimensions) et les valeurs brutes qui suivent ; échoue proprement
 /// (retourne `false`, `tensor` non modifié) sur flux tronqué, sans jamais lancer.
+///
+/// Rang et dimensions viennent du fichier : un fichier corrompu annonçant un rang énorme, ou des
+/// dimensions dont le produit dépasse la mémoire, provoquerait une allocation gigantesque **avant**
+/// que la lecture n'échoue. Les deux sont donc validés d'abord -- le rang contre une borne, la
+/// taille annoncée contre ce que le fichier contient réellement.
 bool readTensor(std::ifstream& stream, Tensor<float>& tensor) {
     std::uint64_t rank = 0;
     if (!readUint64(stream, rank)) {
         return false;
     }
+    if (rank == 0 || rank > MAX_TENSOR_RANK) {
+        return false;
+    }
     std::vector<std::size_t> shape(static_cast<std::size_t>(rank));
+    std::uint64_t elementCount = 1;
     for (std::uint64_t axis = 0; axis < rank; ++axis) {
         std::uint64_t dimension = 0;
         if (!readUint64(stream, dimension)) {
             return false;
         }
+        if (dimension == 0) {
+            return false;
+        }
+        // Produit borné avant multiplication : sinon un debordement rendrait la verification de
+        // taille ci-dessous inoperante.
+        if (dimension > UINT64_MAX / elementCount) {
+            return false;
+        }
+        elementCount *= dimension;
         shape[static_cast<std::size_t>(axis)] = static_cast<std::size_t>(dimension);
     }
+
+    const std::streamoff available = remainingBytes(stream);
+    if (available < 0 || elementCount > static_cast<std::uint64_t>(available) / sizeof(float)) {
+        return false;  // le fichier ne porte pas les valeurs qu'il annonce
+    }
+
     Tensor<float> loaded(shape);
     stream.read(reinterpret_cast<char*>(loaded.data()),
                 static_cast<std::streamsize>(loaded.size() * sizeof(float)));
