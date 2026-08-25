@@ -84,6 +84,28 @@ public:
         return _strides;
     }
 
+    /**
+     * @brief Le tenseur couvre-t-il son tampon dans l'ordre *row-major* naturel, sans trou ?
+     *
+     * Vrai pour tout tenseur construit par forme, et pour toute vue de même volume : leurs
+     * *strides* sont ceux de `detail::rowMajorStrides`. Faux dès qu'une vue permute ou saute des
+     * positions.
+     *
+     * Sert de **chemin rapide** aux parcours élément par élément (`TensorOps`) : quand il est vrai,
+     * l'élément de rang `n` est exactement `data()[n]`, et toute l'arithmétique d'indices
+     * multi-axes disparaît. Un faux négatif reste correct — il retombe sur le parcours général.
+     */
+    [[nodiscard]] bool isContiguous() const noexcept {
+        std::size_t expected = 1;
+        for (std::size_t axis = _shape.size(); axis-- > 0;) {
+            if (_strides[axis] != expected) {
+                return false;
+            }
+            expected *= _shape[axis];
+        }
+        return true;
+    }
+
     /// @return Nombre total d'éléments (produit des dimensions).
     [[nodiscard]] std::size_t size() const {
         return _buffer->size();

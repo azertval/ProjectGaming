@@ -88,6 +88,25 @@ versionné pendant des semaines sans qu'aucune Pull Request ne le signale.
 
 ### Qualité (audit de release)
 
+- **Cœur tensoriel : l'adressage sorti des boucles chaudes.** `Tensor::at()` reconstruisait une
+  `initializer_list`, déréférençait un `shared_ptr` puis relisait **deux `std::vector` du tas**
+  (formes et pas) à **chaque multiplication-addition** — or `matmul` en fait trois par itération
+  interne, et il est traversé une fois par couche à l'avant et deux fois à l'arrière, pour les
+  **quatre** algorithmes d'entraînement. Les pas sont désormais précalculés et le parcours se fait
+  sur pointeurs bruts ; `TensorOps` gagne symétriquement un **chemin contigu**
+  (`Tensor::isContiguous()`), où l'élément de rang *n* est simplement `data()[n]`.
+
+  L'ordre de boucle `i, j, p` est **conservé** : c'est lui qui fixe l'ordre des sommations
+  flottantes, donc le résultat **au bit près**. Aucune valeur attendue n'a été retouchée dans les
+  tests de reproductibilité — c'est la vérification qui distingue un recalcul supprimé d'un
+  changement de calcul. Mesuré en Debug :
+
+  | Mesure | Avant | Après |
+  |---|---|---|
+  | `DqnTrainerTest.ReproductibiliteIntegrale` | 6,3 s | **0,7 s** |
+  | Comparaison de convergence REINFORCE/acteur-critique | 42,8 s | **3,7 s** |
+  | Suite `UnitTests` complète (1 455 cas) | 549,9 s | **89,6 s** |
+
 - **Champ de distance mis en cache.** Le champ de plus court chemin qui alimente la récompense était
   reconstruit par un parcours en largeur complet **à chaque pas de simulation**, dans les cinq
   boucles d'entraînement. Or il ne dépend que de l'état ouvert/fermé des portes : il n'est
