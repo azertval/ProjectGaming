@@ -36,6 +36,8 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
     DeterministicReplayResult result;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
+    ObjectiveDistanceFieldCache distanceFieldCache;
+
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -47,9 +49,10 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
         result.steps.push_back(input);
 
         const StepObservation stepObservation = environment.step(input);
-        // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
-        const GridDistanceField distanceField =
-            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 

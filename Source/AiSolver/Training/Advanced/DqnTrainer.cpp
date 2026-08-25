@@ -3,7 +3,6 @@
 
 #include "AiSolver/Training/Advanced/DqnTrainer.h"
 
-#include <algorithm>
 #include <limits>
 
 #include "AiSolver/Env/ActionSpace.h"
@@ -89,6 +88,8 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         float totalReward = 0.0f;
         int stepCount = 0;
 
+        ObjectiveDistanceFieldCache distanceFieldCache;
+
         while (status == EpisodeStatus::Ongoing && !_environment.budgetExhausted()) {
             Tensor<float> observationVector =
                 observationEncoder.encode(_environment, previousBox, playerState, playerVelocity);
@@ -108,9 +109,10 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
             const Action action = actionAt(actionIndex);
 
             const StepObservation stepObservation = _environment.step(toPlayerInput(action));
-            // Reconstruit a chaque pas (LOT-ANNEXE-21) : voir TrajectoryCollector::collectEpisode.
-            const GridDistanceField distanceField =
-                buildObjectiveDistanceField(_environment.level(), _environment.mechanisms());
+            // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache le
+            // reconstruit alors, et le rend tel quel sinon.
+            const GridDistanceField& distanceField =
+                distanceFieldCache.field(_environment.level(), _environment.mechanisms());
             const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                                stepObservation.playerBox, stepObservation.outcome);
             totalReward += reward;

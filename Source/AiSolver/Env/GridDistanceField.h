@@ -21,30 +21,32 @@ namespace aisolver {
  * statiquement solides d'un `core::TileMap`), pré-calculée une fois par BFS multi-source depuis une
  * case cible.
  *
- * Remplace la distance euclidienne en ligne droite (décision de cadrage initiale de
- * `LOT-ANNEXE-08`) comme base de la récompense de progression : la distance euclidienne pousse un
- * agent à s'approcher en ligne droite de la sortie même quand un mur force un détour, ce qui donne
- * une récompense négative aux pas de détour pourtant nécessaires -- un signal qui combat activement
- * la bonne politique plutôt que de simplement l'ignorer. `GridDistanceField` corrige cela sans
- * introduire de recherche de chemin complète (pas de replanification par pas, pas de notion de coût
- * autre que le nombre de cases) : un unique BFS à la construction, puis des lectures `O(1)`.
+ * Sert de base à la récompense de progression (`EX-IA-023`). La propriété recherchée est que
+ * *tout pas rapprochant du but sur un chemin réellement empruntable* soit récompensé, y compris
+ * un détour imposé par un mur : une distance à vol d'oiseau pénaliserait ce détour, et
+ * dirigerait donc l'agent contre la seule solution disponible.
  *
- * Prend en entrée n'importe quelle `core::TileMap` : passer `core::MechanismController::
- * collisionMap()` plutôt que la grille statique du niveau fait respecter au BFS l'état **courant**
- * des portes/portes verrouillées (solides tant que fermées, gérées dynamiquement par le
- * contrôleur, jamais par `core::TileMap::isSolid`) -- sans quoi le champ traite une porte encore
- * fermée comme déjà franchissable et signale une progression sur un chemin en réalité bloqué
- * (amendement `LOT-ANNEXE-21`, motivé par le comportement observé sur des niveaux à mécanismes
- * enchaînés : la clé ne réduit pas la distance de plus court chemin sous l'ancien calcul, qui
- * ignorait déjà la porte verrouillée qu'elle ouvre).
+ * Le coût est borné par construction : un unique BFS à quatre voisins, sans pondération ni
+ * replanification, puis des lectures `O(1)`. La distance se compte en nombre de cases, jamais en
+ * coût de déplacement -- il n'y a pas de planificateur de chemin ici.
+ *
+ * Accepte n'importe quelle `core::TileMap`, et c'est le choix de cette grille qui fixe ce que
+ * « empruntable » veut dire :
+ * - `core::Level::tileMap()` ne connaît que la solidité **statique** ;
+ * - `core::MechanismController::collisionMap()` connaît en plus l'état **courant** des portes,
+ *   solides tant qu'elles sont fermées (le contrôleur les gère dynamiquement, `TileMap::isSolid`
+ *   les ignore).
+ *
+ * Une porte verrouillée encore fermée doit être vue comme un mur, sans quoi le champ mesure la
+ * progression le long d'un chemin qui n'existe pas et la clé qui l'ouvre ne raccourcit rien.
  */
 class GridDistanceField {
 public:
     /**
-     * @brief Calcule le champ par BFS multi-source à partir de @p target.
-     * @param tileMap Grille de collision (cases solides/non-solides) -- `core::MechanismController::
-     *        collisionMap()` pour respecter l'état courant des portes, `core::Level::tileMap()`
-     *        pour la seule solidité statique.
+     * @brief Calcule le champ par BFS à partir de l'unique case @p target.
+     * @param tileMap Grille de collision (cases solides/non-solides) --
+     * `core::MechanismController:: collisionMap()` pour respecter l'état courant des portes,
+     * `core::Level::tileMap()` pour la seule solidité statique.
      * @param target  Case cible (typiquement `core::Level::exit()`), point de départ du BFS.
      */
     GridDistanceField(const core::TileMap& tileMap, const core::GridPosition& target);

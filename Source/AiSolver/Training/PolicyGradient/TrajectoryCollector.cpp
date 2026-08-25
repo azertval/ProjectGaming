@@ -38,6 +38,8 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
     Trajectory trajectory;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
+    ObjectiveDistanceFieldCache distanceFieldCache;
+
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -53,10 +55,10 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
         const float logProbability = std::log(probability);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        // Reconstruit a chaque pas (LOT-ANNEXE-21) : l'ensemble des cibles change des qu'une porte
-        // s'ouvre, la grille de collision (environment.mechanisms()) est la source de verite.
-        const GridDistanceField distanceField =
-            buildObjectiveDistanceField(environment.level(), environment.mechanisms());
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                            stepObservation.playerBox, stepObservation.outcome);
 
