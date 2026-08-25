@@ -36,7 +36,7 @@ struct RunConvergenceMetrics {
 /**
  * @brief Lit un CSV produit par `TrainingStatsRecorder` et calcule ses métriques de convergence.
  * @param csvPath        Chemin du CSV (en-tête + une ligne par épisode).
- * @param rewardThreshold Plafond de récompense défini une fois pour toute la comparaison.
+ * @param rewardThreshold Seuil de récompense défini une fois pour toute la comparaison.
  * @param finalWindowSize Taille de la fenêtre de fin de run pour `finalWindowMeanReward`.
  * @pre Le CSV contient une colonne `bestReward` (nom retrouvé dans l'en-tête).
  */
@@ -45,10 +45,10 @@ struct RunConvergenceMetrics {
 
 /// Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.
 struct ConvergenceReport {
-    /// Nombre moyen d'épisodes jusqu'au plafond, sur les seuls essais qui l'ont atteint ; absent si
-    /// aucun essai n'a atteint le plafond (résultat explicite, pas une moyenne vide silencieuse).
+    /// Nombre moyen d'épisodes jusqu'au seuil, sur les seuls essais qui l'ont atteint ; absent si
+    /// aucun essai n'a atteint le seuil (résultat explicite, pas une moyenne vide silencieuse).
     std::optional<float> meanEpisodesToThreshold;
-    /// Nombre d'essais ayant atteint le plafond, sur `totalTrials`.
+    /// Nombre d'essais ayant atteint le seuil, sur `totalTrials`.
     std::size_t trialsReachingThreshold = 0;
     /// Nombre total d'essais comparés.
     std::size_t totalTrials = 0;
