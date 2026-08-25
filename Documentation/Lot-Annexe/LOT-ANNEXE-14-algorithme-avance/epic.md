@@ -117,7 +117,7 @@ l'ouverture de ce lot.
 non concluant sur l'instabilité : sur le niveau de contrôle trivial (résolu en moins d'un épisode),
 REINFORCE montrait déjà une variance de fin de run plus faible que l'acteur-critique — le niveau était
 trop simple pour révéler un bénéfice de clipping PPO, qui cible précisément une instabilité non
-démontrée ici. L'espace d'action discret à 24 actions (LOT-ANNEXE-07) se prête en revanche bien à une
+démontrée ici. L'espace d'action discret à 48 actions (LOT-ANNEXE-07) se prête en revanche bien à une
 approche par valeur d'action : DQN cible l'efficacité d'échantillonnage (réutilisation des transitions
 via `ReplayBuffer`), un facteur pertinent indépendamment du constat de stabilité.
 
