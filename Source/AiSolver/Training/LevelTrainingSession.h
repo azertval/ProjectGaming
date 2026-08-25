@@ -49,13 +49,16 @@ struct StoppingConfig {
  * `1` (décision de cadrage de l'épic) — pas une réinitialisation muette qui perdrait cette
  * information.
  * @param previousCount        Compteur avant cette génération.
- * @param sameChampionAsBefore Le champion de cette génération est-il, poids pour poids, celui de la
- *                             génération précédente (aucun individu ne l'a dépassé) ?
+ * @param sameFitnessAsBefore  Le champion de cette génération a-t-il exactement la même fitness que
+ *                             celui de la précédente (aucun individu ne l'a dépassé) ? C'est une
+ *                             égalité de **performance**, pas d'identité : deux individus distincts
+ *                             qui résolvent le niveau aussi bien comptent comme une série stable,
+ *                             ce que le critère d'arrêt cherche précisément à mesurer.
  * @param resolvingNow         Le champion de cette génération résout-il le niveau
  *                             (`EpisodeStatus::Won`) ?
  * @return Le nouveau compteur.
  */
-[[nodiscard]] int updateConsecutiveStableWins(int previousCount, bool sameChampionAsBefore,
+[[nodiscard]] int updateConsecutiveStableWins(int previousCount, bool sameFitnessAsBefore,
                                               bool resolvingNow) noexcept;
 
 /**
