@@ -36,8 +36,10 @@ BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
             EnvironmentConfig{.maxSteps = config.maxStepsPerEpisode});
         if (!environment.reset(levelPath)) {
             // Voir `evaluateFitness` : l'assertion ne garde rien en Release. Un niveau illisible ne
-            // produit aucun episode, plutot qu'autant d'episodes indefinis qu'il y a de repetitions.
-            PROJECTGAMING_ASSERT(false, "BenchmarkRunner::runWithNoise : le niveau doit se charger");
+            // produit aucun episode, plutot qu'autant d'episodes indefinis qu'il y a de
+            // repetitions.
+            PROJECTGAMING_ASSERT(false,
+                                 "BenchmarkRunner::runWithNoise : le niveau doit se charger");
             break;
         }
 
