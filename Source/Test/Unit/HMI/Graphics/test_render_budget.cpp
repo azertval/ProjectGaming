@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -17,6 +18,7 @@
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
+#include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelScene.h"
@@ -26,6 +28,7 @@
 #include "HMI/Editor/PlaneFileNaming.h"
 #include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/CameraZones.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/ParticleRenderer.h"
 #include "HMI/Graphics/PlaneVisuals.h"
@@ -115,22 +118,48 @@ core::World buildWorld(const core::Level& level) {
 /// Camera de reference, reproductible : cadree sur la salle de l'ENTREE du niveau, comme
 /// hmi::GameSession::render (LOT-32, EX-REN-015) -- jamais un etat par defaut susceptible de
 /// changer (cf. points d'attention de la tache).
+///
+/// Respecte les zones de camera DESSINEES A LA MAIN quand le niveau en declare (EX-LVL-007) --
+/// meme resolution que `GameSession::applyCameraFraming`/`updateCurrentCameraZone` : sans cela, un
+/// niveau `perRoom` a zones (comme `demo-final`) serait cadre sur le decoupage automatique en
+/// grille uniforme au lieu de la zone que son auteur a dessinee, un ecart silencieux entre ce test
+/// et le rendu reel (LOT-71).
 hmi::Camera2D referenceCamera(const core::Level& level) {
     constexpr int VIEWPORT_WIDTH = 1280;
     constexpr int VIEWPORT_HEIGHT = 720;
     constexpr float ROOM_ZOOM_MARGIN = 0.92f;  // meme marge que GameSession::render.
 
-    const core::TileMap& map = level.tileMap();
-    const hmi::RoomGrid rooms(map.width(), map.height());
-    const hmi::RoomBounds bounds = rooms.roomBounds(rooms.roomIndexAt(level.entry()));
+    const core::CameraFramingConfig& framing = level.cameraFraming();
+    float centerX = 0.0f;
+    float centerY = 0.0f;
+    float width = 0.0f;
+    float height = 0.0f;
+
+    const std::optional<std::size_t> zoneIndex =
+        framing.mode == core::CameraFramingMode::PerRoom
+            ? hmi::activeCameraZoneIndex(framing.zones, level.entry())
+            : std::nullopt;
+    if (zoneIndex) {
+        const core::CameraZone& zone = framing.zones[*zoneIndex];
+        centerX = static_cast<float>(zone.x) + static_cast<float>(zone.width) * 0.5f;
+        centerY = static_cast<float>(zone.y) + static_cast<float>(zone.height) * 0.5f;
+        width = static_cast<float>(zone.width);
+        height = static_cast<float>(zone.height);
+    } else {
+        const core::TileMap& map = level.tileMap();
+        const hmi::RoomGrid rooms(map.width(), map.height());
+        const hmi::RoomBounds bounds = rooms.roomBounds(rooms.roomIndexAt(level.entry()));
+        centerX = static_cast<float>(bounds.column) + static_cast<float>(bounds.width) * 0.5f;
+        centerY = static_cast<float>(bounds.row) + static_cast<float>(bounds.height) * 0.5f;
+        width = static_cast<float>(bounds.width);
+        height = static_cast<float>(bounds.height);
+    }
 
     hmi::Camera2D camera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-    camera.setCenter(
-        core::Vector2{static_cast<float>(bounds.column) + static_cast<float>(bounds.width) * 0.5f,
-                      static_cast<float>(bounds.row) + static_cast<float>(bounds.height) * 0.5f});
-    camera.setZoom(hmi::Camera2D::fitZoom(
-        static_cast<float>(VIEWPORT_WIDTH), static_cast<float>(VIEWPORT_HEIGHT),
-        static_cast<float>(bounds.width), static_cast<float>(bounds.height), ROOM_ZOOM_MARGIN));
+    camera.setCenter(core::Vector2{centerX, centerY});
+    camera.setZoom(hmi::Camera2D::fitZoom(static_cast<float>(VIEWPORT_WIDTH),
+                                          static_cast<float>(VIEWPORT_HEIGHT), width, height,
+                                          ROOM_ZOOM_MARGIN));
     return camera;
 }
 
@@ -203,7 +232,11 @@ const std::vector<LevelBudget>& deliveredLevelBudgets() {
         {"demo-plateforme.json", 140, 140},
         {"demo-dangers-avances.json", 340, 230},
         {"demo-dangers-directionnels.json", 380, 270},
-        {"demo-final.json", 650, 300},
+        // LOT-71 : demo-final reprend le tracé dense de Test-IA (24×24, cadrage `follow`) --
+        // plus petit que l'ancien tracé (50×26) mais bien plus dense (~307 tuiles contre 234),
+        // et la salle de suivi par défaut (24×14) y montre presque tout le niveau à la fois,
+        // d'où un plafond soumis nettement relevé par rapport à l'ancien cadrage `perRoom`.
+        {"demo-final.json", 650, 520},
     };
     return budgets;
 }
@@ -337,15 +370,19 @@ TEST(RenderBudgetTest, CalqueComposeDeuxFoisDepasseLePlafond) {
  * \castest{<b>Le culling ecarte une fraction significative sur un grand niveau.</b><br/>
  * \tcat Unitaire · Budget de rendu<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Charger demo-final (plusieurs salles).<br/>2. Composer sa scene sur la salle
+ * \tetapes 1. Charger demo-synthese (plusieurs salles).<br/>2. Composer sa scene sur la salle
  * d'entree, en mode Texture.<br/>
- * \tattendu Au moins la moitie des primitives examinees sont ecartees par le culling.
+ * \tattendu Une fraction significative des primitives examinees est ecartee par le culling.
  * }
  */
 TEST(RenderBudgetTest, CullingEcarteUneFractionSignificativeSurUnGrandNiveau) {
-    constexpr float MINIMUM_CULLED_FRACTION = 0.5f;
+    // LOT-71 : demo-final (24×24, cadrage `follow`) ne decoupe plus le niveau en salles -- sa
+    // salle de suivi par defaut en montre l'essentiel, peu a ecarter. demo-synthese (46×7,
+    // `perRoom` a deux zones depuis ce meme lot) reprend le role de reference « grand niveau a
+    // plusieurs salles » que demo-final tenait jusque-la.
+    constexpr float MINIMUM_CULLED_FRACTION = 0.4f;
 
-    const core::Level level = loadDeliveredLevel("demo-final.json");
+    const core::Level level = loadDeliveredLevel("demo-synthese.json");
     const hmi::Camera2D camera = referenceCamera(level);
     core::World world = buildWorld(level);
     const hmi::ComposedScene scene =
