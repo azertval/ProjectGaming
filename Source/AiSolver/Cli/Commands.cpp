@@ -272,7 +272,8 @@ int runTrain(const TrainArgs& args) {
         args.populationSize, args.mutationRate, args.episodes,
         args.learningRate,   args.gamma,        args.optimizer,
     };
-    const TrainingConfig config = loadTrainingConfig(args.configFile, overrides);
+    TrainingConfig config = loadTrainingConfig(args.configFile, overrides);
+    config.algo = args.algo;  // journalise avec le run : sans lui, le modele est illisible
 
     const std::string levelName = args.level.stem().string();
     const std::string runId = generateRunId();

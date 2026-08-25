@@ -15,6 +15,7 @@
 #include <filesystem>
 #include <system_error>
 
+#include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Replay/ReplayFile.h"
 #include "HMI/Ai/EvaluationHelper.h"
 #include "HMI/Interface/ApplicationTheme.h"
@@ -87,69 +88,6 @@ AiModeScreen::AiModeScreen(QWidget* parent)
         _ui->exportReplayButton->setEnabled(_ui->runCombo->currentData().isValid());
     });
 
-    // Infobulles (LOT-ANNEXE-21) : une par champ/bouton des onglets Entraînement et Validation &
-    // sauvegarde, texte de référence fixé lors de la revue des maquettes.
-    _ui->levelCombo->setToolTip(tr(
-        "Fichier de niveau sur lequel l'IA s'entraîne. Un modèle est entraîné niveau par niveau, "
-        "jamais sur plusieurs à la fois."));
-    _ui->algoEvoRadio->setToolTip(
-        tr("Population de réseaux, sélection puis mutation à chaque génération. Le plus rapide à "
-           "obtenir un résultat ; sert de ligne de base."));
-    _ui->algoPgRadio->setToolTip(
-        tr("Apprentissage par gradient de politique (policy gradient) : un réseau appris par "
-           "rétropropagation, pas une recherche aveugle."));
-    _ui->algoAcRadio->setToolTip(
-        tr("Variante de REINFORCE avec un second réseau (le critique) qui réduit la variance de "
-           "l'estimation du gradient."));
-    _ui->algoAvanceRadio->setToolTip(
-        tr("Q-learning profond : mémoire de rejeu et réseau cible, l'algorithme le plus avancé."));
-    _ui->populationSpin->setToolTip(
-        tr("Nombre d'individus (réseaux) par génération — évolutif uniquement. Plus grand explore "
-           "plus large mais coûte plus cher par génération."));
-    _ui->mutationRateSpin->setToolTip(tr(
-        "Probabilité qu'un poids du réseau soit perturbé aléatoirement à chaque génération. Trop "
-        "bas : convergence lente. Trop haut : instable."));
-    _ui->episodesSpin->setToolTip(
-        tr("Plafond de générations (évolutif) ou nombre d'épisodes à jouer (autres algorithmes) — "
-           "critère de secours, pas un objectif."));
-    _ui->learningRateSpin->setToolTip(
-        tr("Taille du pas de mise à jour des poids à chaque optimisation (algorithmes par "
-           "gradient uniquement)."));
-    _ui->gammaSpin->setToolTip(
-        tr("Facteur d'actualisation : poids donné aux récompenses futures par rapport aux "
-           "récompenses immédiates (algorithmes par gradient uniquement)."));
-    _ui->optimizerCombo->setToolTip(
-        tr("Règle de mise à jour des poids à partir du gradient calculé."));
-    _ui->seedSpin->setToolTip(
-        tr("Graine du générateur aléatoire. Deux runs avec la même graine et les mêmes paramètres "
-           "produisent un résultat strictement identique."));
-    _ui->launchTrainingButton->setToolTip(
-        tr("Lance l'entraînement en arrière-plan ; la fenêtre reste réactive."));
-    _ui->stopTrainingButton->setToolTip(
-        tr("Arrête l'entraînement à la prochaine génération/épisode. Le meilleur individu obtenu "
-           "jusqu'ici reste sauvegardé."));
-    _ui->generationCombo->setToolTip(
-        tr("Génération (évolutif) ou épisode (autres algorithmes) dont l'aperçu sera rejoué par "
-           "« Voir en jeu »."));
-    _ui->previewButton->setToolTip(
-        tr("Rejoue le meilleur individu de la génération/l'épisode sélectionné dans la scène du "
-           "niveau."));
-
-    _ui->runCombo->setToolTip(
-        tr("Run entraîné à évaluer (dossier TrainingRuns le plus récent en tête de liste)."));
-    _ui->repetitionsSpin->setToolTip(
-        tr("Nombre d'épisodes rejoués pour mesurer le taux de réussite. Plus élevé = mesure plus "
-           "fiable, plus lent."));
-    _ui->evaluateButton->setToolTip(
-        tr("Rejoue le modèle en mode déterministe (Argmax) sur le niveau d'origine, N fois, et "
-           "calcule les statistiques ci-dessous."));
-    _ui->saveModelButton->setToolTip(
-        tr("Copie les poids du modèle (déjà sauvegardés dans le dossier du run) vers un fichier "
-           "de votre choix."));
-    _ui->exportReplayButton->setToolTip(
-        tr("Copie le rejeu produit par ce run vers Elements/Replays, sélectionnable ensuite dans "
-           "l'onglet Rejeu."));
-
     setTrainingControlsEnabled(true);
     refreshLevelList();
     refreshRunsAndReplays();
@@ -159,10 +97,88 @@ AiModeScreen::~AiModeScreen() {
     teardownWorker();
 }
 
+QString AiModeScreen::text(const char* key) const {
+    return _loc == nullptr ? QString() : QString::fromStdString(_loc->text(key));
+}
+
 void AiModeScreen::retranslateUi(const Localization& loc) {
+    _loc = &loc;
     const auto t = [&loc](const char* key) { return QString::fromStdString(loc.text(key)); };
+
     _ui->titleLabel->setText(t("ai_mode.title"));
     _ui->backButton->setText(t("options.back"));
+
+    _ui->tabs->setTabText(0, t("ai_mode.tab_training"));
+    _ui->tabs->setTabText(1, t("ai_mode.tab_validate"));
+    _ui->tabs->setTabText(2, t("ai_mode.tab_replay"));
+
+    // Onglet Entraînement.
+    _ui->levelLabel->setText(t("ai_mode.level"));
+    _ui->algoLabel->setText(t("ai_mode.algorithm"));
+    _ui->algoEvoRadio->setText(t("ai_mode.algo_evo"));
+    _ui->algoPgRadio->setText(t("ai_mode.algo_pg"));
+    _ui->algoAcRadio->setText(t("ai_mode.algo_ac"));
+    _ui->algoAvanceRadio->setText(t("ai_mode.algo_dqn"));
+    _ui->populationLabel->setText(t("ai_mode.population"));
+    _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
+    _ui->episodesLabel->setText(t("ai_mode.episodes"));
+    _ui->learningRateLabel->setText(t("ai_mode.learning_rate"));
+    _ui->gammaLabel->setText(t("ai_mode.gamma"));
+    _ui->optimizerLabel->setText(t("ai_mode.optimizer"));
+    _ui->seedLabel->setText(t("ai_mode.seed"));
+    _ui->launchTrainingButton->setText(t("ai_mode.launch_training"));
+    _ui->stopTrainingButton->setText(t("ai_mode.stop_training"));
+    _ui->previewButton->setText(t("ai_mode.preview"));
+    _ui->statsTable->setHorizontalHeaderLabels(
+        {t("ai_mode.col_generation"), t("ai_mode.col_best_reward"), t("ai_mode.col_mean_reward"),
+         t("ai_mode.col_success_rate")});
+
+    // Onglet Validation & sauvegarde.
+    _ui->runLabel->setText(t("ai_mode.run"));
+    _ui->repetitionsLabel->setText(t("ai_mode.repetitions"));
+    _ui->evaluateButton->setText(t("ai_mode.evaluate"));
+    _ui->successRateLabel->setText(t("ai_mode.success_rate"));
+    _ui->meanStepsLabel->setText(t("ai_mode.mean_steps"));
+    _ui->varianceLabel->setText(t("ai_mode.variance"));
+    _ui->saveModelButton->setText(t("ai_mode.save_model"));
+    _ui->exportReplayButton->setText(t("ai_mode.export_replay"));
+
+    // Onglet Rejeu.
+    _ui->replayTable->setHorizontalHeaderLabels({t("ai_mode.col_level"), t("ai_mode.col_algorithm"),
+                                                 t("ai_mode.col_reward"),
+                                                 t("ai_mode.col_exported")});
+    _ui->launchReplayButton->setText(t("ai_mode.launch_replay"));
+    _ui->replayHintLabel->setText(t("ai_mode.replay_hint"));
+
+    // Infobulles : une par champ/bouton, rejouees ici comme le reste — une infobulle posee une
+    // seule fois à la construction resterait dans la langue de depart.
+    _ui->levelCombo->setToolTip(t("ai_mode.level_tip"));
+    _ui->algoEvoRadio->setToolTip(t("ai_mode.algo_evo_tip"));
+    _ui->algoPgRadio->setToolTip(t("ai_mode.algo_pg_tip"));
+    _ui->algoAcRadio->setToolTip(t("ai_mode.algo_ac_tip"));
+    _ui->algoAvanceRadio->setToolTip(t("ai_mode.algo_dqn_tip"));
+    _ui->populationSpin->setToolTip(t("ai_mode.population_tip"));
+    _ui->mutationRateSpin->setToolTip(t("ai_mode.mutation_rate_tip"));
+    _ui->episodesSpin->setToolTip(t("ai_mode.episodes_tip"));
+    _ui->learningRateSpin->setToolTip(t("ai_mode.learning_rate_tip"));
+    _ui->gammaSpin->setToolTip(t("ai_mode.gamma_tip"));
+    _ui->optimizerCombo->setToolTip(t("ai_mode.optimizer_tip"));
+    _ui->seedSpin->setToolTip(t("ai_mode.seed_tip"));
+    _ui->launchTrainingButton->setToolTip(t("ai_mode.launch_training_tip"));
+    _ui->stopTrainingButton->setToolTip(t("ai_mode.stop_training_tip"));
+    _ui->generationCombo->setToolTip(t("ai_mode.generation_tip"));
+    _ui->previewButton->setToolTip(t("ai_mode.preview_tip"));
+    _ui->runCombo->setToolTip(t("ai_mode.run_tip"));
+    _ui->repetitionsSpin->setToolTip(t("ai_mode.repetitions_tip"));
+    _ui->evaluateButton->setToolTip(t("ai_mode.evaluate_tip"));
+    _ui->saveModelButton->setToolTip(t("ai_mode.save_model_tip"));
+    _ui->exportReplayButton->setToolTip(t("ai_mode.export_replay_tip"));
+
+    // L'etiquette d'etat n'est reinitialisee que hors entrainement : ecraser un message de
+    // progression au changement de langue ferait perdre l'information a l'ecran.
+    if (_worker == nullptr) {
+        _ui->trainingStatusLabel->setText(t("ai_mode.status_idle"));
+    }
 }
 
 void AiModeScreen::focusDefaultAction() {
@@ -297,7 +313,7 @@ void AiModeScreen::onLaunchTraining() {
     _ui->generationCombo->setEnabled(false);
     _ui->generationCombo->clear();
     setTrainingControlsEnabled(false);
-    _ui->trainingStatusLabel->setText(tr("Entraînement en cours…"));
+    _ui->trainingStatusLabel->setText(text("ai_mode.status_running"));
 
     _workerThread = std::make_unique<QThread>();
     _worker = new TrainingWorker(std::move(request));
@@ -312,7 +328,7 @@ void AiModeScreen::onLaunchTraining() {
 
 void AiModeScreen::onStopTraining() {
     stopTrainingIfActive();
-    _ui->trainingStatusLabel->setText(tr("Arrêt demandé…"));
+    _ui->trainingStatusLabel->setText(text("ai_mode.status_stopping"));
 }
 
 void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanReward,
@@ -325,9 +341,8 @@ void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanR
     _ui->statsTable->setItem(
         row, 3, new QTableWidgetItem(QString::number(successRate * 100.0, 'f', 1) + "%"));
     _ui->statsTable->scrollToBottom();
-    _ui->trainingStatusLabel->setText(tr("Génération/épisode %1 — meilleure récompense %2")
-                                          .arg(index)
-                                          .arg(QString::number(bestReward, 'f', 3)));
+    _ui->trainingStatusLabel->setText(
+        text("ai_mode.status_progress").arg(index).arg(QString::number(bestReward, 'f', 3)));
 }
 
 void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algo*/,
@@ -335,10 +350,10 @@ void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algo*/,
     // Un aperçu par génération/épisode, jamais écrasé (voir TrainingWorker::run) : on suit la
     // dernière génération reçue tant que l'utilisateur n'a pas sélectionné une génération
     // antérieure pour l'examiner pendant que l'entraînement continue.
-    const bool wasFollowingLatest = _ui->generationCombo->count() == 0 ||
-                                    _ui->generationCombo->currentIndex() ==
-                                        _ui->generationCombo->count() - 1;
-    _ui->generationCombo->addItem(tr("Génération %1").arg(generation), replayPath);
+    const bool wasFollowingLatest =
+        _ui->generationCombo->count() == 0 ||
+        _ui->generationCombo->currentIndex() == _ui->generationCombo->count() - 1;
+    _ui->generationCombo->addItem(text("ai_mode.generation_item").arg(generation), replayPath);
     if (wasFollowingLatest) {
         _ui->generationCombo->setCurrentIndex(_ui->generationCombo->count() - 1);
     }
@@ -346,22 +361,20 @@ void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algo*/,
     _ui->previewButton->setEnabled(true);
 }
 
-void AiModeScreen::onTrainingFinished(bool solved, QString modelPath, QString /*statsPath*/,
-                                      QString /*configPath*/, QString replayPath,
-                                      bool replayExported) {
-    _lastRunModelPath = modelPath;
-    _lastRunReplayPath = replayExported ? replayPath : QString();
-    _lastRunAlgo = selectedAlgo();
-    _ui->trainingStatusLabel->setText(solved ? tr("Entraînement terminé : niveau résolu.")
-                                             : tr("Entraînement terminé : non résolu (arrêté ou "
-                                                  "plafond atteint)."));
+// Seul `solved` est lu : les chemins du signal decrivent le run qui vient de finir, mais l'ecran
+// les relit depuis `runCombo` apres `refreshRunsAndReplays()`, qui voit aussi les runs anterieurs.
+void AiModeScreen::onTrainingFinished(bool solved, QString /*modelPath*/, QString /*statsPath*/,
+                                      QString /*configPath*/, QString /*replayPath*/,
+                                      bool /*replayExported*/) {
+    _ui->trainingStatusLabel->setText(solved ? text("ai_mode.status_done_solved")
+                                             : text("ai_mode.status_done_unsolved"));
     teardownWorker();
     setTrainingControlsEnabled(true);
     refreshRunsAndReplays();
 }
 
 void AiModeScreen::onTrainingFailed(QString message) {
-    _ui->trainingStatusLabel->setText(tr("Erreur : %1").arg(message));
+    _ui->trainingStatusLabel->setText(text("ai_mode.status_error").arg(message));
     teardownWorker();
     setTrainingControlsEnabled(true);
 }
@@ -392,12 +405,17 @@ void AiModeScreen::onEvaluate() {
     const std::string levelName = runPath.parent_path().filename().string();
     const std::filesystem::path levelPath = levelsDir() / (levelName + ".json");
 
+    // Algorithme du run evalue, relu dans son config.json : les boutons radio de l'onglet
+    // Entrainement decrivent le PROCHAIN entrainement, pas celui qui a produit ce modele.
+    const QString runAlgo =
+        QString::fromStdString(aisolver::cli::loadTrainingConfig(
+                                   runPath / "config.json", aisolver::cli::CommandLineOverrides{})
+                                   .algo);
     const std::optional<EvaluationOutcome> outcome = evaluateModel(
         QString::fromStdString(modelPath.string()), QString::fromStdString(levelPath.string()),
-        selectedAlgo(), _ui->repetitionsSpin->value());
+        runAlgo, _ui->repetitionsSpin->value());
     if (!outcome) {
-        QMessageBox::warning(this, tr("Évaluation"),
-                             tr("Impossible de charger ce modèle (algorithme incompatible ?)."));
+        QMessageBox::warning(this, text("ai_mode.eval_title"), text("ai_mode.eval_failed"));
         return;
     }
     _ui->successRateValue->setText(QString::number(outcome->successRate * 100.0, 'f', 1) + "%");
@@ -411,15 +429,16 @@ void AiModeScreen::onSaveModel() {
         return;
     }
     const std::filesystem::path source = std::filesystem::path(runDir.toStdString()) / "model.bin";
-    const QString destination = QFileDialog::getSaveFileName(
-        this, tr("Sauvegarder le modèle"), QStringLiteral("model.bin"), tr("Modèle (*.bin)"));
+    const QString destination =
+        QFileDialog::getSaveFileName(this, text("ai_mode.save_dialog_title"),
+                                     QStringLiteral("model.bin"), text("ai_mode.save_filter"));
     if (destination.isEmpty()) {
         return;
     }
     std::error_code error;
     std::filesystem::copy_file(source, destination.toStdString(),
                                std::filesystem::copy_options::overwrite_existing, error);
-    _ui->saveStatusLabel->setText(error ? tr("Échec de la sauvegarde.") : tr("Modèle sauvegardé."));
+    _ui->saveStatusLabel->setText(error ? text("ai_mode.save_failed") : text("ai_mode.save_ok"));
 }
 
 void AiModeScreen::onExportReplay() {
@@ -431,7 +450,7 @@ void AiModeScreen::onExportReplay() {
         std::filesystem::path(runDir.toStdString()) / "replay.json";
     std::error_code error;
     if (!std::filesystem::exists(source, error)) {
-        _ui->saveStatusLabel->setText(tr("Ce run n'a pas produit de rejeu (niveau non résolu)."));
+        _ui->saveStatusLabel->setText(text("ai_mode.no_replay"));
         return;
     }
     std::filesystem::create_directories(replaysDir(), error);
@@ -440,7 +459,8 @@ void AiModeScreen::onExportReplay() {
         runPath.parent_path().filename().string() + "_" + runPath.filename().string() + ".json";
     std::filesystem::copy_file(source, replaysDir() / destinationName,
                                std::filesystem::copy_options::overwrite_existing, error);
-    _ui->saveStatusLabel->setText(error ? tr("Échec de l'export.") : tr("Rejeu publié."));
+    _ui->saveStatusLabel->setText(error ? text("ai_mode.export_failed")
+                                        : text("ai_mode.export_ok"));
     refreshRunsAndReplays();
 }
 
