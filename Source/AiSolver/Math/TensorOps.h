@@ -27,16 +27,30 @@ namespace detail {
  */
 template <typename T, typename Fn>
 void forEachOffset(const Tensor<T>& a, Fn&& fn) {
+    const std::size_t count = a.size();
+    // Chemin rapide : sur un tenseur contigu, l'offset de l'element de rang `n` EST `n`. Le
+    // parcours general ci-dessous refait sinon, pour chaque element, une somme sur les axes en
+    // relisant `strides()` -- un `std::vector` du tas -- alors que le resultat est connu d'avance.
+    // Meme ordre de visite dans les deux cas, donc meme suite d'appels a `fn`.
+    if (a.isContiguous()) {
+        for (std::size_t linear = 0; linear < count; ++linear) {
+            fn(linear);
+        }
+        return;
+    }
+
     const std::size_t rank = a.rank();
+    const std::vector<std::size_t>& strides = a.strides();
+    const std::vector<std::size_t>& shape = a.shape();
     std::vector<std::size_t> index(rank, 0);
-    for (std::size_t linear = 0; linear < a.size(); ++linear) {
+    for (std::size_t linear = 0; linear < count; ++linear) {
         std::size_t offset = 0;
         for (std::size_t axis = 0; axis < rank; ++axis) {
-            offset += index[axis] * a.strides()[axis];
+            offset += index[axis] * strides[axis];
         }
         fn(offset);
         for (std::size_t axis = rank; axis-- > 0;) {
-            if (++index[axis] < a.shape()[axis]) {
+            if (++index[axis] < shape[axis]) {
                 break;
             }
             index[axis] = 0;
@@ -50,18 +64,35 @@ template <typename T, typename BinaryOp>
     PROJECTGAMING_ASSERT(a.shape() == b.shape(), "Operation elementwise : formes incompatibles");
     Tensor<T> result(a.shape());
     T* out = result.data();
+    const T* aData = a.data();
+    const T* bData = b.data();
+    const std::size_t count = a.size();
+
+    // Chemin rapide, cas de loin le plus frequent (tout tenseur construit par forme l'est) : les
+    // trois parcours coincident alors terme a terme. Meme ordre, donc resultat identique au bit
+    // pres -- c'est un recalcul d'adresses supprime, pas un changement de calcul.
+    if (a.isContiguous() && b.isContiguous()) {
+        for (std::size_t linear = 0; linear < count; ++linear) {
+            out[linear] = op(aData[linear], bData[linear]);
+        }
+        return result;
+    }
+
     const std::size_t rank = a.rank();
+    const std::vector<std::size_t>& stridesA = a.strides();
+    const std::vector<std::size_t>& stridesB = b.strides();
+    const std::vector<std::size_t>& shape = a.shape();
     std::vector<std::size_t> index(rank, 0);
-    for (std::size_t linear = 0; linear < a.size(); ++linear) {
+    for (std::size_t linear = 0; linear < count; ++linear) {
         std::size_t offsetA = 0;
         std::size_t offsetB = 0;
         for (std::size_t axis = 0; axis < rank; ++axis) {
-            offsetA += index[axis] * a.strides()[axis];
-            offsetB += index[axis] * b.strides()[axis];
+            offsetA += index[axis] * stridesA[axis];
+            offsetB += index[axis] * stridesB[axis];
         }
-        out[linear] = op(a.data()[offsetA], b.data()[offsetB]);
+        out[linear] = op(aData[offsetA], bData[offsetB]);
         for (std::size_t axis = rank; axis-- > 0;) {
-            if (++index[axis] < a.shape()[axis]) {
+            if (++index[axis] < shape[axis]) {
                 break;
             }
             index[axis] = 0;
