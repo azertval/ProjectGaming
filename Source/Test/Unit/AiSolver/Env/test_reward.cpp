@@ -218,3 +218,98 @@ TEST(RewardTest, PorteVerrouilleeFermeeCibleLaCleTantQueLaSortieEstInatteignable
                                                  boxAt(1.0f, 0.0f), core::LevelOutcome::Playing);
     EXPECT_GT(reward, 0.0f);
 }
+
+namespace {
+
+/// Couloir 5x1 du test de porte verrouillée ci-dessus, réutilisé par les tests du cache : clé en
+/// `(1,0)`, porte verrouillée en `(2,0)`, sortie en `(4,0)` — inatteignable porte fermée.
+core::Level lockedCorridor() {
+    core::TileMap map(5, 1);
+    map.setTile(1, 0, core::TileType::Key);
+    map.setTile(2, 0, core::TileType::LockedDoor);
+    const std::vector<core::Mechanism> mechanisms{
+        core::Mechanism{core::GridPosition{1, 0}, core::GridPosition{2, 0}}};
+    return core::Level("test", map, core::GridPosition{0, 0}, core::GridPosition{4, 0}, mechanisms);
+}
+
+/// Compare deux champs case par case sur toute la grille : c'est la seule façon d'affirmer une
+/// identité *numérique*, et non la seule égalité des quelques cases qu'un test regarderait.
+void expectSameField(const aisolver::GridDistanceField& actual,
+                     const aisolver::GridDistanceField& expected, const core::TileMap& map) {
+    for (int row = 0; row < map.height(); ++row) {
+        for (int column = 0; column < map.width(); ++column) {
+            const core::GridPosition cell{column, row};
+            EXPECT_EQ(actual.distance(cell), expected.distance(cell))
+                << "case (" << column << ", " << row << ")";
+        }
+    }
+}
+
+}  // namespace
+
+/**
+ * @brief Le champ rendu par `ObjectiveDistanceFieldCache` est numériquement identique à celui
+ * d'une reconstruction systématique, à état de portes constant comme après ouverture.
+ *
+ * C'est l'invariant que le cache promet : il supprime un recalcul, il ne change aucune récompense.
+ * Les tests de reproductibilité ne l'attraperaient pas — deux exécutions également périmées
+ * restent identiques l'une à l'autre.
+ * \castest{<b>Le champ mis en cache est identique à une reconstruction, avant et après ouverture
+ * d'une porte.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Couloir verrouillé : comparer `cache.field()` à `buildObjectiveDistanceField()` case
+ * par case.<br/>2. Rappeler `cache.field()` sans rien changer, comparer à nouveau.<br/>3. Ouvrir la
+ * porte (clé ramassée), comparer une troisième fois.<br/>
+ * \tattendu Les trois champs coïncident case par case avec la reconstruction correspondante.}
+ */
+TEST(ObjectiveDistanceFieldCacheTest, ChampMisEnCacheIdentiqueAUneReconstruction) {
+    const core::Level level = lockedCorridor();
+    core::MechanismController mechanisms(level);
+    aisolver::ObjectiveDistanceFieldCache cache;
+
+    expectSameField(cache.field(level, mechanisms),
+                    aisolver::buildObjectiveDistanceField(level, mechanisms), level.tileMap());
+    // Second appel a etat inchange : c'est le chemin ou le cache REND sa copie sans reconstruire.
+    expectSameField(cache.field(level, mechanisms),
+                    aisolver::buildObjectiveDistanceField(level, mechanisms), level.tileMap());
+
+    // Cle ramassee (contact + « Interagir ») : la porte s'ouvre definitivement.
+    mechanisms.update(boxAt(1.0f, 0.0f), 1.0f, true);
+    ASSERT_TRUE(mechanisms.isDoorOpen(0));
+    expectSameField(cache.field(level, mechanisms),
+                    aisolver::buildObjectiveDistanceField(level, mechanisms), level.tileMap());
+}
+
+/**
+ * @brief Le cache se reconstruit à la bascule d'une porte : le champ rendu après ouverture n'est
+ * plus celui d'avant.
+ *
+ * La signature de validité est le vecteur des états de portes. Un cache qui ne la relirait pas
+ * continuerait de viser la clé — déjà ramassée — au lieu de la sortie devenue atteignable, et la
+ * récompense guiderait l'agent vers une case sans objet pour le reste de l'épisode.
+ * \castest{<b>Ouvrir une porte invalide le champ mis en cache.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Porte fermée : relever la distance de l'entrée (cible = la clé).<br/>2. Ramasser la
+ * clé pour ouvrir la porte.<br/>3. Relever à nouveau la distance de l'entrée via le MÊME
+ * cache.<br/>
+ * \tattendu La distance passe de 1 (clé) à 4 (sortie devenue atteignable) : le champ a bien été
+ * reconstruit.}
+ */
+TEST(ObjectiveDistanceFieldCacheTest, ReconstruitLeChampQuandUnePorteChangeDEtat) {
+    const core::Level level = lockedCorridor();
+    core::MechanismController mechanisms(level);
+    aisolver::ObjectiveDistanceFieldCache cache;
+
+    const core::GridPosition entry = level.entry();
+    // Porte fermee : la sortie est murée, seule la cle est atteignable -- elle est a une case.
+    EXPECT_EQ(cache.field(level, mechanisms).distance(entry), 1);
+
+    mechanisms.update(boxAt(1.0f, 0.0f), 1.0f, true);
+    ASSERT_TRUE(mechanisms.isDoorOpen(0));
+
+    // Porte ouverte : plus aucune porte fermee, donc la sortie est la seule cible -- quatre cases.
+    // Un cache qui ne s'invaliderait pas rendrait encore 1.
+    EXPECT_EQ(cache.field(level, mechanisms).distance(entry), 4);
+}

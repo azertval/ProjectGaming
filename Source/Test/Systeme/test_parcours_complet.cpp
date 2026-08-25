@@ -385,25 +385,6 @@ ReactiveInput rightAndDash() {
     };
 }
 
-/**
- * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
- * retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur
- * l'intégralité des mécaniques livrées (`LOT-01` à `LOT-24`).
- *
- * Le rejeu sert aussi de garde-fou de **proximité** (`LOT-65` TACHE-05) : la trajectoire réellement
- * parcourue est relevée, et chaque tuile de mécanique du tableau doit passer à portée d'un saut
- * d'une position occupée. Une mécanique hors d'atteinte est « couverte » sans jamais être jouée —
- * le trou que la `TACHE-01` avait annoncé sans le combler.
- * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
- * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.</b><br/>
- * \tcat Systeme · Parcours Complet<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
- * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.
- * }
- */
 // La séquence jouée et son scénario d'entrées, un par tableau. Fonction plutôt que littéral dans
 // le test : les garde-fous de la TACHE-05 la rejouent eux aussi, et chaque appel rend des scripts
 // à l'état NEUF (chaque lambda possède son état par capture-valeur `mutable`, jamais partagé).
