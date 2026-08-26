@@ -112,6 +112,84 @@ TEST(BlockControllerTest, PousseeRefuseeContreUnMur) {
 }
 
 /**
+ * @brief Poussée renforcée (dash, `EX-GP-057`) : un bloc percuté pendant un dash est repoussé de
+ * plusieurs cases en un seul pas, jusqu'à `DASH_PUSH_MAX_CELLS`.
+ * \castest{<b>Poussée renforcée (dash) : un bloc percuté pendant un dash est repoussé de plusieurs
+ * cases en un seul pas.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bloc avance de `DASH_PUSH_MAX_CELLS` cases, pas une seule.
+ * }
+ */
+TEST(BlockControllerTest, PousseeRenforceeDashDePlusieursCases) {
+    core::TileMap map(10, 3);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, 2, core::TileType::Solid);
+    }
+    map.setTile(2, 1, core::TileType::Block);
+    core::Level level("bloc-dash", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{9, 1}, std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    controller.update(boxAt(1, 1), /*moveIntentX=*/1.0f, level.tileMap(), /*platforms=*/{},
+                      /*dashPushSpeed=*/15.0f);
+
+    EXPECT_EQ(controller.positions()[0],
+              (core::GridPosition{2 + core::BlockController::DASH_PUSH_MAX_CELLS, 1}));
+    EXPECT_FLOAT_EQ(controller.lastDashPushSpeed(), 15.0f);
+}
+
+/**
+ * @brief Poussée renforcée : s'arrête au premier obstacle, ne le traverse jamais.
+ * \castest{<b>Poussée renforcée : s'arrête au premier obstacle, ne le traverse jamais.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bloc s'arrête juste avant le mur, jamais au-delà.
+ * }
+ */
+TEST(BlockControllerTest, PousseeRenforceeArreteAuPremierObstacle) {
+    core::TileMap map(10, 3);
+    for (int column = 0; column < 10; ++column) {
+        map.setTile(column, 2, core::TileType::Solid);
+    }
+    map.setTile(2, 1, core::TileType::Block);
+    map.setTile(4, 1, core::TileType::Solid);  // mur à deux cases du bloc
+    core::Level level("bloc-dash-mur", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{9, 1}, std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    controller.update(boxAt(1, 1), /*moveIntentX=*/1.0f, level.tileMap(), /*platforms=*/{},
+                      /*dashPushSpeed=*/15.0f);
+
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{3, 1}));  // juste avant le mur (4, 1)
+}
+
+/**
+ * @brief Sans poussée renforcée (dashPushSpeed = 0), le comportement de poussée simple est
+ * inchangé (une case), et `lastDashPushSpeed()` reste nul.
+ * \castest{<b>Sans dash, la poussée reste simple et `lastDashPushSpeed()` reste nul.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Poussée d'une seule case, `lastDashPushSpeed() == 0`.
+ * }
+ */
+TEST(BlockControllerTest, PousseeSansDashResteSimple) {
+    core::Level level = makeLevelWithBlock();
+    core::BlockController controller(level);
+
+    controller.update(boxAt(1, 1), /*moveIntentX=*/1.0f, level.tileMap());
+
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{3, 1}));
+    EXPECT_FLOAT_EQ(controller.lastDashPushSpeed(), 0.0f);
+}
+
+/**
  * @brief Un bloc ne peut pas être poussé sur un autre bloc.
  * \castest{<b>Un bloc ne peut pas être poussé sur un autre bloc.</b><br/>
  * \tcat Unitaire · Block Controller<br/>

@@ -155,21 +155,67 @@ void CharacterPhysicsSystem::resolvePlatformCollision(
 
 bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const PlayerInput& input,
                                        float fixedDelta) const {
+    //   0c. Jump-cancel du dash (combo, EX-GP-061) : un saut demandé PENDANT un dash BOOSTÉ actif
+    //       l'interrompt immédiatement et EN CONSERVE la vitesse horizontale (hyper-dash), au lieu
+    //       d'attendre son expiration normale. Rend la main à resolveVelocity() (return false) pour
+    //       qu'applyJump() s'exécute ce même pas -- au contact d'un mur, il choisira de lui-même un
+    //       WALL JUMP (même ordre de priorité qu'un saut hors dash, EX-GP-016), sans code dédié.
+    //       Restreint au dash BOOSTÉ (`dashIsBoosted`, EX-GP-056) : un dash NORMAL pendant lequel
+    //       un saut est pressé continue de se comporter EXACTEMENT comme avant ce lot (le saut
+    //       reste simplement bufferisé, honoré à l'expiration naturelle du dash) -- aucun contenu
+    //       existant ne peut produire de dash boosté, donc aucune régression possible ici.
+    if (player.dashTimer > 0.0F && player.dashIsBoosted && player.jumpBufferTimer > 0.0F &&
+        player.jumpsRemaining != 0) {
+        player.comboChainCount = (player.comboWindowTimer > 0.0F) ? player.comboChainCount + 1 : 1;
+        player.comboWindowTimer = _config.comboWindowTime;
+        const float bonus =
+            (std::min)(_config.comboSpeedBonus * static_cast<float>(player.comboChainCount),
+                       _config.comboSpeedCap);
+        const float sign = velocity.value.x >= 0.0F ? 1.0F : -1.0F;
+        player.dashJumpMomentumX = velocity.value.x + sign * bonus;
+        player.dashJumpLockTimer = _config.dashJumpLockTime;
+        player.dashTimer = 0.0F;
+        return false;
+    }
+
+    //   0d-pound. Ground pound (EX-GP-058) : le bouton de dash visé PUREMENT vers le bas, en l'air,
+    //       ARME un ground pound -- mais SEULEMENT si le personnage n'a plus aucune charge de dash
+    //       (`dashChargesRemaining <= 0`) : tant qu'une charge existe, cette combinaison reste un
+    //       dash vertical normal comme avant ce lot (aucune régression sur un dash intentionnel
+    //       vers le bas, ex. descente rapide d'un puits dans un niveau existant). Ground pound
+    //       n'est donc atteignable que là où, avant ce lot, appuyer sur dash sans charge ne faisait
+    //       strictement rien -- une pure addition, jamais une réinterprétation d'un geste déjà
+    //       significatif.
+    if (!player.grounded && input.dashPressed && input.moveX == 0.0F && input.moveY > 0.0F &&
+        player.dashTimer <= 0.0F && player.dashChargesRemaining <= 0) {
+        player.groundPounding = true;
+        return false;
+    }
+
     //   0d. Dash (EX-GP-017) : ruée directionnelle si disponible et pas déjà en dash.
-    //       Direction = (moveX, moveY) normalisée (8 directions) ; à défaut l'orientation.
+    //       Direction = (moveX, moveY) normalisée (8 directions) ; à défaut l'orientation (celle
+    //       figée par la charge si un boost est banké, EX-GP-056, sinon l'orientation courante).
     //       Refusé si le budget de dashs du tableau est épuisé (EX-GP-024 ; -1 = illimité).
     if (input.dashPressed && player.dashChargesRemaining > 0 && player.dashTimer <= 0.0F &&
         player.dashesRemaining != 0) {
         Vector2 direction{input.moveX, input.moveY};
         if (direction.x == 0.0F && direction.y == 0.0F) {
-            direction = Vector2{player.facing, 0.0F};
+            direction =
+                Vector2{player.dashBoostReady ? player.dashBoostFacing : player.facing, 0.0F};
         }
-        velocity.value = direction.normalized() * _config.dashSpeed;
-        player.dashTimer = _config.dashDuration;
+        const bool boosted = player.dashBoostReady;
+        const float speed =
+            boosted ? _config.dashSpeed * _config.dashBoostSpeedMultiplier : _config.dashSpeed;
+        velocity.value = direction.normalized() * speed;
+        player.dashTimer = boosted ? _config.dashDuration * _config.dashBoostDurationMultiplier
+                                   : _config.dashDuration;
+        player.dashIsBoosted = boosted;
         --player.dashChargesRemaining;  // consommée, rechargée au prochain contact du sol
         if (player.dashesRemaining > 0) {
             --player.dashesRemaining;  // décompte le budget (si limité)
         }
+        player.dashBoostReady = false;  // la charge est consommée, qu'elle serve ou non au boost
+        player.dashChargeTimer = 0.0F;
     }
 
     if (player.dashTimer <= 0.0F) {
@@ -221,9 +267,47 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
     // juste apres update() voit vrai UNIQUEMENT sur le pas ou le saut se declenche.
     player.justJumped = false;
 
-    //   Orientation courante (sert de direction de dash par défaut).
+    //   Orientation D'AVANT ce pas, capturée pour la charge de dash ci-dessous (avant sa propre
+    //   mise à jour juste en dessous) -- voir son commentaire.
+    const float facingBeforeInput = player.facing;
+
+    //   Orientation courante (sert de direction de dash par défaut) : mise à jour EXACTEMENT comme
+    //   avant ce lot, sans aucune dépendance à la charge de dash ci-dessous (aucune régression sur
+    //   le sprite/la caméra/la direction d'un dash hors charge active).
     if (input.moveX != 0.0F) {
         player.facing = (input.moveX > 0.0F) ? 1.0F : -1.0F;
+    }
+
+    //   Charge de dash (EX-GP-056) : maintenir la direction OPPOSÉE à l'orientation D'AVANT ce pas
+    //   ET le bouton de dash (`input.dashHeld`) charge un boost. Comparée à
+    //   `dashChargeReferenceFacing`, une COPIE figée au début de la charge -- jamais à `facing`
+    //   lui-même (mis à jour ci-dessus, immédiatement) : sinon `facing` « rattraperait » l'entrée
+    //   opposée dès ce même pas et rendrait l'opposition indétectable sur plus d'un pas.
+    //   `dashHeld` est une garde DÉLIBÉRÉE : sans elle, un simple changement de direction pendant
+    //   un déplacement normal (aucune intention de dash) suffirait à amorcer la charge -- un
+    //   premier essai sans cette garde a cassé la séquence `demo-final` (une inversion de direction
+    //   anodine y suffisait à armer un boost qui changeait ensuite la vitesse/durée du dash
+    //   suivant, sans rapport avec une intention de charge). Maintenir le bouton de dash pendant
+    //   ~0,25 s tout en marchant à l'opposé n'arrive jamais par accident.
+    if (player.dashChargeTimer <= 0.0F && !player.dashBoostReady) {
+        if (input.dashHeld && input.moveX != 0.0F &&
+            ((input.moveX > 0.0F) != (facingBeforeInput > 0.0F))) {
+            player.dashChargeReferenceFacing = facingBeforeInput;
+            player.dashChargeTimer = fixedDelta;
+        }
+    } else if (!player.dashBoostReady) {
+        const bool stillOpposing =
+            input.dashHeld && input.moveX != 0.0F &&
+            ((input.moveX > 0.0F) != (player.dashChargeReferenceFacing > 0.0F));
+        if (stillOpposing) {
+            player.dashChargeTimer += fixedDelta;
+            if (player.dashChargeTimer >= _config.dashChargeHoldTime) {
+                player.dashBoostReady = true;
+                player.dashBoostFacing = player.dashChargeReferenceFacing;
+            }
+        } else {
+            player.dashChargeTimer = 0.0F;
+        }
     }
     //   0. Minuteries de game feel, décomptées au pas fixe (EX-CTRL-011, EX-NFR-002) :
     //      - coyote time : rechargé au sol, décompté en l'air (sauter juste après un bord) ;
@@ -231,6 +315,9 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
         player.coyoteTimer = _config.coyoteTime;
         player.airJumpsRemaining = _config.airJumps;        // double saut (EX-GP-015)
         player.dashChargesRemaining = _config.dashCharges;  // charges de dash (EX-GP-017)
+        player.groundPounding = false;                      // fin du ground pound (EX-GP-058)
+        player.comboChainCount = 0;                         // combo remis à zéro au sol (EX-GP-061)
+        player.comboWindowTimer = 0.0F;
     } else {
         player.coyoteTimer = std::max(0.0F, player.coyoteTimer - fixedDelta);
     }
@@ -242,8 +329,24 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
     }
     // Verrou horizontal du wall jump : l'éjection persiste tant qu'il n'est pas écoulé.
     player.wallJumpLockTimer = std::max(0.0F, player.wallJumpLockTimer - fixedDelta);
+    // Verrou horizontal du jump-cancel de dash (EX-GP-061) : la vitesse conservée persiste tant
+    // qu'il n'est pas écoulé (même patron que le verrou de wall jump ci-dessus).
+    player.dashJumpLockTimer = std::max(0.0F, player.dashJumpLockTimer - fixedDelta);
+    // Fenêtre de combo (jump-cancels rapprochés) et d'héritage de momentum après une poussée
+    // renforcée (EX-GP-061) : décomptées au pas fixe, comme les minuteries ci-dessus.
+    player.comboWindowTimer = std::max(0.0F, player.comboWindowTimer - fixedDelta);
+    player.pushMomentumWindowTimer = std::max(0.0F, player.pushMomentumWindowTimer - fixedDelta);
 
     if (applyDash(player, velocity, input, fixedDelta)) {
+        return;
+    }
+
+    //   0e. Ground pound (EX-GP-058) : armé par applyDash() ci-dessus (bouton de dash visé
+    //       purement vers le bas, en l'air) ; impose ici la vitesse de chute jusqu'à l'atterrissage
+    //       (gravité suspendue, comme le dash -- remis à faux au contact du sol, voir plus haut).
+    if (player.groundPounding) {
+        velocity.value.x = 0.0F;
+        velocity.value.y = _config.groundPoundSpeed;
         return;
     }
 
@@ -255,10 +358,26 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
         velocity.value.y = std::max(velocity.value.y, -_config.jumpSpeed * _config.jumpCutFactor);
     }
 
-    //   1. Vitesse horizontale voulue (pas d'inertie). Pendant le verrou de wall jump, on
-    //      CONSERVE la vitesse d'éjection (contrôle horizontal suspendu).
-    if (player.wallJumpLockTimer <= 0.0F) {
+    //   1. Vitesse horizontale voulue (pas d'inertie). Pendant le verrou de wall jump, on CONSERVE
+    //      sa vitesse d'éjection (contrôle horizontal suspendu) -- PRIORITAIRE sur le verrou de
+    //      jump-cancel (EX-GP-061) : un jump-cancel qui aboutit à un wall jump (contact mural,
+    //      applyJump() ci-dessus) doit garder l'éjection du mur, pas la vitesse brute du dash
+    //      annulé. Sinon (jump-cancel sans wall jump), on CONSERVE la vitesse du dash interrompu.
+    if (player.wallJumpLockTimer > 0.0F) {
+        // rien à faire : velocity.value.x porte déjà l'éjection posée par applyJump().
+    } else if (player.dashJumpLockTimer > 0.0F) {
+        velocity.value.x = player.dashJumpMomentumX;
+    } else {
         velocity.value.x = input.moveX * _config.moveSpeed;
+    }
+    //   1bis. Momentum hérité d'une poussée renforcée récente (EX-GP-057/EX-GP-061) : APRÈS que la
+    //   vitesse horizontale de base soit fixée ci-dessus (quelle que soit sa source), ajoute une
+    //   fraction de la vitesse du bloc poussé si un saut vient de se déclencher ce pas et que la
+    //   fenêtre est encore ouverte. Consommé (fenêtre remise à zéro) : un seul héritage par
+    //   poussée.
+    if (player.justJumped && player.pushMomentumWindowTimer > 0.0F) {
+        velocity.value.x += player.pushMomentumVelocityX * _config.momentumCarryRatio;
+        player.pushMomentumWindowTimer = 0.0F;
     }
 
     //   2. Gravité EFFECTIVE (EX-GP-018), y vers le bas → tomber = y positif :

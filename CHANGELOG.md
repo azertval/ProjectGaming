@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-72** — Mouvement avancé : **dash chargé** (bouton de dash et direction opposée maintenus,
+  `EX-GP-056`), **poussée renforcée** d'un bloc par un dash boosté (`EX-GP-057`), **ground pound**
+  (`EX-GP-058`, sans charge de dash disponible), et un **combo dash + saut** — jump-cancel d'un dash
+  boosté, wall-jump en sortie, momentum hérité d'une poussée renforcée, bonus cumulatif plafonné
+  (`EX-GP-061`). Le dash suivait déjà les pentes et le wall slide était déjà livré (LOT-10,
+  `EX-GP-016`) : `EX-GP-060` documente et teste ces deux points plutôt que d'y ajouter du code.
+  Poussée renforcée et jump-cancel sont restreints au dash **boosté** pour garantir qu'aucun dash
+  normal ne change de comportement.
+
 ## [0.1.2] - 2026-08-25
 
 > Huitième jalon, et le plus large : le jeu apprend à se jouer tout seul. Un **solveur IA** écrit

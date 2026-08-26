@@ -88,8 +88,21 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-67
 - @subpage lot-69
 - @subpage lot-70
+- @subpage lot-72
 
 ## Apres le programme `0.1.0`
+
+Le [LOT-72](@ref lot-72) — **livré** — enrichit le nuancier de mouvement du personnage en faisant
+composer le dash (`LOT-10`, `EX-GP-017`) avec les autres systèmes plutôt que de le laisser isolé :
+dash **chargé** (bouton de dash et direction opposée maintenus, `EX-GP-056`), poussée renforcée d'un
+bloc par un dash **boosté** (`EX-GP-057`), ground pound (`EX-GP-058`), et un combo dash + saut
+(jump-cancel d'un dash boosté, wall-jump en sortie, momentum hérité d'une poussée, bonus plafonné,
+`EX-GP-061`). Relecture du code avant implémentation : le dash suivait déjà les pentes et le wall
+slide était déjà livré (`EX-GP-016`, LOT-10) — `EX-GP-060` documente et teste ces deux points plutôt
+que d'y ajouter du code. Aucune nouvelle touche : `dashHeld` (garde de la charge) dérive la touche de
+dash déjà mappée, comme `jumpHeld` pour le saut. Poussée renforcée et jump-cancel sont délibérément
+restreints au dash **boosté**, jamais à un dash normal — une première version sans cette restriction
+avait cassé la séquence `demo-final` et les tests d'entraînement IA, corrigée avant livraison.
 
 Le `LOT-71` — **livre** — retrace `demo-final`, qui fermait la sequence sur un enchainement de
 salles sans densite : un gaufre unique de 24x24 y reunit desormais deux cles, un interrupteur a
