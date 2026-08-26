@@ -16,7 +16,7 @@ TileWindowEncoder::TileWindowEncoder(int radius) : _radius(radius) {
 Tensor<float> TileWindowEncoder::encode(const core::TileMap& tiles,
                                         core::GridPosition center) const {
     const int size = windowSize();
-    Tensor<float> result({static_cast<std::size_t>(kChannelCount), static_cast<std::size_t>(size),
+    Tensor<float> result({static_cast<std::size_t>(CHANNEL_COUNT), static_cast<std::size_t>(size),
                           static_cast<std::size_t>(size)});
 
     for (int dr = -_radius; dr <= _radius; ++dr) {
@@ -27,6 +27,8 @@ Tensor<float> TileWindowEncoder::encode(const core::TileMap& tiles,
                 continue;  // vecteur nul par defaut (Tensor initialise a T{})
             }
             const auto channel = static_cast<std::size_t>(tiles.tile(column, row));
+            // Somme calculee en int, puis convertie : convertir chaque operande d'abord
+            // elargirait le calcul lui-meme, ce que `bugprone-misplaced-widening-cast` refuse.
             const int windowRowIndex = dr + _radius;
             const int windowColumnIndex = dc + _radius;
             const auto windowRow = static_cast<std::size_t>(windowRowIndex);

@@ -10,7 +10,7 @@
 #include "AiSolver/Math/Tensor.h"
 
 /**
- * @file AiSolver/Training/Advanced/ReplayBuffer.h
+ * @file AiSolver/Training/Dqn/ReplayBuffer.h
  * @brief Mémoire de rejeu de transitions (`LOT-ANNEXE-14`, TACHE-01, `EX-IA-015`).
  */
 

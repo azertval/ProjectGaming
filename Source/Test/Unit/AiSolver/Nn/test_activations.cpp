@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_activations.cpp
  * @brief Tests unitaires des activations `aisolver::nn::sigmoid`/`softmax` (LOT-ANNEXE-03,

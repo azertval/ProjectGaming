@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 
 #include "AiSolver/Env/ActionSpace.h"
 #include "AiSolver/Math/Autodiff/Ops.h"

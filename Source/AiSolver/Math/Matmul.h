@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <cstddef>
@@ -14,8 +17,12 @@ namespace aisolver {
 
 /**
  * @brief Produit matriciel standard entre deux matrices (rang 2) `[m,k] * [k,n] -> [m,n]`.
- * @note Complexité O(m·k·n), triple boucle directe, sans optimisation par blocs — cohérent avec
- * l'exclusion de performance de l'épic LOT-ANNEXE-01 (correction visée, pas la vitesse).
+ * @note Complexité O(m·k·n), triple boucle directe, sans découpage en blocs ni parallélisation.
+ * L'adressage, lui, est sorti des boucles : `Tensor::at()` reconstruirait une `initializer_list`,
+ * déréférencerait le tampon partagé et relirait deux `std::vector` du tas à **chaque**
+ * multiplication-addition, alors que les pas sont invariants. L'ordre `i, j, p` est **conservé** :
+ * c'est lui qui fixe l'ordre des sommations flottantes, donc le résultat au bit près — le dépot
+ * éprouve la reproductibilité intégrale de ses entraînements.
  * @pre `a.rank() == 2 && b.rank() == 2 && a.shape()[1] == b.shape()[0]` (`PROJECTGAMING_ASSERT`).
  */
 template <typename T>
@@ -30,14 +37,28 @@ template <typename T>
     const std::size_t k = a.shape()[1];
     const std::size_t n = b.shape()[1];
 
+    const T* aData = a.data();
+    const T* bData = b.data();
+    const std::size_t aRowStride = a.strides()[0];
+    const std::size_t aColStride = a.strides()[1];
+    const std::size_t bRowStride = b.strides()[0];
+    const std::size_t bColStride = b.strides()[1];
+
     Tensor<T> result({m, n});
+    T* out = result.data();
+    const std::size_t outRowStride = result.strides()[0];
+    const std::size_t outColStride = result.strides()[1];
+
     for (std::size_t i = 0; i < m; ++i) {
+        const T* aRow = aData + (i * aRowStride);
+        T* outRow = out + (i * outRowStride);
         for (std::size_t j = 0; j < n; ++j) {
             T total{};
             for (std::size_t p = 0; p < k; ++p) {
-                total = static_cast<T>(total + a.at({i, p}) * b.at({p, j}));
+                total = static_cast<T>(total + aRow[p * aColStride] *
+                                                   bData[(p * bRowStride) + (j * bColStride)]);
             }
-            result.at({i, j}) = total;
+            outRow[j * outColStride] = total;
         }
     }
     return result;
@@ -58,10 +79,19 @@ template <typename T>
     const std::size_t rows = a.shape()[0];
     const std::size_t cols = a.shape()[1];
 
+    const T* aData = a.data();
+    const std::size_t aRowStride = a.strides()[0];
+    const std::size_t aColStride = a.strides()[1];
+
     Tensor<T> result({cols, rows});
+    T* out = result.data();
+    const std::size_t outRowStride = result.strides()[0];
+    const std::size_t outColStride = result.strides()[1];
+
     for (std::size_t i = 0; i < rows; ++i) {
+        const T* aRow = aData + (i * aRowStride);
         for (std::size_t j = 0; j < cols; ++j) {
-            result.at({j, i}) = a.at({i, j});
+            out[(j * outRowStride) + (i * outColStride)] = aRow[j * aColStride];
         }
     }
     return result;

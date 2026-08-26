@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
 
-#include <algorithm>
 #include <limits>
 
 #include "AiSolver/Env/ActionSpace.h"
@@ -11,7 +10,7 @@
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Env/Reward.h"
 #include "AiSolver/Math/Autodiff/Node.h"
-#include "AiSolver/Training/Advanced/DqnLoss.h"
+#include "AiSolver/Training/Dqn/DqnLoss.h"
 #include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "Core/Diagnostics/Assert.h"
 #include "Core/Physics/PlayerSpawn.h"
@@ -74,10 +73,11 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         if (shouldStop && shouldStop()) {
             return;
         }
-        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
-        PROJECTGAMING_ASSERT(loaded, "DqnTrainer::run : le niveau doit se charger");
-        const GridDistanceField distanceField(_environment.level().tileMap(),
-                                              _environment.level().exit());
+        if (!_environment.reset(_levelPath)) {
+            // Voir `evaluateFitness` : l'assertion ne garde rien en Release.
+            PROJECTGAMING_ASSERT(false, "DqnTrainer::run : le niveau doit se charger");
+            return;
+        }
 
         // Boite/etat de depart : meme convention que TrajectoryCollector (LOT-ANNEXE-12) --
         // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -90,6 +90,8 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         EpisodeStatus status = EpisodeStatus::Ongoing;
         float totalReward = 0.0f;
         int stepCount = 0;
+
+        ObjectiveDistanceFieldCache distanceFieldCache;
 
         while (status == EpisodeStatus::Ongoing && !_environment.budgetExhausted()) {
             Tensor<float> observationVector =
@@ -110,6 +112,10 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
             const Action action = actionAt(actionIndex);
 
             const StepObservation stepObservation = _environment.step(toPlayerInput(action));
+            // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache le
+            // reconstruit alors, et le rend tel quel sinon.
+            const GridDistanceField& distanceField =
+                distanceFieldCache.field(_environment.level(), _environment.mechanisms());
             const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                                stepObservation.playerBox, stepObservation.outcome);
             totalReward += reward;

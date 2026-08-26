@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_network_reproducibility.cpp
  * @brief Reproductibilité de bout en bout d'un `aisolver::nn::Network` complet, plusieurs couches

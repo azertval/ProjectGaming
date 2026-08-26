@@ -63,7 +63,8 @@ struct SkinTexture {
     /// Hauteur de la texture, en pixels.
     int height = 0;
     /// Région de l'image **courante** à échantillonner si cet asset est animé (`LOT-46`
-    /// TACHE-05), `std::nullopt` sinon (image fixe : région entière, comme avant ce lot). N'a de
+    /// TACHE-05), `std::nullopt` sinon — image fixe, dont la région échantillonnée est l'image
+    /// entière. N'a de
     /// sens qu'en mode `SkinMode::Single` sans silhouette : `bitmask16` et le détourage de
     /// silhouette excluent l'animation (limite assumée, voir `resolveTileAppearance`).
     std::optional<core::AtlasRegion> animatedFrame;

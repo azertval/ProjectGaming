@@ -80,6 +80,6 @@ TEST(LevelFingerprintTest, EmpreinteIdentiqueALaReimplementationPythonDuGardeFou
     std::ostringstream contents;
     contents << file.rdbuf();
 
-    constexpr std::uint64_t kExpectedFingerprint = 12567232183729497359ULL;
-    EXPECT_EQ(aisolver::computeLevelFingerprint(contents.str()), kExpectedFingerprint);
+    constexpr std::uint64_t EXPECTED_FINGERPRINT = 12567232183729497359ULL;
+    EXPECT_EQ(aisolver::computeLevelFingerprint(contents.str()), EXPECTED_FINGERPRINT);
 }

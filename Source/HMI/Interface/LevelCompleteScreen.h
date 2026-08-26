@@ -30,7 +30,7 @@ class Localization;
  * écrans est une décision d'implémentation ») : `configure()` choisit entre fin de **tableau**
  * (titre nommé, boutons Continuer/Rejouer/Retour) et fin de **séquence** (titre de fin, seul
  * Retour au menu -- `Continuer` n'a alors rien où mener). `ScreenId` n'a donc pas de troisième
- * état : les deux cas partagent `ScreenId::NiveauTermine`.
+ * état : les deux cas partagent `ScreenId::LevelComplete`.
  */
 class LevelCompleteScreen : public QWidget {
     Q_OBJECT

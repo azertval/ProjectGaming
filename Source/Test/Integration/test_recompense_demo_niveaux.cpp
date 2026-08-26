@@ -50,7 +50,10 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
     ASSERT_FALSE(sequence.empty());
 
     const aisolver::RewardConfig rewardConfig;
-    constexpr int HARD_STEP_BUDGET = 3000;
+    // Meme plafond que MAX_SCRIPTED_STEPS (test_parcours_complet.cpp) : le trace de
+    // demo-final.json demande a lui seul pres de 4000 pas, dont de longues attentes devant
+    // les dangers temporises.
+    constexpr int HARD_STEP_BUDGET = 9000;
     // Seuil de blocage desactive de fait (egal au plafond dur) : ce test verifie l'issue finale
     // (Won, recompense dominee par le bonus), pas la sensibilite du seuil de blocage (deja
     // couverte par test_episode.cpp/test_reward_episode.cpp) -- un niveau multi-salles comme
@@ -59,9 +62,11 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
     constexpr int STUCK_THRESHOLD = HARD_STEP_BUDGET;
 
     for (const ScriptedLevel& scripted : sequence) {
-        aisolver::HeadlessLevelEnvironment env;
+        // Budget de l'environnement aligne sur le plafond du test : sans cela il coupe a
+        // son defaut de 3000 pas, bien avant la fin du trace.
+        aisolver::HeadlessLevelEnvironment env{
+            aisolver::EnvironmentConfig{.maxSteps = HARD_STEP_BUDGET}};
         ASSERT_TRUE(env.reset(levelPath(scripted.file))) << "niveau : " << scripted.file;
-        const aisolver::GridDistanceField distanceField(env.level().tileMap(), env.level().exit());
 
         float cumulativeReward = 0.0f;
         aisolver::EpisodeStatus status = aisolver::EpisodeStatus::Ongoing;
@@ -83,6 +88,11 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
             const core::PlayerInput input = scripted.input(step, playerState, x, y);
             const aisolver::StepObservation observation = env.step(input);
 
+            // Champ reconstruit a chaque pas ici, sans le cache des boucles d'entrainement :
+            // ce test verifie la recompense elle-meme, il doit donc la calculer de la facon la plus
+            // directe possible, sans dependre d'une optimisation.
+            const aisolver::GridDistanceField distanceField =
+                aisolver::buildObjectiveDistanceField(env.level(), env.mechanisms());
             cumulativeReward += aisolver::computeReward(rewardConfig, distanceField, previousBox,
                                                         observation.playerBox, observation.outcome);
             previousBox = observation.playerBox;
@@ -95,7 +105,9 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
                                                STUCK_THRESHOLD);
         }
 
-        EXPECT_EQ(status, aisolver::EpisodeStatus::Won) << "niveau : " << scripted.file;
+        EXPECT_EQ(status, aisolver::EpisodeStatus::Won)
+            << "niveau : " << scripted.file << " arret en x=" << x << " y=" << y << " apres "
+            << step << " pas";
         EXPECT_GT(cumulativeReward, rewardConfig.completionBonus / 2.0f)
             << "niveau : " << scripted.file;
     }

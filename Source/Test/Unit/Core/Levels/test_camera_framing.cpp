@@ -80,16 +80,16 @@ TEST(CameraFramingTest, CadrageDeclareEstResoluTelQuel) {
  */
 TEST(CameraFramingTest, RegleDeRepliReproduitLaRegleHistoriqueAuxBornes) {
     const core::CameraFramingConfig exact = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles, core::kDefaultRoomHeightTiles);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES, core::DEFAULT_ROOM_HEIGHT_TILES);
     EXPECT_EQ(exact.mode, core::CameraFramingMode::WholeLevel);
 
     const core::CameraFramingConfig tooWide = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles + 1, core::kDefaultRoomHeightTiles);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES + 1, core::DEFAULT_ROOM_HEIGHT_TILES);
     EXPECT_EQ(tooWide.mode, core::CameraFramingMode::PerRoom);
     EXPECT_FALSE(tooWide.roomWidthTiles.has_value());
 
     const core::CameraFramingConfig tooTall = core::resolveCameraFraming(
-        std::nullopt, core::kDefaultRoomWidthTiles, core::kDefaultRoomHeightTiles + 1);
+        std::nullopt, core::DEFAULT_ROOM_WIDTH_TILES, core::DEFAULT_ROOM_HEIGHT_TILES + 1);
     EXPECT_EQ(tooTall.mode, core::CameraFramingMode::PerRoom);
 }
 
@@ -195,16 +195,17 @@ struct ExpectedFraming {
 /**
  * @brief Chaque niveau livré déclare un cadrage **explicite** (`LOT-65`) : la plupart tiennent
  * dans une salle par défaut et se voient entiers, `demo-mouvement.json` -- la traversée continue
- * la plus longue -- **suit** le personnage, et `demo-final.json` découpe ses quatre salles *par
- * salle*, avec des zones dessinées à la main et une taille de salle qui lui est propre.
+ * la plus longue -- et `demo-final.json` -- son gauffre final, hérité de `Test-IA`, `LOT-71` --
+ * **suivent** le personnage, et `demo-synthese.json` découpe ses deux salles *par salle*, avec des
+ * zones dessinées à la main et une taille de salle qui lui est propre.
  * \castest{<b>Chaque niveau livré déclare le cadrage explicitement choisi pour son contenu.</b>
  * <br/>
  * \tcat Unitaire · Camera Framing<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Charger les niveaux livrés (`Source/Elements/Levels`).<br/>2. Vérifier le mode de
  * cadrage résolu de chacun.<br/>
- * \tattendu La plupart résolvent en *niveau entier*, `demo-mouvement.json` en *suivi* et
- * `demo-final.json` en *par salle*.
+ * \tattendu La plupart résolvent en *niveau entier*, `demo-mouvement.json`/`demo-final.json` en
+ * *suivi* et `demo-synthese.json` en *par salle*.
  * }
  */
 TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
@@ -224,7 +225,8 @@ TEST(CameraFramingTest, NiveauxLivresReproduisentLeurComportementActuel) {
         {"demo-bloc-reduit.json", core::CameraFramingMode::WholeLevel},
         {"demo-plateforme.json", core::CameraFramingMode::WholeLevel},
         {"demo-dangers-avances.json", core::CameraFramingMode::WholeLevel},
-        {"demo-final.json", core::CameraFramingMode::PerRoom, /*customRoomSize=*/true},
+        {"demo-synthese.json", core::CameraFramingMode::PerRoom, /*customRoomSize=*/true},
+        {"demo-final.json", core::CameraFramingMode::Follow},
     };
 
     for (const ExpectedFraming& expected : levels) {

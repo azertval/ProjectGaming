@@ -8,8 +8,9 @@
 namespace hmi {
 
 PixelScreenRect imagePixelScreenRect(const PixelCanvasView& view, int x, int y) noexcept {
-    // Echelle RATIONNELLE depuis le LOT-69 TACHE-07 : a denominateur 1 (le defaut), la valeur est
-    // exactement celle d'avant, au bit pres -- c'est ce qui laisse l'atelier pixel art inchange.
+    // Echelle RATIONNELLE depuis le LOT-69 TACHE-07. INVARIANT : a denominateur 1 -- le defaut --
+    // elle vaut l'echelle entiere au bit pres. C'est ce qui garantit que l'atelier pixel art reste
+    // exempt de tout demi-pixel tant qu'aucun zoom fractionnaire n'est demande.
     const double scale = pixelCanvasScale(view);
     return PixelScreenRect{
         .x = static_cast<double>(x - view.panX) * scale,

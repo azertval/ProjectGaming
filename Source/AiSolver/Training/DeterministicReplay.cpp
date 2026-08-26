@@ -19,13 +19,15 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
                                                HeadlessLevelEnvironment& environment,
                                                const std::filesystem::path& levelPath,
                                                int stuckThreshold) {
-    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
-    PROJECTGAMING_ASSERT(loaded, "replayBestIndividual : le niveau doit se charger");
+    if (!environment.reset(levelPath)) {
+        // Voir `evaluateFitness` : l'assertion ne garde rien en Release. Un rejeu vide est refuse
+        // par l'appelant, la ou un `step()` sur un monde vide serait indefini.
+        PROJECTGAMING_ASSERT(false, "replayBestIndividual : le niveau doit se charger");
+        return DeterministicReplayResult{};
+    }
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Etat de depart identique a FitnessEvaluator::evaluateFitness (LOT-ANNEXE-10) : meme
     // convention de reconstruction de l'etat de spawn avant le premier step().
@@ -38,6 +40,8 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
     DeterministicReplayResult result;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
+    ObjectiveDistanceFieldCache distanceFieldCache;
+
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -49,6 +53,10 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
         result.steps.push_back(input);
 
         const StepObservation stepObservation = environment.step(input);
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 

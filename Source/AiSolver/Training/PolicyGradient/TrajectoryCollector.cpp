@@ -26,8 +26,6 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que evolutionary::evaluateFitness (LOT-ANNEXE-10) --
     // HeadlessLevelEnvironment n'expose pas d'observation avant le premier step().
@@ -39,6 +37,8 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
 
     Trajectory trajectory;
     EpisodeStatus status = EpisodeStatus::Ongoing;
+
+    ObjectiveDistanceFieldCache distanceFieldCache;
 
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         Tensor<float> observationVector =
@@ -55,6 +55,10 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
         const float logProbability = std::log(probability);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         const float reward = computeReward(rewardConfig, distanceField, previousBox,
                                            stepObservation.playerBox, stepObservation.outcome);
 

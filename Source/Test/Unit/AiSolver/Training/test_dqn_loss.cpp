@@ -15,8 +15,8 @@
 
 #include "AiSolver/Math/Autodiff/Node.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/DqnLoss.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/DqnLoss.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 
 using aisolver::Rng;
 using aisolver::Tensor;
@@ -26,12 +26,12 @@ using aisolver::training::Transition;
 
 namespace {
 
-constexpr std::size_t kInputSize = 3;
-constexpr std::size_t kHiddenSize = 4;
-constexpr float kGamma = 0.9f;
+constexpr std::size_t INPUT_SIZE = 3;
+constexpr std::size_t HIDDEN_SIZE = 4;
+constexpr float GAMMA = 0.9f;
 
 Tensor<float> observationOf(float a, float b, float c) {
-    Tensor<float> observation({kInputSize, 1});
+    Tensor<float> observation({INPUT_SIZE, 1});
     observation.at({0, 0}) = a;
     observation.at({1, 0}) = b;
     observation.at({2, 0}) = c;
@@ -59,7 +59,7 @@ float maxAbsoluteGradientError(QNetwork& mainNetwork, QNetwork& targetNetwork,
         parameter->zeroGrad();
     }
     const aisolver::autodiff::NodePtr loss =
-        computeDqnLoss(mainNetwork, targetNetwork, batch, kGamma);
+        computeDqnLoss(mainNetwork, targetNetwork, batch, GAMMA);
     aisolver::autodiff::backward(loss);
 
     std::vector<Tensor<float>> analyticGrads;
@@ -76,11 +76,11 @@ float maxAbsoluteGradientError(QNetwork& mainNetwork, QNetwork& targetNetwork,
 
             parameter->value.data()[elementIndex] = original + epsilon;
             const float lossPlus =
-                computeDqnLoss(mainNetwork, targetNetwork, batch, kGamma)->value.data()[0];
+                computeDqnLoss(mainNetwork, targetNetwork, batch, GAMMA)->value.data()[0];
 
             parameter->value.data()[elementIndex] = original - epsilon;
             const float lossMinus =
-                computeDqnLoss(mainNetwork, targetNetwork, batch, kGamma)->value.data()[0];
+                computeDqnLoss(mainNetwork, targetNetwork, batch, GAMMA)->value.data()[0];
 
             parameter->value.data()[elementIndex] = original;
 
@@ -109,9 +109,9 @@ float maxAbsoluteGradientError(QNetwork& mainNetwork, QNetwork& targetNetwork,
  */
 TEST(DqnLossTest, GradientCheckingParRapportAuReseauPrincipal) {
     Rng mainRng(1);
-    QNetwork mainNetwork(kInputSize, kHiddenSize, mainRng);
+    QNetwork mainNetwork(INPUT_SIZE, HIDDEN_SIZE, mainRng);
     Rng targetRng(2);
-    QNetwork targetNetwork(kInputSize, kHiddenSize, targetRng);
+    QNetwork targetNetwork(INPUT_SIZE, HIDDEN_SIZE, targetRng);
 
     std::vector<Transition> batch;
     batch.push_back(
@@ -137,23 +137,23 @@ TEST(DqnLossTest, GradientCheckingParRapportAuReseauPrincipal) {
  */
 TEST(DqnLossTest, TransitionTerminaleIgnoreLeReseauCible) {
     Rng mainRng(3);
-    QNetwork mainNetwork(kInputSize, kHiddenSize, mainRng);
+    QNetwork mainNetwork(INPUT_SIZE, HIDDEN_SIZE, mainRng);
     Rng targetRng(4);
-    QNetwork targetNetwork(kInputSize, kHiddenSize, targetRng);
+    QNetwork targetNetwork(INPUT_SIZE, HIDDEN_SIZE, targetRng);
 
     const Tensor<float> observation = observationOf(0.2f, -0.1f, 0.4f);
     const Tensor<float> nextObservation = observationOf(0.5f, 0.5f, 0.5f);
-    constexpr std::size_t kActionIndex = 6;
-    constexpr float kReward = 0.75f;
+    constexpr std::size_t ACTION_INDEX = 6;
+    constexpr float REWARD = 0.75f;
 
-    const float predictedQ = mainNetwork.forward(observation)->value.data()[kActionIndex];
-    const float expectedLoss = (predictedQ - kReward) * (predictedQ - kReward);
+    const float predictedQ = mainNetwork.forward(observation)->value.data()[ACTION_INDEX];
+    const float expectedLoss = (predictedQ - REWARD) * (predictedQ - REWARD);
 
     std::vector<Transition> batch;
     batch.push_back(
-        transitionAt(kActionIndex, observation, kReward, nextObservation, /*done=*/true));
+        transitionAt(ACTION_INDEX, observation, REWARD, nextObservation, /*done=*/true));
     const float actualLoss =
-        computeDqnLoss(mainNetwork, targetNetwork, batch, kGamma)->value.data()[0];
+        computeDqnLoss(mainNetwork, targetNetwork, batch, GAMMA)->value.data()[0];
 
     EXPECT_NEAR(actualLoss, expectedLoss, 1e-4f);
 }
@@ -170,9 +170,9 @@ TEST(DqnLossTest, TransitionTerminaleIgnoreLeReseauCible) {
  */
 TEST(DqnLossTest, LeReseauCibleNAccumuleAucunGradient) {
     Rng mainRng(5);
-    QNetwork mainNetwork(kInputSize, kHiddenSize, mainRng);
+    QNetwork mainNetwork(INPUT_SIZE, HIDDEN_SIZE, mainRng);
     Rng targetRng(6);
-    QNetwork targetNetwork(kInputSize, kHiddenSize, targetRng);
+    QNetwork targetNetwork(INPUT_SIZE, HIDDEN_SIZE, targetRng);
 
     std::vector<Transition> batch;
     batch.push_back(
@@ -185,7 +185,7 @@ TEST(DqnLossTest, LeReseauCibleNAccumuleAucunGradient) {
         parameter->zeroGrad();
     }
 
-    const auto loss = computeDqnLoss(mainNetwork, targetNetwork, batch, kGamma);
+    const auto loss = computeDqnLoss(mainNetwork, targetNetwork, batch, GAMMA);
     aisolver::autodiff::backward(loss);
 
     for (const auto& parameter : targetNetwork.parameters()) {

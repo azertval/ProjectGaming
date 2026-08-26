@@ -51,3 +51,6 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-ihm-qt — la **refonte IHM vers Qt** : socle applicatif, viewport Direct3D 11, boucle et entrées Qt.
 - @subpage guide-design-ihm — le **système de design** et l'**architecture de l'information** : jetons, thème, actions, barre d'état.
 - @subpage guide-audio — l'**audio** : moteur Qt Multimedia, catalogue de sons, détection des transitions et table événement → son.
+
+Les notions d'apprentissage automatique mises en œuvre par le solveur IA font l'objet d'un guide
+séparé : @ref guide-annexe.

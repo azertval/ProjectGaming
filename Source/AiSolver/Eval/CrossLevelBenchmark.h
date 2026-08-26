@@ -22,6 +22,11 @@
  * `BenchmarkRunner`/`BenchmarkReport` (`LOT-ANNEXE-15`) restent inchangés par ce lot : le rapport
  * croisé (`writeCrossLevelCsv`) est un fichier neuf plutôt qu'une surcharge de `BenchmarkReport`,
  * pour respecter le critère d'acceptation de l'épic (aucune ligne de `BenchmarkReport.*` modifiée).
+ *
+ * **API de bibliothèque, sans point d'entrée `aisolver-cli`.** L'outil en ligne de commande
+ * n'expose que `train`, `evaluate` et `export-replay` : ce module est appelé par ses tests, et
+ * reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été
+ * exécutée une fois et ses résultats consignés (`Documentation/Lot-Annexe/`).
  */
 
 namespace aisolver::eval {

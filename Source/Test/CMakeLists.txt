@@ -11,6 +11,7 @@ add_executable(UnitTests
     Unit/Core/Math/test_vector2.cpp
     Unit/Core/Math/test_rect.cpp
     Unit/Core/Math/test_math_utils.cpp
+    Unit/Core/Math/test_deterministic_random.cpp
     Unit/Core/Ecs/test_entity_manager.cpp
     Unit/Core/Ecs/test_animation_clip.cpp
     Unit/Core/Ecs/test_component_pool.cpp
@@ -126,6 +127,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_evolutionary_non_regression.cpp
     Unit/AiSolver/Training/test_level_training_session.cpp
     Unit/AiSolver/Training/test_deterministic_replay.cpp
+    Unit/AiSolver/Training/test_argmax_rollout.cpp
     Unit/AiSolver/Training/test_replay_export.cpp
     # Policy gradient maison REINFORCE (LOT-ANNEXE-12) : collecte de trajectoire (TACHE-01), retour
     # actualise (TACHE-02), perte REINFORCE et gradient checking -- le test le plus important du lot
@@ -133,6 +135,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_trajectory_collector.cpp
     Unit/AiSolver/Training/test_return_calculator.cpp
     Unit/AiSolver/Training/test_reinforce_loss.cpp
+    Unit/AiSolver/Training/test_policy_gradient_loss.cpp
     Unit/AiSolver/Training/test_reinforce_trainer.cpp
     # Acteur-critique (LOT-ANNEXE-13) : reseau critique (TACHE-01), avantage et non-regression de
     # la perte REINFORCE apres factorisation (TACHE-02), perte du critique et boucle d'optimisation
@@ -142,7 +145,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_actor_critic_loss.cpp
     Unit/AiSolver/Training/test_critic_loss.cpp
     Unit/AiSolver/Training/test_actor_critic_trainer.cpp
-    Unit/AiSolver/Training/test_convergence_comparator.cpp
+    Unit/AiSolver/Eval/test_convergence_comparator.cpp
     # Algorithme avance DQN (LOT-ANNEXE-14) : reseau Q(s,a) et memoire de rejeu (TACHE-01), perte de
     # Bellman/gradient checking (TACHE-01), boucle d'entrainement integree au harnais existant
     # (TACHE-02), comparaison chiffree generalisee a quatre series (TACHE-03).
@@ -150,7 +153,7 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_replay_buffer.cpp
     Unit/AiSolver/Training/test_dqn_loss.cpp
     Unit/AiSolver/Training/test_dqn_trainer.cpp
-    Unit/AiSolver/Training/test_generation_comparator.cpp
+    Unit/AiSolver/Eval/test_generation_comparator.cpp
     # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
     # adaptateurs TrainedPolicy uniformes (TACHE-01), execution automatisee repetee et reproductible
     # (TACHE-01), rapport comparatif CSV par niveau x algorithme reutilisant l'echappement partage
@@ -167,12 +170,12 @@ add_executable(UnitTests
     Unit/AiSolver/Replay/test_level_fingerprint.cpp
     Unit/AiSolver/Replay/test_replay_validation.cpp
     Unit/AiSolver/Replay/test_replay_format.cpp
-    # Outillage CLI (LOT-ANNEXE-19) : Commands.cpp/ArgParsing.cpp/TrainingConfig.cpp n'appartiennent
+    # Outillage CLI (LOT-ANNEXE-19) : Commands.cpp/ArgumentParsing.cpp/TrainingConfig.cpp n'appartiennent
     # pas a la bibliotheque AiSolver (elles sont l'executable distinct aisolver-cli, cf.
     # Source/AiSolver/CMakeLists.txt), meme patron que GameEvents.cpp/ReplayPlayback.cpp ci-dessous
     # pour HMI : compilees directement dans cette cible pour rester testables sans lancer le vrai
     # executable (Main.cpp, lui, n'est jamais compile ici).
-    ../AiSolver/Cli/ArgParsing.cpp
+    ../AiSolver/Cli/ArgumentParsing.cpp
     # Cli/TrainingConfig.cpp n'est plus compile ici : deplace dans la bibliotheque AiSolver
     # (LOT-ANNEXE-21) pour etre reutilise par HMI/Ai/TrainingWorker -- deja fourni par le lien
     # AiSolver ci-dessous, le compiler aussi ici produirait des symboles dupliques.
@@ -504,6 +507,11 @@ if(Qt6_FOUND)
         # temoin, relu pixel par pixel. Se saute proprement si la machine n'offre aucune interface
         # QRhi -- c'est le seul test qui protege la nettete du pixel art.
         Unit/HMI/Graphics/test_rhi_offscreen.cpp
+        # Table de correspondance Qt <-> Win32 (LOT-57 TACHE-04) : logique PURE, mais qui lit les
+        # constantes de <qnamespace.h> -- elle depend des en-tetes Qt, jamais d'une QApplication.
+        # Elle vit donc ici plutot qu'avec les autres sources HMI/Input compilees sans condition.
+        Unit/HMI/Input/test_qt_key_map.cpp
+        ../HMI/Input/QtKeyMap.cpp
         ../HMI/Graphics/TextureLoader.cpp
         ../HMI/Graphics/SpriteBatch.cpp)
     target_link_libraries(UnitTests PRIVATE Qt6::Gui Qt6::GuiPrivate)
@@ -616,7 +624,19 @@ target_compile_definitions(SystemTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     PROJECTGAMING_REPLAY_FIXTURES_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Systeme/Fixtures")
 
-# Enregistre chaque TEST() auprès de CTest.
-gtest_discover_tests(UnitTests)
-gtest_discover_tests(IntegrationTests)
-gtest_discover_tests(SystemTests)
+# Enregistre chaque TEST() aupres de CTest.
+#
+# LABELS : l'etage d'appartenance, pour pouvoir ne rejouer qu'une famille --
+# `ctest --preset vs -L unitaire` pendant une boucle de developpement, les trois en CI.
+# Les proprietes de `gtest_discover_tests` s'appliquent a TOUTE la cible : un etiquetage plus fin
+# (les quelques tests d'entrainement IA qui pesent des dizaines de secondes) se fait par nom, ces
+# tests etant tous nommes d'apres leur sujet -- p. ex.
+# `ctest --preset vs -E 'Trainer|Comparator|CrossLevel|NonRegression'`.
+#
+# TIMEOUT : une borne de TERMINAISON, pas un objectif de performance. Sans elle, un test parti en
+# boucle bloque le job jusqu'au delai global du runner, sans dire lequel. Le seuil laisse une marge
+# large au test le plus lourd connu (~42 s en Debug) : il n'attrape qu'un veritable emballement.
+gtest_discover_tests(UnitTests PROPERTIES LABELS unitaire TIMEOUT 300)
+gtest_discover_tests(IntegrationTests PROPERTIES LABELS integration TIMEOUT 300)
+# Le parcours complet rejoue les 24 tableaux livres, avec un plafond de 9 000 pas chacun.
+gtest_discover_tests(SystemTests PROPERTIES LABELS systeme TIMEOUT 900)

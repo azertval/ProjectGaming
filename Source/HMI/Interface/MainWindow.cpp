@@ -111,7 +111,7 @@ constexpr int LAYOUT_VERSION =
         //     regroupement en onglets (LOT-57, amendement post-essai manuel)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
-// HMI/main.cpp).
+// HMI/Main.cpp).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux (LOT-57 TACHE-02) : local à MainWindow, pas
@@ -453,9 +453,10 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _defaultState = saveState(LAYOUT_VERSION);
     restoreLayout();
 
-    // APRES restoreLayout : la geometrie restauree peut differer du resize(1280, 720) ci-dessus,
-    // et c'est la hauteur finale qui decide du facteur. Poser le facteur ici evite que le premier
-    // affichage du menu se fasse a l'echelle 1 avant d'etre corrige par le premier resizeEvent.
+    // APRES restoreLayout : le facteur d'agrandissement est derive de la hauteur FINALE de la
+    // fenetre, et la geometrie restauree peut differer du resize(1280, 720) ci-dessus. Le poser
+    // ici, et non avant, evite que la premiere image du menu soit peinte a une echelle qu'un
+    // resizeEvent devrait ensuite corriger sous les yeux du joueur.
     applyIdentityScale();
 
     // Espace de travail persiste (LOT-68) : on rouvre l'editeur la ou on l'a laisse. Applique
@@ -474,13 +475,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 }
 
 void MainWindow::setDocksVisible(bool visible) {
-    // Depuis le LOT-68, un dock n'est visible que si le chassis d'edition l'est ET s'il appartient
-    // a l'espace de travail actif : les deux conditions se composent. Les traiter separement
-    // faisait rouvrir les neuf docks des qu'on entrait dans l'editeur, annulant tout le masquage
-    // par espace -- defaut constate a l'essai.
-    // TOUS les docks, retrouves dynamiquement, plutot qu'une liste ecrite a la main : celle-ci
-    // laissait echapper silencieusement chaque dock ajoute ensuite, qui restait alors affiche
-    // par-dessus le menu principal et le jeu (constate avec le dock « Textures » du LOT-42).
+    // Visibilite d'un dock = chassis d'edition visible ET dock appartenant a l'espace de travail
+    // actif (LOT-68). Une CONJONCTION, jamais deux regles appliquees separement : la seconde
+    // condition seule reste vraie hors edition, la premiere seule ignore le masquage par espace.
+    // Les docks sont retrouves DYNAMIQUEMENT, jamais enumeres a la main : la garde doit rester
+    // exhaustive quand un dock est ajoute, sans quoi le nouveau venu echapperait au masquage et
+    // resterait affiche par-dessus le menu principal et le jeu.
     // Les panneaux d'edition n'ont de sens qu'en mode edition (EX-IHM-010).
     // Bascule de mode (edition/jeu/menu), pas un choix d'onglet : ne doit pas etre pris pour un
     // "l'utilisateur a impose un panneau" (LOT-57 TACHE-02).
@@ -524,15 +524,14 @@ bool MainWindow::transitionScreen(ScreenEvent event) {
 
 void MainWindow::applyScreenDressing(ScreenId screen) {
     // Choix de la page du QStackedWidget : seule part propre a Qt (pointeurs de widgets), hors de
-    // portee d'une table pure (hmi::ScreenDressing). Pause/NiveauTermine recouvrent Game (meme
+    // portee d'une table pure (hmi::ScreenDressing). Pause/LevelComplete recouvrent Game (meme
     // page) : leurs widgets d'ecran (TACHE-02/03) se dessinent PAR-DESSUS, la scene reste visible
     // derriere.
     switch (screen) {
         case ScreenId::Menu:
             _stack->setCurrentWidget(_menu);
-            // Rafraîchi ICI plutôt que dans showMenu() (bug réel trouvé en jeu, LOT-59 TACHE-07 :
-            // « Continuer » ne s'activait jamais) : la plupart des retours au menu ne passent PAS
-            // par la méthode showMenu() -- returnToMenuFromLevelComplete/quitPauseToMenu/
+            // Rafraîchi ICI plutôt que dans showMenu() : la plupart des retours au menu ne passent
+            // PAS par cette méthode -- returnToMenuFromLevelComplete/quitPauseToMenu/
             // closeLevelSelect résolvent chacun leur PROPRE ScreenEvent directement. Poser le
             // rafraîchissement ici couvre TOUTE transition qui atterrit sur Menu, quel que soit
             // l'événement, sans avoir à le dupliquer dans chaque poignée de retour.
@@ -553,7 +552,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
         case ScreenId::Editor:
         case ScreenId::Game:
         case ScreenId::Pause:
-        case ScreenId::NiveauTermine:
+        case ScreenId::LevelComplete:
             _stack->setCurrentWidget(_viewport);
             break;
     }
@@ -570,18 +569,16 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     if (showPauseOverlay) {
         _pauseScreen->setGeometry(_viewport->rect());
         _pauseScreen->raise();
-        // Enfant ordinaire depuis le LOT-69 TACHE-02 : le focus se pose directement, sans
-        // activation de fenêtre ni report d'un tour de boucle. Le détour différé qu'imposait la
-        // fenêtre de haut niveau (LOT-59 TACHE-07 : activateWindow() ne fait que poster la demande
-        // à l'OS, et poser le focus avant son traitement laissait Entrée/Échap routés vers la
-        // fenêtre précédente) n'a plus lieu d'être.
+        // L'ecran de pause est un widget ENFANT (LOT-69 TACHE-02), pas une fenetre de haut niveau :
+        // poser le focus est donc synchrone. Aucune activation de fenetre a attendre, donc aucun
+        // report a un tour de boucle ulterieur avant de router le clavier.
         _pauseScreen->focusDefaultAction();
     }
 
     // Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même règle que _pauseScreen
     // ci-dessus -- `openLevelComplete` a déjà appelé `_levelCompleteScreen->configure(...)` avant
     // cette transition, ici on ne fait que (dé)montrer.
-    const bool showLevelCompleteOverlay = screen == ScreenId::NiveauTermine;
+    const bool showLevelCompleteOverlay = screen == ScreenId::LevelComplete;
     _levelCompleteScreen->setVisible(showLevelCompleteOverlay);
     if (showLevelCompleteOverlay) {
         _levelCompleteScreen->setGeometry(_viewport->rect());
@@ -1380,12 +1377,11 @@ void MainWindow::buildUi() {
     // Regroupement par defaut des panneaux Niveaux/Liens/Atelier/Historique/Palette en onglets
     // (LOT-57 TACHE-02, etendu LOT-54 TACHE-04/TACHE-07) : chacun reste individuellement
     // deplacable/detachable/refermable (EX-IHM-010), seule la disposition par defaut change.
-    // Textures redevient un dock independant, comme Palette (LOT-57, amendement post-essai
-    // manuel). Doit preceder la capture de _defaultState (constructeur, apres
-    // buildUi()).
-    // Depuis le LOT-68, la pile ne melange plus deux domaines : les panneaux d'edition de niveau
-    // d'un cote, ceux de l'atelier de l'autre. Un onglet « Atelier » au milieu des panneaux de
-    // niveau invitait a une bascule que l'espace de travail rend desormais explicite.
+    // REGLE (LOT-68) : une pile d'onglets ne regroupe que des panneaux du MEME domaine -- edition
+    // de niveau d'un cote, atelier pixel art de l'autre. Le changement de domaine appartient au
+    // selecteur d'espace de travail, pas a un onglet perdu au milieu d'un autre domaine. Textures
+    // et Palette restent des docks independants. Doit preceder la capture de _defaultState
+    // (constructeur, apres buildUi()).
     tabifyDockWidget(_ui->LevelsPanel, _ui->LinksPanel);
     tabifyDockWidget(_ui->LinksPanel, _ui->PropertiesPanel);
     tabifyDockWidget(_ui->PixelCanvasPanel, _ui->PixelHistoryPanel);
@@ -1405,9 +1401,10 @@ void MainWindow::buildUi() {
         connect(dock, &QDockWidget::topLevelChanged, this, [this](bool) { _userPickedTab = true; });
     }
 
-    // Outils de niveau : la liste est DERIVEE du catalogue, jamais recopiee ici. Une liste ecrite
-    // a la main avait laisse l'outil « Parcours » (LOT-67) cochable dans la barre d'outils sans
-    // etre relie au viewport : le bouton s'allumait, l'outil precedent restait actif.
+    // Outils de niveau : la liste est DERIVEE du catalogue, jamais recopiee ici. C'est ce qui
+    // garantit qu'un outil ajoute au catalogue est relie au viewport par construction -- une
+    // liste ecrite a la main le rendrait cochable dans la barre d'outils sans le brancher, et
+    // rien ne le signalerait a la compilation.
     for (const hmi::EditorActionSpec& spec : hmi::editorActionCatalog()) {
         if (spec.group != hmi::EditorActionGroup::LevelTools) {
             continue;
@@ -1723,10 +1720,10 @@ void MainWindow::buildUi() {
     // Selecteur d'espace de travail (LOT-68) : groupe exclusif, aucun etat intermediaire.
     auto* const workspaceGroup = new QActionGroup(this);
     workspaceGroup->setExclusive(true);
-    // Les trois entrees derivees de l'enumeration, jamais recopiees une a une : c'est ce qui a
-    // laisse l'outil « Parcours » debranche au LOT-67, et un espace oublie ici ne se verrait qu'a
-    // l'usage. Elles passent toutes par switchToWorkspace -- point d'entree unique, qui seul sait
-    // enregistrer la disposition qu'on quitte et changer le sujet du canevas.
+    // Entrees DERIVEES de l'enumeration EditorWorkspace, jamais recopiees une a une : ajouter un
+    // espace de travail suffit a lui donner son selecteur, sans retouche ici. Toutes passent par
+    // switchToWorkspace -- point d'entree unique, seul a savoir enregistrer la disposition qu'on
+    // quitte et changer le sujet du canevas.
     for (const hmi::EditorWorkspace workspace :
          {hmi::EditorWorkspace::Level, hmi::EditorWorkspace::Planes,
           hmi::EditorWorkspace::PixelArt}) {
@@ -2101,10 +2098,10 @@ void MainWindow::refreshStatusHelp() {
     // contextes (niveau/atelier) dépend du widget qui a le focus clavier (_editContext, LOT-54
     // TACHE-04) -- jamais les deux en même temps (EX-IHM-062).
     if (_stack->currentWidget() == _viewport && menuBar()->isVisible()) {
-        // En mode creation, la barre parle du PLAN meme si le focus clavier n'est pas encore dans
-        // le canevas : l'espace n'a pas d'autre sujet, et annoncer le niveau et son zoom de camera
-        // pendant qu'on peint une image se lit comme un defaut (constate a l'essai). Ailleurs, la
-        // regle du LOT-54 est inchangee -- c'est le widget focalise qui decide.
+        // En mode creation, le sujet de la barre d'etat est le PLAN, independamment du focus
+        // clavier : l'espace n'a pas d'autre sujet, et le niveau ou son zoom de camera n'y
+        // apprennent rien a qui peint une image. Ailleurs, la regle du LOT-54 s'applique -- c'est
+        // le widget focalise qui decide.
         const bool paintingPlane = _workspace == hmi::EditorWorkspace::Planes && _paintedPlane;
         if (paintingPlane || _editContext == static_cast<EditContextTarget*>(_pixelCanvas)) {
             PixelEditStatusInfo pixel;
@@ -2152,9 +2149,9 @@ void MainWindow::refreshStatusHelp() {
 }
 
 void MainWindow::showTransientStatusMessage(const QString& message, int timeoutMs) {
-    // Timeout 0 (par defaut de showMessage) : le message reste affiche jusqu'a restauration
-    // explicite par _statusMessageTimer, plutot que d'etre vide silencieusement par Qt (defaut
-    // corrige, LOT-57 TACHE-01).
+    // Timeout laisse a 0 (defaut de showMessage) : le message reste affiche jusqu'a la
+    // restauration explicite par _statusMessageTimer, seul maitre de sa duree de vie. Confier ce
+    // delai a Qt le viderait sans que le timer le sache.
     statusBar()->showMessage(message);
     _statusMessageTimer->start(timeoutMs);
 }

@@ -58,12 +58,11 @@ namespace hmi {
  * @brief Widget de rendu (`QRhiWidget`) où la scène est dessinée, composé avec le reste de
  *        l'interface.
  *
- * **Widget, et non fenêtre native, depuis le `LOT-69` TACHE-02** (`EX-REN-050`). L'ancien montage
- * — une `QWindow` embarquée par `QWidget::createWindowContainer` — a coûté deux défauts réels au
- * `LOT-59` : un écran de pause qui ne s'affichait jamais de façon fiable par-dessus la fenêtre
- * native, puis un contournement `Qt::Tool` qui empêchait `activateWindow()`. `QRhiWidget` rend
- * dans une texture d'appui composée avec les autres widgets : l'empilement redevient celui,
- * ordinaire, de Qt, et les recouvrements (pause, fin de niveau) redeviennent de simples enfants.
+ * **Widget, et non fenêtre native, depuis le `LOT-69` TACHE-02** (`EX-REN-050`). Règle tenue par
+ * ce choix : **aucun recouvrement de l'IHM ne doit dépendre d'un empilement de fenêtres natives**.
+ * `QRhiWidget` rend dans une texture d'appui composée avec les autres widgets, donc l'empilement
+ * est celui, ordinaire, de Qt : les recouvrements (pause, fin de niveau) sont de simples enfants,
+ * dont la visibilité et le focus suivent les règles habituelles des widgets.
  *
  * La cible technique ne change pas : QRhi retient **Direct3D 11** par défaut sous Windows
  * (`EX-REN-002`, amendée — *au travers de QRhi* plutôt qu'en appelant l'API directement).

@@ -34,8 +34,12 @@ void ReinforceTrainer::run(std::size_t episodeCount, const std::function<bool()>
         const std::uint64_t seed = _config.seedBase + static_cast<std::uint64_t>(_episodeIndex);
         Rng rng(seed);
 
-        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
-        PROJECTGAMING_ASSERT(loaded, "ReinforceTrainer::run : le niveau doit se charger");
+        if (!_environment.reset(_levelPath)) {
+            // Voir `evaluateFitness` : l'assertion ne garde rien en Release. L'entrainement
+            // s'arrete, plutot que de tourner a vide sur un monde inexistant.
+            PROJECTGAMING_ASSERT(false, "ReinforceTrainer::run : le niveau doit se charger");
+            return;
+        }
 
         // Collecte (poids figes pendant tout l'episode) -> retours -> perte (memes poids,
         // aucune mise a jour n'intervient entre les deux) -> backward() -> step() -> zeroGrad

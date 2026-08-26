@@ -12,6 +12,7 @@
 #include <string>
 
 #include <gtest/gtest.h>
+#include <nlohmann/json.hpp>
 
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelDraft.h"
@@ -176,8 +177,9 @@ TEST(PlaneTest, RemovePlaneRetireAuRangDonne) {
 TEST(PlaneTest, ChaqueMutateurEstAnnulableEtRefaisable) {
     LevelDraft draft = draftWithPlanes(2);
 
-    // Le vecteur de mutations couvre TOUS les mutateurs de plan : c'est ce test qui empeche de
-    // reintroduire l'oubli de pushUndo() corrige apres coup au LOT-67 sur les budgets de niveau.
+    // REGLE VERIFIEE ICI : tout mutateur de plan empile un pushUndo(). Le vecteur ci-dessous les
+    // enumere EXHAUSTIVEMENT -- ajouter un mutateur sans l'ajouter ici laisserait une mutation
+    // non annulable, invisible autrement qu'a l'usage.
     draft.setPlaneDensity(0, 8);
     EXPECT_EQ(draft.planes()[0].pixelsPerUnit, 8);
     ASSERT_TRUE(draft.canUndo());
@@ -394,8 +396,17 @@ TEST(PlaneTest, RoundTripDesPlans) {
         EXPECT_EQ(after.depth, before.depth);
     }
 
-    // "mur.png" est entierement par defaut : il ne produit que son nom de fichier.
-    EXPECT_NE(json.find("\"file\":\"mur.png\"}"), std::string::npos)
+    // "mur.png" est entierement par defaut : il ne produit que son nom de fichier. Verifie sur le
+    // JSON reanalyse plutot que sur sa mise en forme, qui n'est pas ce que le test garantit.
+    const nlohmann::json parsed = nlohmann::json::parse(json);
+    const nlohmann::json* defaultPlane = nullptr;
+    for (const nlohmann::json& plane : parsed.at("planes")) {
+        if (plane.at("file").get<std::string>() == "mur.png") {
+            defaultPlane = &plane;
+        }
+    }
+    ASSERT_NE(defaultPlane, nullptr) << json;
+    EXPECT_EQ(defaultPlane->size(), 1u)
         << "un plan par defaut ne doit ecrire que son champ 'file' -- JSON : " << json;
 }
 
@@ -421,7 +432,7 @@ TEST(PlaneTest, DrapeauDeParallaxeDesactive) {
     EXPECT_FALSE(loaded.level->parallaxEnabled());
 
     const std::string json = core::LevelWriter::toJsonString(*loaded.level);
-    EXPECT_NE(json.find("\"parallax\":false"), std::string::npos) << json;
+    EXPECT_FALSE(nlohmann::json::parse(json).at("parallax").get<bool>()) << json;
 
     // Le drapeau survit au round-trip : c'est ce qui compte pour le level designer.
     const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);

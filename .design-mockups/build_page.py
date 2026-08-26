@@ -17,6 +17,7 @@ TITLES = {
     "_body_select.frag": "Sélection de niveau",
     "_body_fin.frag": "Fin de niveau",
     "_body_credits.frag": "Crédits",
+    "_body_ia.frag": "Mode IA",
     "_body_systeme.frag": "Système de design",
 }
 
@@ -58,6 +59,13 @@ NOTES = {
         "Trois sections séparées par des filets, en-têtes en accent et petites capitales espacées. "
         "Les noms propres et les licences ne sont jamais traduits : le texte est celui de "
         "CreditsScreen.ui, mot pour mot."
+    ),
+    "_body_ia.frag": (
+        "L'écran arrivé après la refonte d'identité, et le seul qui n'avait jamais eu de planche : "
+        "livré avec la bonne palette et la bonne police, mais sans cadre et avec un focus signalé "
+        "par la seule teinte. La planche pose les deux manques — cadre à bordure franche autour du "
+        "contenu, curseur explicite à gauche du contrôle focalisé. C'est aussi l'écran le plus dense "
+        "en contrôles numériques : il fallait vérifier qu'un tableau de chiffres tient en pixel art."
     ),
     "_body_systeme.frag": (
         "La planche de référence : c'est elle qui devient la nouvelle portée identité des jetons et "
@@ -105,6 +113,12 @@ CHIPS = {
         ("Hiérarchie", "en-tête accent / nom / licence"),
         ("Texte", "repris tel quel, rien d'inventé"),
     ],
+    "_body_ia.frag": [
+        ("Cadre", "ajouté — l'écran livré n'en portait aucun"),
+        ("Focus", "curseur explicite, pas la seule teinte"),
+        ("Tableau", "générations, lignes alternées"),
+        ("Libellés", "repris de fr.lang, mot pour mot"),
+    ],
     "_body_systeme.frag": [
         ("Palette", "12 rôles, aucun dégradé"),
         ("Échelle", "comparaison ×1 / ×2 / ×3"),
@@ -121,6 +135,7 @@ ORDER = [
     ("_body_select.frag", "1280 / 720"),
     ("_body_fin.frag", "1280 / 720"),
     ("_body_credits.frag", "1280 / 720"),
+    ("_body_ia.frag", "1280 / 720"),
     ("_body_systeme.frag", "1280 / 1180"),
 ]
 

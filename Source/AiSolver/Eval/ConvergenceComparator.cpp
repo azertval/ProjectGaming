@@ -1,8 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "AiSolver/Training/ActorCritic/ConvergenceComparator.h"
+#include "AiSolver/Eval/ConvergenceComparator.h"
 
+#include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <sstream>
@@ -10,7 +11,7 @@
 
 #include "Core/Diagnostics/Assert.h"
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 namespace {
 
@@ -24,25 +25,46 @@ std::vector<std::string> splitCsvLine(const std::string& line) {
     return fields;
 }
 
-std::size_t columnIndex(const std::vector<std::string>& header, const std::string& name) {
+/// @return Position de la colonne @p name dans @p header, absente si l'en-tete ne la porte pas.
+std::optional<std::size_t> columnIndex(const std::vector<std::string>& header,
+                                       const std::string& name) {
     for (std::size_t index = 0; index < header.size(); ++index) {
         if (header[index] == name) {
             return index;
         }
     }
-    PROJECTGAMING_ASSERT(false,
-                         "ConvergenceComparator : colonne introuvable dans l'en-tete du CSV");
-    return 0;
+    return std::nullopt;
 }
 
+/// @return Valeur flottante de @p field, absente si le champ n'est pas un nombre entier ou reel.
+/// Extraction par flux plutot que `std::stof` : la conversion echoue par un drapeau d'etat, jamais
+/// par une exception -- aucune ne doit franchir cette frontiere (`EX-NFR-040`).
+std::optional<float> parseFloat(const std::string& field) {
+    std::istringstream stream(field);
+    float value = 0.0f;
+    stream >> value;
+    if (stream.fail()) {
+        return std::nullopt;
+    }
+    return value;
+}
+
+/// @return Colonne `bestReward` du CSV @p csvPath, une valeur par episode, dans l'ordre du
+/// fichier. Vide si le fichier est illisible ou si son en-tete ne declare pas cette colonne ; les
+/// lignes tronquees ou non numeriques sont ignorees plutot que de fausser la serie.
 std::vector<float> readBestRewardColumn(const std::filesystem::path& csvPath) {
     std::ifstream file(csvPath);
-    PROJECTGAMING_ASSERT(file.is_open(), "ConvergenceComparator : CSV illisible");
+    if (!file.is_open()) {
+        return {};
+    }
 
     std::string headerLine;
     std::getline(file, headerLine);
     const std::vector<std::string> header = splitCsvLine(headerLine);
-    const std::size_t bestRewardColumn = columnIndex(header, "bestReward");
+    const std::optional<std::size_t> bestRewardColumn = columnIndex(header, "bestReward");
+    if (!bestRewardColumn) {
+        return {};
+    }
 
     std::vector<float> rewards;
     std::string line;
@@ -51,7 +73,12 @@ std::vector<float> readBestRewardColumn(const std::filesystem::path& csvPath) {
             continue;
         }
         const std::vector<std::string> fields = splitCsvLine(line);
-        rewards.push_back(std::stof(fields[bestRewardColumn]));
+        if (fields.size() <= *bestRewardColumn) {
+            continue;
+        }
+        if (const std::optional<float> reward = parseFloat(fields[*bestRewardColumn])) {
+            rewards.push_back(*reward);
+        }
     }
     return rewards;
 }
@@ -125,4 +152,4 @@ ConvergenceReport compareConvergence(const std::vector<std::filesystem::path>& c
     return report;
 }
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

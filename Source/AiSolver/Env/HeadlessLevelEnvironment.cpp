@@ -22,7 +22,7 @@ namespace aisolver {
 namespace {
 // Pas fixe déterministe (EX-NFR-002), même constante que STEP dans
 // Source/Test/Systeme/test_parcours_complet.cpp et hmi::GameSession (LOT-33).
-constexpr float kFixedDelta = 1.0f / 60.0f;
+constexpr float FIXED_DELTA = 1.0f / 60.0f;
 }  // namespace
 
 HeadlessLevelEnvironment::HeadlessLevelEnvironment(EnvironmentConfig config) : _config(config) {}
@@ -178,16 +178,16 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
     // (redige avant LOT-63), mais necessaires a la fidelite pas-a-pas garantie par TACHE-05 : les
     // deux orchestrations de reference les composent deja.
     _platforms->update();
-    const std::vector<core::PlatformSample> platformSamples = _platforms->samples();
+    const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
 
     // 2. Mecanismes (lecture de la grille de collision) -> blocs (poussee/chute), avec la boite du
     //    personnage AVANT son propre deplacement de ce pas.
-    const core::TileMap mechanismMap = _mechanisms->collisionMap();
+    const core::TileMap& mechanismMap = _mechanisms->collisionMap();
     _blocks->update(previousBox, input.moveX, mechanismMap, platformSamples);
 
     // 3. Physique du personnage sur la grille des mecanismes completee par les blocs.
     const core::TileMap collision = _blocks->collisionMap(mechanismMap);
-    _physics->update(_world, collision, input, kFixedDelta, platformSamples);
+    _physics->update(_world, collision, input, FIXED_DELTA, platformSamples);
 
     // 4. Sweep boite-boite des blocs a taille reduite (EX-GP-005) : leur boite reelle n'est jamais
     //    posee sur la grille de collision ci-dessus, composee ici sur le deplacement REEL obtenu
@@ -243,9 +243,9 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
     _mechanisms->update(box, player.mass, input.interactPressed, blockWeights);
 
     // 7. Dangers (EX-GP-051/053) : avance le compteur de pas fixes des dangers mobile/temporise.
-    //    Present ici a la difference de l'ancien playLevel() (voir decision de cadrage de l'epic) :
-    //    un environnement d'entrainement doit pouvoir faire mourir un agent qui s'aventure dans une
-    //    alcove a danger mobile/commute/temporise.
+    //    Indispensable a un environnement d'entrainement -- sans cela un agent qui s'aventure dans
+    //    une alcove a danger mobile, commute ou temporise n'y mourrait jamais, et apprendrait un
+    //    chemin que le jeu reel lui refuse.
     _dangers->update();
 
     std::vector<core::Aabb> extraDangerBoxes = collectActiveDangerBoxes();

@@ -4,6 +4,7 @@
 #include "AiSolver/Env/ActionDecoding.h"
 
 #include <cmath>
+#include <optional>
 
 #include "AiSolver/Math/TensorOps.h"
 #include "Core/Diagnostics/Assert.h"
@@ -39,11 +40,17 @@ Action decodeStochastic(const Tensor<float>& distribution, float temperature, Rn
     checkDistributionShape(distribution);
     PROJECTGAMING_ASSERT(temperature > 0.0f, "decodeStochastic : temperature doit etre positive");
 
-    // p_i^(1/temperature), puis renormalisation -- temperature = 1.0 laisse la distribution
-    // inchangee (exposant 1).
-    const float inverseTemperature = 1.0f / temperature;
-    Tensor<float> weighted = detail::elementwiseUnary(
-        distribution, [inverseTemperature](float p) { return std::pow(p, inverseTemperature); });
+    // p_i^(1/temperature), puis renormalisation. A temperature 1 l'exposant vaut 1 : la
+    // ponderation est l'identite, et la distribution d'entree sert directement de poids -- ni
+    // parcours ni allocation, alors que c'est le seul reglage utilise a l'entrainement.
+    std::optional<Tensor<float>> reweighted;
+    if (temperature != 1.0f) {
+        const float inverseTemperature = 1.0f / temperature;
+        reweighted = detail::elementwiseUnary(distribution, [inverseTemperature](float p) {
+            return std::pow(p, inverseTemperature);
+        });
+    }
+    const Tensor<float>& weighted = reweighted ? *reweighted : distribution;
     const float total = sum(weighted);
 
     // Methode de la roulette : tirage uniforme dans [0, 1), parcours de la somme cumulee des

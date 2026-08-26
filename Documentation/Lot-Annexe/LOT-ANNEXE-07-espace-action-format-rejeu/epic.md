@@ -1,6 +1,6 @@
 # LOT-ANNEXE-07 — Espace d'action, décodage politique et format de rejeu v1 {#lot-annexe-07}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (`HeadlessLevelEnvironment`,
 > `core::PlayerInput`) et [LOT-ANNEXE-01](@ref lot-annexe-01) (`aisolver::Rng`). Troisième lot de la
 > génération 1 : définit à la fois la **sortie** que produira toute politique entraînée et le
 > **format de fichier** dans lequel exporter la séquence gagnante — volontairement tôt (génération
@@ -95,14 +95,8 @@ format de rejeu lui-même (TACHE-03) est une décision d'ingénierie logicielle 
 une notion de la littérature — aucune source externe associée.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-007 **EX-IA-007** — L'agent doit disposer d'un espace d'action discret et
-  fini dérivé de `core::PlayerInput`, avec un décodage déterministe (`argmax`, pour le rejeu final)
-  et un décodage stochastique (échantillonnage pondéré par température, via un générateur
-  déterministe fourni par l'appelant, pour l'exploration en entraînement).
-- Nouvelle : \anchor EX-IA-008 **EX-IA-008** — Une séquence d'actions gagnante doit pouvoir être
-  exportée dans un format de fichier de rejeu versionné (identifiant/empreinte du niveau, séquence
-  de `core::PlayerInput` par pas fixe, métadonnées d'entraînement), lisible et inscriptible, destiné
-  à être rejoué en jeu de façon strictement déterministe sans aucune inférence live.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-007`](@ref EX-IA-007).
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-008`](@ref EX-IA-008).
 - Réutilisées : `EX-IA-001` (`aisolver::Rng`), `EX-IA-005` (`HeadlessLevelEnvironment`,
   `core::PlayerInput`), `EX-LVL-005` (principe de numéro de version sans rupture rétroactive, repris
   par analogie pour le format de rejeu).
@@ -113,10 +107,10 @@ une notion de la littérature — aucune source externe associée.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-espace-action-discret.md) | Espace d'action discret | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-decodage-argmax-stochastique.md) | Décodage déterministe et stochastique | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-format-rejeu-v1.md) | Format de rejeu v1 | `Source/AiSolver/Replay` | ⬜ |
-| [TACHE-04](tache-04-tests.md) | Tests : couverture, absence de biais, round-trip | `Source/Test/Unit/AiSolver` | ⬜ |
+| [TACHE-01](tache-01-espace-action-discret.md) | Espace d'action discret | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-decodage-argmax-stochastique.md) | Décodage déterministe et stochastique | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-format-rejeu-v1.md) | Format de rejeu v1 | `Source/AiSolver/Replay` | ✅ |
+| [TACHE-04](tache-04-tests.md) | Tests : couverture, absence de biais, round-trip | `Source/Test/Unit/AiSolver` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Toutes les combinaisons de l'espace d'action discret produisent un `core::PlayerInput` valide et

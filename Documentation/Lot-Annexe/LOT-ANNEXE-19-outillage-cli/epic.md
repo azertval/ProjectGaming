@@ -68,11 +68,7 @@ des capacités déjà cadrées par les lots amont — voir leurs propres section
 respectives pour les sources pertinentes selon la sous-commande utilisée.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-020 **EX-IA-020** — Un exécutable en ligne de commande unique doit
-  exposer, sans dupliquer leur logique, les capacités d'entraînement (génération 2/3),
-  d'évaluation (génération 4) et d'export de rejeu (génération 1/2) du programme, avec une
-  configuration d'hyperparamètres systématiquement journalisée dans les traces produites (CSV,
-  fichier de rejeu) pour garantir la reproductibilité d'un run passé.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-020`](@ref EX-IA-020).
 - Réutilisées (inchangées) : les exigences de tous les lots exposés — non renumérotées ici.
 
 ## Découpage

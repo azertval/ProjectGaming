@@ -77,8 +77,10 @@ constexpr float MINIMUM_FITNESS_THRESHOLD = 5.0f;
  * \castest{<b>EvolutionaryTrainer : croissance du fitness sur niveau trivial.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `EvolutionaryTrainer` sur `demo-deplacement.json`, population de 24, seed fixée.<br/>
- * 2. Enchaîner 40 générations, en observant `bestIndividual().fitness` après chacune.<br/>
+ * \tetapes 1. `EvolutionaryTrainer` sur `demo-deplacement.json`, population `POPULATION_SIZE`,
+ * seed fixée.<br/>
+ * 2. Enchaîner `GENERATIONS` générations, en observant `bestIndividual().fitness`
+ * après chacune.<br/>
  * \tattendu Le meilleur fitness ne régresse jamais d'une génération à l'autre ; le meilleur fitness
  * final dépasse `MINIMUM_FITNESS_THRESHOLD`.}
  */

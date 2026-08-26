@@ -29,6 +29,8 @@ Adam::Adam(float learningRate, float beta1, float beta2, float epsilon)
     : _learningRate(learningRate), _beta1(beta1), _beta2(beta2), _epsilon(epsilon) {}
 
 void Adam::step(const std::vector<autodiff::NodePtr>& parameters) {
+    // Facteurs de correction de biais, communs a TOUS les parametres du pas : ils ne dependent
+    // que du numero de pas. Formule complete et raison d'etre dans Adam.h.
     ++_stepCount;
     const auto stepCount = static_cast<float>(_stepCount);
     const float beta1Correction = 1.0f - std::pow(_beta1, stepCount);
@@ -46,14 +48,19 @@ void Adam::step(const std::vector<autodiff::NodePtr>& parameters) {
         }
         Moments& moments = it->second;
 
+        // m <- beta1 * m + (1 - beta1) * g : moyenne mobile du gradient.
         moments.m =
             add(multiplyScalar(moments.m, _beta1), multiplyScalar(parameter->grad, 1.0f - _beta1));
         moments.v = add(multiplyScalar(moments.v, _beta2),
                         multiplyScalar(multiply(parameter->grad, parameter->grad), 1.0f - _beta2));
 
+        // Correction de biais : m et v partent de zero, les premiers pas seraient sinon tres en
+        // deca de leur amplitude voulue (Adam.h).
         const Tensor<float> mHat = divideScalar(moments.m, beta1Correction);
         const Tensor<float> vHat = divideScalar(moments.v, beta2Correction);
 
+        // theta <- theta - lr * mChapeau / (racine(vChapeau) + epsilon) : le pas est normalise par
+        // l'amplitude recente du gradient, pas par sa valeur brute.
         const Tensor<float> update =
             multiplyScalar(divide(mHat, addScalar(sqrtTensor(vHat), _epsilon)), _learningRate);
         parameter->value = subtract(parameter->value, update);

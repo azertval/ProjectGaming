@@ -59,8 +59,8 @@ constexpr int FILE_NAME_ROLE = Qt::UserRole + 1;
 }
 
 // Signale l'echec eventuel d'une operation a l'utilisateur (jamais silencieux) et le journalise.
-void reportIfError(QWidget* parent, const QString& title, const FileOpResult& result) {
-    if (!result.ok) {
+void reportIfError(QWidget* parent, const QString& title, const FileOperationResult& result) {
+    if (!result.ok()) {
         HMI_LOG_WARNING("Bibliotheque d'assets : operation fichier echouee : " + result.error);
         QMessageBox::warning(parent, title, QString::fromStdString(result.error));
     }
@@ -252,9 +252,9 @@ void AssetThumbnailView::onImport() {
     }
 
     const AssetFileOperations ops(_directory);
-    const FileOpResult result = ops.import(source, _family, decoded->width, decoded->height);
+    const FileOperationResult result = ops.import(source, _family, decoded->width, decoded->height);
     reportIfError(this, title, result);
-    if (!result.ok) {
+    if (!result.ok()) {
         return;
     }
     HMI_LOG_INFO("Bibliotheque d'assets : importe « " + result.path.filename().string() + " ».");
@@ -287,9 +287,9 @@ void AssetThumbnailView::onRename() {
     }
 
     const AssetFileOperations ops(_directory);
-    const FileOpResult result = ops.rename(_directory / current, newName.toStdString());
+    const FileOperationResult result = ops.rename(_directory / current, newName.toStdString());
     reportIfError(this, t(_loc, "assets.rename"), result);
-    if (!result.ok) {
+    if (!result.ok()) {
         return;
     }
     HMI_LOG_INFO("Bibliotheque d'assets : renomme « " + current + " » en « " +
@@ -307,9 +307,9 @@ void AssetThumbnailView::onDuplicate() {
     // Aucune verification de reference : dupliquer ne casse jamais rien, le fichier d'origine
     // reste intact sous son nom.
     const AssetFileOperations ops(_directory);
-    const FileOpResult result = ops.duplicate(_directory / current);
+    const FileOperationResult result = ops.duplicate(_directory / current);
     reportIfError(this, t(_loc, "assets.duplicate"), result);
-    if (!result.ok) {
+    if (!result.ok()) {
         return;
     }
     HMI_LOG_INFO("Bibliotheque d'assets : duplique « " + current + " ».");
@@ -340,9 +340,9 @@ void AssetThumbnailView::onDelete() {
     }
 
     const AssetFileOperations ops(_directory);
-    const FileOpResult result = ops.remove(_directory / current);
+    const FileOperationResult result = ops.remove(_directory / current);
     reportIfError(this, t(_loc, "assets.delete_title"), result);
-    if (!result.ok) {
+    if (!result.ok()) {
         return;
     }
     HMI_LOG_INFO("Bibliotheque d'assets : supprime « " + current + " ».");

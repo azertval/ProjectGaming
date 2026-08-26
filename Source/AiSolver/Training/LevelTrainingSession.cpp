@@ -38,9 +38,9 @@ evolutionary::Individual cloneIndividual(const evolutionary::Individual& source,
 
 }  // namespace
 
-int updateConsecutiveStableWins(int previousCount, bool sameChampionAsBefore,
+int updateConsecutiveStableWins(int previousCount, bool sameFitnessAsBefore,
                                 bool resolvingNow) noexcept {
-    if (sameChampionAsBefore && resolvingNow) {
+    if (sameFitnessAsBefore && resolvingNow) {
         return previousCount + 1;
     }
     return resolvingNow ? 1 : 0;
@@ -77,11 +77,14 @@ TrainingResult LevelTrainingSession::run(
         if (onGenerationChampion) {
             onGenerationChampion(champion);
         }
-        const bool sameChampionAsBefore = champion.fitness == previousChampionFitness;
+        // Egalite exacte volontaire : previousChampionFitness est une recopie de la valeur de
+        // la generation precedente, jamais un resultat de calcul -- la comparaison est donc
+        // sure. Elle mesure une performance stable, pas un individu identique.
+        const bool sameFitnessAsBefore = champion.fitness == previousChampionFitness;
         const bool resolvingNow = _trainer.lastChampionStatus() == EpisodeStatus::Won;
 
         consecutiveStableWins =
-            updateConsecutiveStableWins(consecutiveStableWins, sameChampionAsBefore, resolvingNow);
+            updateConsecutiveStableWins(consecutiveStableWins, sameFitnessAsBefore, resolvingNow);
         previousChampionFitness = champion.fitness;
 
         if (consecutiveStableWins >= _stopping.requiredConsecutiveSuccesses) {

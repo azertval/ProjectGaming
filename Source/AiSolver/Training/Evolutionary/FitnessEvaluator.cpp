@@ -17,13 +17,16 @@ namespace aisolver::training::evolutionary {
 
 FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironment& environment,
                                   const std::filesystem::path& levelPath, int stuckThreshold) {
-    [[maybe_unused]] const bool loaded = environment.reset(levelPath);
-    PROJECTGAMING_ASSERT(loaded, "evaluateFitness : le niveau doit se charger");
+    if (!environment.reset(levelPath)) {
+        // Niveau illisible : l'assertion signale l'erreur de deploiement en Debug, mais elle ne
+        // garde rien en Release. La pire fitness possible ecarte l'individu de toute selection,
+        // au lieu de laisser `step()` s'executer sur un monde vide.
+        PROJECTGAMING_ASSERT(false, "evaluateFitness : le niveau doit se charger");
+        return FitnessEvaluation{std::numeric_limits<float>::lowest(), 0, EpisodeStatus::Ongoing};
+    }
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
 
     // Boîte/état de départ : même convention que test_recompense_demo_niveaux.cpp (LOT-ANNEXE-08)
     // -- HeadlessLevelEnvironment n'expose pas d'observation avant le premier step(), le premier
@@ -38,6 +41,8 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
     EpisodeStatus status = EpisodeStatus::Ongoing;
     int stepCount = 0;
 
+    ObjectiveDistanceFieldCache distanceFieldCache;
+
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -47,6 +52,10 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
         const Action action = decodeArgmax(distribution);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         cumulativeReward += computeReward(rewardConfig, distanceField, previousBox,
                                           stepObservation.playerBox, stepObservation.outcome);
 

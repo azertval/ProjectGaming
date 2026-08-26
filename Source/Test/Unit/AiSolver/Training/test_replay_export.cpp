@@ -45,7 +45,7 @@ using aisolver_test::TrivialLevelDirectory;
 namespace {
 
 // Budget de pas reduit (vs. 3000 par defaut) : le niveau trivial se resout en quelques pas.
-constexpr int kReducedMaxSteps = 50;
+constexpr int REDUCED_MAX_STEPS = 50;
 
 TrainingResult trainSolvedIndividual(const TrivialLevelDirectory& level) {
     const ObservationEncoder encoder;
@@ -57,7 +57,7 @@ TrainingResult trainSolvedIndividual(const TrivialLevelDirectory& level) {
 
     LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
                                  stopping, 4242, level.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     return session.run();
 }
 
@@ -205,7 +205,7 @@ TEST(ReplayExportTest, PointDEntreeMinimalBoutEnBout) {
     const std::filesystem::path outputPath = level.file("replay.json");
     const TrainAndExportOutcome outcome = trainLevelAndExportReplay(
         level.levelPath(), policyTopology(encoder.inputSize()), config, stopping, 4242,
-        level.file("stats.csv"), outputPath, EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+        level.file("stats.csv"), outputPath, EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
 
     EXPECT_TRUE(outcome.trainingResult.solved);
     EXPECT_TRUE(outcome.exportResult.exported);

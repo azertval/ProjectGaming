@@ -10,7 +10,7 @@ namespace aisolver {
 namespace {
 
 /// Nombre de valeurs de `Direction`, dans son ordre d'énumération (`Left, None, Right`).
-constexpr std::size_t kDirectionCount = 3;
+constexpr std::size_t DIRECTION_COUNT = 3;
 
 [[nodiscard]] Direction directionAt(std::size_t index) {
     switch (index) {
@@ -38,14 +38,16 @@ constexpr std::size_t kDirectionCount = 3;
 
 Action actionAt(std::size_t index) {
     PROJECTGAMING_ASSERT(index < actionCount(), "actionAt() : indice hors de l'espace d'action");
+    const bool interactPressed = (index % 2) != 0;
+    index /= 2;
     const bool dashPressed = (index % 2) != 0;
     index /= 2;
     const bool jumpHeld = (index % 2) != 0;
     index /= 2;
     const bool jumpPressed = (index % 2) != 0;
     index /= 2;
-    const Direction direction = directionAt(index % kDirectionCount);
-    return Action{direction, jumpPressed, jumpHeld, dashPressed};
+    const Direction direction = directionAt(index % DIRECTION_COUNT);
+    return Action{direction, jumpPressed, jumpHeld, dashPressed, interactPressed};
 }
 
 std::size_t indexOf(const Action& action) {
@@ -53,6 +55,7 @@ std::size_t indexOf(const Action& action) {
     index = index * 2 + (action.jumpPressed ? 1 : 0);
     index = index * 2 + (action.jumpHeld ? 1 : 0);
     index = index * 2 + (action.dashPressed ? 1 : 0);
+    index = index * 2 + (action.interactPressed ? 1 : 0);
     return index;
 }
 
@@ -72,6 +75,7 @@ core::PlayerInput toPlayerInput(const Action& action) {
     input.jumpPressed = action.jumpPressed;
     input.jumpHeld = action.jumpHeld;
     input.dashPressed = action.dashPressed;
+    input.interactPressed = action.interactPressed;
     return input;
 }
 

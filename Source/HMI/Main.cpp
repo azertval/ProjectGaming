@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /**
- * @file HMI/main.cpp
+ * @file HMI/Main.cpp
  * @brief Point d'entrée de l'application Qt (`ProjectGaming`).
  *
  * Configure la journalisation (console + mémoire en développement, niveau réglable), applique le
@@ -132,7 +132,7 @@ int main(int argc, char** argv) {
     // chaque message (`FileLogSink`) — c'est ce qui reste lisible après un arrêt brutal (crash),
     // y compris en release où il n'y a ni console ni bouton d'export à atteindre après coup.
     core::MemoryLogSink* sessionLog = nullptr;
-    if constexpr (core::kDeveloperBuild) {
+    if constexpr (core::DEVELOPER_BUILD) {
         core::defaultLogger().addSink(std::make_unique<core::ConsoleLogSink>());
         auto memorySink = std::make_unique<core::MemoryLogSink>();
         sessionLog = memorySink.get();
@@ -166,10 +166,10 @@ int main(int argc, char** argv) {
     QCoreApplication::setApplicationName(QStringLiteral("Editor"));
 
     // Traductions de Qt LUI-MEME (LOT-69) : les boutons standard des boites de dialogue --
-    // « Oui »/« Non »/« Annuler » -- ne viennent pas du catalogue du projet mais de Qt, qui les
-    // rend en anglais tant qu'aucun QTranslator n'est installe. Une boite entierement redigee en
-    // francais dont les deux boutons disent « Yes »/« No » se remarque immediatement (defaut
-    // constate a l'essai sur les confirmations « Nouvelle partie » et « Quitter vers le menu »).
+    // « Oui »/« Non »/« Annuler » -- ne viennent pas du catalogue du projet mais de celui de Qt,
+    // et restent en anglais tant qu'aucun QTranslator n'est installe. REGLE : un QTranslator
+    // qtbase_<langue> doit etre installe sur la MEME langue que l'IHM, sans quoi une boite
+    // entierement redigee en francais porterait des boutons anglais.
     // La langue est celle que l'IHM persiste (QSettings, meme cle que hmi::MainWindow) : les deux
     // catalogues doivent dire la meme chose. Fichier absent (Qt deploye sans ses traductions) :
     // on retombe simplement sur l'anglais, jamais une erreur bloquante (EX-NFR-040).

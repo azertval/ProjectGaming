@@ -95,10 +95,7 @@ bibliographie complète dans le chapitre, à relire avant de trancher entre les 
 l'ouverture de ce lot.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-015 **EX-IA-015** — L'agent doit disposer d'un algorithme d'apprentissage
-  par gradient avancé (PPO ou DQN maison, le choix étant tranché à l'ouverture du lot sur la base de
-  mesures chiffrées), intégré au harnais d'entraînement existant et comparé chiffres à l'appui à la
-  génération 2 (évolutionniste) et au reste de la génération 3 (REINFORCE, acteur-critique).
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-015`](@ref EX-IA-015).
 - Réutilisées (inchangées) : `EX-IA-013` (perte de policy gradient, base commune), `EX-IA-014`
   (avantage, si PPO est retenu) et les exigences des lots amont — environnement headless
   (LOT-ANNEXE-05), espace d'action et format de rejeu v1 (LOT-ANNEXE-07),
@@ -120,7 +117,7 @@ l'ouverture de ce lot.
 non concluant sur l'instabilité : sur le niveau de contrôle trivial (résolu en moins d'un épisode),
 REINFORCE montrait déjà une variance de fin de run plus faible que l'acteur-critique — le niveau était
 trop simple pour révéler un bénéfice de clipping PPO, qui cible précisément une instabilité non
-démontrée ici. L'espace d'action discret à 24 actions (LOT-ANNEXE-07) se prête en revanche bien à une
+démontrée ici. L'espace d'action discret à 48 actions (LOT-ANNEXE-07) se prête en revanche bien à une
 approche par valeur d'action : DQN cible l'efficacité d'échantillonnage (réutilisation des transitions
 via `ReplayBuffer`), un facteur pertinent indépendamment du constat de stabilité.
 

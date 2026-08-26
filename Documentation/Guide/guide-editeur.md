@@ -408,7 +408,7 @@ dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pu
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
   `core::LevelLoader` (dont `LevelValidationError`), `core::Mechanism`.
 - `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`,
-  `hmi::DecorsPanel`, `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
+  `hmi::PlanesPanel`, `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
 - `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
 - `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — le mode d'inspection « définition des
   textures » (`LOT-51`) et le résolveur unique qu'il réutilise avec `F8`.

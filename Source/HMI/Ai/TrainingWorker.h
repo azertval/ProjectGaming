@@ -28,9 +28,9 @@ namespace hmi {
 /// simples pour rester utilisables sans dépendre de `AiSolver/Cli` depuis un en-tête Qt.
 struct TrainingRequest {
     QString levelPath;
-    QString algo;  ///< `"evo"`, `"pg"`, `"ac"` ou `"avance"`.
+    QString algorithmId;  ///< `"evo"`, `"pg"`, `"ac"` ou `"avance"`.
     std::uint64_t seed = 0;
-    QString runsRoot;  ///< Vide : défaut `aisolver::training::kDefaultTrainingRunsRoot`.
+    QString runsRoot;  ///< Vide : défaut `aisolver::training::DEFAULT_TRAINING_RUNS_ROOT`.
     std::optional<std::size_t> populationSize;
     std::optional<float> mutationRate;
     std::optional<std::size_t> episodes;
@@ -63,9 +63,12 @@ signals:
     /// journalisé (`TrainingStatsRecorder::setOnRecord`, `LOT-ANNEXE-09`/`21`).
     void progress(int index, double bestReward, double meanReward, double successRate);
 
-    /// @brief Un aperçu du champion courant a été écrit sur disque (`LOT-ANNEXE-21`) :
-    /// `modelPath` charge directement via `nn::loadWeights` sur la topologie de `algo`.
-    void previewReady(QString modelPath, QString algo, QString levelPath);
+    /// @brief Un aperçu du champion courant a été écrit sur disque (`LOT-ANNEXE-21`), sous un
+    /// fichier propre à `generation` (jamais écrasé par l'aperçu suivant) : `replayPath` se charge
+    /// directement via `aisolver::readReplay`, `generation` est le numéro de génération
+    /// (évolutif) ou d'épisode (par gradient) auquel il correspond, permettant à l'IHM de
+    /// proposer un choix parmi les aperçus déjà reçus plutôt que le seul plus récent.
+    void previewReady(QString replayPath, QString algorithmId, QString levelPath, int generation);
 
     /// @brief Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable.
     void finished(bool solved, QString modelPath, QString statsPath, QString configPath,

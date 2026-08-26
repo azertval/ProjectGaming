@@ -51,8 +51,11 @@ void ActorCriticTrainer::run(std::size_t episodeCount, bool updateCritic,
         const std::uint64_t seed = _config.seedBase + static_cast<std::uint64_t>(_episodeIndex);
         Rng rng(seed);
 
-        [[maybe_unused]] const bool loaded = _environment.reset(_levelPath);
-        PROJECTGAMING_ASSERT(loaded, "ActorCriticTrainer::run : le niveau doit se charger");
+        if (!_environment.reset(_levelPath)) {
+            // Voir `evaluateFitness` : l'assertion ne garde rien en Release.
+            PROJECTGAMING_ASSERT(false, "ActorCriticTrainer::run : le niveau doit se charger");
+            return;
+        }
 
         const Trajectory trajectory = _collector.collectEpisode(_environment, _policy, rng);
         const std::vector<float> returns = computeReturns(trajectory, _config.gamma);

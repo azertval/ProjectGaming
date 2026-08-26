@@ -25,9 +25,9 @@ inline constexpr std::chrono::milliseconds GAMEPAD_DISCONNECTED_PROBE_PERIOD{200
  * joueur clavier (`LOT-33`). L'espacement est donc décidé **en temps réel**, jamais en nombre
  * d'appels : le sondage est déclenché tantôt par la boucle de rendu (une fois par image), tantôt
  * par un temporisateur d'interface (150 ms pour la navigation de menu, 500 ms pour l'onglet des
- * options). Un compteur d'appels donnait donc des délais de détection allant de deux secondes à
- * **une minute** selon l'appelant — une manette branchée en cours de route n'était jamais vue
- * depuis les écrans d'interface (défaut réel constaté, `LOT-69`).
+ * options). Un compteur d'appels ferait dépendre le délai de détection de l'appelant, dans un
+ * rapport de plus de cent entre le plus rapide et le plus lent : c'est la cadence en secondes qui
+ * doit être garantie, pas un nombre de tours.
  *
  * Fonction **pure** (`EX-NFR-010`) : décidée ici, testable sans manette ni fenêtre.
  * @param wasConnected    État de connexion du dernier sondage effectif.

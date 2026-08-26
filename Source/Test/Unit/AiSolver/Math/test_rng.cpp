@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_rng.cpp
  * @brief Tests unitaires du générateur pseudo-aléatoire déterministe `aisolver::Rng`
@@ -62,20 +65,20 @@ TEST(RngTest, GrainesDifferentesDivergent) {
  */
 TEST(RngTest, BornesRespecteesSurGrandNombreDeTirages) {
     aisolver::Rng rng(7);
-    constexpr int kDraws = 10000;
-    constexpr float kMinFloat = -3.0f;
-    constexpr float kMaxFloat = 5.0f;
-    constexpr int kMinInt = -3;
-    constexpr int kMaxInt = 5;
+    constexpr int DRAWS = 10000;
+    constexpr float MIN_FLOAT = -3.0f;
+    constexpr float MAX_FLOAT = 5.0f;
+    constexpr int MIN_INT = -3;
+    constexpr int MAX_INT = 5;
 
-    for (int i = 0; i < kDraws; ++i) {
-        const float f = rng.nextFloat(kMinFloat, kMaxFloat);
-        EXPECT_GE(f, kMinFloat);
-        EXPECT_LT(f, kMaxFloat);
+    for (int i = 0; i < DRAWS; ++i) {
+        const float f = rng.nextFloat(MIN_FLOAT, MAX_FLOAT);
+        EXPECT_GE(f, MIN_FLOAT);
+        EXPECT_LT(f, MAX_FLOAT);
 
-        const int n = rng.nextInt(kMinInt, kMaxInt);
-        EXPECT_GE(n, kMinInt);
-        EXPECT_LE(n, kMaxInt);
+        const int n = rng.nextInt(MIN_INT, MAX_INT);
+        EXPECT_GE(n, MIN_INT);
+        EXPECT_LE(n, MAX_INT);
     }
 }
 
@@ -92,24 +95,24 @@ TEST(RngTest, BornesRespecteesSurGrandNombreDeTirages) {
  */
 TEST(RngTest, NextGaussianMoyenneEcartTypePlausibles) {
     aisolver::Rng rng(11);
-    constexpr int kDraws = 20000;
-    constexpr float kMean = 5.0f;
-    constexpr float kStddev = 2.0f;
+    constexpr int DRAWS = 20000;
+    constexpr float MEAN = 5.0f;
+    constexpr float STDDEV = 2.0f;
 
     double sum = 0.0;
     double sumSquares = 0.0;
-    for (int i = 0; i < kDraws; ++i) {
-        const double value = rng.nextGaussian(kMean, kStddev);
+    for (int i = 0; i < DRAWS; ++i) {
+        const double value = rng.nextGaussian(MEAN, STDDEV);
         sum += value;
         sumSquares += value * value;
     }
 
-    const double empiricalMean = sum / kDraws;
-    const double empiricalVariance = sumSquares / kDraws - empiricalMean * empiricalMean;
+    const double empiricalMean = sum / DRAWS;
+    const double empiricalVariance = sumSquares / DRAWS - empiricalMean * empiricalMean;
     const double empiricalStddev = std::sqrt(empiricalVariance);
 
-    EXPECT_NEAR(empiricalMean, kMean, 0.1);
-    EXPECT_NEAR(empiricalStddev, kStddev, 0.1);
+    EXPECT_NEAR(empiricalMean, MEAN, 0.1);
+    EXPECT_NEAR(empiricalStddev, STDDEV, 0.1);
 }
 
 /**

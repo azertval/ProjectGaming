@@ -78,10 +78,7 @@ Ba (2015, article d'origine d'Adam) ; Ruder (2016, synthèse comparative) — bi
 dans le chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-004 **EX-IA-004** — Le programme d'IA doit disposer d'optimiseurs de
-  descente de gradient **implémentés en interne** (SGD avec inertie optionnelle, Adam), appliqués
-  aux gradients accumulés par le moteur d'autodiff maison sur les paramètres d'un réseau, avec une
-  vérification de convergence sur fonctions jouets bloquante avant tout usage réel.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-004`](@ref EX-IA-004).
 - Réutilisées : `EX-IA-002` (moteur d'autodiff, source des gradients), `EX-IA-003` (réseaux de
   neurones, source des paramètres), `EX-NFR-010`/`EX-NFR-012`/`EX-NFR-013`/`EX-NFR-020`
   (testabilité headless, conventions, `/W4 /WX`, couverture de tests), `EX-ARCH-001` (sens de

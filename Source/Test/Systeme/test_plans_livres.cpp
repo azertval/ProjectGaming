@@ -87,7 +87,7 @@ PngSize readPngSize(const std::filesystem::path& path) {
 }
 
 /// Les deux seuls niveaux livrés où `hmi::planeParallaxActive` vaut `true` (cadrage `Follow` pour
-/// `demo-mouvement`, `PerRoom` pour `demo-final`) : les seuls où une troisième profondeur de plan
+/// `demo-mouvement` et pour `demo-final`, LOT-71) : les seuls où une troisième profondeur de plan
 /// a un effet visible (LOT-70). `HMI` n'est pas une dépendance de ce fichier (`EX-NFR-004`), d'où
 /// la liste écrite en dur plutôt que recalculée depuis le cadrage résolu du niveau — même patron
 /// que `deliveredLevelBudgets()` de `test_render_budget.cpp`.

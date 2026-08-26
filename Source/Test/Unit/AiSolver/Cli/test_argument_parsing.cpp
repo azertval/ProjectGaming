@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-#include "AiSolver/Cli/ArgParsing.h"
+#include "AiSolver/Cli/ArgumentParsing.h"
 #include "AiSolver/Cli/Commands.h"
 
 using aisolver::cli::EvaluateArgs;
@@ -120,15 +120,15 @@ TEST(ParseTrainArgsTest, RejetteUnAlgorithmeInvalide) {
  * \tcrit Critique<br/>
  * \tetapes 1. Arguments `--level demo.json --algo <evo|pg|ac|avance>` pour chaque
  * valeur.<br/>2. `parseTrainArgs`.<br/>
- * \tattendu Analyse reussie, `algo` egal a la valeur fournie, pour les quatre cas.}
+ * \tattendu Analyse reussie, `algorithmId` egal a la valeur fournie, pour les quatre cas.}
  */
 TEST(ParseTrainArgsTest, AccepteLesQuatreAlgorithmesConnus) {
-    for (const char* algo : {"evo", "pg", "ac", "avance"}) {
+    for (const char* algorithmId : {"evo", "pg", "ac", "avance"}) {
         std::string error;
         const std::optional<TrainArgs> parsed =
-            parseTrainArgs({"--level", "demo.json", "--algo", algo}, error);
-        ASSERT_TRUE(parsed.has_value()) << algo;
-        EXPECT_EQ(parsed->algo, algo);
+            parseTrainArgs({"--level", "demo.json", "--algo", algorithmId}, error);
+        ASSERT_TRUE(parsed.has_value()) << algorithmId;
+        EXPECT_EQ(parsed->algorithmId, algorithmId);
     }
 }
 
@@ -221,7 +221,7 @@ TEST(ParseExportReplayArgsTest, RejetteUneSortieManquante) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Arguments `--model m.bin --algo avance --level l.json --output o.json --seed
  * 3`.<br/>2. `parseExportReplayArgs`.<br/>
- * \tattendu `algo == "avance"`, `seed == 3`.}
+ * \tattendu `algorithmId == "avance"`, `seed == 3`.}
  */
 TEST(ParseExportReplayArgsTest, AnalyseUnAppelValide) {
     std::string error;
@@ -230,6 +230,31 @@ TEST(ParseExportReplayArgsTest, AnalyseUnAppelValide) {
                                "--output", "o.json", "--seed", "3"},
                               error);
     ASSERT_TRUE(parsed.has_value());
-    EXPECT_EQ(parsed->algo, "avance");
+    EXPECT_EQ(parsed->algorithmId, "avance");
     EXPECT_EQ(parsed->seed, 3u);
+}
+
+/**
+ * @brief Une valeur numerique invalide produit un message d'usage, jamais un plantage.
+ * \castest{Argument numerique invalide -> refus explicite, aucune exception.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. `parseTrainArgs` avec `--seed abc`.<br/>2. Recommencer avec `--seed 12abc`, qui
+ * commence par un nombre sans en etre un.<br/>
+ * \tattendu Les deux appels renvoient `std::nullopt` avec un message citant l'option et la valeur
+ * recue — `std::stoull` levait une exception non rattrapee, qui terminait le processus.}
+ */
+TEST(ParseTrainArgsTest, ValeurNumeriqueInvalideRefuseeSansLever) {
+    std::string error;
+    const std::optional<TrainArgs> lettres =
+        parseTrainArgs({"--level", "n.json", "--algo", "evo", "--seed", "abc"}, error);
+    EXPECT_FALSE(lettres.has_value());
+    EXPECT_NE(error.find("--seed"), std::string::npos) << error;
+    EXPECT_NE(error.find("abc"), std::string::npos) << error;
+
+    error.clear();
+    const std::optional<TrainArgs> partiel =
+        parseTrainArgs({"--level", "n.json", "--algo", "evo", "--seed", "12abc"}, error);
+    EXPECT_FALSE(partiel.has_value()) << "une valeur partiellement numerique doit etre refusee";
+    EXPECT_FALSE(error.empty());
 }

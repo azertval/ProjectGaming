@@ -54,9 +54,10 @@ core::Level makeLevelWithPath(std::vector<core::GridPosition> waypoints,
                        {}, std::move(platformConfigs));
 }
 
-core::Aabb boxAt(int col, int row) {
+core::Aabb boxAt(int column, int row) {
     return core::Aabb::fromTopLeftSize(
-        core::Vector2{static_cast<float>(col), static_cast<float>(row)}, core::Vector2{1.0f, 1.0f});
+        core::Vector2{static_cast<float>(column), static_cast<float>(row)},
+        core::Vector2{1.0f, 1.0f});
 }
 
 }  // namespace

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_adam.cpp
  * @brief Tests unitaires de `aisolver::optim::Adam` (LOT-ANNEXE-04, TACHE-02).

@@ -11,7 +11,7 @@
 #include <gtest/gtest.h>
 
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/ReplayBuffer.h"
+#include "AiSolver/Training/Dqn/ReplayBuffer.h"
 
 using aisolver::Rng;
 using aisolver::Tensor;

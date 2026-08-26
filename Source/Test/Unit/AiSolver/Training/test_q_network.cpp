@@ -10,7 +10,7 @@
 
 #include "AiSolver/Env/ActionSpace.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 
 using aisolver::actionCount;
 using aisolver::Rng;
@@ -19,11 +19,11 @@ using aisolver::training::QNetwork;
 
 namespace {
 
-constexpr std::size_t kInputSize = 3;
-constexpr std::size_t kHiddenSize = 4;
+constexpr std::size_t INPUT_SIZE = 3;
+constexpr std::size_t HIDDEN_SIZE = 4;
 
 Tensor<float> observationOf(float a, float b, float c) {
-    Tensor<float> observation({kInputSize, 1});
+    Tensor<float> observation({INPUT_SIZE, 1});
     observation.at({0, 0}) = a;
     observation.at({1, 0}) = b;
     observation.at({2, 0}) = c;
@@ -42,7 +42,7 @@ Tensor<float> observationOf(float a, float b, float c) {
  */
 TEST(QNetworkTest, FormeDeSortie) {
     Rng rng(1);
-    QNetwork network(kInputSize, kHiddenSize, rng);
+    QNetwork network(INPUT_SIZE, HIDDEN_SIZE, rng);
     const auto output = network.forward(observationOf(0.1f, -0.2f, 0.3f));
     EXPECT_EQ(output->value.size(), actionCount());
 }
@@ -58,9 +58,9 @@ TEST(QNetworkTest, FormeDeSortie) {
  */
 TEST(QNetworkTest, CopieProfondeIndependante) {
     Rng sourceRng(2);
-    QNetwork source(kInputSize, kHiddenSize, sourceRng);
+    QNetwork source(INPUT_SIZE, HIDDEN_SIZE, sourceRng);
     Rng targetRng(3);
-    QNetwork target(kInputSize, kHiddenSize, targetRng);
+    QNetwork target(INPUT_SIZE, HIDDEN_SIZE, targetRng);
 
     target.copyWeightsFrom(source);
 

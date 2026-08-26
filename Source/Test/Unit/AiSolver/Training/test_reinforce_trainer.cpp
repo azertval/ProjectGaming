@@ -43,8 +43,8 @@ namespace {
 
 // Budget de pas reduit : le corridor trivial se resout en un pas une fois l'action decouverte, le
 // reste du budget ne sert qu'a borner le cout pire cas d'une politique encore peu entrainee.
-constexpr int kReducedMaxSteps = 40;
-constexpr std::size_t kEpisodeCount = 80;
+constexpr int REDUCED_MAX_STEPS = 40;
+constexpr std::size_t EPISODE_COUNT = 80;
 
 std::string readWholeFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
@@ -93,7 +93,7 @@ void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
     Rng networkRng(seedBase);
     auto policy = buildNetwork(policyTopology(encoder.inputSize()), networkRng);
     Sgd optimizer(0.05f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(csvPath);
 
     ReinforceConfig config;
@@ -102,7 +102,7 @@ void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
 
     ReinforceTrainer trainer(*policy, optimizer, environment, level.levelPath(), config, recorder,
                              "TrivialAI");
-    trainer.run(kEpisodeCount);
+    trainer.run(EPISODE_COUNT);
 }
 
 }  // namespace
@@ -125,7 +125,7 @@ TEST(ReinforceTrainerTest, ProgressionDeLaRecompenseSurLeNiveauDeControle) {
     runReinforce(level, 12345, csvPath);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(csvPath));
-    ASSERT_EQ(lines.size(), kEpisodeCount + 1);  // + 1 ligne d'en-tete.
+    ASSERT_EQ(lines.size(), EPISODE_COUNT + 1);  // + 1 ligne d'en-tete.
 
     // bestReward est la 2e colonne (index, bestReward, meanReward, ...) -- meme ordre que
     // TrainingStatsRow (Stats/TrainingStatsRecorder.h).
@@ -165,7 +165,7 @@ TEST(ReinforceTrainerTest, CsvBienForme) {
     runReinforce(level, 7, csvPath);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(csvPath));
-    EXPECT_EQ(lines.size(), kEpisodeCount + 1);
+    EXPECT_EQ(lines.size(), EPISODE_COUNT + 1);
 }
 
 /**
@@ -208,7 +208,7 @@ TEST(ReinforceTrainerTest, RemiseAZeroDesGradientsEntreEpisodes) {
     Rng networkRng(3);
     auto policy = buildNetwork(policyTopology(encoder.inputSize()), networkRng);
     Sgd optimizer(0.05f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
 
     ReinforceConfig config;
@@ -271,7 +271,7 @@ TEST(ReinforceTrainerTest, ShouldStopInterromptAvantLePremierEpisode) {
     Rng networkRng(13);
     auto policy = buildNetwork(policyTopology(encoder.inputSize()), networkRng);
     Sgd optimizer(0.05f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     const std::filesystem::path csvPath = level.file("stats.csv");
     TrainingStatsRecorder recorder(csvPath);
 

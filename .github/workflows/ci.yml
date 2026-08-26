@@ -421,6 +421,13 @@ jobs:
       - name: Rejeux IA publies synchronises avec leur niveau (LOT-ANNEXE-20)
         run: python3 scripts/check_ai_replays.py
 
+      # Garde-fou de conception : la palette d'identite est ecrite DEUX fois -- en CSS dans les
+      # planches de .design-mockups/, en C++ dans DesignTokens.cpp. Rien ne les reliait, donc une
+      # retouche de teinte d'un cote laissait l'autre en arriere : la maquette cessait de decrire
+      # le jeu sans que personne ne le voie, ce qui lui retire tout interet.
+      - name: Palette d'identite coherente maquettes / code (EX-IHM-070)
+        run: python3 scripts/check_design_tokens.py
+
       # Les plans picturaux livres sont GENERES (LOT-69) : commites pour que le jeu tourne sans
       # Python, mais reproductibles depuis les sources. Sans ce controle, une retouche du
       # generateur pourrait ne jamais atteindre les images -- ou l'inverse, une image editee a la

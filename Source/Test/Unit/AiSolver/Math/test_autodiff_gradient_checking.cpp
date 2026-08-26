@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_autodiff_gradient_checking.cpp
  * @brief Vérifie, par différences finies centrées (`GradientCheck.h`, LOT-ANNEXE-02, TACHE-04), la

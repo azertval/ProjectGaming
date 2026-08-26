@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_dense.cpp
  * @brief Tests unitaires de la couche dense `aisolver::nn::Dense` (LOT-ANNEXE-03, TACHE-01) :

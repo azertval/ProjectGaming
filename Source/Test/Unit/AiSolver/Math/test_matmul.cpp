@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_matmul.cpp
  * @brief Tests unitaires de `aisolver::matmul`/`aisolver::transpose` (LOT-ANNEXE-01, TACHE-04).

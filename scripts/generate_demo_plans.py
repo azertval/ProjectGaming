@@ -80,6 +80,15 @@ FAR_SKY_VEIL_ALPHA = 55
 # recouvrirait entierement, du travail invisible a l'ecran (LOT-70).
 FAR_HORIZON_RATIO = 0.82
 
+# Voile du plan CIEL (LOT-71) : encore plus estompe que le lointain -- la profondeur ultime, un
+# simple voile qui ne porte quasiment aucune forme, seulement de quoi suggerer une atmosphere.
+SKY_PLANE_VEIL_ALPHA = 30
+
+# Fraction de la hauteur ou demarre la crete du plan PROCHE (LOT-71) : plus bas que le fond
+# (0.62), donc une silhouette plus grande et plus sombre -- la lecture d'un quatrieme plan, plus
+# proche que le fond, entre celui-ci et les tuiles de jeu.
+NEAR_HORIZON_RATIO = 0.85
+
 
 class Image:
     """Bitmap RGBA simple, origine en haut a gauche."""
@@ -730,6 +739,61 @@ def paint_far_backdrop(
     return plane
 
 
+def paint_sky_veil(width_units: int, height_units: int, pixels_per_unit: int, theme: dict,
+                    seed: str) -> Image:
+    """Peint le plan CIEL d'un niveau (LOT-71) : la profondeur la PLUS lointaine, un voile de ciel
+    a peine teinte et un semis tres clairseme -- pas de crete, elle serait de toute facon masquee
+    par le plan lointain (`EX-DEC-043`, parallaxe encore plus lente que celui-ci).
+    """
+    plane = Image(width_units * pixels_per_unit, height_units * pixels_per_unit)
+    rng = random.Random(seed + "-ciel")  # deterministe, distinct des graines fond/lointain.
+
+    sky_top, sky_bottom = theme["sky"]
+    wash(
+        plane,
+        (sky_top[0], sky_top[1], sky_top[2], SKY_PLANE_VEIL_ALPHA),
+        (sky_bottom[0], sky_bottom[1], sky_bottom[2], SKY_PLANE_VEIL_ALPHA),
+    )
+
+    far = theme.get("far", {})
+    drift(plane, rng, far.get("drifting", ()), max(1, width_units // 14), 0,
+          int(plane.height * 0.5), pixels_per_unit)
+    return plane
+
+
+def paint_near_backdrop(width_units: int, height_units: int, pixels_per_unit: int, theme: dict,
+                         seed: str) -> Image:
+    """Peint le plan PROCHE d'un niveau (LOT-71) : une crete plus basse et plus sombre que le
+    fond, plus proche du personnage -- la quatrieme profondeur, entre le fond et les tuiles de
+    jeu (`EX-DEC-043`, parallaxe plus rapide que le fond, plus lente que le plan de devant).
+    """
+    plane = Image(width_units * pixels_per_unit, height_units * pixels_per_unit)
+    rng = random.Random(seed + "-proche")  # deterministe, distinct des autres graines.
+
+    sky_top, sky_bottom = theme["sky"]
+    wash(
+        plane,
+        (sky_top[0], sky_top[1], sky_top[2], FAR_SKY_VEIL_ALPHA),
+        (sky_bottom[0], sky_bottom[1], sky_bottom[2], FAR_SKY_VEIL_ALPHA),
+    )
+
+    horizon = int(plane.height * NEAR_HORIZON_RATIO)
+    if theme["canopy"] is not None:
+        near, _far = theme["canopy"]
+        dark = tuple(max(0, near[i] - 20) if i < 3 else near[i] for i in range(4))
+        jagged_ridge(plane, rng, horizon, dark, near, 2, pixels_per_unit)
+
+    stand_on(plane, rng, theme["motifs"], max(1, width_units // 8), horizon, pixels_per_unit)
+    return plane
+
+
+# Niveaux qui gagnent, au-dela des trois profondeurs du LOT-70, un plan CIEL (le plus lointain) et
+# un plan PROCHE (entre le fond et le devant) -- LOT-71. Restreint au tableau final : c'est le seul
+# ou une richesse de parallaxe a cinq plans se justifie (dernier tableau de la sequence, cadrage
+# `perRoom` a defilement).
+EXTRA_DEPTH_LEVELS = frozenset({"demo-final"})
+
+
 # Les deux seuls niveaux ou hmi::planeParallaxActive est vrai (cadrage Follow/PerRoom) : les seuls
 # ou un plan lointain, plus lent que le fond, serait effectivement visible a l'usage. Livrer ce
 # plan partout couterait une texture et une passe de rendu (LOT-69 TACHE-09) pour un decalage que
@@ -792,14 +856,22 @@ LEGACY_DECORS: dict[str, tuple[tuple[str, float, float, str], ...]] = {
         ('branch', 9.0, 6.3, 'foreground'),
         ('grass_tuft', 3.0, 10.4, 'background'),
     ),
+    # LOT-71 : retrace pour le nouveau tracé de `demo-final` (24×24, hérité de `Test-IA`) --
+    # les anciennes coordonnées visaient l'ancien niveau 50×26, hors bornes sur celui-ci. Trois
+    # profondeurs de décors désormais : `background` (plan fond), `near` (plan proche, LOT-71,
+    # nouveau), `foreground` (plan devant).
     'demo-final': (
-        ('kenney_torch', 3.0, 9.2, 'background'),
-        ('kenney_chain', 30.0, 2.0, 'foreground'),
-        ('kenney_ladder', 47.0, 14.0, 'background'),
-        ('pillar', 22.0, 4.5, 'background'),
-        ('gear', 41.0, 3.0, 'background'),
-        ('lantern', 8.0, 12.5, 'foreground'),
-        ('crystal', 34.0, 21.5, 'background'),
+        ('kenney_torch', 9.0, 5.2, 'background'),
+        ('pillar', 20.0, 1.5, 'background'),
+        ('gear', 16.0, 9.0, 'background'),
+        ('crystal', 21.0, 8.5, 'background'),
+        ('kenney_ladder', 9.5, 17.2, 'background'),
+        ('rock', 6.0, 17.3, 'near'),
+        ('gear', 20.0, 20.5, 'near'),
+        ('pillar', 14.5, 18.0, 'near'),
+        ('kenney_chain', 13.0, 11.0, 'foreground'),
+        ('lantern', 5.0, 12.5, 'foreground'),
+        ('kenney_fence', 21.0, 17.2, 'foreground'),
     ),
     'demo-interrupteur': (
         ('kenney_fence', 2.0, 2.2, 'background'),
@@ -869,7 +941,7 @@ def build_level(stem: str, width_units: int, height_units: int, theme: dict) -> 
     decors = LEGACY_DECORS.get(stem, ())
     behind = paint_backdrop(width_units, height_units, BACKDROP_PIXELS_PER_UNIT, theme, stem)
     for name, x, y, layer in decors:
-        if layer != "foreground":
+        if layer == "background":
             place(behind, name, x, y, BACKDROP_PIXELS_PER_UNIT)
 
     planes = {f"{stem}-fond.png": behind}
@@ -878,6 +950,16 @@ def build_level(stem: str, width_units: int, height_units: int, theme: dict) -> 
         far = paint_far_backdrop(width_units, height_units, FAR_BACKDROP_PIXELS_PER_UNIT, theme,
                                   stem)
         planes[f"{stem}-lointain.png"] = far
+
+    if stem in EXTRA_DEPTH_LEVELS:
+        planes[f"{stem}-ciel.png"] = paint_sky_veil(width_units, height_units,
+                                                      FAR_BACKDROP_PIXELS_PER_UNIT, theme, stem)
+        near = paint_near_backdrop(width_units, height_units, BACKDROP_PIXELS_PER_UNIT, theme,
+                                    stem)
+        for name, x, y, layer in decors:
+            if layer == "near":
+                place(near, name, x, y, BACKDROP_PIXELS_PER_UNIT)
+        planes[f"{stem}-proche.png"] = near
 
     front_decors = [decor for decor in decors if decor[3] == "foreground"]
     if front_decors:

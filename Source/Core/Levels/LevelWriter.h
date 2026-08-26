@@ -85,9 +85,9 @@ public:
      *                     mais n'est plus jamais produit (`EX-LVL-008`).
      * @param cameraFraming Cadrage de caméra résolu (`EX-LVL-006`) ; le champ `"cameraFraming"`
      *                     n'est émis que s'il **diverge** de ce que la règle de repli
-     *                     (`resolveCameraFraming`) recalculerait pour ces dimensions -- un niveau
-     *                     dont le cadrage résolu coïncide avec le repli reste sans le champ, comme
-     *                     avant ce lot (`EX-LVL-006`, aucune régression de round-trip).
+     *                     (`resolveCameraFraming`) recalculerait pour ces dimensions. Invariant de
+     *                     round-trip : un fichier **sans** le champ, dont le cadrage résolu
+     *                     coïncide avec le repli, ressort **sans** le champ (`EX-LVL-006`).
      * @param airJumps     Sauts aériens accordés par le tableau (`EX-GP-055`) ; champ omis si
      *                     absent (le niveau s'en remet alors au réglage du moteur).
      * @param dashCharges  Charges de dash accordées par le tableau (`EX-GP-055`) ; même règle.

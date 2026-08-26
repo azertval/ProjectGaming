@@ -1,6 +1,6 @@
 # LOT-ANNEXE-05 — Environnement de simulation headless {#lot-annexe-05}
 
-> Statut : **non commencé**. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0
+> Statut : **fait**. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0
 > fournit de quoi compiler `AiSolver`, sans dépendance **fonctionnelle** sur elle). Premier lot de
 > la génération 1 : donne à tout algorithme d'apprentissage à venir un moyen de **jouer** un niveau
 > sans fenêtre ni GPU.
@@ -79,10 +79,7 @@ et al. (2016, *OpenAI Gym*, popularise l'interface `reset`/`step`) — `Headless
 inspire dans sa forme uniquement, sans aucune dépendance à cette bibliothèque.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-005 **EX-IA-005** — Le jeu doit être jouable **sans fenêtre ni GPU**, au
-  pas fixe, via une API `reset(chemin)`/`step(core::PlayerInput)` reproduisant fidèlement
-  l'orchestration de simulation du jeu (mécanismes, blocs, physique, dangers, issue), sans aucune
-  modification de `Core`, avec une garde de non-régression pas-à-pas permanente en CI.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-005`](@ref EX-IA-005).
 - Réutilisées (inchangées) : `EX-GP-001` à `EX-GP-025`/`050`-`053` (modèle de niveau et mécaniques,
   consommées en lecture seule), `EX-NFR-002` (déterminisme au pas fixe), `EX-NFR-004` (vérification
   sans GPU), `EX-ARCH-011`/`EX-ARCH-030` (données pures, orchestration par systèmes).
@@ -93,11 +90,11 @@ inspire dans sa forme uniquement, sans aucune dépendance à cette bibliothèque
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-headless-level-environment.md) | `HeadlessLevelEnvironment` : squelette, `reset`, entité joueur | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-replication-ordre-pas.md) | `step` : réplication exacte de l'ordre de composition par pas | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-budget-pas-detection-blocage.md) | Budget de pas et mesure de progression (blocage) | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-04](tache-04-cible-cmake-aisolver.md) | Cible CMake `AiSolver` | `Source/AiSolver`, `Source/CMakeLists.txt` | ⬜ |
-| [TACHE-05](tache-05-garde-fidelite-parcours-complet.md) | Garde de fidélité pas-à-pas (CI permanente) | `Source/Test/Systeme` | ⬜ |
+| [TACHE-01](tache-01-headless-level-environment.md) | `HeadlessLevelEnvironment` : squelette, `reset`, entité joueur | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-replication-ordre-pas.md) | `step` : réplication exacte de l'ordre de composition par pas | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-budget-pas-detection-blocage.md) | Budget de pas et mesure de progression (blocage) | `Source/AiSolver/Env` | ✅ |
+| [TACHE-04](tache-04-cible-cmake-aisolver.md) | Cible CMake `AiSolver` | `Source/AiSolver`, `Source/CMakeLists.txt` | ✅ |
+| [TACHE-05](tache-05-garde-fidelite-parcours-complet.md) | Garde de fidélité pas-à-pas (CI permanente) | `Source/Test/Systeme` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `HeadlessLevelEnvironment::reset` charge n'importe quel niveau JSON valide de

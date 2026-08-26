@@ -112,15 +112,8 @@ référence de base pour la notion de récompense et de retour) — bibliographi
 chapitre.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-009 **EX-IA-009** — Un signal de récompense unique et partagé (progression
-  vers la sortie, bonus de complétion, pénalité de mort, pénalité de temps) et une classification de
-  fin d'épisode (victoire, échec, timeout, blocage) doivent être définis une seule fois et réutilisés
-  par tout algorithme d'apprentissage du programme, pour garantir la comparabilité de leurs résultats.
-- Nouvelle (amendement) : \anchor EX-IA-023 **EX-IA-023** — La récompense de progression doit se
-  baser sur une distance de plus court chemin sur la grille (respectant les murs statiques), jamais
-  une distance euclidienne en ligne droite, pour qu'un pas de détour nécessaire autour d'un mur ne
-  reçoive jamais une récompense de progression négative alors qu'il rapproche réellement le
-  personnage de la sortie.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-009`](@ref EX-IA-009).
+- Nouvelle (amendement), déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-023`](@ref EX-IA-023).
 - Réutilisées : `EX-IA-005` (`HeadlessLevelEnvironment`, budget de pas et mesure de progression),
   `EX-GP-030`/`EX-GP-031` (conditions de victoire/échec du jeu, base de la classification d'épisode).
 

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_autodiff_backward.cpp
  * @brief Tests unitaires de `aisolver::autodiff::backward()` (LOT-ANNEXE-02, TACHE-03) : parcours

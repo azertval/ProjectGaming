@@ -9,7 +9,7 @@
 #include <vector>
 
 /**
- * @file AiSolver/Training/ActorCritic/ConvergenceComparator.h
+ * @file AiSolver/Eval/ConvergenceComparator.h
  * @brief Comparaison chiffrée de convergence entre plusieurs runs d'un même algorithme, à partir
  * des CSV `TrainingStatsRecorder` (`LOT-ANNEXE-13`, TACHE-04, `EX-IA-014`).
  *
@@ -19,9 +19,14 @@
  * l'acteur-critique, est journalisée à part (voir `ActorCriticTrainer.h`) et n'entre pas dans cette
  * comparaison. Les colonnes sont retrouvées par nom dans l'en-tête (pas par position fixe), pour
  * rester robuste à un ajout de colonne futur dans `Stats/CsvFormat.h`.
+ *
+ * **API de bibliothèque, sans point d'entrée `aisolver-cli`.** L'outil en ligne de commande
+ * n'expose que `train`, `evaluate` et `export-replay` : ce module est appelé par ses tests, et
+ * reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été
+ * exécutée une fois et ses résultats consignés (`Documentation/Lot-Annexe/`).
  */
 
-namespace aisolver::training {
+namespace aisolver::eval {
 
 /// Métriques de convergence d'un unique run (un CSV).
 struct RunConvergenceMetrics {
@@ -36,7 +41,7 @@ struct RunConvergenceMetrics {
 /**
  * @brief Lit un CSV produit par `TrainingStatsRecorder` et calcule ses métriques de convergence.
  * @param csvPath        Chemin du CSV (en-tête + une ligne par épisode).
- * @param rewardThreshold Plafond de récompense défini une fois pour toute la comparaison.
+ * @param rewardThreshold Seuil de récompense défini une fois pour toute la comparaison.
  * @param finalWindowSize Taille de la fenêtre de fin de run pour `finalWindowMeanReward`.
  * @pre Le CSV contient une colonne `bestReward` (nom retrouvé dans l'en-tête).
  */
@@ -45,10 +50,10 @@ struct RunConvergenceMetrics {
 
 /// Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.
 struct ConvergenceReport {
-    /// Nombre moyen d'épisodes jusqu'au plafond, sur les seuls essais qui l'ont atteint ; absent si
-    /// aucun essai n'a atteint le plafond (résultat explicite, pas une moyenne vide silencieuse).
+    /// Nombre moyen d'épisodes jusqu'au seuil, sur les seuls essais qui l'ont atteint ; absent si
+    /// aucun essai n'a atteint le seuil (résultat explicite, pas une moyenne vide silencieuse).
     std::optional<float> meanEpisodesToThreshold;
-    /// Nombre d'essais ayant atteint le plafond, sur `totalTrials`.
+    /// Nombre d'essais ayant atteint le seuil, sur `totalTrials`.
     std::size_t trialsReachingThreshold = 0;
     /// Nombre total d'essais comparés.
     std::size_t totalTrials = 0;
@@ -68,4 +73,4 @@ struct ConvergenceReport {
     const std::vector<std::filesystem::path>& csvPaths, float rewardThreshold,
     int finalWindowSize = 10);
 
-}  // namespace aisolver::training
+}  // namespace aisolver::eval

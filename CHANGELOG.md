@@ -6,6 +6,204 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.1.2] - 2026-08-25
+
+> Huitième jalon, et le plus large : le jeu apprend à se jouer tout seul. Un **solveur IA** écrit
+> de zéro — tenseurs, différentiation automatique, réseaux de neurones, optimiseurs, quatre
+> algorithmes d'apprentissage — s'entraîne hors ligne sur un niveau et en rapporte une **séquence
+> d'actions déterministe**, que le moteur rejoue à l'identique. Aucun framework tiers, aucune
+> dépendance Python, aucune inférence en temps réel dans le jeu : `Core` et `HMI` ne gagnent pas
+> une seule dépendance. Un écran **Mode IA** lance un entraînement, montre les statistiques
+> arriver, et rejoue en scène le meilleur individu obtenu.
+>
+> Côté jeu, le rendu passe par **QRhi** plutôt que d'appeler Direct3D 11 directement, les
+> **décors-sprites cèdent la place à des plans picturaux** peints dans l'éditeur avec parallaxe
+> réglable, et le tableau final est **retracé** : un gaufre unique de 24×24, cinq profondeurs de
+> parallaxe, deux dangers retirés parce qu'ils le rendaient invincible — démontré, pas supposé.
+>
+> Cette version passe enfin par un **audit de release** complet. Il a supprimé des recalculs (la
+> suite de tests unitaires passe de 550 s à 90 s, à résultats identiques au bit près), couvert
+> quatre modules qui n'avaient aucun test, rendu falsifiable le test le plus coûteux du parc — ce
+> qui a révélé une mesure périmée dans la documentation —, aligné neuf documents sur le code
+> qu'ils décrivent, mis l'écran Mode IA en conformité avec l'identité pixel art, et fait dire aux
+> commentaires la règle appliquée plutôt que l'historique du défaut corrigé.
+
+### Nouveau tableau final, à cinq profondeurs de parallaxe (LOT-71)
+
+- `demo-final` est **retracé** : un gaufre unique de 24×24, bien plus dense que l'ancien final
+  multi-salles — deux clés, un interrupteur à bascule, un bloc sur plaque, un ascenseur à
+  plateformes synchronisées, trois puits à wall jump et une cheminée. Il gagne deux plans de
+  parallaxe (**ciel** et **proche**) en plus des trois du LOT-70 ; `demo-synthese` passe en
+  cadrage par salle.
+- **Deux dangers retirés**, sans lesquels le tableau était **invincible** — démontré, pas
+  supposé. Le danger statique (17, 9) ne laissait à la rangée 9 que deux trouées, l'une mortelle
+  et l'autre débouchant sur un danger permanent, avec une fenêtre d'esquive d'une seule image. Le
+  danger mobile (7, 22) balayait exactement le couloir du bas : impossible de l'attendre (il vient
+  à vous), de le doubler en marchant (0,05 case par pas contre 0,033, dans le même sens) ni de le
+  franchir en ruée (0,25 par pas contre une case de large).
+- Le **parcours scripté** du garde-fou système est réécrit en 25 phases documentées. Il est
+  désormais porté par `ScriptedLevelSequence.h`, dont la copie était restée sur l'ancien tracé
+  50×26 — le test de récompense la rejouait, et le personnage n'y quittait pas son point
+  d'apparition.
+- Plafond de pas du garde-fou porté de 3 000 à 9 000 : ce seul tableau en demande près de 4 000,
+  dont de longues attentes devant les dangers temporisés. C'est une borne de terminaison, pas une
+  mesure de difficulté.
+- Les quatre niveaux touchés sont **réindentés** à deux espaces, comme `LevelWriter` le fait
+  désormais : ils étaient ressortis de l'éditeur en un bloc compact d'une seule ligne.
+
+### Solveur IA — une IA maison qui termine les niveaux (LOT-ANNEXE-01 à 21)
+
+Le jeu gagne un **solveur autonome**, écrit **de zéro** : aucun framework d'apprentissage
+automatique, aucune dépendance Python, aucune inférence en temps réel dans le jeu. L'agent
+s'entraîne hors ligne sur un niveau, et ce qu'il en rapporte est une **séquence d'actions
+déterministe** rejouée à l'identique par le moteur. `Core` et `HMI` ne gagnent aucune dépendance :
+tout vit dans une bibliothèque `Source/AiSolver/` et un exécutable `aisolver-cli`.
+
+**Fondations numériques.** Un `Tensor` N-dimensionnel à formes et pas explicites, à tampon partagé
+(les vues ne copient rien), et un générateur aléatoire à graine explicite — tout l'aléatoire du
+programme en découle, ce qui rend chaque entraînement reproductible. Par-dessus, un **moteur de
+différentiation automatique** en mode inverse : un graphe d'opérations construit à la volée, puis
+parcouru en sens inverse pour obtenir les gradients. Puis une bibliothèque de **réseaux de
+neurones** (couches denses, initialisation Xavier/He, fonctions d'activation, sérialisation des
+poids) et deux **optimiseurs**, SGD à moment et Adam.
+
+**Rendre le jeu jouable par une machine.** `HeadlessLevelEnvironment` fait tourner un niveau
+**sans fenêtre ni GPU**, en répliquant pas à pas l'ordre de résolution de la partie réelle —
+plateformes mobiles, blocs poussés, mécanismes, physique du personnage, dangers. Un test système
+permanent compare les deux trajectoires : l'agent ne peut pas apprendre une physique que le joueur
+n'aurait pas.
+
+L'état du jeu est traduit en tenseur par trois encodeurs complémentaires : une **fenêtre de tuiles**
+centrée sur le personnage encodée par catégorie, un **vecteur d'état** du personnage (vitesse,
+appuis, budgets restants), et l'**état des mécanismes** visibles. En sortie, un **espace d'action
+discret** : le produit des directions, du saut, du maintien de saut, du dash et de l'interaction.
+Le décodage se fait au maximum ou par tirage à température.
+
+**Le signal d'apprentissage.** La récompense mesure la progression en **distance de plus court
+chemin sur la grille**, pas à vol d'oiseau : c'est la seule mesure qui récompense un détour imposé
+par un mur. Elle vise l'**objectif immédiat** — tant qu'une porte est verrouillée, sa clé compte
+comme un but à part entière, sans que rien n'ait à connaître l'ordre de résolution attendu. Chaque
+épisode se clôt sur une issue explicite : gagné, mort, bloqué, ou budget épuisé.
+
+**Quatre algorithmes, et de quoi les comparer.** Un **algorithme évolutionniste** d'abord (sélection
+par tournoi, croisement, mutation gaussienne) : le chemin le plus court vers un agent qui finit
+réellement un niveau, et la ligne de base de tout le reste. Puis trois algorithmes par gradient —
+**REINFORCE**, **acteur-critique** (qui réduit la variance en soustrayant une valeur d'état
+apprise), et **DQN** avec tampon de rejeu, réseau cible et exploration ε-décroissante. Un harnais de
+**benchmark** les met en regard à graines fixées, et une campagne d'**évaluation hors-niveau**
+mesure ce qu'un modèle entraîné sur un tableau donne sur les autres.
+
+**Journalisation et rejeu.** Chaque entraînement écrit un CSV de statistiques par génération ou par
+épisode (meilleure récompense, moyenne, écart-type, taux de réussite), et un **format de rejeu**
+versionné qui porte la séquence d'entrées, l'empreinte du niveau d'origine et les métadonnées
+d'entraînement. Un rejeu dont le niveau a changé depuis l'export est **refusé au chargement**, avec
+un message explicite, jamais joué à moitié.
+
+**Deux façons de s'en servir.** En ligne de commande, `aisolver-cli` expose `train`, `evaluate` et
+`export-replay`. Dans le jeu, un écran **Mode IA** lance un entraînement dans un fil séparé, montre
+les statistiques arriver, et permet de rejouer en scène le meilleur individu obtenu.
+
+**Garde-fou d'intégration continue.** Un script vérifie que chaque rejeu publié reste synchronisé
+avec le niveau qu'il référence — une réimplémentation Python pure de l'empreinte utilisée par le
+C++, donc sans binaire à construire. Sans lui, un rééquilibrage de niveau pourrait périmer un rejeu
+versionné pendant des semaines sans qu'aucune Pull Request ne le signale.
+
+### Qualité (audit de release)
+
+- **Cœur tensoriel : l'adressage sorti des boucles chaudes.** `Tensor::at()` reconstruisait une
+  `initializer_list`, déréférençait un `shared_ptr` puis relisait **deux `std::vector` du tas**
+  (formes et pas) à **chaque multiplication-addition** — or `matmul` en fait trois par itération
+  interne, et il est traversé une fois par couche à l'avant et deux fois à l'arrière, pour les
+  **quatre** algorithmes d'entraînement. Les pas sont désormais précalculés et le parcours se fait
+  sur pointeurs bruts ; `TensorOps` gagne symétriquement un **chemin contigu**
+  (`Tensor::isContiguous()`), où l'élément de rang *n* est simplement `data()[n]`.
+
+  L'ordre de boucle `i, j, p` est **conservé** : c'est lui qui fixe l'ordre des sommations
+  flottantes, donc le résultat **au bit près**. Aucune valeur attendue n'a été retouchée dans les
+  tests de reproductibilité — c'est la vérification qui distingue un recalcul supprimé d'un
+  changement de calcul. Mesuré en Debug :
+
+  | Mesure | Avant | Après |
+  |---|---|---|
+  | `DqnTrainerTest.ReproductibiliteIntegrale` | 6,3 s | **0,7 s** |
+  | Comparaison de convergence REINFORCE/acteur-critique | 42,8 s | **3,7 s** |
+  | Suite `UnitTests` complète (1 455 cas) | 549,9 s | **89,6 s** |
+
+- **Six modules de production n'avaient aucun test** ; quatre le sont désormais.
+  `ObjectiveDistanceFieldCache` — le cache ci-dessus, utilisé par les cinq boucles d'entraînement —
+  n'était vérifié par rien, et les tests de reproductibilité ne l'auraient pas attrapé : deux
+  exécutions également périmées restent identiques l'une à l'autre. S'y ajoutent
+  `PolicyGradientLoss` (la formule **partagée** par REINFORCE et l'acteur-critique, dont les deux
+  consommateurs étaient éprouvés mais pas le cœur commun), `ArgmaxRollout` (le chemin qui produit
+  le rejeu regardé par le joueur), `DeterministicRandom` (avec des **vecteurs de référence figés**,
+  sans lesquels une refonte changerait toutes les suites de particules sans qu'aucun test ne
+  bronche) et `QtKeyMap`. Les quatre branches de robustesse CSV annoncées par la version
+  précédente n'en avaient elles non plus aucune : elles en ont quatre.
+- **Le test le plus coûteux du parc n'affirmait rien.** La campagne de transfert inter-niveaux
+  entraînait un agent jusqu'à convergence pour vérifier qu'un taux de réussite est compris entre 0
+  et 1 — une propriété de la division, pas du transfert. Il affirme désormais la conclusion du lot
+  (transfert **nul**) et borne le nombre de pas. Ce faisant, il a révélé que
+  `resultats-transfert.md` était périmé sur l'une des deux paires : le document est corrigé.
+- **La documentation décrivait encore un rendu Direct3D 11 direct**, alors que le `LOT-69` l'avait
+  fait passer par **QRhi** — plus aucun `#include <d3d11.h>` dans `Source/`. Le guide de rendu se
+  contredisait à vingt-six lignes d'intervalle, et le README de `HMI/Graphics` annonçait « pas de
+  couche multi-backend », ce que QRhi est précisément. Neuf documents corrigés.
+- **`Source/AiSolver/` n'avait aucun README**, à aucun niveau, alors que `Core/` et `Elements/` en
+  portent un par sous-module : dix sont écrits, plus ceux de `HMI/{Ai,Diagnostics,Localization}`.
+- **L'écran Mode IA passe au crible du `LOT-68`.** Arrivé après la refonte d'identité, il en avait
+  les couleurs et la police mais aucun **cadre** (`EX-IHM-070`), et son focus n'était signalé que
+  par la teinte — ce qu'`EX-IHM-071` interdit expressément, la navigation à la manette reposant
+  entièrement sur le parcours de focus. D'où `hmi::PixelFocusCaret`, réutilisable, qui pose une
+  marque explicite à côté des contrôles Qt ordinaires que `PixelMenuButton` ne peut pas couvrir.
+  L'écran gagne aussi sa planche de maquette, la seule qui manquait.
+- **Un garde-fou de plus** : `scripts/check_design_tokens.py` compare la palette d'identité des
+  maquettes à celle du code. Elles coïncidaient, mais à la main — rien n'empêchait une retouche de
+  teinte d'un côté de laisser l'autre en arrière, et une maquette qui ne décrit plus le jeu ne
+  sert plus à décider quoi que ce soit.
+- **Les commentaires disent la règle, plus l'historique du défaut.** Vingt-sept d'entre eux
+  racontaient un bug corrigé (« défaut constaté à l'essai », « comme avant ce lot ») au lieu
+  d'énoncer l'invariant que le code tient. Deux étaient factuellement **faux**. Deux algorithmes
+  n'étaient expliqués nulle part : la mise à jour d'Adam — correction de biais comprise, et
+  pourquoi elle est indispensable — et les bornes d'initialisation Xavier/He.
+- **Noms et arborescence.** `ScreenId::NiveauTermine` — seul énumérateur français d'un enum
+  anglais — devient `LevelComplete` ; `HMI/main.cpp` devient `Main.cpp`, et les 282 fichiers de
+  `Source/` hors tests sont enfin tous en PascalCase. Les 73 constantes en `kPascalCase`/`K_*`
+  passent en `UPPER_SNAKE_CASE`, la règle écrite — dont deux qui étaient **la même constante sous
+  deux styles**. Les abréviations interdites par les conventions disparaissent (`col`, `pos`,
+  `algo` ; le drapeau utilisateur `--algo`, lui, ne bouge pas). `Training/Advanced/` devient
+  `Training/Dqn/` — il ne contenait que du DQN — et les deux comparateurs de convergence, qui ne
+  dépendent d'aucun algorithme, rejoignent `Eval/`.
+
+- **Champ de distance mis en cache.** Le champ de plus court chemin qui alimente la récompense était
+  reconstruit par un parcours en largeur complet **à chaque pas de simulation**, dans les cinq
+  boucles d'entraînement. Or il ne dépend que de l'état ouvert/fermé des portes : il n'est
+  désormais reconstruit qu'à ce moment-là. Les résultats numériques sont identiques — c'est un
+  recalcul supprimé, pas un changement de comportement. Mesuré en Debug :
+  `DqnTrainerTest.ReproductibiliteIntegrale` passe de 15,1 s à 5,9 s, et la comparaison de
+  convergence REINFORCE/acteur-critique de 62,0 s à 41,9 s.
+- **Échantillons de plateformes mis en cache** dans `core::PlatformController`, recalculés par
+  `update()` au lieu d'être reconstruits à chaque lecture : ils sont lus plusieurs fois par pas, par
+  la physique du personnage, la poussée des blocs et l'interpolation d'affichage.
+- **Copie de grille supprimée** dans l'environnement sans fenêtre, qui dupliquait toute la grille de
+  collision des mécanismes à chaque pas là où la partie réelle en prenait déjà une référence.
+- **Température neutre court-circuitée** au décodage stochastique : à température 1 la pondération
+  est l'identité, et c'est le seul réglage utilisé à l'entraînement.
+- **Robustesse de lecture** : la comparaison de convergence ne suppose plus que le CSV qu'elle lit
+  est bien formé — colonne absente, ligne tronquée ou champ non numérique ne provoquent plus ni
+  accès hors bornes ni exception traversant la frontière du module.
+- **Format des fichiers de niveau** : l'écrivain de niveaux produisait un JSON compact sur une seule
+  ligne, seul écrivain JSON du projet dans ce cas. Il indente désormais à deux espaces comme tous
+  les autres — un niveau est un fichier versionné, dont la relecture en revue suppose un diff ligne
+  à ligne.
+- **En-têtes SPDX** ajoutés sur les 32 fichiers de code qui en manquaient encore.
+- **Commentaires** : une trentaine de commentaires racontaient l'historique d'une correction (« bug
+  réel trouvé en jeu », « corrigé au LOT-xx », « avant cet amendement ») plutôt que la règle que le
+  code applique. Réécrits pour énoncer la contrainte, pas l'anecdote.
+- **Documentation de code** : blocs Doxygen qui contredisaient la signature ou le comportement
+  décrit (constructeur documenté comme multi-source, champs présentés comme des méthodes, version de
+  format périmée, `@copydoc` propageant une description fausse), et avertissement ajouté sur le
+  partage de tampon à la copie d'un `Tensor`.
+
 ### Parallaxe à trois profondeurs des tableaux qui défilent (LOT-70)
 
 - `demo-mouvement` (suivi continu) et `demo-final` (caméra par salle) — les deux seuls tableaux
@@ -35,7 +233,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   déjà documentées à côté des fichiers concernés mais nulle part rassemblées. Il détaille aussi les
   trois obligations concrètes que le lien dynamique à Qt impose — et pourquoi passer Qt en lien
   statique serait une décision de licence, pas d'optimisation.
-- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur les 516 fichiers de code du
+- **En-têtes SPDX** (`SPDX-License-Identifier: GPL-3.0-or-later`) sur tous les fichiers de code du
   dépôt. Ils marquent le **code, et lui seul** : images, sons, polices et bibliothèques tierces
   gardent leur propre licence. La précision est écrite dans le README et les notices, parce que
   l'inverse serait facile à croire et faux.

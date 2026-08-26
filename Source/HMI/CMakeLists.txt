@@ -139,7 +139,7 @@ set(CMAKE_AUTORCC ON)
 set(ELEMENTS_UI ${PROJECT_SOURCE_DIR}/Source/Elements/UI)
 
 add_executable(ProjectGaming
-    main.cpp
+    Main.cpp
     # Plateforme
     Platform/ExecutableDirectory.cpp
     # Entrées (dont le pont Qt -> Key)
@@ -200,7 +200,7 @@ add_executable(ProjectGaming
     # Mode IA (LOT-ANNEXE-21) : entrainement interactif depuis l'IHM, seul point de HMI autorise a
     # referencer AiSolver/Training/Nn/Optim/Eval (amendement documente de LOT-ANNEXE-18, epic.md).
     Ai/TrainingWorker.cpp
-    Ai/EvaluationHelper.cpp
+    Ai/ModelEvaluation.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
@@ -225,6 +225,7 @@ add_executable(ProjectGaming
     # Widgets Qt de l'habillage pixel art (LOT-68) : peintres au-dessus de la geometrie pure
     # ci-dessus, promus dans les .ui. Non compiles dans UnitTests (dependent de Qt).
     Interface/PixelFrameWidget.cpp
+    Interface/PixelFocusCaret.cpp
     Interface/PixelMenuButton.cpp
     Interface/ThemeIcons.cpp
     Interface/ActionCatalog.cpp

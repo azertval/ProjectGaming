@@ -68,10 +68,7 @@ logicielle (CI), réutilisant l'algorithme de hachage déjà motivé dans
 [LOT-ANNEXE-17](@ref lot-annexe-17).
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-021 **EX-IA-021** — Un script de garde-fou, exécuté en intégration
-  continue à chaque Pull Request, doit détecter tout rejeu versionné dont le fichier de niveau
-  référencé a changé (empreinte divergente) ou n'existe plus depuis son export, et faire échouer la
-  vérification en conséquence, sans dépendance à un build C++.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-021`](@ref EX-IA-021).
 - Réutilisées (inchangées) : `EX-IA-018` (empreinte de niveau, algorithme FNV-1a, convention
   d'octets), principe déjà établi par `scripts/check_demo_sequence.py` (non normalisé sous un
   identifiant `EX-…`, garde-fou de convention plutôt qu'exigence produit).

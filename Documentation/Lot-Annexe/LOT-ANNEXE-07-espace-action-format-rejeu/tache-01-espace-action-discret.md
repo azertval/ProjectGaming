@@ -11,7 +11,8 @@ sortie continue non bornée. Cette tâche définit l'énumération finie qui fai
 ## Travail à réaliser
 - **`aisolver::ActionSpace`** (`Source/AiSolver/Env/ActionSpace.h/.cpp`) : `enum class Direction {
   Left, None, Right };`, `enum class ActionId : int { ... }` généré comme produit cartésien
-  `Direction × bool jump × bool jumpHeld × bool dash` (3 × 2 × 2 × 2 = 24 combinaisons), ou une
+  `Direction × bool jump × bool jumpHeld × bool dash × bool interact`
+  (3 × 2 × 2 × 2 × 2 = 48 combinaisons), ou une
   structure `Action { Direction direction; bool jumpPressed; bool jumpHeld; bool dashPressed; }`
   plus une fonction `size_t actionCount()` et `Action actionAt(size_t index)`/`size_t indexOf(const
   Action&)` pour l'aller-retour indice ↔ action (l'indice est ce qu'un réseau de sortie catégorielle
@@ -30,7 +31,7 @@ sortie continue non bornée. Cette tâche définit l'énumération finie qui fai
   et réciproquement pour toute combinaison valide d'`Action`.
 - **Traduction correcte vers `core::PlayerInput`** : chaque combinaison de `Direction`/booléens
   produit les champs `moveX`/`jumpPressed`/`jumpHeld`/`dashPressed` attendus, `moveY` toujours `0`.
-- **Nombre total de combinaisons** : `actionCount() == 24`, vérifié explicitement (pas seulement
+- **Nombre total de combinaisons** : `actionCount() == 48`, vérifié explicitement (pas seulement
   déduit du parcours des tests précédents), pour détecter tout changement accidentel de la taille de
   l'espace d'action dans une évolution future.
 

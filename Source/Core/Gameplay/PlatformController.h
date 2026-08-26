@@ -49,7 +49,7 @@ public:
     explicit PlatformController(const Level& level);
 
     /// Avance d'un pas fixe : fait progresser le compteur de pas consommé par `boxAt`.
-    void update() noexcept;
+    void update();
 
     /// @return Le nombre de plateformes mobiles du niveau.
     [[nodiscard]] std::size_t count() const noexcept {
@@ -78,9 +78,18 @@ public:
     /// @return Tous les échantillons courants (`sampleAt`), dans l'ordre de `Level::
     ///         platformConfigs()` — commodité pour l'appelant qui compose la liste complète en un
     ///         appel plutôt que d'itérer `count()`/`sampleAt` lui-même.
-    [[nodiscard]] std::vector<PlatformSample> samples() const;
+    ///
+    /// La liste est recalculée par `update()`, jamais à la lecture : chaque consommateur d'un même
+    /// pas (physique du personnage, poussée des blocs, interpolation d'affichage) la lit sans
+    /// reconstruire un vecteur. Référence valable jusqu'au prochain `update()`.
+    [[nodiscard]] const std::vector<PlatformSample>& samples() const noexcept {
+        return _samples;
+    }
 
 private:
+    /// Recalcule `_samples` pour le pas courant.
+    void refreshSamples();
+
     /// Position déterministe de la plateforme @p index au pas @p stepCount (fonction pure du
     /// numéro de pas, jamais d'état accumulé).
     [[nodiscard]] Aabb boxAtStep(std::size_t index, long long stepCount) const noexcept;
@@ -89,6 +98,8 @@ private:
     /// Routes précalculées, une par entrée de `_configs` et dans le même ordre (`EX-GP-054`).
     std::vector<PlatformPath> _paths;
     long long _stepCount = 0;  ///< Nombre de pas fixes écoulés depuis le chargement.
+    /// Échantillons du pas courant, une entrée par `_configs`, reconstruits par `update()`.
+    std::vector<PlatformSample> _samples;
 };
 
 /**

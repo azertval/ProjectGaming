@@ -27,6 +27,13 @@ namespace aisolver::cli {
  * effectivement utilisés.
  */
 struct TrainingConfig {
+    /// Identifiant court de l'algorithme du run (`evo`/`pg`/`ac`/`avance`).
+    ///
+    /// Ne vient pas d'un fichier de configuration mais de la ligne de commande (`--algo`) ou de
+    /// l'écran Mode IA ; il est journalisé ici parce qu'un run n'est **pas relisible sans lui** :
+    /// le modèle sauvegardé ne porte que des poids, et c'est l'algorithme qui dit sur quelle
+    /// topologie les recharger.
+    std::string algorithmId = "evo";
     /// Évolutionniste (`LOT-ANNEXE-10`) : taille de population, mutation, sélection.
     training::evolutionary::EvolutionaryConfig evolutionary{};
     /// Critère d'arrêt de la session évolutionniste (`LOT-ANNEXE-11`).
@@ -94,5 +101,19 @@ struct CommandLineOverrides {
  */
 [[nodiscard]] bool writeTrainingConfigJson(const TrainingConfig& config,
                                            const std::filesystem::path& path);
+
+/**
+ * @brief Taille de couche cachée avec laquelle @p modelPath a été entraîné.
+ *
+ * Un modèle n'est rechargeable que sur la topologie exacte qui l'a produit : `nn::loadWeights`
+ * compare les formes et refuse le moindre écart. Or l'entraînement respecte `hiddenSize`, qu'un run
+ * peut avoir changé : supposer la valeur par défaut à la relecture rend tout modèle entraîné
+ * autrement définitivement illisible. La taille est donc relue dans le `config.json` déposé à côté
+ * du modèle — c'est ce à quoi sert ce fichier.
+ * @param modelPath Chemin du fichier de poids ; son dossier est celui du run.
+ * @return La taille lue, ou `training::evolutionary::DEFAULT_HIDDEN_SIZE` si le `config.json` est
+ *         absent (modèle déplacé hors de son dossier de run) — seule valeur supposable alors.
+ */
+[[nodiscard]] std::size_t hiddenSizeForModel(const std::filesystem::path& modelPath);
 
 }  // namespace aisolver::cli

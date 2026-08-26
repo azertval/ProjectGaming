@@ -24,8 +24,6 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
 
     const ObservationEncoder observationEncoder;
     const RewardConfig rewardConfig;
-    const GridDistanceField distanceField(environment.level().tileMap(),
-                                          environment.level().exit());
     Rng rng(0);  // Argmax ne consomme jamais rng ; instance jetable pour satisfaire la signature.
 
     const core::GridPosition entry = environment.level().entry();
@@ -36,6 +34,8 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
 
     DeterministicReplayResult result;
     EpisodeStatus status = EpisodeStatus::Ongoing;
+
+    ObjectiveDistanceFieldCache distanceFieldCache;
 
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observation =
@@ -50,6 +50,10 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
         result.steps.push_back(*input);
 
         const StepObservation stepObservation = environment.step(*input);
+        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
+        // le reconstruit alors, et le rend tel quel sinon.
+        const GridDistanceField& distanceField =
+            distanceFieldCache.field(environment.level(), environment.mechanisms());
         result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 

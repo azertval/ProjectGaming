@@ -21,26 +21,50 @@ namespace aisolver {
  * statiquement solides d'un `core::TileMap`), pré-calculée une fois par BFS multi-source depuis une
  * case cible.
  *
- * Remplace la distance euclidienne en ligne droite (décision de cadrage initiale de
- * `LOT-ANNEXE-08`) comme base de la récompense de progression : la distance euclidienne pousse un
- * agent à s'approcher en ligne droite de la sortie même quand un mur force un détour, ce qui donne
- * une récompense négative aux pas de détour pourtant nécessaires -- un signal qui combat activement
- * la bonne politique plutôt que de simplement l'ignorer. `GridDistanceField` corrige cela sans
- * introduire de recherche de chemin complète (pas de replanification par pas, pas de notion de coût
- * autre que le nombre de cases) : un unique BFS à la construction, puis des lectures `O(1)`.
+ * Sert de base à la récompense de progression (`EX-IA-023`). La propriété recherchée est que
+ * *tout pas rapprochant du but sur un chemin réellement empruntable* soit récompensé, y compris
+ * un détour imposé par un mur : une distance à vol d'oiseau pénaliserait ce détour, et
+ * dirigerait donc l'agent contre la seule solution disponible.
  *
- * Cases dynamiques (portes, plateformes mobiles) non prises en compte : seule la solidité statique
- * (`core::TileMap::isSolid`) borne le BFS, cohérent avec la portée de la récompense partagée
- * (`LOT-ANNEXE-08`), qui ne modélise déjà aucun mécanisme spécifique à un niveau.
+ * Le coût est borné par construction : un unique BFS à quatre voisins, sans pondération ni
+ * replanification, puis des lectures `O(1)`. La distance se compte en nombre de cases, jamais en
+ * coût de déplacement -- il n'y a pas de planificateur de chemin ici.
+ *
+ * Accepte n'importe quelle `core::TileMap`, et c'est le choix de cette grille qui fixe ce que
+ * « empruntable » veut dire :
+ * - `core::Level::tileMap()` ne connaît que la solidité **statique** ;
+ * - `core::MechanismController::collisionMap()` connaît en plus l'état **courant** des portes,
+ *   solides tant qu'elles sont fermées (le contrôleur les gère dynamiquement, `TileMap::isSolid`
+ *   les ignore).
+ *
+ * Une porte verrouillée encore fermée doit être vue comme un mur, sans quoi le champ mesure la
+ * progression le long d'un chemin qui n'existe pas et la clé qui l'ouvre ne raccourcit rien.
  */
 class GridDistanceField {
 public:
     /**
-     * @brief Calcule le champ par BFS multi-source à partir de @p target.
-     * @param tileMap Grille statique du niveau (cases solides/non-solides).
+     * @brief Calcule le champ par BFS à partir de l'unique case @p target.
+     * @param tileMap Grille de collision (cases solides/non-solides) --
+     * `core::MechanismController:: collisionMap()` pour respecter l'état courant des portes,
+     * `core::Level::tileMap()` pour la seule solidité statique.
      * @param target  Case cible (typiquement `core::Level::exit()`), point de départ du BFS.
      */
     GridDistanceField(const core::TileMap& tileMap, const core::GridPosition& target);
+
+    /**
+     * @brief Calcule le champ par BFS **multi-source** à partir de @p targets.
+     *
+     * Généralise le constructeur à cible unique : la distance renvoyée par `distance()` est celle
+     * au **plus proche** élément de @p targets, ce qui permet de faire cohabiter la sortie du
+     * niveau avec les positions des déclencheurs (`core::Mechanism::switchPosition`) pas encore
+     * résolus comme cibles concurrentes -- l'objectif immédiat le plus proche, sans hiérarchie ni
+     * connaissance de l'ordre de résolution attendu.
+     * @param tileMap Grille de collision (voir constructeur à cible unique).
+     * @param targets Cases cibles ; une case hors-grille ou solide est simplement ignorée (garde
+     *        défensive, ne fait pas échouer les autres cibles). Vide -> champ entièrement
+     *        inatteignable.
+     */
+    GridDistanceField(const core::TileMap& tileMap, const std::vector<core::GridPosition>& targets);
 
     /**
      * @brief Distance de plus court chemin, en nombre de cases, depuis @p position jusqu'à la case

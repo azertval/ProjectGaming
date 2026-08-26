@@ -39,8 +39,8 @@ enum class CameraFramingMode {
  * plutôt que la seule vérité (`tache-01`) : un niveau peut la personnaliser. Dupliquées ici plutôt
  * que lues depuis `hmi::RoomGrid` : `Core` ne dépend jamais de `HMI` (`EX-ARCH-011`).
  */
-inline constexpr int kDefaultRoomWidthTiles = 24;
-inline constexpr int kDefaultRoomHeightTiles = 14;
+inline constexpr int DEFAULT_ROOM_WIDTH_TILES = 24;
+inline constexpr int DEFAULT_ROOM_HEIGHT_TILES = 14;
 
 /**
  * @brief Rectangle de caméra dessiné à la main par le level designer (mode *par salle*), en cases.
@@ -65,8 +65,8 @@ struct CameraZone {
  * `roomWidthTiles`/`roomHeightTiles` ont deux usages selon le mode : en `PerRoom`, la taille de
  * chaque salle du découpage **automatique** en grille (ignorée si `zones` est non vide) ; en
  * `Follow`, la taille fixe de la zone visible par la caméra de suivi. `std::nullopt` signifie
- * « taille par défaut » (`kDefaultRoomWidthTiles`/`kDefaultRoomHeightTiles`), jamais une taille de
- * zéro case. Sans objet dans les deux cas pour `WholeLevel`.
+ * « taille par défaut » (`DEFAULT_ROOM_WIDTH_TILES`/`DEFAULT_ROOM_HEIGHT_TILES`), jamais une taille
+ * de zéro case. Sans objet dans les deux cas pour `WholeLevel`.
  */
 struct CameraFramingConfig {
     CameraFramingMode mode = CameraFramingMode::WholeLevel;
@@ -87,10 +87,9 @@ struct CameraFramingConfig {
 /**
  * @brief Résout le cadrage effectif d'un niveau à partir du champ **déclaré** (peut être absent).
  *
- * Unique endroit incarnant la règle de repli (`EX-LVL-006`) : un niveau sans mode déclaré se
- * comporte **exactement** comme avant ce lot -- niveau entier s'il tient dans une salle de taille
- * par défaut, par salle sinon (la règle historique, `LOT-16`/`LOT-32`). Un mode déclaré
- * explicitement est retourné tel quel, sans substitution.
+ * Unique endroit incarnant la règle de repli (`EX-LVL-006`) : un niveau **sans** mode déclaré est
+ * cadré sur le niveau entier s'il tient dans une salle de taille par défaut, et par salle sinon.
+ * Un mode déclaré explicitement est retourné tel quel, sans substitution.
  * @param declared    Cadrage déclaré dans le fichier, ou `std::nullopt` si le champ est absent.
  * @param levelWidth  Largeur du niveau, en cases (> 0).
  * @param levelHeight Hauteur du niveau, en cases (> 0).

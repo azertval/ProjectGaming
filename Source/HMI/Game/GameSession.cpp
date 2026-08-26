@@ -82,9 +82,9 @@ PlayerClipKind proceduralClipKindFor(const std::string& clipName) {
     return PlayerClipKind::Idle;
 }
 
-// Zoom et marge visuelle communs aux trois modes de cadrage (LOT-64) : meme valeur que celle
-// utilisee par le mode par salle avant ce lot (LOT-32), reprise pour les deux autres modes --
-// aucune raison visuelle de faire varier la marge selon le mode retenu.
+// Zoom et marge visuelle communs aux trois modes de cadrage (LOT-64) : une marge UNIQUE, la meme
+// quel que soit le mode -- aucune raison visuelle de la faire varier, et une marge par mode se
+// verrait comme un saut a chaque changement de cadrage.
 constexpr float CAMERA_FIT_MARGIN = 0.92f;
 }  // namespace
 
@@ -140,8 +140,8 @@ void GameSession::loadLevel(core::Level level) {
     // retenu n'est pas "par salle", la partition reste bon marche a construire et sert de repere
     // a l'editeur (TACHE-03).
     _roomGrid.emplace(_levelWidth, _levelHeight,
-                      _cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles),
-                      _cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles));
+                      _cameraFraming.roomWidthTiles.value_or(core::DEFAULT_ROOM_WIDTH_TILES),
+                      _cameraFraming.roomHeightTiles.value_or(core::DEFAULT_ROOM_HEIGHT_TILES));
     _currentRoomIndex = _roomGrid->roomIndexAt(levelRef.entry());
     // Caméra de suivi (LOT-64 TACHE-02) : réinitialisée à chaque chargement, elle démarrera sur le
     // personnage à l'entrée dès le premier `update()` (état non initialisé).
@@ -413,8 +413,9 @@ void GameSession::applyMechanismVisual(core::Entity entity, bool active,
     // du rendu. On ignore la region retournee (calculee sans connaitre l'etat), seuls la source et
     // l'index servent a retrouver l'asset et ses dimensions.
     const core::Sprite& sprite = _world.getComponent<core::Sprite>(entity);
-    // Axes skin/surcharge (LOT-51) tous deux visibles par defaut : mode compose, une valeur est
-    // donc toujours renvoyee, comme avant ce lot -- GameSession n'expose jamais ces axes.
+    // Axes skin/surcharge (LOT-51) tous deux visibles par defaut : en mode compose, une valeur est
+    // TOUJOURS renvoyee. GameSession n'expose pas ces axes -- ce sont des outils d'inspection de
+    // l'editeur, sans objet en jeu.
     const TileAppearance appearance =
         resolveTileAppearance(RenderMode::Texture, sprite.region, &tag, textures).value();
 
@@ -795,9 +796,10 @@ void GameSession::updateFollowCamera(float fixedDelta) {
     // Cadrage de la camera de suivi : taille reglable par niveau (EX-REN-017, memes champs que la
     // taille de salle du mode par salle -- valeur par defaut si non declaree).
     const core::Vector2 viewHalfExtent{
-        static_cast<float>(_cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles)) *
+        static_cast<float>(_cameraFraming.roomWidthTiles.value_or(core::DEFAULT_ROOM_WIDTH_TILES)) *
             0.5f,
-        static_cast<float>(_cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles)) *
+        static_cast<float>(
+            _cameraFraming.roomHeightTiles.value_or(core::DEFAULT_ROOM_HEIGHT_TILES)) *
             0.5f};
     _followCameraState = advanceFollowCamera(_followCameraState, characterCenter, player.facing,
                                              levelBounds, viewHalfExtent, fixedDelta);
@@ -851,9 +853,9 @@ void GameSession::applyCameraFraming(int viewportWidth, int viewportHeight,
             const float zoom = Camera2D::fitZoom(
                 static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
                 static_cast<float>(
-                    _cameraFraming.roomWidthTiles.value_or(core::kDefaultRoomWidthTiles)),
+                    _cameraFraming.roomWidthTiles.value_or(core::DEFAULT_ROOM_WIDTH_TILES)),
                 static_cast<float>(
-                    _cameraFraming.roomHeightTiles.value_or(core::kDefaultRoomHeightTiles)),
+                    _cameraFraming.roomHeightTiles.value_or(core::DEFAULT_ROOM_HEIGHT_TILES)),
                 CAMERA_FIT_MARGIN);
             _camera.setZoom(zoom);
             // Interpole entre le centre du pas fixe PRECEDENT et celui du pas COURANT, comme
@@ -899,7 +901,7 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
     // consomment sa position DEJA a jour pour ce pas.
     _platforms->update();
     refreshPlatformVisuals();
-    const std::vector<core::PlatformSample> platformSamples = _platforms->samples();
+    const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
 
     // 1ter. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
     // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent.

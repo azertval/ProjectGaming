@@ -12,7 +12,7 @@ namespace aisolver {
 
 namespace {
 
-constexpr std::size_t kDangerChannel = 1;
+constexpr std::size_t DANGER_CHANNEL = 1;
 
 // Marque une case unique (danger temporise/commute, position fixe dans la grille) sur le canal
 // danger, si elle tombe dans la fenetre.
@@ -23,7 +23,7 @@ void markCell(Tensor<float>& tensor, core::GridPosition position, core::GridPosi
     if (dc < -radius || dc > radius || dr < -radius || dr > radius) {
         return;  // hors fenetre
     }
-    tensor.at({kDangerChannel, static_cast<std::size_t>(dr + radius),
+    tensor.at({DANGER_CHANNEL, static_cast<std::size_t>(dr + radius),
                static_cast<std::size_t>(dc + radius)}) = 1.0f;
 }
 
@@ -41,7 +41,7 @@ void rasterizeBox(Tensor<float>& tensor, const core::Aabb& box, core::GridPositi
             if (!overlaps) {
                 continue;
             }
-            tensor.at({kDangerChannel, static_cast<std::size_t>(dr + radius),
+            tensor.at({DANGER_CHANNEL, static_cast<std::size_t>(dr + radius),
                        static_cast<std::size_t>(dc + radius)}) = 1.0f;
         }
     }
@@ -53,9 +53,11 @@ Tensor<float> MechanismStateEncoder::encode(const core::MechanismController& mec
                                             const core::DangerController& dangers,
                                             const core::Level& level, core::GridPosition center,
                                             int radius) const {
-    const int windowSize = 2 * radius + 1;
-    const auto size = static_cast<std::size_t>(windowSize);
-    Tensor<float> result({static_cast<std::size_t>(kChannelCount), size, size});
+    // Cote de la fenetre carree centree sur `center` : calcule en int, puis converti -- convertir
+    // avant l'addition elargirait le calcul (`bugprone-misplaced-widening-cast`).
+    const int windowSideInTiles = 2 * radius + 1;
+    const auto windowSide = static_cast<std::size_t>(windowSideInTiles);
+    Tensor<float> result({static_cast<std::size_t>(CHANNEL_COUNT), windowSide, windowSide});
 
     // Canal 0 : porte ouverte, une case par mecanisme (mechanism.doorPosition).
     const std::vector<core::Mechanism>& mechanismList = mechanisms.mechanisms();

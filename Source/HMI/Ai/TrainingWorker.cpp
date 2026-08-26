@@ -6,6 +6,7 @@
 #include <chrono>
 #include <fstream>
 #include <memory>
+#include <optional>
 #include <sstream>
 
 #include "AiSolver/Cli/TrainingConfig.h"
@@ -26,10 +27,10 @@
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
-#include "AiSolver/Training/Advanced/DqnTrainer.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
 #include "AiSolver/Training/ArgmaxRollout.h"
 #include "AiSolver/Training/DeterministicReplay.h"
+#include "AiSolver/Training/Dqn/DqnTrainer.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/LevelTrainingSession.h"
@@ -51,7 +52,7 @@ using Clock = std::chrono::steady_clock;
 // Periode minimale entre deux apercus (LOT-ANNEXE-21) : un rejeu deterministe complet plus une
 // ecriture disque a chaque generation/episode ralentirait un niveau rapide pour rien -- la vue
 // "Rejeu 3D" n'a besoin que d'un aperçu recent, pas de chaque generation.
-constexpr auto kPreviewInterval = std::chrono::milliseconds(1500);
+constexpr auto PREVIEW_INTERVAL = std::chrono::milliseconds(1500);
 
 std::unique_ptr<aisolver::optim::IOptimizer> makeOptimizer(const QString& name,
                                                            float learningRate) {
@@ -107,6 +108,7 @@ void TrainingWorker::run() {
                                               _request.episodes,       _request.learningRate,
                                               _request.gamma,          std::nullopt};
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
+    config.algorithmId = _request.algorithmId.toStdString();
     if (!_request.optimizer.isEmpty()) {
         config.optimizer = _request.optimizer.toStdString();
     }
@@ -114,14 +116,20 @@ void TrainingWorker::run() {
     const std::string levelName = levelPath.stem().string();
     const std::string runId = generateRunId();
     const std::filesystem::path runsRoot =
-        _request.runsRoot.isEmpty() ? kDefaultTrainingRunsRoot
+        _request.runsRoot.isEmpty() ? DEFAULT_TRAINING_RUNS_ROOT
                                     : std::filesystem::path(_request.runsRoot.toStdString());
     const std::filesystem::path statsPath = makeTrainingRunPath(runsRoot, levelName, runId);
     const std::filesystem::path runDir = statsPath.parent_path();
     const std::filesystem::path modelPath = runDir / "model.bin";
     const std::filesystem::path replayPath = runDir / "replay.json";
     const std::filesystem::path configPath = runDir / "config.json";
-    const std::filesystem::path previewPath = runDir / "preview.json";
+    const std::filesystem::path previewsDir = runDir / "previews";
+
+    // Un fichier par generation/episode (jamais ecrase) : le seul moyen pour l'IHM de proposer un
+    // choix de generation dans "Voir en jeu" plutot que le seul apercu le plus recent.
+    const auto previewPathFor = [&previewsDir](int generation) {
+        return previewsDir / ("gen_" + std::to_string(generation) + ".json");
+    };
 
     if (!cli::writeTrainingConfigJson(config, configPath)) {
         emit failed(QStringLiteral("Impossible d'ecrire la configuration : %1")
@@ -129,34 +137,38 @@ void TrainingWorker::run() {
         return;
     }
 
-    const std::string algo = _request.algo.toStdString();
+    // Algorithme DEMANDE par l'ecran. Distinct de `algorithmId` plus bas, qui est l'etiquette
+    // ecrite dans les metadonnees du run : l'un choisit la branche, l'autre decrit le resultat.
+    const std::string requestedAlgorithm = _request.algorithmId.toStdString();
     const std::size_t inputSize = ObservationEncoder().inputSize();
     Clock::time_point lastPreview{};
 
     const auto shouldStop = [this] { return _stopRequested.load(); };
 
-    TrainingStatsRecorder recorder(statsPath);
-    recorder.setOnRecord([this](const TrainingStatsRow& row) {
-        emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-    });
+    // Un seul ecrivain par fichier de statistiques. Le chemin evolutionniste passe par
+    // `LevelTrainingSession`, qui possede le sien ; les chemins par gradient construisent celui-ci
+    // au moment ou ils en ont besoin. En construire un ici pour tout le monde ouvrirait un second
+    // flux en troncature sur le meme chemin des que l'algorithme est evolutionniste.
+    std::optional<TrainingStatsRecorder> recorder;
 
     // Aperçu périodique du champion courant (pg/ac/avance) : un rejeu Argmax déterministe complet
-    // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par kPreviewInterval,
+    // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par PREVIEW_INTERVAL,
     // même raison que le chemin évolutionniste (`onGenerationChampion` ci-dessous).
     const auto maybeEmitPreview = [&](eval::TrainedPolicy& evalPolicy, const std::string& name,
-                                      const std::string& id) {
+                                      const std::string& id, int generation) {
         const Clock::time_point now = Clock::now();
-        if (now - lastPreview < kPreviewInterval) {
+        if (now - lastPreview < PREVIEW_INTERVAL) {
             return;
         }
         lastPreview = now;
         HeadlessLevelEnvironment previewEnvironment;
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, previewEnvironment, levelPath);
+        const std::filesystem::path previewPath = previewPathFor(generation);
         if (replay &&
             writePreviewReplay(*replay, levelPath, previewPath, name, _request.seed, id)) {
             emit previewReady(QString::fromStdString(previewPath.string()),
-                              QString::fromStdString(id), _request.levelPath);
+                              QString::fromStdString(id), _request.levelPath, generation);
         }
     };
 
@@ -164,7 +176,7 @@ void TrainingWorker::run() {
     std::string algorithmName = "evolutionnaire";
     std::string algorithmId = "evo";
 
-    if (algo == "evo") {
+    if (requestedAlgorithm == "evo") {
         algorithmName = "evolutionnaire";
         algorithmId = "evo";
         const training::evolutionary::NetworkTopology topology =
@@ -172,10 +184,16 @@ void TrainingWorker::run() {
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
                                                config.stopping, _request.seed, statsPath);
 
+        session.setOnStatsRow([this](const TrainingStatsRow& row) {
+            emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
+        });
+
+        int evoGeneration = 0;
         training::TrainingResult result =
             session.run(shouldStop, [&](const training::evolutionary::Individual& champion) {
+                ++evoGeneration;
                 const Clock::time_point now = Clock::now();
-                if (now - lastPreview < kPreviewInterval) {
+                if (now - lastPreview < PREVIEW_INTERVAL) {
                     return;
                 }
                 lastPreview = now;
@@ -195,10 +213,12 @@ void TrainingWorker::run() {
                     }());
                 const training::DeterministicReplayResult replay =
                     training::replayBestIndividual(scratch, previewEnvironment, levelPath);
+                const std::filesystem::path previewPath = previewPathFor(evoGeneration);
                 if (writePreviewReplay(replay, levelPath, previewPath, algorithmName, _request.seed,
                                        algorithmId)) {
                     emit previewReady(QString::fromStdString(previewPath.string()),
-                                      QString::fromStdString(algorithmId), _request.levelPath);
+                                      QString::fromStdString(algorithmId), _request.levelPath,
+                                      evoGeneration);
                 }
             });
         solved = result.solved;
@@ -224,7 +244,7 @@ void TrainingWorker::run() {
     const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
     HeadlessLevelEnvironment environment;
 
-    if (algo == "pg") {
+    if (requestedAlgorithm == "pg") {
         algorithmName = "reinforce";
         algorithmId = "pg";
         Rng policyRng(_request.seed);
@@ -239,13 +259,14 @@ void TrainingWorker::run() {
         // l'entrainement, elle reste valide tout du long (memes poids, mis a jour en place),
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, levelPath,
-                                           reinforceConfig, recorder, levelName);
+                                           reinforceConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
         if (!nn::saveWeights(*policy, modelPath)) {
             emit failed(QStringLiteral("Echec de sauvegarde du modele."));
@@ -260,7 +281,7 @@ void TrainingWorker::run() {
                 *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
             solved = solved && exportResult.exported;
         }
-    } else if (algo == "ac") {
+    } else if (requestedAlgorithm == "ac") {
         algorithmName = "acteur-critique";
         algorithmId = "ac";
         Rng policyRng(_request.seed);
@@ -276,13 +297,14 @@ void TrainingWorker::run() {
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = _request.seed;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
-                                             environment, levelPath, actorCriticConfig, recorder,
+                                             environment, levelPath, actorCriticConfig, *recorder,
                                              levelName);
         trainer.run(config.episodes, true, shouldStop);
         if (!nn::saveWeights(*policy, modelPath)) {
@@ -320,13 +342,14 @@ void TrainingWorker::run() {
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
         dqnConfig.seedBase = _request.seed;
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        recorder.setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                              &algorithmId](const TrainingStatsRow& row) {
+        recorder.emplace(statsPath);
+        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+                               &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId);
+            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
         });
         training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment, levelPath,
-                                     dqnConfig, recorder, levelName);
+                                     dqnConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
         if (!nn::saveWeights(mainNetwork.network(), modelPath)) {
             emit failed(QStringLiteral("Echec de sauvegarde du modele."));

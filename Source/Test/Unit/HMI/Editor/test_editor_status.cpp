@@ -195,9 +195,10 @@ TEST(EditorStatusTest, AideChangeAvecLOutilActif) {
 }
 
 /**
- * @brief La restauration apres un message transitoire redonne la meme aide, pour le meme outil : la
- *        fonction pure est deterministe (le defaut corrige vivait dans MainWindow, qui ne rappelait
- *        jamais ce calcul apres l'expiration d'un message).
+ * @brief La restauration apres un message transitoire redonne la meme aide, pour le meme outil.
+ *
+ * `editorStatusLines` est PURE : restaurer la barre d'etat consiste donc simplement a la rappeler
+ * avec le meme contexte, sans avoir a memoriser ce qui y etait affiche.
  * \castest{<b>La decision est deterministe : meme contexte, meme resultat.</b><br/>
  * \tcat Unitaire · Barre d'etat de l'editeur<br/>
  * \tcrit Majeur<br/>

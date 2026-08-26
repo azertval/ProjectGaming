@@ -16,8 +16,9 @@ namespace core {
 /**
  * @brief Fournit les informations globales du moteur.
  *
- * Classe d'amorçage servant d'exemple de convention (RAII, membres privés).
- * Elle sera remplacée par la véritable logique de jeu lors du premier lot.
+ * Sans état : une seule fonction statique, qui expose le numéro de version du moteur. Elle existe
+ * pour que ce numéro ait **un** point d'accès depuis le code, alimenté par le système de build
+ * plutôt que recopié — voir `version()` ci-dessous.
  */
 class Engine {
 public:

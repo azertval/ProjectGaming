@@ -353,6 +353,16 @@
       "x": 19,
       "y": 5,
       "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "type": "solid"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "blockQuarter"
     }
   ],
   "planes": [

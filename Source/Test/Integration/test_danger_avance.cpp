@@ -87,8 +87,8 @@ std::vector<core::Aabb> collectActiveDangerBoxes(const core::Level& level,
  */
 TEST(DangerAvanceIntegrationTest, DangerDirectionnelMortelSeulementSurSaBande) {
     core::TileMap map(10, 4);
-    for (int col = 0; col < map.width(); ++col) {
-        map.setTile(col, 3, core::TileType::Solid);  // sol continu
+    for (int column = 0; column < map.width(); ++column) {
+        map.setTile(column, 3, core::TileType::Solid);  // sol continu
     }
     map.setTile(5, 2, core::TileType::DangerRight);  // bande mortelle : x in [5.75, 6.0]
     const core::Level level("directionnel", std::move(map), core::GridPosition{0, 0},
@@ -98,7 +98,7 @@ TEST(DangerAvanceIntegrationTest, DangerDirectionnelMortelSeulementSurSaBande) {
 
     const auto outcomeAt = [&](float x) {
         core::World world;
-        const core::Entity player = spawnHumanoidAt(world, x, 3.0f - core::kPlayerHeight);
+        const core::Entity player = spawnHumanoidAt(world, x, 3.0f - core::PLAYER_HEIGHT);
         core::CharacterPhysicsSystem system;
         system.update(world, mechanisms.collisionMap(), core::PlayerInput{}, STEP);  // se pose
         mechanisms.update(core::Aabb::fromTopLeftSize(
@@ -126,8 +126,8 @@ TEST(DangerAvanceIntegrationTest, DangerDirectionnelMortelSeulementSurSaBande) {
  */
 TEST(DangerAvanceIntegrationTest, DangerMobileRattrapeLePersonnageImmobile) {
     core::TileMap map(10, 4);
-    for (int col = 0; col < map.width(); ++col) {
-        map.setTile(col, 3, core::TileType::Solid);
+    for (int column = 0; column < map.width(); ++column) {
+        map.setTile(column, 3, core::TileType::Solid);
     }
     map.setTile(1, 2, core::TileType::DangerMover);
     std::vector<core::DangerMoverConfig> moverConfigs{
@@ -139,7 +139,7 @@ TEST(DangerAvanceIntegrationTest, DangerMobileRattrapeLePersonnageImmobile) {
 
     core::World world;
     const core::Entity player =
-        spawnHumanoidAt(world, 4.0f, 3.0f - core::kPlayerHeight);  // immobile, hors de portee
+        spawnHumanoidAt(world, 4.0f, 3.0f - core::PLAYER_HEIGHT);  // immobile, hors de portee
     core::CharacterPhysicsSystem system;
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
@@ -174,8 +174,8 @@ TEST(DangerAvanceIntegrationTest, DangerMobileRattrapeLePersonnageImmobile) {
 TEST(DangerAvanceIntegrationTest, DangerCommuteMortelSeulementApresDeclenchement) {
     const auto walkAndCheckIfEverLost = [](bool linked) {
         core::TileMap map(10, 4);
-        for (int col = 0; col < map.width(); ++col) {
-            map.setTile(col, 3, core::TileType::Solid);
+        for (int column = 0; column < map.width(); ++column) {
+            map.setTile(column, 3, core::TileType::Solid);
         }
         map.setTile(3, 2, core::TileType::Switch);
         map.setTile(7, 2, core::TileType::DangerSwitched);
@@ -190,7 +190,7 @@ TEST(DangerAvanceIntegrationTest, DangerCommuteMortelSeulementApresDeclenchement
         core::DangerController dangers(level);
 
         core::World world;
-        const core::Entity player = spawnHumanoidAt(world, 0.0f, 3.0f - core::kPlayerHeight);
+        const core::Entity player = spawnHumanoidAt(world, 0.0f, 3.0f - core::PLAYER_HEIGHT);
         core::CharacterPhysicsSystem system;
         core::PlayerInput walkRight;
         walkRight.moveX = 1.0f;
@@ -232,8 +232,8 @@ TEST(DangerAvanceIntegrationTest, DangerCommuteMortelSeulementApresDeclenchement
 TEST(DangerAvanceIntegrationTest, DangerTemporiseMortelSeulementPendantSaFenetreActive) {
     const auto outcomeAtSpawn = [](int phase) {
         core::TileMap map(4, 4);
-        for (int col = 0; col < map.width(); ++col) {
-            map.setTile(col, 3, core::TileType::Solid);
+        for (int column = 0; column < map.width(); ++column) {
+            map.setTile(column, 3, core::TileType::Solid);
         }
         map.setTile(2, 2, core::TileType::DangerBlink);
         std::vector<core::DangerBlinkConfig> blinkConfigs{
@@ -249,7 +249,7 @@ TEST(DangerAvanceIntegrationTest, DangerTemporiseMortelSeulementPendantSaFenetre
         // Personnage deja pose EXACTEMENT sur la case du danger temporise (case pleine, pas de
         // geometrie directionnelle a gerer ici).
         const core::Entity player = spawnHumanoidAt(
-            world, 2.0f + (1.0f - core::kPlayerWidth) * 0.5f, 3.0f - core::kPlayerHeight);
+            world, 2.0f + (1.0f - core::PLAYER_WIDTH) * 0.5f, 3.0f - core::PLAYER_HEIGHT);
         core::CharacterPhysicsSystem system;
         system.update(world, mechanisms.collisionMap(), core::PlayerInput{}, STEP);
         const core::Transform& transform = world.getComponent<core::Transform>(player);

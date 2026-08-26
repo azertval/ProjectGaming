@@ -21,7 +21,7 @@
 #include "AiSolver/Eval/EvolutionaryTrainedPolicy.h"
 #include "AiSolver/Eval/TrainedPolicy.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 
 using aisolver::Action;
@@ -46,13 +46,13 @@ using aisolver_test::TrivialLevelDirectory;
 
 namespace {
 
-constexpr std::size_t kInputSize = 1;  // Ignoree par les politiques factices de ce fichier.
+constexpr std::size_t INPUT_SIZE = 1;  // Ignoree par les politiques factices de ce fichier.
 
 // Taille reelle du vecteur d'observation produit par ObservationEncoder (LOT-ANNEXE-06) : tout
 // reseau passe a BenchmarkRunner::run/runWithNoise doit avoir ete construit avec cette taille
 // d'entree, puisque BenchmarkRunner encode toujours l'observation reelle de l'environnement --
 // contrairement aux tests qui appellent TrainedPolicy::selectAction directement avec un tenseur
-// factice de taille arbitraire (kInputSize ci-dessus).
+// factice de taille arbitraire (INPUT_SIZE ci-dessus).
 std::size_t realObservationInputSize() {
     return aisolver::ObservationEncoder().inputSize();
 }
@@ -225,10 +225,10 @@ TEST(BenchmarkRunnerTest, ModeleEvolutionnisteVarianceNulle) {
  */
 TEST(BenchmarkRunnerTest, RefusExpliciteDuModeStochastiquePourEvolutionniste) {
     Rng initRng(1);
-    auto network = buildNetwork(policyTopology(kInputSize), initRng);
+    auto network = buildNetwork(policyTopology(INPUT_SIZE), initRng);
     EvolutionaryTrainedPolicy policy(*network);
     Rng rng(2);
-    const Tensor<float> observation({kInputSize, 1});
+    const Tensor<float> observation({INPUT_SIZE, 1});
     EXPECT_FALSE(policy.selectAction(observation, ActionDecodingMode::Stochastic, rng).has_value());
 }
 
@@ -241,10 +241,10 @@ TEST(BenchmarkRunnerTest, RefusExpliciteDuModeStochastiquePourEvolutionniste) {
  */
 TEST(BenchmarkRunnerTest, RefusExpliciteDuModeStochastiquePourAlgorithmeAvance) {
     Rng rng(3);
-    QNetwork qNetwork(kInputSize, QNetwork::kDefaultHiddenSize, rng);
+    QNetwork qNetwork(INPUT_SIZE, QNetwork::DEFAULT_HIDDEN_SIZE, rng);
     AdvancedAlgorithmTrainedPolicy policy(qNetwork);
     Rng actionRng(4);
-    const Tensor<float> observation({kInputSize, 1});
+    const Tensor<float> observation({INPUT_SIZE, 1});
     EXPECT_FALSE(
         policy.selectAction(observation, ActionDecodingMode::Stochastic, actionRng).has_value());
 }
@@ -282,17 +282,17 @@ TEST(BenchmarkResultTest, ConvergenceTauxDeReussiteVersProbabiliteTheorique) {
     // Episodes simules directement (pieces biaisees), sans passer par l'environnement reel : la
     // convergence testee porte sur l'agregation de BenchmarkResult::successRate(), pas sur la
     // simulation physique -- deterministe malgre le tirage simule (graine fixee).
-    constexpr double kTheoreticalProbability = 0.3;
-    constexpr int kSampleCount = 4000;
+    constexpr double THEORETICAL_PROBABILITY = 0.3;
+    constexpr int SAMPLE_COUNT = 4000;
     Rng rng(2024);
 
     BenchmarkResult result;
-    result.episodes.reserve(kSampleCount);
-    for (int i = 0; i < kSampleCount; ++i) {
-        const bool won = rng.nextFloat() < static_cast<float>(kTheoreticalProbability);
+    result.episodes.reserve(SAMPLE_COUNT);
+    for (int i = 0; i < SAMPLE_COUNT; ++i) {
+        const bool won = rng.nextFloat() < static_cast<float>(THEORETICAL_PROBABILITY);
         result.episodes.push_back(
             EpisodeOutcome{won ? core::LevelOutcome::Won : core::LevelOutcome::Lost, 10});
     }
 
-    EXPECT_NEAR(result.successRate(), kTheoreticalProbability, 0.02);
+    EXPECT_NEAR(result.successRate(), THEORETICAL_PROBABILITY, 0.02);
 }

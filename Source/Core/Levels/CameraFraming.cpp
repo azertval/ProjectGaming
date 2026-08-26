@@ -42,7 +42,7 @@ CameraFramingConfig resolveCameraFraming(const std::optional<CameraFramingConfig
     if (declared) {
         return *declared;
     }
-    if (levelWidth <= kDefaultRoomWidthTiles && levelHeight <= kDefaultRoomHeightTiles) {
+    if (levelWidth <= DEFAULT_ROOM_WIDTH_TILES && levelHeight <= DEFAULT_ROOM_HEIGHT_TILES) {
         return CameraFramingConfig{.mode = CameraFramingMode::WholeLevel};
     }
     return CameraFramingConfig{.mode = CameraFramingMode::PerRoom};

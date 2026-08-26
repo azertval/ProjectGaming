@@ -17,7 +17,7 @@
 #include "AiSolver/Eval/EvolutionaryTrainedPolicy.h"
 #include "AiSolver/Eval/ReinforceTrainedPolicy.h"
 #include "AiSolver/Math/Rng.h"
-#include "AiSolver/Training/Advanced/QNetwork.h"
+#include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 
 using aisolver::Action;
@@ -37,10 +37,10 @@ using aisolver::training::evolutionary::policyTopology;
 
 namespace {
 
-constexpr std::size_t kInputSize = 5;
+constexpr std::size_t INPUT_SIZE = 5;
 
 Tensor<float> zeroObservation() {
-    return Tensor<float>({kInputSize, 1});
+    return Tensor<float>({INPUT_SIZE, 1});
 }
 
 }  // namespace
@@ -55,7 +55,7 @@ Tensor<float> zeroObservation() {
  */
 TEST(TrainedPolicyTest, EvolutionaryAcceptelArgmaxSeulement) {
     Rng rng(1);
-    auto network = buildNetwork(policyTopology(kInputSize), rng);
+    auto network = buildNetwork(policyTopology(INPUT_SIZE), rng);
     EvolutionaryTrainedPolicy policy(*network);
 
     EXPECT_TRUE(policy.supportsMode(ActionDecodingMode::Argmax));
@@ -81,7 +81,7 @@ TEST(TrainedPolicyTest, EvolutionaryAcceptelArgmaxSeulement) {
  */
 TEST(TrainedPolicyTest, ReinforceAccepteLesDeuxModes) {
     Rng rng(3);
-    auto network = buildNetwork(policyTopology(kInputSize), rng);
+    auto network = buildNetwork(policyTopology(INPUT_SIZE), rng);
     ReinforceTrainedPolicy policy(*network);
 
     EXPECT_TRUE(policy.supportsMode(ActionDecodingMode::Argmax));
@@ -104,7 +104,7 @@ TEST(TrainedPolicyTest, ReinforceAccepteLesDeuxModes) {
  */
 TEST(TrainedPolicyTest, ActorCriticAccepteLesDeuxModes) {
     Rng rng(5);
-    auto actor = buildNetwork(policyTopology(kInputSize), rng);
+    auto actor = buildNetwork(policyTopology(INPUT_SIZE), rng);
     ActorCriticTrainedPolicy policy(*actor);
 
     Rng actionRng(6);
@@ -125,7 +125,7 @@ TEST(TrainedPolicyTest, ActorCriticAccepteLesDeuxModes) {
  */
 TEST(TrainedPolicyTest, AlgorithmeAvanceAcceptelArgmaxSeulement) {
     Rng rng(7);
-    QNetwork qNetwork(kInputSize, QNetwork::kDefaultHiddenSize, rng);
+    QNetwork qNetwork(INPUT_SIZE, QNetwork::DEFAULT_HIDDEN_SIZE, rng);
     AdvancedAlgorithmTrainedPolicy policy(qNetwork);
 
     EXPECT_TRUE(policy.supportsMode(ActionDecodingMode::Argmax));
@@ -147,7 +147,7 @@ TEST(TrainedPolicyTest, AlgorithmeAvanceAcceptelArgmaxSeulement) {
  */
 TEST(TrainedPolicyTest, EvolutionaryArgmaxEstDeterministe) {
     Rng initRng(9);
-    auto network = buildNetwork(policyTopology(kInputSize), initRng);
+    auto network = buildNetwork(policyTopology(INPUT_SIZE), initRng);
     EvolutionaryTrainedPolicy policy(*network);
 
     Rng rngA(100);

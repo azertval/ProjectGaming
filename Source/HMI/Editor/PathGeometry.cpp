@@ -38,10 +38,10 @@ std::vector<PathHandle> pathHandleLayout(const core::MovingPlatformConfig& confi
         return handles;  // configuration degeneree : rien a dessiner.
     }
     if (centers.size() < 2) {
-        // Route VIDE : ni point a deplacer, ni segment a couper. Une seule poignee, sur la tuile
-        // de depart, dont le glisser cree le PREMIER point de passage (LOT-68). Sans elle, une
-        // plateforme fraichement peinte n'offre rien a saisir et son parcours reste impossible a
-        // commencer -- defaut constate a l'essai.
+        // Route VIDE : ni point a deplacer, ni segment a couper. INVARIANT : une route expose
+        // TOUJOURS au moins une poignee -- ici celle d'origine, sur la tuile de depart, dont le
+        // glisser cree le premier point de passage (LOT-68). C'est l'amorce sans laquelle une
+        // plateforme fraichement peinte n'offrirait rien a saisir.
         handles.push_back(
             PathHandle{.kind = PathHandleKind::Origin,
                        .index = 0,

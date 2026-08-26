@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_autodiff_ops.cpp
  * @brief Tests unitaires des opérations différentiables de base `aisolver::autodiff`

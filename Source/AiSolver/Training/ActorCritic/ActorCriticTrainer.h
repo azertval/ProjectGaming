@@ -20,8 +20,8 @@
 /**
  * @file AiSolver/Training/ActorCritic/ActorCriticTrainer.h
  * @brief Boucle d'entraînement acteur-critique par épisodes (`LOT-ANNEXE-13`, TACHE-03,
- * `EX-IA-014`) — étend `ReinforceTrainer` (`LOT-ANNEXE-12`) d'un second réseau et d'un second
- * optimiseur.
+ * `EX-IA-014`) — même ossature de boucle que `ReinforceTrainer` (`LOT-ANNEXE-12`), sans lien de
+ * code avec lui, augmentée d'un second réseau et d'un second optimiseur.
  */
 
 namespace aisolver::training {
@@ -47,8 +47,8 @@ struct ActorCriticConfig {
  * partagé (`Stats/TrainingStatsRecorder.h`, volontairement agnostique de tout algorithme, cf. son
  * en-tête), la perte du critique est journalisée dans un fichier CSV **séparé**, minimal
  * (`index,criticLoss`), optionnel. `TrainingStatsRecorder` continue de recevoir des lignes de
- * schéma strictement identique à `ReinforceTrainer` : `ConvergenceComparator` (TACHE-04) peut donc
- * lire les runs des deux algorithmes sans aucun traitement spécial de colonnes.
+ * schéma strictement identique à `ReinforceTrainer` : `eval::ConvergenceComparator` (TACHE-04) peut
+ * donc lire les runs des deux algorithmes sans aucun traitement spécial de colonnes.
  */
 class ActorCriticTrainer {
 public:

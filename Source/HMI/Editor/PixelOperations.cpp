@@ -300,12 +300,12 @@ PixelRegion pasteClipboard(DecodedImage& image, const PixelClipboard& clipboard,
     }
     PixelRegion touched;
     for (int row = 0; row < clipboard.height; ++row) {
-        for (int col = 0; col < clipboard.width; ++col) {
+        for (int column = 0; column < clipboard.width; ++column) {
             const std::uint32_t pixel =
                 clipboard.pixels[(static_cast<std::size_t>(row) *
                                   static_cast<std::size_t>(clipboard.width)) +
-                                 static_cast<std::size_t>(col)];
-            touched = unionPixelRegion(touched, setPixel(image, x + col, y + row, pixel));
+                                 static_cast<std::size_t>(column)];
+            touched = unionPixelRegion(touched, setPixel(image, x + column, y + row, pixel));
         }
     }
     return touched;

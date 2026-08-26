@@ -19,7 +19,7 @@ namespace aisolver::training::evolutionary {
 
 /// Fitness d'un individu jamais encore évalué : distinct de toute valeur atteignable par
 /// `Reward.h` (`LOT-ANNEXE-08`), qui ne produit jamais `-infini`.
-inline constexpr float kUnevaluatedFitness = -std::numeric_limits<float>::infinity();
+inline constexpr float UNEVALUATED_FITNESS = -std::numeric_limits<float>::infinity();
 
 /**
  * @brief Politique **pure** : poids propres (copie indépendante, jamais partagée) et dernier
@@ -38,9 +38,9 @@ public:
         return *_network;
     }
 
-    /// Récompense cumulée du dernier run complet, ou `kUnevaluatedFitness` tant qu'aucun run n'a
+    /// Récompense cumulée du dernier run complet, ou `UNEVALUATED_FITNESS` tant qu'aucun run n'a
     /// eu lieu (`FitnessEvaluator::evaluateFitness`).
-    float fitness = kUnevaluatedFitness;
+    float fitness = UNEVALUATED_FITNESS;
 
 private:
     std::unique_ptr<nn::Network> _network;

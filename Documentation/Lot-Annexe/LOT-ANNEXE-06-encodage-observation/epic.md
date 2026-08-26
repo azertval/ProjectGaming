@@ -1,6 +1,6 @@
 # LOT-ANNEXE-06 — Encodage observation {#lot-annexe-06}
 
-> Statut : **non commencé**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (environnement
+> Statut : **fait**. Prérequis : [LOT-ANNEXE-05](@ref lot-annexe-05) (environnement
 > headless) et [LOT-ANNEXE-01](@ref lot-annexe-01) (`Tensor`). Transforme l'état de jeu lu via
 > `HeadlessLevelEnvironment` en tenseur exploitable par un réseau de neurones.
 
@@ -76,11 +76,7 @@ déjà citées dans ces deux chapitres — ce lot applique les notions, il n'en 
 nouvelle.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-006 **EX-IA-006** — L'état du jeu, lu via `HeadlessLevelEnvironment`
-  (`EX-IA-005`), doit pouvoir être encodé en un tenseur d'observation de forme stable (fenêtre de
-  tuiles catégorielle, état joueur, état des mécanismes environnants), de façon **déterministe**
-  (mêmes entrées `Core` → même tenseur), consommable par tout algorithme d'apprentissage sans
-  connaissance des types `Core` sous-jacents.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-006`](@ref EX-IA-006).
 - Réutilisées : `EX-IA-005` (environnement headless), `EX-GP-001` (types de tuiles), `EX-GP-019`/
   `025` (masse, plaque de pression), `EX-GP-050`-`053` (dangers avancés), `EX-NFR-002` (déterminisme).
 
@@ -90,10 +86,10 @@ nouvelle.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-fenetre-tuiles-encodage-categoriel.md) | Fenêtre de tuiles centrée, encodage catégoriel par `TileType` | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-02](tache-02-vecteur-etat-joueur.md) | Vecteur d'état joueur | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-03](tache-03-etat-mecanismes-fenetre.md) | État des mécanismes actifs dans la fenêtre | `Source/AiSolver/Env` | ⬜ |
-| [TACHE-04](tache-04-tests-determinisme-dimension.md) | Tests : déterminisme et stabilité dimensionnelle aux bords | `Source/Test/Unit/AiSolver/Env` | ⬜ |
+| [TACHE-01](tache-01-fenetre-tuiles-encodage-categoriel.md) | Fenêtre de tuiles centrée, encodage catégoriel par `TileType` | `Source/AiSolver/Env` | ✅ |
+| [TACHE-02](tache-02-vecteur-etat-joueur.md) | Vecteur d'état joueur | `Source/AiSolver/Env` | ✅ |
+| [TACHE-03](tache-03-etat-mecanismes-fenetre.md) | État des mécanismes actifs dans la fenêtre | `Source/AiSolver/Env` | ✅ |
+| [TACHE-04](tache-04-tests-determinisme-dimension.md) | Tests : déterminisme et stabilité dimensionnelle aux bords | `Source/Test/Unit/AiSolver/Env` | ✅ |
 
 ## Critères d'acceptation du lot
 1. L'encodeur produit un tenseur de forme stable (dimensions connues à l'avance à partir du seul

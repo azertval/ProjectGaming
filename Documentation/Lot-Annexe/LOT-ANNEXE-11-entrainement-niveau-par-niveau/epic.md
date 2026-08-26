@@ -83,8 +83,7 @@ s'inspire du principe pédagogique « un mécanisme à la fois » déjà appliqu
 (`Source/Elements/Levels/README.md`), pas d'une source académique.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-012 **EX-IA-012** — entraînement niveau-par-niveau (critère d'arrêt,
-  un seul niveau par exécution) et export de la séquence d'actions gagnante au format de rejeu v1.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-012`](@ref EX-IA-012).
 - Réutilisées (inchangées) : `EX-IA-011` (algorithme évolutionniste, LOT-ANNEXE-10), format de
   rejeu v1 et décodage `argmax` de LOT-ANNEXE-07.
 

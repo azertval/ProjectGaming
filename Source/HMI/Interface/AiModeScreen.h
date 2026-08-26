@@ -15,6 +15,12 @@
  * @brief Écran « Mode IA » du menu principal (`LOT-ANNEXE-21`, `EX-IA-022`) : trois onglets
  * (Entraînement, Validation & sauvegarde, Rejeu), équivalent IHM de `aisolver-cli`
  * (`LOT-ANNEXE-19`).
+ *
+ * Écran **du jeu** : il relève donc de l'identité pixel art (`EX-IHM-070`) — police bitmap,
+ * couleurs et facteur d'agrandissement entier reçus de `theme.qss`, cadre à bordure franche
+ * (`PixelFrameWidget`, posé dans le `.ui`) — et de la marque explicite de focus (`EX-IHM-071`),
+ * peinte par `PixelFocusCaret` pour les contrôles Qt ordinaires et par `PixelMenuButton` pour
+ * l'entrée « Retour ».
  */
 
 namespace Ui {
@@ -24,6 +30,7 @@ class AiModeScreen;
 namespace hmi {
 
 class Localization;
+class PixelFocusCaret;
 
 /**
  * @brief Page du `QStackedWidget` (comme `MainMenu`/`CreditsScreen`), pas un recouvrement.
@@ -69,7 +76,8 @@ private slots:
     void onLaunchTraining();
     void onStopTraining();
     void onTrainingProgress(int index, double bestReward, double meanReward, double successRate);
-    void onTrainingPreviewReady(QString modelPath, QString algo, QString levelPath);
+    void onTrainingPreviewReady(QString replayPath, QString algorithmId, QString levelPath,
+                                int generation);
     void onTrainingFinished(bool solved, QString modelPath, QString statsPath, QString configPath,
                             QString replayPath, bool replayExported);
     void onTrainingFailed(QString message);
@@ -80,16 +88,22 @@ private slots:
 
 private:
     [[nodiscard]] QString selectedAlgo() const;
+    /// @return Traduction de @p key dans la langue courante, vide tant que `retranslateUi` n'a pas
+    ///         été appelé (l'écran affiche alors les libellés du `.ui`).
+    [[nodiscard]] QString text(const char* key) const;
     void setTrainingControlsEnabled(bool enabled);
     void teardownWorker();
 
     std::unique_ptr<Ui::AiModeScreen> _ui;
+    /// Marque explicite de focus (`EX-IHM-071`) pour les contrôles Qt ordinaires de l'écran, que
+    /// leur feuille de style ne peut pas signaler autrement que par la teinte. Enfant de l'écran,
+    /// donc détruit avec lui.
+    PixelFocusCaret* _focusCaret = nullptr;
     std::unique_ptr<QThread> _workerThread;
     TrainingWorker* _worker = nullptr;  ///< Possédé par `_workerThread` (deleteLater), pas `_ui`.
-    QString _lastPreviewReplayPath;
-    QString _lastRunModelPath;
-    QString _lastRunReplayPath;
-    QString _lastRunAlgo;
+    /// Catalogue courant, mémorisé par `retranslateUi` : les messages d'état produits pendant un
+    /// entraînement doivent être traduits eux aussi, longtemps après la construction.
+    const Localization* _loc = nullptr;
 };
 
 }  // namespace hmi

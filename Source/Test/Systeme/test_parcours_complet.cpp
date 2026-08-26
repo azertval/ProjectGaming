@@ -94,7 +94,15 @@ struct PlayTrace {
 // Composition complète, comme `hmi::GameSession::update` : plateformes, blocs poussables (pleins
 // ET réduits, `EX-GP-005` — balayage boîte-boîte après la grille) et mécanismes (dont le poids des
 // blocs sur les plaques) sont résolus à chaque pas, que le niveau les utilise ou non.
-PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
+// Plafond de pas d'un parcours scripte. Simple garde-fou de terminaison -- il borne le test, il
+// ne mesure pas la difficulte d'un tableau. Releve a 5000 pour `demo-final`, dont le trace
+// (LOT-71) enchaine deux cles, un interrupteur, deux puits a wall jump et une cheminee : il
+// demande a lui seul plusieurs milliers de pas -- dont de longues attentes devant les dangers
+// temporises, qui ne se franchissent qu'eteints -- la ou les 21 autres tableaux en consomment
+// quelques centaines.
+constexpr int MAX_SCRIPTED_STEPS = 9000;
+
+PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = MAX_SCRIPTED_STEPS) {
     PlayTrace trace;
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / scripted.file;
@@ -225,7 +233,7 @@ PlayTrace playLevelTraced(const ScriptedLevel& scripted, int maxSteps = 3000) {
 }
 
 // Issue seule : la trace complète n'intéresse que les garde-fous de la TACHE-05.
-core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000) {
+core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = MAX_SCRIPTED_STEPS) {
     return playLevelTraced(scripted, maxSteps).outcome;
 }
 
@@ -377,25 +385,6 @@ ReactiveInput rightAndDash() {
     };
 }
 
-/**
- * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
- * retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → … → titre du jeu, sur
- * l'intégralité des mécaniques livrées (`LOT-01` à `LOT-24`).
- *
- * Le rejeu sert aussi de garde-fou de **proximité** (`LOT-65` TACHE-05) : la trajectoire réellement
- * parcourue est relevée, et chaque tuile de mécanique du tableau doit passer à portée d'un saut
- * d'une position occupée. Une mécanique hors d'atteinte est « couverte » sans jamais être jouée —
- * le trou que la `TACHE-01` avait annoncé sans le combler.
- * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
- * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.</b><br/>
- * \tcat Systeme · Parcours Complet<br/>
- * \tcrit Bloquant<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, et
- * aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.
- * }
- */
 // La séquence jouée et son scénario d'entrées, un par tableau. Fonction plutôt que littéral dans
 // le test : les garde-fous de la TACHE-05 la rejouent eux aussi, et chaque appel rend des scripts
 // à l'état NEUF (chaque lambda possède son état par capture-valeur `mutable`, jamais partagé).
@@ -719,51 +708,459 @@ std::vector<ScriptedLevel> scriptedSequence() {
                  (atLedge(x, 4.0f, 0.7f) || atLedge(x, 17.0f, 0.6f) || atLedge(x, 25.0f, 0.6f));
              return in;
          }},
-        // 23. Final multi-salles (LOT-65 TACHE-09) : absorbe l'ancien demo-salles, qui portait 272
-        //     tuiles et ZERO mecanique, dont 40 % scellees sous le sol -- et qui etait joue APRES
-        //     le final. Quatre salles, une enigme par salle, cadrage par salle avec des ZONES
-        //     dessinees a la main et une taille de salle propre au niveau (EX-LVL-007, EX-REN-017,
-        //     les deux variantes du LOT-64 qu'aucun tableau n'employait).
-        //
-        //     A (haut gauche) : poser le bloc sur la plaque tient la porte ouverte, et il faut
-        //     repartir SANS lui -- le poids doit rester, c'est tout le propos de EX-GP-025.
-        //     B (haut droite) : arrondis a gravir, quart de bloc a degager, puis un puits.
-        //     C (bas droite)  : la cle, gardee par trois dangers temporises dephases.
-        //     D (bas gauche)  : la porte verrouillee, puis la sortie.
+        // 23. Final (LOT-71) : reprend le tracé de `Test-IA`, un gauffre unique bien plus dense que
+        //     l'ancien final multi-salles -- clé/porte verrouillée dans le puits de wall jump,
+        //     bloc/plaque tenant une porte, ascenseur à plateformes synchronisées au-dessus d'un
+        //     danger mobile, seconde clé gardée par un interrupteur/porte, sortie derrière trois
+        //     portes verrouillées. Machine à états explicite (`phase`) : la position seule ne dit
+        //     pas où on en est sur un tracé qui repasse par les mêmes abscisses à des hauteurs
+        //     différentes.
         {"demo-final.json",
-         [](int step, const core::Player& player, float x, float y) {
-             core::PlayerInput in{1.0f};
+         [phase = 0, wallJumpLastPush = 1.0f, committedToLift = false,
+          dashedBackFromSecondBlink = false, startedBottomRun = false,
+          lastY = 0.0f](int step, const core::Player& player, float x, float y) mutable {
+             core::PlayerInput in;
              in.jumpHeld = true;
-             if (y < 10.5f) {
-                 // Bande haute. Pousser le bloc de la case 9 jusqu'a la plaque (case 13), puis
-                 // SAUTER PAR-DESSUS lui : continuer a marcher le pousserait hors de la plaque et
-                 // refermerait la porte -- c'est exactement la lecon du tableau, le poids doit
-                 // rester. Un saut ne pousse rien (aucun recouvrement vertical pendant le survol).
-                 if (player.grounded && x >= 11.7f && x <= 12.2f) {
-                     in.jumpPressed = true;
+             // Le script ne voit pas la vitesse : l'apex se déduit du moment où la
+             // hauteur cesse de diminuer, ce qui suffit à placer le second saut.
+             const bool falling = y > lastY;
+             lastY = y;
+
+             // 0. Case clé #1 (5, 12) : marcher jusqu'à elle depuis l'entrée et interagir.
+             if (phase == 0) {
+                 in.moveX = 1.0f;
+                 in.interactPressed = atLedge(x, 5.6f, 0.6f);
+                 if (x >= 5.3f) {
+                     phase = 1;
                  }
-                 // Puis la marche du couloir (case 23) avant les arrondis.
-                 in.jumpPressed = in.jumpPressed || (player.grounded && atLedge(x, 23.0f, 0.5f));
                  return in;
              }
-
-             // Bande basse : marcher vers la GAUCHE, cle d'abord, dangers temporises ensuite.
-             in.moveX = -1.0f;
-             in.interactPressed = (x >= 42.5f && x <= 44.0f);  // recouvre largement la case cle
-
-             constexpr int PERIOD = 180;
-             constexpr int ACTIVE = 50;
-             constexpr int CROSSING = 40;  // pas necessaires pour degager la case
-             const int phases[3] = {120, 60, 0};
-             const float holds[3] = {40.6f, 29.6f, 18.6f};
-             for (int index = 0; index < 3; ++index) {
-                 if (x < holds[index] || x > holds[index] + 0.3f) {
-                     continue;
+             // 1. Revenir au puits (colonnes 1-2) avant d'entamer l'ascension.
+             if (phase == 1) {
+                 in.moveX = -1.0f;
+                 if (x <= 1.6f) {
+                     phase = 2;
                  }
-                 if (blinkActive(step, phases[index], PERIOD, ACTIVE) ||
-                     blinkActive(step + CROSSING, phases[index], PERIOD, ACTIVE)) {
-                     in.moveX = 0.0f;  // patienter : la case est (ou redevient) mortelle
+                 return in;
+             }
+             // 2. Puits de wall jump (EX-GP-016) jusqu'au sommet (rangée 2) : même patron que
+             //    demo-wall-jump, poussée systématique à l'opposé du mur touché.
+             if (phase == 2) {
+                 // Ne presser le saut qu'au contact d'un mur ou du sol : au sommet du puits, le
+                 // mur s'arrete avant la rangee de danger (1) -- presser le saut en l'air y
+                 // consommerait un saut aerien de trop, projetant le personnage dedans.
+                 in.jumpPressed = player.wallDirection != 0.0f || player.grounded;
+                 if (player.wallDirection != 0.0f) {
+                     wallJumpLastPush = -player.wallDirection;
                  }
+                 in.moveX = wallJumpLastPush;
+                 if (y <= 2.7f) {
+                     phase = 3;
+                 }
+                 return in;
+             }
+             // 3. Rangée 2 (au-dessus du danger de la rangée 3, colonne 4 dangereuse jusqu'à la
+             //    rangée 8) : une ruée (EX-GP-017, ignore la gravité le temps de la ruée) traverse
+             //    tout le danger en restant à cette hauteur, avant de retomber au-delà (colonne
+             //    6+). Marche ensuite jusqu'à ce que le sol s'arrête (colonne 9) et tombe dans le
+             //    vestibule de la porte verrouillée (9-10, rangée 5, sol rangée 6).
+             if (phase == 3) {
+                 in.moveX = 1.0f;
+                 in.dashPressed = atLedge(x, 3.6f, 0.6f);
+                 if (x >= 9.6f) {
+                     in.moveX = 0.0f;
+                 }
+                 if (x >= 9.3f && y >= 4.4f) {
+                     phase = 4;
+                 }
+                 return in;
+             }
+             // 4. Vestibule (9-10, 4-5) : revenir vers la porte verrouillée (8, 5) et interagir
+             //    (clé #1 déjà en poche).
+             if (phase == 4) {
+                 in.moveX = -1.0f;
+                 in.interactPressed = atLedge(x, 9.0f, 0.8f);
+                 if (x <= 7.6f) {
+                     phase = 5;
+                 }
+                 return in;
+             }
+             // 5. Descendre les pentes (7, 6)/(6, 7) jusqu'à la salle du bloc (rangée 11) : tenir
+             //    la direction suffit, le suivi de pente fait le reste -- mais s'ARRÊTER avant la
+             //    colonne du bloc (6, 10) : continuer à gauche le pousserait dans le mauvais sens
+             //    (loin de la plaque). Tomber tout droit une fois passé les pentes.
+             if (phase == 5) {
+                 in.moveX = x > 5.3f ? -1.0f : 0.0f;
+                 if (player.grounded && y >= 9.5f) {
+                     phase = 6;
+                 }
+                 return in;
+             }
+             // 6. Pousser le bloc (6, 10) jusqu'à la plaque (8, 10), puis SAUTER PAR-DESSUS lui :
+             //    continuer à marcher le pousserait hors de la plaque et refermerait la porte
+             //    (11, 10) -- le poids doit rester, c'est tout le propos de EX-GP-025.
+             if (phase == 6) {
+                 // Un bloc pousse par CASE ENTIERE, au contact -- pas en glissement continu
+                 // (`BlockController::pushBlocks`) : marcher jusqu'a la case 7 pousse le bloc en
+                 // deux fois (6->7 a l'approche, 7->8 des que le contact reprend, PILE sur la
+                 // plaque). Continuer a marcher le repousserait aussitot hors de la plaque -- il
+                 // faut d'abord sauter tout DROIT (aucun elan lateral) pour degager sa hauteur
+                 // avant de reprendre la marche, sans quoi le contact horizontal reste actif
+                 // pendant la montee et pousse le bloc une troisieme fois.
+                 if (x < 6.9f) {
+                     in.moveX = 1.0f;
+                 } else if (y > 9.3f) {
+                     in.moveX = 0.0f;
+                     in.jumpPressed = player.grounded;
+                 } else {
+                     in.moveX = 1.0f;
+                 }
+                 if (x >= 9.0f) {
+                     phase = 7;
+                 }
+                 return in;
+             }
+             // 7. Rejoindre la porte (11, 10) ouverte, puis le puits à plateformes (colonnes
+             //    12-14) : attendre que la plateforme soit à son point bas (rangée 11) avant d'y
+             //    marcher -- la rangée 9 est un plafond plein au-dessus de la porte (sauter y cogne
+             //    la tête après 0,2 case), et tant que la plateforme n'a pas atteint tout à fait sa
+             //    rangée basse, elle chevauche partiellement cette hauteur et bloque comme un mur.
+             if (phase == 7) {
+                 in.moveX = 1.0f;
+                 in.jumpHeld = true;
+                 if (x >= 11.3f && !committedToLift) {
+                     in.moveX = 0.0f;
+                     // +1 : `PlatformController::update()` incrémente son compteur de pas AVANT
+                     // que ce script ne soit consulté au pas suivant -- sans ce décalage, le calcul
+                     // rate systématiquement la fenêtre de tolérance.
+                     if (platformOffset(step + 1, 1.0f, 9.0f) < 0.1f) {
+                         committedToLift = true;
+                         in.moveX = 1.0f;
+                     }
+                 }
+                 if (committedToLift) {
+                     in.moveX = 1.0f;
+                 }
+                 if (x >= 13.0f) {
+                     phase = 8;
+                 }
+                 return in;
+             }
+             // 8. Monter avec la plateforme (aucune entrée horizontale : elle porte) jusqu'à la
+             //    rangée 2 -- la colonne de danger (15) couvre TOUTE sa hauteur (4 à 13), seule la
+             //    rangée 2 (alcôve, sol étendu 15-21) passe au-dessus.
+             if (phase == 8) {
+                 in.moveX = 0.0f;
+                 if (y <= 2.6f) {
+                     phase = 9;
+                 }
+                 return in;
+             }
+             // 9. Traverser l'alcôve (15-21, rangée 2) vers la droite jusqu'à la colonne 21,
+             //    attendre la fenêtre inoffensive du danger temporisé (22, 3), puis tomber par ce
+             //    puits jusqu'au palier (18-23, rangée 5).
+             if (phase == 9) {
+                 in.moveX = x < 21.4f ? 1.0f : 0.0f;
+                 constexpr int PERIOD = 120;
+                 constexpr int ACTIVE = 60;
+                 if (x >= 21.4f && !blinkActive(step, 0, PERIOD, ACTIVE) &&
+                     !blinkActive(step + 20, 0, PERIOD, ACTIVE)) {
+                     in.moveX = 1.0f;
+                 }
+                 if (y >= 4.15f && player.grounded) {
+                     phase = 10;
+                 }
+                 return in;
+             }
+             // 10. Palier (18-23, rangée 4, sol rangée 5) : marcher à gauche, SAUTER par-dessus le
+             //     danger (17, 5, juste sous le palier) au bord (colonne 18), puis continuer
+             //     jusqu'à la colonne 16 et tomber par ce puits (5-6 ouvertes) jusqu'au palier
+             //     (16-21, rangée 7).
+             if (phase == 10) {
+                 in.moveX = -1.0f;
+                 // La rangée 3 est un plafond plein ici aussi (comme au-dessus de la porte,
+                 // phase 7) : un saut n'y gagne que 0,2 case, jamais assez pour dégager le danger
+                 // (17, 5) sous le palier. Une ruée (2,25 cases, à hauteur fixe) franchit la case
+                 // d'un trait -- déclenchée à la colonne 18,7 pour atterrir au centre de la
+                 // colonne 16 (18,7 - 2,25 = 16,45), sans déborder sur la colonne de danger
+                 // permanent (15).
+                 in.dashPressed = player.grounded && atLedge(-x, -18.7f, 0.3f);
+                 if (x <= 16.3f) {
+                     in.moveX = 0.0f;
+                 }
+                 if (y >= 6.15f && player.grounded) {
+                     phase = 11;
+                 }
+                 return in;
+             }
+             // 11. Palier (16-21, rangée 6, sol rangée 7) : marcher à droite jusqu'à la colonne 21,
+             //     attendre la fenêtre inoffensive du second danger temporisé (22, 7), le franchir,
+             //     puis revenir IMMÉDIATEMENT vers la gauche (colonne 22 est un danger permanent à
+             //     la rangée 9, seules les colonnes 18-21 y portent un sol) avant de retomber sur
+             //     le palier (18-21, rangée 9).
+             if (phase == 11) {
+                 // La rangée 7 (sol du palier de la rangée 6) porte aussi un danger permanent
+                 // (18, 7) : une ruée, déclenchée à la colonne 17,3, atterrit vers la colonne
+                 // 19,55 (17,3 + 2,25), au-delà.
+                 in.dashPressed = player.grounded && atLedge(x, 17.3f, 0.3f);
+                 if (x < 21.4f) {
+                     in.moveX = 1.0f;
+                 } else if (x < 22.3f) {
+                     constexpr int PERIOD = 120;
+                     constexpr int ACTIVE = 60;
+                     in.moveX = (!blinkActive(step, 0, PERIOD, ACTIVE) &&
+                                 !blinkActive(step + 10, 0, PERIOD, ACTIVE))
+                                    ? 1.0f
+                                    : 0.0f;
+                 } else {
+                     // La chute (rangée 8, ouverte) est plus rapide que la marche : sans ruée, la
+                     // rangée 9 (danger permanent à la colonne 22) est atteinte avant d'avoir
+                     // assez reculé vers le palier (18-21).
+                     //
+                     // La ruée n'est lancée qu'une fois la boîte ENTIÈREMENT sous la rangée 7
+                     // (`y >= 8`, hauteur 0,8) : tant qu'elle la chevauche, le sol du palier
+                     // (19-21, rangée 7) bloque tout déplacement vers la gauche, et une ruée
+                     // lancée là se consomme pour un tiers de case contre ce mur. La fenêtre est
+                     // d'une seule image -- la boîte dégage la rangée 7 à `y = 8` et se pose sur
+                     // la rangée 9 à `y = 8,2` -- mais la ruée fige la hauteur, ce qui suffit à
+                     // franchir les 2,25 cases jusqu'au palier.
+                     in.moveX = -1.0f;
+                     if (!dashedBackFromSecondBlink && y >= 8.0f) {
+                         dashedBackFromSecondBlink = true;
+                         in.dashPressed = true;
+                     } else if (x <= 20.0f) {
+                         in.moveX = 0.0f;
+                     }
+                 }
+                 if (y >= 8.15f && player.grounded) {
+                     phase = 12;
+                 }
+                 return in;
+             }
+             // 12. Palier (18-21, rangée 8, sol rangée 9) : marcher à gauche jusqu'à la colonne 16,
+             //     où le danger mobile vertical (16, 9, portée 3) laisse parfois passer -- tomber
+             //     dès qu'il est loin, puis continuer tout droit jusqu'au palier final (16-20,
+             //     rangée 13), en travers du danger mobile horizontal (16, 11, portée 6) lui aussi
+             //     surveillé.
+             if (phase == 12) {
+                 const float horizontalMoverColumn = 16.0f + platformOffset(step, 2.0f, 6.0f);
+                 // Le sol du palier s'arrête à la colonne 18 : marcher au-delà fait tomber dans le
+                 // puits de la colonne 17, libre de la rangée 9 à la 12 et donnant droit sur le
+                 // palier final (16-20, rangée 13). Le mobile VERTICAL reste confiné à la colonne
+                 // 16 et ne croise jamais ce puits ; le seul danger du trajet est donc le mobile
+                 // HORIZONTAL (16, 11, portée 6), traversé à la rangée 11.
+                 //
+                 // Trois cases de marge (colonne >= 19) plutôt que le simple dégagement : la chute
+                 // dure une quinzaine de pas, pendant lesquels le mobile en parcourt un demi -- une
+                 // marge d'une case le laisserait revenir juste à temps.
+                 const bool shaftClear = horizontalMoverColumn >= 19.0f;
+                 if (player.grounded && (x > 18.0f || shaftClear)) {
+                     in.moveX = -1.0f;
+                 }
+                 // Aucune entrée une fois en l'air : la chute doit rester dans la colonne 17,
+                 // puisque la 16 est le couloir du mobile vertical et la 15 un mur de danger.
+                 if (y >= 12.15f && player.grounded) {
+                     phase = 13;
+                 }
+                 return in;
+             }
+             // 13. Marcher jusqu'au bord du palier (colonne 20-21) puis tomber dans le puits
+             //     (colonnes 21-22) jusqu'au long couloir (rangée 15).
+             if (phase == 13) {
+                 in.moveX = 1.0f;
+                 if (x >= 21.3f) {
+                     in.moveX = 0.0f;
+                 }
+                 // Le couloir de la rangée 15 a son sol à la rangée 16 : on s'y pose à 15,2,
+                 // jamais à 15,6.
+                 if (y >= 15.15f && player.grounded) {
+                     phase = 14;
+                 }
+                 return in;
+             }
+             // 14. Longer le couloir (rangée 15) vers la GAUCHE jusqu'à l'ouverture (colonnes 7-8).
+             if (phase == 14) {
+                 in.moveX = -1.0f;
+                 if (x <= 7.6f) {
+                     phase = 15;
+                 }
+                 return in;
+             }
+             // 15. Tomber dans le puits (colonnes 7-9) jusqu'à la salle de l'interrupteur (rangée
+             //     20).
+             if (phase == 15) {
+                 in.moveX = 0.0f;
+                 // Sol de la salle à la rangée 20 : on s'y pose à 19,2 (boîte haute de 0,8).
+                 if (y >= 19.15f && player.grounded) {
+                     phase = 16;
+                 }
+                 return in;
+             }
+             // 16. Marcher jusqu'à l'interrupteur (12, 20) : bascule la porte (15, 17).
+             if (phase == 16) {
+                 in.moveX = 1.0f;
+                 if (x >= 12.6f) {
+                     phase = 17;
+                 }
+                 return in;
+             }
+             // 17. Revenir au pied du puits. La salle de l'interrupteur (rangée 20, colonnes
+             //     10-12) est fermée à gauche par le bloc plein (6-9, rangée 20) : on ne longe pas
+             //     la rangée 20 vers la gauche, on SAUTE sur ce bloc, dont le dessus (rangée 19)
+             //     mène au pied du puits (colonnes 7-8).
+             if (phase == 17) {
+                 in.moveX = -1.0f;
+                 // Quitter la case de l'interrupteur d'une RUÉE, jamais d'un saut : le plafond
+                 // (12, 18) plafonne le saut à une case, et le personnage retombe alors SUR
+                 // l'interrupteur. Or un interrupteur à bascule change d'état à chaque entrée --
+                 // la porte (15, 17) se refermerait aussitôt après s'être ouverte.
+                 if (x > 11.5f) {
+                     in.dashPressed = player.grounded;
+                 } else {
+                     in.jumpPressed = player.grounded;
+                 }
+                 if (x <= 8.6f && player.grounded) {
+                     phase = 18;
+                 }
+                 return in;
+             }
+             if (phase == 18) {
+                 in.jumpPressed = player.wallDirection != 0.0f || player.grounded;
+                 if (player.wallDirection != 0.0f) {
+                     wallJumpLastPush = -player.wallDirection;
+                 }
+                 in.moveX = wallJumpLastPush;
+                 // 17,15 et pas 17,4 : la boîte fait 0,8 de haut, elle ne dégage entièrement la
+                 // rangée 18 qu'à partir de 17,2. Sortir du puits plus bas ferait heurter le FLANC
+                 // du sol de la rangée 18 (colonnes 10-16) au lieu de passer par-dessus.
+                 if (y <= 17.15f) {
+                     phase = 19;
+                 }
+                 return in;
+             }
+             // 19. Traverser la rangée 17 vers la droite, à travers la porte (15, 17) désormais
+             //     ouverte, jusqu'à la colonne 17 (puits vers le palier de la rangée 19-20).
+             if (phase == 19) {
+                 in.moveX = 1.0f;
+                 // Le sol de la rangée 17 (la rangée 18) ne commence qu'à la colonne 10 : sortir du
+                 // puits en marchant ferait retomber à la rangée 19 avant de l'atteindre. Une ruée
+                 // à hauteur fixe franchit d'un trait les trois colonnes sans sol.
+                 in.dashPressed = x < 10.0f;
+                 if (x >= 17.3f) {
+                     in.moveX = 0.0f;
+                 }
+                 // Sol à la rangée 19 : on s'y pose à 18,2.
+                 if (y >= 18.15f && player.grounded) {
+                     phase = 20;
+                 }
+                 return in;
+             }
+             // 20. La salle de la clé #2 (colonnes 19-22, rangées 17-19) est fermée à gauche par
+             //     le mur plein de la colonne 18 (rangées 16 à 19) et par-dessus par la rangée 16 :
+             //     elle ne s'atteint que PAR LE BAS. Redescendre par le trou de la colonne 14
+             //     jusqu'au fond (rangée 22), puis longer vers la droite jusqu'au pied de la
+             //     cheminée (colonne 19).
+             if (phase == 20) {
+                 // En haut, au sol : vers la GAUCHE, jusqu'au trou de la colonne 14. En chute :
+                 // AUCUNE entrée -- dériver vers la gauche plaquerait le personnage contre le mur
+                 // (13, 20-21) et le ferait longer le danger temporisé (13, 22) en arrivant au
+                 // fond. Une fois au fond : vers la DROITE, jusqu'au pied de la cheminée.
+                 if (y >= 22.15f) {
+                     in.moveX = x < 19.0f ? 1.0f : 0.0f;
+                 } else if (player.grounded) {
+                     in.moveX = -1.0f;
+                 }
+                 if (y >= 22.15f && player.grounded && x >= 19.0f) {
+                     phase = 21;
+                 }
+                 return in;
+             }
+             // 21. Cheminée de la colonne 19 (murs 18 et 20) : la remonter en wall jump jusqu'à la
+             //     rangée 17, puis une ruée vers la droite pour se poser sur la clé (22, 17) -- les
+             //     colonnes 20 et 21 n'ont pas de sol à cette rangée, seule la 22 en a un. La clé
+             //     se ramasse au contact ET à l'action Interagir (EX-CTRL-022).
+             if (phase == 21) {
+                 if (player.wallDirection != 0.0f) {
+                     wallJumpLastPush = -player.wallDirection;
+                 }
+                 if (y > 17.25f) {
+                     in.jumpPressed = player.wallDirection != 0.0f || player.grounded;
+                     in.moveX = wallJumpLastPush;
+                 } else {
+                     in.moveX = 1.0f;
+                     in.dashPressed = x < 21.0f;
+                     in.interactPressed = true;
+                 }
+                 if (x >= 21.6f && player.grounded) {
+                     phase = 22;
+                 }
+                 return in;
+             }
+             // 22. Fond du puits (rangée 22) : le danger mobile horizontal (7, 22, portée 8) et
+             //     deux dangers temporisés (9, 22 / 13, 22) gardent le passage vers la GAUCHE.
+             //     Attendre que chacun soit inoffensif avant de le franchir.
+             if (phase == 22) {
+                 constexpr int PERIOD = 120;
+                 constexpr int ACTIVE = 60;
+                 constexpr int CROSSING = 30;  // pas nécessaires pour dégager une case, à 0,05/pas
+
+                 in.moveX = -1.0f;
+
+                 // Devant chaque danger temporisé : attendre à DROITE de sa case tant qu'il est
+                 // allumé, ou qu'il le redeviendrait avant qu'on l'ait dépassé. Les deux étant en
+                 // phase, cette attente est indispensable : à vitesse constante, aucun instant de
+                 // départ ne dégage les deux à la fois.
+                 const float holds[2] = {14.05f, 10.05f};
+                 for (int index = 0; index < 2; ++index) {
+                     if (x < holds[index] || x > holds[index] + 0.3f) {
+                         continue;
+                     }
+                     if (blinkActive(step, 0, PERIOD, ACTIVE) ||
+                         blinkActive(step + CROSSING, 0, PERIOD, ACTIVE)) {
+                         in.moveX = 0.0f;
+                         in.dashPressed = false;  // jamais s'élancer sur un danger allumé
+                     }
+                 }
+
+                 if (x <= 1.6f) {
+                     phase = 23;
+                 }
+                 return in;
+             }
+             // 23. Remonter le puits gauche (murs colonnes 0 et 6) en wall jump jusqu'au bloc
+             //     (2, 18), seul sol de la rangée 17. Près du sommet, on quitte le va-et-vient
+             //     pour viser sa verticale : sans cela le personnage monte le long du mur droit et
+             //     se cogne sous le bloc plein (5, 16).
+             if (phase == 23) {
+                 in.jumpPressed = player.wallDirection != 0.0f || player.grounded;
+                 if (player.wallDirection != 0.0f) {
+                     wallJumpLastPush = -player.wallDirection;
+                 }
+                 in.moveX = y > 18.3f ? wallJumpLastPush : (x > 2.3f ? -1.0f : 1.0f);
+                 if (y <= 17.25f && player.grounded) {
+                     phase = 24;
+                 }
+                 return in;
+             }
+             // 24. Sortie. Les portes verrouillées (2-4, 16) sont déjà ouvertes : la clé #2,
+             //     ramassée à la phase 21, les ouvre DÉFINITIVEMENT (EX-GP-023). Il ne reste qu'à
+             //     monter au travers de l'une d'elles et à toucher la sortie (5, 15), posée sur le
+             //     seul sol de la rangée 15 -- le bloc (5, 16).
+             if (phase == 24) {
+                 // Double saut depuis le bloc (2, 18) : il traverse les portes ouvertes (2-4, 16)
+                 // et débouche à la rangée 15. La dérive vers la droite suffit alors à toucher la
+                 // sortie (5, 15).
+                 in.jumpPressed = player.grounded || falling;
+                 // Le bloc (2, 18) ne fait qu'une case : marcher à droite en tombe. On saute
+                 // d'abord à la verticale (les portes ouvertes 2-4 laissent passer), puis, une
+                 // fois à la rangée 15, une ruée couvre d'un trait les trois cases qui restent
+                 // jusqu'à la sortie -- la marche n'y suffirait pas avant la retombée.
+                 // 15,2 et pas 15,9 : la boîte fait 0,8 de haut et ne dégage entièrement la
+                 // rangée 16 qu'à partir de 15,2. Partir plus bas ferait heurter le flanc du bloc
+                 // (5, 16) et s'arrêter juste avant la sortie.
+                 in.moveX = y <= 15.2f ? 1.0f : 0.0f;
+                 in.dashPressed = y <= 15.2f && x < 4.6f;
+                 return in;
              }
              return in;
          }},
@@ -778,7 +1175,7 @@ std::vector<ScriptedLevel> scriptedSequence() {
 // INDEPENDANTE (decision de cadrage de l'epic, pas de partage de code entre HMI/AiSolver et ce
 // test système), et cette garde doit driver les deux orchestrations en lockstep pour comparer
 // leur etat a CHAQUE pas, pas seulement a l'issue finale.
-void expectStepByStepFidelity(const ScriptedLevel& scripted, int maxSteps = 3000) {
+void expectStepByStepFidelity(const ScriptedLevel& scripted, int maxSteps = MAX_SCRIPTED_STEPS) {
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / scripted.file;
 
@@ -796,7 +1193,9 @@ void expectStepByStepFidelity(const ScriptedLevel& scripted, int maxSteps = 3000
     core::PlatformController platforms(level);
     core::DangerController dangers(level);
 
-    aisolver::HeadlessLevelEnvironment env;
+    // Budget aligne sur celui de la boucle : sinon l'environnement coupe a son defaut de
+    // 3000 pas et `step()` est appele au-dela, ce qui est une erreur de programmation.
+    aisolver::HeadlessLevelEnvironment env{aisolver::EnvironmentConfig{.maxSteps = maxSteps}};
     ASSERT_TRUE(env.reset(path)) << "niveau : " << scripted.file;
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;

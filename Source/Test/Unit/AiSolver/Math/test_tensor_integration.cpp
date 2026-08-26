@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_tensor_integration.cpp
  * @brief Cas transverses combinant plusieurs briques de `AiSolver::Math` (LOT-ANNEXE-01,

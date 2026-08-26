@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /**
  * @file test_network.cpp
  * @brief Tests unitaires de `aisolver::nn::Network` (LOT-ANNEXE-03, TACHE-03) : composition,

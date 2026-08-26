@@ -30,12 +30,12 @@ namespace core {
  * restriction la plus stricte des deux l'emporte, par construction (chaque passe ne peut que
  * réduire encore le déplacement, jamais l'étendre).
  *
- * Même méthode que `sweepX`/`sweepY` (résolution **par axe**, clamp direct sur la coordonnée de
- * contact plutôt qu'une interpolation `position + delta * t`) : évite la dérive flottante qui a
- * fait abandonner l'approche « somme de Minkowski » historique de `SweptCollision.cpp` (voir
- * @ref guide-physique). L'axe X est résolu en premier à partir de la position de départ, puis
- * l'axe Y à partir de la position **déjà résolue** en X — ce qui produit le même glissement le
- * long de l'obstacle qu'un mur classique.
+ * Même méthode que `sweepX`/`sweepY` : résolution **par axe**, et clamp direct sur la coordonnée
+ * de contact plutôt qu'une interpolation `position + delta * t` — une position résolue est donc
+ * une coordonnée exacte, jamais un résultat d'interpolation, et aucune dérive flottante ne peut
+ * s'y accumuler (voir @ref guide-physique). L'axe X est résolu en premier à partir de la position
+ * de départ, puis l'axe Y à partir de la position **déjà résolue** en X — ce qui produit le même
+ * glissement le long de l'obstacle qu'un mur classique.
  *
  * Précondition : @p box ne **chevauche** pas @p obstacle au départ (état non pénétrant), comme
  * pour `sweepAabb`.

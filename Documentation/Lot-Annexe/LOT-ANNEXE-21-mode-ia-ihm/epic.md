@@ -1,6 +1,6 @@
 # LOT-ANNEXE-21 — Mode IA (IHM) {#lot-annexe-21}
 
-> Statut : **en cours**. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-20](@ref
+> Statut : **fait**. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-20](@ref
 > lot-annexe-20) à ce titre).
 
 ## Objectif
@@ -75,11 +75,7 @@ Aucune notion d'apprentissage automatique nouvelle : ce lot est un habillage IHM
 capacités déjà cadrées par les lots amont — voir leurs sections « Notions abordées » respectives.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-022 **EX-IA-022** — Le menu principal doit exposer un écran « Mode IA »
-  (entraînement, validation/sauvegarde, rejeu) équivalent aux capacités de `aisolver-cli`
-  (`LOT-ANNEXE-19`), avec un entraînement non bloquant (thread séparé), observable (progression,
-  aperçu en direct) et interruptible proprement (résultat partiel sauvegardé), sans dupliquer la
-  moindre règle d'apprentissage.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-022`](@ref EX-IA-022).
 - Réutilisées (inchangées) : les exigences de tous les lots exposés (`LOT-ANNEXE-10` à `20`).
 
 ## Découpage
@@ -88,9 +84,9 @@ capacités déjà cadrées par les lots amont — voir leurs sections « Notions
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-training-worker.md) | Hooks `AiSolver` + `TrainingWorker` | `Source/AiSolver`, `Source/HMI/Ai` | 🔄 |
-| [TACHE-02](tache-02-ai-mode-screen.md) | Écran `AiModeScreen` (trois onglets) | `Source/HMI/Interface`, `Source/Elements/UI` | ⬜ |
-| [TACHE-03](tache-03-integration-menu.md) | Intégration au menu principal | `Source/HMI/Interface` | ⬜ |
+| [TACHE-01](tache-01-training-worker.md) | Hooks `AiSolver` + `TrainingWorker` | `Source/AiSolver`, `Source/HMI/Ai` | ✅ |
+| [TACHE-02](tache-02-ai-mode-screen.md) | Écran `AiModeScreen` (trois onglets) | `Source/HMI/Interface`, `Source/Elements/UI` | ✅ |
+| [TACHE-03](tache-03-integration-menu.md) | Intégration au menu principal | `Source/HMI/Interface` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis le menu principal, « Mode IA » ouvre un écran à trois onglets ; « Regarder l'IA jouer »

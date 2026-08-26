@@ -25,6 +25,11 @@
     </layout>
    </item>
    <item>
+    <!-- Cadre a bordure franche de l'identite pixel art (EX-IHM-070), comme l'ecran de
+         pause et l'ecran de fin de niveau. -->
+    <widget class="hmi::PixelFrameWidget" name="contentFrame">
+     <layout class="QVBoxLayout" name="contentFrameLayout">
+      <item>
     <widget class="QTabWidget" name="tabs">
 
      <!-- ===== Onglet Entrainement ===== -->
@@ -36,13 +41,13 @@
          <item row="0" column="0"><widget class="QLabel" name="levelLabel"><property name="text"><string>Niveau</string></property></widget></item>
          <item row="0" column="1"><widget class="QComboBox" name="levelCombo"/></item>
 
-         <item row="1" column="0"><widget class="QLabel" name="algoLabel"><property name="text"><string>Algorithme</string></property></widget></item>
+         <item row="1" column="0"><widget class="QLabel" name="algorithmLabel"><property name="text"><string>Algorithme</string></property></widget></item>
          <item row="1" column="1">
-          <layout class="QHBoxLayout" name="algoRow">
-           <item><widget class="QRadioButton" name="algoEvoRadio"><property name="text"><string>Évolutif</string></property><property name="checked"><bool>true</bool></property></widget></item>
-           <item><widget class="QRadioButton" name="algoPgRadio"><property name="text"><string>REINFORCE</string></property></widget></item>
-           <item><widget class="QRadioButton" name="algoAcRadio"><property name="text"><string>Acteur-critique</string></property></widget></item>
-           <item><widget class="QRadioButton" name="algoAvanceRadio"><property name="text"><string>DQN</string></property></widget></item>
+          <layout class="QHBoxLayout" name="algorithmRow">
+           <item><widget class="QRadioButton" name="evolutionaryAlgorithmRadio"><property name="text"><string>Évolutif</string></property><property name="checked"><bool>true</bool></property></widget></item>
+           <item><widget class="QRadioButton" name="reinforceAlgorithmRadio"><property name="text"><string>REINFORCE</string></property></widget></item>
+           <item><widget class="QRadioButton" name="actorCriticAlgorithmRadio"><property name="text"><string>Acteur-critique</string></property></widget></item>
+           <item><widget class="QRadioButton" name="advancedAlgorithmRadio"><property name="text"><string>DQN</string></property></widget></item>
           </layout>
          </item>
 
@@ -133,6 +138,7 @@
              <property name="orientation"><enum>Qt::Horizontal</enum></property>
             </spacer>
            </item>
+           <item><widget class="QComboBox" name="generationCombo"><property name="enabled"><bool>false</bool></property></widget></item>
            <item><widget class="QPushButton" name="previewButton"><property name="text"><string>Voir en jeu</string></property><property name="enabled"><bool>false</bool></property></widget></item>
           </layout>
          </item>
@@ -221,10 +227,19 @@
      </widget>
 
     </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>hmi::PixelFrameWidget</class>
+   <extends>QWidget</extends>
+   <header>HMI/Interface/PixelFrameWidget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>hmi::PixelMenuButton</class>
    <extends>QPushButton</extends>

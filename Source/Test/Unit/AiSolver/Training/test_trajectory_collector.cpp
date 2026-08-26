@@ -32,7 +32,7 @@ namespace {
 
 // Budget de pas volontairement tres reduit : le niveau trivial (corridor de deux cases) n'a besoin
 // que de quelques pas pour etre resolu ou pour atteindre le plafond de securite.
-constexpr int kReducedMaxSteps = 30;
+constexpr int REDUCED_MAX_STEPS = 30;
 
 // Reseau "presque constant" (mais pas totalement degenere) : biais tres favorable a une action,
 // poids nuls -- meme patron que constantActionIndividual (test_fitness_evaluator.cpp), pour un
@@ -76,7 +76,7 @@ TEST(TrajectoryCollectorTest, LongueurCoherenteAvecTimeout) {
         aisolver::indexOf(aisolver::Action{aisolver::Direction::None, false, false, false});
     auto network = constantActionNetwork(encoder.inputSize(), doNothingIndex);
 
-    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     ASSERT_TRUE(env.reset(level.levelPath()));
 
     TrajectoryCollector collector;
@@ -84,7 +84,7 @@ TEST(TrajectoryCollectorTest, LongueurCoherenteAvecTimeout) {
     const Trajectory trajectory = collector.collectEpisode(env, *network, rng);
 
     EXPECT_EQ(trajectory.status, aisolver::EpisodeStatus::TimedOut);
-    EXPECT_EQ(trajectory.steps.size(), static_cast<std::size_t>(kReducedMaxSteps));
+    EXPECT_EQ(trajectory.steps.size(), static_cast<std::size_t>(REDUCED_MAX_STEPS));
 }
 
 /**
@@ -104,7 +104,7 @@ TEST(TrajectoryCollectorTest, LongueurCoherenteAvecVictoireRapide) {
         aisolver::indexOf(aisolver::Action{aisolver::Direction::Right, false, false, false});
     auto network = constantActionNetwork(encoder.inputSize(), moveRightIndex);
 
-    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     ASSERT_TRUE(env.reset(level.levelPath()));
 
     TrajectoryCollector collector;
@@ -112,7 +112,7 @@ TEST(TrajectoryCollectorTest, LongueurCoherenteAvecVictoireRapide) {
     const Trajectory trajectory = collector.collectEpisode(env, *network, rng);
 
     EXPECT_EQ(trajectory.status, aisolver::EpisodeStatus::Won);
-    EXPECT_LT(trajectory.steps.size(), static_cast<std::size_t>(kReducedMaxSteps));
+    EXPECT_LT(trajectory.steps.size(), static_cast<std::size_t>(REDUCED_MAX_STEPS));
 }
 
 /**
@@ -132,7 +132,7 @@ TEST(TrajectoryCollectorTest, LogProbabilitesValides) {
         aisolver::indexOf(aisolver::Action{aisolver::Direction::Right, false, false, false});
     auto network = constantActionNetwork(encoder.inputSize(), moveRightIndex);
 
-    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     ASSERT_TRUE(env.reset(level.levelPath()));
 
     TrajectoryCollector collector;
@@ -173,8 +173,8 @@ TEST(TrajectoryCollectorTest, DeterminismeAGraineFixee) {
     auto networkB = aisolver::training::evolutionary::buildNetwork(
         policyTopology(encoder.inputSize()), topologyRngCopy);
 
-    HeadlessLevelEnvironment envA(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
-    HeadlessLevelEnvironment envB(EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+    HeadlessLevelEnvironment envA(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
+    HeadlessLevelEnvironment envB(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     ASSERT_TRUE(envA.reset(level.levelPath()));
     ASSERT_TRUE(envB.reset(level.levelPath()));
 
@@ -202,7 +202,7 @@ TEST(TrajectoryCollectorTest, DeterminismeAGraineFixee) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Politique proche de l'uniforme.<br/>2. Collecter une trentaine d'épisodes courts,
  * cumuler les indices d'action rencontrés.<br/>
- * \tattendu Au moins 8 indices d'action distincts sur les 24 de l'espace.}
+ * \tattendu Au moins 8 indices d'action distincts sur les 48 de l'espace.}
  */
 TEST(TrajectoryCollectorTest, CouvertureNonDegenereeDeLEspaceDAction) {
     const TrivialLevelDirectory level("couverture");

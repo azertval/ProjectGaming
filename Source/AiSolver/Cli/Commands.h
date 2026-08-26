@@ -33,10 +33,10 @@ namespace aisolver::cli {
 /// Arguments de `train`.
 struct TrainArgs {
     std::filesystem::path level;
-    std::string algo;
+    std::string algorithmId;
     std::uint64_t seed = 0;
     std::optional<std::filesystem::path> configFile;
-    std::filesystem::path runsRoot = kDefaultTrainingRunsRoot;
+    std::filesystem::path runsRoot = DEFAULT_TRAINING_RUNS_ROOT;
     std::optional<std::size_t> populationSize;
     std::optional<float> mutationRate;
     std::optional<std::size_t> episodes;
@@ -48,7 +48,7 @@ struct TrainArgs {
 /// Arguments de `evaluate`.
 struct EvaluateArgs {
     std::filesystem::path model;
-    std::string algo;
+    std::string algorithmId;
     std::filesystem::path level;
     int repetitions = 30;
     std::optional<std::filesystem::path> report;
@@ -57,7 +57,7 @@ struct EvaluateArgs {
 /// Arguments de `export-replay`.
 struct ExportReplayArgs {
     std::filesystem::path model;
-    std::string algo;
+    std::string algorithmId;
     std::filesystem::path level;
     std::filesystem::path output;
     std::uint64_t seed = 0;
@@ -73,16 +73,29 @@ struct ExportReplayArgs {
 [[nodiscard]] std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args,
                                                       std::string& error);
 
-/// @copydoc parseTrainArgs
+/**
+ * @brief Analyse les arguments de `evaluate` (hors nom de sous-commande).
+ * @param args Arguments bruts (ex. `argv[2..]`).
+ * @param error Rempli d'un message explicite si l'analyse échoue.
+ * @return Les arguments analysés, ou `std::nullopt` si `--level`, `--algo` ou `--model` manquent,
+ *         ou si `--algo` n'est pas l'une des quatre valeurs acceptées.
+ */
 [[nodiscard]] std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& args,
                                                             std::string& error);
 
-/// @copydoc parseTrainArgs
+/**
+ * @brief Analyse les arguments de `export-replay` (hors nom de sous-commande).
+ * @param args Arguments bruts (ex. `argv[2..]`).
+ * @param error Rempli d'un message explicite si l'analyse échoue.
+ * @return Les arguments analysés, ou `std::nullopt` si `--level`, `--algo`, `--model` ou
+ *         `--output` manquent, ou si `--algo` n'est pas l'une des quatre valeurs acceptées.
+ */
 [[nodiscard]] std::optional<ExportReplayArgs> parseExportReplayArgs(
     const std::vector<std::string>& args, std::string& error);
 
-/// @return `true` si `algo` est l'une des quatre valeurs acceptées (`evo`/`pg`/`ac`/`avance`).
-[[nodiscard]] bool isKnownAlgorithm(const std::string& algo);
+/// @return `true` si `algorithmId` est l'une des quatre valeurs acceptées
+/// (`evo`/`pg`/`ac`/`avance`).
+[[nodiscard]] bool isKnownAlgorithm(const std::string& algorithmId);
 
 /**
  * @brief Exécute `train` : construit et lance un entraînement complet sur `args.level`, journalise

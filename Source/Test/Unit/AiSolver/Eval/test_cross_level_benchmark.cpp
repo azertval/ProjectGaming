@@ -68,7 +68,7 @@ private:
 // Corridor plus long (3 pas vers la droite au lieu d'un seul) : meme mecanique que
 // TrivialLevelDirectory (deplacement lateral pur, aucun saut), geometrie jamais vue a
 // l'entrainement -- paire "mecanique partagee" de la campagne de TACHE-02.
-inline constexpr const char* kTrivialLongLevelJson = R"({
+inline constexpr const char* TRIVIAL_LONG_LEVEL_JSON = R"({
   "name": "TrivialLong",
   "width": 6,
   "height": 3,
@@ -91,7 +91,7 @@ inline constexpr const char* kTrivialLongLevelJson = R"({
 // Corridor avec une breche d'une case (aucun sol en x=2, ni au niveau du sol) : franchissable
 // uniquement en sautant -- une mecanique jamais requise par TrivialLevelDirectory (deplacement pur)
 // -- paire "mecanique differente" de la campagne de TACHE-02.
-inline constexpr const char* kGapLevelJson = R"({
+inline constexpr const char* GAP_LEVEL_JSON = R"({
   "name": "Gap",
   "width": 6,
   "height": 3,
@@ -216,23 +216,26 @@ TEST(CrossLevelBenchmarkTest, CampagneMultiPairesRespecteLOrdre) {
  * partageant la meme mecanique (corridor plus long), l'autre en exigeant une differente (breche a
  * sauter). Attente déclarée avant mesure (décision de cadrage de l'épic, `EX-IA-017`) : le régime
  * d'entraînement niveau-par-niveau n'exerce aucune pression de généralisation, un transfert faible
- * est attendu et n'est pas un échec du programme. Ce test ne fige aucun seuil de réussite -- seule
- * la validité structurelle des résultats est vérifiée ; les valeurs numériques imprimées ici sont
- * celles recopiées dans `resultats-transfert.md`.
+ * est attendu et n'est pas un échec du programme. Ce test ne fige donc aucun seuil de *réussite* :
+ * il fige la mesure effectivement obtenue -- transfert nul, timeout systématique au plafond de
+ * pas -- telle qu'elle est consignée dans `resultats-transfert.md`. Si ces valeurs changent, ce
+ * n'est pas le test qu'il faut assouplir : c'est la documentation qui est périmée.
  * \castest{Campagne de transfert reelle sur deux paires de niveaux illustratives.<br/>
  * \tcat Unitaire (integration niveaux reels) · AiSolver Eval<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Entrainement evolutionniste jusqu'a resolution stable sur le niveau trivial.<br/>2.
  * Execution croisee (20 repetitions) sur un niveau de meme mecanique et un niveau de mecanique
  * differente.<br/>
- * \tattendu Deux resultats, taux de reussite dans [0, 1], pas moyen fini et positif.}
+ * \tattendu Deux resultats etiquetes TrivialLong et Gap, 20 episodes chacun, taux de
+ * reussite nul et pas moyen egal au plafond -- les valeurs consignees dans
+ * resultats-transfert.md.}
  */
 TEST(CrossLevelTransferTest, CampagneReelleDeuxPairesDeNiveaux) {
     const TrivialLevelDirectory trainingLevel("transfer_training");
-    const NamedLevelDirectory longLevel("transfer_long", kTrivialLongLevelJson);
-    const NamedLevelDirectory gapLevel("transfer_gap", kGapLevelJson);
+    const NamedLevelDirectory longLevel("transfer_long", TRIVIAL_LONG_LEVEL_JSON);
+    const NamedLevelDirectory gapLevel("transfer_gap", GAP_LEVEL_JSON);
     const ObservationEncoder encoder;
-    constexpr int kReducedMaxSteps = 50;
+    constexpr int REDUCED_MAX_STEPS = 50;
 
     EvolutionaryConfig trainingConfig;
     trainingConfig.populationSize = 32;
@@ -242,7 +245,7 @@ TEST(CrossLevelTransferTest, CampagneReelleDeuxPairesDeNiveaux) {
 
     LevelTrainingSession session(trainingLevel.levelPath(), policyTopology(encoder.inputSize()),
                                  trainingConfig, stopping, 7777, trainingLevel.file("stats.csv"),
-                                 EnvironmentConfig{.maxSteps = kReducedMaxSteps});
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingResult trainingResult = session.run();
     ASSERT_TRUE(trainingResult.solved);
 
@@ -261,11 +264,24 @@ TEST(CrossLevelTransferTest, CampagneReelleDeuxPairesDeNiveaux) {
         runCrossLevelCampaign(pairs, benchmarkConfig);
 
     ASSERT_EQ(results.size(), 2u);
+    EXPECT_EQ(results[0].executedOnLevel, "TrivialLong");
+    EXPECT_EQ(results[1].executedOnLevel, "Gap");
     for (const CrossLevelBenchmarkResult& result : results) {
         const double successRate = result.result.successRate();
-        EXPECT_GE(successRate, 0.0);
-        EXPECT_LE(successRate, 1.0);
-        EXPECT_TRUE(std::isfinite(result.result.meanStepsAll()));
+        // Chaque paire a bien ete jouee le nombre de fois demande : sans cette garde, une campagne
+        // qui n'executerait qu'un episode passerait inapercue derriere une moyenne bien formee.
+        EXPECT_EQ(result.result.episodes.size(),
+                  static_cast<std::size_t>(benchmarkConfig.repetitions));
+        // Transfert NUL : c'est LA conclusion du lot (resultats-transfert.md), et elle est ici
+        // rendue executable. Si ce taux devenait non nul, ce n'est pas ce test qu'il faudrait
+        // assouplir : la documentation serait perimee et la campagne serait a refaire.
+        EXPECT_DOUBLE_EQ(successRate, 0.0);
+        // Le nombre moyen de pas reste borne par le budget par episode. Borne plutot qu'egalite :
+        // un episode peut se clore avant le plafond en etant classe « bloque », et c'est
+        // precisement ce qui distingue aujourd'hui les deux paires (voir resultats-transfert.md).
+        EXPECT_GT(result.result.meanStepsAll(), 0.0);
+        EXPECT_LE(result.result.meanStepsAll(),
+                  static_cast<double>(benchmarkConfig.maxStepsPerEpisode));
         std::printf("[LOT-ANNEXE-16 TACHE-02] %s -> %s : successRate=%.3f meanStepsAll=%.2f\n",
                     result.trainedOnLevel.c_str(), result.executedOnLevel.c_str(), successRate,
                     result.result.meanStepsAll());

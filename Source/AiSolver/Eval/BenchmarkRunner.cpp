@@ -34,8 +34,14 @@ BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
         Rng rng(deriveSeed(config.rngSeedBase, repetition));
         HeadlessLevelEnvironment environment(
             EnvironmentConfig{.maxSteps = config.maxStepsPerEpisode});
-        [[maybe_unused]] const bool loaded = environment.reset(levelPath);
-        PROJECTGAMING_ASSERT(loaded, "BenchmarkRunner::runWithNoise : le niveau doit se charger");
+        if (!environment.reset(levelPath)) {
+            // Voir `evaluateFitness` : l'assertion ne garde rien en Release. Un niveau illisible ne
+            // produit aucun episode, plutot qu'autant d'episodes indefinis qu'il y a de
+            // repetitions.
+            PROJECTGAMING_ASSERT(false,
+                                 "BenchmarkRunner::runWithNoise : le niveau doit se charger");
+            break;
+        }
 
         const core::GridPosition entry = environment.level().entry();
         core::Aabb previousBox = core::Aabb::fromTopLeftSize(
@@ -50,10 +56,15 @@ BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
                 noisyEncoder.encode(environment, previousBox, playerState, playerVelocity, rng);
             const std::optional<core::PlayerInput> input =
                 policy.selectAction(observation, config.decodingMode, rng);
-            PROJECTGAMING_ASSERT(
-                input.has_value(),
-                "BenchmarkRunner::runWithNoise : mode de decodage non supporte par cette politique "
-                "(verifier TrainedPolicy::supportsMode avant l'appel)");
+            if (!input) {
+                // Mode de decodage non supporte : `*input` dereferencerait un optional vide en
+                // Release. L'episode s'arrete la (`TrainedPolicy::supportsMode` doit etre verifie
+                // avant l'appel).
+                PROJECTGAMING_ASSERT(false,
+                                     "BenchmarkRunner::runWithNoise : mode de decodage non "
+                                     "supporte par cette politique");
+                break;
+            }
 
             const StepObservation stepObservation = environment.step(*input);
             outcome = stepObservation.outcome;

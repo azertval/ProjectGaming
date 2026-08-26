@@ -11,46 +11,46 @@
 namespace core {
 namespace {
 
-// Tolérance de calage : comparable à kSkin (SweptCollision.cpp), évite qu'une comparaison
+// Tolérance de calage : comparable à COLLISION_SKIN (SweptCollision.cpp), évite qu'une comparaison
 // flottante stricte ne rate un contact exactement à la frontière.
-constexpr float K_FOLLOW_TOLERANCE = 1e-3F;
+constexpr float SLOPE_FOLLOW_TOLERANCE = 1e-3F;
 
 // Évite qu'un bord de boîte tombant PILE sur une frontière de case n'en morde la case suivante
-// (même rôle que kSkin, SweptCollision.cpp).
-constexpr float K_COLUMN_SKIN = 1e-4F;
+// (même rôle que COLLISION_SKIN, SweptCollision.cpp).
+constexpr float COLUMN_SKIN = 1e-4F;
 
-// Abscisse locale (repère de la case, [0, 1]) à utiliser pour la colonne @p col : depuis le
-// CENTRE de la boîte (position finale) si @p col est la colonne centrale, sinon depuis le bord le
-// plus GÉNÉREUX ayant pu couvrir cette colonne pendant tout le pas (avant ou après) -- pas
+// Abscisse locale (repère de la case, [0, 1]) à utiliser pour la colonne @p column : depuis le
+// CENTRE de la boîte (position finale) si @p column est la colonne centrale, sinon depuis le bord
+// le plus GÉNÉREUX ayant pu couvrir cette colonne pendant tout le pas (avant ou après) -- pas
 // seulement le bord final. Partagé par resolveSlopeFollow et resolveCeilingSlopeFollow (même
 // règle, symétrique).
-[[nodiscard]] float localXForColumn(int col, int centerColumn, float centerX, float leftEdge,
+[[nodiscard]] float localXForColumn(int column, int centerColumn, float centerX, float leftEdge,
                                     float rightEdge) noexcept {
-    if (col == centerColumn) {
-        return centerX - static_cast<float>(col);
+    if (column == centerColumn) {
+        return centerX - static_cast<float>(column);
     }
-    if (col < centerColumn) {
-        return leftEdge - static_cast<float>(col);
+    if (column < centerColumn) {
+        return leftEdge - static_cast<float>(column);
     }
-    return rightEdge - static_cast<float>(col);
+    return rightEdge - static_cast<float>(column);
 }
 
 // Parmi les colonnes couvertes par la boîte sur une ligne donnée, la surface de SOL valide la
 // plus HAUTE (bord bas le moins profond) : c'est elle qui arrête la chute en premier, comme un
 // balayage classique -- une colonne voisine plus permissive (case vide, ou pente moins haute à
 // cet endroit) ne doit jamais faire ignorer un appui plus haut ailleurs sous la boîte.
-[[nodiscard]] std::optional<float> bestFloorSurfaceInRow(int row, int colStart, int colEnd,
+[[nodiscard]] std::optional<float> bestFloorSurfaceInRow(int row, int columnStart, int columnEnd,
                                                          int width, int centerColumn, float centerX,
                                                          float leftEdge, float rightEdge,
                                                          float previousBottomY, float newBottomY,
                                                          const TileMap& tiles) noexcept {
     std::optional<float> best;
-    for (int col = colStart; col <= colEnd; ++col) {
-        if (col < 0 || col >= width) {
+    for (int column = columnStart; column <= columnEnd; ++column) {
+        if (column < 0 || column >= width) {
             continue;
         }
-        const float localX = localXForColumn(col, centerColumn, centerX, leftEdge, rightEdge);
-        const TileType tileType = tiles.tile(col, row);
+        const float localX = localXForColumn(column, centerColumn, centerX, leftEdge, rightEdge);
+        const TileType tileType = tiles.tile(column, row);
         const std::optional<float> height = slopeSurfaceHeight(tileType, localX);
         if (!height) {
             continue;
@@ -65,7 +65,7 @@ constexpr float K_COLUMN_SKIN = 1e-4F;
         // chevauchement résiduel après un blocage par en dessous serait pris pour un
         // atterrissage par-dessus, et téléporterait le personnage au-dessus du plafond).
         if (isCeilingSlope(tileType) &&
-            previousBottomY > static_cast<float>(row) + K_FOLLOW_TOLERANCE) {
+            previousBottomY > static_cast<float>(row) + SLOPE_FOLLOW_TOLERANCE) {
             continue;
         }
         const float surfaceY = static_cast<float>(row) + *height;
@@ -74,7 +74,7 @@ constexpr float K_COLUMN_SKIN = 1e-4F;
         // faire entrer dans une nouvelle colonne dont la pente exige une hauteur plus haute que
         // la position précédente (qui appartenait à une autre colonne, sans rapport avec cette
         // surface-ci).
-        if (newBottomY >= surfaceY - K_FOLLOW_TOLERANCE && (!best || surfaceY < *best)) {
+        if (newBottomY >= surfaceY - SLOPE_FOLLOW_TOLERANCE && (!best || surfaceY < *best)) {
             best = surfaceY;
         }
     }
@@ -83,25 +83,25 @@ constexpr float K_COLUMN_SKIN = 1e-4F;
 
 // Miroir exact de bestFloorSurfaceInRow ci-dessus, pour la silhouette de PLAFOND : la plus BASSE
 // (bord haut le moins profond, donc atteinte le plus tôt en montant).
-[[nodiscard]] std::optional<float> bestCeilingSurfaceInRow(int row, int colStart, int colEnd,
+[[nodiscard]] std::optional<float> bestCeilingSurfaceInRow(int row, int columnStart, int columnEnd,
                                                            int width, int centerColumn,
                                                            float centerX, float leftEdge,
                                                            float rightEdge, float newTopY,
                                                            const TileMap& tiles) noexcept {
     std::optional<float> best;
-    for (int col = colStart; col <= colEnd; ++col) {
-        if (col < 0 || col >= width) {
+    for (int column = columnStart; column <= columnEnd; ++column) {
+        if (column < 0 || column >= width) {
             continue;
         }
-        const float localX = localXForColumn(col, centerColumn, centerX, leftEdge, rightEdge);
-        const std::optional<float> height = ceilingSlopeHeight(tiles.tile(col, row), localX);
+        const float localX = localXForColumn(column, centerColumn, centerX, leftEdge, rightEdge);
+        const std::optional<float> height = ceilingSlopeHeight(tiles.tile(column, row), localX);
         if (!height) {
             continue;
         }
         const float surfaceY = static_cast<float>(row) + *height;
         // Blocage dès que le bord haut est À ou SOUS la silhouette (jamais au-dessus) : symétrique
         // du calage "à ou sous la surface" du sol, miroir verticalement.
-        if (newTopY <= surfaceY + K_FOLLOW_TOLERANCE && (!best || surfaceY > *best)) {
+        if (newTopY <= surfaceY + SLOPE_FOLLOW_TOLERANCE && (!best || surfaceY > *best)) {
             best = surfaceY;
         }
     }
@@ -220,21 +220,21 @@ SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox
     // pour l'appelant immobile.
     const float leftEdge = (std::min)(previousBox.min.x, newBox.min.x);
     const float rightEdge = (std::max)(previousBox.max.x, newBox.max.x);
-    const int colStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
-    const int colEnd =
-        std::clamp(static_cast<int>(std::floor(rightEdge - K_COLUMN_SKIN)), 0, width - 1);
-    if (colStart > colEnd) {
+    const int columnStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
+    const int columnEnd =
+        std::clamp(static_cast<int>(std::floor(rightEdge - COLUMN_SKIN)), 0, width - 1);
+    if (columnStart > columnEnd) {
         return result;
     }
 
     // Parcourt TOUTES les lignes traversées par le bord bas pendant ce pas (pas seulement la
     // position finale) : une chute rapide pourrait sinon « sauter » une pente en un seul pas, la
     // grille classique ne la voyant pas comme solide (isSolid == false pour une pente).
-    // `- kFollowTolerance` avant le floor : si le bord bas est EXACTEMENT sur une frontière de case
-    // (ex. sortie d'un sol plat qui rejoint pile la base d'une pente montante située une ligne au-
-    // dessus), floor() l'attribue à la ligne du dessous et raterait la ligne de la pente — cas
-    // pourtant courant (une pente relie normalement deux paliers d'une ligne d'écart).
-    const int rowStart = static_cast<int>(std::floor(previousBottomY - K_FOLLOW_TOLERANCE));
+    // `- SLOPE_FOLLOW_TOLERANCE` avant le floor : si le bord bas est EXACTEMENT sur une frontière
+    // de case (ex. sortie d'un sol plat qui rejoint pile la base d'une pente montante située une
+    // ligne au- dessus), floor() l'attribue à la ligne du dessous et raterait la ligne de la pente
+    // — cas pourtant courant (une pente relie normalement deux paliers d'une ligne d'écart).
+    const int rowStart = static_cast<int>(std::floor(previousBottomY - SLOPE_FOLLOW_TOLERANCE));
     const int rowEnd = static_cast<int>(std::floor(newBottomY));
     // L'itération part de la ligne la plus haute du pas (rowStart) : la première ligne où une
     // colonne couverte offre un appui valide est la bonne (comme un balayage classique).
@@ -243,8 +243,8 @@ SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox
             continue;
         }
         const std::optional<float> bestSurfaceY =
-            bestFloorSurfaceInRow(row, colStart, colEnd, width, centerColumn, centerX, leftEdge,
-                                  rightEdge, previousBottomY, newBottomY, tiles);
+            bestFloorSurfaceInRow(row, columnStart, columnEnd, width, centerColumn, centerX,
+                                  leftEdge, rightEdge, previousBottomY, newBottomY, tiles);
         if (bestSurfaceY) {
             result.grounded = true;
             result.bottomY = *bestSurfaceY;
@@ -279,10 +279,10 @@ CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, float swe
     // seulement le précédent).
     const float leftEdge = (std::min)(sweptMinX, newBox.min.x);
     const float rightEdge = (std::max)(sweptMaxX, newBox.max.x);
-    const int colStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
-    const int colEnd =
-        std::clamp(static_cast<int>(std::floor(rightEdge - K_COLUMN_SKIN)), 0, width - 1);
-    if (colStart > colEnd) {
+    const int columnStart = std::clamp(static_cast<int>(std::floor(leftEdge)), 0, width - 1);
+    const int columnEnd =
+        std::clamp(static_cast<int>(std::floor(rightEdge - COLUMN_SKIN)), 0, width - 1);
+    if (columnStart > columnEnd) {
         return result;
     }
 
@@ -298,8 +298,8 @@ CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, float swe
             continue;
         }
         const std::optional<float> bestSurfaceY =
-            bestCeilingSurfaceInRow(row, colStart, colEnd, width, centerColumn, centerX, leftEdge,
-                                    rightEdge, newTopY, tiles);
+            bestCeilingSurfaceInRow(row, columnStart, columnEnd, width, centerColumn, centerX,
+                                    leftEdge, rightEdge, newTopY, tiles);
         if (bestSurfaceY) {
             result.blocked = true;
             result.topY = *bestSurfaceY;

@@ -111,10 +111,10 @@ bool isLevelUnlocked(const Progression& progression, const std::vector<std::stri
 
 bool isLevelPlayable(const Progression& progression, const std::vector<std::string>& sequence,
                      const std::string& levelName) {
-    // if/else (pas de retour anticipe suivi d'un autre return) : sous MSVC /WX, un `if constexpr`
-    // qui retourne laisse le code suivant statiquement inatteignable en build de developpement,
-    // ce que le compilateur signale (C4702) et que /WX transforme en erreur.
-    if constexpr (core::kDeveloperBuild) {
+    // if/else plutot qu'un retour anticipe : une branche `if constexpr` qui retourne rend le
+    // code qui la suit statiquement inatteignable dans l'une des deux configurations, ce que MSVC
+    // refuse sous /WX. La forme if/else n'a pas de code apres elle.
+    if constexpr (core::DEVELOPER_BUILD) {
         return true;
     } else {
         return isLevelUnlocked(progression, sequence, levelName);

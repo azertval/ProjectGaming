@@ -18,9 +18,9 @@ namespace core {
  * l'interface), à utiliser de préférence avec `if constexpr` pour éliminer le code en Release.
  */
 #if defined(NDEBUG)
-inline constexpr bool kDeveloperBuild = false;
+inline constexpr bool DEVELOPER_BUILD = false;
 #else
-inline constexpr bool kDeveloperBuild = true;
+inline constexpr bool DEVELOPER_BUILD = true;
 #endif
 
 }  // namespace core

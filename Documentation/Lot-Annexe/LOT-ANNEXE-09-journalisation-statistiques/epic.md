@@ -78,11 +78,7 @@ entraînement. Aucune source académique nouvelle : ce lot est un outil d'observ
 notion d'apprentissage en soi.
 
 ## Exigences couvertes
-- Nouvelle : \anchor EX-IA-010 **EX-IA-010** — Tout algorithme d'entraînement doit journaliser, au
-  fil de l'entraînement et par génération/épisode, un jeu de statistiques standard (récompenses
-  meilleure/moyenne/pire, écart-type, pas du meilleur, taux de réussite, moyenne mobile et delta sur
-  une fenêtre récente) dans un fichier CSV unique par run, au format identique quel que soit
-  l'algorithme, pour permettre de détecter un plateau sans attendre la fin de l'entraînement.
+- Nouvelle, déclarée dans [la spécification IA](@ref spec-ia) : [`EX-IA-010`](@ref EX-IA-010).
 - Réutilisées : `EX-NFR-040` (erreur récupérable, pas de plantage — écriture de fichier).
 
 ## Découpage

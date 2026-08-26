@@ -18,9 +18,9 @@ namespace aisolver::optim {
  * @brief Règle de mise à jour de paramètres à partir de leur gradient accumulé.
  *
  * Ne connaît que des `autodiff::Node` porteurs de gradient (`nn::Network::parameters()`), jamais
- * le réseau ni l'algorithme d'apprentissage qui les a produits. `step` lit `Node::grad()` et écrit
- * directement dans `Node::value()`, en dehors de toute construction de graphe : un optimiseur
- * n'est jamais lui-même différentié.
+ * le réseau ni l'algorithme d'apprentissage qui les a produits. `step` lit le champ `Node::grad`
+ * et écrit directement dans le champ `Node::value`, en dehors de toute construction de graphe : un
+ * optimiseur n'est jamais lui-même différentié.
  */
 class IOptimizer {
 public:
