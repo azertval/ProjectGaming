@@ -144,22 +144,38 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->tabs->setTabText(2, t("ai_mode.tab_replay"));
 
     // Onglet Entraînement.
+    _ui->commonGroup->setTitle(t("ai_mode.group_common"));
+    _ui->evolutionaryGroup->setTitle(t("ai_mode.group_evolutionary"));
+    _ui->gradientGroup->setTitle(t("ai_mode.group_gradient"));
+    _ui->dqnGroup->setTitle(t("ai_mode.group_dqn"));
     _ui->levelLabel->setText(t("ai_mode.level"));
     _ui->algorithmLabel->setText(t("ai_mode.algorithm"));
     _ui->evolutionaryAlgorithmRadio->setText(t("ai_mode.algo_evo"));
     _ui->reinforceAlgorithmRadio->setText(t("ai_mode.algo_pg"));
     _ui->actorCriticAlgorithmRadio->setText(t("ai_mode.algo_ac"));
     _ui->advancedAlgorithmRadio->setText(t("ai_mode.algo_dqn"));
+    _ui->noStatsCheck->setText(t("ai_mode.no_stats"));
     _ui->populationLabel->setText(t("ai_mode.population"));
     _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
+    _ui->stabilityLabel->setText(t("ai_mode.stability"));
     _ui->episodesLabel->setText(t("ai_mode.episodes"));
     _ui->learningRateLabel->setText(t("ai_mode.learning_rate"));
     _ui->gammaLabel->setText(t("ai_mode.gamma"));
     _ui->optimizerLabel->setText(t("ai_mode.optimizer"));
     _ui->seedLabel->setText(t("ai_mode.seed"));
+    _ui->dqnReplayCapacityLabel->setText(t("ai_mode.dqn_replay_capacity"));
+    _ui->dqnBatchSizeLabel->setText(t("ai_mode.dqn_batch_size"));
+    _ui->dqnWarmupSizeLabel->setText(t("ai_mode.dqn_warmup_size"));
+    _ui->dqnUpdatePeriodLabel->setText(t("ai_mode.dqn_update_period"));
+    _ui->dqnTargetSyncPeriodLabel->setText(t("ai_mode.dqn_target_sync_period"));
+    _ui->dqnEpsilonStartLabel->setText(t("ai_mode.dqn_epsilon_start"));
+    _ui->dqnEpsilonEndLabel->setText(t("ai_mode.dqn_epsilon_end"));
+    _ui->dqnEpsilonDecayLabel->setText(t("ai_mode.dqn_epsilon_decay"));
+    _ui->dqnEpsilonCurrentLabel->setText(t("ai_mode.dqn_epsilon_current"));
     _ui->launchTrainingButton->setText(t("ai_mode.launch_training"));
     _ui->stopTrainingButton->setText(t("ai_mode.stop_training"));
     _ui->previewButton->setText(t("ai_mode.preview"));
+    _ui->openRunFolderButton->setText(t("ai_mode.open_run_folder"));
     _ui->statsTable->setHorizontalHeaderLabels(
         {t("ai_mode.column_generation"), t("ai_mode.column_best_reward"),
          t("ai_mode.column_mean_reward"), t("ai_mode.column_success_rate")});
@@ -195,6 +211,16 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->gammaSpin->setToolTip(t("ai_mode.gamma_tip"));
     _ui->optimizerCombo->setToolTip(t("ai_mode.optimizer_tip"));
     _ui->seedSpin->setToolTip(t("ai_mode.seed_tip"));
+    _ui->noStatsCheck->setToolTip(t("ai_mode.no_stats_tip"));
+    _ui->dqnReplayCapacitySpin->setToolTip(t("ai_mode.dqn_replay_capacity_tip"));
+    _ui->dqnBatchSizeSpin->setToolTip(t("ai_mode.dqn_batch_size_tip"));
+    _ui->dqnWarmupSizeSpin->setToolTip(t("ai_mode.dqn_warmup_size_tip"));
+    _ui->dqnUpdatePeriodSpin->setToolTip(t("ai_mode.dqn_update_period_tip"));
+    _ui->dqnTargetSyncPeriodSpin->setToolTip(t("ai_mode.dqn_target_sync_period_tip"));
+    _ui->dqnEpsilonStartSpin->setToolTip(t("ai_mode.dqn_epsilon_start_tip"));
+    _ui->dqnEpsilonEndSpin->setToolTip(t("ai_mode.dqn_epsilon_end_tip"));
+    _ui->dqnEpsilonDecaySpin->setToolTip(t("ai_mode.dqn_epsilon_decay_tip"));
+    _ui->openRunFolderButton->setToolTip(t("ai_mode.open_run_folder_tip"));
     _ui->launchTrainingButton->setToolTip(t("ai_mode.launch_training_tip"));
     _ui->stopTrainingButton->setToolTip(t("ai_mode.stop_training_tip"));
     _ui->generationCombo->setToolTip(t("ai_mode.generation_tip"));
