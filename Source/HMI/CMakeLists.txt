@@ -239,6 +239,7 @@ add_executable(ProjectGaming
     Interface/LevelSelectScreen.cpp
     Interface/CreditsScreen.cpp
     Interface/AiModeScreen.cpp
+    Interface/TrainingChartWidget.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
     Interface/EditorKeybindingsWidget.cpp

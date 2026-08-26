@@ -62,17 +62,25 @@ public:
      * immédiatement.
      * @param movingAverageWindow Taille de la fenêtre de moyenne mobile sur `bestReward` (voir
      * `MovingAverageTracker`) ; documentée, pas une constante magique enfouie.
+     * @param enabled `false` pour sauter entièrement l'écriture disque (aucun fichier créé, aucun
+     *        `flush`) : ce coût est déjà indépendant de la taille de population (une ligne par
+     *        génération/épisode, jamais par individu — voir `record`), mais un run à très nombreuses
+     *        générations ou sur un disque contraint peut vouloir s'en passer (`--no-stats`,
+     *        `LOT-ANNEXE-21`). La moyenne mobile et `onRecord` restent actifs : c'est le seul moyen
+     *        pour l'IHM d'observer un run sans que ce recorder n'écrive sur disque.
      */
     explicit TrainingStatsRecorder(const std::filesystem::path& outputCsvPath,
-                                   int movingAverageWindow = 20);
+                                   int movingAverageWindow = 20, bool enabled = true);
 
     /**
-     * @brief Ajoute une ligne au fichier CSV et force son écriture sur disque (`flush`).
+     * @brief Ajoute une ligne au fichier CSV (si activé) et force son écriture sur disque
+     * (`flush`), puis notifie `onRecord`.
      *
      * Un `flush` après chaque ligne a un coût (une écriture disque par génération/épisode),
      * volontairement accepté : la fréquence d'appel reste très inférieure au temps de calcul d'une
      * génération/d'un épisode complet, et garantit qu'un arrêt prématuré du processus ne perde
-     * aucune ligne déjà journalisée (`EX-NFR-040`).
+     * aucune ligne déjà journalisée (`EX-NFR-040`). Ce coût ne dépend jamais de la taille de
+     * population : une seule ligne par génération, quel que soit le nombre d'individus évalués.
      */
     void record(const TrainingStatsRow& row);
 

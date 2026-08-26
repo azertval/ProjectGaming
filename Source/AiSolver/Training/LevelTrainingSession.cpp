@@ -51,12 +51,12 @@ LevelTrainingSession::LevelTrainingSession(std::filesystem::path levelPath,
                                            evolutionary::EvolutionaryConfig config,
                                            StoppingConfig stopping, std::uint64_t seed,
                                            const std::filesystem::path& statsCsvPath,
-                                           EnvironmentConfig environmentConfig)
+                                           EnvironmentConfig environmentConfig, bool recordStats)
     : _levelPath(std::move(levelPath)),
       _topology(topology),
       _stopping(stopping),
       _environment(environmentConfig),
-      _recorder(statsCsvPath),
+      _recorder(statsCsvPath, 20, recordStats),
       _trainer(topology, config, _environment, _levelPath, seed, _recorder,
                _levelPath.stem().string()) {}
 

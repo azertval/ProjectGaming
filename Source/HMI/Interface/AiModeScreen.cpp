@@ -4,8 +4,11 @@
 #include "HMI/Interface/AiModeScreen.h"
 
 #include <QApplication>
+#include <QCheckBox>
 #include <QComboBox>
+#include <QDesktopServices>
 #include <QFileDialog>
+#include <QGroupBox>
 #include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
@@ -13,8 +16,11 @@
 #include <QSpinBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QUrl>
 #include <filesystem>
 #include <system_error>
+
+#include "HMI/Interface/TrainingChartWidget.h"
 
 #include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Replay/ReplayFile.h"
@@ -90,6 +96,20 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     connect(_ui->saveModelButton, &QPushButton::clicked, this, &AiModeScreen::onSaveModel);
     connect(_ui->exportReplayButton, &QPushButton::clicked, this, &AiModeScreen::onExportReplay);
     connect(_ui->launchReplayButton, &QPushButton::clicked, this, &AiModeScreen::onLaunchReplay);
+    connect(_ui->openRunFolderButton, &QPushButton::clicked, this,
+            &AiModeScreen::onOpenRunFolder);
+
+    // Menu evolutif (LOT-ANNEXE-21) : chaque radio d'algorithme ne montre que les groupes de
+    // parametres qui lui sont utiles (evite qu'un run DQN affiche "Taille de population", par
+    // exemple, un champ sans aucun effet pour cet algorithme).
+    for (QRadioButton* radio : {_ui->evolutionaryAlgorithmRadio, _ui->reinforceAlgorithmRadio,
+                                _ui->actorCriticAlgorithmRadio, _ui->advancedAlgorithmRadio}) {
+        connect(radio, &QRadioButton::toggled, this, [this](bool checked) {
+            if (checked) {
+                updateFieldVisibility();
+            }
+        });
+    }
     connect(_ui->replayTable, &QTableWidget::itemSelectionChanged, this, [this] {
         _ui->launchReplayButton->setEnabled(!_ui->replayTable->selectedItems().isEmpty());
     });
@@ -99,6 +119,7 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     });
 
     setTrainingControlsEnabled(true);
+    updateFieldVisibility();
     refreshLevelList();
     refreshRunsAndReplays();
 }
@@ -284,6 +305,15 @@ QString AiModeScreen::selectedAlgo() const {
     return QStringLiteral("evo");
 }
 
+void AiModeScreen::updateFieldVisibility() {
+    const QString algo = selectedAlgo();
+    _ui->evolutionaryGroup->setVisible(algo == "evo");
+    // Gradient (episodes/learning rate/gamma/optimizer) sert aux trois algorithmes par gradient,
+    // DQN inclus -- DQN a en plus son propre groupe d'hyperparametres.
+    _ui->gradientGroup->setVisible(algo != "evo");
+    _ui->dqnGroup->setVisible(algo == "avance");
+}
+
 void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->levelCombo->setEnabled(enabled);
     _ui->evolutionaryAlgorithmRadio->setEnabled(enabled);
@@ -297,6 +327,15 @@ void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->gammaSpin->setEnabled(enabled);
     _ui->optimizerCombo->setEnabled(enabled);
     _ui->seedSpin->setEnabled(enabled);
+    _ui->noStatsCheck->setEnabled(enabled);
+    _ui->dqnReplayCapacitySpin->setEnabled(enabled);
+    _ui->dqnBatchSizeSpin->setEnabled(enabled);
+    _ui->dqnWarmupSizeSpin->setEnabled(enabled);
+    _ui->dqnUpdatePeriodSpin->setEnabled(enabled);
+    _ui->dqnTargetSyncPeriodSpin->setEnabled(enabled);
+    _ui->dqnEpsilonStartSpin->setEnabled(enabled);
+    _ui->dqnEpsilonEndSpin->setEnabled(enabled);
+    _ui->dqnEpsilonDecaySpin->setEnabled(enabled);
     _ui->launchTrainingButton->setVisible(enabled);
     _ui->stopTrainingButton->setVisible(!enabled);
 }
@@ -317,11 +356,37 @@ void AiModeScreen::onLaunchTraining() {
     request.learningRate = static_cast<float>(_ui->learningRateSpin->value());
     request.gamma = static_cast<float>(_ui->gammaSpin->value());
     request.optimizer = _ui->optimizerCombo->currentText();
+    if (request.algorithmId == QLatin1String("avance")) {
+        request.dqnReplayCapacity = static_cast<std::size_t>(_ui->dqnReplayCapacitySpin->value());
+        request.dqnBatchSize = static_cast<std::size_t>(_ui->dqnBatchSizeSpin->value());
+        request.dqnWarmupSize = static_cast<std::size_t>(_ui->dqnWarmupSizeSpin->value());
+        request.dqnUpdatePeriodSteps =
+            static_cast<std::size_t>(_ui->dqnUpdatePeriodSpin->value());
+        request.dqnTargetSyncPeriodSteps =
+            static_cast<std::size_t>(_ui->dqnTargetSyncPeriodSpin->value());
+        request.dqnEpsilonStart = static_cast<float>(_ui->dqnEpsilonStartSpin->value());
+        request.dqnEpsilonEnd = static_cast<float>(_ui->dqnEpsilonEndSpin->value());
+        request.dqnEpsilonDecaySteps =
+            static_cast<std::size_t>(_ui->dqnEpsilonDecaySpin->value());
+    }
+    request.noStats = _ui->noStatsCheck->isChecked();
 
     _ui->statsTable->setRowCount(0);
+    _ui->trainingChart->clearChart();
     _ui->previewButton->setEnabled(false);
     _ui->generationCombo->setEnabled(false);
     _ui->generationCombo->clear();
+    _ui->openRunFolderButton->setEnabled(false);
+    _ui->trainingRunFolderValue->setText(QString());
+    // Plafond de generations connu uniquement pour les algorithmes par gradient (episodesSpin) --
+    // l'evolutionniste n'expose pas son plafond de generations dans cet onglet (StoppingConfig
+    // reste aux defauts), d'ou une barre indeterminee (min == max) dans ce cas.
+    if (request.algorithmId == QLatin1String("evo")) {
+        _ui->trainingProgressBar->setRange(0, 0);
+    } else {
+        _ui->trainingProgressBar->setRange(0, _ui->episodesSpin->value());
+    }
+    _ui->trainingProgressBar->setValue(0);
     setTrainingControlsEnabled(false);
     _ui->trainingStatusLabel->setText(text("ai_mode.status_running"));
 
@@ -353,6 +418,10 @@ void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanR
     _ui->statsTable->scrollToBottom();
     _ui->trainingStatusLabel->setText(
         text("ai_mode.status_progress").arg(index).arg(QString::number(bestReward, 'f', 3)));
+    _ui->trainingChart->addPoint(bestReward, meanReward, successRate);
+    if (_ui->trainingProgressBar->maximum() > 0) {
+        _ui->trainingProgressBar->setValue(index);
+    }
 }
 
 void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorithmId*/,
@@ -371,16 +440,28 @@ void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorith
     _ui->previewButton->setEnabled(true);
 }
 
-// Seul `solved` est lu : les chemins du signal decrivent le run qui vient de finir, mais l'ecran
-// les relit depuis `runCombo` apres `refreshRunsAndReplays()`, qui voit aussi les runs anterieurs.
-void AiModeScreen::onTrainingFinished(bool solved, QString /*modelPath*/, QString /*statsPath*/,
+// Seul `solved` guide le message affiche ; les autres chemins decrivent le run qui vient de
+// finir et servent a `_lastRunDir` (bouton "Ouvrir le dossier du run") -- l'ecran continue par
+// ailleurs de relire les runs anterieurs depuis `runCombo` apres `refreshRunsAndReplays()`.
+void AiModeScreen::onTrainingFinished(bool solved, QString modelPath, QString /*statsPath*/,
                                       QString /*configPath*/, QString /*replayPath*/,
                                       bool /*replayExported*/) {
     _ui->trainingStatusLabel->setText(solved ? text("ai_mode.status_done_solved")
                                              : text("ai_mode.status_done_unsolved"));
+    _lastRunDir = QString::fromStdString(
+        std::filesystem::path(modelPath.toStdString()).parent_path().string());
+    _ui->trainingRunFolderValue->setText(_lastRunDir);
+    _ui->openRunFolderButton->setEnabled(!_lastRunDir.isEmpty());
     teardownWorker();
     setTrainingControlsEnabled(true);
     refreshRunsAndReplays();
+}
+
+void AiModeScreen::onOpenRunFolder() {
+    if (_lastRunDir.isEmpty()) {
+        return;
+    }
+    QDesktopServices::openUrl(QUrl::fromLocalFile(_lastRunDir));
 }
 
 void AiModeScreen::onTrainingFailed(QString message) {

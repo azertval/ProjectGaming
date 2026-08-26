@@ -92,6 +92,30 @@ void applyOverrides(const CommandLineOverrides& overrides, TrainingConfig& confi
     if (overrides.optimizer.has_value()) {
         config.optimizer = *overrides.optimizer;
     }
+    if (overrides.dqnReplayCapacity.has_value()) {
+        config.dqnReplayCapacity = *overrides.dqnReplayCapacity;
+    }
+    if (overrides.dqnBatchSize.has_value()) {
+        config.dqnBatchSize = *overrides.dqnBatchSize;
+    }
+    if (overrides.dqnWarmupSize.has_value()) {
+        config.dqnWarmupSize = *overrides.dqnWarmupSize;
+    }
+    if (overrides.dqnUpdatePeriodSteps.has_value()) {
+        config.dqnUpdatePeriodSteps = *overrides.dqnUpdatePeriodSteps;
+    }
+    if (overrides.dqnTargetSyncPeriodSteps.has_value()) {
+        config.dqnTargetSyncPeriodSteps = *overrides.dqnTargetSyncPeriodSteps;
+    }
+    if (overrides.dqnEpsilonStart.has_value()) {
+        config.dqnEpsilonStart = *overrides.dqnEpsilonStart;
+    }
+    if (overrides.dqnEpsilonEnd.has_value()) {
+        config.dqnEpsilonEnd = *overrides.dqnEpsilonEnd;
+    }
+    if (overrides.dqnEpsilonDecaySteps.has_value()) {
+        config.dqnEpsilonDecaySteps = *overrides.dqnEpsilonDecaySteps;
+    }
 }
 
 }  // namespace

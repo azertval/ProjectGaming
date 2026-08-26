@@ -76,6 +76,15 @@ struct CommandLineOverrides {
     std::optional<float> learningRate;
     std::optional<float> gamma;
     std::optional<std::string> optimizer;
+    /// Hyperparamètres DQN (voir `TrainingConfig`), pertinents uniquement pour `--algo avance`.
+    std::optional<std::size_t> dqnReplayCapacity;
+    std::optional<std::size_t> dqnBatchSize;
+    std::optional<std::size_t> dqnWarmupSize;
+    std::optional<std::size_t> dqnUpdatePeriodSteps;
+    std::optional<std::size_t> dqnTargetSyncPeriodSteps;
+    std::optional<float> dqnEpsilonStart;
+    std::optional<float> dqnEpsilonEnd;
+    std::optional<std::size_t> dqnEpsilonDecaySteps;
 };
 
 /**

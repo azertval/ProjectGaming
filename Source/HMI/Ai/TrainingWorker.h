@@ -37,6 +37,21 @@ struct TrainingRequest {
     std::optional<float> learningRate;
     std::optional<float> gamma;
     QString optimizer;  ///< Vide : défaut (`"sgd"`).
+    /// Hyperparamètres DQN (voir `aisolver::cli::TrainingConfig`), pertinents uniquement pour
+    /// `algorithmId == "avance"` — groupe dédié de l'onglet Entraînement, masqué pour les autres
+    /// algorithmes (`LOT-ANNEXE-21`).
+    std::optional<std::size_t> dqnReplayCapacity;
+    std::optional<std::size_t> dqnBatchSize;
+    std::optional<std::size_t> dqnWarmupSize;
+    std::optional<std::size_t> dqnUpdatePeriodSteps;
+    std::optional<std::size_t> dqnTargetSyncPeriodSteps;
+    std::optional<float> dqnEpsilonStart;
+    std::optional<float> dqnEpsilonEnd;
+    std::optional<std::size_t> dqnEpsilonDecaySteps;
+    /// `true` pour sauter l'écriture du CSV de statistiques (`TrainingStatsRecorder`) — coût déjà
+    /// indépendant de `populationSize` (une ligne par génération, jamais par individu), mais utile
+    /// pour un run à très nombreuses générations ou un disque contraint (`LOT-ANNEXE-21`).
+    bool noStats = false;
 };
 
 /**

@@ -83,11 +83,13 @@ public:
      *                     `LOT-ANNEXE-09`) ; les dossiers parents manquants sont créés.
      * @param environmentConfig Configuration de l'environnement (budget de pas dur, seuil de
      *                     progression) ; valeur par défaut de `LOT-ANNEXE-05` si omise.
+     * @param recordStats  `false` pour sauter l'écriture du CSV (`--no-stats`, `LOT-ANNEXE-21`) —
+     *                     voir `TrainingStatsRecorder`. `setOnStatsRow` continue de fonctionner.
      */
     LevelTrainingSession(std::filesystem::path levelPath, evolutionary::NetworkTopology topology,
                          evolutionary::EvolutionaryConfig config, StoppingConfig stopping,
                          std::uint64_t seed, const std::filesystem::path& statsCsvPath,
-                         EnvironmentConfig environmentConfig = {});
+                         EnvironmentConfig environmentConfig = {}, bool recordStats = true);
 
     /**
      * @brief Branche @p onStatsRow sur l'enregistreur de statistiques de la session.

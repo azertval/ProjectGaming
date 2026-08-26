@@ -28,8 +28,11 @@ std::string currentIso8601() {
 }  // namespace
 
 TrainingStatsRecorder::TrainingStatsRecorder(const std::filesystem::path& outputCsvPath,
-                                             int movingAverageWindow)
+                                             int movingAverageWindow, bool enabled)
     : movingAverage_(movingAverageWindow) {
+    if (!enabled) {
+        return;
+    }
     std::error_code error;
     if (outputCsvPath.has_parent_path()) {
         std::filesystem::create_directories(outputCsvPath.parent_path(), error);
@@ -46,8 +49,10 @@ void TrainingStatsRecorder::record(const TrainingStatsRow& row) {
     previousMovingAverage_ = movingAverageReward;
     hasPreviousMovingAverage_ = true;
 
-    csvFile_ << csvRow(row, movingAverageReward, rewardDelta, currentIso8601()) << "\n";
-    csvFile_.flush();
+    if (csvFile_.is_open()) {
+        csvFile_ << csvRow(row, movingAverageReward, rewardDelta, currentIso8601()) << "\n";
+        csvFile_.flush();
+    }
 
     if (onRecord_) {
         onRecord_(row);

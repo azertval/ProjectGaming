@@ -85,6 +85,7 @@ private slots:
     void onSaveModel();
     void onExportReplay();
     void onLaunchReplay();
+    void onOpenRunFolder();
 
 private:
     [[nodiscard]] QString selectedAlgo() const;
@@ -93,6 +94,10 @@ private:
     [[nodiscard]] QString text(const char* key) const;
     void setTrainingControlsEnabled(bool enabled);
     void teardownWorker();
+    /// Affiche uniquement les groupes de paramètres pertinents pour `selectedAlgo()` (menu
+    /// évolutif de l'onglet Entraînement, `LOT-ANNEXE-21`) : Commun+Évolutionniste pour `evo`,
+    /// Commun+Gradient pour `pg`/`ac`, Commun+Gradient+DQN avancé pour `avance`.
+    void updateFieldVisibility();
 
     std::unique_ptr<Ui::AiModeScreen> _ui;
     /// Marque explicite de focus (`EX-IHM-071`) pour les contrôles Qt ordinaires de l'écran, que
@@ -104,6 +109,9 @@ private:
     /// Catalogue courant, mémorisé par `retranslateUi` : les messages d'état produits pendant un
     /// entraînement doivent être traduits eux aussi, longtemps après la construction.
     const Localization* _loc = nullptr;
+    /// Dossier du dernier run terminé (`onTrainingFinished`), pour le bouton « Ouvrir le dossier du
+    /// run » — vide tant qu'aucun run n'a terminé dans cette session de l'écran.
+    QString _lastRunDir;
 };
 
 }  // namespace hmi

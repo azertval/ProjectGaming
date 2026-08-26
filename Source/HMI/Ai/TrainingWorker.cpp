@@ -104,9 +104,14 @@ void TrainingWorker::run() {
         return;
     }
 
-    const cli::CommandLineOverrides overrides{_request.populationSize, _request.mutationRate,
-                                              _request.episodes,       _request.learningRate,
-                                              _request.gamma,          std::nullopt};
+    const cli::CommandLineOverrides overrides{
+        _request.populationSize,       _request.mutationRate,
+        _request.episodes,             _request.learningRate,
+        _request.gamma,                std::nullopt,
+        _request.dqnReplayCapacity,    _request.dqnBatchSize,
+        _request.dqnWarmupSize,        _request.dqnUpdatePeriodSteps,
+        _request.dqnTargetSyncPeriodSteps, _request.dqnEpsilonStart,
+        _request.dqnEpsilonEnd,        _request.dqnEpsilonDecaySteps};
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
     config.algorithmId = _request.algorithmId.toStdString();
     if (!_request.optimizer.isEmpty()) {
@@ -182,7 +187,8 @@ void TrainingWorker::run() {
         const training::evolutionary::NetworkTopology topology =
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
-                                               config.stopping, _request.seed, statsPath);
+                                               config.stopping, _request.seed, statsPath, {},
+                                               !_request.noStats);
 
         session.setOnStatsRow([this](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -259,7 +265,7 @@ void TrainingWorker::run() {
         // l'entrainement, elle reste valide tout du long (memes poids, mis a jour en place),
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        recorder.emplace(statsPath);
+        recorder.emplace(statsPath, 20, !_request.noStats);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -297,7 +303,7 @@ void TrainingWorker::run() {
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = _request.seed;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        recorder.emplace(statsPath);
+        recorder.emplace(statsPath, 20, !_request.noStats);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -342,7 +348,7 @@ void TrainingWorker::run() {
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
         dqnConfig.seedBase = _request.seed;
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        recorder.emplace(statsPath);
+        recorder.emplace(statsPath, 20, !_request.noStats);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);

@@ -175,6 +175,7 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
         value.has_value()) {
         result.optimizer = *value;
     }
+    result.noStats = hasFlag(args, "--no-stats");
     return result;
 }
 
@@ -300,9 +301,9 @@ int runTrain(const TrainArgs& args) {
     if (args.algorithmId == "evo") {
         const training::evolutionary::NetworkTopology topology =
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
-        const training::TrainAndExportOutcome outcome =
-            training::trainLevelAndExportReplay(args.level, topology, config.evolutionary,
-                                                config.stopping, args.seed, statsPath, replayPath);
+        const training::TrainAndExportOutcome outcome = training::trainLevelAndExportReplay(
+            args.level, topology, config.evolutionary, config.stopping, args.seed, statsPath,
+            replayPath, {}, !args.noStats);
         solved = outcome.trainingResult.solved;
         if (!nn::saveWeights(outcome.trainingResult.bestIndividual.network(), modelPath)) {
             std::cerr << "train : echec de sauvegarde du modele : " << modelPath << "\n";
@@ -316,7 +317,7 @@ int runTrain(const TrainArgs& args) {
         const std::unique_ptr<optim::IOptimizer> optimizer =
             makeOptimizer(config.optimizer, config.learningRate);
         HeadlessLevelEnvironment environment;
-        TrainingStatsRecorder recorder(statsPath);
+        TrainingStatsRecorder recorder(statsPath, 20, !args.noStats);
         training::ReinforceConfig reinforceConfig;
         reinforceConfig.gamma = config.gamma;
         reinforceConfig.seedBase = args.seed;
@@ -351,7 +352,7 @@ int runTrain(const TrainArgs& args) {
         const std::unique_ptr<optim::IOptimizer> criticOptimizer =
             makeOptimizer(config.optimizer, config.learningRate);
         HeadlessLevelEnvironment environment;
-        TrainingStatsRecorder recorder(statsPath);
+        TrainingStatsRecorder recorder(statsPath, 20, !args.noStats);
         training::ActorCriticConfig actorCriticConfig;
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = args.seed;
@@ -383,7 +384,7 @@ int runTrain(const TrainArgs& args) {
         const std::unique_ptr<optim::IOptimizer> optimizer =
             makeOptimizer(config.optimizer, config.learningRate);
         HeadlessLevelEnvironment environment;
-        TrainingStatsRecorder recorder(statsPath);
+        TrainingStatsRecorder recorder(statsPath, 20, !args.noStats);
         training::DqnConfig dqnConfig;
         dqnConfig.hiddenSize = config.hiddenSize;
         dqnConfig.replayCapacity = config.dqnReplayCapacity;

@@ -37,6 +37,45 @@ l'étape en cours : le meilleur résultat obtenu jusque-là reste sauvegardé.
 plus parlant de constater les progrès : au début l'IA meurt tout de suite, puis elle apprend à
 sauter, puis à contourner, puis à finir.
 
+À la fin d'un entraînement, un bouton **Ouvrir le dossier du run** donne accès aux fichiers produits
+(le modèle entraîné, l'historique complet en CSV, la configuration effectivement utilisée).
+
+#### Les réglages de l'onglet Entraînement
+
+L'écran n'affiche que les réglages utiles à l'algorithme choisi — sélectionner **DQN** fait
+apparaître son propre groupe de réglages avancés, par exemple, invisible pour les trois autres
+algorithmes.
+
+| Réglage | S'applique à | Ce qu'il change |
+|---|---|---|
+| Taille de population | Évolutif | Nombre de « joueurs » simultanés à chaque étape. Plus grand explore plus de façons de jouer par étape, mais coûte plus cher à calculer. |
+| Taux de mutation | Évolutif | Probabilité qu'un réflexe soit légèrement modifié au hasard d'une étape à l'autre — trop bas, l'IA n'explore rien de nouveau ; trop haut, elle oublie ce qui marchait. |
+| Épisodes / générations max | Tous sauf Évolutif (plafond de générations pour Évolutif, non réglable ici) | Nombre maximal de tentatives avant l'arrêt automatique, même sans résultat. |
+| Taux d'apprentissage | REINFORCE, Acteur-critique, DQN | À quelle vitesse l'IA corrige ses réflexes après chaque partie — trop haut, l'apprentissage devient instable. |
+| Gamma (actualisation) | REINFORCE, Acteur-critique, DQN | Combien l'IA valorise une récompense lointaine par rapport à une récompense immédiate. |
+| Optimiseur | REINFORCE, Acteur-critique, DQN | La méthode de calcul utilisée pour corriger les réflexes (`sgd` ou `adam`, deux variantes classiques). |
+| Graine | Tous | Fixe le hasard de départ : relancer un entraînement avec la même graine reproduit exactement le même déroulement. |
+| Groupe DQN avancé | DQN uniquement | Réglages de la mémoire des parties passées que DQN rejoue mentalement (capacité, taille des lots, rythme des mises à jour) et de son exploration (probabilité de tenter un mouvement au hasard plutôt que celui qu'elle croit le meilleur, décroissante au fil de l'entraînement). |
+
+#### Comment fonctionne la population (algorithme Évolutif)
+
+À chaque étape, la population entière (sa taille est le réglage ci-dessus) rejoue le niveau une
+fois chacune. Le meilleur joueur de l'étape est conservé tel quel pour l'étape suivante — il ne
+peut jamais être perdu. Le reste de la population suivante est reconstitué en tirant au sort des
+« parents » parmi les meilleurs de l'étape (les plus mauvais ont moins de chances d'être choisis),
+en mélangeant leurs réflexes, puis en y appliquant le taux de mutation ci-dessus. L'étape suivante
+rejoue alors avec cette nouvelle population, et ainsi de suite jusqu'à ce qu'un joueur termine le
+niveau de façon stable plusieurs étapes d'affilée, ou jusqu'au plafond de générations.
+
+#### La case « Pas de trace CSV pour ce run »
+
+Chaque étape écrit une ligne dans un fichier `stats.csv` (une ligne par étape, jamais par joueur
+individuel) : c'est ce qui alimente le tableau et le graphique de suivi pendant l'entraînement.
+Ce coût ne dépend donc pas de la taille de la population — une population de 500 ne produit pas
+plus de lignes qu'une population de 32, seulement plus de calcul par étape. La case sert plutôt
+pour un entraînement à très grand nombre d'étapes, ou lancé depuis un disque contraint : elle
+supprime l'écriture du fichier, sans rien changer au tableau et au graphique affichés à l'écran.
+
 ### Validation & sauvegarde
 
 Reprend un entraînement passé et mesure ce qu'il vaut vraiment, en le faisant rejouer plusieurs

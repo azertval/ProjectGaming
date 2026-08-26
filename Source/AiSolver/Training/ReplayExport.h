@@ -80,11 +80,14 @@ struct TrainAndExportOutcome {
  * @param replayOutputPath Chemin du fichier de rejeu à écrire si l'entraînement résout le niveau.
  * @param environmentConfig Configuration de l'environnement (budget de pas dur, seuil de
  *                     progression) ; valeur par défaut de `LOT-ANNEXE-05` si omise.
+ * @param recordStats  `false` pour sauter l'écriture du CSV de statistiques (`--no-stats`,
+ *                     `LOT-ANNEXE-21`) — voir `TrainingStatsRecorder`.
  */
 [[nodiscard]] TrainAndExportOutcome trainLevelAndExportReplay(
     const std::filesystem::path& levelPath, const evolutionary::NetworkTopology& topology,
     const evolutionary::EvolutionaryConfig& config, const StoppingConfig& stopping,
     std::uint64_t seed, const std::filesystem::path& statsCsvPath,
-    const std::filesystem::path& replayOutputPath, EnvironmentConfig environmentConfig = {});
+    const std::filesystem::path& replayOutputPath, EnvironmentConfig environmentConfig = {},
+    bool recordStats = true);
 
 }  // namespace aisolver::training
