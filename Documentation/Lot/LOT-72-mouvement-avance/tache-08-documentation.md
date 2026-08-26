@@ -43,4 +43,4 @@ l'implémentation est encore partielle.
 - Documentation, exigences et CHANGELOG alignés sur l'état réel du lot ; lint d'exigences vert.
 
 ## Exigences
-`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-059`, `EX-GP-060`, `EX-GP-061`.
+`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-060`, `EX-GP-061`.

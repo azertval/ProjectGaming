@@ -8,9 +8,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 - **LOT-72 (cadrage)** — Mouvement avancé : dash chargé (boost via direction opposée), poussée
   renforcée d'un bloc pendant un dash, suivi de pente pendant le dash avec glissade de sortie,
-  ground pound, wall slide contrôlé, et un combo dash + saut (jump-cancel, wall-jump en sortie de
-  dash, momentum hérité, bonus plafonné). Cadrage et exigences (`EX-GP-056` à `EX-GP-061`)
-  consignés ; implémentation à venir.
+  ground pound, et un combo dash + saut (jump-cancel, wall-jump en sortie de dash, momentum
+  hérité, bonus plafonné). Cadrage et exigences (`EX-GP-056` à `EX-GP-058`, `EX-GP-060`,
+  `EX-GP-061`) consignés ; implémentation à venir.
 
 ## [0.1.2] - 2026-08-25
 

@@ -19,7 +19,7 @@ Ajouter aux suites d'intégration existantes (sur le modèle des tests du LOT-10
 - **Poussée renforcée puis saut** : héritage de momentum (TACHE-06) mesuré après une poussée
   renforcée déclenchée par un dash boosté.
 - **Ground pound et wall slide indépendants** : aucune interférence entre eux et le dash/combo (ex. un
-  wall slide juste avant un wall-jump en sortie de dash).
+  wall slide — déjà livré, `EX-GP-016` — juste avant un wall-jump en sortie de dash).
 - **Non-régression complète** : dash normal (sans charge), poussée simple en marche, saut simple,
   wall-jump simple, budgets/charges de dash (LOT-67) — tous identiques aux tests déjà existants,
   aucune valeur attendue retouchée.
@@ -42,5 +42,5 @@ listés dans TACHE-01 à TACHE-06.
 - `ctest` à 100 % sur l'ensemble de la suite (existante + nouvelle) ; build `/W4 /WX`.
 
 ## Exigences
-`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-059`, `EX-GP-060`, `EX-GP-061`, `EX-GP-017`,
+`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-060`, `EX-GP-061`, `EX-GP-016`, `EX-GP-017`,
 `EX-NFR-002`.

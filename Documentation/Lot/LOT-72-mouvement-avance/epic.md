@@ -1,4 +1,4 @@
-# LOT-72 — Mouvement avancé (dash chargé, poussée, pentes, ground pound, wall slide) {#lot-72}
+# LOT-72 — Mouvement avancé (dash chargé, poussée, pentes, ground pound, combo) {#lot-72}
 
 > Statut : **à faire**.
 > Prérequis : [LOT-10](@ref lot-10) (mécaniques avancées : dash, wall jump), [LOT-67](@ref lot-67)
@@ -31,13 +31,18 @@ Ce lot comble ces trous par six mécaniques qui **réutilisent l'existant** (dir
   plusieurs cases d'un coup.
 - **Ground pound** (`EX-GP-058`) : chute accélérée dirigée en l'air, front d'atterrissage exploitable
   par l'IHM.
-- **Wall slide contrôlé** (`EX-GP-059`) : chute clampée au contact d'un mur en l'air.
 - **Dash et pentes** (`EX-GP-060`) : suivi de pente pendant le dash, glissade de sortie contre une
   pente.
 - **Combo dash + saut maximisé** (`EX-GP-061`) : jump-cancel du dash (conservation de vitesse),
   wall-jump en sortie de dash, momentum hérité après poussée renforcée, bonus cumulatif plafonné.
 - Validation explicite du **dash diagonal** (déjà livré en LOT-10) avec chacune des nouvelles
   mécaniques (non-régression).
+
+### Déjà livré (relecture de code, pas de nouveau travail)
+- **Wall slide** : `EX-GP-016` (LOT-10) couvre déjà le clamp de chute au contact d'un mur en l'air
+  (`PhysicsConfig::wallSlideSpeed`, `CharacterPhysicsSystem::resolveVelocity`). Aucune exigence
+  supplémentaire créée ; seule la non-régression avec les nouvelles mécaniques est testée
+  (TACHE-05/TACHE-07).
 
 ### Exclus
 - **Casse de blocs fragiles** au ground pound : nécessiterait un nouveau `TileType` (aucun bloc
@@ -64,9 +69,6 @@ Ce lot comble ces trous par six mécaniques qui **réutilisent l'existant** (dir
   (`PhysicsConfig::groundPoundSpeed`), effet cosmétique côté `Source/HMI` à l'atterrissage (hors
   `Source/Core`) ; aucune règle spéciale pour les plaques de pression (`EX-GP-025`), déjà sensibles
   au poids sur tout contact.
-- **Wall slide** = clamp de la vitesse de chute (`PhysicsConfig::wallSlideSpeed`) tant que
-  `wallDirection != 0`, en l'air, et que le joueur pousse vers le mur ; ne modifie pas le
-  déclenchement du wall-jump existant (`EX-GP-016`).
 - **Dash et pentes** : pendant le dash, appliquer aussi la passe de suivi de pente/plafond en plus du
   balayage classique ; à la fin d'un dash dont la trajectoire touche une pente, convertir la vitesse
   résiduelle en vitesse le long de la pente (glissade) au lieu de la couper net.
@@ -88,7 +90,7 @@ Ce lot comble ces trous par six mécaniques qui **réutilisent l'existant** (dir
 
 ## Exigences couvertes
 
-`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-059`, `EX-GP-060`, `EX-GP-061` (nouvelles). Réutilisées :
+`EX-GP-056`, `EX-GP-057`, `EX-GP-058`, `EX-GP-060`, `EX-GP-061` (nouvelles). Réutilisées :
 `EX-GP-003`, `EX-GP-004`, `EX-GP-006`, `EX-GP-007` (pentes/arrondis et suivi), `EX-GP-016`
 (`wallDirection`, wall jump), `EX-GP-017` (dash), `EX-GP-022` (blocs poussables), `EX-GP-024`,
 `EX-GP-025` (plaques de pression), `EX-GP-055` (charges de dash par tableau), `EX-ARCH-011`,
@@ -104,7 +106,7 @@ Ce lot comble ces trous par six mécaniques qui **réutilisent l'existant** (dir
 | TACHE-02 | Poussée renforcée pendant un dash | `Source/Core/Gameplay/BlockController.*`, `Source/HMI/Game` | ⬜ |
 | TACHE-03 | Dash et pentes (suivi + glissade de sortie) | `Source/Core/Ecs/Systems`, `Source/Core/Physics` | ⬜ |
 | TACHE-04 | Ground pound | `Source/Core/Ecs/{Components,Systems}`, `Source/HMI` | ⬜ |
-| TACHE-05 | Wall slide contrôlé | `Source/Core/Ecs/Systems` | ⬜ |
+| TACHE-05 | Wall slide (déjà livré, validation croisée) | `Source/Core/Ecs/Systems` | ✅ |
 | TACHE-06 | Combo dash + saut maximisé | `Source/Core/Ecs/Systems` | ⬜ |
 | TACHE-07 | Validation croisée et tests | `Source/Core/Ecs/Systems` (tests) | ⬜ |
 | TACHE-08 | Documentation, exigences, CHANGELOG | `Documentation/Specification`, `CHANGELOG.md` | 🔄 |
@@ -121,14 +123,12 @@ Ce lot comble ces trous par six mécaniques qui **réutilisent l'existant** (dir
    sortir d'un dash contre une pente déclenche une glissade cohérente plutôt qu'un arrêt brutal.
 5. Ground pound : déclenché uniquement en l'air, vitesse de chute imposée, front d'atterrissage
    exploitable par `Source/HMI`, ne casse pas l'interaction existante avec les plaques de pression.
-6. Wall slide : chute clampée uniquement en contact mural en l'air, n'empêche ni ne modifie le
-   wall-jump existant.
-7. Combo dash + saut : un saut pendant un dash le coupe et conserve sa vitesse horizontale
+6. Combo dash + saut : un saut pendant un dash le coupe et conserve sa vitesse horizontale
    (jump-cancel) ; s'il a lieu contre un mur, c'est un wall-jump qui se déclenche ; un saut dans la
    fenêtre suivant une poussée renforcée hérite du ratio de vitesse configuré ; un enchaînement de
    jump-cancels rapprochés cumule un bonus de vitesse plafonné et reste borné par les charges/budget
    de dash existants.
-8. `ctest` à 100 %, lint d'exigences vert, build `/W4 /WX`, déterminisme conservé (`EX-NFR-002`).
+7. `ctest` à 100 %, lint d'exigences vert, build `/W4 /WX`, déterminisme conservé (`EX-NFR-002`).
 
 ## Dépendances
 

@@ -1,46 +1,38 @@
-# TACHE-05 — Wall slide contrôlé {#lot-72-tache-05-wall-slide}
+# TACHE-05 — Wall slide : déjà livré, validation seulement {#lot-72-tache-05-wall-slide}
 
-**Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` · **Statut :** à faire
+**Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` (tests) · **Statut :**
+fait
 
 ## Contexte
-`Player::wallDirection` (`EX-GP-016`) est déjà calculé par la physique pour le wall-jump, mais rien
-n'exploite le contact mural avant le saut : le personnage tombe à vitesse normale le long d'un mur.
-`EX-GP-059` ajoute un **wall slide contrôlé** : en l'air, au contact d'un mur, en poussant vers lui, la
-chute est clampée à une vitesse plus lente.
+Le cadrage initial de ce lot proposait un « wall slide contrôlé » comme nouvelle mécanique.
+Relecture du code avant implémentation
+(`Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp::resolveVelocity`, section « 2b. Wall slide ») :
+**la mécanique existe déjà**, livrée en `LOT-10` sous `EX-GP-016` — « Au contact d'un mur en l'air,
+le personnage doit **glisser** le long de celui-ci (wall slide) ». `PhysicsConfig::wallSlideSpeed`
+clampe déjà `velocity.value.y` quand `wallDirection != 0 && !grounded && velocity.value.y > 0`.
+
+**Décision** : aucune exigence dupliquée n'est créée pour le wall slide. Cette tâche ne
+modifie aucun code ; elle ajoute uniquement les tests croisés qui manquaient entre le wall slide
+existant et les **nouvelles** mécaniques du lot (dash chargé, combo dash + saut).
 
 ## Travail à réaliser
-- `PhysicsConfig` : `wallSlideSpeed` (vitesse de chute maximale en wall slide, inférieure à la vitesse
-  terminale normale).
-- `CharacterPhysicsSystem` : après résolution de la gravité et avant l'intégration de la position,
-  si `!grounded && wallDirection != 0` et que l'entrée horizontale pousse **vers** le mur
-  (`sign(moveX) == wallDirection`) et que `velocity.y > wallSlideSpeed` (chute), clamper
-  `velocity.y = wallSlideSpeed`.
-- Ne pas interférer avec le déclenchement du wall-jump existant : le wall slide ne fait que clamper la
-  vitesse de chute, il ne modifie ni `wallDirection`, ni `wallJumpLockTimer`, ni la logique de saut.
+- Aucune modification de `CharacterPhysicsSystem`/`PhysicsConfig` pour le wall slide lui-même.
+- Ajouter les tests de non-interférence avec les nouvelles mécaniques (repris dans TACHE-07,
+  validation croisée) : un wall slide en cours n'est pas perturbé par une charge de dash, et un
+  jump-cancel (TACHE-06) au contact d'un mur juste après un wall slide déclenche bien un wall-jump.
 
 ## Fichiers impactés
-- `Source/Core/Physics/PhysicsConfig.h`.
-- `Source/Core/Ecs/Systems/CharacterPhysicsSystem.h`/`.cpp`.
-- Tests d'intégration.
+- Aucun fichier de production. Tests croisés couverts par TACHE-07.
 
 ## Tests (obligatoires)
-- **Clamp actif** : en l'air, au contact d'un mur, en poussant vers lui, `velocity.y` ne dépasse
-  jamais `wallSlideSpeed`.
-- **Pas de clamp sans contact** : en l'air sans mur, chute libre normale inchangée.
-- **Pas de clamp en poussant à l'opposé** : contact mural mais entrée horizontale vers l'autre côté →
-  chute libre normale.
-- **Wall-jump inchangé** : le déclenchement, la vitesse d'éjection et le verrouillage
-  (`wallJumpLockTimer`) du wall-jump restent identiques à avant le lot, avec ou sans wall slide actif
-  juste avant.
-- **Déterminisme** (`EX-NFR-002`).
+- Voir TACHE-07 : wall slide + jump-cancel en sortie de dash contre un mur.
 
 ## Points d'attention
-- Le clamp s'applique **après** le calcul normal de la gravité, pas en remplacement : une chute déjà
-  plus lente que `wallSlideSpeed` (ex. juste après un saut) n'est pas accélérée jusqu'à ce plafond.
-- Cohérent avec le **coyote time**/`jumpBufferTimer` existants : le wall slide ne les modifie pas.
+- Ne pas réintroduire de code dupliquant `EX-GP-016` : toute future retouche du ressenti du wall
+  slide passe par `PhysicsConfig::wallSlideSpeed`, déjà existant.
 
 ## Définition de fait (DoD)
-- Wall slide fonctionnel et **testé** (`ctest` vert) ; build `/W4 /WX`.
+- Aucune régression sur le wall slide existant (tests LOT-10 inchangés).
 
 ## Exigences
-`EX-GP-059`, `EX-GP-016`, `EX-NFR-002`, `EX-ARCH-011`.
+`EX-GP-016` (réutilisée, non modifiée).

@@ -95,10 +95,10 @@ c'est un identifiant stable, jamais réordonné.
 Le [LOT-72](@ref lot-72) — **à faire** — enrichit le nuancier de mouvement du personnage en faisant
 composer le dash (`LOT-10`, `EX-GP-017`) avec les autres systèmes plutôt que de le laisser isolé :
 dash chargé (boost via direction opposée), poussée renforcée d'un bloc pendant un dash, suivi de
-pente pendant le dash avec glissade de sortie, ground pound, wall slide contrôlé, et un combo
-dash + saut (jump-cancel, wall-jump en sortie de dash, momentum hérité, bonus plafonné). Aucune
-nouvelle touche : toutes ces mécaniques réutilisent les entrées déjà mappées et composent avec les
-charges/budgets de dash déjà livrés par le `LOT-67` sans les dupliquer.
+pente pendant le dash avec glissade de sortie, ground pound, et un combo dash + saut (jump-cancel,
+wall-jump en sortie de dash, momentum hérité, bonus plafonné). Aucune nouvelle touche : toutes ces
+mécaniques réutilisent les entrées déjà mappées et composent avec les charges/budgets de dash déjà
+livrés par le `LOT-67`, et avec le wall slide du `LOT-10` (`EX-GP-016`), sans rien dupliquer.
 
 Le `LOT-71` — **livre** — retrace `demo-final`, qui fermait la sequence sur un enchainement de
 salles sans densite : un gaufre unique de 24x24 y reunit desormais deux cles, un interrupteur a

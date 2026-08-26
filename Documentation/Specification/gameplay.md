@@ -78,10 +78,6 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
   un **ground pound** : une chute accélérée verticale à vitesse imposée, qui se termine au contact
   du sol par un **front** exploitable par l'IHM (secousse caméra) et n'altère pas l'interaction déjà
   existante avec les mécanismes sensibles au poids (`EX-GP-025`). Concrétisé en `LOT-72`.
-- \anchor EX-GP-059 **EX-GP-059** — En l'air, au contact d'un mur (`EX-GP-016`, `wallDirection`), en
-  poussant vers le mur, la vitesse de chute du personnage doit être **clampée** (**wall slide**) à
-  une valeur inférieure à la chute libre, sans modifier le déclenchement du **wall jump** existant.
-  Concrétisé en `LOT-72`.
 - \anchor EX-GP-060 **EX-GP-060** — Pendant un dash, la trajectoire doit **suivre les pentes et
   plafonds inclinés** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/`EX-GP-007`) comme le déplacement normal,
   au lieu du seul balayage classique. Un dash dont la trajectoire se termine contre une pente doit
