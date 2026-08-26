@@ -137,7 +137,7 @@ TEST(BlockControllerTest, PousseeRenforceeDashDePlusieursCases) {
                       /*dashPushSpeed=*/15.0f);
 
     EXPECT_EQ(controller.positions()[0],
-             (core::GridPosition{2 + core::BlockController::DASH_PUSH_MAX_CELLS, 1}));
+              (core::GridPosition{2 + core::BlockController::DASH_PUSH_MAX_CELLS, 1}));
     EXPECT_FLOAT_EQ(controller.lastDashPushSpeed(), 15.0f);
 }
 

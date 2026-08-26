@@ -160,9 +160,9 @@ bool CharacterPhysicsSystem::applyDash(Player& player, Velocity& velocity, const
     //       d'attendre son expiration normale. Rend la main à resolveVelocity() (return false) pour
     //       qu'applyJump() s'exécute ce même pas -- au contact d'un mur, il choisira de lui-même un
     //       WALL JUMP (même ordre de priorité qu'un saut hors dash, EX-GP-016), sans code dédié.
-    //       Restreint au dash BOOSTÉ (`dashIsBoosted`, EX-GP-056) : un dash NORMAL pendant lequel un
-    //       saut est pressé continue de se comporter EXACTEMENT comme avant ce lot (le saut reste
-    //       simplement bufferisé, honoré à l'expiration naturelle du dash) -- aucun contenu
+    //       Restreint au dash BOOSTÉ (`dashIsBoosted`, EX-GP-056) : un dash NORMAL pendant lequel
+    //       un saut est pressé continue de se comporter EXACTEMENT comme avant ce lot (le saut
+    //       reste simplement bufferisé, honoré à l'expiration naturelle du dash) -- aucun contenu
     //       existant ne peut produire de dash boosté, donc aucune régression possible ici.
     if (player.dashTimer > 0.0F && player.dashIsBoosted && player.jumpBufferTimer > 0.0F &&
         player.jumpsRemaining != 0) {
@@ -283,12 +283,12 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
     //   `dashChargeReferenceFacing`, une COPIE figée au début de la charge -- jamais à `facing`
     //   lui-même (mis à jour ci-dessus, immédiatement) : sinon `facing` « rattraperait » l'entrée
     //   opposée dès ce même pas et rendrait l'opposition indétectable sur plus d'un pas.
-    //   `dashHeld` est une garde DÉLIBÉRÉE : sans elle, un simple changement de direction pendant un
-    //   déplacement normal (aucune intention de dash) suffirait à amorcer la charge -- un premier
-    //   essai sans cette garde a cassé la séquence `demo-final` (une inversion de direction anodine
-    //   y suffisait à armer un boost qui changeait ensuite la vitesse/durée du dash suivant, sans
-    //   rapport avec une intention de charge). Maintenir le bouton de dash pendant ~0,25 s tout en
-    //   marchant à l'opposé n'arrive jamais par accident.
+    //   `dashHeld` est une garde DÉLIBÉRÉE : sans elle, un simple changement de direction pendant
+    //   un déplacement normal (aucune intention de dash) suffirait à amorcer la charge -- un
+    //   premier essai sans cette garde a cassé la séquence `demo-final` (une inversion de direction
+    //   anodine y suffisait à armer un boost qui changeait ensuite la vitesse/durée du dash
+    //   suivant, sans rapport avec une intention de charge). Maintenir le bouton de dash pendant
+    //   ~0,25 s tout en marchant à l'opposé n'arrive jamais par accident.
     if (player.dashChargeTimer <= 0.0F && !player.dashBoostReady) {
         if (input.dashHeld && input.moveX != 0.0F &&
             ((input.moveX > 0.0F) != (facingBeforeInput > 0.0F))) {
@@ -316,7 +316,7 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
         player.airJumpsRemaining = _config.airJumps;        // double saut (EX-GP-015)
         player.dashChargesRemaining = _config.dashCharges;  // charges de dash (EX-GP-017)
         player.groundPounding = false;                      // fin du ground pound (EX-GP-058)
-        player.comboChainCount = 0;                          // combo remis à zéro au sol (EX-GP-061)
+        player.comboChainCount = 0;                         // combo remis à zéro au sol (EX-GP-061)
         player.comboWindowTimer = 0.0F;
     } else {
         player.coyoteTimer = std::max(0.0F, player.coyoteTimer - fixedDelta);
@@ -373,7 +373,8 @@ void CharacterPhysicsSystem::resolveVelocity(Player& player, Velocity& velocity,
     //   1bis. Momentum hérité d'une poussée renforcée récente (EX-GP-057/EX-GP-061) : APRÈS que la
     //   vitesse horizontale de base soit fixée ci-dessus (quelle que soit sa source), ajoute une
     //   fraction de la vitesse du bloc poussé si un saut vient de se déclencher ce pas et que la
-    //   fenêtre est encore ouverte. Consommé (fenêtre remise à zéro) : un seul héritage par poussée.
+    //   fenêtre est encore ouverte. Consommé (fenêtre remise à zéro) : un seul héritage par
+    //   poussée.
     if (player.justJumped && player.pushMomentumWindowTimer > 0.0F) {
         velocity.value.x += player.pushMomentumVelocityX * _config.momentumCarryRatio;
         player.pushMomentumWindowTimer = 0.0F;

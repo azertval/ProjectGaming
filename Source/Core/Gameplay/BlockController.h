@@ -78,8 +78,8 @@ public:
      * @param playerBox      Boîte englobante du personnage (position **avant** le pas physique
      *                       courant : la poussée doit libérer la case avant que la physique ne
      *                       résolve le déplacement du personnage sur ce même pas).
-     * @param moveIntentX    Intention de déplacement horizontal du personnage (`PlayerInput::moveX`,
-     *                       dans `[-1, 1]`) ; `0` ne pousse aucun bloc.
+     * @param moveIntentX    Intention de déplacement horizontal du personnage
+     * (`PlayerInput::moveX`, dans `[-1, 1]`) ; `0` ne pousse aucun bloc.
      * @param baseCollision  Grille de collision déjà résolue par les mécanismes (portes), utilisée
      *                       pour savoir si la case visée par une poussée ou une chute est libre.
      * @param platforms      Échantillons de position des plateformes mobiles pour ce pas

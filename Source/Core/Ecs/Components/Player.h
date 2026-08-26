@@ -102,9 +102,10 @@ struct Player {
     /// Vrai pendant un **ground pound** (`EX-GP-058`) : chute verticale à vitesse imposée, en l'air
     /// uniquement, jusqu'au contact du sol (remis à `false` par la physique à l'atterrissage).
     bool groundPounding = false;
-    /// Vitesse horizontale à **conserver** pendant le verrou de jump-cancel (`EX-GP-061`) : capturée
-    /// au moment où un saut interrompt un dash en cours (au lieu d'attendre son expiration), pour
-    /// que le saut résultant reparte de la vitesse du dash plutôt que de la physique normale.
+    /// Vitesse horizontale à **conserver** pendant le verrou de jump-cancel (`EX-GP-061`) :
+    /// capturée au moment où un saut interrompt un dash en cours (au lieu d'attendre son
+    /// expiration), pour que le saut résultant reparte de la vitesse du dash plutôt que de la
+    /// physique normale.
     float dashJumpMomentumX = 0.0f;
     /// Temps restant (secondes) du verrou de jump-cancel : tant qu'il court, le contrôle horizontal
     /// normal est suspendu au profit de `dashJumpMomentumX` (même patron que `wallJumpLockTimer`).

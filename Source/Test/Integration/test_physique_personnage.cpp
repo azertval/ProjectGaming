@@ -1175,6 +1175,15 @@ TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
 /**
  * @brief Dash chargé (EX-GP-056) : maintenir la direction opposée au-delà du seuil arme un boost,
  * consommé par le dash suivant (vitesse supérieure à un dash normal).
+ * \castest{<b>Dash chargé (EX-GP-056) : maintenir la direction opposée au-delà du seuil arme un
+ * boost, consommé par le dash suivant.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dash chargé (EX-GP-056) : maintenir la direction opposée au-delà du seuil arme un
+ * boost, consommé par le dash suivant (vitesse supérieure à un dash normal).
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ChargeDeDashBoostLeDashSuivant) {
     core::World world;
@@ -1189,7 +1198,8 @@ TEST(PhysiquePersonnageIntegration, ChargeDeDashBoostLeDashSuivant) {
 
     core::PlayerInput opposite;
     opposite.moveX = -1.0f;  // opposé à `facing` (droite par défaut)
-    opposite.dashHeld = true;  // garde délibérée (EX-GP-056) : bouton dash maintenu pendant la charge
+    opposite.dashHeld =
+        true;  // garde délibérée (EX-GP-056) : bouton dash maintenu pendant la charge
     const int chargeSteps = static_cast<int>(config.dashChargeHoldTime / STEP) + 2;
     for (int i = 0; i < chargeSteps; ++i) {
         system.update(world, tiles, opposite, STEP);
@@ -1200,12 +1210,19 @@ TEST(PhysiquePersonnageIntegration, ChargeDeDashBoostLeDashSuivant) {
     dash.dashPressed = true;  // direction neutre -> dashBoostFacing (droite, figée à l'armement)
     system.update(world, tiles, dash, STEP);
     EXPECT_GT(world.getComponent<core::Velocity>(player).value.x,
-             config.dashSpeed * config.dashBoostSpeedMultiplier * 0.9f);
+              config.dashSpeed * config.dashBoostSpeedMultiplier * 0.9f);
     EXPECT_FALSE(world.getComponent<core::Player>(player).dashBoostReady);  // consommée
 }
 
 /**
  * @brief Dash chargé : sous le seuil, le dash reste normal (pas de boost).
+ * \castest{<b>Dash chargé : sous le seuil, le dash reste normal (pas de boost).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dash chargé : sous le seuil, le dash reste normal (pas de boost).
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ChargeInsuffisanteDashNormal) {
     core::World world;
@@ -1236,6 +1253,14 @@ TEST(PhysiquePersonnageIntegration, ChargeInsuffisanteDashNormal) {
 
 /**
  * @brief Dash chargé : relâcher la direction opposée avant le seuil remet la charge à zéro.
+ * \castest{<b>Dash chargé : relâcher la direction opposée avant le seuil remet la charge à
+ * zéro.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dash chargé : relâcher la direction opposée avant le seuil remet la charge à zéro.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ChargeAnnuleeAvantLeSeuil) {
     core::World world;
@@ -1267,6 +1292,15 @@ TEST(PhysiquePersonnageIntegration, ChargeAnnuleeAvantLeSeuil) {
  * n'amorce JAMAIS de charge, quelle que soit sa durée -- garde de non-régression (EX-GP-056) :
  * une inversion de direction anodine pendant un déplacement normal ne doit jamais altérer un dash
  * ultérieur sans rapport.
+ * \castest{<b>Dash chargé : changer de direction sans tenir le bouton de dash n'amorce jamais de
+ * charge (garde de non-régression).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une inversion de direction anodine, sans maintenir le bouton de dash, n'amorce jamais
+ * de charge, quelle que soit sa durée.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ChangerDeDirectionSansTenirDashNeChargeJamais) {
     core::World world;
@@ -1293,6 +1327,15 @@ TEST(PhysiquePersonnageIntegration, ChangerDeDirectionSansTenirDashNeChargeJamai
 /**
  * @brief Ground pound (EX-GP-058) : le bouton de dash visé purement vers le bas, en l'air, impose
  * une vitesse de chute fixe et ignore l'entrée horizontale.
+ * \castest{<b>Ground pound (EX-GP-058) : impose une vitesse de chute fixe et ignore l'entrée
+ * horizontale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bouton de dash visé purement vers le bas, en l'air, impose une vitesse de chute
+ * fixe et ignore l'entrée horizontale.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, GroundPoundImposeUneChuteRapideEtIgnoreLHorizontal) {
     core::World world;
@@ -1317,6 +1360,13 @@ TEST(PhysiquePersonnageIntegration, GroundPoundImposeUneChuteRapideEtIgnoreLHori
 
 /**
  * @brief Ground pound : se termine exactement à l'atterrissage.
+ * \castest{<b>Ground pound : se termine exactement à l'atterrissage.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le ground pound se termine exactement à l'atterrissage.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, GroundPoundSeTermineALAtterrissage) {
     core::World world;
@@ -1347,6 +1397,14 @@ TEST(PhysiquePersonnageIntegration, GroundPoundSeTermineALAtterrissage) {
 /**
  * @brief Ground pound : jamais déclenché au sol (la même entrée y déclenche au plus un dash
  * vertical normal, jamais un ground pound).
+ * \castest{<b>Ground pound : jamais déclenché au sol.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Au sol, la même entrée déclenche au plus un dash vertical normal, jamais un ground
+ * pound.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, GroundPoundJamaisDeclencheAuSol) {
     core::World world;
@@ -1368,6 +1426,15 @@ TEST(PhysiquePersonnageIntegration, GroundPoundJamaisDeclencheAuSol) {
 /**
  * @brief Jump-cancel du dash (combo, EX-GP-061) : un saut pendant un dash actif le coupe et
  * conserve sa vitesse horizontale (hyper-dash) au lieu de revenir à la physique normale.
+ * \castest{<b>Jump-cancel du dash (combo, EX-GP-061) : coupe le dash et conserve sa vitesse
+ * horizontale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un saut pendant un dash boosté actif le coupe immédiatement et conserve sa vitesse
+ * horizontale (hyper-dash) au lieu de revenir à la physique normale.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, JumpCancelDuDashConserveLaVitesseHorizontale) {
     core::World world;
@@ -1402,6 +1469,15 @@ TEST(PhysiquePersonnageIntegration, JumpCancelDuDashConserveLaVitesseHorizontale
 /**
  * @brief Jump-cancel du dash au contact d'un mur : déclenche un WALL JUMP, pas un saut simple
  * (EX-GP-061, réutilise EX-GP-016 sans code dédié).
+ * \castest{<b>Jump-cancel au contact d'un mur : déclenche un wall jump, pas un saut
+ * simple.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un jump-cancel déclenché au contact d'un mur produit un wall jump (éjection opposée
+ * au mur), pas un saut simple.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, JumpCancelContreUnMurDeclencheUnWallJump) {
     core::World world;
@@ -1440,6 +1516,15 @@ TEST(PhysiquePersonnageIntegration, JumpCancelContreUnMurDeclencheUnWallJump) {
 
 /**
  * @brief Combo dash + saut : des jump-cancels rapprochés cumulent un bonus de vitesse plafonné.
+ * \castest{<b>Combo dash + saut : des jump-cancels rapprochés cumulent un bonus de vitesse
+ * plafonné.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Des jump-cancels rapprochés cumulent un bonus de vitesse, plafonné à
+ * `comboSpeedCap`.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ComboBonusCumuleEtPlafonne) {
     core::World world;
@@ -1462,7 +1547,8 @@ TEST(PhysiquePersonnageIntegration, ComboBonusCumuleEtPlafonne) {
         jumpCancel.jumpPressed = true;
         system.update(world, tiles, jumpCancel, STEP);
         lastMomentum = world.getComponent<core::Player>(player).dashJumpMomentumX;
-        EXPECT_EQ(world.getComponent<core::Player>(player).comboChainCount, chain) << "chain " << chain;
+        EXPECT_EQ(world.getComponent<core::Player>(player).comboChainCount, chain)
+            << "chain " << chain;
     }
     const float expectedBonus = (std::min)(config.comboSpeedBonus * 5.0f, config.comboSpeedCap);
     const float expectedBase = config.dashSpeed * config.dashBoostSpeedMultiplier;
@@ -1471,6 +1557,13 @@ TEST(PhysiquePersonnageIntegration, ComboBonusCumuleEtPlafonne) {
 
 /**
  * @brief Combo : le compteur d'enchaînement retombe à zéro au contact du sol.
+ * \castest{<b>Combo : le compteur d'enchaînement retombe à zéro au contact du sol.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le compteur d'enchaînement de combo retombe à zéro au contact du sol.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, ComboRemisAZeroAuSol) {
     core::World world;
@@ -1492,6 +1585,15 @@ TEST(PhysiquePersonnageIntegration, ComboRemisAZeroAuSol) {
 /**
  * @brief Momentum hérité d'une poussée renforcée (EX-GP-057/EX-GP-061) : un saut déclenché dans la
  * fenêtre hérite d'une fraction de la vitesse mémorisée.
+ * \castest{<b>Momentum hérité d'une poussée renforcée : un saut dans la fenêtre hérite d'une
+ * fraction de la vitesse mémorisée.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un saut déclenché dans la fenêtre suivant une poussée renforcée hérite de
+ * `momentumCarryRatio × vitesse mémorisée`.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, MomentumHeriteApresPousseeRenforcee) {
     core::World world;
@@ -1513,12 +1615,19 @@ TEST(PhysiquePersonnageIntegration, MomentumHeriteApresPousseeRenforcee) {
     system.update(world, tiles, jump, STEP);
 
     EXPECT_NEAR(world.getComponent<core::Velocity>(player).value.x,
-               20.0f * config.momentumCarryRatio, 0.5f);
+                20.0f * config.momentumCarryRatio, 0.5f);
     EXPECT_FLOAT_EQ(world.getComponent<core::Player>(player).pushMomentumWindowTimer, 0.0f);
 }
 
 /**
  * @brief Momentum : hors fenêtre, aucun héritage.
+ * \castest{<b>Momentum hérité d'une poussée : hors fenêtre, aucun héritage.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une fenêtre déjà expirée n'hérite d'aucun momentum au saut suivant.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, MomentumPousseeExpireHorsFenetre) {
     core::World world;
@@ -1544,6 +1653,15 @@ TEST(PhysiquePersonnageIntegration, MomentumPousseeExpireHorsFenetre) {
  * @brief Dash et pentes (EX-GP-060) : dasher le long d'une pente ascendante suit sa surface, sans
  * clipper en dessous ni au-dessus (pipeline de suivi de pente déjà partagé avec le déplacement
  * normal, `resolveCollisionAndState`).
+ * \castest{<b>Dash et pentes (EX-GP-060) : dasher le long d'une pente ascendante suit sa
+ * surface.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dasher le long d'une pente ascendante suit sa surface, sans jamais clipper en dessous
+ * ni au-dessus.
+ * }
  */
 TEST(PhysiquePersonnageIntegration, DashSuitUnePenteAscendante) {
     core::World world;
