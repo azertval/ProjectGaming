@@ -106,6 +106,6 @@ var searchData=
   ['projectionmatrix_103',['projectionMatrix',['../classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b',1,'hmi::Camera2D']]],
   ['propertiespanel_104',['PropertiesPanel',['../classhmi_1_1PropertiesPanel.html#af69db62cf3bf43117cf205d61c057cd2',1,'hmi::PropertiesPanel']]],
   ['push_105',['push',['../classaisolver_1_1MovingAverageTracker.html#a668d9729f6e5eb5de220c71b1be21b50',1,'aisolver::MovingAverageTracker::push()'],['../classaisolver_1_1training_1_1ReplayBuffer.html#a9f61b4b87685544407ff01bd81a72f21',1,'aisolver::training::ReplayBuffer::push()'],['../classhmi_1_1PixelHistory.html#a7770d08d847df91ee22e4e9100cadff8',1,'hmi::PixelHistory::push()'],['../classReplayBuffer.html#a9f61b4b87685544407ff01bd81a72f21',1,'ReplayBuffer::push()']]],
-  ['pushblocks_106',['pushBlocks',['../classcore_1_1BlockController.html#aa4b0ed0452dd103740061bedd65042cd',1,'core::BlockController']]],
+  ['pushblocks_106',['pushBlocks',['../classcore_1_1BlockController.html#acd21677306a264e26276cf4157921ee9',1,'core::BlockController']]],
   ['pushundo_107',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
 ];

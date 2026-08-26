@@ -1,5 +1,12 @@
 var NAVTREEINDEX33 =
 {
+"lot-50-tache-02-outil-geste.html#autotoc_md2418":[7,53,9,6],
+"lot-50-tache-02-outil-geste.html#autotoc_md2419":[7,53,9,7],
+"lot-50-tache-03-selection-poignees.html":[7,53,10],
+"lot-50-tache-03-selection-poignees.html#autotoc_md2420":[7,53,10,0],
+"lot-50-tache-03-selection-poignees.html#autotoc_md2421":[7,53,10,1],
+"lot-50-tache-03-selection-poignees.html#autotoc_md2422":[7,53,10,2],
+"lot-50-tache-03-selection-poignees.html#autotoc_md2423":[7,53,10,3],
 "lot-50-tache-03-selection-poignees.html#autotoc_md2424":[7,53,10,4],
 "lot-50-tache-03-selection-poignees.html#autotoc_md2425":[7,53,10,5],
 "lot-50-tache-03-selection-poignees.html#autotoc_md2426":[7,53,10,6],
@@ -242,12 +249,5 @@ var NAVTREEINDEX33 =
 "lot-55.html#autotoc_md2601":[7,58,5],
 "lot-55.html#autotoc_md2602":[7,58,6],
 "lot-55.html#autotoc_md2603":[7,58,7],
-"lot-56-tache-01-socle-style.html":[7,59,8],
-"lot-56-tache-01-socle-style.html#autotoc_md2639":[7,59,8,0],
-"lot-56-tache-01-socle-style.html#autotoc_md2640":[7,59,8,1],
-"lot-56-tache-01-socle-style.html#autotoc_md2641":[7,59,8,2],
-"lot-56-tache-01-socle-style.html#autotoc_md2642":[7,59,8,3],
-"lot-56-tache-01-socle-style.html#autotoc_md2643":[7,59,8,4],
-"lot-56-tache-01-socle-style.html#autotoc_md2644":[7,59,8,5],
-"lot-56-tache-01-socle-style.html#autotoc_md2645":[7,59,8,6]
+"lot-56-tache-01-socle-style.html":[7,59,8]
 };

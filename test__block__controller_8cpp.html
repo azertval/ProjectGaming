@@ -114,6 +114,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:aceb5e1e5ce1c6a77c277c4390d52763d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toucher un bloc à droite en se déplaçant vers la droite le pousse d'une case, si la case suivante est libre.  <br /></td></tr>
 <tr class="memitem:ae52d78664f175d7f1c3e3b5343e7a24c" id="r_ae52d78664f175d7f1c3e3b5343e7a24c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae52d78664f175d7f1c3e3b5343e7a24c">TEST</a> (BlockControllerTest, PousseeRefuseeContreUnMur)</td></tr>
 <tr class="memdesc:ae52d78664f175d7f1c3e3b5343e7a24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc ne peut pas être poussé à travers un mur.  <br /></td></tr>
+<tr class="memitem:a2b30edad5a441b4d33ef473ab8198480" id="r_a2b30edad5a441b4d33ef473ab8198480"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2b30edad5a441b4d33ef473ab8198480">TEST</a> (BlockControllerTest, PousseeRenforceeDashDePlusieursCases)</td></tr>
+<tr class="memdesc:a2b30edad5a441b4d33ef473ab8198480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poussée renforcée (dash, <span class="tt">EX-GP-057</span>) : un bloc percuté pendant un dash est repoussé de plusieurs cases en un seul pas, jusqu'à <span class="tt">DASH_PUSH_MAX_CELLS</span>.  <br /></td></tr>
+<tr class="memitem:a683e0e5be5daa47c7d76028675128a34" id="r_a683e0e5be5daa47c7d76028675128a34"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a683e0e5be5daa47c7d76028675128a34">TEST</a> (BlockControllerTest, PousseeRenforceeArreteAuPremierObstacle)</td></tr>
+<tr class="memdesc:a683e0e5be5daa47c7d76028675128a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poussée renforcée : s'arrête au premier obstacle, ne le traverse jamais.  <br /></td></tr>
+<tr class="memitem:a105ec408d0bc7ec9cf0dbe5f658c5c4d" id="r_a105ec408d0bc7ec9cf0dbe5f658c5c4d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a105ec408d0bc7ec9cf0dbe5f658c5c4d">TEST</a> (BlockControllerTest, PousseeSansDashResteSimple)</td></tr>
+<tr class="memdesc:a105ec408d0bc7ec9cf0dbe5f658c5c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans poussée renforcée (dashPushSpeed = 0), le comportement de poussée simple est inchangé (une case), et <span class="tt">lastDashPushSpeed()</span> reste nul.  <br /></td></tr>
 <tr class="memitem:a728f144e68c90c36cb053c00e4d88fa7" id="r_a728f144e68c90c36cb053c00e4d88fa7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a728f144e68c90c36cb053c00e4d88fa7">TEST</a> (BlockControllerTest, PousseeRefuseeContreUnAutreBloc)</td></tr>
 <tr class="memdesc:a728f144e68c90c36cb053c00e4d88fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc ne peut pas être poussé sur un autre bloc.  <br /></td></tr>
 <tr class="memitem:a4728b9449283958e3563f8e3b8ee5965" id="r_a4728b9449283958e3563f8e3b8ee5965"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4728b9449283958e3563f8e3b8ee5965">TEST</a> (BlockControllerTest, ContactSansIntentionNePousseRien)</td></tr>
@@ -141,7 +147,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires des blocs poussables (<span class="tt">BlockController</span>, <span class="tt">EX-GP-022</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad824d6f72d10ba2a1ff73df98f516f01" name="ad824d6f72d10ba2a1ff73df98f516f01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad824d6f72d10ba2a1ff73df98f516f01">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad824d6f72d10ba2a1ff73df98f516f01">&#9670;&#160;</a></span>TEST() <span class="overload">[1/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +177,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2c5f29dd67710f684c698614df86101d" name="a2c5f29dd67710f684c698614df86101d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +207,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a72d0f8d0063ce11205800bbeb5e89962" name="a72d0f8d0063ce11205800bbeb5e89962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d0f8d0063ce11205800bbeb5e89962">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d0f8d0063ce11205800bbeb5e89962">&#9670;&#160;</a></span>TEST() <span class="overload">[3/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +237,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a34441bb332f84a91da0d68fcfbc2a09b" name="a34441bb332f84a91da0d68fcfbc2a09b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +267,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afbc2231ae3476ebc62acabd6688cf939" name="afbc2231ae3476ebc62acabd6688cf939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc2231ae3476ebc62acabd6688cf939">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc2231ae3476ebc62acabd6688cf939">&#9670;&#160;</a></span>TEST() <span class="overload">[5/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,7 +297,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a768e7670b979ea682145f2c48adbbabb" name="a768e7670b979ea682145f2c48adbbabb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,7 +327,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afff25e4db7cce4d834f735194a4588c7" name="afff25e4db7cce4d834f735194a4588c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afff25e4db7cce4d834f735194a4588c7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afff25e4db7cce4d834f735194a4588c7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,7 +357,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4728b9449283958e3563f8e3b8ee5965" name="a4728b9449283958e3563f8e3b8ee5965"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[8/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +387,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a01798e04d2b97be2f9e3f9976594062a" name="a01798e04d2b97be2f9e3f9976594062a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +417,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a728f144e68c90c36cb053c00e4d88fa7" name="a728f144e68c90c36cb053c00e4d88fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +447,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4d96d9beab18fa34143bca3bf0b32020" name="a4d96d9beab18fa34143bca3bf0b32020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d96d9beab18fa34143bca3bf0b32020">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d96d9beab18fa34143bca3bf0b32020">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,7 +477,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae52d78664f175d7f1c3e3b5343e7a24c" name="ae52d78664f175d7f1c3e3b5343e7a24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[12/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -500,8 +506,98 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a683e0e5be5daa47c7d76028675128a34" name="a683e0e5be5daa47c7d76028675128a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a683e0e5be5daa47c7d76028675128a34">&#9670;&#160;</a></span>TEST() <span class="overload">[13/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PousseeRenforceeArreteAuPremierObstacle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poussée renforcée : s'arrête au premier obstacle, ne le traverse jamais. </p>
+<p><b>Cas de test :</b> <b>Poussée renforcée : s'arrête au premier obstacle, ne le traverse jamais.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le bloc s'arrête juste avant le mur, jamais au-delà. </p>
+
+</div>
+</div>
+<a id="a2b30edad5a441b4d33ef473ab8198480" name="a2b30edad5a441b4d33ef473ab8198480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b30edad5a441b4d33ef473ab8198480">&#9670;&#160;</a></span>TEST() <span class="overload">[14/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PousseeRenforceeDashDePlusieursCases</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poussée renforcée (dash, <span class="tt">EX-GP-057</span>) : un bloc percuté pendant un dash est repoussé de plusieurs cases en un seul pas, jusqu'à <span class="tt">DASH_PUSH_MAX_CELLS</span>. </p>
+<p><b>Cas de test :</b> <b>Poussée renforcée (dash) : un bloc percuté pendant un dash est repoussé de plusieurs cases en un seul pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le bloc avance de <span class="tt">DASH_PUSH_MAX_CELLS</span> cases, pas une seule. </p>
+
+</div>
+</div>
+<a id="a105ec408d0bc7ec9cf0dbe5f658c5c4d" name="a105ec408d0bc7ec9cf0dbe5f658c5c4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105ec408d0bc7ec9cf0dbe5f658c5c4d">&#9670;&#160;</a></span>TEST() <span class="overload">[15/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PousseeSansDashResteSimple</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans poussée renforcée (dashPushSpeed = 0), le comportement de poussée simple est inchangé (une case), et <span class="tt">lastDashPushSpeed()</span> reste nul. </p>
+<p><b>Cas de test :</b> <b>Sans dash, la poussée reste simple et <span class="tt">lastDashPushSpeed()</span> reste nul.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Poussée d'une seule case, <span class="tt">lastDashPushSpeed() == 0</span>. </p>
+
+</div>
+</div>
 <a id="aceb5e1e5ce1c6a77c277c4390d52763d" name="aceb5e1e5ce1c6a77c277c4390d52763d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[16/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +627,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7676cb1ee4fb2ea0df50f863df252ea3" name="a7676cb1ee4fb2ea0df50f863df252ea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7676cb1ee4fb2ea0df50f863df252ea3">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7676cb1ee4fb2ea0df50f863df252ea3">&#9670;&#160;</a></span>TEST() <span class="overload">[17/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

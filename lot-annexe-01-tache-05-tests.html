@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-01-tache-05-tests.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2tache-05-tests"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">LOT-ANNEXE-01</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3402"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3469"></a>
 Contexte</h1>
 <p>Les quatre tâches précédentes livrent chacune leurs propres cas de test « au fil de l'eau » (listés dans leurs sections « Tests »). Cette tâche consolide la couverture : elle vérifie que l'ensemble tient debout <b>comme bibliothèque</b>, au-delà des tests unitaires isolés par fichier — cas limites transverses, non-régression sur des identités mathématiques connues, et la garantie de reproductibilité du RNG dont dépend tout le programme d'entraînement à venir.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3403"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3470"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__rng_8cpp.html" title="Tests unitaires du générateur pseudo-aléatoire déterministe aisolver::Rng (LOT-ANNEXE-01,...">Source/Test/Unit/AiSolver/Math/test_rng.cpp</a></span></b>, <span class="tt"><a class="el" href="test__tensor_8cpp.html" title="Tests unitaires du conteneur tensoriel aisolver::Tensor&lt;T&gt; (LOT-ANNEXE-01, TACHE-02).">test_tensor.cpp</a></span>, <span class="tt"><a class="el" href="test__tensor__ops_8cpp.html" title="Tests unitaires des opérations élémentaires et réductions aisolver::TensorOps (LOT-ANNEXE-01,...">test_tensor_ops.cpp</a></span>, <span class="tt"><a class="el" href="test__matmul_8cpp.html" title="Tests unitaires de aisolver::matmul/aisolver::transpose (LOT-ANNEXE-01, TACHE-04).">test_matmul.cpp</a></span> : fichiers créés au fil des TACHE-01 à 04 (référencés ici pour mémoire — cette tâche n'en réécrit pas le contenu détaillé, déjà spécifié dans chaque tâche).</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li><b>Revue de la couverture des cas limites</b> dans les fichiers existants, complétée si un trou est identifié pendant cette tâche : tenseur à un seul élément (forme <span class="tt">{1}</span>), tenseur avec une dimension de taille <span class="tt">0</span> (si autorisé par <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;T&gt;</span> — sinon, vérifier que la construction avec une dimension <span class="tt">0</span> est explicitement couverte par une assertion documentée), très grandes/très petites valeurs flottantes (proches de <span class="tt">std::numeric_limits&lt;float&gt;::max()</span>/<span class="tt">min()</span>) sur les opérations élémentaires et réductions, sans production de <span class="tt">NaN</span>/<span class="tt">inf</span> inattendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3404"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3471"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__rng_8cpp.html" title="Tests unitaires du générateur pseudo-aléatoire déterministe aisolver::Rng (LOT-ANNEXE-01,...">Source/Test/Unit/AiSolver/Math/test_rng.cpp</a></span> (TACHE-01).</li>
@@ -119,13 +119,13 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__tensor__integration_8cpp.html" title="Cas transverses combinant plusieurs briques de AiSolver::Math (LOT-ANNEXE-01, TACHE-05) : non-régress...">Source/Test/Unit/AiSolver/Math/test_tensor_integration.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__tensor__integration_8cpp.html" title="Cas transverses combinant plusieurs briques de AiSolver::Math (LOT-ANNEXE-01, TACHE-05) : non-régress...">test_tensor_integration.cpp</a></span> à <span class="tt">UnitTests</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3405"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3472"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Voir la liste des cas transverses ci-dessus (« Travail à réaliser »).</li>
 <li><b>Suite complète <span class="tt">ctest --tests-regex AiSolver</span></b> (ou filtre GoogleTest équivalent) verte, incluant les tests des quatre tâches précédentes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3406"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3473"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Cette tâche ne réécrit pas les tests déjà spécifiés par TACHE-01 à 04</b> : elle ajoute les cas transverses qui ne trouvent naturellement leur place dans aucun fichier isolé, et sert de point de vérification final avant de considérer <span class="tt">LOT-ANNEXE-01</span> terminé.</li>
@@ -133,15 +133,15 @@ Points d'attention</h1>
   <a class="el" href="test__vector2_8cpp.html" title="Tests unitaires du vecteur 2D de Core.">test_vector2.cpp</a></span> utilise la même tolérance) — pas de tolérance ad hoc différente d'un fichier à l'autre dans <span class="tt">AiSolver</span>.</li>
 <li><b>Pas de test de performance</b> dans cette tâche (cohérent avec l'exclusion de l'épic) : les cas limites visent la <b>correction</b> numérique, pas le temps d'exécution.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3407"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3474"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Couverture transverse en place, <span class="tt">ctest</span> vert sur l'ensemble de <span class="tt">Source/Test/Unit/AiSolver/Math</span>, build <span class="tt">/W4 /WX</span> sans avertissement ; critères d'acceptation de <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a> vérifiés un par un avant de marquer <span class="tt">LOT-ANNEXE-01</span> terminé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3408"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3475"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle et calcul numérique</a> (tenseurs, forme et <em>stride</em>, produit matriciel, réductions, générateurs pseudo-aléatoires), en particulier sa section 6 (pourquoi une erreur de forme est un bug et non une erreur à gérer).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3409"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3476"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-001</span> (déclarée dans <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

@@ -131,6 +131,30 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a49c1fc7221a2fe7278429e2404832e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pendant le pas où un saut (sol, coyote, mur ou aérien) vient de se déclencher ; remis à faux au début du pas suivant.  <br /></td></tr>
 <tr class="memitem:a39d12f09a2ae70d648ec96c5ec094d51" id="r_a39d12f09a2ae70d648ec96c5ec094d51"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a39d12f09a2ae70d648ec96c5ec094d51">squished</a> = false</td></tr>
 <tr class="memdesc:a39d12f09a2ae70d648ec96c5ec094d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pendant le pas où le personnage a été <b>écrasé</b> par une plateforme mobile contre un plafond (<span class="tt">EX-GP-026</span>, cas d'écrasement — décision de cadrage : mortel, comme un danger).  <br /></td></tr>
+<tr class="memitem:a37f99185221bcc74667434f5f514233a" id="r_a37f99185221bcc74667434f5f514233a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a37f99185221bcc74667434f5f514233a">dashChargeTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a37f99185221bcc74667434f5f514233a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps accumulé (secondes) en tenant la direction <b>opposée</b> à <span class="tt"><a class="el" href="#aea62c8c453b36b65ff75609d79a33541" title="Orientation de référence contre laquelle l&#39;opposition est mesurée pour charger un dash (EX-GP-056) : ...">dashChargeReferenceFacing</a></span> (<span class="tt">EX-GP-056</span>) ; remis à zéro dès que l'opposition cesse <b>avant</b> que la charge ne soit complète (bankée).  <br /></td></tr>
+<tr class="memitem:aea62c8c453b36b65ff75609d79a33541" id="r_aea62c8c453b36b65ff75609d79a33541"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aea62c8c453b36b65ff75609d79a33541">dashChargeReferenceFacing</a> = 1.0f</td></tr>
+<tr class="memdesc:aea62c8c453b36b65ff75609d79a33541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation de référence contre laquelle l'opposition est mesurée pour charger un dash (<span class="tt">EX-GP-056</span>) : figée au <b>début</b> de la charge (<span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> juste avant que ce pas ne le mette à jour), jamais <span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> lui-même &ndash; <span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> continue de suivre l'entrée à l'identique d'avant ce lot (sprite/caméra/direction de dash par défaut inchangés hors charge active).  <br /></td></tr>
+<tr class="memitem:a2482470bcc7bc5e7cbb8ae1a6da4b03f" id="r_a2482470bcc7bc5e7cbb8ae1a6da4b03f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2482470bcc7bc5e7cbb8ae1a6da4b03f">dashBoostReady</a> = false</td></tr>
+<tr class="memdesc:a2482470bcc7bc5e7cbb8ae1a6da4b03f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai dès que la charge de dash est complète : le <b>prochain</b> dash sera boosté (vitesse et durée majorées), quelle que soit la direction tenue au moment où il se déclenche.  <br /></td></tr>
+<tr class="memitem:ae3c8f01bb96594a336834d50b482d370" id="r_ae3c8f01bb96594a336834d50b482d370"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae3c8f01bb96594a336834d50b482d370">dashBoostFacing</a> = 1.0f</td></tr>
+<tr class="memdesc:ae3c8f01bb96594a336834d50b482d370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation figée au moment où <span class="tt"><a class="el" href="#a2482470bcc7bc5e7cbb8ae1a6da4b03f" title="Vrai dès que la charge de dash est complète : le prochain dash sera boosté (vitesse et durée majorées...">dashBoostReady</a></span> passe à vrai (copie de <span class="tt"><a class="el" href="#aea62c8c453b36b65ff75609d79a33541" title="Orientation de référence contre laquelle l&#39;opposition est mesurée pour charger un dash (EX-GP-056) : ...">dashChargeReferenceFacing</a></span>) : sert de direction par défaut au dash boosté si l'entrée est neutre au déclenchement.  <br /></td></tr>
+<tr class="memitem:a0de9f4ef0c98fb028967ec1faf1d428e" id="r_a0de9f4ef0c98fb028967ec1faf1d428e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0de9f4ef0c98fb028967ec1faf1d428e">dashIsBoosted</a> = false</td></tr>
+<tr class="memdesc:a0de9f4ef0c98fb028967ec1faf1d428e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le dash <b>actuellement en cours</b> (<span class="tt"><a class="el" href="#a2a7cb76eef85ffa779b1a6cb0e47cedf" title="Durée restante (secondes) du dash en cours ; &gt; 0 pendant la ruée (gravité suspendue).">dashTimer</a> &gt; 0</span>) a été déclenché boosté (<span class="tt">EX-GP-056</span>).  <br /></td></tr>
+<tr class="memitem:a9ad575c740d81840018c28043f046073" id="r_a9ad575c740d81840018c28043f046073"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9ad575c740d81840018c28043f046073">groundPounding</a> = false</td></tr>
+<tr class="memdesc:a9ad575c740d81840018c28043f046073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pendant un <b>ground pound</b> (<span class="tt">EX-GP-058</span>) : chute verticale à vitesse imposée, en l'air uniquement, jusqu'au contact du sol (remis à <span class="tt">false</span> par la physique à l'atterrissage).  <br /></td></tr>
+<tr class="memitem:a545fdb830a1ad8e34d54b82c90e2feef" id="r_a545fdb830a1ad8e34d54b82c90e2feef"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a545fdb830a1ad8e34d54b82c90e2feef">dashJumpMomentumX</a> = 0.0f</td></tr>
+<tr class="memdesc:a545fdb830a1ad8e34d54b82c90e2feef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse horizontale à <b>conserver</b> pendant le verrou de jump-cancel (<span class="tt">EX-GP-061</span>) : capturée au moment où un saut interrompt un dash en cours (au lieu d'attendre son expiration), pour que le saut résultant reparte de la vitesse du dash plutôt que de la physique normale.  <br /></td></tr>
+<tr class="memitem:ae23995571fc0c6d9b33bffded137ca06" id="r_ae23995571fc0c6d9b33bffded137ca06"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae23995571fc0c6d9b33bffded137ca06">dashJumpLockTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:ae23995571fc0c6d9b33bffded137ca06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) du verrou de jump-cancel : tant qu'il court, le contrôle horizontal normal est suspendu au profit de <span class="tt"><a class="el" href="#a545fdb830a1ad8e34d54b82c90e2feef" title="Vitesse horizontale à conserver pendant le verrou de jump-cancel (EX-GP-061) : capturée au moment où ...">dashJumpMomentumX</a></span> (même patron que <span class="tt"><a class="el" href="#ab37e8efccea023b2f1d4f6adada4290b" title="Temps restant (secondes) de verrouillage du contrôle horizontal après un wall jump (la vitesse d&#39;éjec...">wallJumpLockTimer</a></span>).  <br /></td></tr>
+<tr class="memitem:a804a16521a8e5002dccb714bac7dee61" id="r_a804a16521a8e5002dccb714bac7dee61"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a804a16521a8e5002dccb714bac7dee61">comboChainCount</a> = 0</td></tr>
+<tr class="memdesc:a804a16521a8e5002dccb714bac7dee61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de jump-cancels enchaînés sans contact au sol (<span class="tt">EX-GP-061</span>) : incrémenté à chaque nouveau jump-cancel dans la fenêtre de combo (<span class="tt"><a class="el" href="#a5d34107f0ff266bd3538ffbaec892ec0" title="Temps restant (secondes) de la fenêtre de combo courante : tant qu&#39;il court, un nouveau jump-cancel e...">comboWindowTimer</a></span>), remis à zéro au contact du sol.  <br /></td></tr>
+<tr class="memitem:a5d34107f0ff266bd3538ffbaec892ec0" id="r_a5d34107f0ff266bd3538ffbaec892ec0"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5d34107f0ff266bd3538ffbaec892ec0">comboWindowTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a5d34107f0ff266bd3538ffbaec892ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de la fenêtre de combo courante : tant qu'il court, un nouveau jump-cancel est considéré comme « rapproché » du précédent (bonus cumulatif de vitesse).  <br /></td></tr>
+<tr class="memitem:a9c10c5fffe679f41e3b266f9668ce37d" id="r_a9c10c5fffe679f41e3b266f9668ce37d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9c10c5fffe679f41e3b266f9668ce37d">pushMomentumWindowTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a9c10c5fffe679f41e3b266f9668ce37d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de la fenêtre d'héritage de momentum après une <b>poussée renforcée</b> (<span class="tt">EX-GP-057</span>/<span class="tt">EX-GP-061</span>) : un saut déclenché avant expiration hérite d'une fraction de <span class="tt"><a class="el" href="#a14d968f4c041f1671557db26a08a425c" title="Vitesse horizontale (signée) du bloc poussé par la dernière poussée renforcée, à hériter par le proch...">pushMomentumVelocityX</a></span> (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html#a311991a630c5cb0dfed44cefa461b395" title="Fraction de la vitesse d&#39;un bloc poussé (poussée renforcée) héritée par le saut suivant,...">PhysicsConfig::momentumCarryRatio</a></span>).  <br /></td></tr>
+<tr class="memitem:a14d968f4c041f1671557db26a08a425c" id="r_a14d968f4c041f1671557db26a08a425c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a14d968f4c041f1671557db26a08a425c">pushMomentumVelocityX</a> = 0.0f</td></tr>
+<tr class="memdesc:a14d968f4c041f1671557db26a08a425c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse horizontale (signée) du bloc poussé par la dernière poussée renforcée, à hériter par le prochain saut si <span class="tt"><a class="el" href="#a9c10c5fffe679f41e3b266f9668ce37d" title="Temps restant (secondes) de la fenêtre d&#39;héritage de momentum après une poussée renforcée (EX-GP-057/...">pushMomentumWindowTimer</a></span> n'a pas expiré.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol. </p>
@@ -183,6 +207,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a804a16521a8e5002dccb714bac7dee61" name="a804a16521a8e5002dccb714bac7dee61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a804a16521a8e5002dccb714bac7dee61">&#9670;&#160;</a></span>comboChainCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Player::comboChainCount = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nombre de jump-cancels enchaînés sans contact au sol (<span class="tt">EX-GP-061</span>) : incrémenté à chaque nouveau jump-cancel dans la fenêtre de combo (<span class="tt"><a class="el" href="#a5d34107f0ff266bd3538ffbaec892ec0" title="Temps restant (secondes) de la fenêtre de combo courante : tant qu&#39;il court, un nouveau jump-cancel e...">comboWindowTimer</a></span>), remis à zéro au contact du sol. </p>
+
+</div>
+</div>
+<a id="a5d34107f0ff266bd3538ffbaec892ec0" name="a5d34107f0ff266bd3538ffbaec892ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d34107f0ff266bd3538ffbaec892ec0">&#9670;&#160;</a></span>comboWindowTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::comboWindowTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) de la fenêtre de combo courante : tant qu'il court, un nouveau jump-cancel est considéré comme « rapproché » du précédent (bonus cumulatif de vitesse). </p>
+
+</div>
+</div>
 <a id="a69f291499ab2b7c27220c071a590b97a" name="a69f291499ab2b7c27220c071a590b97a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69f291499ab2b7c27220c071a590b97a">&#9670;&#160;</a></span>coyoteTimer</h2>
 
@@ -196,6 +252,55 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Temps restant (secondes) pendant lequel un saut est encore permis après avoir quitté le sol (<em>coyote time</em>) ; rechargé au contact du sol, décompté par la physique au pas fixe. </p>
+
+</div>
+</div>
+<a id="ae3c8f01bb96594a336834d50b482d370" name="ae3c8f01bb96594a336834d50b482d370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c8f01bb96594a336834d50b482d370">&#9670;&#160;</a></span>dashBoostFacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashBoostFacing = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Orientation figée au moment où <span class="tt"><a class="el" href="#a2482470bcc7bc5e7cbb8ae1a6da4b03f" title="Vrai dès que la charge de dash est complète : le prochain dash sera boosté (vitesse et durée majorées...">dashBoostReady</a></span> passe à vrai (copie de <span class="tt"><a class="el" href="#aea62c8c453b36b65ff75609d79a33541" title="Orientation de référence contre laquelle l&#39;opposition est mesurée pour charger un dash (EX-GP-056) : ...">dashChargeReferenceFacing</a></span>) : sert de direction par défaut au dash boosté si l'entrée est neutre au déclenchement. </p>
+
+</div>
+</div>
+<a id="a2482470bcc7bc5e7cbb8ae1a6da4b03f" name="a2482470bcc7bc5e7cbb8ae1a6da4b03f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2482470bcc7bc5e7cbb8ae1a6da4b03f">&#9670;&#160;</a></span>dashBoostReady</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Player::dashBoostReady = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai dès que la charge de dash est complète : le <b>prochain</b> dash sera boosté (vitesse et durée majorées), quelle que soit la direction tenue au moment où il se déclenche. </p>
+<p>Consommée (remise à <span class="tt">false</span>) par ce dash, qu'il vise ou non <span class="tt"><a class="el" href="#ae3c8f01bb96594a336834d50b482d370" title="Orientation figée au moment où dashBoostReady passe à vrai (copie de dashChargeReferenceFacing) : ser...">dashBoostFacing</a></span>. </p>
+
+</div>
+</div>
+<a id="aea62c8c453b36b65ff75609d79a33541" name="aea62c8c453b36b65ff75609d79a33541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea62c8c453b36b65ff75609d79a33541">&#9670;&#160;</a></span>dashChargeReferenceFacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashChargeReferenceFacing = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Orientation de référence contre laquelle l'opposition est mesurée pour charger un dash (<span class="tt">EX-GP-056</span>) : figée au <b>début</b> de la charge (<span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> juste avant que ce pas ne le mette à jour), jamais <span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> lui-même &ndash; <span class="tt"><a class="el" href="#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">facing</a></span> continue de suivre l'entrée à l'identique d'avant ce lot (sprite/caméra/direction de dash par défaut inchangés hors charge active). </p>
 
 </div>
 </div>
@@ -216,6 +321,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a37f99185221bcc74667434f5f514233a" name="a37f99185221bcc74667434f5f514233a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f99185221bcc74667434f5f514233a">&#9670;&#160;</a></span>dashChargeTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashChargeTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps accumulé (secondes) en tenant la direction <b>opposée</b> à <span class="tt"><a class="el" href="#aea62c8c453b36b65ff75609d79a33541" title="Orientation de référence contre laquelle l&#39;opposition est mesurée pour charger un dash (EX-GP-056) : ...">dashChargeReferenceFacing</a></span> (<span class="tt">EX-GP-056</span>) ; remis à zéro dès que l'opposition cesse <b>avant</b> que la charge ne soit complète (bankée). </p>
+
+</div>
+</div>
 <a id="ab09b332bfac288bad194d1ca3ecae3ba" name="ab09b332bfac288bad194d1ca3ecae3ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab09b332bfac288bad194d1ca3ecae3ba">&#9670;&#160;</a></span>dashesRemaining</h2>
 
@@ -229,6 +350,55 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dashs <b>restants</b> dans le tableau (budget, <span class="tt">EX-GP-024</span>) ; <b>-1 = illimité</b>. </p>
+
+</div>
+</div>
+<a id="a0de9f4ef0c98fb028967ec1faf1d428e" name="a0de9f4ef0c98fb028967ec1faf1d428e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0de9f4ef0c98fb028967ec1faf1d428e">&#9670;&#160;</a></span>dashIsBoosted</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Player::dashIsBoosted = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai si le dash <b>actuellement en cours</b> (<span class="tt"><a class="el" href="#a2a7cb76eef85ffa779b1a6cb0e47cedf" title="Durée restante (secondes) du dash en cours ; &gt; 0 pendant la ruée (gravité suspendue).">dashTimer</a> &gt; 0</span>) a été déclenché boosté (<span class="tt">EX-GP-056</span>). </p>
+<p>Conditionne le jump-cancel et la poussée renforcée (<span class="tt">EX-GP-061</span>/<span class="tt">EX-GP-057</span> côté appelant) : un dash <b>normal</b>, non boosté, se comporte exactement comme avant ce lot (aucune régression sur du contenu qui n'utilise jamais la charge, puisqu'il ne peut jamais produire de dash boosté). </p>
+
+</div>
+</div>
+<a id="ae23995571fc0c6d9b33bffded137ca06" name="ae23995571fc0c6d9b33bffded137ca06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23995571fc0c6d9b33bffded137ca06">&#9670;&#160;</a></span>dashJumpLockTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashJumpLockTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) du verrou de jump-cancel : tant qu'il court, le contrôle horizontal normal est suspendu au profit de <span class="tt"><a class="el" href="#a545fdb830a1ad8e34d54b82c90e2feef" title="Vitesse horizontale à conserver pendant le verrou de jump-cancel (EX-GP-061) : capturée au moment où ...">dashJumpMomentumX</a></span> (même patron que <span class="tt"><a class="el" href="#ab37e8efccea023b2f1d4f6adada4290b" title="Temps restant (secondes) de verrouillage du contrôle horizontal après un wall jump (la vitesse d&#39;éjec...">wallJumpLockTimer</a></span>). </p>
+
+</div>
+</div>
+<a id="a545fdb830a1ad8e34d54b82c90e2feef" name="a545fdb830a1ad8e34d54b82c90e2feef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545fdb830a1ad8e34d54b82c90e2feef">&#9670;&#160;</a></span>dashJumpMomentumX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashJumpMomentumX = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vitesse horizontale à <b>conserver</b> pendant le verrou de jump-cancel (<span class="tt">EX-GP-061</span>) : capturée au moment où un saut interrompt un dash en cours (au lieu d'attendre son expiration), pour que le saut résultant reparte de la vitesse du dash plutôt que de la physique normale. </p>
 
 </div>
 </div>
@@ -277,6 +447,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si le personnage repose sur une surface solide ; calculé par la physique. </p>
+
+</div>
+</div>
+<a id="a9ad575c740d81840018c28043f046073" name="a9ad575c740d81840018c28043f046073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ad575c740d81840018c28043f046073">&#9670;&#160;</a></span>groundPounding</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Player::groundPounding = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pendant un <b>ground pound</b> (<span class="tt">EX-GP-058</span>) : chute verticale à vitesse imposée, en l'air uniquement, jusqu'au contact du sol (remis à <span class="tt">false</span> par la physique à l'atterrissage). </p>
 
 </div>
 </div>
@@ -344,6 +530,38 @@ Public Attributes</h2></td></tr>
 
 <p>Masse du personnage, en unité de jeu arbitraire (<span class="tt">EX-GP-019</span>). </p>
 <p>Détermine, avec la traînée de <span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html" title="Paramètres réglables de la physique du personnage, regroupés pour faciliter le tuning.">PhysicsConfig</a></span>, la vitesse terminale de chute (poids = masse × gravité effective) ; une masse plus grande tombe plus vite. Sert aussi de seuil pour les mécanismes sensibles au poids (plaque de pression, <span class="tt">EX-GP-025</span>). </p>
+
+</div>
+</div>
+<a id="a14d968f4c041f1671557db26a08a425c" name="a14d968f4c041f1671557db26a08a425c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14d968f4c041f1671557db26a08a425c">&#9670;&#160;</a></span>pushMomentumVelocityX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::pushMomentumVelocityX = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vitesse horizontale (signée) du bloc poussé par la dernière poussée renforcée, à hériter par le prochain saut si <span class="tt"><a class="el" href="#a9c10c5fffe679f41e3b266f9668ce37d" title="Temps restant (secondes) de la fenêtre d&#39;héritage de momentum après une poussée renforcée (EX-GP-057/...">pushMomentumWindowTimer</a></span> n'a pas expiré. </p>
+
+</div>
+</div>
+<a id="a9c10c5fffe679f41e3b266f9668ce37d" name="a9c10c5fffe679f41e3b266f9668ce37d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c10c5fffe679f41e3b266f9668ce37d">&#9670;&#160;</a></span>pushMomentumWindowTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::pushMomentumWindowTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) de la fenêtre d'héritage de momentum après une <b>poussée renforcée</b> (<span class="tt">EX-GP-057</span>/<span class="tt">EX-GP-061</span>) : un saut déclenché avant expiration hérite d'une fraction de <span class="tt"><a class="el" href="#a14d968f4c041f1671557db26a08a425c" title="Vitesse horizontale (signée) du bloc poussé par la dernière poussée renforcée, à hériter par le proch...">pushMomentumVelocityX</a></span> (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html#a311991a630c5cb0dfed44cefa461b395" title="Fraction de la vitesse d&#39;un bloc poussé (poussée renforcée) héritée par le saut suivant,...">PhysicsConfig::momentumCarryRatio</a></span>). </p>
 
 </div>
 </div>

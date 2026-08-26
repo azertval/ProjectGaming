@@ -1,5 +1,12 @@
 var NAVTREEINDEX31 =
 {
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1975":[7,41,9,2],
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1976":[7,41,9,3],
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1977":[7,41,9,4],
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1978":[7,41,9,5],
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1979":[7,41,9,6],
+"lot-38-tache-03-retrait-legacy-ui.html":[7,41,10],
+"lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1980":[7,41,10,0],
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1981":[7,41,10,1],
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1982":[7,41,10,2],
 "lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1983":[7,41,10,3],
@@ -242,12 +249,5 @@ var NAVTREEINDEX31 =
 "lot-44-tache-01-modele-version-format.html#autotoc_md2193":[7,47,8,3],
 "lot-44-tache-01-modele-version-format.html#autotoc_md2194":[7,47,8,4],
 "lot-44-tache-01-modele-version-format.html#autotoc_md2195":[7,47,8,5],
-"lot-44-tache-01-modele-version-format.html#autotoc_md2196":[7,47,8,6],
-"lot-44-tache-02-rendu-fond.html":[7,47,9],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2197":[7,47,9,0],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2198":[7,47,9,1],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2199":[7,47,9,2],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2200":[7,47,9,3],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2201":[7,47,9,4],
-"lot-44-tache-02-rendu-fond.html#autotoc_md2202":[7,47,9,5]
+"lot-44-tache-01-modele-version-format.html#autotoc_md2196":[7,47,8,6]
 };

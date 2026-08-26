@@ -13,5 +13,7 @@ var searchData=
   ['grad_10',['grad',['../classaisolver_1_1autodiff_1_1Node.html#a39969f5872dd6eaab81d6b9b78e7a527',1,'aisolver::autodiff::Node']]],
   ['gravity_11',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
   ['grounded_12',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded'],['../structhmi_1_1PlayerEventState.html#a24d35fb1fb2f51edb821b6f85c0d58a8',1,'hmi::PlayerEventState::grounded']]],
-  ['group_13',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
+  ['groundpounding_13',['groundPounding',['../structcore_1_1Player.html#a9ad575c740d81840018c28043f046073',1,'core::Player']]],
+  ['groundpoundspeed_14',['groundPoundSpeed',['../structcore_1_1PhysicsConfig.html#a2072e171d44c396a1d3fc28e738224d0',1,'core::PhysicsConfig']]],
+  ['group_15',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
 ];

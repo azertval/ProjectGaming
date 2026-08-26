@@ -94,24 +94,24 @@ $(function(){initNavTree('lot-annexe-03-tache-06-tests.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2tache-06-tests"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">LOT-ANNEXE-03</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Nn</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3504"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3571"></a>
 Contexte</h1>
 <p>TACHE-01 à 04 introduisent chacune leurs cas de test locaux (couche dense, activations, composition, sérialisation) ; cette tâche consolide les vérifications transversales du réseau complet — reproductibilité de bout en bout et absence de sorties aberrantes — condition d'acceptation 3/4/5 de l'épic.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3505"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3572"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__network__reproducibility_8cpp.html" title="Reproductibilité de bout en bout d&#39;un aisolver::nn::Network complet, plusieurs couches et activations...">Source/Test/Unit/AiSolver/Nn/test_network_reproducibility.cpp</a></span></b> : construit deux <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">aisolver::nn::Network</a></span> identiques (mêmes poids, chargés depuis le même fichier sérialisé via TACHE-04), leur soumet la même entrée, vérifie une sortie <b>identique</b> bit à bit (tolérance nulle, pas seulement approchée — les deux réseaux effectuent exactement les mêmes opérations flottantes dans le même ordre).</li>
 <li><b><span class="tt"><a class="el" href="test__network__stability_8cpp.html" title="Stabilité numérique et gradient d&#39;un aisolver::nn::Network complet, plusieurs couches et activations ...">Source/Test/Unit/AiSolver/Nn/test_network_stability.cpp</a></span></b> : soumet un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> composé de couches <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span>+<span class="tt">relu</span>/<span class="tt">tanh</span>/<span class="tt">sigmoid</span>/<span class="tt">softmax</span> mêlées (TACHE-01/02/03) à des entrées d'amplitude extrême (valeurs très grandes, très petites, nulles) et vérifie l'absence de <span class="tt">NaN</span>/ <span class="tt">inf</span> en sortie, sur chaque couche intermédiaire (pas seulement la sortie finale).</li>
 <li><b>Test de bout en bout gradient + réseau</b> : un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> mêlant plusieurs couches et activations, une perte scalaire construite dessus, <span class="tt">autodiff::backward()</span> (<span class="tt">LOT-ANNEXE-02</span>) appliqué — vérifie que <b>tous</b> les paramètres du réseau (<span class="tt"><a class="el" href="classNetwork.html#a2cccda39bc2b145a932e8aed665d6f55">Network::parameters()</a></span>) reçoivent un gradient non nul pour une entrée/perte non dégénérée (condition d'acceptation 1 de l'épic).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3506"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3573"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__network__reproducibility_8cpp.html" title="Reproductibilité de bout en bout d&#39;un aisolver::nn::Network complet, plusieurs couches et activations...">Source/Test/Unit/AiSolver/Nn/test_network_reproducibility.cpp</a></span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="test__network__stability_8cpp.html" title="Stabilité numérique et gradient d&#39;un aisolver::nn::Network complet, plusieurs couches et activations ...">Source/Test/Unit/AiSolver/Nn/test_network_stability.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout des nouveaux fichiers à la cible <span class="tt">UnitTests</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3507"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3574"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Reproductibilité stricte</b> : deux réseaux aux poids identiques (chargés depuis le même fichier) produisent une sortie bit-à-bit identique sur la même entrée.</li>
@@ -120,21 +120,21 @@ Tests (obligatoires)</h1>
 <li><b>Gradient non nul sur tous les paramètres</b> : après <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> sur une perte non dégénérée, chaque paramètre de <span class="tt"><a class="el" href="classNetwork.html#a2cccda39bc2b145a932e8aed665d6f55">Network::parameters()</a></span> a un gradient accumulé différent de zéro.</li>
 <li><b><span class="tt">sigmoid</span>/<span class="tt">softmax</span> passent le gradient checking</b> (<span class="tt">LOT-ANNEXE-02</span>, <span class="tt"><a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a></span>) dans le contexte d'un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> complet, pas seulement isolées (déjà couvert localement par TACHE-02, revérifié ici en composition).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3508"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3575"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La reproductibilité stricte exige un ordre d'opérations flottantes rigoureusement identique</b> entre les deux réseaux comparés : construits depuis le même fichier sérialisé (TACHE-04), pas reconstruits indépendamment avec des poids « équivalents » calculés autrement — deux chemins de calcul différents pourraient légitimement diverger au dernier bit flottant sans que ce soit un bug.</li>
 <li><b>Ces tests exercent le réseau en composition, pas chaque couche isolément</b> (déjà fait par TACHE-01/02/03) : leur valeur ajoutée est spécifiquement de vérifier que l'assemblage ne introduit pas de problème qui n'existerait pas au niveau d'une couche seule.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3509"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3576"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux suites de tests vertes (<span class="tt">ctest</span>) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-003</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3510"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3577"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reseaux-neurones.html" title="Réseaux de neurones">Réseaux de neurones</a> — neurone, couche dense, fonctions d'activation, initialisation des poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3578"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-003</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

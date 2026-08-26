@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-annexe-18-tache-02-entree-menu-selection-rejeu.htm
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2tache-02-entree-menu-selection-rejeu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-18.html#md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2epic" title="Lot-Annexe/LOT-ANNEXE-18-mode-regarder-ia-jouer/epic.md">LOT-ANNEXE-18</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4111"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4178"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> (TACHE-01) sait jouer un fichier de rejeu donné ; il manque encore un point d'accès depuis le menu principal du jeu pour qu'un utilisateur en choisisse un et lance la lecture, symétrique au parcours existant « Jouer » (<span class="tt">hmi::MainWindow::startGame</span>, séquence <span class="tt">demo-*.json</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4112"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4179"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Entrée de menu « Regarder l'IA jouer »</b> (<span class="tt"><a class="el" href="MainWindow_8h.html" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT-35).">Source/HMI/Interface/MainWindow.h</a>/.cpp</span> ou un nouveau widget dédié, selon l'organisation Qt existante du menu principal) : ouvre une liste des fichiers de rejeu disponibles.</li>
 <li><b>Emplacement des rejeux « publiés »</b> : un sous-dossier documenté (ex. <span class="tt">Source/Elements/Replays/</span>, à la manière de <span class="tt">Source/Elements/Levels/</span> pour les niveaux — décision à documenter précisément à l'implémentation) distinct de <span class="tt">/TrainingRuns/</span> (non versionné, réservé aux runs d'entraînement bruts) : un rejeu jugé démonstratif doit être copié manuellement de l'un vers l'autre pour devenir sélectionnable dans le menu — pas de mécanisme automatique de « publication ».</li>
 <li><b><span class="tt">GameViewport::startReplay(const std::filesystem::path&amp; replayPath)</span></b> (symétrique à <span class="tt">startGame</span>) : construit un <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> (TACHE-01), bascule la boucle de pas fixe existante (<span class="tt">GameViewport::tick</span>) vers la source d'entrée « rejeu » plutôt que « clavier/manette », jusqu'à ce que <span class="tt"><a class="el" href="classReplayPlayback.html#a66b63484e3ff4dbd0939fbf27d465c0f" title="Renvoie le prochain core::PlayerInput de la séquence enregistrée.">ReplayPlayback::nextInput()</a></span> renvoie <span class="tt">std::nullopt</span> (fin de séquence) ou que <span class="tt">GameSession::update</span> renvoie <span class="tt">Won</span>/<span class="tt">Lost</span> — dans les deux cas, retour au menu (pas d'enchaînement vers un niveau suivant, un rejeu porte sur un seul niveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4113"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4180"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="MainWindow_8h.html" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT-35).">Source/HMI/Interface/MainWindow.h</a>/.cpp</span> — modifié (nouvelle entrée de menu).</li>
@@ -112,28 +112,28 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Replays/README.md</span> — nouveau (convention de dossier, à l'image de <span class="tt">Source/
   Elements/Levels/README.md</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4114"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4181"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Sélection et lancement</b> : choisir un rejeu dans la liste lance effectivement <span class="tt">GameViewport::startReplay</span> avec le chemin attendu (test d'intégration Qt si l'infrastructure de test de <span class="tt">HMI/Interface</span> le permet, sinon test unitaire sur la fonction de listing/sélection isolée de tout widget).</li>
 <li><b>Fin de rejeu ramène au menu</b> : qu'elle se termine par <span class="tt">Won</span>, <span class="tt">Lost</span> ou épuisement de la séquence, une session de rejeu retourne au menu principal, jamais bloquée ni plantée.</li>
 <li><b>Liste vide gérée proprement</b> : en l'absence de tout fichier sous le dossier de rejeux publiés, l'entrée de menu reste accessible mais signale l'absence de rejeu disponible, sans erreur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4115"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4182"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun enchaînement automatique vers un niveau suivant</b> : contrairement au mode « Jouer » (<span class="tt">startGame</span>, séquence de niveaux), un rejeu porte toujours sur un seul niveau — cohérent avec le régime d'entraînement niveau par niveau de tout le programme.</li>
 <li><b>La distinction <span class="tt">/TrainingRuns/</span> (non versionné, brut) vs dossier de rejeux publiés (versionné, sélectionné manuellement)</b> est délibérée : elle évite qu'un menu de jeu livré affiche des centaines de runs d'entraînement intermédiaires sans intérêt démonstratif.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4116"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4183"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Entrée de menu et <span class="tt">GameViewport::startReplay</span> disponibles et testés dans la mesure du possible (<span class="tt">ctest</span> vert pour la partie non-Qt) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4117"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4184"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4118"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4185"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-019</span> (nouvelle, partagée avec TACHE-01/03 du même lot). </p>
 </div></div><!-- contents -->

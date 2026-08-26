@@ -1,7 +1,7 @@
 var searchData=
 [
   ['3_0',['3',['../cahiertest.html#autotoc_md44',1,'Couverture Mecaniques — &lt;span class=&quot;tt&quot;&gt;test_couverture_mecaniques.cpp&lt;/span&gt; (3)'],['../lot-annexe-14-tache-03-comparaison-chiffree.html',1,'TACHE-03 — Comparaison chiffrée contre la génération 2 et le reste de la génération 3']]],
-  ['3_20—_20apprentissage_20par_20gradient_1',['Génération 3 — Apprentissage par gradient',['../lots-annexe.html#autotoc_md4219',1,'']]],
+  ['3_20—_20apprentissage_20par_20gradient_1',['Génération 3 — Apprentissage par gradient',['../lots-annexe.html#autotoc_md4286',1,'']]],
   ['3_201_20trois_20tensions_20à_20arbitrer_2',['3.1. Trois tensions à arbitrer',['../guide-annexe-apprentissage-renforcement.html#autotoc_md294',1,'']]],
   ['3_202_20encoder_20des_20catégories_20_3a_20le_20one_20hot_3',['3.2. Encoder des catégories : le &lt;em&gt;one-hot&lt;/em&gt;',['../guide-annexe-apprentissage-renforcement.html#autotoc_md295',1,'']]],
   ['3_203_20mettre_20les_20grandeurs_20continues_20à_20la_20même_20échelle_4',['3.3. Mettre les grandeurs continues à la même échelle',['../guide-annexe-apprentissage-renforcement.html#autotoc_md296',1,'']]],
@@ -14,7 +14,7 @@ var searchData=
   ['3_20conception_20lignes_20directrices_11',['3. Conception (lignes directrices)',['../spec-niveaux.html#autotoc_md454',1,'']]],
   ['3_20concevoir_20une_20observation_20_3a_20ce_20que_20l_20agent_20a_20le_20droit_20de_20voir_12',['3. Concevoir une observation : ce que l&apos;agent a le droit de voir',['../guide-annexe-apprentissage-renforcement.html#autotoc_md293',1,'']]],
   ['3_20coordonnées_20unités_20—_20trois_20espaces_20distincts_13',['3. Coordonnées &amp;amp; unités — trois espaces distincts',['../spec-architecture.html#autotoc_md367',1,'']]],
-  ['3_20créer_20un_20niveau_14',['3. Créer un niveau',['../manuel-partager-niveau.html#autotoc_md4237',1,'']]],
+  ['3_20créer_20un_20niveau_14',['3. Créer un niveau',['../manuel-partager-niveau.html#autotoc_md4304',1,'']]],
   ['3_20croisement_20_3a_20combiner_20deux_20réseaux_15',['3. Croisement : combiner deux réseaux',['../guide-annexe-algorithmes-evolutionnistes.html#autotoc_md285',1,'']]],
   ['3_20distribution_20collaboration_16',['3. Distribution &amp;amp; collaboration',['../spec-editeur.html#autotoc_md410',1,'']]],
   ['3_20gestion_20des_20niveaux_17',['3. Gestion des niveaux',['../spec-interface-ihm.html#autotoc_md444',1,'']]],

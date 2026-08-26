@@ -1,5 +1,12 @@
 var NAVTREEINDEX29 =
 {
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1532":[7,28,9,1],
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1533":[7,28,9,2],
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1534":[7,28,9,3],
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1535":[7,28,9,4],
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1536":[7,28,9,5],
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1537":[7,28,9,6],
+"lot-25-tache-04-documentation-verification.html":[7,28,10],
 "lot-25-tache-04-documentation-verification.html#autotoc_md1538":[7,28,10,0],
 "lot-25-tache-04-documentation-verification.html#autotoc_md1539":[7,28,10,1],
 "lot-25-tache-04-documentation-verification.html#autotoc_md1540":[7,28,10,2],
@@ -242,12 +249,5 @@ var NAVTREEINDEX29 =
 "lot-32-tache-01-partition-salles.html#autotoc_md1750":[7,35,8,2],
 "lot-32-tache-01-partition-salles.html#autotoc_md1751":[7,35,8,3],
 "lot-32-tache-01-partition-salles.html#autotoc_md1752":[7,35,8,4],
-"lot-32-tache-01-partition-salles.html#autotoc_md1753":[7,35,8,5],
-"lot-32-tache-01-partition-salles.html#autotoc_md1754":[7,35,8,6],
-"lot-32-tache-02-camera-salle-jeu.html":[7,35,9],
-"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1755":[7,35,9,0],
-"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1756":[7,35,9,1],
-"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1757":[7,35,9,2],
-"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1758":[7,35,9,3],
-"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1759":[7,35,9,4]
+"lot-32-tache-01-partition-salles.html#autotoc_md1753":[7,35,8,5]
 };

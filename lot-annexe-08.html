@@ -96,17 +96,17 @@ $(function(){initNavTree('lot-annexe-08.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>, amendé (<span class="tt">EX-IA-023</span>, voir section dédiée ci-dessous). Prérequis : <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, budget de pas et mesure de progression). Quatrième lot de la génération 1 : définit le signal d'apprentissage <b>unique</b>, partagé par tous les algorithmes des générations 2 et 3 — évite qu'un algorithme évolutionniste et un algorithme de policy gradient optimisent, sans le savoir, deux définitions différentes de « bien jouer ». </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3684"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3751"></a>
 Amendement : distance de grille (BFS) au lieu de la distance euclidienne</h1>
 <p>Constat opérationnel après plusieurs entraînements réels (génération 2/3, <span class="tt">LOT-ANNEXE-21</span>) : sur un niveau où la sortie est directement au-dessus/en-dessous du point de départ mais où un mur force un détour latéral, la distance euclidienne (décision de cadrage initiale ci-dessous) pénalise <b>activement</b> les pas de détour pourtant nécessaires — s'écarter latéralement pour contourner le mur augmente la distance en ligne droite, donc produit une récompense négative, alors que ce pas est la seule façon de progresser réellement. Ce n'est pas seulement un signal imparfait (accepté dès l'origine) mais un signal qui <b>combat</b> la bonne politique sur cette géométrie, bloquant l'apprentissage sur les niveaux concernés.</p>
 <p><b>Correction</b> : <span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">aisolver::GridDistanceField</a></span> (<span class="tt"><a class="el" href="GridDistanceField_8h.html" title="Champ de distances de plus court chemin sur la grille, respectant les murs (amendement LOT-ANNEXE-08,...">Source/AiSolver/Env/GridDistanceField.h</a>/.cpp</span>) remplace la distance euclidienne par une distance de plus court chemin sur la grille (BFS 4-connexe, respectant les cases statiquement solides de <span class="tt"><a class="el" href="classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457" title="Indique si la tuile à une case est statiquement solide.">core::TileMap::isSolid</a></span>), précalculée une fois par niveau (un seul BFS à la construction, <span class="tt">O(largeur × hauteur)</span>) puis lue en <span class="tt">O(1)</span> à chaque pas — pas de replanification par pas, pas de pathfinding dynamique. <span class="tt">computeReward</span> prend désormais un <span class="tt">const GridDistanceField&amp;</span> à la place du <span class="tt"><a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>&amp; exit</span> brut.</p>
 <p><b>Ce que l'amendement ne change pas</b> : la structure de la récompense (progression + bonus + pénalités, <span class="tt">RewardConfig</span> inchangée), le caractère dense (par pas) du signal, et le fait qu'aucun mécanisme spécifique à un niveau n'est modélisé (façonnage toujours générique, cf. Exclus ci-dessous). Seule la <b>mesure de distance</b> change.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3685"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3752"></a>
 Objectif</h1>
 <p><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>) expose une issue brute (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span> : <span class="tt">Playing</span>/<span class="tt">Won</span>/<span class="tt">Lost</span>) et des compteurs de progression, mais aucune notion de <b>récompense</b> — le signal scalaire qu'un algorithme d'apprentissage cherche à maximiser. Sans une définition unique et partagée, chaque lot de génération 2/3 (<span class="tt">LOT-ANNEXE-10</span>, <span class="tt">12</span>, <span class="tt">13</span>, <span class="tt">14</span>) risquerait d'inventer sa propre fonction de récompense, rendant toute comparaison entre algorithmes (génération 4) invalide par construction — on ne pourrait plus distinguer « cet algorithme apprend mieux » de « cet algorithme optimise un problème légèrement différent ». Ce lot fixe une fois pour toutes ce que « bien jouer un niveau » signifie numériquement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3686"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3753"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3687"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3754"></a>
 Inclus</h2>
 <ul>
 <li><b>Récompense de progression</b> : proportionnelle à la diminution de la distance restante jusqu'à la sortie du niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273">core::Level::exit()</a></span>), à chaque pas — dense (non nulle à chaque pas), pour donner un signal d'apprentissage y compris avant qu'un épisode complet ne se termine.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b>Détection de fin d'épisode</b> (<span class="tt"><a class="el" href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68" title="Statut d&#39;un épisode d&#39;entraînement, plus riche que core::LevelOutcome (qui ignore blocage et plafond ...">aisolver::EpisodeStatus</a></span> : <span class="tt">Ongoing</span>/<span class="tt">Won</span>/<span class="tt">Lost</span>/<span class="tt">TimedOut</span>/ <span class="tt">Stuck</span>), réutilisant directement l'issue de <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> et son budget de pas/ mesure de progression (<span class="tt">LOT-ANNEXE-05</span>) pour les deux derniers cas.</li>
 <li>Tests : cas limites (mort immédiate, complétion immédiate, stagnation sans progression), non-régression sur les niveaux <span class="tt">demo-*.json</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3688"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3755"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Façonnage de récompense spécifique à un niveau</b> (bonus ad hoc pour un mécanisme particulier, ex. bonus dédié à l'activation d'un interrupteur) : la récompense reste <b>générique</b>, dérivée uniquement de la distance à la sortie et de l'issue — un façonnage par mécanisme romprait la comparabilité inter-niveaux visée par la génération 4.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Curiosité ou récompense intrinsèque</b> (bonus d'exploration au-delà de la progression vers la sortie) : aucun niveau de la séquence <span class="tt">demo-*.json</span> n'a été identifié comme nécessitant une exploration au-delà de ce que la récompense de progression encourage déjà.</li>
 <li><b>La politique de reprise après un échec</b> (relance automatique du niveau) : <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>) ne relance jamais lui-même ; c'est la boucle d'entraînement (génération 2/3) qui appelle <span class="tt">reset()</span> après un épisode terminé — ce lot ne fait que <b>qualifier</b> la fin d'épisode, pas décider de la suite.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3689"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3756"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Récompense dense (par pas), jamais uniquement sparse (fin d'épisode seule).</b> Un signal uniquement délivré à la fin (victoire/échec) serait extrêmement difficile à exploiter par un algorithme de gradient (génération 3) sur des niveaux de plusieurs centaines de pas — la récompense de progression donne un signal à <b>chaque</b> pas, y compris pour un épisode qui échoue finalement, ce qui informe quand même la direction d'amélioration.</li>
@@ -134,17 +134,17 @@ Décisions de cadrage</h1>
 <li><b>Le blocage (<span class="tt">Stuck</span>, absence de progression pendant N pas) est un critère de fin d'épisode distinct d'un timeout dur</b> (<span class="tt">TimedOut</span>, plafond absolu de pas) : un agent qui progresse lentement mais sûrement ne doit pas être coupé aussi tôt qu'un agent qui stagne complètement — les deux bornent néanmoins la durée d'un épisode, condition nécessaire pour qu'un entraînement automatisé (génération 2/3) ne boucle jamais indéfiniment sur un seul épisode.</li>
 <li><b><span class="tt">Stuck</span> et <span class="tt">TimedOut</span> sont traités comme un échec du point de vue de la récompense</b> (même pénalité que <span class="tt">Lost</span>, pas une valeur neutre) : un épisode qui n'aboutit à rien ne doit pas être récompensé plus qu'un échec explicite, sous peine qu'un algorithme apprenne à « ne rien risquer » plutôt qu'à progresser.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3690"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3757"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>, sections « Récompense » et « Épisode, horizon » (récompense dense vs sparse, retour, fin d'épisode). Sources directes : Sutton &amp; Barto (2018, référence de base pour la notion de récompense et de retour) — bibliographie complète dans le chapitre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3691"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3758"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-009" title="EX-IA-009"><span class="tt">EX-IA-009</span></a>.</li>
 <li>Nouvelle (amendement), déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-023" title="EX-IA-023"><span class="tt">EX-IA-023</span></a>.</li>
 <li>Réutilisées : <span class="tt">EX-IA-005</span> (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, budget de pas et mesure de progression), <span class="tt">EX-GP-030</span>/<span class="tt">EX-GP-031</span> (conditions de victoire/échec du jeu, base de la classification d'épisode).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3692"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3759"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -159,7 +159,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-08-tache-03-tests-cas-limites.html#md_Lot-Annexe_2LOT-ANNEXE-08-fonction-recompense-episodes_2tache-03-tests-cas-limites" title="Lot-Annexe/LOT-ANNEXE-08-fonction-recompense-episodes/tache-03-tests-cas-limites.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Tests : cas limites et non-régression sur <span class="tt">demo-*.json</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Unit/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3693"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3760"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>La récompense de progression est strictement positive lorsque la distance à la sortie diminue d'un pas au suivant, nulle ou négative si elle stagne/augmente.</li>
@@ -168,10 +168,10 @@ Critères d'acceptation du lot</h1>
 <li>Sur chaque niveau de <span class="tt">Source/Elements/Levels/demo-*.json</span>, un rejeu du script existant de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> (via <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) classe l'épisode en <span class="tt">Won</span> avec une récompense cumulée positive et dominée par le bonus de complétion.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3694"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3761"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>, budget de pas). <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> à <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14</a> (génération 2 et 3) en dépendent directement comme signal d'apprentissage unique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3695"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3762"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-08-tache-01-recompense-progression-bonus-penalites.html" title="TACHE-01 — Récompense de progression, bonus de complétion, pénalités">TACHE-01 — Récompense de progression, bonus de complétion, pénalités</a></li>

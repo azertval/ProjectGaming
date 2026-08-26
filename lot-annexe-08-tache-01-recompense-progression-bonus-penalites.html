@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-08-tache-01-recompense-progression-bonus-pe
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-08-fonction-recompense-episodes_2tache-01-recompense-progression-bonus-penalites"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-08.html#md_Lot-Annexe_2LOT-ANNEXE-08-fonction-recompense-episodes_2epic" title="Lot-Annexe/LOT-ANNEXE-08-fonction-recompense-episodes/epic.md">LOT-ANNEXE-08</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3696"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3763"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>) renvoie une position de personnage et une issue brute à chaque pas, sans aucune notion de récompense. Cette tâche calcule, à partir de ces informations seules, le signal scalaire que tout algorithme d'apprentissage du programme cherchera à maximiser.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3697"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3764"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1RewardConfig.html" title="Constantes de la fonction de récompense (EX-IA-009).">aisolver::RewardConfig</a></span></b> (<span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Source/AiSolver/Env/Reward.h</a></span>) : structure de constantes documentées — <span class="tt">float progressScale</span>, <span class="tt">float completionBonus</span>, <span class="tt">float deathPenalty</span>, <span class="tt">float
@@ -112,14 +112,14 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3698"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3765"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Source/AiSolver/Env/Reward.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="GridDistanceField_8h.html" title="Champ de distances de plus court chemin sur la grille, respectant les murs (amendement LOT-ANNEXE-08,...">Source/AiSolver/Env/GridDistanceField.h</a>/.cpp</span> — nouveau (amendement <span class="tt">EX-IA-023</span>) : BFS de distance de grille, remplace la distance euclidienne dans <span class="tt">computeReward</span>.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3699"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3766"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Progression positive</b> : <span class="tt">currentBox</span> plus proche de <span class="tt">exit</span> que <span class="tt">previousBox</span> → récompense de progression strictement positive.</li>
@@ -127,21 +127,21 @@ Tests (obligatoires)</h1>
 <li><b>Bonus de complétion domine</b> : sur un épisode synthétique de plusieurs centaines de pas de pénalité de temps cumulée, la récompense totale d'un épisode <span class="tt">Won</span> reste strictement supérieure à celle d'un épisode <span class="tt">Lost</span>/<span class="tt">Playing</span> interrompu à la même progression partielle.</li>
 <li><b>Valeurs par défaut plausibles</b> : <span class="tt">RewardConfig{}</span> (constructeur par défaut) ne produit ni <span class="tt">NaN</span> ni valeur aberrante sur des distances et durées typiques des niveaux <span class="tt">demo-*.json</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3700"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3767"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La distance utilisée est une distance de grille (<span class="tt">GridDistanceField</span>, BFS 4-connexe respectant les murs statiques), amendement <span class="tt">EX-IA-023</span></b> — remplace la distance euclidienne d'origine, qui pénalisait activement les pas de détour nécessaires autour d'un mur. <span class="tt">GridDistanceField</span> reste un BFS <b>statique</b> précalculé une fois par niveau, pas un pathfinding dynamique replanifié à chaque pas.</li>
 <li><b><span class="tt">computeReward</span> est une fonction pure</b>, sans état interne ni effet de bord — appelée à chaque pas par la boucle d'entraînement (génération 2/3), elle ne doit dépendre que de ses arguments (<span class="tt">distanceField</span> inclus, construit une fois par l'appelant avant la boucle d'épisode).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3701"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3768"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">RewardConfig</span>/<span class="tt">computeReward</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3702"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3769"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> (récompense, conception d'une fonction de récompense (<em>shaping</em>, <em>reward hacking</em>), épisode et horizon), en particulier ses sections 6.1 (récompense creuse contre dense), 6.3 (<em>shaping</em> par potentiel : pourquoi une <b>différence</b> de distance et non une distance) et 6.4 (ordres de grandeur entre les termes).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3703"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3770"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-009</span> (nouvelle, partagée avec TACHE-02/03 du même lot). <span class="tt">EX-IA-023</span> (amendement, distance de grille). </p>
 </div></div><!-- contents -->

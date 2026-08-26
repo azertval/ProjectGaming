@@ -1,5 +1,6 @@
 var structcore_1_1PlayerInput =
 [
+    [ "dashHeld", "structcore_1_1PlayerInput.html#abd62bcb70351576926bda10c8d118cd7", null ],
     [ "dashPressed", "structcore_1_1PlayerInput.html#a554649f1780708614de0ffad89e7c076", null ],
     [ "interactHeld", "structcore_1_1PlayerInput.html#a4bbea3e0e16a22ae2486edab64d61999", null ],
     [ "interactPressed", "structcore_1_1PlayerInput.html#a82259f11fc02e6548e64cbdf2a2acae9", null ],

@@ -1,5 +1,12 @@
 var NAVTREEINDEX26 =
 {
+"lot-08-tache-03-physique-personnage.html#autotoc_md870":[7,11,10,3],
+"lot-08-tache-03-physique-personnage.html#autotoc_md871":[7,11,10,4],
+"lot-08-tache-03-physique-personnage.html#autotoc_md872":[7,11,10,5],
+"lot-08-tache-03-physique-personnage.html#autotoc_md873":[7,11,10,6],
+"lot-08-tache-04-regles-fin-niveau.html":[7,11,11],
+"lot-08-tache-04-regles-fin-niveau.html#autotoc_md874":[7,11,11,0],
+"lot-08-tache-04-regles-fin-niveau.html#autotoc_md875":[7,11,11,1],
 "lot-08-tache-04-regles-fin-niveau.html#autotoc_md876":[7,11,11,2],
 "lot-08-tache-04-regles-fin-niveau.html#autotoc_md877":[7,11,11,3],
 "lot-08-tache-04-regles-fin-niveau.html#autotoc_md878":[7,11,11,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX26 =
 "lot-13.html#autotoc_md1077":[7,16,1,0],
 "lot-13.html#autotoc_md1078":[7,16,1,1],
 "lot-13.html#autotoc_md1079":[7,16,2],
-"lot-13.html#autotoc_md1080":[7,16,3],
-"lot-13.html#autotoc_md1081":[7,16,4],
-"lot-13.html#autotoc_md1082":[7,16,5],
-"lot-13.html#autotoc_md1083":[7,16,6],
-"lot-14-tache-01-serialisation-modele-edition.html":[7,17,8],
-"lot-14-tache-01-serialisation-modele-edition.html#autotoc_md1094":[7,17,8,0],
-"lot-14-tache-01-serialisation-modele-edition.html#autotoc_md1095":[7,17,8,1],
-"lot-14-tache-01-serialisation-modele-edition.html#autotoc_md1096":[7,17,8,2]
+"lot-13.html#autotoc_md1080":[7,16,3]
 };

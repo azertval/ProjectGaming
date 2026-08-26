@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-03-tache-02-activations.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2tache-02-activations"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">LOT-ANNEXE-03</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Nn</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3472"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3539"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> (TACHE-01) produit une sortie affine brute ; un réseau a besoin d'activations non linéaires entre ses couches pour approcher des fonctions non triviales. <span class="tt">LOT-ANNEXE-02</span> livre déjà <span class="tt">relu</span> et <span class="tt">tanhOp</span> ; cette tâche ajoute les deux activations manquantes réellement consommées par ce programme : <span class="tt">sigmoid</span> (sortie bornée <span class="tt">]0,1[</span>, utile pour une probabilité d'action binaire) et <span class="tt">softmax</span> (distribution de probabilité sur plusieurs actions discrètes — pertinent dès que l'agent choisit parmi plusieurs actions possibles, génération 2/3).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3473"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3540"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Activations_8h.html" title="Fonctions d&#39;activation différentiables manquantes après LOT-ANNEXE-02 (autodiff::relu,...">Source/AiSolver/Nn/Activations.h</a></span></b> : fonctions libres dans <span class="tt">namespace <a class="el" href="namespaceaisolver_1_1nn.html">aisolver::nn</a></span>, chacune construite via <span class="tt">autodiff::unaryOp</span> (<span class="tt">LOT-ANNEXE-02</span>), exactement comme <span class="tt">relu</span>/<span class="tt">tanhOp</span> l'ont été dans <span class="tt"><a class="el" href="Ops_8cpp.html">Ops.cpp</a></span> — aucune modification de <span class="tt"><a class="el" href="Node_8h.html" title="Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).">Node.h</a></span>/<span class="tt"><a class="el" href="Node_8cpp.html">Node.cpp</a></span>.<ul>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3474"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3541"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Activations_8h.html" title="Fonctions d&#39;activation différentiables manquantes après LOT-ANNEXE-02 (autodiff::relu,...">Source/AiSolver/Nn/Activations.h</a></span> (nouveau).</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__activations_8cpp.html" title="Tests unitaires des activations aisolver::nn::sigmoid/softmax (LOT-ANNEXE-03, TACHE-02) : bornes,...">Unit/AiSolver/Nn/test_activations.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__activations_8cpp.html" title="Tests unitaires des activations aisolver::nn::sigmoid/softmax (LOT-ANNEXE-03, TACHE-02) : bornes,...">Source/Test/Unit/AiSolver/Nn/test_activations.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3475"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3542"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">sigmoid</span> bornée</b> : pour des entrées de grande amplitude (positive et négative), la sortie reste strictement dans <span class="tt">]0, 1[</span>, sans <span class="tt">NaN</span>/<span class="tt">inf</span>.</li>
@@ -125,22 +125,22 @@ Tests (obligatoires)</h1>
 <li><b>**<span class="tt">softmax</span> sur des entrées égales</b> : un vecteur constant produit une sortie <b>uniforme</b> (<span class="tt">1/n</span> sur chaque élément) — cas limite simple à vérifier à la main.</li>
 <li><b>Passage du contrôle de gradient</b> (<span class="tt">LOT-ANNEXE-02</span>, <span class="tt"><a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a></span>) : <span class="tt">sigmoid</span> et <span class="tt">softmax</span> passent <span class="tt"><a class="el" href="test__autodiff__gradient__checking_8cpp.html#a9e329421866b257cf6a93da46b53cb3b" title="Compare, élément par élément de chaque entrée, le gradient analytique (backward()) au gradient numéri...">checkGradient</a></span> sur des entrées aléatoires (<span class="tt"><a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">aisolver::Rng</a></span> à graine fixe) — condition bloquante avant tout usage dans <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span>/<span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> (TACHE-03), exactement comme pour les cinq opérations de <span class="tt">LOT-ANNEXE-02</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3543"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">softmax</span> sans stabilisation par soustraction du maximum est un piège classique</b> : <span class="tt">exp(1000)</span> déborde en <span class="tt">float</span> bien avant que le vecteur normalisé n'ait de sens — la soustraction du maximum ne change pas le résultat mathématique (<span class="tt">softmax(x) == softmax(x − max(x))</span>) mais rend le calcul robuste ; à ne jamais omettre, y compris dans un futur refactor.</li>
 <li><b><span class="tt">softmax</span> ne matérialise pas sa jacobienne <span class="tt">n×n</span></b> : au-delà de la mémoire gaspillée pour de petits vecteurs d'action, ce choix anticipe des vecteurs d'action plus larges (dizaines d'actions) sans changer l'implémentation — le produit jacobien-vecteur direct reste <span class="tt">O(n²)</span>, la jacobienne matérialisée aussi, mais sans l'allocation intermédiaire.</li>
 <li><b><span class="tt">sigmoid</span>/<span class="tt">softmax</span> réutilisent le même mécanisme (<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>) que <span class="tt">relu</span>/<span class="tt">tanhOp</span></b> : aucune branche spéciale n'est nécessaire dans <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> (<span class="tt">LOT-ANNEXE-02</span>), confirmant à nouveau que la fabrique générique tient sa promesse pour une opération à jacobienne non diagonale (<span class="tt">softmax</span>), cas plus complexe que les activations élément par élément déjà livrées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3544"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">sigmoid</span>/<span class="tt">softmax</span> disponibles, testées (<span class="tt">ctest</span> vert), gradient vérifié par <span class="tt"><a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a></span> ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3545"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reseaux-neurones.html" title="Réseaux de neurones">Réseaux de neurones</a> — neurone, couche dense, fonctions d'activation, initialisation des poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3546"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-003</span> (déclarée dans <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

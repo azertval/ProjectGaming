@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-17-tache-02-stabilisation-format-v1.html','
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-17-validation-format-rejeu_2tache-02-stabilisation-format-v1"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-17.html#md_Lot-Annexe_2LOT-ANNEXE-17-validation-format-rejeu_2epic" title="Lot-Annexe/LOT-ANNEXE-17-validation-format-rejeu/epic.md">LOT-ANNEXE-17</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Replay</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4084"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4151"></a>
 Contexte</h1>
 <p>Le format de rejeu v1 (<span class="tt">LOT-ANNEXE-07</span>) a été défini en génération 1, avant qu'aucun algorithme réel n'ait exporté le moindre fichier. Après usage effectif par les générations 2 (évolutionniste) et 3 (policy gradient, acteur-critique), deux besoins concrets sont apparus, absents du format initial : connaître la <b>durée totale</b> d'un rejeu sans recompter ses pas (utile à l'affichage en jeu, <span class="tt">LOT-ANNEXE-18</span>, et aux rapports du CLI, <span class="tt">LOT-ANNEXE-19</span>), et savoir <b>quel algorithme</b> a produit un rejeu donné (traçabilité, utile au garde-fou CI comme au diagnostic). Cette tâche ajoute ces champs sans casser les fichiers déjà écrits.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4085"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4152"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Champ <span class="tt">totalDurationSeconds</span></b> (<span class="tt">float</span>) : ajouté aux métadonnées du rejeu (<span class="tt">ReplayMetadata</span>, type déjà défini par <span class="tt">LOT-ANNEXE-07</span>) — égal à <span class="tt">stepCount × fixedDelta</span>, calculé une fois à l'export plutôt que recalculé à chaque lecture.</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b>Incrément de version</b> : le champ <span class="tt">version</span> déjà prévu par le format v1 passe de <span class="tt">1</span> à <span class="tt">2</span> sur tout nouvel export. Le lecteur (<span class="tt">LOT-ANNEXE-07</span>) accepte les deux valeurs : sur un fichier <span class="tt">version == 1</span>, <span class="tt">totalDurationSeconds</span> et <span class="tt">algorithmId</span> sont absents du JSON et pris à une valeur sentinelle (<span class="tt">0.0f</span> et <span class="tt">""</span> respectivement) plutôt que de faire échouer la lecture — ces fichiers restent des rejeux valides, seulement moins renseignés.</li>
 <li>Mise à jour de l'écrivain de rejeu (<span class="tt">LOT-ANNEXE-07</span>, module d'export) pour toujours produire <span class="tt">version == 2</span> avec les deux nouveaux champs renseignés à partir de ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4086"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4153"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Le fichier portant <span class="tt">ReplayMetadata</span>/la sérialisation JSON du rejeu (défini par <span class="tt">LOT-ANNEXE-07</span>, sous <span class="tt">Source/AiSolver/Replay</span>) : ajout des deux champs, gestion des deux versions à la lecture.</li>
 <li>Tests : <span class="tt"><a class="el" href="test__replay__format_8cpp.html" title="Tests unitaires de la stabilisation du format de rejeu v1 (LOT-ANNEXE-17, TACHE-02) : totalDurationSe...">Source/Test/Unit/AiSolver/Replay/test_replay_format.cpp</a></span> (mise à jour ou nouveau, couvrant les deux versions).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4087"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4154"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Lecture d'un fichier <span class="tt">version == 1</span></b> (sans les nouveaux champs) : se charge sans erreur, <span class="tt">totalDurationSeconds == 0.0f</span> et <span class="tt">algorithmId == ""</span>.</li>
@@ -119,22 +119,22 @@ Tests (obligatoires)</h1>
 <li><b>Round-trip</b> : écrire puis relire un rejeu produit un <span class="tt">algorithmId</span> et un <span class="tt">totalDurationSeconds</span> identiques à ceux fournis à l'export.</li>
 <li><b>Non-régression</b> : les tests existants de <span class="tt">LOT-ANNEXE-07</span> sur le format v1 (séquence d'entrées, empreinte de niveau) restent verts sans modification.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4088"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4155"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun fichier <span class="tt">version == 1</span> déjà écrit ne doit devenir illisible</b> : c'est le critère d'acceptation central de ce lot — toute évolution du format qui romprait la lecture d'un fichier existant est à exclure, quitte à repousser un champ à une version ultérieure.</li>
 <li><b><span class="tt">totalDurationSeconds</span> est une commodité dérivée, pas une source de vérité</b> : en cas de divergence avec <span class="tt">stepCount × fixedDelta</span> recalculé (ne devrait jamais arriver si l'export est correct), c'est le nombre de pas réel de la séquence qui fait foi pour la simulation — ce champ ne sert qu'à l'affichage/au reporting.</li>
 <li><b><span class="tt">algorithmId</span> est une chaîne libre à ce stade, pas une énumération figée</b> : de nouveaux algorithmes pourraient apparaître après ce lot ; contraindre la valeur à un ensemble fermé obligerait à retoucher le format à chaque nouvel algorithme, ce que ce lot cherche justement à éviter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4089"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4156"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Format v1 stabilisé (<span class="tt">version</span> 1 et 2 tous deux lisibles), nouveaux champs disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour. Aucune exigence propre à cette tâche (raffinement du format couvert par les exigences de <span class="tt">LOT-ANNEXE-07</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4090"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4157"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4091"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4158"></a>
 Exigences</h1>
 <p>Aucune exigence propre à cette tâche (raffinement du format de rejeu v1, couvert par les exigences déclarées en <span class="tt">LOT-ANNEXE-07</span>). </p>
 </div></div><!-- contents -->

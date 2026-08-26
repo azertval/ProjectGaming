@@ -1,5 +1,12 @@
 var NAVTREEINDEX34 =
 {
+"lot-56-tache-01-socle-style.html#autotoc_md2639":[7,59,8,0],
+"lot-56-tache-01-socle-style.html#autotoc_md2640":[7,59,8,1],
+"lot-56-tache-01-socle-style.html#autotoc_md2641":[7,59,8,2],
+"lot-56-tache-01-socle-style.html#autotoc_md2642":[7,59,8,3],
+"lot-56-tache-01-socle-style.html#autotoc_md2643":[7,59,8,4],
+"lot-56-tache-01-socle-style.html#autotoc_md2644":[7,59,8,5],
+"lot-56-tache-01-socle-style.html#autotoc_md2645":[7,59,8,6],
 "lot-56-tache-02-theme-global.html":[7,59,9],
 "lot-56-tache-02-theme-global.html#autotoc_md2646":[7,59,9,0],
 "lot-56-tache-02-theme-global.html#autotoc_md2647":[7,59,9,1],
@@ -242,12 +249,5 @@ var NAVTREEINDEX34 =
 "lot-60-tache-01-socle-qt-multimedia.html#autotoc_md2858":[7,63,8,6],
 "lot-60-tache-01-socle-qt-multimedia.html#autotoc_md2859":[7,63,8,7],
 "lot-60-tache-02-catalogue-sons.html":[7,63,9],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2860":[7,63,9,0],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2861":[7,63,9,1],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2862":[7,63,9,2],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2863":[7,63,9,3],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2864":[7,63,9,4],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2865":[7,63,9,5],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2866":[7,63,9,6],
-"lot-60-tache-02-catalogue-sons.html#autotoc_md2867":[7,63,9,7]
+"lot-60-tache-02-catalogue-sons.html#autotoc_md2860":[7,63,9,0]
 };

@@ -1,5 +1,12 @@
 var NAVTREEINDEX30 =
 {
+"lot-32-tache-01-partition-salles.html#autotoc_md1754":[7,35,8,6],
+"lot-32-tache-02-camera-salle-jeu.html":[7,35,9],
+"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1755":[7,35,9,0],
+"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1756":[7,35,9,1],
+"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1757":[7,35,9,2],
+"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1758":[7,35,9,3],
+"lot-32-tache-02-camera-salle-jeu.html#autotoc_md1759":[7,35,9,4],
 "lot-32-tache-02-camera-salle-jeu.html#autotoc_md1760":[7,35,9,5],
 "lot-32-tache-02-camera-salle-jeu.html#autotoc_md1761":[7,35,9,6],
 "lot-32-tache-03-repere-editeur.html":[7,35,10],
@@ -242,12 +249,5 @@ var NAVTREEINDEX30 =
 "lot-38-tache-01-menu-navigation-qt.html#autotoc_md1972":[7,41,8,6],
 "lot-38-tache-02-options-remappage-qt.html":[7,41,9],
 "lot-38-tache-02-options-remappage-qt.html#autotoc_md1973":[7,41,9,0],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1974":[7,41,9,1],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1975":[7,41,9,2],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1976":[7,41,9,3],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1977":[7,41,9,4],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1978":[7,41,9,5],
-"lot-38-tache-02-options-remappage-qt.html#autotoc_md1979":[7,41,9,6],
-"lot-38-tache-03-retrait-legacy-ui.html":[7,41,10],
-"lot-38-tache-03-retrait-legacy-ui.html#autotoc_md1980":[7,41,10,0]
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1974":[7,41,9,1]
 };

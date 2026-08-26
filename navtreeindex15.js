@@ -1,5 +1,11 @@
 var NAVTREEINDEX15 =
 {
+"classhmi_1_1GamepadBindingsWidget.html#ad29eefb8cc66b020a431dae0d5d85512":[12,0,3,145,1],
+"classhmi_1_1GamepadBindingsWidget.html#ad29eefb8cc66b020a431dae0d5d85512":[13,0,3,145,1],
+"classhmi_1_1GamepadBindingsWidget.html#adb4e491efe95493d1f5b31485085f5ea":[12,0,3,145,13],
+"classhmi_1_1GamepadBindingsWidget.html#adb4e491efe95493d1f5b31485085f5ea":[13,0,3,145,13],
+"classhmi_1_1GamepadBindingsWidget.html#ae55d80696e9f2b18ac51860864f13e5c":[12,0,3,145,19],
+"classhmi_1_1GamepadBindingsWidget.html#ae55d80696e9f2b18ac51860864f13e5c":[13,0,3,145,19],
 "classhmi_1_1GamepadBindingsWidget.html#aebf8d182b575fc99b214fd8ac8137e7c":[12,0,3,145,10],
 "classhmi_1_1GamepadBindingsWidget.html#aebf8d182b575fc99b214fd8ac8137e7c":[13,0,3,145,10],
 "classhmi_1_1GamepadPoller.html":[12,0,3,127],
@@ -243,11 +249,5 @@ var NAVTREEINDEX15 =
 "classhmi_1_1LevelSelectScreen.html#ae2d8dd6be81321ed9674497d7481b1d0":[12,0,3,152,5],
 "classhmi_1_1LevelSelectScreen.html#ae2d8dd6be81321ed9674497d7481b1d0":[13,0,3,152,5],
 "classhmi_1_1LevelSelectScreen.html#ae6ea18ee672c3f2cfec9e5dd0ea8dd6b":[12,0,3,152,10],
-"classhmi_1_1LevelSelectScreen.html#ae6ea18ee672c3f2cfec9e5dd0ea8dd6b":[13,0,3,152,10],
-"classhmi_1_1LevelSelectScreen.html#ae7ebb9f541b707025eb6354a745c83d1":[12,0,3,152,4],
-"classhmi_1_1LevelSelectScreen.html#ae7ebb9f541b707025eb6354a745c83d1":[13,0,3,152,4],
-"classhmi_1_1LevelSelectScreen.html#aee1738b278aff10365ad6b8b62ab13d5":[12,0,3,152,7],
-"classhmi_1_1LevelSelectScreen.html#aee1738b278aff10365ad6b8b62ab13d5":[13,0,3,152,7],
-"classhmi_1_1LevelSelectScreen.html#af79638ab196bee530cb706f307c49842":[12,0,3,152,11],
-"classhmi_1_1LevelSelectScreen.html#af79638ab196bee530cb706f307c49842":[13,0,3,152,11]
+"classhmi_1_1LevelSelectScreen.html#ae6ea18ee672c3f2cfec9e5dd0ea8dd6b":[13,0,3,152,10]
 };

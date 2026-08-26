@@ -10,5 +10,6 @@ var searchData=
   ['7_20parcours_20topologique_20inverse_7',['7. Parcours topologique inverse',['../guide-annexe-autodiff.html#autotoc_md316',1,'']]],
   ['7_20pourquoi_20sauvegarder_20les_20poids_8',['7. Pourquoi sauvegarder les poids',['../guide-annexe-reseaux-neurones.html#autotoc_md361',1,'']]],
   ['70_20—_20parallaxe_20à_20trois_20profondeurs_20des_20tableaux_20qui_20défilent_9',['LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent',['../lot-70.html',1,'lots']]],
-  ['75_10',['Math (75)',['../cahiertest.html#autotoc_md9',1,'']]]
+  ['72_20—_20mouvement_20avancé_20dash_20chargé_20poussée_20pentes_20ground_20pound_20combo_10',['LOT-72 — Mouvement avancé (dash chargé, poussée, pentes, ground pound, combo)',['../lot-72.html',1,'lots']]],
+  ['75_11',['Math (75)',['../cahiertest.html#autotoc_md9',1,'']]]
 ];

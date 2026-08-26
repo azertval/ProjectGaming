@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-annexe-11-tache-04-ordre-niveaux-curriculum.html',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2tache-04-ordre-niveaux-curriculum"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-11.html#md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/epic.md">LOT-ANNEXE-11</a> · <b>Emplacement :</b> <span class="tt">Documentation/Lot-Annexe</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3857"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3924"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> (TACHE-01) entraîne toujours <b>un seul</b> niveau par exécution, sans jamais enchaîner automatiquement — décision ferme, répétée dans tout ce lot. Cela laisse néanmoins une question ouverte pour qui <b>lance manuellement</b> des sessions d'entraînement les unes après les autres : dans quel ordre ? Cette tâche est purement documentaire : elle propose un ordre indicatif, sans introduire aucun mécanisme logiciel qui l'imposerait.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3858"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3925"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Rédiger, dans ce fichier, un tableau <b>niveau → mécanique(s) exercée(s)</b> reprenant l'ordre effectif de la séquence de démonstration du jeu (<span class="tt">Source/Elements/Levels/README.md</span>, <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>, source de vérité de l'ordre) : un mécanisme nouveau à la fois, difficulté croissante — le même principe pédagogique que le curriculum humain du jeu, appliqué ici à l'entraînement d'un agent.</li>
 <li>Justifier explicitement, en tête de tableau, que cet ordre est une <b>suggestion d'usage manuel</b> sans portée logicielle : rien dans <span class="tt">Source/AiSolver</span> ne le lit, ne le vérifie ni ne l'impose — un entraînement sur <span class="tt">demo-final.json</span> avant <span class="tt">demo-saut.json</span> reste parfaitement possible et valide, simplement moins susceptible de converger vite pour cette ligne de base évolutionniste sans aucune connaissance acquise sur les mécaniques plus simples (chaque run repart de poids aléatoires, aucun transfert d'un niveau à l'autre, cf. décision de cadrage de l'épic).</li>
 <li>Noter, pour les niveaux dont l'objet unique n'est pas de nouvelles actions mais un test de passage à l'échelle (budget, salles), que l'ordre proposé n'est pas une exigence de difficulté stricte au sens de l'algorithme (le poids d'un mécanisme pour un agent évolutionniste ne suit pas nécessairement l'intuition humaine) — une observation, pas une garantie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3859"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3926"></a>
 Tableau niveau → mécanique(s) (ordre indicatif, repris de <span class="tt">demo-*.json</span>)</h1>
 <blockquote class="doxtable">
 <p>Mis à jour au moment de la rédaction de ce lot pour refléter la séquence effective de <span class="tt">Source/Elements/Levels/sequence-demo.json</span>/<span class="tt"><a class="el" href="ScriptedLevelSequence_8h.html" title="Séquence des niveaux demo-*.json livrés et leur scénario d&#39;entrées déterministe, extraite de test_par...">Source/Test/Systeme/ScriptedLevelSequence.h</a></span> (22 niveaux) — la table d'origine de cette section, rédigée au cadrage du programme Lot-Annexe, avant l'évolution ultérieure de cette séquence (<span class="tt">LOT-65</span>), ne correspondait plus à l'ordre réel ; voir le point d'attention ci-dessus sur l'obsolescence possible. </p>
@@ -157,32 +157,32 @@ Tableau niveau → mécanique(s) (ordre indicatif, repris de <span class="tt">de
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">22  </td><td class="markdownTableBodyNone"><span class="tt">demo-final.json</span>  </td><td class="markdownTableBodyNone">Niveau final multi-salles : combine l'ensemble des mécaniques précédentes  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3860"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3927"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/
   <a class="el" href="tache-04-ordre-niveaux-curriculum_8md.html">tache-04-ordre-niveaux-curriculum.md</a></span> (ce fichier, avec le tableau ci-dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3861"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3928"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test automatisé (travail de documentation pure, aucun code produit) — la validation est la <b>revue</b> de la cohérence du tableau avec <span class="tt">Source/Elements/Levels/README.md</span> et <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> (source de vérité de l'ordre effectif du jeu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3862"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3929"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Cet ordre peut devenir obsolète</b> si de nouveaux niveaux <span class="tt">demo-*.json</span> sont ajoutés à la séquence du jeu après ce lot — aucun mécanisme ne le maintient synchronisé automatiquement (à la différence de <span class="tt">scripts/check_demo_sequence.py</span>, qui vérifie <span class="tt">Source/HMI/main.cpp</span> face à <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>, pas cette documentation). Une dérive n'a aucun impact fonctionnel (l'ordre reste une suggestion), seulement documentaire.</li>
 <li><b>Ne pas transformer cette suggestion en mécanisme</b> à l'occasion d'une évolution future de ce lot sans une décision de cadrage explicite qui lèverait la contrainte transverse « un run = un niveau » — ce tableau ne doit jamais devenir l'entrée d'une boucle de code.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3863"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3930"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tableau rédigé, cohérent avec la séquence <span class="tt">demo-*.json</span> réelle du jeu au moment de la rédaction, revu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3864"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3931"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — boucle générationnelle, élitisme, reproductibilité d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3865"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3932"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-012</span> (documentation d'usage, aucun code). </p>
 </div></div><!-- contents -->

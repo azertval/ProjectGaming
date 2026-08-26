@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-06-tache-03-etat-mecanismes-fenetre.html','
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-06-encodage-observation_2tache-03-etat-mecanismes-fenetre"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-06.html#md_Lot-Annexe_2LOT-ANNEXE-06-encodage-observation_2epic" title="Lot-Annexe/LOT-ANNEXE-06-encodage-observation/epic.md">LOT-ANNEXE-06</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3692"></a>
 Contexte</h1>
 <p>La fenêtre de tuiles (TACHE-01) encode le <b>type statique</b> de chaque case (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></span>, <span class="tt">PressurePlate</span>, <span class="tt">DangerSwitched</span>…), mais pas son <b>état dynamique</b> : une porte fermée et une porte ouverte partagent le même <span class="tt">TileType::Door</span> dans <span class="tt">TileMap</span> (seule la grille de collision, recomposée à chaque pas par <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span>, change). Sans ce canal, l'agent ne pourrait jamais distinguer une porte franchissable d'un mur. Cette tâche superpose cet état à la fenêtre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3693"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Étendre <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span></b> (<span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span>, LOT-ANNEXE-05) de deux accesseurs en lecture seule : <span class="tt">[[nodiscard]] const <a class="el" href="namespacecore.html" title="Espace de noms du moteur et de la logique de jeu.">core</a>::
@@ -115,7 +115,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3694"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span>/<span class="tt">.cpp</span> (deux accesseurs).</li>
@@ -123,7 +123,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="MechanismStateEncoder_8cpp.html">Source/AiSolver/Env/MechanismStateEncoder.cpp</a></span> (nouveau).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__mechanism__state__encoder_8cpp.html" title="Tests unitaires de aisolver::MechanismStateEncoder (LOT-ANNEXE-06, TACHE-03).">Source/Test/Unit/AiSolver/Env/test_mechanism_state_encoder.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3695"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Porte fermée puis ouverte</b> (<span class="tt">demo-interrupteur.json</span>) : avant contact avec l'interrupteur, le canal 0 à la position de la porte vaut <span class="tt">0.0f</span> ; après (<span class="tt">mechanisms.update</span> appelé), il vaut <span class="tt">1.0f</span>.</li>
@@ -133,22 +133,22 @@ Tests (obligatoires)</h1>
 <li><b>Fenêtre sans aucun mécanisme</b> : un niveau sans interrupteur ni danger avancé (<span class="tt">demo-pente.json</span>) produit un tenseur entièrement nul sur les deux canaux — pas d'erreur, pas de cas particulier.</li>
 <li><b>Déterminisme</b> : deux appels sur le même état (<span class="tt">mechanisms</span>/<span class="tt">dangers</span>/<span class="tt">center</span> identiques) produisent des tenseurs bit-à-bit identiques.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3629"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3696"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le danger mobile n'a pas de case fixe</b> : contrairement à <span class="tt">DangerSwitched</span>/<span class="tt">DangerBlink</span> (une case précise dans <span class="tt">TileMap</span>), sa boîte mortelle se déplace en continu — la rastérisation sur le canal 1 doit suivre <span class="tt">moverBox(index)</span>, jamais la case <span class="tt">DangerMover</span> d'origine (qui ne représente que le point de départ, voir <span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></span>).</li>
 <li><b>Ne pas dupliquer les dangers statiques sur le canal « danger actif »</b> : ils sont invariants et déjà représentés sans ambiguïté par leur <span class="tt">TileType</span> — le canal 1 n'apporte de l'information que là où l'état <b>varie</b> dans le temps (voir décision de cadrage : mobile, commuté, temporisé).</li>
 <li><b><span class="tt">radius</span> doit être identique entre <span class="tt">TileWindowEncoder</span> et <span class="tt">MechanismStateEncoder</span></b> pour que les deux tenseurs soient concaténables sans redimensionnement — pas garanti par le type, à la charge de l'appelant (documenté ici, vérifié par les tests d'intégration du premier consommateur).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3630"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3697"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> étendu et <span class="tt">MechanismStateEncoder</span> testés (<span class="tt">ctest</span> vert) sur les cas ci-dessus ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3631"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3698"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> (état et observation, conception d'une observation : one-hot, normalisation, observation partielle), en particulier sa section 3.1 (complétude contre taille de l'observation).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3632"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3699"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-006</span> (nouvelle). </p>
 </div></div><!-- contents -->

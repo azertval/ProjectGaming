@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-16-tache-01-execution-croisee.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-16-evaluation-hors-niveau_2tache-01-execution-croisee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-16.html#md_Lot-Annexe_2LOT-ANNEXE-16-evaluation-hors-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-16-evaluation-hors-niveau/epic.md">LOT-ANNEXE-16</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Eval</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4049"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4116"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>) accepte déjà indépendamment un <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> et un <span class="tt">levelPath</span> — rien n'empêche techniquement de les faire porter sur deux niveaux différents, seule l'intention (mesurer un transfert plutôt qu'une fiabilité sur niveau d'origine) est nouvelle. Cette tâche l'exploite explicitement et outille le rapport pour distinguer les deux niveaux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4050"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4117"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html" title="Résultat d&#39;une exécution croisée : le BenchmarkResult (LOT-ANNEXE-15) déjà produit par BenchmarkRunne...">aisolver::eval::CrossLevelBenchmarkResult</a></span></b> (<span class="tt"><a class="el" href="CrossLevelBenchmark_8h.html" title="Exécution d&#39;une politique entraînée sur un niveau différent de celui qui l&#39;a produite (LOT-ANNEXE-16,...">Source/AiSolver/Eval/CrossLevelBenchmark.h</a>/.cpp</span>) : structure <span class="tt">std::string trainedOnLevel; std::string executedOnLevel; <a class="el" href="namespaceaisolver_1_1eval.html">aisolver::eval</a>::
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
   trainedOnLevel; std::filesystem::path executedOnLevelPath; std::string executedOnLevel; }</span> — charge le <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> approprié (réutilise les adaptateurs de <span class="tt">LOT-ANNEXE-15</span>, TACHE-01, selon l'algorithme d'origine du modèle) et appelle <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> avec <span class="tt">executedOnLevelPath</span>.</li>
 <li>Extension de <span class="tt">aisolver::BenchmarkReport</span> (<span class="tt">LOT-ANNEXE-15</span>, TACHE-02) : surcharge <span class="tt">writeCsv</span> acceptant un <span class="tt">std::vector&lt;<a class="el" href="structCrossLevelBenchmarkResult.html" title="Résultat d&#39;une exécution croisée : le BenchmarkResult (LOT-ANNEXE-15) déjà produit par BenchmarkRunne...">CrossLevelBenchmarkResult</a>&gt;</span>, ajoutant les deux colonnes <span class="tt">trainedOnLevel</span>/<span class="tt">executedOnLevel</span> (au lieu de la colonne unique <span class="tt">levelName</span> du rapport non-croisé) — implémentée par composition de la sérialisation existante, pas par duplication du format de colonnes commun.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4051"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4118"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CrossLevelBenchmark_8h.html" title="Exécution d&#39;une politique entraînée sur un niveau différent de celui qui l&#39;a produite (LOT-ANNEXE-16,...">Source/AiSolver/Eval/CrossLevelBenchmark.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="BenchmarkReport_8h.html" title="Rapport comparatif CSV par niveau × algorithme (LOT-ANNEXE-15, TACHE-02, EX-IA-016).">Source/AiSolver/Eval/BenchmarkReport.h</a>/.cpp</span> — modifié (surcharge <span class="tt">writeCsv</span>).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4052"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4119"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aucune régression sur le cas non-croisé</b> : l'ajout de la surcharge de <span class="tt">writeCsv</span> ne modifie pas le comportement de <span class="tt"><a class="el" href="classBenchmarkReport.html#a8c45a7ef95635ec3fefbd49107e4dae7" title="Écrit le rapport complet (en-tête puis une ligne par couple accumulé) dans path.">BenchmarkReport::writeCsv</a></span> existant (<span class="tt">LOT-ANNEXE-15</span>), vérifié par les tests déjà existants de ce lot restant verts.</li>
@@ -122,21 +122,21 @@ Tests (obligatoires)</h1>
 <li><b>Réutilisation stricte de <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span></b> : vérifié par construction (le fichier n'introduit aucune nouvelle boucle de simulation, seulement un assemblage autour de l'appel existant) — pas un test à proprement parler, mais une contrainte vérifiable par relecture/diff, documentée comme condition de revue.</li>
 <li><b>Campagne multi-paires</b> : <span class="tt"><a class="el" href="test__cross__level__benchmark_8cpp.html#aaf26f64fe2ef9185674cbe32910b01c5" title="Exécute BenchmarkRunner::run (sans modification) pour chaque paire, dans l&#39;ordre fourni.">runCrossLevelCampaign</a></span> sur trois paires distinctes produit trois <span class="tt"><a class="el" href="structCrossLevelBenchmarkResult.html" title="Résultat d&#39;une exécution croisée : le BenchmarkResult (LOT-ANNEXE-15) déjà produit par BenchmarkRunne...">CrossLevelBenchmarkResult</a></span>, un par paire, dans l'ordre fourni.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4053"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4120"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le chargement du bon adaptateur <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> selon l'algorithme d'origine reste à la charge de l'appelant</b> (<span class="tt"><a class="el" href="structCrossLevelPair.html" title="Une paire à exécuter : une politique déjà entraînée sur trainedOnLevel, exécutée sur executedOnLevelP...">CrossLevelPair</a></span> ne devine pas l'algorithme depuis le chemin de modèle) — cohérent avec la façon dont <span class="tt">LOT-ANNEXE-15</span> charge déjà ses quatre adaptateurs explicitement, pas par détection automatique de format.</li>
 <li><b><span class="tt">executedOnLevelPath</span> peut désigner n'importe quel niveau de <span class="tt">Source/Elements/Levels</span></b>, y compris celui d'origine du modèle (cas dégénéré valide, équivalent à un appel non-croisé) — aucune validation n'interdit ce cas, qui sert d'ailleurs de vérification croisée avec les résultats déjà obtenus par <span class="tt">LOT-ANNEXE-15</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4054"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4121"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="structCrossLevelBenchmarkResult.html" title="Résultat d&#39;une exécution croisée : le BenchmarkResult (LOT-ANNEXE-15) déjà produit par BenchmarkRunne...">CrossLevelBenchmarkResult</a></span>/<span class="tt"><a class="el" href="test__cross__level__benchmark_8cpp.html#aaf26f64fe2ef9185674cbe32910b01c5" title="Exécute BenchmarkRunner::run (sans modification) pour chaque paire, dans l&#39;ordre fourni.">runCrossLevelCampaign</a></span>/surcharge de <span class="tt">writeCsv</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4122"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a> — généralisation hors du niveau d'entraînement, sur-apprentissage à un seul environnement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4056"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4123"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-017</span> (nouvelle, partagée avec TACHE-02 du même lot). </p>
 </div></div><!-- contents -->

@@ -1,9 +1,9 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md3355", null ],
-    [ "Apres le programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3356", null ],
-    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3357", null ],
-    [ "Programme annexe", "lots.html#autotoc_md3358", null ],
+    [ "Lots", "lots.html#autotoc_md3422", null ],
+    [ "Apres le programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3423", null ],
+    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3424", null ],
+    [ "Programme annexe", "lots.html#autotoc_md3425", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],
@@ -83,5 +83,6 @@ var lots =
     [ "LOT-66 — Reproductibilité et référentiel", "lot-66.html", "lot-66" ],
     [ "LOT-67 — Trajectoires et règles de tableau éditables", "lot-67.html", "lot-67" ],
     [ "LOT-69 — Plans picturaux, parallaxe réglable et mode création", "lot-69.html", "lot-69" ],
-    [ "LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent", "lot-70.html", "lot-70" ]
+    [ "LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent", "lot-70.html", "lot-70" ],
+    [ "LOT-72 — Mouvement avancé (dash chargé, poussée, pentes, ground pound, combo)", "lot-72.html", "lot-72" ]
 ];

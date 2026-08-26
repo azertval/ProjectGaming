@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-02.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-01.html" title="LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison">LOT-ANNEXE-01</a> (<span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span>). Ajoute la différentiation automatique en mode <em>reverse</em> (rétropropagation) — condition <b>ferme</b> de l'apprentissage par gradient (génération 3, exigence non négociable de l'utilisateur, pas une option). Sans ce lot, seul l'algorithme évolutionniste (génération 2) resterait possible. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3410"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3477"></a>
 Objectif</h1>
 <p><span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;T&gt;</span> (<span class="tt">LOT-ANNEXE-01</span>) sait stocker des valeurs et calculer, mais ne garde aucune trace de <b>comment</b> un résultat a été obtenu — impossible d'en dériver un gradient. Or l'apprentissage par gradient (génération 3, cf. <a class="el" href="lots-annexe.html" title="Lots annexes — IA de résolution autonome">Lots annexes</a>) a besoin, pour chaque paramètre d'un réseau, de savoir de combien la sortie varierait si ce paramètre variait d'une quantité infinitésimale — c'est la définition même du gradient, et le calculer à la main pour chaque opération composée serait aussi fastidieux qu'source d'erreurs. Ce lot construit ce mécanisme une fois, générique, pour que les lots suivants (réseaux en <span class="tt">LOT-ANNEXE-03</span>, optimiseurs en <span class="tt">LOT-ANNEXE-04</span>, apprentissage par gradient en génération 3) n'aient jamais à dériver une formule à la main.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3411"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3478"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3412"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3479"></a>
 Inclus</h2>
 <ul>
 <li><b>Graphe de calcul dynamique</b> (<span class="tt"><a class="el" href="classaisolver_1_1autodiff_1_1Node.html" title="Nœud d&#39;un graphe de calcul dynamique (mode reverse, construit à l&#39;exécution).">aisolver::autodiff::Node</a></span>) : construit <b>à l'exécution</b>, à chaque passe avant (style <em>define-by-run</em>, pas de graphe statique précompilé) — chaque nœud porte sa valeur (<span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span>), son gradient accumulé, et une règle de dérivation locale capturée en fermeture sur ses parents.</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b><span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span></b> : parcours topologique inverse du graphe depuis un nœud racine <b>scalaire</b> (tenseur à un seul élément — une perte, typiquement), accumulation des gradients dans chaque nœud parent.</li>
 <li><b>Vérification de gradient par différences finies</b> (<em>gradient checking</em>), sous forme d'utilitaire réutilisable, condition <b>bloquante</b> avant qu'une opération différentiable soit consommée par un lot ultérieur.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3413"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3480"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Dérivées d'ordre supérieur</b> (gradient du gradient) : l'entraînement par gradient visé (génération 3, SGD/Adam en <span class="tt">LOT-ANNEXE-04</span>) n'a besoin que du premier ordre — ajouter le second ordre maintenant serait un investissement sans consommateur identifié.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Parallélisation du graphe</b> (construction ou parcours multi-thread) : cohérent avec le RNG mono-thread de <span class="tt">LOT-ANNEXE-01</span> et la boucle mono-thread déjà actée pour le jeu (<span class="tt">EX-ARCH-060</span>).</li>
 <li><b>Réutilisation/mise en cache d'un graphe entre deux passes avant</b> : chaque passe avant reconstruit son propre graphe (jeté après <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>, libéré par comptage de références) — plus simple et suffisant tant qu'aucun besoin de graphe statique (compilation, optimisation de graphe) n'apparaît.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3414"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3481"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Graphe dynamique (<em>define-by-run</em>), pas de graphe statique compilé à l'avance.</b> Cohérent avec la contrainte « from scratch » (pas de compilateur de graphe à écrire) et avec l'usage réel : chaque exemple d'entraînement (génération 3) traverse le réseau une fois, produit un graphe, le différentie, le jette. Un graphe statique n'apporterait un bénéfice que pour une optimisation de performance non demandée à ce stade.</li>
@@ -128,16 +128,16 @@ Décisions de cadrage</h1>
   <a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a>/.cpp</span>), pas un fichier de test isolé : il est réutilisé tel quel par les tests de <span class="tt">LOT-ANNEXE-03</span> pour valider <span class="tt">sigmoid</span>/<span class="tt">softmax</span> avant qu'un réseau ne les consomme — le même garde-fou doit s'appliquer à toute opération différentiable ajoutée après ce lot, sans dupliquer la logique de différences finies dans chaque suite de tests.</li>
 <li><b>Les gradients s'accumulent (<span class="tt">+=</span>), jamais n'écrasent (<span class="tt">=</span>).</b> Un nœud utilisé plusieurs fois dans un même graphe (ex. un biais partagé, ou plus tard un poids réutilisé sur plusieurs observations d'un lot) doit recevoir la <b>somme</b> des contributions de chaque chemin qui le traverse — omettre l'accumulation romprait silencieusement tout graphe non strictement arborescent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3415"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3482"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-autodiff.html" title="Différentiation automatique et rétropropagation">Différentiation automatique et rétropropagation</a> (dérivée, règle de la chaîne, graphe de calcul, mode direct vs inverse, rétropropagation, différences finies). Sources directes : Rumelhart, Hinton, Williams (1986, popularisation de la rétropropagation) ; Linnainmaa (1970, mode inverse de différentiation automatique) ; Baydin, Pearlmutter, Radul, Siskind (2018, synthèse moderne direct/inverse) — bibliographie complète dans le chapitre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3416"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3483"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-002" title="EX-IA-002"><span class="tt">EX-IA-002</span></a>.</li>
 <li>Réutilisées : <span class="tt">EX-IA-001</span> (<span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span>, socle de valeur de chaque nœud), <span class="tt">EX-NFR-010</span>/ <span class="tt">EX-NFR-012</span>/<span class="tt">EX-NFR-013</span>/<span class="tt">EX-NFR-020</span> (testabilité headless, conventions, <span class="tt">/W4 /WX</span>, couverture de tests), <span class="tt">EX-ARCH-001</span> (sens de dépendance, <span class="tt">AiSolver → Core</span>, jamais l'inverse).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3417"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3484"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-02-tache-04-verification-gradient.html#md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2tache-04-verification-gradient" title="Lot-Annexe/LOT-ANNEXE-02-moteur-autodiff/tache-04-verification-gradient.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Vérification de gradient par différences finies  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Unit/AiSolver/Math</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3418"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3485"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un graphe construit à partir d'opérations composées (ex. <span class="tt">matmul</span> suivi de <span class="tt">relu</span> puis d'une somme) calcule, via <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>, un gradient identique (tolérance <span class="tt">1e-2</span> relative) au gradient numérique obtenu par différences finies, pour <b>chacune</b> des opérations livrées (<span class="tt">add</span>, <span class="tt">mul</span>, <span class="tt">matmul</span>, <span class="tt">relu</span>, <span class="tt">tanh</span>).</li>
@@ -163,10 +163,10 @@ Critères d'acceptation du lot</h1>
 <li>Ajouter une nouvelle opération différentiable (démontré par un cas de test dédié utilisant directement <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span>, sans modifier <span class="tt"><a class="el" href="Node_8h.html" title="Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).">Node.h</a></span>) ne nécessite <b>aucune</b> modification du moteur (<span class="tt">Node</span>, <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>) — vérifie concrètement la décision de cadrage sur la fabrique générique.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">scripts/lint_exigences.py</span> verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3419"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3486"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-01.html" title="LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison">LOT-ANNEXE-01</a> (<span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span>, seul type de valeur porté par un <span class="tt">Node</span>). Aucun autre lot annexe amont. <span class="tt">LOT-ANNEXE-03</span> (réseaux) et <span class="tt">LOT-ANNEXE-04</span> (optimiseurs, via les gradients accumulés dans chaque <span class="tt">Node</span>) en dépendent directement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3420"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3487"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-02-tache-01-graphe-calcul.html" title="TACHE-01 — Graphe de calcul dynamique (`Node`)">TACHE-01 — Graphe de calcul dynamique (`Node`)</a></li>

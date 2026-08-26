@@ -95,12 +95,12 @@ $(function(){initNavTree('manuel-mode-ia.html','',''); });
 <div class="textblock"><p><a class="anchor" id="md_Manuel_2mode-ia"></a></p>
 <p>Le jeu embarque une <b>IA capable d'apprendre à terminer un niveau toute seule</b>. Elle n'a rien d'un robot programmé à l'avance : elle commence en appuyant sur les touches au hasard, et s'améliore uniquement en constatant ce qui la rapproche de la sortie.</p>
 <p>Cette page s'adresse aux joueurs curieux — aucune connaissance en programmation n'est nécessaire. L'écran s'ouvre depuis l'entrée <b>Mode IA</b> du menu principal.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4229"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4296"></a>
 Ce que fait l'IA, en une phrase</h1>
 <p>Elle rejoue le même niveau des milliers de fois, garde ce qui marche, et recommence. Rien n'est calculé pendant que vous regardez : ce que vous voyez à la fin est l'<b>enregistrement</b> d'une partie qu'elle a réellement réussie, rejoué touche par touche.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4230"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4297"></a>
 Les trois onglets</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4231"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4298"></a>
 Entraînement</h2>
 <p>Vous choisissez un <b>niveau</b> et un <b>algorithme</b>, puis vous lancez. Un tableau se remplit au fur et à mesure : chaque ligne est une étape de l'apprentissage, avec le meilleur score obtenu, la moyenne, et le pourcentage de tentatives réussies.</p>
 <p>Les quatre algorithmes disponibles n'apprennent pas de la même façon :</p>
@@ -118,13 +118,13 @@ Entraînement</h2>
 </table>
 <p>L'entraînement peut durer longtemps. Le bouton <b>Arrêter</b> l'interrompt proprement à la fin de l'étape en cours : le meilleur résultat obtenu jusque-là reste sauvegardé.</p>
 <p><b>Voir en jeu</b> rejoue dans la scène du niveau la meilleure tentative du moment. C'est le moyen le plus parlant de constater les progrès : au début l'IA meurt tout de suite, puis elle apprend à sauter, puis à contourner, puis à finir.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4232"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4299"></a>
 Validation &amp; sauvegarde</h2>
 <p>Reprend un entraînement passé et mesure ce qu'il vaut vraiment, en le faisant rejouer plusieurs fois d'affilée. On y lit le taux de réussite et le nombre de pas moyen — un modèle qui gagne une fois sur deux n'est pas un modèle qui a compris le niveau.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4233"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4300"></a>
 Rejeu</h2>
 <p>Liste les parties enregistrées livrées avec le jeu, et les rejoue. Un enregistrement est lié au niveau exact sur lequel il a été produit : si ce niveau a été modifié depuis, le jeu <b>refuse</b> de le rejouer plutôt que de vous montrer une partie qui déraille au bout de dix secondes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4234"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4301"></a>
 Questions fréquentes</h1>
 <p><b>L'IA triche-t-elle ?</b> Non. Elle joue avec les mêmes touches que vous, dans le même moteur, à la même cadence. Elle voit ce qui l'entoure sur quelques cases, sa propre vitesse, et l'état des mécanismes proches — pas le plan du niveau.</p>
 <p><b>Pourquoi l'entraînement est-il lent ?</b> Parce qu'elle apprend en essayant. Les premiers milliers de tentatives servent surtout à découvrir que tomber dans le vide est une mauvaise idée.</p>

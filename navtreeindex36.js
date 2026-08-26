@@ -1,5 +1,12 @@
 var NAVTREEINDEX36 =
 {
+"lot-65-tache-03-tableaux-manquants-syntheses.html#autotoc_md3084":[7,68,11,3],
+"lot-65-tache-03-tableaux-manquants-syntheses.html#autotoc_md3085":[7,68,11,4],
+"lot-65-tache-03-tableaux-manquants-syntheses.html#autotoc_md3086":[7,68,11,5],
+"lot-65-tache-03-tableaux-manquants-syntheses.html#autotoc_md3087":[7,68,11,6],
+"lot-65-tache-03-tableaux-manquants-syntheses.html#autotoc_md3088":[7,68,11,7],
+"lot-65-tache-04-documentation-verification.html":[7,68,12],
+"lot-65-tache-04-documentation-verification.html#autotoc_md3089":[7,68,12,0],
 "lot-65-tache-04-documentation-verification.html#autotoc_md3090":[7,68,12,1],
 "lot-65-tache-04-documentation-verification.html#autotoc_md3091":[7,68,12,2],
 "lot-65-tache-04-documentation-verification.html#autotoc_md3092":[7,68,12,3],
@@ -242,12 +249,5 @@ var NAVTREEINDEX36 =
 "lot-69-tache-07-reference-canevas.html#autotoc_md3303":[7,71,15,0],
 "lot-69-tache-07-reference-canevas.html#autotoc_md3304":[7,71,15,1],
 "lot-69-tache-07-reference-canevas.html#autotoc_md3305":[7,71,15,2],
-"lot-69-tache-07-reference-canevas.html#autotoc_md3306":[7,71,15,3],
-"lot-69-tache-07-reference-canevas.html#autotoc_md3307":[7,71,15,4],
-"lot-69-tache-07-reference-canevas.html#autotoc_md3308":[7,71,15,5],
-"lot-69-tache-07-reference-canevas.html#autotoc_md3309":[7,71,15,6],
-"lot-69-tache-08-espace-plans.html":[7,71,16],
-"lot-69-tache-08-espace-plans.html#autotoc_md3310":[7,71,16,0],
-"lot-69-tache-08-espace-plans.html#autotoc_md3311":[7,71,16,1],
-"lot-69-tache-08-espace-plans.html#autotoc_md3312":[7,71,16,2]
+"lot-69-tache-07-reference-canevas.html#autotoc_md3306":[7,71,15,3]
 };

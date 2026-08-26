@@ -1,5 +1,12 @@
 var NAVTREEINDEX25 =
 {
+"lot-04-tache-06-manuel-utilisateur.html":[7,7,13],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md650":[7,7,13,0],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md651":[7,7,13,1],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md652":[7,7,13,2],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md653":[7,7,13,3],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md654":[7,7,13,4],
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md655":[7,7,13,5],
 "lot-04-tache-06-manuel-utilisateur.html#autotoc_md656":[7,7,13,6],
 "lot-04-tache-07-ci-docs.html":[7,7,14],
 "lot-04-tache-07-ci-docs.html#autotoc_md657":[7,7,14,0],
@@ -242,12 +249,5 @@ var NAVTREEINDEX25 =
 "lot-08-tache-03-physique-personnage.html":[7,11,10],
 "lot-08-tache-03-physique-personnage.html#autotoc_md867":[7,11,10,0],
 "lot-08-tache-03-physique-personnage.html#autotoc_md868":[7,11,10,1],
-"lot-08-tache-03-physique-personnage.html#autotoc_md869":[7,11,10,2],
-"lot-08-tache-03-physique-personnage.html#autotoc_md870":[7,11,10,3],
-"lot-08-tache-03-physique-personnage.html#autotoc_md871":[7,11,10,4],
-"lot-08-tache-03-physique-personnage.html#autotoc_md872":[7,11,10,5],
-"lot-08-tache-03-physique-personnage.html#autotoc_md873":[7,11,10,6],
-"lot-08-tache-04-regles-fin-niveau.html":[7,11,11],
-"lot-08-tache-04-regles-fin-niveau.html#autotoc_md874":[7,11,11,0],
-"lot-08-tache-04-regles-fin-niveau.html#autotoc_md875":[7,11,11,1]
+"lot-08-tache-03-physique-personnage.html#autotoc_md869":[7,11,10,2]
 };

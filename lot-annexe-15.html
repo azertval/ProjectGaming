@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-annexe-15.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>), <a class="el" href="lot-annexe-06.html" title="LOT-ANNEXE-06 — Encodage observation">LOT-ANNEXE-06</a> (encodage d'observation), <a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09</a> (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>) et <b>au moins un</b> algorithme entraîné sur un niveau (<a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>/<a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">LOT-ANNEXE-11</a> — évolutionniste — ou <a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a>/<a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a>/[LOT-ANNEXE-14](<a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)</a>) — apprentissage par gradient). Premier lot de la génération 4 (évaluation et robustesse). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3998"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4065"></a>
 Objectif</h1>
 <p>L'entraînement reste <b>niveau par niveau</b> (décision transverse du programme Lot-Annexe) : chaque lot des générations 2 et 3 produit un <b>modèle</b> au sens strict d'une paire (algorithme, niveau). Jusqu'ici, la seule preuve qu'un modèle « fonctionne » est le rejeu final déterministe (<span class="tt">LOT-ANNEXE-07</span>, format v1) — une <b>unique</b> trajectoire, jouée une seule fois, qui prouve qu'un niveau peut être terminé mais ne dit rien sur la <b>fiabilité</b> de la politique sous-jacente ni sur sa <b>qualité relative</b> face à un autre algorithme. Or <span class="tt">LOT-ANNEXE-13</span> a déjà introduit une comparaison chiffrée REINFORCE/acteur-critique <b>locale</b> à la génération 3 ; il manque un outillage <b>générique</b>, indépendant de la famille d'algorithme, capable de répondre objectivement à « l'agent avancé de <span class="tt">LOT-ANNEXE-14</span> termine-t-il réellement plus souvent, plus vite ou plus stablement que la ligne de base évolutionniste de <span class="tt">LOT-ANNEXE-10</span> ? » — question qui traverse toute la génération 2 et 3, pas seulement REINFORCE contre acteur-critique.</p>
 <p>Ce lot livre ce harnais : exécution automatisée et répétée d'un modèle entraîné sur son niveau <b>d'origine</b>, un rapport comparatif inter-algorithmes au format CSV déjà en usage (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>), et un test de robustesse au bruit d'observation qui distingue une politique réellement robuste d'une politique en surapprentissage fragile (haute performance uniquement sur la trajectoire exacte vue à l'entraînement).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3999"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4066"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4000"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4067"></a>
 Inclus</h2>
 <ul>
 <li><b>Exécution automatisée répétée</b> (<span class="tt">TACHE-01</span>) : pour un modèle (algorithme, niveau) donné, <span class="tt">N</span> répétitions de la politique <b>entraînée</b> — pas du rejeu déterministe figé — sur <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>), avec mesure du taux de réussite, du nombre de pas moyen et de la variance.</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Test de robustesse au bruit d'observation</b> (<span class="tt">TACHE-03</span>) : perturbation légère et contrôlée de l'observation encodée (<span class="tt">LOT-ANNEXE-06</span>) transmise à la politique, sans jamais toucher l'état réel simulé — révèle un écart de performance entre observation propre et observation bruitée.</li>
 <li>Une abstraction minimale (<span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span>) permettant au harnais de traiter n'importe quel modèle entraîné (évolutionniste, REINFORCE, acteur-critique, algorithme avancé) de façon uniforme, sans connaître les détails internes de l'algorithme qui l'a produit.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4001"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4068"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Exécution croisée entre niveaux</b> (modèle entraîné sur A, exécuté sur B) : c'est tout le périmètre de <span class="tt">LOT-ANNEXE-16</span>, qui réutilise ce harnais sans le dupliquer.</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Test adversarial ciblé</b> (perturbation optimisée pour faire échouer délibérément la politique) : <span class="tt">TACHE-03</span> reste un bruit <b>léger</b> et non dirigé, pas une recherche d'exemples adversariaux — amplitude documentée et bornée, calibrée pour rester exploitable, pas pour maximiser l'échec.</li>
 <li><b>Parallélisation de l'exécution des répétitions</b> : séquentiel, un épisode après l'autre, comme le reste du programme Lot-Annexe (<span class="tt">LOT-ANNEXE-10</span>) — optimisation potentielle future, non requise ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4002"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4069"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le harnais évalue la politique entraînée elle-même, pas le rejeu déterministe final.</b> Le format de rejeu v1 (<span class="tt">LOT-ANNEXE-07</span>) est une trace unique, figée, destinée à être rejouée en jeu ; ce lot réexécute la politique en environnement headless pour mesurer une <b>fiabilité statistique</b> que le rejeu seul ne peut pas donner. <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span> expose un <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a6e8e78cba916b1686b3779c394faa10f" title="Argmax (déterministe, réutilise decodeArgmax, LOT-ANNEXE-07) ou Stochastic (échantillonnage selon la ...">ActionDecodingMode</a></span> (<span class="tt">Argmax</span> / <span class="tt">Stochastic</span>) : pour un modèle évolutionniste, toujours décodé en <span class="tt">Argmax</span> (<span class="tt">LOT-ANNEXE-10</span> : aucune autre décision de décodage n'existe pour cette famille — les répétitions sont alors strictement identiques, ce qui est un résultat attendu et sert de garde de cohérence croisée) ; pour un modèle de gradient de politique, <span class="tt">Stochastic</span> par défaut (échantillonnage selon la distribution produite, comme à l'entraînement), avec un passage en <span class="tt">Argmax</span> disponible pour vérifier que la mesure « sans hasard » du harnais coïncide avec le rejeu exporté par <span class="tt">LOT-ANNEXE-11</span>.</li>
@@ -129,16 +129,16 @@ Décisions de cadrage</h1>
 <li><b>Aucune nouvelle dépendance tierce, aucun calcul GPU</b> : le harnais reste du C++ pur, aligné sur la contrainte transverse « from scratch » de tout le programme Lot-Annexe (<span class="tt">LOT-ANNEXE-01</span>).</li>
 <li><b>La comparaison inter-algorithmes reste descriptive, jamais normative.</b> Le harnais rapporte des chiffres ; il ne déclenche aucune action (sélection automatique d'un modèle, arrêt d'un entraînement) — cohérent avec le principe général de la génération 4 : mesurer, pas décider à la place d'un humain.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4003"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4070"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a> (pourquoi une seule réussite ne prouve rien, taux de réussite répété, robustesse au bruit). Source directe : Henderson, Islam, Bachman, Pineau, Precup, Meger (2018, <em>Deep Reinforcement Learning that Matters</em>) — justification empirique directe de la nécessité de répéter les exécutions plutôt que de se fier à un seul essai.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4004"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4071"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-016" title="EX-IA-016"><span class="tt">EX-IA-016</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-NFR-002</span> (déterminisme au pas fixe), <span class="tt">EX-NFR-010</span> (testable sans fenêtre ni GPU), <span class="tt">EX-NFR-013</span> (<span class="tt">/W4 /WX</span>), <span class="tt">EX-NFR-020</span> (couverture par tests), <span class="tt">EX-NFR-040</span> (erreur récupérable signalée, pas de plantage) et les exigences des lots amont — <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>), encodage d'observation (<span class="tt">LOT-ANNEXE-06</span>), espace d'action et décodage (<span class="tt">LOT-ANNEXE-07</span>), <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (<span class="tt">LOT-ANNEXE-09</span>) et l'algorithme entraîné évalué (<span class="tt">LOT-ANNEXE-10</span>/<span class="tt">11</span> ou <span class="tt">12</span>–<span class="tt">14</span>) — identifiants propres non repris ici, hors périmètre de rédaction de ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4005"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4072"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -153,7 +153,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-15-tache-03-robustesse-bruit.html#md_Lot-Annexe_2LOT-ANNEXE-15-benchmark-multi-algorithmes_2tache-03-robustesse-bruit" title="Lot-Annexe/LOT-ANNEXE-15-benchmark-multi-algorithmes/tache-03-robustesse-bruit.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Test de robustesse au bruit d'observation  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Eval</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4006"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4073"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Pour un modèle (algorithme, niveau) donné, <span class="tt">N</span> répétitions produisent un taux de réussite, un nombre de pas moyen (distingué entre « tous épisodes » et « épisodes réussis ») et une variance, reproductibles à graine de base fixée.</li>
@@ -163,10 +163,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucune ligne de <span class="tt">Source/Core</span>, <span class="tt">Source/HMI</span> ni d'aucun module <span class="tt">Source/AiSolver/Training/*</span> n'est modifiée par ce lot (vérifiable par diff) ; aucune nouvelle dépendance tierce.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4007"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4074"></a>
 Dépendances</h1>
 <p>Consomme, en lecture seule, <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>), l'encodage d'observation (<span class="tt">LOT-ANNEXE-06</span>), l'espace d'action et son décodage (<span class="tt">LOT-ANNEXE-07</span>) et <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (<span class="tt">LOT-ANNEXE-09</span>). Requiert au moins un modèle entraîné produit par <span class="tt">LOT-ANNEXE-10</span>/<span class="tt">LOT-ANNEXE-11</span> (évolutionniste) ou <span class="tt">LOT-ANNEXE-12</span>/<span class="tt">LOT-ANNEXE-13</span>/<span class="tt">LOT-ANNEXE-14</span> (apprentissage par gradient). <span class="tt">LOT-ANNEXE-16</span> dépend de celui-ci (réutilise intégralement le harnais pour l'exécution croisée).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4008"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4075"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-15-tache-01-execution-automatisee.html" title="TACHE-01 — Exécution automatisée répétée d&#39;un modèle sur son niveau d&#39;origine">TACHE-01 — Exécution automatisée répétée d'un modèle sur son niveau d'origine</a></li>

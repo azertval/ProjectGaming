@@ -96,29 +96,29 @@ $(function(){initNavTree('lot-annexe-17.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (format de rejeu v1). Dernier lot avant le branchement du rejeu sur le jeu réel (<a class="el" href="lot-annexe-18.html" title="LOT-ANNEXE-18 — Mode « regarder l&#39;IA jouer » (intégration HMI)">LOT-ANNEXE-18</a>) : stabilise le format v1 à la lumière de l'usage réel par les générations 2 et 3, et ajoute la validation à la lecture qui manquait jusqu'ici — un rejeu ne doit jamais être silencieusement invalide. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4065"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4132"></a>
 Objectif</h1>
 <p>Deux limites de l'état actuel :</p><ul>
 <li><b>Le format de rejeu n'est vérifié qu'à l'écriture.</b> <span class="tt">LOT-ANNEXE-07</span> a défini le format v1 tôt (génération 1) pour que la génération 2 puisse déjà exporter dedans — séquence de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> par pas fixe, métadonnées, empreinte du niveau d'origine. Mais rien ne vérifie, à la <b>lecture</b>, que le fichier de niveau référencé existe encore et correspond toujours à l'empreinte enregistrée à l'export. Si le niveau a été modifié depuis (tuile déplacée, rééquilibrage), rejouer l'ancien fichier de rejeu dessus produirait une trajectoire incohérente au mieux, un plantage au pire — silencieusement, sans qu'aucun signal n'alerte l'utilisateur ni la CI. Ce lot est le préalable obligé avant de brancher le rejeu sur <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> (<span class="tt">LOT-ANNEXE-18</span>) : le jeu réel ne doit jamais charger un rejeu invalide sans le dire.</li>
 <li><b>Le format v1 a été figé avant tout usage réel.</b> Défini en génération 1, avant qu'aucun algorithme (génération 2/3) n'ait exporté le moindre fichier réel, il lui manque des champs dont le besoin n'est apparu qu'à l'usage — une durée totale pratique à afficher sans recompter les pas, une empreinte de l'algorithme utilisé pour savoir d'où vient un rejeu donné (utile dès <span class="tt">LOT-ANNEXE-19</span>, l'outillage CLI, et pour le garde-fou CI de <span class="tt">LOT-ANNEXE-20</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4066"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4133"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4067"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4134"></a>
 Inclus</h2>
 <ul>
 <li><b>Empreinte de niveau</b> (<span class="tt"><a class="el" href="namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">aisolver::computeLevelFingerprint</a></span>) : fonction pure calculant un hash déterministe du contenu du fichier de niveau, comparée à celle enregistrée dans le rejeu.</li>
 <li><b>Validation à la lecture</b> (<span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span>) : vérifie l'existence du fichier de niveau référencé et la correspondance d'empreinte, avant que le rejeu ne soit exploitable par quiconque (jeu, CLI, script CI) — erreur <b>récupérable</b>, jamais une exception ni un plantage.</li>
 <li><b>Stabilisation du format v1</b> : ajout de champs identifiés par l'usage réel des générations 2/3 (durée totale, empreinte de l'algorithme d'origine) dans les métadonnées déjà prévues par <span class="tt">LOT-ANNEXE-07</span>, sans rupture de compatibilité avec les fichiers déjà écrits (le numéro de version, déjà prévu dans le format v1, distingue les deux générations de fichiers).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4068"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4135"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Réparation ou migration automatique d'un rejeu invalide</b> (ex. recalculer l'empreinte, retrouver un niveau renommé) : un rejeu invalide est signalé, pas réparé — le seul recours est de le ré-exporter (<span class="tt">LOT-ANNEXE-19</span>, <span class="tt">export-replay</span>) depuis un modèle déjà entraîné.</li>
 <li><b>Diagnostic détaillé de ce qui a changé dans le niveau</b> (diff sémantique tuile par tuile) : l'empreinte dit <em>si</em> le fichier a changé, jamais <em>quoi</em> — un diagnostic plus fin n'a pas de consommateur identifié (le seul geste possible en cas d'échec est de ré-exporter).</li>
 <li><b>Refonte du format en v2 incompatible</b> : ce lot reste additif à l'intérieur du format v1 (champs optionnels, version déjà prévue) — une rupture de format n'a aucun besoin identifié ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4069"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4136"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Empreinte par hachage FNV-1a 64 bits sur le contenu brut (octets UTF-8) du fichier de niveau</b>, calculée une fois à l'export et une fois à la lecture, jamais sur le modèle <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> déjà chargé (le fichier peut différer textuellement — reformatage — sans que le modèle parsé change, mais le principe retenu ici est la simplicité et la reproductibilité : le même fichier produit toujours la même empreinte, immédiatement, sans dépendre du chargeur). Choix délibérément <b>non cryptographique</b> : rien à sécuriser, seulement détecter un changement accidentel. Ce choix d'un algorithme simple et non ambigu limite aussi le risque de divergence avec sa réimplémentation en Python pur par le garde-fou CI (<span class="tt">LOT-ANNEXE-20</span>), qui ne peut pas exécuter de code C++.</li>
@@ -126,16 +126,16 @@ Décisions de cadrage</h1>
 <li><b>Un rejeu invalide est une erreur récupérable</b> (<span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span>, catégorie « erreur récupérable attendue »), au même titre qu'un niveau introuvable pour <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span> : <span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span> renvoie un résultat portant une erreur optionnelle, jamais une exception — l'appelant (jeu, CLI, script) décide de la suite (message, code de sortie non nul).</li>
 <li><b>Compatibilité ascendante stricte sur le format v1</b> : les fichiers déjà écrits avant ce lot (<span class="tt">version == 1</span>, sans les nouveaux champs) restent lisibles ; les nouveaux champs sont absents/à valeur sentinelle sur ces fichiers plutôt que de faire échouer leur lecture. Seuls les nouveaux exports (<span class="tt">version</span> incrémenté) les renseignent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4070"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4137"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot est de l'ingénierie logicielle pure (hachage, validation de fichier) — voir <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> pour le rappel du déterminisme (<span class="tt">EX-NFR-002</span>) qui rend le rejeu fidèle possible en premier lieu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4071"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4138"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-018" title="EX-IA-018"><span class="tt">EX-IA-018</span></a>.</li>
 <li>Réutilisées (inchangées) : format de rejeu v1 et ses métadonnées (<span class="tt">LOT-ANNEXE-07</span>), politique d'erreur récupérable (<span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span>), <span class="tt">EX-NFR-002</span> (déterminisme : la validation garantit justement que les conditions du déterminisme — même niveau — sont réunies).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4072"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4139"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -148,7 +148,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-17-tache-02-stabilisation-format-v1.html#md_Lot-Annexe_2LOT-ANNEXE-17-validation-format-rejeu_2tache-02-stabilisation-format-v1" title="Lot-Annexe/LOT-ANNEXE-17-validation-format-rejeu/tache-02-stabilisation-format-v1.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Stabilisation du format v1 (nouveaux champs, compatibilité ascendante)  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Replay</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4073"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4140"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Charger un rejeu dont le fichier de niveau référencé a été modifié après l'export échoue proprement (erreur récupérable, message explicite), sans exception ni plantage.</li>
@@ -157,10 +157,10 @@ Critères d'acceptation du lot</h1>
 <li>Un fichier de rejeu écrit par le format v1 d'origine (avant ce lot, sans les nouveaux champs) reste lisible sans erreur — seuls les nouveaux champs sont absents/à valeur sentinelle.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">scripts/lint_exigences.py</span> verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4074"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4141"></a>
 Dépendances</h1>
 <p>Étend le format de rejeu v1 de <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a>. La stabilisation (TACHE-02) s'appuie sur l'usage réel des générations 2 et 3 (<a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> à <a class="el" href="lot-annexe-16.html" title="LOT-ANNEXE-16 — Évaluation hors-niveau (transfert)">LOT-ANNEXE-16</a>, qui produisent et évaluent les fichiers de rejeu réels). Préalable obligatoire à <a class="el" href="lot-annexe-18.html" title="LOT-ANNEXE-18 — Mode « regarder l&#39;IA jouer » (intégration HMI)">LOT-ANNEXE-18</a> (intégration jeu) et <a class="el" href="lot-annexe-20.html" title="LOT-ANNEXE-20 — Garde-fou CI">LOT-ANNEXE-20</a> (garde-fou CI), qui réutilisent tous deux cette validation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4075"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4142"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-17-tache-01-validation-lecture-empreinte-niveau.html" title="TACHE-01 — Validation à la lecture (empreinte de niveau)">TACHE-01 — Validation à la lecture (empreinte de niveau)</a></li>

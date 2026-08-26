@@ -1,11 +1,11 @@
 var lots_annexe =
 [
-    [ "Génération 0 — Fondations numériques", "lots-annexe.html#autotoc_md4216", null ],
-    [ "Génération 1 — Pont avec le jeu et observabilité", "lots-annexe.html#autotoc_md4217", null ],
-    [ "Génération 2 — Premier agent fonctionnel (évolutionniste)", "lots-annexe.html#autotoc_md4218", null ],
-    [ "Génération 3 — Apprentissage par gradient", "lots-annexe.html#autotoc_md4219", null ],
-    [ "Génération 4 — Évaluation et robustesse", "lots-annexe.html#autotoc_md4220", null ],
-    [ "Génération 5 — Intégration jeu et outillage", "lots-annexe.html#autotoc_md4221", null ],
+    [ "Génération 0 — Fondations numériques", "lots-annexe.html#autotoc_md4283", null ],
+    [ "Génération 1 — Pont avec le jeu et observabilité", "lots-annexe.html#autotoc_md4284", null ],
+    [ "Génération 2 — Premier agent fonctionnel (évolutionniste)", "lots-annexe.html#autotoc_md4285", null ],
+    [ "Génération 3 — Apprentissage par gradient", "lots-annexe.html#autotoc_md4286", null ],
+    [ "Génération 4 — Évaluation et robustesse", "lots-annexe.html#autotoc_md4287", null ],
+    [ "Génération 5 — Intégration jeu et outillage", "lots-annexe.html#autotoc_md4288", null ],
     [ "LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison", "lot-annexe-01.html", "lot-annexe-01" ],
     [ "LOT-ANNEXE-02 — Moteur d'autodiff maison", "lot-annexe-02.html", "lot-annexe-02" ],
     [ "LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison", "lot-annexe-03.html", "lot-annexe-03" ],

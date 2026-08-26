@@ -102,8 +102,9 @@ $(function(){initNavTree('classcore_1_1BlockController.html','','classcore_1_1Bl
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a012115e6f36b5808a1e18fd840589f53" id="r_a012115e6f36b5808a1e18fd840589f53"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a012115e6f36b5808a1e18fd840589f53">BlockController</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:a012115e6f36b5808a1e18fd840589f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur : repère chaque tuile de bloc (<span class="tt">Block</span>/<span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span>) du niveau comme un bloc mobile, avec son facteur de taille (<span class="tt">1</span>/<span class="tt">0.5</span>/<span class="tt">0.25</span>).  <br /></td></tr>
-<tr class="memitem:a4d020381680cb2a07ecd51edb50d720d" id="r_a4d020381680cb2a07ecd51edb50d720d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4d020381680cb2a07ecd51edb50d720d">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float moveIntentX, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;baseCollision, const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;platforms={})</td></tr>
-<tr class="memdesc:a4d020381680cb2a07ecd51edb50d720d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile, puis fait avancer les chutes.  <br /></td></tr>
+<tr class="memitem:af37e15354dffe68204a816e43b5b3e7a" id="r_af37e15354dffe68204a816e43b5b3e7a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af37e15354dffe68204a816e43b5b3e7a">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float moveIntentX, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;baseCollision, const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;platforms={}, float dashPushSpeed=0.0F)</td></tr>
+<tr class="memdesc:af37e15354dffe68204a816e43b5b3e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile, puis fait avancer les chutes.  <br /></td></tr>
+<tr class="memitem:a781c40e3992f3a5202b198baeb98f85d" id="r_a781c40e3992f3a5202b198baeb98f85d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a781c40e3992f3a5202b198baeb98f85d">lastDashPushSpeed</a> () const noexcept</td></tr>
 <tr class="memitem:a76514947992556f8b153ac603d58dc08" id="r_a76514947992556f8b153ac603d58dc08"><td class="memItemLeft"><a class="el" href="classcore_1_1TileMap.html">TileMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a76514947992556f8b153ac603d58dc08">collisionMap</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base) const</td></tr>
 <tr class="memitem:a8c99052caaca4ae7ac2e9f461856ff66" id="r_a8c99052caaca4ae7ac2e9f461856ff66"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8c99052caaca4ae7ac2e9f461856ff66">positions</a> () const noexcept</td></tr>
 <tr class="memitem:a201e8be3e68dba9199b0177230e3201f" id="r_a201e8be3e68dba9199b0177230e3201f"><td class="memItemLeft">const std::vector&lt; float &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a201e8be3e68dba9199b0177230e3201f">scales</a> () const noexcept</td></tr>
@@ -115,16 +116,18 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:acd1cddbdd727d33c3815491e5d7de8b1" id="r_acd1cddbdd727d33c3815491e5d7de8b1"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#acd1cddbdd727d33c3815491e5d7de8b1">FALL_INTERVAL_STEPS</a> = 6</td></tr>
 <tr class="memdesc:acd1cddbdd727d33c3815491e5d7de8b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas fixes qu'un bloc non soutenu met à tomber d'une case (chute discrète).  <br /></td></tr>
+<tr class="memitem:abe202c2da3b297a330546ddce03081c6" id="r_abe202c2da3b297a330546ddce03081c6"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#abe202c2da3b297a330546ddce03081c6">DASH_PUSH_MAX_CELLS</a> = 4</td></tr>
+<tr class="memdesc:abe202c2da3b297a330546ddce03081c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre maximal de cases parcourues en un seul pas par une <b>poussée renforcée</b> (dash, <span class="tt">EX-GP-057</span>), au-delà d'une poussée simple (une case par contact).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ae5d19a4dc18ad9c51e5bc78623df190b" id="r_ae5d19a4dc18ad9c51e5bc78623df190b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae5d19a4dc18ad9c51e5bc78623df190b">isFree</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> target, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base, std::size_t excluding) const</td></tr>
-<tr class="memitem:aa4b0ed0452dd103740061bedd65042cd" id="r_aa4b0ed0452dd103740061bedd65042cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa4b0ed0452dd103740061bedd65042cd">pushBlocks</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float moveIntentX, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base)</td></tr>
-<tr class="memdesc:aa4b0ed0452dd103740061bedd65042cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 1 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : pousse chaque bloc touché du côté du déplacement voulu si sa case suivante est libre.  <br /></td></tr>
+<tr class="memitem:acd21677306a264e26276cf4157921ee9" id="r_acd21677306a264e26276cf4157921ee9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acd21677306a264e26276cf4157921ee9">pushBlocks</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float moveIntentX, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base, float dashPushSpeed)</td></tr>
+<tr class="memdesc:acd21677306a264e26276cf4157921ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 1 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : pousse chaque bloc touché du côté du déplacement voulu si sa case suivante est libre &ndash; de plusieurs cases d'un coup si <code class="param">dashPushSpeed</code> est non nulle (<span class="tt">EX-GP-057</span>), jusqu'à <span class="tt"><a class="el" href="#abe202c2da3b297a330546ddce03081c6" title="Nombre maximal de cases parcourues en un seul pas par une poussée renforcée (dash,...">DASH_PUSH_MAX_CELLS</a></span> ou au premier obstacle.  <br /></td></tr>
 <tr class="memitem:a10e726ae238d633037c8eaeb43631ddb" id="r_a10e726ae238d633037c8eaeb43631ddb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10e726ae238d633037c8eaeb43631ddb">carryBlocksOnPlatforms</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base, const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;platforms)</td></tr>
-<tr class="memdesc:a10e726ae238d633037c8eaeb43631ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 2 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : porte chaque bloc reposant sur une plateforme mobile (accumulateur infra-case, converti en poussée d'une case entière à <span class="tt">1.0</span>) ; supprime aussi la chute pour ce pas (support valide).  <br /></td></tr>
+<tr class="memdesc:a10e726ae238d633037c8eaeb43631ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 2 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : porte chaque bloc reposant sur une plateforme mobile (accumulateur infra-case, converti en poussée d'une case entière à <span class="tt">1.0</span>) ; supprime aussi la chute pour ce pas (support valide).  <br /></td></tr>
 <tr class="memitem:a26c5b394ff976688bc1932b0b9a33df1" id="r_a26c5b394ff976688bc1932b0b9a33df1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a26c5b394ff976688bc1932b0b9a33df1">dropBlocks</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base)</td></tr>
-<tr class="memdesc:a26c5b394ff976688bc1932b0b9a33df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 3 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : fait tomber d'une case chaque bloc non soutenu depuis <span class="tt"><a class="el" href="#acd1cddbdd727d33c3815491e5d7de8b1" title="Nombre de pas fixes qu&#39;un bloc non soutenu met à tomber d&#39;une case (chute discrète).">FALL_INTERVAL_STEPS</a></span> pas.  <br /></td></tr>
+<tr class="memdesc:a26c5b394ff976688bc1932b0b9a33df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étape 3 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : fait tomber d'une case chaque bloc non soutenu depuis <span class="tt"><a class="el" href="#acd1cddbdd727d33c3815491e5d7de8b1" title="Nombre de pas fixes qu&#39;un bloc non soutenu met à tomber d&#39;une case (chute discrète).">FALL_INTERVAL_STEPS</a></span> pas.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -135,6 +138,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a9306bb0b35c21394aeba8b93da0f44f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas écoulés depuis que ce bloc est non soutenu.  <br /></td></tr>
 <tr class="memitem:a03e4c1f6497beafd47c49f789c3a3a87" id="r_a03e4c1f6497beafd47c49f789c3a3a87"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03e4c1f6497beafd47c49f789c3a3a87">_platformCarryAccumulator</a></td></tr>
 <tr class="memdesc:a03e4c1f6497beafd47c49f789c3a3a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplacement infra-case accumulé par la plateforme qui porte ce bloc, même index ; remis à zéro dès que le bloc n'est plus porté.  <br /></td></tr>
+<tr class="memitem:a725841e601cac3515df1a3528787db02" id="r_a725841e601cac3515df1a3528787db02"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a725841e601cac3515df1a3528787db02">_lastDashPushSpeed</a> = 0.0F</td></tr>
+<tr class="memdesc:a725841e601cac3515df1a3528787db02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse (signée) de la dernière poussée renforcée du pas courant ; <span class="tt">0</span> si aucune (voir <span class="tt"><a class="el" href="#a781c40e3992f3a5202b198baeb98f85d">lastDashPushSpeed()</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fait vivre les <b>blocs poussables</b> d'un niveau (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></span>/<span class="tt">BlockHalf</span>/ <span class="tt">BlockQuarter</span>, <span class="tt">EX-GP-022</span>/<span class="tt">EX-GP-005</span>). </p>
@@ -144,7 +149,7 @@ Private Attributes</h2></td></tr>
 </ul>
 <p><b>Pentes/arrondis</b> (<span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>, sol ou plafond) : ce contrôleur n'a <b>aucune</b> notion de suivi de surface (contrairement au personnage, <span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span>) — une case de pente/arrondi est donc traitée comme un <b>obstacle simple</b>, comme un <span class="tt">Solid</span> ordinaire (ni poussable dedans, ni traversée en tombant), plutôt que comme une case libre. Sans cette règle, un bloc glisserait au travers d'une pente au lieu de s'y arrêter.</p>
 <p>Le contrôleur ne connaît pas les mécanismes interrupteur/porte : <span class="tt"><a class="el" href="#a76514947992556f8b153ac603d58dc08">collisionMap()</a></span> complète une grille de collision <b>déjà résolue</b> par <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></span> (portes ouvertes/fermées) avec la position <b>courante</b> des blocs <b>pleins</b> (<span class="tt">Block</span>), sans jamais modifier la carte statique du <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span>. Les blocs <b>réduits</b> (<span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span>) ne sont <b>jamais</b> marqués solides dans cette grille — leur case doit rester franchissable <b>autour</b> d'eux (<span class="tt">EX-GP-005</span>) ; leur collision réelle avec le personnage est résolue à part, par <span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span> (<a class="el" href="guide-physique.html" title="Physique du personnage">Physique du personnage</a>), composée par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>) après le balayage sur grille.</p>
-<p><b>Support mouvant</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>, optionnel via <span class="tt"><a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update</a></span>) : un bloc qui repose sur une plateforme mobile ne tombe jamais (support valide comme le sol) et est <b>porté</b> avec elle — le déplacement continu de la plateforme est accumulé (<span class="tt"><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a></span> par bloc) et converti en poussée d'une case entière dès que l'accumulateur atteint <span class="tt">1.0</span>, exactement comme le reste de ce contrôleur (une case à la fois, jamais de position infra-case pour un bloc). Le reliquat infra-case est conservé d'un pas à l'autre, pas perdu. </p>
+<p><b>Support mouvant</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>, optionnel via <span class="tt"><a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update</a></span>) : un bloc qui repose sur une plateforme mobile ne tombe jamais (support valide comme le sol) et est <b>porté</b> avec elle — le déplacement continu de la plateforme est accumulé (<span class="tt"><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a></span> par bloc) et converti en poussée d'une case entière dès que l'accumulateur atteint <span class="tt">1.0</span>, exactement comme le reste de ce contrôleur (une case à la fois, jamais de position infra-case pour un bloc). Le reliquat infra-case est conservé d'un pas à l'autre, pas perdu. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a012115e6f36b5808a1e18fd840589f53" name="a012115e6f36b5808a1e18fd840589f53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a012115e6f36b5808a1e18fd840589f53">&#9670;&#160;</a></span>BlockController()</h2>
@@ -227,7 +232,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Étape 2 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : porte chaque bloc reposant sur une plateforme mobile (accumulateur infra-case, converti en poussée d'une case entière à <span class="tt">1.0</span>) ; supprime aussi la chute pour ce pas (support valide). </p>
+<p>Étape 2 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : porte chaque bloc reposant sur une plateforme mobile (accumulateur infra-case, converti en poussée d'une case entière à <span class="tt">1.0</span>) ; supprime aussi la chute pour ce pas (support valide). </p>
 
 </div>
 </div>
@@ -280,7 +285,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Étape 3 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : fait tomber d'une case chaque bloc non soutenu depuis <span class="tt"><a class="el" href="#acd1cddbdd727d33c3815491e5d7de8b1" title="Nombre de pas fixes qu&#39;un bloc non soutenu met à tomber d&#39;une case (chute discrète).">FALL_INTERVAL_STEPS</a></span> pas. </p>
+<p>Étape 3 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : fait tomber d'une case chaque bloc non soutenu depuis <span class="tt"><a class="el" href="#acd1cddbdd727d33c3815491e5d7de8b1" title="Nombre de pas fixes qu&#39;un bloc non soutenu met à tomber d&#39;une case (chute discrète).">FALL_INTERVAL_STEPS</a></span> pas. </p>
 
 </div>
 </div>
@@ -316,6 +321,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true si <code class="param">target</code> est dans les bornes, non solide et non pente/arrondi (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>/<span class="tt"><a class="el" href="namespacecore.html#a391389199b2161535d2aa57f225ef65f">core::isCeilingSlope</a></span>, voir en-tête de la classe) dans <code class="param">base</code>, et non occupée par un bloc autre que celui d'indice <code class="param">excluding</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a781c40e3992f3a5202b198baeb98f85d" name="a781c40e3992f3a5202b198baeb98f85d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a781c40e3992f3a5202b198baeb98f85d">&#9670;&#160;</a></span>lastDashPushSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::BlockController::lastDashPushSpeed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La vitesse horizontale (signée) de la dernière poussée <b>renforcée</b> (dash) déclenchée par le dernier appel à <span class="tt"><a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update</a></span> ; <span class="tt">0</span> si aucune poussée renforcée n'a eu lieu ce pas-là (<span class="tt">EX-GP-057</span>/<span class="tt">EX-GP-061</span>, momentum hérité au saut). </dd></dl>
 
 </div>
 </div>
@@ -379,8 +410,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa4b0ed0452dd103740061bedd65042cd" name="aa4b0ed0452dd103740061bedd65042cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4b0ed0452dd103740061bedd65042cd">&#9670;&#160;</a></span>pushBlocks()</h2>
+<a id="acd21677306a264e26276cf4157921ee9" name="acd21677306a264e26276cf4157921ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd21677306a264e26276cf4157921ee9">&#9670;&#160;</a></span>pushBlocks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -401,7 +432,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>base</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>base</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>dashPushSpeed</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -411,7 +447,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Étape 1 de <a class="el" href="#a4d020381680cb2a07ecd51edb50d720d" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : pousse chaque bloc touché du côté du déplacement voulu si sa case suivante est libre. </p>
+<p>Étape 1 de <a class="el" href="#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">update()</a> : pousse chaque bloc touché du côté du déplacement voulu si sa case suivante est libre &ndash; de plusieurs cases d'un coup si <code class="param">dashPushSpeed</code> est non nulle (<span class="tt">EX-GP-057</span>), jusqu'à <span class="tt"><a class="el" href="#abe202c2da3b297a330546ddce03081c6" title="Nombre maximal de cases parcourues en un seul pas par une poussée renforcée (dash,...">DASH_PUSH_MAX_CELLS</a></span> ou au premier obstacle. </p>
 
 </div>
 </div>
@@ -441,8 +477,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4d020381680cb2a07ecd51edb50d720d" name="a4d020381680cb2a07ecd51edb50d720d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d020381680cb2a07ecd51edb50d720d">&#9670;&#160;</a></span>update()</h2>
+<a id="af37e15354dffe68204a816e43b5b3e7a" name="af37e15354dffe68204a816e43b5b3e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af37e15354dffe68204a816e43b5b3e7a">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -465,7 +501,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>platforms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>platforms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>dashPushSpeed</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -477,6 +518,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">moveIntentX</td><td>Intention de déplacement horizontal du personnage (<span class="tt"><a class="el" href="structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623" title="Intention de déplacement horizontal, normalisée dans l&#39;intervalle [-1, 1] : -1 = vers la gauche,...">PlayerInput::moveX</a></span>, dans <span class="tt">[-1, 1]</span>) ; <span class="tt">0</span> ne pousse aucun bloc. </td></tr>
     <tr><td class="paramname">baseCollision</td><td>Grille de collision déjà résolue par les mécanismes (portes), utilisée pour savoir si la case visée par une poussée ou une chute est libre. </td></tr>
     <tr><td class="paramname">platforms</td><td>Échantillons de position des plateformes mobiles pour ce pas (<span class="tt"><a class="el" href="classcore_1_1PlatformController.html#a9073c587e2ee7ca87ac7635fe5880894">core::PlatformController::samples</a></span>) ; vide par défaut (comportement inchangé pour tout niveau sans plateforme). </td></tr>
+    <tr><td class="paramname">dashPushSpeed</td><td>Vitesse horizontale (unités/s, <b>signée</b>) du personnage s'il est <b>en dash</b> ce pas ; <span class="tt">0</span> sinon (comportement de poussée simple inchangé, <span class="tt">EX-GP-022</span>). Une valeur non nulle avance le bloc touché de plusieurs cases dans CE pas (<span class="tt"><a class="el" href="#abe202c2da3b297a330546ddce03081c6" title="Nombre maximal de cases parcourues en un seul pas par une poussée renforcée (dash,...">DASH_PUSH_MAX_CELLS</a></span>, jusqu'au premier obstacle) plutôt qu'une seule, et arme <span class="tt"><a class="el" href="#a781c40e3992f3a5202b198baeb98f85d">lastDashPushSpeed()</a></span> (<span class="tt">EX-GP-057</span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -505,6 +547,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pas écoulés depuis que ce bloc est non soutenu. </p>
+
+</div>
+</div>
+<a id="a725841e601cac3515df1a3528787db02" name="a725841e601cac3515df1a3528787db02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a725841e601cac3515df1a3528787db02">&#9670;&#160;</a></span>_lastDashPushSpeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::BlockController::_lastDashPushSpeed = 0.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vitesse (signée) de la dernière poussée renforcée du pas courant ; <span class="tt">0</span> si aucune (voir <span class="tt"><a class="el" href="#a781c40e3992f3a5202b198baeb98f85d">lastDashPushSpeed()</a></span>). </p>
 
 </div>
 </div>
@@ -575,6 +641,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Facteur de taille (<span class="tt">1</span>/<span class="tt">0.5</span>/<span class="tt">0.25</span>), même index. </p>
+
+</div>
+</div>
+<a id="abe202c2da3b297a330546ddce03081c6" name="abe202c2da3b297a330546ddce03081c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe202c2da3b297a330546ddce03081c6">&#9670;&#160;</a></span>DASH_PUSH_MAX_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BlockController::DASH_PUSH_MAX_CELLS = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre maximal de cases parcourues en un seul pas par une <b>poussée renforcée</b> (dash, <span class="tt">EX-GP-057</span>), au-delà d'une poussée simple (une case par contact). </p>
 
 </div>
 </div>

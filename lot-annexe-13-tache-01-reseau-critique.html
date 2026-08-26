@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-13-tache-01-reseau-critique.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2tache-01-reseau-critique"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-13.html#md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2epic" title="Lot-Annexe/LOT-ANNEXE-13-acteur-critique/epic.md">LOT-ANNEXE-13</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/ActorCritic</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3929"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3996"></a>
 Contexte</h1>
 <p>LOT-ANNEXE-12 n'entraîne qu'un réseau (la politique). Ce lot introduit un second réseau, le <b>critique</b>, dont le rôle est différent : il ne choisit aucune action, il <b>estime</b> — pour une observation donnée — la récompense future totale attendue si la politique courante continue à jouer depuis cet état. C'est cette estimation qui, en TACHE-02, permettra de calculer l'avantage. La bibliothèque de réseaux de LOT-ANNEXE-03 est directement réutilisable : le critique n'est qu'une architecture différente (une sortie scalaire au lieu d'une distribution sur l'espace d'action), pas un nouveau mécanisme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3930"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3997"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1CriticNetwork.html" title="Réseau distinct de la politique (nn::Network, LOT-ANNEXE-03), même bibliothèque de couches,...">aisolver::training::CriticNetwork</a></span></b> (<span class="tt"><a class="el" href="CriticNetwork_8h.html" title="Réseau critique : estime la valeur d&#39;un état (LOT-ANNEXE-13, TACHE-01, EX-IA-014).">Source/AiSolver/Training/ActorCritic/CriticNetwork.h</a>/.cpp</span>) : réseau construit avec les couches de LOT-ANNEXE-03 (mêmes types de couches denses/activations que le réseau de politique), même encodage d'observation en entrée (LOT-ANNEXE-06) que la politique, <b>une seule sortie scalaire</b> (pas de couche de normalisation en distribution comme pour la politique — la sortie est une valeur réelle non bornée).</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li>Méthode <span class="tt">autodiff::NodePtr forward(const Observation&amp; observation)</span> — un unique passage avant, nœud de graphe d'autodiff en sortie, réutilisable directement par TACHE-03 pour la rétropropagation de la perte du critique.</li>
 <li>Initialisation des poids : réutilise le même schéma d'initialisation (et le même générateur pseudo-aléatoire, LOT-ANNEXE-01) que celui déjà retenu pour le réseau de politique en LOT-ANNEXE-03, sans en introduire un nouveau spécifiquement pour le critique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3931"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3998"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CriticNetwork_8h.html" title="Réseau critique : estime la valeur d&#39;un état (LOT-ANNEXE-13, TACHE-01, EX-IA-014).">Source/AiSolver/Training/ActorCritic/CriticNetwork.h</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="CriticNetwork_8cpp.html">Source/AiSolver/Training/ActorCritic/CriticNetwork.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3932"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3999"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Forme de sortie</b> : <span class="tt">forward</span> renvoie systématiquement un unique scalaire, quelle que soit l'observation d'entrée (dimension fixe et validée par assertion en développement).</li>
@@ -120,22 +120,22 @@ Tests (obligatoires)</h1>
 <li><b>Sensibilité aux poids</b> : une perturbation des poids du critique change la valeur de sortie pour une même observation (vérifie que le réseau n'est pas dégénéré/constant après construction).</li>
 <li><b>Indépendance du réseau de politique</b> : construire et faire varier un <span class="tt"><a class="el" href="classCriticNetwork.html" title="Réseau distinct de la politique (nn::Network, LOT-ANNEXE-03), même bibliothèque de couches,...">CriticNetwork</a></span> n'affecte en rien les sorties du réseau de politique (<span class="tt">nn::Network</span>, LOT-ANNEXE-03) construit séparément sur la même observation (pas de poids ou d'état partagé accidentel).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3933"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4000"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucun partage de poids avec le réseau de politique</b> (décision de cadrage de l'épic) : même si les deux réseaux consomment la même observation encodée en entrée, ce sont deux instances entièrement indépendantes de la bibliothèque de LOT-ANNEXE-03, avec leurs propres paramètres.</li>
 <li>La sortie du critique est une <b>valeur non bornée</b> (pas de fonction d'activation finale de type sigmoïde/softmax) : contrairement à la politique, rien ne contraint son échelle a priori — c'est la perte d'entraînement (TACHE-03) qui la fait converger vers l'échelle des retours observés.</li>
 <li>Garder l'architecture du critique <b>volontairement simple</b> (comparable en taille à la politique) : la comparaison chiffrée de TACHE-04 doit isoler l'effet de la réduction de variance, pas celui d'un critique disproportionnellement plus puissant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3934"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4001"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classCriticNetwork.html" title="Réseau distinct de la politique (nn::Network, LOT-ANNEXE-03), même bibliothèque de couches,...">CriticNetwork</a></span> disponible et testé (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3935"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4002"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-acteur-critique.html" title="Acteur-critique">Acteur-critique</a> — variance du gradient, fonction de valeur, critique, avantage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3936"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4003"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-014</span> (nouvelle, couverte par le lot). </p>
 </div></div><!-- contents -->

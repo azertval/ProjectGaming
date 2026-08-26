@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-05-tache-03-budget-pas-detection-blocage.ht
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-03-budget-pas-detection-blocage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-05.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2epic" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/epic.md">LOT-ANNEXE-05</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3641"></a>
 Contexte</h1>
 <p><span class="tt">playLevel()</span> borne sa boucle par un <span class="tt">maxSteps = 3000</span> codé en dur, suffisant pour un test unitaire (un scénario scripté termine toujours). Un run d'entraînement automatisé (générations 2/3) n'a pas cette garantie : une politique aléatoire ou mal entraînée peut faire du sur-place indéfiniment (walk-in-place contre un mur, oscillation). Sans borne, un seul épisode dégénéré bloquerait tout un batch. Cette tâche ajoute au <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> de TACHE-01/02 un budget de pas dur et des compteurs de progression <b>exposés</b>, sans que l'environnement décide lui-même d'une fin d'épisode sur blocage (cette politique appartient à LOT-ANNEXE-08).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3642"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html" title="Configuration d&#39;un HeadlessLevelEnvironment : budget de pas dur et seuil de progression.">aisolver::EnvironmentConfig</a></span></b> (<span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span>) : struct de configuration passée à la construction ou à <span class="tt">reset</span> — <span class="tt">int maxSteps = 3000;</span> (même valeur par défaut que <span class="tt">playLevel()</span>, un budget dur : <span class="tt">step</span> refuse un appel au-delà via <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>, symétrique de l'assertion « pas de <span class="tt">step</span> avant <span class="tt">reset</span> » de TACHE-01) ; <span class="tt">float progressEpsilon = 0.05f;</span> (unités monde, seuil en dessous duquel un déplacement n'est pas considéré comme un progrès).</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li><b>Accesseurs</b> : <span class="tt">[[nodiscard]] bool budgetExhausted() const noexcept;</span> (<span class="tt">stepIndex &gt;= maxSteps</span>), <span class="tt">[[nodiscard]] int stepsSinceProgress() const noexcept;</span>, <span class="tt">[[nodiscard]] float bestDistanceToExit()
   const noexcept;</span> — lus par l'appelant (boucle d'entraînement ou LOT-ANNEXE-08), jamais interprétés ici en une issue <span class="tt">Lost</span>/<span class="tt">Won</span> supplémentaire (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span> n'est pas étendu : rester dans le vocabulaire de <span class="tt">Core</span>, ne pas y ajouter un pseudo-état côté <span class="tt">AiSolver</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3643"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span> (<span class="tt"><a class="el" href="structEnvironmentConfig.html" title="Configuration d&#39;un HeadlessLevelEnvironment : budget de pas dur et seuil de progression.">EnvironmentConfig</a></span>, accesseurs, membres privés <span class="tt">_bestDistanceToExit</span>/<span class="tt">_stepsSinceProgress</span>).</li>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8cpp.html">Source/AiSolver/Env/HeadlessLevelEnvironment.cpp</a></span> (calcul de progression dans <span class="tt">step</span>, remise à zéro dans <span class="tt">reset</span>).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__headless__level__environment_8cpp.html" title="Tests unitaires de aisolver::HeadlessLevelEnvironment (LOT-ANNEXE-05).">Source/Test/Unit/AiSolver/Env/test_headless_level_environment.cpp</a></span> (complété).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3644"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Budget atteint</b> : après <span class="tt">maxSteps</span> appels à <span class="tt">step</span> sur un niveau où le personnage reste immobile (<span class="tt">PlayerInput{}</span> par défaut), <span class="tt">budgetExhausted()</span> devient vrai exactement au pas <span class="tt">maxSteps</span>, jamais avant.</li>
@@ -121,22 +121,22 @@ Tests (obligatoires)</h1>
 <li><b>Blocage détecté</b> : sur le même niveau avec <span class="tt">PlayerInput{}</span> (immobile) contre un mur ou au sol sans déplacement, <span class="tt">stepsSinceProgress()</span> croît de façon monotone, sans jamais se réinitialiser.</li>
 <li><b><span class="tt">reset</span> remet les compteurs à zéro</b> : <span class="tt">bestDistanceToExit()</span>/<span class="tt">stepsSinceProgress()</span> reviennent à leur état initial après un nouveau <span class="tt">reset</span>, y compris sur le même niveau qu'un run précédent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3645"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La distance à la sortie est une heuristique de progression, pas une garantie de solvabilité.</b> Un niveau où le chemin s'éloigne temporairement de la sortie (détour obligé, <span class="tt">demo-salles.json</span>) ferait croître <span class="tt">stepsSinceProgress</span> sans qu'il y ait de blocage réel — c'est un signal brut pour l'algorithme consommateur (LOT-ANNEXE-08 choisit la fenêtre de tolérance), pas une vérité absolue.</li>
 <li><b><span class="tt">maxSteps</span> est un budget dur de sécurité, pas un réglage d'entraînement.</b> Sa valeur par défaut (3000, alignée sur <span class="tt">playLevel()</span>) n'a pas vocation à être le seuil utilisé pour détecter un blocage en pratique (bien plus court, voir LOT-ANNEXE-08) — seulement à empêcher un run pathologique de tourner indéfiniment.</li>
 <li><b>Pas de nouvel état dans <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>.</b> Céder à la tentation d'ajouter un <span class="tt">TimedOut</span> ou <span class="tt">Stalled</span> dans <span class="tt">Core</span> violerait la contrainte « aucune ligne de <span class="tt">Core</span> modifiée » pour un besoin qui n'existe que côté entraînement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3646"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Budget de pas et compteurs de progression disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3647"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — agent, environnement, boucle <span class="tt">reset</span>/<span class="tt">step</span>, épisode, propriété de Markov.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3648"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-005</span> (nouvelle). </p>
 </div></div><!-- contents -->

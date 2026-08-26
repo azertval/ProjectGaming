@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-07-tache-02-decodage-argmax-stochastique.ht
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2tache-02-decodage-argmax-stochastique"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-07.html#md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2epic" title="Lot-Annexe/LOT-ANNEXE-07-espace-action-format-rejeu/epic.md">LOT-ANNEXE-07</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3660"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3727"></a>
 Contexte</h1>
 <p><span class="tt">ActionSpace</span> (TACHE-01) définit <em>quelles</em> actions existent ; cette tâche définit <em>comment en choisir une</em> à partir d'une distribution de probabilité produite par un réseau (sortie <span class="tt">softmax</span>, <span class="tt">LOT-ANNEXE-03</span>). Deux besoins distincts et complémentaires : un choix reproductible pour le rejeu final (<span class="tt">LOT-ANNEXE-11</span>), un choix explorant la distribution pendant l'entraînement par gradient (génération 3).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3728"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver.html#aa2c594166eb644b6546d993c245e48c7" title="Sélectionne l&#39;action de probabilité maximale (décodage déterministe).">aisolver::decodeArgmax</a></span></b> (<span class="tt"><a class="el" href="ActionDecoding_8h.html" title="Décodage d&#39;une distribution de probabilité en action concrète (LOT-ANNEXE-07, EX-IA-007).">Source/AiSolver/Env/ActionDecoding.h</a>/.cpp</span>) : <span class="tt"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> decodeArgmax(const <a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;&amp; distribution)</span> — retourne <span class="tt">actionAt(indice du maximum)</span>. Règle de départage explicite en cas d'égalité stricte entre plusieurs indices : le <b>premier</b> indice au sens de l'ordre d'énumération de <span class="tt">ActionSpace</span> (déterministe, ne dépend d'aucun état externe).</li>
@@ -106,13 +106,13 @@ Travail à réaliser</h1>
   somme</span>, <span class="tt">temperature = 1.0</span> laisse la distribution inchangée), puis échantillonne un indice selon la distribution résultante en tirant <span class="tt">rng.nextFloat(0, 1)</span> et en parcourant la somme cumulée (méthode de la roulette).</li>
 <li>Documentation explicite du contrat : <span class="tt">distribution</span> est supposée déjà normalisée (somme à <span class="tt">1</span>, produite par une couche <span class="tt">softmax</span>, <span class="tt">LOT-ANNEXE-03</span>) — ni <span class="tt">decodeArgmax</span> ni <span class="tt">decodeStochastic</span> ne renormalisent en entrée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3662"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3729"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ActionDecoding_8h.html" title="Décodage d&#39;une distribution de probabilité en action concrète (LOT-ANNEXE-07, EX-IA-007).">Source/AiSolver/Env/ActionDecoding.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3663"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3730"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">decodeArgmax</span> sur un maximum unique</b> : retourne l'action attendue.</li>
@@ -121,21 +121,21 @@ Tests (obligatoires)</h1>
 <li><b>Effet de la température</b> : une température basse (proche de <span class="tt">0</span>) rend <span class="tt">decodeStochastic</span> quasi-équivalent à <span class="tt">decodeArgmax</span> sur une majorité de tirages ; une température haute aplatit la distribution vers un tirage quasi uniforme — les deux comportements vérifiés explicitement.</li>
 <li><b>Reproductibilité</b> : deux appels à <span class="tt">decodeStochastic</span> avec la <b>même</b> instance de <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> dans le même état produisent la même action ; avec deux instances de graines différentes, potentiellement des actions différentes (non déterminisme inter-graines attendu, déterminisme intra-graine vérifié).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3664"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3731"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">decodeStochastic</span> ne doit jamais recevoir une instance de <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> initialisée sur l'horloge</b> : cohérent avec la décision transverse de <span class="tt">LOT-ANNEXE-01</span> — c'est l'appelant (boucle d'entraînement, génération 3) qui contrôle la graine, jamais cette fonction.</li>
 <li><b>La méthode de la roulette (somme cumulée) est en <span class="tt">O(taille de l'espace d'action)</span></b> : avec 24 actions (TACHE-01), le coût est négligeable ; pas d'optimisation par recherche binaire nécessaire à cette échelle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3665"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3732"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">decodeArgmax</span>/<span class="tt">decodeStochastic</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3666"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3733"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — action, espace d'action, politique déterministe ou stochastique, exploration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3667"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3734"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-007</span> (nouvelle, partagée avec TACHE-01/03/04 du même lot). </p>
 </div></div><!-- contents -->

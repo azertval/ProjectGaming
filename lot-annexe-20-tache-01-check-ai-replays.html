@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-20-tache-01-check-ai-replays.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-20-garde-fou-ci_2tache-01-check-ai-replays"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-20.html#md_Lot-Annexe_2LOT-ANNEXE-20-garde-fou-ci_2epic" title="Lot-Annexe/LOT-ANNEXE-20-garde-fou-ci/epic.md">LOT-ANNEXE-20</a> · <b>Emplacement :</b> <span class="tt">scripts</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4165"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4232"></a>
 Contexte</h1>
 <p><span class="tt">LOT-ANNEXE-17</span> valide un rejeu à la lecture, en C++, au moment où le jeu (ou la CLI) le charge — mais rien ne le vérifie systématiquement en amont, avant qu'un commit modifiant un niveau n'atteigne <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span>. Cette tâche porte la même vérification (empreinte de niveau) dans un script Python autonome, sur le modèle exact de <span class="tt">scripts/check_demo_sequence.py</span> déjà présent dans le dépôt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4166"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4233"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">scripts/check_ai_replays.py</span></b> : structure calquée sur <span class="tt">check_demo_sequence.py</span> — imports standard uniquement (<span class="tt">os</span>, <span class="tt">json</span>, <span class="tt">sys</span>), fonction <span class="tt">fnv1a_64(data: bytes) -&gt; int</span> (réimplémentation manuelle de l'algorithme, <b>même convention d'octets</b> que <span class="tt"><a class="el" href="namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">aisolver::computeLevelFingerprint</a></span> : lecture du fichier de niveau en mode binaire, aucune normalisation de fin de ligne ni d'encodage au-delà d'UTF-8 brut), fonction <span class="tt">check(root)</span> qui :<ol type="1">
@@ -110,12 +110,12 @@ Travail à réaliser</h1>
 </li>
 <li><span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main()</a></span> minimal, <span class="tt">if __name__ == '__main__': sys.exit(main())</span>, résolution de <span class="tt">root</span> par rapport à l'emplacement du script (<span class="tt">os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span>), comme <span class="tt">check_demo_sequence.py</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4167"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4234"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">scripts/check_ai_replays.py</span> — nouveau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4168"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4235"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Empreinte identique à l'implémentation C++</b> : sur un fichier de niveau fixe committé (ex. un niveau <span class="tt">demo-*.json</span> existant), <span class="tt">fnv1a_64</span> appliqué par ce script produit la <b>même</b> valeur numérique que <span class="tt"><a class="el" href="namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">aisolver::computeLevelFingerprint</a></span> (<span class="tt">LOT-ANNEXE-17</span>) appliqué au même fichier — vérifié par une valeur de référence documentée dans les deux implémentations (constante partagée en commentaire, ou fixture de test commune).</li>
@@ -124,21 +124,21 @@ Tests (obligatoires)</h1>
 <li><b>Rejeu orphelin (niveau introuvable)</b> : <span class="tt">check(root)</span> retourne <span class="tt">1</span>, message distinct du cas précédent.</li>
 <li><b>Absence de tout rejeu publié</b> : <span class="tt">check(root)</span> retourne <span class="tt">0</span> avec un résumé indiquant zéro rejeu vérifié (cas non bloquant, pas une erreur — le dossier peut légitimement être vide avant que <span class="tt">LOT-ANNEXE-18</span> ne publie son premier rejeu de démonstration).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4169"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4236"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La convention d'octets doit rester identique entre les deux implémentations</b> (C++ et Python) : lecture en mode binaire strict, aucune conversion de fin de ligne (<span class="tt">\r\n</span> vs <span class="tt">\n</span>) implicite lors de la lecture du fichier — un piège classique de portabilité Windows/Unix, documenté explicitement ici parce que <span class="tt">LOT-ANNEXE-17</span> l'a identifié comme risque de divergence.</li>
 <li><b>Ce script ne construit ni n'exécute aucun binaire C++</b> : il lit uniquement des fichiers texte (JSON de rejeu, JSON de niveau) — condition pour qu'il reste exécutable dans un job CI léger, sans étape de build préalable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4170"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4237"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">check_ai_replays.py</span> fonctionnel, testé manuellement sur les cas listés ; valeur d'empreinte vérifiée identique à l'implémentation C++ sur au moins un fichier de référence commun.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4171"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4238"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4172"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4239"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-021</span> (nouvelle, partagée avec TACHE-02 du même lot). </p>
 </div></div><!-- contents -->

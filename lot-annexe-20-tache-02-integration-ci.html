@@ -94,43 +94,43 @@ $(function(){initNavTree('lot-annexe-20-tache-02-integration-ci.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-20-garde-fou-ci_2tache-02-integration-ci"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-20.html#md_Lot-Annexe_2LOT-ANNEXE-20-garde-fou-ci_2epic" title="Lot-Annexe/LOT-ANNEXE-20-garde-fou-ci/epic.md">LOT-ANNEXE-20</a> · <b>Emplacement :</b> <span class="tt">.github/workflows</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4173"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4240"></a>
 Contexte</h1>
 <p><span class="tt">scripts/check_ai_replays.py</span> (TACHE-01) existe et fonctionne en local ; cette tâche le fait exécuter automatiquement sur chaque Pull Request, à côté des vérifications déjà en place (<span class="tt">lint_exigences.py</span>, <span class="tt">check_demo_sequence.py</span>, <span class="tt">generate_cahier_test.py --check</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4174"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4241"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">.github/workflows/ci.yml</span></b> : nouvelle étape, positionnée à côté des étapes existantes <span class="tt">lint_exigences.py</span>/<span class="tt">check_demo_sequence.py</span> (même job, même style d'invocation — <span class="tt">python
   scripts/check_ai_replays.py</span>, échec de l'étape si code de sortie non nul).</li>
 <li>Mise à jour du <span class="tt">README.md</span> (section « Vérifications locales », qui liste déjà les scripts équivalents) : ajout de la ligne <span class="tt">python scripts/check_ai_replays.py</span> à la liste des contrôles reproductibles localement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4175"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4242"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">.github/workflows/ci.yml</span> — modifié (nouvelle étape).</li>
 <li><span class="tt">README.md</span> — modifié (section « Vérifications locales »).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4176"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4243"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Exécution locale identique à la CI</b> : la commande ajoutée à <span class="tt">ci.yml</span> est exactement celle documentée dans <span class="tt">README.md</span> et testée manuellement en TACHE-01 — aucune divergence d'invocation (arguments, répertoire de travail) entre local et CI.</li>
 <li><b>Échec de Pull Request simulé</b> : sur une branche de test introduisant volontairement un rejeu périmé (modification d'un niveau référencé par un rejeu publié), le job CI échoue à cette étape précisément, avec le message produit par TACHE-01 visible dans les logs — vérifié une fois en conditions réelles avant fusion de ce lot, pas un test automatisé au sens <span class="tt">ctest</span> (validation de configuration CI, pas de code C++).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4177"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4244"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La nouvelle étape ne doit pas dépendre d'une étape de build C++ préalable</b> (cohérent avec TACHE-01 : le script ne lit que des fichiers texte) — elle peut s'exécuter tôt dans le job, parallèlement ou avant les étapes de compilation, pour échouer vite si un rejeu est périmé.</li>
 <li><b>Aucune modification des étapes existantes</b> (<span class="tt">lint_exigences.py</span>, <span class="tt">check_demo_sequence.py</span>, build, tests) — ce lot ajoute une étape, il n'en réordonne ni n'en modifie aucune autre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4178"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4245"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Étape CI ajoutée et vérifiée en conditions réelles (échec provoqué puis corrigé sur une branche de test) ; <span class="tt">README.md</span> à jour ; <span class="tt">EX-IA-021</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4179"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4246"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4180"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4247"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-021</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

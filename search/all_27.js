@@ -15,7 +15,7 @@ var searchData=
   ['«_20lointain_20»_20_3a_20générateur_20contenu_20format_20des_20deux_20niveaux_12',['TACHE-01 — Plan « lointain » : générateur, contenu, format des deux niveaux',['../lot-70-tache-01-plan-lointain.html',1,'lot-70']]],
   ['«_20niveaux_20»_20modèle_20fichiers_20liste_20recherche_20filtre_13',['TACHE-01 — Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre)',['../lot-36-tache-01-panneau-niveaux-recherche.html',1,'lot-36']]],
   ['«_20objets_20»_20et_20priorité_20de_20résolution_14',['TACHE-03 — Section « Objets » et priorité de résolution',['../lot-45-tache-03-section-objets-priorite.html',1,'lot-45']]],
-  ['«_20par_20salle_20»_15',['Mélanger plusieurs tailles de caméra dans un même niveau (mode « Par salle »)',['../manuel-partager-niveau.html#autotoc_md4239',1,'']]],
+  ['«_20par_20salle_20»_15',['Mélanger plusieurs tailles de caméra dans un même niveau (mode « Par salle »)',['../manuel-partager-niveau.html#autotoc_md4306',1,'']]],
   ['«_20parcours_20»_20_3a_20dessiner_20la_20route_20d_20un_20élément_20mobile_16',['L&apos;outil « Parcours » : dessiner la route d&apos;un élément mobile',['../guide-editeur.html#autotoc_md119',1,'']]],
   ['«_20parcours_20»_20_3a_20geometrie_20geste_20et_20canevas_17',['TACHE-04 — Outil « Parcours » : geometrie, geste et canevas',['../lot-67-tache-04-outil-parcours.html',1,'lot-67']]],
   ['«_20parkour_20»_20preuve_20système_18',['TACHE-06 — Niveau de démo « parkour » + preuve système',['../lot-10-tache-06-niveau-parkour.html',1,'lot-10']]],

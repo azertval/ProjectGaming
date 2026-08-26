@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-12-tache-04-boucle-entrainement.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2tache-04-boucle-entrainement"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-12.html#md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2epic" title="Lot-Annexe/LOT-ANNEXE-12-policy-gradient-reinforce/epic.md">LOT-ANNEXE-12</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/PolicyGradient</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3901"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3968"></a>
 Contexte</h1>
 <p>TACHE-01 à TACHE-03 fournissent les briques (collecte, retour, perte) ; il manque l'assemblage qui les enchaîne épisode après épisode, applique effectivement les mises à jour de poids via un optimiseur de LOT-ANNEXE-04, et journalise la progression via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09) — sans quoi rien n'est observable ni comparable à l'évolutionniste de LOT-ANNEXE-10.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3902"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3969"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">aisolver::training::ReinforceTrainer</a></span></b> (<span class="tt"><a class="el" href="ReinforceTrainer_8h.html" title="Boucle d&#39;entraînement REINFORCE par épisodes, journalisée (LOT-ANNEXE-12, TACHE-04,...">Source/AiSolver/Training/PolicyGradient/ReinforceTrainer.h</a>/.cpp</span>) : construit à partir d'un niveau chargé (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, LOT-ANNEXE-05), d'un réseau de politique (LOT-ANNEXE-03), d'un optimiseur (<span class="tt">optim::Sgd</span> ou <span class="tt">optim::Adam</span>, LOT-ANNEXE-04), d'une configuration (<span class="tt">gamma</span>, nombre d'épisodes, graine initiale) et d'un <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09).</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li>La graine du générateur pseudo-aléatoire est <b>dérivée déterministiquement</b> de la graine initiale et du numéro d'épisode (ex. <span class="tt">seed_t = seedBase + episodeIndex</span>), pour qu'un run complet soit intégralement reproductible d'un bout à l'autre à graine de base fixée.</li>
 <li>Un seul niveau à la fois : <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> prend un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> déjà construit pour un niveau donné, aucune notion de changement de niveau en cours de run (cohérent avec le régime niveau-par-niveau de tout le programme).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3903"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3970"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ReinforceTrainer_8h.html" title="Boucle d&#39;entraînement REINFORCE par épisodes, journalisée (LOT-ANNEXE-12, TACHE-04,...">Source/AiSolver/Training/PolicyGradient/ReinforceTrainer.h</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="ReinforceTrainer_8cpp.html">Source/AiSolver/Training/PolicyGradient/ReinforceTrainer.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3904"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3971"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression de progression sur un niveau de contrôle</b> : sur un niveau simple et déterministe (peu de tuiles, chemin direct vers la sortie), la récompense <b>moyenne glissante</b> sur les derniers épisodes d'un run est significativement supérieure à celle des premiers épisodes — signe d'apprentissage effectif, pas seulement d'absence de crash.</li>
@@ -121,22 +121,22 @@ Tests (obligatoires)</h1>
 <li><b>Remise à zéro des gradients entre épisodes</b> : le gradient accumulé sur les poids avant le calcul de la perte d'un nouvel épisode est nul (pas de fuite d'un épisode à l'autre).</li>
 <li><b>Robustesse à un épisode de longueur nulle</b> (cas limite : échec au tout premier pas) : la boucle ne plante pas et journalise correctement une trajectoire d'un seul pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3905"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3972"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une seule passe de politique par trajectoire collectée</b> (pas plusieurs époques d'optimisation sur le même lot de données) : c'est la différence structurante avec PPO (LOT-ANNEXE-14), qui réoptimise plusieurs fois sur le même batch — introduire ça ici anticiperait sur ce lot.</li>
 <li><b>Ordre des opérations par épisode strict</b> : collecte (poids figés pendant tout l'épisode) → retour → perte (poids <b>au moment du calcul de perte</b>, identiques à ceux de la collecte puisqu' aucune mise à jour n'intervient entre les deux) → <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> → <span class="tt">step()</span>. Mettre à jour les poids <b>avant</b> la fin de la collecte casserait la cohérence entre l'action jouée et le gradient qui la concerne.</li>
 <li>Le format des lignes CSV doit rester <b>compatible</b> avec celui déjà utilisé par LOT-ANNEXE-09/10, pour que la comparaison chiffrée envisagée en LOT-ANNEXE-13 (TACHE-04) puisse superposer les courbes sans transformation de données.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3906"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3973"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> disponible et testé (<span class="tt">ctest</span> vert), progression observée sur le niveau de contrôle ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-013</span> déclarée dans l'épic.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3907"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3974"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reinforce.html" title="Policy gradient et REINFORCE">Policy gradient et REINFORCE</a> — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3908"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3975"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-013</span> (nouvelle). </p>
 </div></div><!-- contents -->

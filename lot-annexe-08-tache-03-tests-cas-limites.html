@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-08-tache-03-tests-cas-limites.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-08-fonction-recompense-episodes_2tache-03-tests-cas-limites"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-08.html#md_Lot-Annexe_2LOT-ANNEXE-08-fonction-recompense-episodes_2epic" title="Lot-Annexe/LOT-ANNEXE-08-fonction-recompense-episodes/epic.md">LOT-ANNEXE-08</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3779"></a>
 Contexte</h1>
 <p>TACHE-01/02 introduisent chacune leurs cas de test locaux ; cette tâche vérifie le comportement combiné (récompense + classification d'épisode) sur des scénarios limites et sur les niveaux réels du jeu, condition posée par le critère d'acceptation 4 de l'épic.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3780"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__reward__episode_8cpp.html" title="Scénarios combinés récompense + classification d&#39;épisode (LOT-ANNEXE-08, TACHE-03) : mort immédiate,...">Source/Test/Unit/AiSolver/Env/test_reward_episode.cpp</a></span></b> : scénarios combinés — mort immédiate (premier pas), complétion immédiate (personnage qui commence déjà sur la sortie, cas synthétique), stagnation prolongée (position figée artificiellement) menant à <span class="tt">Stuck</span>.</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
   demo-*.json</span>, rejoue le script d'entrée déjà existant dans <span class="tt">Source/Test/Systeme/
   <a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> via <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, calcule la récompense cumulée à chaque pas (TACHE-01) et vérifie <span class="tt">classifyEpisode(...) == Won</span> avec une récompense cumulée dominée par le bonus de complétion (critère d'acceptation 4 de l'épic) — placé en <span class="tt">Source/Test/Integration</span> (dépend de fichiers de niveau réels via <span class="tt">PROJECTGAMING_LEVELS_DIR</span>), pas en <span class="tt">Unit</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3781"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__reward__episode_8cpp.html" title="Scénarios combinés récompense + classification d&#39;épisode (LOT-ANNEXE-08, TACHE-03) : mort immédiate,...">Source/Test/Unit/AiSolver/Env/test_reward_episode.cpp</a></span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="test__recompense__demo__niveaux_8cpp.html" title="Non-régression (LOT-ANNEXE-08, TACHE-03, critère d&#39;acceptation 4 de l&#39;épic) : sur chaque niveau demo-...">Source/Test/Integration/test_recompense_demo_niveaux.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout des nouveaux fichiers à <span class="tt">UnitTests</span> et <span class="tt">IntegrationTests</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3715"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3782"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Mort immédiate</b> : récompense cumulée dominée par <span class="tt">deathPenalty</span>, <span class="tt">classifyEpisode(...) ==
@@ -123,21 +123,21 @@ Tests (obligatoires)</h1>
   Stuck</span>, jamais <span class="tt">Ongoing</span> au-delà de ce seuil.</li>
 <li><b>Chaque niveau <span class="tt">demo-*.json</span></b> : <span class="tt">Won</span> avec récompense cumulée positive et dominée par le bonus de complétion, en réutilisant les scripts d'entrée déjà écrits pour <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> (pas de réécriture des séquences d'entrée, seule la mesure de récompense est ajoutée par-dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3716"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3783"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Réutiliser les scripts d'entrée existants de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>, ne pas les réécrire</b> : le but est de vérifier que la récompense/classification se comporte correctement sur des trajectoires déjà connues comme valides, pas de revalider la physique elle-même (déjà couverte par ailleurs).</li>
 <li><b>Le test de stagnation construit un scénario synthétique</b> (personnage figé sur place par construction du script d'entrée, pas un niveau réel où la stagnation serait accidentelle) — un scénario déterministe et contrôlé, pas un niveau du jeu détourné pour l'occasion.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3717"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3784"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux suites de tests vertes (<span class="tt">ctest</span>) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-009</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3718"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3785"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> (récompense, conception d'une fonction de récompense (<em>shaping</em>, <em>reward hacking</em>), épisode et horizon), en particulier sa section 6.2 (<em>reward hacking</em> : l'agent optimise la lettre de la récompense, pas l'intention).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3786"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-009</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

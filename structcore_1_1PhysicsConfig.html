@@ -138,6 +138,26 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:ac393eb19e1428343e98922bcdd1451ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de gravité <b>près de l'apex</b> (&lt; 1) : contrôle flottant au sommet. ⚠️.  <br /></td></tr>
 <tr class="memitem:a86519b415dabe1d51ada36517647e603" id="r_a86519b415dabe1d51ada36517647e603"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a86519b415dabe1d51ada36517647e603">fastFallMultiplier</a> = 1.6f</td></tr>
 <tr class="memdesc:a86519b415dabe1d51ada36517647e603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de gravité <b>supplémentaire</b> en chute quand « bas » est maintenu (<em>fast-fall</em>, &gt; 1).  <br /></td></tr>
+<tr class="memitem:a405b63790e2d2080150cae32a37d03ae" id="r_a405b63790e2d2080150cae32a37d03ae"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a405b63790e2d2080150cae32a37d03ae">dashChargeHoldTime</a> = 0.25f</td></tr>
+<tr class="memdesc:a405b63790e2d2080150cae32a37d03ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil (secondes) de maintien de la direction opposée pour armer un dash boosté (<span class="tt">EX-GP-056</span>).  <br /></td></tr>
+<tr class="memitem:af9c979cdc5ab514345c870c41935328b" id="r_af9c979cdc5ab514345c870c41935328b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#af9c979cdc5ab514345c870c41935328b">dashBoostSpeedMultiplier</a> = 1.5f</td></tr>
+<tr class="memdesc:af9c979cdc5ab514345c870c41935328b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de vitesse d'un dash <b>boosté</b> (<span class="tt">EX-GP-056</span>), appliqué à <span class="tt"><a class="el" href="#a888d96f8f59b21cc05de8aa32ad8567c" title="Vitesse de la ruée de dash, en unités/s (EX-GP-017). ⚠️.">dashSpeed</a></span>. ⚠️.  <br /></td></tr>
+<tr class="memitem:a50d640b82357ddb159a267f95c3b82c2" id="r_a50d640b82357ddb159a267f95c3b82c2"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a50d640b82357ddb159a267f95c3b82c2">dashBoostDurationMultiplier</a> = 1.3f</td></tr>
+<tr class="memdesc:a50d640b82357ddb159a267f95c3b82c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de durée d'un dash <b>boosté</b> (<span class="tt">EX-GP-056</span>), appliqué à <span class="tt"><a class="el" href="#a2e06016d2850f9cf6772501a9d0267cb" title="Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.">dashDuration</a></span>. ⚠️.  <br /></td></tr>
+<tr class="memitem:a2072e171d44c396a1d3fc28e738224d0" id="r_a2072e171d44c396a1d3fc28e738224d0"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2072e171d44c396a1d3fc28e738224d0">groundPoundSpeed</a> = 30.0f</td></tr>
+<tr class="memdesc:a2072e171d44c396a1d3fc28e738224d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de chute imposée pendant un <b>ground pound</b> (<span class="tt">EX-GP-058</span>), en unités/s ; nettement au-delà de la vitesse terminale normale pour un impact net.  <br /></td></tr>
+<tr class="memitem:a37aca1422a35fa64aabfd21f996ee689" id="r_a37aca1422a35fa64aabfd21f996ee689"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a37aca1422a35fa64aabfd21f996ee689">dashJumpLockTime</a> = 0.12f</td></tr>
+<tr class="memdesc:a37aca1422a35fa64aabfd21f996ee689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée (secondes) du verrou horizontal après un <b>jump-cancel</b> de dash (<span class="tt">EX-GP-061</span>) : pendant ce temps, la vitesse horizontale conservée du dash n'est pas écrasée par le contrôle normal (même rôle que <span class="tt"><a class="el" href="#a2aed664da44b757c3e23cfe105bb34c7" title="Durée (secondes) de verrouillage du contrôle horizontal après un wall jump. ⚠️.">wallJumpLockTime</a></span>).  <br /></td></tr>
+<tr class="memitem:a21695f04fc946511f5f4e1b802475a55" id="r_a21695f04fc946511f5f4e1b802475a55"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a21695f04fc946511f5f4e1b802475a55">comboWindowTime</a> = 0.3f</td></tr>
+<tr class="memdesc:a21695f04fc946511f5f4e1b802475a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre (secondes) pendant laquelle des jump-cancels rapprochés cumulent un bonus de vitesse (<span class="tt">EX-GP-061</span>).  <br /></td></tr>
+<tr class="memitem:adf53a7eb3659b4b8bcc1bd7b85eb6149" id="r_adf53a7eb3659b4b8bcc1bd7b85eb6149"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#adf53a7eb3659b4b8bcc1bd7b85eb6149">comboSpeedBonus</a> = 2.0f</td></tr>
+<tr class="memdesc:adf53a7eb3659b4b8bcc1bd7b85eb6149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bonus de vitesse (unités/s) ajouté par enchaînement de jump-cancels rapprochés (<span class="tt">EX-GP-061</span>), multiplié par <span class="tt"><a class="el" href="structcore_1_1Player.html#a804a16521a8e5002dccb714bac7dee61" title="Nombre de jump-cancels enchaînés sans contact au sol (EX-GP-061) : incrémenté à chaque nouveau jump-c...">Player::comboChainCount</a></span>.  <br /></td></tr>
+<tr class="memitem:a4ba3fac25287d4896ffadf1d2b5665ae" id="r_a4ba3fac25287d4896ffadf1d2b5665ae"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4ba3fac25287d4896ffadf1d2b5665ae">comboSpeedCap</a> = 8.0f</td></tr>
+<tr class="memdesc:a4ba3fac25287d4896ffadf1d2b5665ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plafond (unités/s) du bonus cumulé de combo, quel que soit le nombre d'enchaînements (<span class="tt">EX-GP-061</span>) — protège l'équilibrage des niveaux.  <br /></td></tr>
+<tr class="memitem:a8bce708b0e3cf525d14827731eea05ba" id="r_a8bce708b0e3cf525d14827731eea05ba"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8bce708b0e3cf525d14827731eea05ba">pushMomentumWindowTime</a> = 0.25f</td></tr>
+<tr class="memdesc:a8bce708b0e3cf525d14827731eea05ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre (secondes) pendant laquelle un saut hérite de la vitesse d'une poussée renforcée récente (<span class="tt">EX-GP-057</span>/<span class="tt">EX-GP-061</span>).  <br /></td></tr>
+<tr class="memitem:a311991a630c5cb0dfed44cefa461b395" id="r_a311991a630c5cb0dfed44cefa461b395"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a311991a630c5cb0dfed44cefa461b395">momentumCarryRatio</a> = 0.5f</td></tr>
+<tr class="memdesc:a311991a630c5cb0dfed44cefa461b395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fraction de la vitesse d'un bloc poussé (poussée renforcée) héritée par le saut suivant, si déclenché dans <span class="tt"><a class="el" href="#a8bce708b0e3cf525d14827731eea05ba" title="Fenêtre (secondes) pendant laquelle un saut hérite de la vitesse d&#39;une poussée renforcée récente (EX-...">pushMomentumWindowTime</a></span> (<span class="tt">EX-GP-061</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres réglables de la physique du personnage, regroupés pour faciliter le <em>tuning</em>. </p>
@@ -191,6 +211,57 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adf53a7eb3659b4b8bcc1bd7b85eb6149" name="adf53a7eb3659b4b8bcc1bd7b85eb6149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf53a7eb3659b4b8bcc1bd7b85eb6149">&#9670;&#160;</a></span>comboSpeedBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::comboSpeedBonus = 2.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bonus de vitesse (unités/s) ajouté par enchaînement de jump-cancels rapprochés (<span class="tt">EX-GP-061</span>), multiplié par <span class="tt"><a class="el" href="structcore_1_1Player.html#a804a16521a8e5002dccb714bac7dee61" title="Nombre de jump-cancels enchaînés sans contact au sol (EX-GP-061) : incrémenté à chaque nouveau jump-c...">Player::comboChainCount</a></span>. </p>
+<p>⚠️. </p>
+
+</div>
+</div>
+<a id="a4ba3fac25287d4896ffadf1d2b5665ae" name="a4ba3fac25287d4896ffadf1d2b5665ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ba3fac25287d4896ffadf1d2b5665ae">&#9670;&#160;</a></span>comboSpeedCap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::comboSpeedCap = 8.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Plafond (unités/s) du bonus cumulé de combo, quel que soit le nombre d'enchaînements (<span class="tt">EX-GP-061</span>) — protège l'équilibrage des niveaux. </p>
+<p>⚠️. </p>
+
+</div>
+</div>
+<a id="a21695f04fc946511f5f4e1b802475a55" name="a21695f04fc946511f5f4e1b802475a55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21695f04fc946511f5f4e1b802475a55">&#9670;&#160;</a></span>comboWindowTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::comboWindowTime = 0.3f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fenêtre (secondes) pendant laquelle des jump-cancels rapprochés cumulent un bonus de vitesse (<span class="tt">EX-GP-061</span>). </p>
+<p>⚠️. </p>
+
+</div>
+</div>
 <a id="ac73ce3de3e423e272cad5f348e524bbe" name="ac73ce3de3e423e272cad5f348e524bbe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac73ce3de3e423e272cad5f348e524bbe">&#9670;&#160;</a></span>coyoteTime</h2>
 
@@ -204,6 +275,55 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fenêtre de <em>coyote time</em>, en secondes : saut permis peu après avoir quitté un bord. ⚠️. </p>
+
+</div>
+</div>
+<a id="a50d640b82357ddb159a267f95c3b82c2" name="a50d640b82357ddb159a267f95c3b82c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50d640b82357ddb159a267f95c3b82c2">&#9670;&#160;</a></span>dashBoostDurationMultiplier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashBoostDurationMultiplier = 1.3f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiplicateur de durée d'un dash <b>boosté</b> (<span class="tt">EX-GP-056</span>), appliqué à <span class="tt"><a class="el" href="#a2e06016d2850f9cf6772501a9d0267cb" title="Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.">dashDuration</a></span>. ⚠️. </p>
+
+</div>
+</div>
+<a id="af9c979cdc5ab514345c870c41935328b" name="af9c979cdc5ab514345c870c41935328b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9c979cdc5ab514345c870c41935328b">&#9670;&#160;</a></span>dashBoostSpeedMultiplier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashBoostSpeedMultiplier = 1.5f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiplicateur de vitesse d'un dash <b>boosté</b> (<span class="tt">EX-GP-056</span>), appliqué à <span class="tt"><a class="el" href="#a888d96f8f59b21cc05de8aa32ad8567c" title="Vitesse de la ruée de dash, en unités/s (EX-GP-017). ⚠️.">dashSpeed</a></span>. ⚠️. </p>
+
+</div>
+</div>
+<a id="a405b63790e2d2080150cae32a37d03ae" name="a405b63790e2d2080150cae32a37d03ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405b63790e2d2080150cae32a37d03ae">&#9670;&#160;</a></span>dashChargeHoldTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashChargeHoldTime = 0.25f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seuil (secondes) de maintien de la direction opposée pour armer un dash boosté (<span class="tt">EX-GP-056</span>). </p>
+<p>⚠️ à affiner. </p>
 
 </div>
 </div>
@@ -237,6 +357,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️. </p>
+
+</div>
+</div>
+<a id="a37aca1422a35fa64aabfd21f996ee689" name="a37aca1422a35fa64aabfd21f996ee689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37aca1422a35fa64aabfd21f996ee689">&#9670;&#160;</a></span>dashJumpLockTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashJumpLockTime = 0.12f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Durée (secondes) du verrou horizontal après un <b>jump-cancel</b> de dash (<span class="tt">EX-GP-061</span>) : pendant ce temps, la vitesse horizontale conservée du dash n'est pas écrasée par le contrôle normal (même rôle que <span class="tt"><a class="el" href="#a2aed664da44b757c3e23cfe105bb34c7" title="Durée (secondes) de verrouillage du contrôle horizontal après un wall jump. ⚠️.">wallJumpLockTime</a></span>). </p>
+<p>⚠️. </p>
 
 </div>
 </div>
@@ -323,6 +460,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2072e171d44c396a1d3fc28e738224d0" name="a2072e171d44c396a1d3fc28e738224d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2072e171d44c396a1d3fc28e738224d0">&#9670;&#160;</a></span>groundPoundSpeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::groundPoundSpeed = 30.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vitesse de chute imposée pendant un <b>ground pound</b> (<span class="tt">EX-GP-058</span>), en unités/s ; nettement au-delà de la vitesse terminale normale pour un impact net. </p>
+<p>⚠️ à affiner. </p>
+
+</div>
+</div>
 <a id="a5e7506cee08635b18e230c975e8d6770" name="a5e7506cee08635b18e230c975e8d6770"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e7506cee08635b18e230c975e8d6770">&#9670;&#160;</a></span>jumpBufferTime</h2>
 
@@ -373,6 +527,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a311991a630c5cb0dfed44cefa461b395" name="a311991a630c5cb0dfed44cefa461b395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311991a630c5cb0dfed44cefa461b395">&#9670;&#160;</a></span>momentumCarryRatio</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::momentumCarryRatio = 0.5f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fraction de la vitesse d'un bloc poussé (poussée renforcée) héritée par le saut suivant, si déclenché dans <span class="tt"><a class="el" href="#a8bce708b0e3cf525d14827731eea05ba" title="Fenêtre (secondes) pendant laquelle un saut hérite de la vitesse d&#39;une poussée renforcée récente (EX-...">pushMomentumWindowTime</a></span> (<span class="tt">EX-GP-061</span>). </p>
+<p>⚠️. </p>
+
+</div>
+</div>
 <a id="a0fdb33afff65f36642d32a0714f9a642" name="a0fdb33afff65f36642d32a0714f9a642"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0fdb33afff65f36642d32a0714f9a642">&#9670;&#160;</a></span>moveSpeed</h2>
 
@@ -386,6 +557,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vitesse horizontale à pleine intention, en unités/seconde (<span class="tt">EX-GP-010</span>). ⚠️ à affiner. </p>
+
+</div>
+</div>
+<a id="a8bce708b0e3cf525d14827731eea05ba" name="a8bce708b0e3cf525d14827731eea05ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bce708b0e3cf525d14827731eea05ba">&#9670;&#160;</a></span>pushMomentumWindowTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::pushMomentumWindowTime = 0.25f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fenêtre (secondes) pendant laquelle un saut hérite de la vitesse d'une poussée renforcée récente (<span class="tt">EX-GP-057</span>/<span class="tt">EX-GP-061</span>). </p>
+<p>⚠️. </p>
 
 </div>
 </div>

@@ -110,6 +110,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:abcac0b75aeffc17a50a48e9a6208c1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intention de <b>visée verticale</b> (pour la direction du dash) : -1 haut, +1 bas, 0.  <br /></td></tr>
 <tr class="memitem:a554649f1780708614de0ffad89e7c076" id="r_a554649f1780708614de0ffad89e7c076"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a554649f1780708614de0ffad89e7c076">dashPressed</a> = false</td></tr>
 <tr class="memdesc:a554649f1780708614de0ffad89e7c076"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Dash</b> vient d'être pressé cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-013</span>).  <br /></td></tr>
+<tr class="memitem:abd62bcb70351576926bda10c8d118cd7" id="r_abd62bcb70351576926bda10c8d118cd7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abd62bcb70351576926bda10c8d118cd7">dashHeld</a> = false</td></tr>
+<tr class="memdesc:abd62bcb70351576926bda10c8d118cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Dash</b> maintenu : sert à charger un dash boosté (<span class="tt">EX-GP-056</span>, maintien de la direction opposée ET du bouton dash).  <br /></td></tr>
 <tr class="memitem:a82259f11fc02e6548e64cbdf2a2acae9" id="r_a82259f11fc02e6548e64cbdf2a2acae9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a82259f11fc02e6548e64cbdf2a2acae9">interactPressed</a> = false</td></tr>
 <tr class="memdesc:a82259f11fc02e6548e64cbdf2a2acae9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Interagir</b> vient d'être pressée cette frame (front montant) — action dédiée (<span class="tt">EX-CTRL-022</span>), complète l'activation par contact des mécanismes sans la remplacer.  <br /></td></tr>
 <tr class="memitem:a4bbea3e0e16a22ae2486edab64d61999" id="r_a4bbea3e0e16a22ae2486edab64d61999"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4bbea3e0e16a22ae2486edab64d61999">interactHeld</a> = false</td></tr>
@@ -121,6 +123,23 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p><b>Intention</b> de déplacement transmise à la physique, dissociée de toute touche. </p>
 <p>Contrat entre la couche d'entrée (<span class="tt">HMI</span>, qui traduit clavier/manette — <span class="tt">EX-CTRL-010</span>) et la simulation (<span class="tt">Core</span>, qui l'applique). <span class="tt">Core</span> ne connaît <b>que</b> cette intention : il ignore les touches, ce qui garde la simulation testable et permettra remappage/manette sans le modifier. Donnée pure, transitoire (re-remplie chaque frame), passée au <span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></span>. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="abd62bcb70351576926bda10c8d118cd7" name="abd62bcb70351576926bda10c8d118cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd62bcb70351576926bda10c8d118cd7">&#9670;&#160;</a></span>dashHeld</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::dashHeld = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Dash</b> maintenu : sert à charger un dash boosté (<span class="tt">EX-GP-056</span>, maintien de la direction opposée ET du bouton dash). </p>
+<p>N'affecte jamais le déclenchement du dash lui-même (<span class="tt"><a class="el" href="#a554649f1780708614de0ffad89e7c076" title="Dash vient d&#39;être pressé cette frame (front montant) — action dédiée (EX-CTRL-013).">dashPressed</a></span>, un front) ; sert uniquement de garde pour la charge, afin qu'un simple changement de direction pendant un déplacement normal ne puisse jamais l'amorcer par accident. </p>
+
+</div>
+</div>
 <a id="a554649f1780708614de0ffad89e7c076" name="a554649f1780708614de0ffad89e7c076"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a554649f1780708614de0ffad89e7c076">&#9670;&#160;</a></span>dashPressed</h2>
 
