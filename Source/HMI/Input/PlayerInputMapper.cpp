@@ -31,9 +31,11 @@ core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& 
     const bool aimUp = input.keyDown(gameKeyBindings.key(GameAction::AimUp)) ||
                        input.gamepadButtonDown(gamepadBindings.button(GameAction::AimUp));
     result.moveY = (aimDown ? 1.0F : 0.0F) - (aimUp ? 1.0F : 0.0F);
-    // Dash : au front (`EX-CTRL-013`).
-    result.dashPressed = input.keyPressed(gameKeyBindings.key(GameAction::Dash)) ||
-                         input.gamepadButtonPressed(gamepadBindings.button(GameAction::Dash));
+    // Dash : dashPressed = front (declenche, EX-CTRL-013), dashHeld = maintenu (charge, EX-GP-056).
+    const Key dashKey = gameKeyBindings.key(GameAction::Dash);
+    const GamepadButton dashButton = gamepadBindings.button(GameAction::Dash);
+    result.dashPressed = input.keyPressed(dashKey) || input.gamepadButtonPressed(dashButton);
+    result.dashHeld = input.keyDown(dashKey) || input.gamepadButtonDown(dashButton);
     // Interagir : pressee/maintenue/relachee (EX-CTRL-011), complete l'activation par contact
     // sans la remplacer (EX-CTRL-022).
     const Key interactKey = gameKeyBindings.key(GameAction::Interact);

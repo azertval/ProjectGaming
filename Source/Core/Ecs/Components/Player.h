@@ -76,6 +76,53 @@ struct Player {
     /// suivant, sans effet sur la simulation elle-même (l'appelant traduit ce champ en issue
     /// `LevelOutcome::Lost`, `core::evaluateOutcome`).
     bool squished = false;
+    /// Temps accumulé (secondes) en tenant la direction **opposée** à `dashChargeReferenceFacing`
+    /// (`EX-GP-056`) ; remis à zéro dès que l'opposition cesse **avant** que la charge ne soit
+    /// complète (bankée).
+    float dashChargeTimer = 0.0f;
+    /// Orientation de référence contre laquelle l'opposition est mesurée pour charger un dash
+    /// (`EX-GP-056`) : figée au **début** de la charge (`facing` juste avant que ce pas ne le mette
+    /// à jour), jamais `facing` lui-même -- `facing` continue de suivre l'entrée à l'identique
+    /// d'avant ce lot (sprite/caméra/direction de dash par défaut inchangés hors charge active).
+    float dashChargeReferenceFacing = 1.0f;
+    /// Vrai dès que la charge de dash est complète : le **prochain** dash sera boosté (vitesse et
+    /// durée majorées), quelle que soit la direction tenue au moment où il se déclenche. Consommée
+    /// (remise à `false`) par ce dash, qu'il vise ou non `dashBoostFacing`.
+    bool dashBoostReady = false;
+    /// Orientation figée au moment où `dashBoostReady` passe à vrai (copie de
+    /// `dashChargeReferenceFacing`) : sert de direction par défaut au dash boosté si l'entrée est
+    /// neutre au déclenchement.
+    float dashBoostFacing = 1.0f;
+    /// Vrai si le dash **actuellement en cours** (`dashTimer > 0`) a été déclenché boosté
+    /// (`EX-GP-056`). Conditionne le jump-cancel et la poussée renforcée (`EX-GP-061`/`EX-GP-057`
+    /// côté appelant) : un dash **normal**, non boosté, se comporte exactement comme avant ce lot
+    /// (aucune régression sur du contenu qui n'utilise jamais la charge, puisqu'il ne peut jamais
+    /// produire de dash boosté).
+    bool dashIsBoosted = false;
+    /// Vrai pendant un **ground pound** (`EX-GP-058`) : chute verticale à vitesse imposée, en l'air
+    /// uniquement, jusqu'au contact du sol (remis à `false` par la physique à l'atterrissage).
+    bool groundPounding = false;
+    /// Vitesse horizontale à **conserver** pendant le verrou de jump-cancel (`EX-GP-061`) : capturée
+    /// au moment où un saut interrompt un dash en cours (au lieu d'attendre son expiration), pour
+    /// que le saut résultant reparte de la vitesse du dash plutôt que de la physique normale.
+    float dashJumpMomentumX = 0.0f;
+    /// Temps restant (secondes) du verrou de jump-cancel : tant qu'il court, le contrôle horizontal
+    /// normal est suspendu au profit de `dashJumpMomentumX` (même patron que `wallJumpLockTimer`).
+    float dashJumpLockTimer = 0.0f;
+    /// Nombre de jump-cancels enchaînés sans contact au sol (`EX-GP-061`) : incrémenté à chaque
+    /// nouveau jump-cancel dans la fenêtre de combo (`comboWindowTimer`), remis à zéro au contact
+    /// du sol.
+    int comboChainCount = 0;
+    /// Temps restant (secondes) de la fenêtre de combo courante : tant qu'il court, un nouveau
+    /// jump-cancel est considéré comme « rapproché » du précédent (bonus cumulatif de vitesse).
+    float comboWindowTimer = 0.0f;
+    /// Temps restant (secondes) de la fenêtre d'héritage de momentum après une **poussée
+    /// renforcée** (`EX-GP-057`/`EX-GP-061`) : un saut déclenché avant expiration hérite d'une
+    /// fraction de `pushMomentumVelocityX` (`PhysicsConfig::momentumCarryRatio`).
+    float pushMomentumWindowTimer = 0.0f;
+    /// Vitesse horizontale (signée) du bloc poussé par la dernière poussée renforcée, à hériter par
+    /// le prochain saut si `pushMomentumWindowTimer` n'a pas expiré.
+    float pushMomentumVelocityX = 0.0f;
 };
 
 }  // namespace core

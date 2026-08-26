@@ -88,18 +88,24 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
 }
 
 void BlockController::update(const Aabb& playerBox, float moveIntentX, const TileMap& base,
-                             const std::vector<PlatformSample>& platforms) {
-    pushBlocks(playerBox, moveIntentX, base);
+                             const std::vector<PlatformSample>& platforms, float dashPushSpeed) {
+    pushBlocks(playerBox, moveIntentX, base, dashPushSpeed);
     carryBlocksOnPlatforms(base, platforms);
     dropBlocks(base);
 }
 
-void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base) {
+void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base,
+                                 float dashPushSpeed) {
+    _lastDashPushSpeed = 0.0F;
     // Direction du déplacement voulu, bloc touché de ce côté, case suivante libre.
     if (moveIntentX == 0.0F) {
         return;
     }
     const int direction = moveIntentX > 0.0F ? 1 : -1;
+    // Poussée renforcée (EX-GP-057) : @p dashPushSpeed non nulle avance le bloc de plusieurs cases
+    // en un seul pas au lieu d'une, jusqu'au premier obstacle -- même granularité (case par case)
+    // que le reste du contrôleur, jamais de position infra-case.
+    const int maxCells = dashPushSpeed != 0.0F ? DASH_PUSH_MAX_CELLS : 1;
     for (std::size_t index = 0; index < _positions.size(); ++index) {
         const GridPosition current = _positions[index];
         const Aabb box = blockBox(current, _scales[index]);
@@ -113,13 +119,25 @@ void BlockController::pushBlocks(const Aabb& playerBox, float moveIntentX, const
         if (!touchesFromLeft && !touchesFromRight) {
             continue;
         }
-        const GridPosition target{.column = current.column + direction, .row = current.row};
-        if (isFree(target, base, index)) {
+        GridPosition target = current;
+        int cellsPushed = 0;
+        for (int cell = 0; cell < maxCells; ++cell) {
+            const GridPosition next{.column = target.column + direction, .row = target.row};
+            if (!isFree(next, base, index)) {
+                break;
+            }
+            target = next;
+            ++cellsPushed;
+        }
+        if (cellsPushed > 0) {
             _positions[index] = target;
             _fallTimers[index] = 0;  // repart de zéro : re-teste la chute dès le prochain pas
+            if (dashPushSpeed != 0.0F) {
+                _lastDashPushSpeed = dashPushSpeed;
+            }
             GAMEPLAY_LOG_TRACE("Bloc #" + std::to_string(index) + " pousse vers (" +
                                std::to_string(target.column) + ", " + std::to_string(target.row) +
-                               ")");
+                               ") [" + std::to_string(cellsPushed) + " case(s)]");
         }
     }
 }

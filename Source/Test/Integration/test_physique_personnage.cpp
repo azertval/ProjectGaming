@@ -1168,6 +1168,422 @@ TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
     EXPECT_LE(world.getComponent<core::Transform>(player).position.x, 4.0f + 0.01f);  // bord ≤ mur
 }
 
+// ---------------------------------------------------------------------------------------------
+// LOT-72 — Mouvement avancé : dash chargé, dash sur pente, ground pound, combo dash + saut.
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * @brief Dash chargé (EX-GP-056) : maintenir la direction opposée au-delà du seuil arme un boost,
+ * consommé par le dash suivant (vitesse supérieure à un dash normal).
+ */
+TEST(PhysiquePersonnageIntegration, ChargeDeDashBoostLeDashSuivant) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 50.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput opposite;
+    opposite.moveX = -1.0f;  // opposé à `facing` (droite par défaut)
+    opposite.dashHeld = true;  // garde délibérée (EX-GP-056) : bouton dash maintenu pendant la charge
+    const int chargeSteps = static_cast<int>(config.dashChargeHoldTime / STEP) + 2;
+    for (int i = 0; i < chargeSteps; ++i) {
+        system.update(world, tiles, opposite, STEP);
+    }
+    EXPECT_TRUE(world.getComponent<core::Player>(player).dashBoostReady);
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;  // direction neutre -> dashBoostFacing (droite, figée à l'armement)
+    system.update(world, tiles, dash, STEP);
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x,
+             config.dashSpeed * config.dashBoostSpeedMultiplier * 0.9f);
+    EXPECT_FALSE(world.getComponent<core::Player>(player).dashBoostReady);  // consommée
+}
+
+/**
+ * @brief Dash chargé : sous le seuil, le dash reste normal (pas de boost).
+ */
+TEST(PhysiquePersonnageIntegration, ChargeInsuffisanteDashNormal) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 50.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput opposite;
+    opposite.moveX = -1.0f;
+    opposite.dashHeld = true;
+    const int shortHold = static_cast<int>(config.dashChargeHoldTime / STEP) / 2;
+    for (int i = 0; i < shortHold; ++i) {
+        system.update(world, tiles, opposite, STEP);
+    }
+    ASSERT_FALSE(world.getComponent<core::Player>(player).dashBoostReady);
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    system.update(world, tiles, dash, STEP);
+    const float speedX = std::abs(world.getComponent<core::Velocity>(player).value.x);
+    EXPECT_NEAR(speedX, config.dashSpeed, config.dashSpeed * 0.15f);
+}
+
+/**
+ * @brief Dash chargé : relâcher la direction opposée avant le seuil remet la charge à zéro.
+ */
+TEST(PhysiquePersonnageIntegration, ChargeAnnuleeAvantLeSeuil) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 50.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput opposite;
+    opposite.moveX = -1.0f;
+    opposite.dashHeld = true;
+    const int half = static_cast<int>(config.dashChargeHoldTime / STEP) / 2;
+    for (int i = 0; i < half; ++i) {
+        system.update(world, tiles, opposite, STEP);
+    }
+    ASSERT_GT(world.getComponent<core::Player>(player).dashChargeTimer, 0.0f);
+
+    system.update(world, tiles, core::PlayerInput{}, STEP);  // relâche (neutre)
+    EXPECT_FLOAT_EQ(world.getComponent<core::Player>(player).dashChargeTimer, 0.0f);
+    EXPECT_FALSE(world.getComponent<core::Player>(player).dashBoostReady);
+}
+
+/**
+ * @brief Dash chargé : un simple changement de direction (sans maintenir le bouton de dash)
+ * n'amorce JAMAIS de charge, quelle que soit sa durée -- garde de non-régression (EX-GP-056) :
+ * une inversion de direction anodine pendant un déplacement normal ne doit jamais altérer un dash
+ * ultérieur sans rapport.
+ */
+TEST(PhysiquePersonnageIntegration, ChangerDeDirectionSansTenirDashNeChargeJamais) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 50.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput oppositeWithoutDash;
+    oppositeWithoutDash.moveX = -1.0f;  // pas de dashHeld
+    const int longHold = static_cast<int>(config.dashChargeHoldTime / STEP) + 10;
+    for (int i = 0; i < longHold; ++i) {
+        system.update(world, tiles, oppositeWithoutDash, STEP);
+        ASSERT_FLOAT_EQ(world.getComponent<core::Player>(player).dashChargeTimer, 0.0f)
+            << "pas " << i;
+    }
+    EXPECT_FALSE(world.getComponent<core::Player>(player).dashBoostReady);
+}
+
+/**
+ * @brief Ground pound (EX-GP-058) : le bouton de dash visé purement vers le bas, en l'air, impose
+ * une vitesse de chute fixe et ignore l'entrée horizontale.
+ */
+TEST(PhysiquePersonnageIntegration, GroundPoundImposeUneChuteRapideEtIgnoreLHorizontal) {
+    core::World world;
+    core::TileMap tiles(10, 60);  // pas de sol proche : chute libre
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+
+    core::PlayerInput trigger;
+    trigger.dashPressed = true;
+    trigger.moveY = 1.0f;  // vise purement vers le bas
+    system.update(world, tiles, trigger, STEP);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).groundPounding);
+    EXPECT_FLOAT_EQ(world.getComponent<core::Velocity>(player).value.y, config.groundPoundSpeed);
+
+    core::PlayerInput sideways;
+    sideways.moveX = 1.0f;  // tentative de déplacement horizontal, doit être ignorée
+    system.update(world, tiles, sideways, STEP);
+    EXPECT_FLOAT_EQ(world.getComponent<core::Velocity>(player).value.x, 0.0f);
+    EXPECT_FLOAT_EQ(world.getComponent<core::Velocity>(player).value.y, config.groundPoundSpeed);
+}
+
+/**
+ * @brief Ground pound : se termine exactement à l'atterrissage.
+ */
+TEST(PhysiquePersonnageIntegration, GroundPoundSeTermineALAtterrissage) {
+    core::World world;
+    core::TileMap tiles(10, 10);
+    fillRow(tiles, 8);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+
+    core::PlayerInput trigger;
+    trigger.dashPressed = true;
+    trigger.moveY = 1.0f;
+    system.update(world, tiles, trigger, STEP);
+    ASSERT_TRUE(world.getComponent<core::Player>(player).groundPounding);
+
+    int guard = 0;
+    while (!world.getComponent<core::Player>(player).grounded && guard < 200) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+        ++guard;
+    }
+    ASSERT_LT(guard, 200);
+    // `grounded` est lu au DÉBUT de resolveVelocity (état de la fin du pas précédent) : un pas
+    // supplémentaire est nécessaire pour que la remise à faux de `groundPounding` (déclenchée par
+    // `grounded == true`) soit effectivement appliquée.
+    system.update(world, tiles, core::PlayerInput{}, STEP);
+    EXPECT_FALSE(world.getComponent<core::Player>(player).groundPounding);
+}
+
+/**
+ * @brief Ground pound : jamais déclenché au sol (la même entrée y déclenche au plus un dash
+ * vertical normal, jamais un ground pound).
+ */
+TEST(PhysiquePersonnageIntegration, GroundPoundJamaisDeclencheAuSol) {
+    core::World world;
+    core::TileMap tiles(10, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput trigger;
+    trigger.dashPressed = true;
+    trigger.moveY = 1.0f;
+    system.update(world, tiles, trigger, STEP);
+    EXPECT_FALSE(world.getComponent<core::Player>(player).groundPounding);
+}
+
+/**
+ * @brief Jump-cancel du dash (combo, EX-GP-061) : un saut pendant un dash actif le coupe et
+ * conserve sa vitesse horizontale (hyper-dash) au lieu de revenir à la physique normale.
+ */
+TEST(PhysiquePersonnageIntegration, JumpCancelDuDashConserveLaVitesseHorizontale) {
+    core::World world;
+    core::TileMap tiles(100, 20);
+    fillRow(tiles, 10);
+    const core::Entity player = spawnPlayer(world, 1.0f, 9.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    // Jump-cancel restreint au dash BOOSTÉ (EX-GP-056) : armer directement `dashBoostReady`.
+    world.getComponent<core::Player>(player).dashBoostReady = true;
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    dash.moveX = 1.0f;
+    system.update(world, tiles, dash, STEP);
+    ASSERT_GT(world.getComponent<core::Player>(player).dashTimer, 0.0f);
+    ASSERT_TRUE(world.getComponent<core::Player>(player).dashIsBoosted);
+    const float dashVelocityX = world.getComponent<core::Velocity>(player).value.x;
+    ASSERT_GT(dashVelocityX, config.moveSpeed * 2.0f);
+
+    core::PlayerInput jumpCancel;
+    jumpCancel.jumpPressed = true;
+    system.update(world, tiles, jumpCancel, STEP);
+    EXPECT_FLOAT_EQ(world.getComponent<core::Player>(player).dashTimer, 0.0f);  // dash coupé
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.y, 0.0f);        // saut déclenché
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, dashVelocityX * 0.9f);
+}
+
+/**
+ * @brief Jump-cancel du dash au contact d'un mur : déclenche un WALL JUMP, pas un saut simple
+ * (EX-GP-061, réutilise EX-GP-016 sans code dédié).
+ */
+TEST(PhysiquePersonnageIntegration, JumpCancelContreUnMurDeclencheUnWallJump) {
+    core::World world;
+    core::TileMap tiles(20, 20);  // pas de sol : personnage aérien
+    tiles.setTile(10, 14, core::TileType::Solid);
+    const core::Entity player = spawnPlayer(world, 8.0f, 14.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+
+    // Jump-cancel restreint au dash BOOSTÉ (EX-GP-056) : armer directement `dashBoostReady`, et
+    // donner une charge (spawn aérien, jamais rechargée au sol dans ce test) pour que le dash
+    // déclenche réellement -- sinon la chute libre emporte le personnage sous la ligne du mur
+    // avant tout contact horizontal.
+    world.getComponent<core::Player>(player).dashBoostReady = true;
+    world.getComponent<core::Player>(player).dashChargesRemaining = 1;
+    core::PlayerInput held;
+    held.moveX = 1.0f;  // maintenu tout du long : le contact mural exige moveX vers le mur CE pas
+    core::PlayerInput dash = held;
+    dash.dashPressed = true;
+    int guard = 0;
+    while (world.getComponent<core::Player>(player).wallDirection == 0.0f && guard < 30) {
+        system.update(world, tiles, guard == 0 ? dash : held, STEP);
+        ++guard;
+    }
+    ASSERT_LT(guard, 30);
+    ASSERT_NE(world.getComponent<core::Player>(player).wallDirection, 0.0f);
+
+    core::PlayerInput jumpCancel;
+    jumpCancel.jumpPressed = true;
+    system.update(world, tiles, jumpCancel, STEP);
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_LT(velocity.value.y, 0.0f);  // monte (wall jump)
+    EXPECT_LT(velocity.value.x, 0.0f);  // éjecté à l'opposé du mur (mur à droite)
+    EXPECT_NEAR(std::abs(velocity.value.x), config.wallJumpSpeedX, config.wallJumpSpeedX * 0.05f);
+}
+
+/**
+ * @brief Combo dash + saut : des jump-cancels rapprochés cumulent un bonus de vitesse plafonné.
+ */
+TEST(PhysiquePersonnageIntegration, ComboBonusCumuleEtPlafonne) {
+    core::World world;
+    core::TileMap tiles(200, 100);  // vaste espace aérien, aucun sol à portée
+    const core::Entity player = spawnPlayer(world, 1.0f, 50.0f);
+    core::PhysicsConfig config;
+    config.dashCharges = 100;
+    core::CharacterPhysicsSystem system(config);
+    world.getComponent<core::Player>(player).dashChargesRemaining = 100;
+
+    float lastMomentum = 0.0f;
+    for (int chain = 1; chain <= 5; ++chain) {
+        // Jump-cancel restreint au dash BOOSTÉ (EX-GP-056) : armer avant chaque dash de la chaîne.
+        world.getComponent<core::Player>(player).dashBoostReady = true;
+        core::PlayerInput dash;
+        dash.dashPressed = true;
+        dash.moveX = 1.0f;
+        system.update(world, tiles, dash, STEP);
+        core::PlayerInput jumpCancel;
+        jumpCancel.jumpPressed = true;
+        system.update(world, tiles, jumpCancel, STEP);
+        lastMomentum = world.getComponent<core::Player>(player).dashJumpMomentumX;
+        EXPECT_EQ(world.getComponent<core::Player>(player).comboChainCount, chain) << "chain " << chain;
+    }
+    const float expectedBonus = (std::min)(config.comboSpeedBonus * 5.0f, config.comboSpeedCap);
+    const float expectedBase = config.dashSpeed * config.dashBoostSpeedMultiplier;
+    EXPECT_NEAR(lastMomentum, expectedBase + expectedBonus, 0.5f);
+}
+
+/**
+ * @brief Combo : le compteur d'enchaînement retombe à zéro au contact du sol.
+ */
+TEST(PhysiquePersonnageIntegration, ComboRemisAZeroAuSol) {
+    core::World world;
+    core::TileMap tiles(20, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {  // pose : `grounded` doit déjà être vrai à l'entrée du pas testé
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    ASSERT_TRUE(world.getComponent<core::Player>(player).grounded);
+    world.getComponent<core::Player>(player).comboChainCount = 3;
+    world.getComponent<core::Player>(player).comboWindowTimer = 0.2f;
+
+    system.update(world, tiles, core::PlayerInput{}, STEP);
+    EXPECT_EQ(world.getComponent<core::Player>(player).comboChainCount, 0);
+}
+
+/**
+ * @brief Momentum hérité d'une poussée renforcée (EX-GP-057/EX-GP-061) : un saut déclenché dans la
+ * fenêtre hérite d'une fraction de la vitesse mémorisée.
+ */
+TEST(PhysiquePersonnageIntegration, MomentumHeriteApresPousseeRenforcee) {
+    core::World world;
+    core::TileMap tiles(50, 20);
+    fillRow(tiles, 15);
+    const core::Entity player = spawnPlayer(world, 1.0f, 14.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::Player& playerState = world.getComponent<core::Player>(player);
+    playerState.pushMomentumWindowTimer = config.pushMomentumWindowTime;
+    playerState.pushMomentumVelocityX = 20.0f;  // vitesse simulée du bloc poussé
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    system.update(world, tiles, jump, STEP);
+
+    EXPECT_NEAR(world.getComponent<core::Velocity>(player).value.x,
+               20.0f * config.momentumCarryRatio, 0.5f);
+    EXPECT_FLOAT_EQ(world.getComponent<core::Player>(player).pushMomentumWindowTimer, 0.0f);
+}
+
+/**
+ * @brief Momentum : hors fenêtre, aucun héritage.
+ */
+TEST(PhysiquePersonnageIntegration, MomentumPousseeExpireHorsFenetre) {
+    core::World world;
+    core::TileMap tiles(50, 20);
+    fillRow(tiles, 15);
+    const core::Entity player = spawnPlayer(world, 1.0f, 14.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::Player& playerState = world.getComponent<core::Player>(player);
+    playerState.pushMomentumWindowTimer = 0.0f;  // déjà expirée
+    playerState.pushMomentumVelocityX = 20.0f;
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_NEAR(world.getComponent<core::Velocity>(player).value.x, 0.0f, 0.01f);
+}
+
+/**
+ * @brief Dash et pentes (EX-GP-060) : dasher le long d'une pente ascendante suit sa surface, sans
+ * clipper en dessous ni au-dessus (pipeline de suivi de pente déjà partagé avec le déplacement
+ * normal, `resolveCollisionAndState`).
+ */
+TEST(PhysiquePersonnageIntegration, DashSuitUnePenteAscendante) {
+    core::World world;
+    core::TileMap tiles(10, 8);
+    for (int column = 0; column <= 1; ++column) {
+        tiles.setTile(column, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::SlopeUpRight);
+    for (int column = 3; column <= 9; ++column) {
+        tiles.setTile(column, 5, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 0.3f, 5.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    core::PlayerInput held;
+    held.moveX = 1.0f;  // maintenu tout du long : reprend la marche normale une fois le dash fini
+    core::PlayerInput dash = held;
+    dash.dashPressed = true;
+    bool sawSlopeSample = false;
+    int guard = 0;
+    float centerX = 0.0f;
+    do {
+        system.update(world, tiles, guard == 0 ? dash : held, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        centerX = transform.position.x + 0.5f;
+        if (centerX >= 1.5f && centerX < 3.5f) {
+            const float bottom = transform.position.y + 1.0f;
+            EXPECT_LE(bottom, 6.0f + TOLERANCE);
+            EXPECT_GE(bottom, 5.0f - TOLERANCE);
+            sawSlopeSample = true;
+        }
+        ++guard;
+    } while (centerX < 4.0f && guard < 60);
+    EXPECT_TRUE(sawSlopeSample);
+    ASSERT_LT(guard, 60);
+}
+
 /**
  * @brief Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.
  * \castest{<b>Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est

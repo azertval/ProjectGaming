@@ -1,7 +1,7 @@
 # TACHE-08 — Documentation, exigences, CHANGELOG {#lot-72-tache-08-documentation}
 
 **Lot :** [LOT-72](epic.md) · **Emplacement :** `Documentation/Specification`, `CHANGELOG.md` ·
-**Statut :** en cours
+**Statut :** fait
 
 ## Contexte
 Comme tout lot, LOT-72 doit laisser une trace traçable : exigences dans les spécifications, entrée

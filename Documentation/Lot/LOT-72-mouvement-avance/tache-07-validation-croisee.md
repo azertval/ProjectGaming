@@ -1,7 +1,7 @@
 # TACHE-07 — Validation croisée et tests {#lot-72-tache-07-validation-croisee}
 
 **Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` (tests) · **Statut :**
-à faire
+fait
 
 ## Contexte
 Les six mécaniques du lot (TACHE-01 à TACHE-06) composent entre elles et avec l'existant (dash

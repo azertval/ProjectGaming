@@ -76,6 +76,35 @@ struct PhysicsConfig {
     /// Multiplicateur de gravité **supplémentaire** en chute quand « bas » est maintenu
     /// (*fast-fall*, > 1). ⚠️ à affiner (~1,6).
     float fastFallMultiplier = 1.6f;
+    /// Seuil (secondes) de maintien de la direction opposée pour armer un dash boosté
+    /// (`EX-GP-056`). ⚠️ à affiner.
+    float dashChargeHoldTime = 0.25f;
+    /// Multiplicateur de vitesse d'un dash **boosté** (`EX-GP-056`), appliqué à `dashSpeed`. ⚠️.
+    float dashBoostSpeedMultiplier = 1.5f;
+    /// Multiplicateur de durée d'un dash **boosté** (`EX-GP-056`), appliqué à `dashDuration`. ⚠️.
+    float dashBoostDurationMultiplier = 1.3f;
+    /// Vitesse de chute imposée pendant un **ground pound** (`EX-GP-058`), en unités/s ; nettement
+    /// au-delà de la vitesse terminale normale pour un impact net. ⚠️ à affiner.
+    float groundPoundSpeed = 30.0f;
+    /// Durée (secondes) du verrou horizontal après un **jump-cancel** de dash (`EX-GP-061`) :
+    /// pendant ce temps, la vitesse horizontale conservée du dash n'est pas écrasée par le contrôle
+    /// normal (même rôle que `wallJumpLockTime`). ⚠️.
+    float dashJumpLockTime = 0.12f;
+    /// Fenêtre (secondes) pendant laquelle des jump-cancels rapprochés cumulent un bonus de vitesse
+    /// (`EX-GP-061`). ⚠️.
+    float comboWindowTime = 0.3f;
+    /// Bonus de vitesse (unités/s) ajouté par enchaînement de jump-cancels rapprochés
+    /// (`EX-GP-061`), multiplié par `Player::comboChainCount`. ⚠️.
+    float comboSpeedBonus = 2.0f;
+    /// Plafond (unités/s) du bonus cumulé de combo, quel que soit le nombre d'enchaînements
+    /// (`EX-GP-061`) — protège l'équilibrage des niveaux. ⚠️.
+    float comboSpeedCap = 8.0f;
+    /// Fenêtre (secondes) pendant laquelle un saut hérite de la vitesse d'une poussée renforcée
+    /// récente (`EX-GP-057`/`EX-GP-061`). ⚠️.
+    float pushMomentumWindowTime = 0.25f;
+    /// Fraction de la vitesse d'un bloc poussé (poussée renforcée) héritée par le saut suivant, si
+    /// déclenché dans `pushMomentumWindowTime` (`EX-GP-061`). ⚠️.
+    float momentumCarryRatio = 0.5f;
 };
 
 }  // namespace core

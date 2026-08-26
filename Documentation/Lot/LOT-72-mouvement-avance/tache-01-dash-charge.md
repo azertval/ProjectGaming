@@ -1,27 +1,41 @@
 # TACHE-01 — Charge de dash et dash boosté {#lot-72-tache-01-dash-charge}
 
 **Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/{Components,Systems}`,
-`Source/Core/Physics` · **Statut :** à faire
+`Source/Core/Physics` · **Statut :** fait
 
 ## Contexte
 Le dash (`EX-GP-017`) est aujourd'hui à vitesse et durée fixes. `EX-GP-056` ajoute un **dash chargé**
 : maintenir la direction opposée à celle du prochain dash pendant un court délai, avant de dasher,
 donne un **dash boosté** — plus rapide et/ou plus long qu'un dash normal.
 
-## Travail à réaliser
-- `Player.h` : ajouter `dashChargeTimer` (secondes accumulées de maintien de la direction opposée) et
-  un indicateur de charge prête (ex. `dashBoostReady`).
-- `PhysicsConfig` : `dashChargeHoldTime` (seuil pour considérer la charge prête),
-  `dashBoostSpeedMultiplier`/`dashBoostDurationMultiplier` (ou un `dashBoostSpeed`/`dashBoostDuration`
-  dédiés).
-- `CharacterPhysicsSystem` :
-  - Chaque pas fixe, si l'entrée horizontale est **opposée** à `Player::facing` (et non nulle),
-    incrémenter `dashChargeTimer` ; sinon le remettre à zéro. Dès que `dashChargeTimer >=
-    dashChargeHoldTime`, `dashBoostReady = true`.
-  - Dans `applyDash`, si `dashBoostReady` au moment du déclenchement, appliquer `dashSpeed`/
-    `dashDuration` majorés au lieu des valeurs normales, puis remettre `dashBoostReady` et
-    `dashChargeTimer` à zéro (la charge est consommée qu'elle serve ou non à ce dash).
-- Ne pas toucher à `dashChargesRemaining`/`dashesRemaining` (LOT-67) : le boost ne consomme et ne
+**Garde `dashHeld` ajoutée en cours d'implémentation** : la charge exige de maintenir **aussi** le
+bouton de dash (`PlayerInput::dashHeld`, nouveau champ dérivé de la touche de dash déjà existante —
+même patron que `jumpHeld`, aucune nouvelle touche), pas seulement la direction opposée. Un premier
+essai sans cette garde a **cassé la séquence `demo-final`** et les tests IA (`RecompenseDemoNiveauxTest`,
+`ParcoursCompletSysteme`) : une simple inversion de direction en cours de déplacement normal (sans
+aucune intention de charger un dash) suffisait à armer un boost, qui changeait ensuite la
+vitesse/durée du dash suivant. `ScriptedLevelSequence`/l'espace d'action de l'IA ne renseignent
+jamais `dashHeld` (toujours `false`), donc aucun contenu existant ne peut plus jamais amorcer de
+charge — garantie de non-régression **par construction**.
+
+## Travail réalisé
+- `PlayerInput.h` : `dashHeld` (bouton de dash maintenu, garde de la charge).
+- `Player.h` : `dashChargeTimer`, `dashChargeReferenceFacing` (copie figée de `facing` au début de
+  la charge, jamais `facing` lui-même — voir Points d'attention), `dashBoostReady`,
+  `dashBoostFacing` (copie figée à l'armement), `dashIsBoosted` (vrai pour le dash en cours si
+  déclenché boosté).
+- `PhysicsConfig.h` : `dashChargeHoldTime`, `dashBoostSpeedMultiplier`, `dashBoostDurationMultiplier`.
+- `Source/HMI/Input/PlayerInputMapper.cpp` : dérive `dashHeld` de la touche de dash (`keyDown`/
+  `gamepadButtonDown`), même patron que `jumpHeld`.
+- `CharacterPhysicsSystem::resolveVelocity` : chaque pas, si `input.dashHeld` **et** l'entrée
+  horizontale est opposée à `dashChargeReferenceFacing` (figée au début de la charge), incrémenter
+  `dashChargeTimer` ; sinon le remettre à zéro (sauf charge déjà bankée). Dès que
+  `dashChargeTimer >= dashChargeHoldTime`, `dashBoostReady = true` et `dashBoostFacing` capture la
+  référence.
+- `CharacterPhysicsSystem::applyDash` : si `dashBoostReady` au déclenchement, applique `dashSpeed`/
+  `dashDuration` majorés, pose `dashIsBoosted = true`, puis remet `dashBoostReady`/
+  `dashChargeTimer` à zéro (la charge est consommée qu'elle serve ou non au boost).
+- Ne touche pas à `dashChargesRemaining`/`dashesRemaining` (LOT-67) : le boost ne consomme et ne
   crée aucune charge supplémentaire, seulement le dash normalement déclenché.
 
 ## Fichiers impactés

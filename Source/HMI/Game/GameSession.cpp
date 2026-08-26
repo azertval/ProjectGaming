@@ -904,13 +904,31 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
     const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
 
     // 1ter. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
-    // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent.
+    // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent. Poussee RENFORCEE
+    // (EX-GP-057) si le personnage etait EN DASH BOOSTE a la fin du pas precedent (dashTimer/
+    // dashIsBoosted/velocity pas encore mis a jour par la physique de CE pas) -- meme principe que
+    // previousBox ci-dessous. Restreinte au dash BOOSTE (EX-GP-056), comme le jump-cancel : un
+    // dash normal pousse un bloc exactement comme avant ce lot (aucune regression possible sur du
+    // contenu existant, qui ne peut jamais produire de dash boaste).
     const core::Transform& previousTransform = _world.getComponent<core::Transform>(_player);
     const core::Collider& previousCollider = _world.getComponent<core::Collider>(_player);
     const core::Aabb previousBox =
         core::Aabb::fromTopLeftSize(previousTransform.position, previousCollider.size);
-    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap(), platformSamples);
+    const core::Player& previousPlayer = _world.getComponent<core::Player>(_player);
+    const core::Velocity& previousVelocity = _world.getComponent<core::Velocity>(_player);
+    const float dashPushSpeed = (previousPlayer.dashTimer > 0.0f && previousPlayer.dashIsBoosted)
+                                    ? previousVelocity.value.x
+                                    : 0.0f;
+    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap(), platformSamples,
+                    dashPushSpeed);
     refreshBlockVisuals();
+    // Momentum herite (EX-GP-057/EX-GP-061) : arme la fenetre AVANT que la physique de ce pas ne
+    // s'execute, pour qu'un saut declenche des ce meme pas puisse deja en beneficier.
+    if (_blocks->lastDashPushSpeed() != 0.0f) {
+        core::Player& playerForMomentum = _world.getComponent<core::Player>(_player);
+        playerForMomentum.pushMomentumWindowTimer = _physics.config().pushMomentumWindowTime;
+        playerForMomentum.pushMomentumVelocityX = _blocks->lastDashPushSpeed();
+    }
 
     // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la position
     //    COURANTE des blocs (resolue ci-dessus).

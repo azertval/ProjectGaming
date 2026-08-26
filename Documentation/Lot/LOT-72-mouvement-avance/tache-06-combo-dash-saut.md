@@ -1,11 +1,24 @@
 # TACHE-06 — Combo dash + saut maximisé {#lot-72-tache-06-combo-dash-saut}
 
-**Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` · **Statut :** à faire
+**Lot :** [LOT-72](epic.md) · **Emplacement :** `Source/Core/Ecs/Systems` · **Statut :** fait
 
 ## Contexte
 `EX-GP-061` est le lot le plus riche des enchaînements demandés : faire composer le dash (TACHE-01),
 la poussée renforcée (TACHE-02), le saut et le wall-jump existants (`EX-GP-013`/`EX-GP-016`) sans
 nouvelle touche, avec un plafond explicite pour ne pas casser l'équilibrage des niveaux.
+
+**Décision de cadrage prise en cours d'implémentation** : le jump-cancel (et, par cohérence, la
+poussée renforcée du bloc, TACHE-02) est restreint au dash **boosté** (`Player::dashIsBoosted`,
+armé par la charge de TACHE-01) — jamais à un dash normal. Un premier essai sans cette restriction
+a **cassé la séquence `demo-final`** (`ParcoursCompletSysteme.FranchitTouteLaSequence`,
+`RecompenseDemoNiveauxTest`) : un saut pressé pendant un dash normal était auparavant simplement
+**bufferisé** (honoré à l'expiration naturelle du dash) ; le jump-cancel le remplaçait par une
+interruption immédiate, modifiant la trajectoire de tout contenu existant qui enchaîne dash puis
+saut sans intention particulière de « hyper-dash ». Restreindre au dash boosté élimine ce risque
+**par construction** : aucun contenu antérieur à ce lot ne peut produire de dash boosté (la charge
+n'existait pas), donc `dashTimer > 0 && dashIsBoosted` ne peut jamais être vrai pour lui. Un dash
+**normal** se comporte donc exactement comme avant ce lot, y compris avec un saut pressé pendant sa
+durée.
 
 ## Travail à réaliser
 - `Player.h` :
@@ -17,9 +30,10 @@ nouvelle touche, avec un plafond explicite pour ne pas casser l'équilibrage des
   `comboSpeedBonus` (bonus par enchaînement), `comboSpeedCap` (plafond cumulé), fenêtre de combo
   (`comboWindowTime`).
 - `CharacterPhysicsSystem` :
-  - **Jump-cancel** : si un saut est déclenché (`jumpPressed`/buffer) pendant `dashTimer > 0`, mettre
-    `dashTimer = 0` immédiatement et **conserver** la vitesse horizontale du dash (ne pas la
-    remplacer par la vitesse de saut/marche normale).
+  - **Jump-cancel** : si un saut est déclenché (`jumpPressed`/buffer) pendant `dashTimer > 0` **et**
+    `player.dashIsBoosted` (jamais pour un dash normal, voir Contexte), mettre `dashTimer = 0`
+    immédiatement et **conserver** la vitesse horizontale du dash (ne pas la remplacer par la
+    vitesse de saut/marche normale).
   - **Wall-jump en sortie de dash** : si ce jump-cancel a lieu avec `wallDirection != 0`, router vers
     la logique de wall-jump existante (réutilisée telle quelle) plutôt qu'un saut simple.
   - **Momentum hérité après poussée** : quand TACHE-02 déclenche une poussée renforcée, armer

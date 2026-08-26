@@ -68,22 +68,38 @@ public:
     /// du niveau comme un bloc mobile, avec son facteur de taille (`1`/`0.5`/`0.25`).
     explicit BlockController(const Level& level);
 
+    /// Nombre maximal de cases parcourues en un seul pas par une **poussée renforcée** (dash,
+    /// `EX-GP-057`), au-delà d'une poussée simple (une case par contact).
+    static constexpr int DASH_PUSH_MAX_CELLS = 4;
+
     /**
      * @brief Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une
      *        plateforme mobile, puis fait avancer les chutes.
-     * @param playerBox     Boîte englobante du personnage (position **avant** le pas physique
-     *                      courant : la poussée doit libérer la case avant que la physique ne
-     *                      résolve le déplacement du personnage sur ce même pas).
-     * @param moveIntentX   Intention de déplacement horizontal du personnage (`PlayerInput::moveX`,
-     *                      dans `[-1, 1]`) ; `0` ne pousse aucun bloc.
-     * @param baseCollision Grille de collision déjà résolue par les mécanismes (portes), utilisée
-     *                      pour savoir si la case visée par une poussée ou une chute est libre.
-     * @param platforms     Échantillons de position des plateformes mobiles pour ce pas
-     *                      (`core::PlatformController::samples`) ; vide par défaut (comportement
-     *                      inchangé pour tout niveau sans plateforme).
+     * @param playerBox      Boîte englobante du personnage (position **avant** le pas physique
+     *                       courant : la poussée doit libérer la case avant que la physique ne
+     *                       résolve le déplacement du personnage sur ce même pas).
+     * @param moveIntentX    Intention de déplacement horizontal du personnage (`PlayerInput::moveX`,
+     *                       dans `[-1, 1]`) ; `0` ne pousse aucun bloc.
+     * @param baseCollision  Grille de collision déjà résolue par les mécanismes (portes), utilisée
+     *                       pour savoir si la case visée par une poussée ou une chute est libre.
+     * @param platforms      Échantillons de position des plateformes mobiles pour ce pas
+     *                       (`core::PlatformController::samples`) ; vide par défaut (comportement
+     *                       inchangé pour tout niveau sans plateforme).
+     * @param dashPushSpeed  Vitesse horizontale (unités/s, **signée**) du personnage s'il est **en
+     *                       dash** ce pas ; `0` sinon (comportement de poussée simple inchangé,
+     *                       `EX-GP-022`). Une valeur non nulle avance le bloc touché de plusieurs
+     *                       cases dans CE pas (`DASH_PUSH_MAX_CELLS`, jusqu'au premier obstacle)
+     *                       plutôt qu'une seule, et arme `lastDashPushSpeed()` (`EX-GP-057`).
      */
     void update(const Aabb& playerBox, float moveIntentX, const TileMap& baseCollision,
-                const std::vector<PlatformSample>& platforms = {});
+                const std::vector<PlatformSample>& platforms = {}, float dashPushSpeed = 0.0F);
+
+    /// @return La vitesse horizontale (signée) de la dernière poussée **renforcée** (dash)
+    ///         déclenchée par le dernier appel à `update` ; `0` si aucune poussée renforcée n'a eu
+    ///         lieu ce pas-là (`EX-GP-057`/`EX-GP-061`, momentum hérité au saut).
+    [[nodiscard]] float lastDashPushSpeed() const noexcept {
+        return _lastDashPushSpeed;
+    }
 
     /// @return Une copie de @p base où chaque case occupée par un bloc **plein** (`Block`) est
     ///         rendue solide. Les blocs réduits (`BlockHalf`/`BlockQuarter`) restent francs dans
@@ -131,8 +147,10 @@ private:
     [[nodiscard]] bool isFree(GridPosition target, const TileMap& base,
                               std::size_t excluding) const;
     /// Étape 1 de update() : pousse chaque bloc touché du côté du déplacement voulu si sa case
-    /// suivante est libre.
-    void pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base);
+    /// suivante est libre -- de plusieurs cases d'un coup si @p dashPushSpeed est non nulle
+    /// (`EX-GP-057`), jusqu'à `DASH_PUSH_MAX_CELLS` ou au premier obstacle.
+    void pushBlocks(const Aabb& playerBox, float moveIntentX, const TileMap& base,
+                    float dashPushSpeed);
     /// Étape 2 de update() : porte chaque bloc reposant sur une plateforme mobile (accumulateur
     /// infra-case, converti en poussée d'une case entière à `1.0`) ; supprime aussi la chute pour
     /// ce pas (support valide).
@@ -148,6 +166,8 @@ private:
                                                      ///< plateforme qui porte ce bloc, même index ;
                                                      ///< remis à zéro dès que le bloc n'est plus
                                                      ///< porté.
+    float _lastDashPushSpeed = 0.0F;  ///< Vitesse (signée) de la dernière poussée renforcée du pas
+                                      ///< courant ; `0` si aucune (voir `lastDashPushSpeed()`).
 };
 
 }  // namespace core

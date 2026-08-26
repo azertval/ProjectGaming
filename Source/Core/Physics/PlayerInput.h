@@ -33,6 +33,12 @@ struct PlayerInput {
     float moveY = 0.0f;
     /// **Dash** vient d'être pressé cette frame (front montant) — action dédiée (`EX-CTRL-013`).
     bool dashPressed = false;
+    /// **Dash** maintenu : sert à charger un dash boosté (`EX-GP-056`, maintien de la direction
+    /// opposée ET du bouton dash). N'affecte jamais le déclenchement du dash lui-même
+    /// (`dashPressed`, un front) ; sert uniquement de garde pour la charge, afin qu'un simple
+    /// changement de direction pendant un déplacement normal ne puisse jamais l'amorcer par
+    /// accident.
+    bool dashHeld = false;
     /// **Interagir** vient d'être pressée cette frame (front montant) — action dédiée
     /// (`EX-CTRL-022`), complète l'activation par contact des mécanismes sans la remplacer.
     bool interactPressed = false;
