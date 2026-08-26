@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <QString>
 #include <QWidget>
 #include <deque>
 
@@ -30,6 +31,12 @@ public slots:
     /// Efface les courbes (début d'un nouveau run).
     void clearChart();
 
+    /// Libellés de légende (localisés, rejoués par `AiModeScreen::retranslateUi` comme le reste
+    /// de l'écran) — un par courbe, dans l'ordre meilleure récompense / récompense moyenne / taux
+    /// de réussite.
+    void setSeriesLabels(const QString& bestReward, const QString& meanReward,
+                         const QString& successRate);
+
 protected:
     void paintEvent(QPaintEvent* event) override;
 
@@ -42,6 +49,10 @@ private:
     std::deque<double> _bestReward;
     std::deque<double> _meanReward;
     std::deque<double> _successRate;
+
+    QString _bestRewardLabel;
+    QString _meanRewardLabel;
+    QString _successRateLabel;
 };
 
 }  // namespace hmi

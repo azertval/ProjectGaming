@@ -67,14 +67,22 @@ en mélangeant leurs réflexes, puis en y appliquant le taux de mutation ci-dess
 rejoue alors avec cette nouvelle population, et ainsi de suite jusqu'à ce qu'un joueur termine le
 niveau de façon stable plusieurs étapes d'affilée, ou jusqu'au plafond de générations.
 
-#### La case « Pas de trace CSV pour ce run »
+#### Le fichier `stats.csv`
 
 Chaque étape écrit une ligne dans un fichier `stats.csv` (une ligne par étape, jamais par joueur
-individuel) : c'est ce qui alimente le tableau et le graphique de suivi pendant l'entraînement.
-Ce coût ne dépend donc pas de la taille de la population — une population de 500 ne produit pas
-plus de lignes qu'une population de 32, seulement plus de calcul par étape. La case sert plutôt
-pour un entraînement à très grand nombre d'étapes, ou lancé depuis un disque contraint : elle
-supprime l'écriture du fichier, sans rien changer au tableau et au graphique affichés à l'écran.
+individuel) : c'est ce qui alimente le tableau et le graphique de suivi pendant l'entraînement, et
+ce qui reste consultable après coup depuis le dossier du run. Ce fichier est toujours écrit — son
+coût ne dépend pas de la taille de la population (une population de 500 ne produit pas plus de
+lignes qu'une population de 32, seulement plus de calcul par étape).
+
+#### Traces du moteur pendant l'entraînement
+
+Séparément de ce fichier `stats.csv`, le moteur du jeu journalise lui-même certains événements
+(chargement de niveau, déclenchement d'un mécanisme…) — utile pendant une partie normale, mais
+chaque tentative d'un individu pendant l'entraînement rejoue le niveau depuis le début, ce qui
+produisait auparavant une trace par tentative, sans rapport avec une partie réellement jouée, et
+ralentissait l'entraînement pour une grande population. Ceci est désormais automatique : le jeu
+réduit lui-même ces traces le temps d'un entraînement ou d'une évaluation, sans réglage à faire.
 
 ### Validation & sauvegarde
 

@@ -20,6 +20,7 @@
 #include "AiSolver/Nn/Serialization.h"
 #include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
+#include "Core/Diagnostics/ScopedLogLevel.h"
 
 namespace hmi {
 
@@ -28,6 +29,10 @@ namespace hmi {
 std::optional<EvaluationOutcome> evaluateModel(const QString& modelPath, const QString& levelPath,
                                                const QString& algorithmId, int repetitions) {
     using namespace aisolver;
+
+    // Voir TrainingWorker::run / aisolver::cli::runTrain : `repetitions` rejeux headless
+    // produiraient sinon un volume de traces Levels/Gameplay sans rapport avec une partie reelle.
+    const core::ScopedLogLevel quietDuringEvaluation(core::defaultLogger(), core::LogLevel::Warning);
 
     const std::filesystem::path model = modelPath.toStdString();
     const std::filesystem::path level = levelPath.toStdString();

@@ -4,7 +4,6 @@
 #include "HMI/Interface/AiModeScreen.h"
 
 #include <QApplication>
-#include <QCheckBox>
 #include <QComboBox>
 #include <QDesktopServices>
 #include <QFileDialog>
@@ -154,7 +153,6 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->reinforceAlgorithmRadio->setText(t("ai_mode.algo_pg"));
     _ui->actorCriticAlgorithmRadio->setText(t("ai_mode.algo_ac"));
     _ui->advancedAlgorithmRadio->setText(t("ai_mode.algo_dqn"));
-    _ui->noStatsCheck->setText(t("ai_mode.no_stats"));
     _ui->populationLabel->setText(t("ai_mode.population"));
     _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
     _ui->stabilityLabel->setText(t("ai_mode.stability"));
@@ -179,6 +177,9 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->statsTable->setHorizontalHeaderLabels(
         {t("ai_mode.column_generation"), t("ai_mode.column_best_reward"),
          t("ai_mode.column_mean_reward"), t("ai_mode.column_success_rate")});
+    _ui->trainingChart->setSeriesLabels(t("ai_mode.column_best_reward"),
+                                        t("ai_mode.column_mean_reward"),
+                                        t("ai_mode.column_success_rate"));
 
     // Onglet Validation & sauvegarde.
     _ui->runLabel->setText(t("ai_mode.run"));
@@ -211,7 +212,6 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->gammaSpin->setToolTip(t("ai_mode.gamma_tip"));
     _ui->optimizerCombo->setToolTip(t("ai_mode.optimizer_tip"));
     _ui->seedSpin->setToolTip(t("ai_mode.seed_tip"));
-    _ui->noStatsCheck->setToolTip(t("ai_mode.no_stats_tip"));
     _ui->dqnReplayCapacitySpin->setToolTip(t("ai_mode.dqn_replay_capacity_tip"));
     _ui->dqnBatchSizeSpin->setToolTip(t("ai_mode.dqn_batch_size_tip"));
     _ui->dqnWarmupSizeSpin->setToolTip(t("ai_mode.dqn_warmup_size_tip"));
@@ -353,7 +353,6 @@ void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->gammaSpin->setEnabled(enabled);
     _ui->optimizerCombo->setEnabled(enabled);
     _ui->seedSpin->setEnabled(enabled);
-    _ui->noStatsCheck->setEnabled(enabled);
     _ui->dqnReplayCapacitySpin->setEnabled(enabled);
     _ui->dqnBatchSizeSpin->setEnabled(enabled);
     _ui->dqnWarmupSizeSpin->setEnabled(enabled);
@@ -395,7 +394,6 @@ void AiModeScreen::onLaunchTraining() {
         request.dqnEpsilonDecaySteps =
             static_cast<std::size_t>(_ui->dqnEpsilonDecaySpin->value());
     }
-    request.noStats = _ui->noStatsCheck->isChecked();
 
     _ui->statsTable->setRowCount(0);
     _ui->trainingChart->clearChart();

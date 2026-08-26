@@ -48,10 +48,6 @@ struct TrainingRequest {
     std::optional<float> dqnEpsilonStart;
     std::optional<float> dqnEpsilonEnd;
     std::optional<std::size_t> dqnEpsilonDecaySteps;
-    /// `true` pour sauter l'écriture du CSV de statistiques (`TrainingStatsRecorder`) — coût déjà
-    /// indépendant de `populationSize` (une ligne par génération, jamais par individu), mais utile
-    /// pour un run à très nombreuses générations ou un disque contraint (`LOT-ANNEXE-21`).
-    bool noStats = false;
 };
 
 /**

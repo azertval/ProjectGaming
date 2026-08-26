@@ -43,11 +43,6 @@ struct TrainArgs {
     std::optional<float> learningRate;
     std::optional<float> gamma;
     std::optional<std::string> optimizer;
-    /// `--no-stats` : saute l'écriture du CSV de statistiques (`TrainingStatsRecorder`), pour un
-    /// run à très nombreuses générations ou sur un disque contraint (`LOT-ANNEXE-21`) — le coût
-    /// réel de cette journalisation reste indépendant de `--population-size` (une ligne par
-    /// génération, jamais par individu), voir `TrainingStatsRecorder::record`.
-    bool noStats = false;
 };
 
 /// Arguments de `evaluate`.

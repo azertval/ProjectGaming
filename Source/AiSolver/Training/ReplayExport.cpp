@@ -85,10 +85,9 @@ TrainAndExportOutcome trainLevelAndExportReplay(const std::filesystem::path& lev
                                                 const StoppingConfig& stopping, std::uint64_t seed,
                                                 const std::filesystem::path& statsCsvPath,
                                                 const std::filesystem::path& replayOutputPath,
-                                                EnvironmentConfig environmentConfig,
-                                                bool recordStats) {
+                                                EnvironmentConfig environmentConfig) {
     LevelTrainingSession session(levelPath, topology, config, stopping, seed, statsCsvPath,
-                                 environmentConfig, recordStats);
+                                 environmentConfig);
     TrainingResult trainingResult = session.run();
 
     HeadlessLevelEnvironment replayEnvironment(environmentConfig);

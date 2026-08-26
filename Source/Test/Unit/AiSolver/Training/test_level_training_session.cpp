@@ -12,7 +12,6 @@
 
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
-#include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
 #include "AiSolver/Training/LevelTrainingSession.h"
 #include "AiSolver/Training/TrainingResult.h"
@@ -221,39 +220,4 @@ TEST(LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion) {
     static_cast<void>(result);
 
     EXPECT_EQ(callCount, 3);
-}
-
-/**
- * @brief `recordStats == false` (`--no-stats`, `LOT-ANNEXE-21`) n'écrit aucun fichier CSV, mais
- * `setOnStatsRow` continue d'être notifié à chaque génération (l'IHM observe toujours le run).
- * \castest{<b>LevelTrainingSession : `recordStats` désactivé n'écrit aucun CSV.</b><br/>
- * \tcat Unitaire · AiSolver Training<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Session avec `recordStats=false`, plafond de 3 générations.<br/>2. `run()` avec
- * `setOnStatsRow` qui compte ses appels.<br/>
- * \tattendu Le fichier `stats.csv` n'existe pas après `run()`, mais le compteur d'appels est égal
- * au nombre de générations exécutées.}
- */
-TEST(LevelTrainingSessionTest, RecordStatsDesactiveNecritAucunCsv) {
-    const TrivialLevelDirectory level("no-stats");
-    const ObservationEncoder encoder;
-
-    EvolutionaryConfig config;
-    config.populationSize = 8;
-    StoppingConfig stopping;
-    stopping.requiredConsecutiveSuccesses = 1000;
-    stopping.maxGenerations = 3;
-
-    const std::filesystem::path statsPath = level.file("stats.csv");
-    LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
-                                 stopping, 5, statsPath,
-                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS},
-                                 /*recordStats=*/false);
-    int rowCount = 0;
-    session.setOnStatsRow([&rowCount](const aisolver::TrainingStatsRow&) { ++rowCount; });
-    const TrainingResult result = session.run();
-    static_cast<void>(result);
-
-    EXPECT_FALSE(std::filesystem::exists(statsPath));
-    EXPECT_EQ(rowCount, 3);
 }

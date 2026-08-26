@@ -36,6 +36,7 @@
 #include "AiSolver/Training/LevelTrainingSession.h"
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
 #include "AiSolver/Training/ReplayExport.h"
+#include "Core/Diagnostics/ScopedLogLevel.h"
 
 /**
  * @file HMI/Ai/TrainingWorker.cpp
@@ -97,6 +98,15 @@ void TrainingWorker::requestStop() {
 
 void TrainingWorker::run() {
     using namespace aisolver;
+
+    // HeadlessLevelEnvironment (chargement de niveau, mecanismes...) journalise a des niveaux
+    // Trace/Info concus pour une partie reelle -- un entrainement le rejoue des milliers de fois
+    // (une fois par individu/episode), ce qui produit un volume de journalisation sans rapport
+    // avec une partie jouee et ralentit l'entrainement pour rien (traces parasites signalees en
+    // essai utilisateur, LOT-ANNEXE-21). Releve temporairement le niveau minimal du journaliseur
+    // partage de l'application pour toute la duree du run, restaure automatiquement a la sortie
+    // (RAII, tous les chemins de retour compris).
+    const core::ScopedLogLevel quietDuringTraining(core::defaultLogger(), core::LogLevel::Warning);
 
     const std::filesystem::path levelPath = _request.levelPath.toStdString();
     if (!std::filesystem::exists(levelPath)) {
@@ -187,8 +197,7 @@ void TrainingWorker::run() {
         const training::evolutionary::NetworkTopology topology =
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         training::LevelTrainingSession session(levelPath, topology, config.evolutionary,
-                                               config.stopping, _request.seed, statsPath, {},
-                                               !_request.noStats);
+                                               config.stopping, _request.seed, statsPath);
 
         session.setOnStatsRow([this](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -265,7 +274,7 @@ void TrainingWorker::run() {
         // l'entrainement, elle reste valide tout du long (memes poids, mis a jour en place),
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        recorder.emplace(statsPath, 20, !_request.noStats);
+        recorder.emplace(statsPath);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -303,7 +312,7 @@ void TrainingWorker::run() {
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = _request.seed;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        recorder.emplace(statsPath, 20, !_request.noStats);
+        recorder.emplace(statsPath);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);
@@ -348,7 +357,7 @@ void TrainingWorker::run() {
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
         dqnConfig.seedBase = _request.seed;
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        recorder.emplace(statsPath, 20, !_request.noStats);
+        recorder.emplace(statsPath);
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &algorithmId](const TrainingStatsRow& row) {
             emit progress(row.index, row.bestReward, row.meanReward, row.successRate);

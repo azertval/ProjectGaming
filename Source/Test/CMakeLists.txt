@@ -42,6 +42,7 @@ add_executable(UnitTests
     Unit/Core/Physics/test_aabb_vs_aabb.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
+    Unit/Core/Diagnostics/test_scoped_log_level.cpp
     Unit/Core/Diagnostics/test_sinks.cpp
     Unit/Core/Diagnostics/test_file_log_sink.cpp
     Unit/Core/Diagnostics/test_log_format.cpp
