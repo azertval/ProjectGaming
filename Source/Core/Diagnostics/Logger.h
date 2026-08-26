@@ -33,6 +33,10 @@ public:
     /// Définit le niveau minimal ; les messages moins graves sont ignorés.
     void setMinimumLevel(LogLevel level);
 
+    /// @return Le niveau minimal courant (voir `ScopedLogLevel`, qui s'en sert pour restaurer le
+    /// niveau précédent après une élévation temporaire).
+    [[nodiscard]] LogLevel minimumLevel() const noexcept { return _minimumLevel; }
+
     /**
      * @brief Indique si un niveau passe le filtre courant.
      * @param level Niveau à tester.
