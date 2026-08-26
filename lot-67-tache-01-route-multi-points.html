@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-67-tache-01-route-multi-points.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-01-route-multi-points"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3194"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3199"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="structcore_1_1MovingPlatformConfig.html" title="Paramètres d&#39;une plateforme mobile (TileType::MovingPlatform, EX-GP-026) : route multi-points parcour...">core::MovingPlatformConfig</a></span> ne portait que <span class="tt">startPosition</span> et <span class="tt">endPosition</span>, et sa documentation actait explicitement l'absence de chemin multi-points. Un parcours en L ou un circuit ferme n'etait donc pas exprimable — ni dans le fichier, ni dans le brouillon d'edition.</p>
 <p><span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a4e53d560a32aa5f88e02f834aba8b776" title="Définit la route complète, le mode, la vitesse et le déphasage d&#39;une plateforme mobile (EX-GP-026).">core::LevelDraft::setPlatformConfig</a></span> existait deja, annulable et teste, mais <b>sans aucun appelant</b> dans <span class="tt">Source/HMI</span> : sa granularite (remplacer la configuration entiere) convenait mal au geste d'edition a venir, qui manipule un point a la fois.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3195"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3200"></a>
 Travail a realiser</h1>
 <ul>
 <li>Remplacer <span class="tt">endPosition</span> par <span class="tt">waypoints</span> (les points <b>apres</b> le depart) et ajouter <span class="tt">PlatformPathMode</span> (<span class="tt">PingPong</span> par defaut, <span class="tt">Loop</span>). Supprimer <span class="tt">endPosition</span> plutot que le deprecier : le compilateur recense alors tous les appelants d'un coup.</li>
@@ -107,23 +107,23 @@ Travail a realiser</h1>
 <li><b>Brouillon</b> : elargir <span class="tt">setPlatformConfig</span>, et ajouter les mutateurs granulaires que le geste d'edition consommera (<span class="tt">addPlatformWaypoint</span>, <span class="tt">insertPlatformWaypoint</span>, <span class="tt">movePlatformWaypoint</span>, <span class="tt">removePlatformWaypoint</span>, <span class="tt">setPlatformMode</span>/<span class="tt">setPlatformSpeed</span>/<span class="tt">setPlatformPhase</span>). Tous passent par un point d'entree commun qui empile <b>un seul</b> <span class="tt">pushUndo()</span>, y compris quand il cree la configuration au passage.</li>
 <li>Au redimensionnement, une route dont <b>un</b> point sort du niveau fait partir la configuration entiere : amputer la route donnerait un parcours silencieusement different.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3196"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3201"></a>
 Fichiers impactes</h1>
 <p><span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt">LevelWriter.{h,cpp}</span>, <span class="tt">LevelDraft.{h,cpp}</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3197"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3202"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></span> : route multi-points lue avec son mode ; repli <span class="tt">endX</span>/<span class="tt">endY</span> ; mode inconnu tolere ; point de parcours hors bornes rejete (<span class="tt">OutOfBounds</span>) <b>au-dela du premier</b>.</li>
 <li><span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span> : aller-retour route + mode ; mode par defaut omis ; plateforme sans route n'ecrivant aucun champ de route ; ancien format reecrit en <span class="tt">waypoints</span>.</li>
 <li><span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></span> : construction d'un parcours point par point, chaque geste annulable en un pas ; rang hors de la route sans effet ; mode, vitesse et dephasage independants.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3198"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3203"></a>
 Points d'attention</h1>
 <p>La suppression de <span class="tt">endPosition</span> est une <b>rupture assumee</b> : cinq sites de test la referencent, aucun code de production. Les faire remonter par le compilateur vaut mieux qu'une depreciation silencieuse qui laisserait les deux champs coexister.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3199"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3204"></a>
 Definition de fait (DoD)</h1>
 <p>Le format lit les deux ecritures, n'en produit qu'une, et tous les niveaux livres se chargent sans erreur. <span class="tt">ctest</span> a 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3200"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3205"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-054</span>, <span class="tt">EX-LVL-008</span>, <span class="tt">EX-GP-026</span>, <span class="tt">EX-NFR-040</span>, <span class="tt">EX-EDIT-005</span>. </p>
 </div></div><!-- contents -->

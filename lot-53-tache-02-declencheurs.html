@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-53-tache-02-declencheurs.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-53-effets-particules_2tache-02-declencheurs"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-53.html#md_Lot_2LOT-53-effets-particules_2epic" title="Lot/LOT-53-effets-particules/epic.md">LOT-53</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> ✅ fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2509"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2514"></a>
 Contexte</h1>
 <p>Un émetteur sans déclencheur ne sert à rien. Les événements à marquer sont exactement ceux que le joueur ressent sans les voir — un dash, un atterrissage, une mort — et l'état correspondant est déjà calculé par la physique dans <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> : <span class="tt">dashTimer</span>, <span class="tt">grounded</span>, et l'issue de niveau (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>).</p>
 <p>Ce sont des <b>transitions</b>, pas des états : « vient d'atterrir » se détecte en comparant au pas précédent, comme l'atterrissage du personnage (LOT-48, TACHE-02) et les transitions de mécanismes (LOT-47, TACHE-02). Le projet a donc déjà ce patron deux fois ; il ne doit pas être réinventé une troisième.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2510"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2515"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Détection des transitions</b> au pas fixe :<ul>
@@ -113,14 +113,14 @@ Travail à réaliser</h1>
 <li><b>Aucun champ ajouté à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span></b> : l'état précédent nécessaire à la détection est conservé hors de la simulation de gameplay, comme <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span> le fait pour le rendu.</li>
 <li><b>Rechargement de niveau</b> : après un échec, les particules sont vidées — l'effet de mort ne doit pas persister sur le niveau rechargé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2516"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Core/Ecs/Systems/ParticleSystem.{h,cpp}</span> (déclencheurs).</li>
 <li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span> (câblage, vidage au rechargement).</li>
 <li><span class="tt"><a class="el" href="test__particle__triggers_8cpp.html" title="Tests unitaires des déclencheurs de particules du personnage (LOT-53 TACHE-02, EX-REN-008).">Source/Test/Unit/Core/Ecs/test_particle_triggers.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2512"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2517"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque transition déclenche l'effet attendu <b>une seule fois</b> (pas à chaque pas où la condition est vraie).</li>
@@ -130,19 +130,19 @@ Tests (obligatoires)</h1>
 <li>Les tests de gameplay existants passent <b>sans modification</b>.</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2513"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2518"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une transition, pas un état.</b> Émettre à chaque pas où <span class="tt">grounded</span> est vrai produirait un nuage de poussière permanent — c'est l'erreur la plus probable de cette tâche.</li>
 <li><b>Ne pas ajouter de champ à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span></b> « pour savoir si on vient d'atterrir » : ce serait faire entrer la présentation dans la simulation et fausser les tests de gameplay.</li>
 <li>Le seuil de vitesse en dessous duquel un atterrissage ne produit <b>aucun</b> effet doit exister et être nommé : sinon chaque petit pas émettrait de la poussière.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2514"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2519"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Dash, atterrissage et mort déclenchent chacun leur effet, une seule fois, avec une intensité cohérente ; aucun champ ajouté à <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> ; les particules sont vidées au rechargement ; les tests de gameplay passent inchangés ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2515"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2520"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-008</span> (effets visuels) ; réutilise <span class="tt">EX-GP-017</span> (dash), <span class="tt">EX-GP-016</span> (saut mural), <span class="tt">EX-GP-031</span> (échec au contact d'un danger), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-002</span> (déterminisme). </p>
 </div></div><!-- contents -->

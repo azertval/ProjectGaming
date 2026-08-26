@@ -1,5 +1,6 @@
 var structaisolver_1_1cli_1_1TrainingConfig =
 [
+    [ "algorithmId", "structaisolver_1_1cli_1_1TrainingConfig.html#a2776829cd5530117e29b3f089b96251a", null ],
     [ "dqnBatchSize", "structaisolver_1_1cli_1_1TrainingConfig.html#a5c5549b2122731206dc7beebae17abbb", null ],
     [ "dqnEpsilonDecaySteps", "structaisolver_1_1cli_1_1TrainingConfig.html#aacd3abb373bd59a63fd83df335da4066", null ],
     [ "dqnEpsilonEnd", "structaisolver_1_1cli_1_1TrainingConfig.html#a2d99c705212b0e2377595719548396d5", null ],

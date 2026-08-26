@@ -1,7 +1,7 @@
 var dir_53313a0329ae6869ebe758cc286a2e1b =
 [
     [ "ActorCritic", "dir_7108b2583810b3f8116e2349a578b8c0.html", "dir_7108b2583810b3f8116e2349a578b8c0" ],
-    [ "Advanced", "dir_f607717b848dc66a7fc3bc4e6ceaca87.html", "dir_f607717b848dc66a7fc3bc4e6ceaca87" ],
+    [ "Dqn", "dir_3ba3f964a34f70b11ee27d808a875951.html", "dir_3ba3f964a34f70b11ee27d808a875951" ],
     [ "Evolutionary", "dir_a2e8de9f8e0d473d05bab248b7b113a0.html", "dir_a2e8de9f8e0d473d05bab248b7b113a0" ],
     [ "PolicyGradient", "dir_c12bee86bac8d3f8d7e8d486e589e0e0.html", "dir_c12bee86bac8d3f8d7e8d486e589e0e0" ],
     [ "ArgmaxRollout.cpp", "ArgmaxRollout_8cpp.html", "ArgmaxRollout_8cpp" ],

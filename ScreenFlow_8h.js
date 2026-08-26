@@ -30,7 +30,7 @@ var ScreenFlow_8h =
       [ "hmi::ScreenId::Game", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb", null ],
       [ "hmi::ScreenId::Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ],
       [ "hmi::ScreenId::Pause", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f", null ],
-      [ "hmi::ScreenId::NiveauTermine", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21", null ],
+      [ "hmi::ScreenId::LevelComplete", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dafadd249ca99ec988612da6329ccc7ffc", null ],
       [ "hmi::ScreenId::LevelSelect", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569", null ],
       [ "hmi::ScreenId::Credits", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51", null ],
       [ "hmi::ScreenId::AiMode", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9", null ]

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,17 +102,17 @@ $(function(){initNavTree('classhmi_1_1LevelFileOperations.html','','classhmi_1_1
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aecfe75969fdd39f9feb5419e13427312" id="r_aecfe75969fdd39f9feb5419e13427312"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aecfe75969fdd39f9feb5419e13427312">LevelFileOperations</a> (std::filesystem::path levelsDir)</td></tr>
 <tr class="memitem:a0f2a3f81e7b378c50c4448c292ec2499" id="r_a0f2a3f81e7b378c50c4448c292ec2499"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0f2a3f81e7b378c50c4448c292ec2499">list</a> () const</td></tr>
-<tr class="memitem:a12e565088b1eeb4ca5523ae3694a176b" id="r_a12e565088b1eeb4ca5523ae3694a176b"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a12e565088b1eeb4ca5523ae3694a176b">create</a> (const std::string &amp;name, int width, int height) const</td></tr>
-<tr class="memdesc:a12e565088b1eeb4ca5523ae3694a176b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un niveau minimal valide (grille vide + entrée/sortie) nommé <code class="param">name</code>.  <br /></td></tr>
-<tr class="memitem:a29deaa627df5f9e76a87300523963593" id="r_a29deaa627df5f9e76a87300523963593"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29deaa627df5f9e76a87300523963593">rename</a> (const std::filesystem::path &amp;source, const std::string &amp;newName) const</td></tr>
-<tr class="memdesc:a29deaa627df5f9e76a87300523963593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <code class="param">source</code> en <code class="param">newName</code> (met à jour le nom interne).  <br /></td></tr>
-<tr class="memitem:a211ad9cc234f61dc4e93d2f53c5f6471" id="r_a211ad9cc234f61dc4e93d2f53c5f6471"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a211ad9cc234f61dc4e93d2f53c5f6471">duplicate</a> (const std::filesystem::path &amp;source) const</td></tr>
-<tr class="memdesc:a211ad9cc234f61dc4e93d2f53c5f6471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …).  <br /></td></tr>
+<tr class="memitem:aa64dd50588ed0f264417914895a1cfdb" id="r_aa64dd50588ed0f264417914895a1cfdb"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa64dd50588ed0f264417914895a1cfdb">create</a> (const std::string &amp;name, int width, int height) const</td></tr>
+<tr class="memdesc:aa64dd50588ed0f264417914895a1cfdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée un niveau minimal valide (grille vide + entrée/sortie) nommé <code class="param">name</code>.  <br /></td></tr>
+<tr class="memitem:a75d94a9afbfd01776b721f58729ae0b8" id="r_a75d94a9afbfd01776b721f58729ae0b8"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a75d94a9afbfd01776b721f58729ae0b8">rename</a> (const std::filesystem::path &amp;source, const std::string &amp;newName) const</td></tr>
+<tr class="memdesc:a75d94a9afbfd01776b721f58729ae0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau <code class="param">source</code> en <code class="param">newName</code> (met à jour le nom interne).  <br /></td></tr>
+<tr class="memitem:a551c21f123f010c79dc0092566523968" id="r_a551c21f123f010c79dc0092566523968"><td class="memItemLeft"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a551c21f123f010c79dc0092566523968">duplicate</a> (const std::filesystem::path &amp;source) const</td></tr>
+<tr class="memdesc:a551c21f123f010c79dc0092566523968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplique le niveau <code class="param">source</code> sous un nom unique (« … (copie) », « … (copie 2) », …).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a719e547b2e2ab97c868ca860b8e53ef6" id="r_a719e547b2e2ab97c868ca860b8e53ef6"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a719e547b2e2ab97c868ca860b8e53ef6">remove</a> (const std::filesystem::path &amp;source)</td></tr>
-<tr class="memdesc:a719e547b2e2ab97c868ca860b8e53ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le fichier de niveau <code class="param">source</code>.  <br /></td></tr>
+<tr class="memitem:a3e5a956a211dfe7d24706675eab94650" id="r_a3e5a956a211dfe7d24706675eab94650"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3e5a956a211dfe7d24706675eab94650">remove</a> (const std::filesystem::path &amp;source)</td></tr>
+<tr class="memdesc:a3e5a956a211dfe7d24706675eab94650"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le fichier de niveau <code class="param">source</code>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -125,7 +125,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Opérations sur les fichiers de niveaux d'un dossier, <b>sans dépendance Qt/GPU</b>. </p>
-<p>Logique pure et testable (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-IHM-021</span>) : réutilise <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e" title="Indique si name peut servir de nom de niveau (donc de nom de fichier Windows).">hmi::isValidLevelName</a></span> (validation de nom, <span class="tt">EX-EDIT-009</span>), <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>/<span class="tt">LevelWriter</span> (format) et <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (aucune règle de niveau dupliquée, <span class="tt">EX-EDIT-010</span>). Chaque opération renvoie un <span class="tt"><a class="el" href="structhmi_1_1FileOpResult.html" title="Résultat d&#39;une opération fichier : succès (avec le chemin résultant) ou erreur lisible.">FileOpResult</a></span> — jamais d'exception vers l'appelant (<span class="tt">EX-NFR-040</span>). </p>
+<p>Logique pure et testable (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-IHM-021</span>) : réutilise <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e" title="Indique si name peut servir de nom de niveau (donc de nom de fichier Windows).">hmi::isValidLevelName</a></span> (validation de nom, <span class="tt">EX-EDIT-009</span>), <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>/<span class="tt">LevelWriter</span> (format) et <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (aucune règle de niveau dupliquée, <span class="tt">EX-EDIT-010</span>). Chaque opération renvoie un <span class="tt"><a class="el" href="structhmi_1_1FileOperationResult.html" title="Succès (avec le chemin résultant) ou échec (avec un message lisible).">FileOperationResult</a></span> — jamais d'exception vers l'appelant (<span class="tt">EX-NFR-040</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aecfe75969fdd39f9feb5419e13427312" name="aecfe75969fdd39f9feb5419e13427312"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecfe75969fdd39f9feb5419e13427312">&#9670;&#160;</a></span>LevelFileOperations()</h2>
@@ -153,8 +153,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a12e565088b1eeb4ca5523ae3694a176b" name="a12e565088b1eeb4ca5523ae3694a176b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12e565088b1eeb4ca5523ae3694a176b">&#9670;&#160;</a></span>create()</h2>
+<a id="aa64dd50588ed0f264417914895a1cfdb" name="aa64dd50588ed0f264417914895a1cfdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa64dd50588ed0f264417914895a1cfdb">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,7 +163,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a> hmi::LevelFileOperations::create </td>
+          <td class="memname"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a> hmi::LevelFileOperations::create </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
@@ -189,8 +189,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a211ad9cc234f61dc4e93d2f53c5f6471" name="a211ad9cc234f61dc4e93d2f53c5f6471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a211ad9cc234f61dc4e93d2f53c5f6471">&#9670;&#160;</a></span>duplicate()</h2>
+<a id="a551c21f123f010c79dc0092566523968" name="a551c21f123f010c79dc0092566523968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a551c21f123f010c79dc0092566523968">&#9670;&#160;</a></span>duplicate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +199,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a> hmi::LevelFileOperations::duplicate </td>
+          <td class="memname"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a> hmi::LevelFileOperations::duplicate </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span></td><td>)</td>
           <td> const</td>
@@ -269,8 +269,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a719e547b2e2ab97c868ca860b8e53ef6" name="a719e547b2e2ab97c868ca860b8e53ef6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a719e547b2e2ab97c868ca860b8e53ef6">&#9670;&#160;</a></span>remove()</h2>
+<a id="a3e5a956a211dfe7d24706675eab94650" name="a3e5a956a211dfe7d24706675eab94650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5a956a211dfe7d24706675eab94650">&#9670;&#160;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +279,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a> hmi::LevelFileOperations::remove </td>
+          <td class="memname"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a> hmi::LevelFileOperations::remove </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span></td><td>)</td>
           <td></td>
@@ -296,8 +296,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a29deaa627df5f9e76a87300523963593" name="a29deaa627df5f9e76a87300523963593"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29deaa627df5f9e76a87300523963593">&#9670;&#160;</a></span>rename()</h2>
+<a id="a75d94a9afbfd01776b721f58729ae0b8" name="a75d94a9afbfd01776b721f58729ae0b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d94a9afbfd01776b721f58729ae0b8">&#9670;&#160;</a></span>rename()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +306,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a> hmi::LevelFileOperations::rename </td>
+          <td class="memname"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a> hmi::LevelFileOperations::rename </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
         </tr>

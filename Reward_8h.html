@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,7 +95,11 @@ $(function(){initNavTree('Reward_8h.html','',''); });
 
 <p>Signal de récompense unique et partagé de tous les algorithmes d'apprentissage du programme (<span class="tt">LOT-ANNEXE-08</span>, <span class="tt">EX-IA-009</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="GridDistanceField_8h_source.html">AiSolver/Env/GridDistanceField.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="GridDistanceField_8h_source.html">AiSolver/Env/GridDistanceField.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelOutcome_8h_source.html">Core/Levels/LevelOutcome.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
 </div>
@@ -105,6 +109,8 @@ $(function(){initNavTree('Reward_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:aisolver_3A_3ARewardConfig" id="r_aisolver_3A_3ARewardConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1RewardConfig.html">aisolver::RewardConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constantes de la fonction de récompense (<span class="tt">EX-IA-009</span>).  <a href="structaisolver_1_1RewardConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:aisolver_3A_3AObjectiveDistanceFieldCache" id="r_aisolver_3A_3AObjectiveDistanceFieldCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1ObjectiveDistanceFieldCache.html">aisolver::ObjectiveDistanceFieldCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Champ de distances vers l'objectif immédiat, reconstruit seulement lorsqu'il cesse d'être valide.  <a href="classaisolver_1_1ObjectiveDistanceFieldCache.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -114,6 +120,8 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:acfa113b8f54b1f1c80752e87fdcee984" id="r_acfa113b8f54b1f1c80752e87fdcee984"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver.html#acfa113b8f54b1f1c80752e87fdcee984">aisolver::computeReward</a> (const <a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a> &amp;config, const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;distanceField, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;previousBox, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;currentBox, <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome)</td></tr>
 <tr class="memdesc:acfa113b8f54b1f1c80752e87fdcee984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.  <br /></td></tr>
+<tr class="memitem:a72b8d383d7626ce3d84aa8a7b5e6ea97" id="r_a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="memItemLeft"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver.html#a72b8d383d7626ce3d84aa8a7b5e6ea97">aisolver::buildObjectiveDistanceField</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms)</td></tr>
+<tr class="memdesc:a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le champ de distances de l'<b>objectif immédiat</b> courant (<span class="tt">LOT-ANNEXE-21</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Signal de récompense unique et partagé de tous les algorithmes d'apprentissage du programme (<span class="tt">LOT-ANNEXE-08</span>, <span class="tt">EX-IA-009</span>). </p>

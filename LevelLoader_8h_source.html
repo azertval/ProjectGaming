@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -125,7 +125,7 @@ $(function(){initNavTree('LevelLoader_8h_source.html','',''); });
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb">   59</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb">kLevelFormatVersion</a> = 2;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">   59</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">LEVEL_FORMAT_VERSION</a> = 2;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
 <div class="foldopen" id="foldopen00069" data-start="{" data-end="};">
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1LevelLoadResult.html">   69</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a> {</div>
@@ -156,7 +156,7 @@ $(function(){initNavTree('LevelLoader_8h_source.html','',''); });
 <div class="ttc" id="aclasscore_1_1LevelLoader_html_a4976f03515627ad9fc7bb6f29445df89"><div class="ttname"><a href="classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89">core::LevelLoader::loadFromString</a></div><div class="ttdeci">static LevelLoadResult loadFromString(std::string_view json)</div><div class="ttdoc">Charge un niveau depuis une chaîne JSON.</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:428</div></div>
 <div class="ttc" id="aclasscore_1_1LevelLoader_html_a49dba279ed545b7230ceeb8752e63543"><div class="ttname"><a href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543">core::LevelLoader::loadFromFile</a></div><div class="ttdeci">static LevelLoadResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge un niveau depuis un fichier.</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:614</div></div>
 <div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> BuildConfig.h:11</div></div>
-<div class="ttc" id="anamespacecore_html_a4e9944a74ac070775a2730be05705abb"><div class="ttname"><a href="namespacecore.html#a4e9944a74ac070775a2730be05705abb">core::kLevelFormatVersion</a></div><div class="ttdeci">constexpr int kLevelFormatVersion</div><div class="ttdoc">Version courante du format de niveau JSON (EX-LVL-005).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:59</div></div>
+<div class="ttc" id="anamespacecore_html_a29f56cd5e629fb74668126bbf151066e"><div class="ttname"><a href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e">core::LEVEL_FORMAT_VERSION</a></div><div class="ttdeci">constexpr int LEVEL_FORMAT_VERSION</div><div class="ttdoc">Version courante du format de niveau JSON (EX-LVL-005).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:59</div></div>
 <div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">core::LevelValidationError</a></div><div class="ttdeci">LevelValidationError</div><div class="ttdoc">Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:28</div></div>
 <div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb">core::LevelValidationError::UnresolvedMechanism</a></div><div class="ttdeci">@ UnresolvedMechanism</div><div class="ttdoc">Porte ou danger commuté lié à un identifiant d&#39;interrupteur inexistant.</div><div class="ttdef"><b>Definition</b> LevelLoader.h:38</div></div>
 <div class="ttc" id="anamespacecore_html_af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff"><div class="ttname"><a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff">core::LevelValidationError::InvalidEntryCount</a></div><div class="ttdeci">@ InvalidEntryCount</div><div class="ttdoc">Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).</div><div class="ttdef"><b>Definition</b> LevelLoader.h:36</div></div>

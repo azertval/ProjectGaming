@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-01-tache-03-operations-reductions.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2tache-03-operations-reductions"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">LOT-ANNEXE-01</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3380"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3386"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;T&gt;</span> (TACHE-02) sait stocker et indexer des valeurs, mais n'offre encore aucun calcul. Cette tâche ajoute l'arithmétique élémentaire (nécessaire à toute couche de réseau : biais, activations, normalisation) et les réductions globales (nécessaires à une fonction de perte scalaire).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3387"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="TensorOps_8h.html" title="Opérations élémentaires et réductions sur Tensor&lt;T&gt; (header-only).">Source/AiSolver/Math/TensorOps.h</a></span></b> : fonctions libres gabarits dans <span class="tt">namespace <a class="el" href="namespaceaisolver.html">aisolver</a></span>, opérant sur <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;T&gt;</span> (header-only, comme <span class="tt"><a class="el" href="Tensor_8h.html" title="Conteneur tensoriel N-D générique (aisolver::Tensor), header-only.">Tensor.h</a></span>).<ul>
@@ -111,14 +111,14 @@ Travail à réaliser</h1>
 </li>
 <li>Toutes les fonctions parcourent les éléments <b>logiquement</b> (via <span class="tt">at()</span> ou un itérateur équivalent respectant les <em>strides</em>), jamais en supposant que le tampon est dense dans l'ordre naturel — une vue (<span class="tt"><a class="el" href="classTensor.html#a8ad5b06cddda71a68d5bd37318b8af2d" title="Vue partageant le même tampon, avec une nouvelle forme (même volume).">Tensor::view</a></span>) reste correcte même si elle ne couvre pas tout le tampon sous- jacent dans le cas général futur (sous-vues, hors périmètre de TACHE-02 mais l'implémentation ne doit pas fermer la porte).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3382"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3388"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TensorOps_8h.html" title="Opérations élémentaires et réductions sur Tensor&lt;T&gt; (header-only).">Source/AiSolver/Math/TensorOps.h</a></span> (nouveau, header-only).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__tensor__ops_8cpp.html" title="Tests unitaires des opérations élémentaires et réductions aisolver::TensorOps (LOT-ANNEXE-01,...">Unit/AiSolver/Math/test_tensor_ops.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__tensor__ops_8cpp.html" title="Tests unitaires des opérations élémentaires et réductions aisolver::TensorOps (LOT-ANNEXE-01,...">Source/Test/Unit/AiSolver/Math/test_tensor_ops.cpp</a></span> (nouveau, cf. TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3383"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3389"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Addition/soustraction/multiplication/division élément par élément</b> : sur deux tenseurs <span class="tt">2×2</span> de valeurs connues, chaque opération produit le résultat attendu calculé à la main.</li>
@@ -127,22 +127,22 @@ Tests (obligatoires)</h1>
 <li><b>Assertion sur formes incompatibles</b> : <span class="tt">add</span> entre deux tenseurs de formes différentes déclenche <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>.</li>
 <li><b>Cohérence avec <span class="tt"><a class="el" href="classTensor.html#a8ad5b06cddda71a68d5bd37318b8af2d" title="Vue partageant le même tampon, avec une nouvelle forme (même volume).">Tensor::view</a></span></b> : une opération élémentaire appliquée à une vue reshape produit le même résultat (aux positions correspondantes) qu'appliquée au tenseur d'origine — garantit que les opérations respectent les <em>strides</em> et pas seulement l'ordre brut du tampon.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3384"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3390"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Pas de diffusion entre deux tenseurs de formes différentes</b> (au-delà du cas scalaire) : un appel à <span class="tt">add</span> sur des formes incompatibles est un bug appelant, pas une entrée à valider — cohérent avec la décision de cadrage de l'épic (<span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>, pas d'exception).</li>
 <li><b><span class="tt">mean</span>/<span class="tt">max</span> sur un tenseur vide sont des erreurs de programmation</b> (division par zéro, maximum non défini), pas des cas à gérer silencieusement — <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>, même politique que le reste du lot.</li>
 <li><b>Ne pas dupliquer la logique de parcours</b> entre <span class="tt">add</span>/<span class="tt">subtract</span>/<span class="tt">multiply</span>/<span class="tt">divide</span> : factoriser via un petit gabarit interne (fonction binaire appliquée élément par élément) évite quatre copier- coller quasi identiques et réduit la surface à corriger si le parcours par <em>stride</em> évolue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3385"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3391"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Opérations élémentaires et réductions disponibles, testées (<span class="tt">ctest</span> vert), Doxygen à jour ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3386"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3392"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle et calcul numérique</a> (tenseurs, forme et <em>stride</em>, produit matriciel, réductions, générateurs pseudo-aléatoires), en particulier ses sections 3 (opérations élément par élément, diffusion scalaire) et 5 (réductions).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3387"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3393"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-001</span> (déclarée dans <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

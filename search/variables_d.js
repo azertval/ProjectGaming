@@ -17,7 +17,7 @@ var searchData=
   ['maxstepsperepisode_14',['maxStepsPerEpisode',['../structaisolver_1_1eval_1_1BenchmarkConfig.html#a62dad0bff635cafaec515154288a52dc',1,'aisolver::eval::BenchmarkConfig::maxStepsPerEpisode'],['../structBenchmarkConfig.html#a62dad0bff635cafaec515154288a52dc',1,'BenchmarkConfig::maxStepsPerEpisode']]],
   ['maxx_15',['maxX',['../structhmi_1_1PixelRegion.html#a48bddb1e470351c6f6f3f0edba73bf77',1,'hmi::PixelRegion']]],
   ['maxy_16',['maxY',['../structhmi_1_1PixelRegion.html#a13f2d51cc7d24fe3daaf1eecc76e805d',1,'hmi::PixelRegion']]],
-  ['meanepisodestothreshold_17',['meanEpisodesToThreshold',['../structaisolver_1_1training_1_1ConvergenceReport.html#aa0e46eab662b4e7e20802240284ab492',1,'aisolver::training::ConvergenceReport']]],
+  ['meanepisodestothreshold_17',['meanEpisodesToThreshold',['../structaisolver_1_1eval_1_1ConvergenceReport.html#ada087826737a68143ea8e9f82cbc9258',1,'aisolver::eval::ConvergenceReport']]],
   ['meanreward_18',['meanReward',['../structaisolver_1_1TrainingStatsRow.html#abd6a2ffc63a31608d3e2a7acd1692f58',1,'aisolver::TrainingStatsRow']]],
   ['meanstepcount_19',['meanStepCount',['../structaisolver_1_1eval_1_1BenchmarkReportRow.html#a18220b9f18cd9f5bc9143d602640c53b',1,'aisolver::eval::BenchmarkReportRow']]],
   ['meanstepsonsuccess_20',['meanStepsOnSuccess',['../structhmi_1_1EvaluationOutcome.html#a55872e4524ac9ced8560bbcf1f51877b',1,'hmi::EvaluationOutcome']]],

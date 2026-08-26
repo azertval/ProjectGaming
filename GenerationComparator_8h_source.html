@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Training/Advanced/GenerationComparator.h Source File</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Eval/GenerationComparator.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -103,49 +103,49 @@ $(function(){initNavTree('GenerationComparator_8h_source.html','',''); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="ConvergenceComparator_8h.html">AiSolver/Training/ActorCritic/ConvergenceComparator.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="ConvergenceComparator_8h.html">AiSolver/Eval/ConvergenceComparator.h</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver_1_1training.html">aisolver::training</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1NamedSeries.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaisolver_1_1training_1_1NamedSeries.html">NamedSeries</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1NamedSeries.html#a6f2370f037c2c3dc4373c522fefa5de8">   26</a></span>    std::string <a class="code hl_variable" href="structaisolver_1_1training_1_1NamedSeries.html#a6f2370f037c2c3dc4373c522fefa5de8">name</a>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1NamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3">   27</a></span>    std::vector&lt;std::filesystem::path&gt; <a class="code hl_variable" href="structaisolver_1_1training_1_1NamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3">csvPaths</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver_1_1eval.html">aisolver::eval</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1NamedSeries.html">   30</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaisolver_1_1eval_1_1NamedSeries.html">NamedSeries</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1NamedSeries.html#a235bc79f87109a297aaf2f2e2cdf592d">   31</a></span>    std::string <a class="code hl_variable" href="structaisolver_1_1eval_1_1NamedSeries.html#a235bc79f87109a297aaf2f2e2cdf592d">name</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1NamedSeries.html#a45756688601293f0c6677a13e5b3ecbe">   32</a></span>    std::vector&lt;std::filesystem::path&gt; <a class="code hl_variable" href="structaisolver_1_1eval_1_1NamedSeries.html#a45756688601293f0c6677a13e5b3ecbe">csvPaths</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1GenerationComparisonResult.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaisolver_1_1training_1_1GenerationComparisonResult.html">GenerationComparisonResult</a> {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1GenerationComparisonResult.html#af547600bff28243376aeb2e1b2154bd1">   34</a></span>    std::string <a class="code hl_variable" href="structaisolver_1_1training_1_1GenerationComparisonResult.html#af547600bff28243376aeb2e1b2154bd1">name</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structaisolver_1_1training_1_1GenerationComparisonResult.html#ac77d986acde6b78dcd23c52ae9ee8962">   35</a></span>    std::optional&lt;ConvergenceReport&gt; <a class="code hl_variable" href="structaisolver_1_1training_1_1GenerationComparisonResult.html#ac77d986acde6b78dcd23c52ae9ee8962">report</a>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html">   38</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html">GenerationComparisonResult</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ae475c303c23db6ec2670e7286a40c5d4">   39</a></span>    std::string <a class="code hl_variable" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ae475c303c23db6ec2670e7286a40c5d4">name</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ac6cb0d75f9f95edfdc13e3249061fcec">   40</a></span>    std::optional&lt;ConvergenceReport&gt; <a class="code hl_variable" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ac6cb0d75f9f95edfdc13e3249061fcec">report</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>[[nodiscard]] std::vector&lt;GenerationComparisonResult&gt; <a class="code hl_function" href="namespaceaisolver_1_1training.html#a2cf9c7efba9b2708c903109fcca12bab">compareGenerations</a>(</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> std::vector&lt;NamedSeries&gt;&amp; series, <span class="keywordtype">float</span> rewardThreshold, <span class="keywordtype">int</span> finalWindowSize = 10);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>[[nodiscard]] std::size_t <a class="code hl_function" href="namespaceaisolver_1_1training.html#a5a030a9e6b1b0ac6e2ab114e631b730a">evolutionaryEpisodeBudget</a>(std::size_t generationCount,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                                                    std::size_t populationSize);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}  <span class="comment">// namespace aisolver::training</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>[[nodiscard]] std::vector&lt;GenerationComparisonResult&gt; <a class="code hl_function" href="namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a">compareGenerations</a>(</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> std::vector&lt;NamedSeries&gt;&amp; series, <span class="keywordtype">float</span> rewardThreshold, <span class="keywordtype">int</span> finalWindowSize = 10);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>[[nodiscard]] std::size_t <a class="code hl_function" href="namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103">evolutionaryEpisodeBudget</a>(std::size_t generationCount,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                                                    std::size_t populationSize);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}  <span class="comment">// namespace aisolver::eval</span></div>
 <div class="ttc" id="aConvergenceComparator_8h_html"><div class="ttname"><a href="ConvergenceComparator_8h.html">ConvergenceComparator.h</a></div><div class="ttdoc">Comparaison chiffrée de convergence entre plusieurs runs d&#39;un même algorithme, à partir des CSV Train...</div></div>
-<div class="ttc" id="anamespaceaisolver_1_1training_html"><div class="ttname"><a href="namespaceaisolver_1_1training.html">aisolver::training</a></div><div class="ttdef"><b>Definition</b> ActorCriticLoss.cpp:8</div></div>
-<div class="ttc" id="anamespaceaisolver_1_1training_html_a2cf9c7efba9b2708c903109fcca12bab"><div class="ttname"><a href="namespaceaisolver_1_1training.html#a2cf9c7efba9b2708c903109fcca12bab">aisolver::training::compareGenerations</a></div><div class="ttdeci">std::vector&lt; GenerationComparisonResult &gt; compareGenerations(const std::vector&lt; NamedSeries &gt; &amp;series, float rewardThreshold, int finalWindowSize)</div><div class="ttdoc">Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.</div><div class="ttdef"><b>Definition</b> GenerationComparator.cpp:8</div></div>
-<div class="ttc" id="anamespaceaisolver_1_1training_html_a5a030a9e6b1b0ac6e2ab114e631b730a"><div class="ttname"><a href="namespaceaisolver_1_1training.html#a5a030a9e6b1b0ac6e2ab114e631b730a">aisolver::training::evolutionaryEpisodeBudget</a></div><div class="ttdeci">std::size_t evolutionaryEpisodeBudget(std::size_t generationCount, std::size_t populationSize)</div><div class="ttdoc">Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...</div><div class="ttdef"><b>Definition</b> GenerationComparator.cpp:25</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1GenerationComparisonResult_html"><div class="ttname"><a href="structaisolver_1_1training_1_1GenerationComparisonResult.html">aisolver::training::GenerationComparisonResult</a></div><div class="ttdoc">Résultat d&#39;une série : absent (std::nullopt) si NamedSeries::csvPaths était vide – signalé explicitem...</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:33</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1GenerationComparisonResult_html_ac77d986acde6b78dcd23c52ae9ee8962"><div class="ttname"><a href="structaisolver_1_1training_1_1GenerationComparisonResult.html#ac77d986acde6b78dcd23c52ae9ee8962">aisolver::training::GenerationComparisonResult::report</a></div><div class="ttdeci">std::optional&lt; ConvergenceReport &gt; report</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:35</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1GenerationComparisonResult_html_af547600bff28243376aeb2e1b2154bd1"><div class="ttname"><a href="structaisolver_1_1training_1_1GenerationComparisonResult.html#af547600bff28243376aeb2e1b2154bd1">aisolver::training::GenerationComparisonResult::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:34</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1NamedSeries_html"><div class="ttname"><a href="structaisolver_1_1training_1_1NamedSeries.html">aisolver::training::NamedSeries</a></div><div class="ttdoc">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV TrainingStatsRecorder par es...</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:25</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1NamedSeries_html_a0a5265888d2baa0ada6d53a20efbc6f3"><div class="ttname"><a href="structaisolver_1_1training_1_1NamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3">aisolver::training::NamedSeries::csvPaths</a></div><div class="ttdeci">std::vector&lt; std::filesystem::path &gt; csvPaths</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:27</div></div>
-<div class="ttc" id="astructaisolver_1_1training_1_1NamedSeries_html_a6f2370f037c2c3dc4373c522fefa5de8"><div class="ttname"><a href="structaisolver_1_1training_1_1NamedSeries.html#a6f2370f037c2c3dc4373c522fefa5de8">aisolver::training::NamedSeries::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:26</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1eval_html"><div class="ttname"><a href="namespaceaisolver_1_1eval.html">aisolver::eval</a></div><div class="ttdef"><b>Definition</b> ActionDecodingMode.h:11</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1eval_html_a03ed0a9b92ba524110076d38715fa25a"><div class="ttname"><a href="namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a">aisolver::eval::compareGenerations</a></div><div class="ttdeci">std::vector&lt; GenerationComparisonResult &gt; compareGenerations(const std::vector&lt; NamedSeries &gt; &amp;series, float rewardThreshold, int finalWindowSize)</div><div class="ttdoc">Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.</div><div class="ttdef"><b>Definition</b> GenerationComparator.cpp:8</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1eval_html_ad3b982ce5423c714f5a7d8b9e132d103"><div class="ttname"><a href="namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103">aisolver::eval::evolutionaryEpisodeBudget</a></div><div class="ttdeci">std::size_t evolutionaryEpisodeBudget(std::size_t generationCount, std::size_t populationSize)</div><div class="ttdoc">Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...</div><div class="ttdef"><b>Definition</b> GenerationComparator.cpp:25</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1GenerationComparisonResult_html"><div class="ttname"><a href="structaisolver_1_1eval_1_1GenerationComparisonResult.html">aisolver::eval::GenerationComparisonResult</a></div><div class="ttdoc">Résultat d&#39;une série : absent (std::nullopt) si NamedSeries::csvPaths était vide – signalé explicitem...</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:38</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1GenerationComparisonResult_html_ac6cb0d75f9f95edfdc13e3249061fcec"><div class="ttname"><a href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ac6cb0d75f9f95edfdc13e3249061fcec">aisolver::eval::GenerationComparisonResult::report</a></div><div class="ttdeci">std::optional&lt; ConvergenceReport &gt; report</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:40</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1GenerationComparisonResult_html_ae475c303c23db6ec2670e7286a40c5d4"><div class="ttname"><a href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#ae475c303c23db6ec2670e7286a40c5d4">aisolver::eval::GenerationComparisonResult::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:39</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1NamedSeries_html"><div class="ttname"><a href="structaisolver_1_1eval_1_1NamedSeries.html">aisolver::eval::NamedSeries</a></div><div class="ttdoc">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV TrainingStatsRecorder par es...</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:30</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1NamedSeries_html_a235bc79f87109a297aaf2f2e2cdf592d"><div class="ttname"><a href="structaisolver_1_1eval_1_1NamedSeries.html#a235bc79f87109a297aaf2f2e2cdf592d">aisolver::eval::NamedSeries::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:31</div></div>
+<div class="ttc" id="astructaisolver_1_1eval_1_1NamedSeries_html_a45756688601293f0c6677a13e5b3ecbe"><div class="ttname"><a href="structaisolver_1_1eval_1_1NamedSeries.html#a45756688601293f0c6677a13e5b3ecbe">aisolver::eval::NamedSeries::csvPaths</a></div><div class="ttdeci">std::vector&lt; std::filesystem::path &gt; csvPaths</div><div class="ttdef"><b>Definition</b> GenerationComparator.h:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_53313a0329ae6869ebe758cc286a2e1b.html">Training</a></li><li class="navelem"><a href="dir_f607717b848dc66a7fc3bc4e6ceaca87.html">Advanced</a></li><li class="navelem"><a href="GenerationComparator_8h.html">GenerationComparator.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_2231b708cdc27fe07e064cc3175f0fbd.html">Eval</a></li><li class="navelem"><a href="GenerationComparator_8h.html">GenerationComparator.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

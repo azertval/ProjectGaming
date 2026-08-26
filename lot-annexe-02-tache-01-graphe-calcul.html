@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-02-tache-01-graphe-calcul.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2tache-01-graphe-calcul"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-02.html#md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2epic" title="Lot-Annexe/LOT-ANNEXE-02-moteur-autodiff/epic.md">LOT-ANNEXE-02</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math/Autodiff</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3415"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3421"></a>
 Contexte</h1>
 <p>Première tâche du lot : elle pose la structure de données porteuse de tout le moteur — le nœud de graphe — sans encore l'opération d'addition/multiplication ni le parcours <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> (TACHE-02 et TACHE-03). Un nœud porte une valeur (<span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span>, <span class="tt">LOT-ANNEXE-01</span>), un gradient accumulé de même forme, et la connaissance de <b>comment</b> le régénérer localement à partir de ses parents — sans quoi <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> (TACHE-03) n'aurait rien à parcourir.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3416"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3422"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Node_8h.html" title="Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).">Source/AiSolver/Math/Autodiff/Node.h</a></span></b> : classe <span class="tt"><a class="el" href="classaisolver_1_1autodiff_1_1Node.html" title="Nœud d&#39;un graphe de calcul dynamique (mode reverse, construit à l&#39;exécution).">aisolver::autodiff::Node</a></span>, non copiable (référencée exclusivement via <span class="tt">std::shared_ptr</span>, cf. <span class="tt">using <a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec" title="Un Node n&#39;est jamais manipulé que par pointeur partagé (jamais copié, jamais sur la pile).">NodePtr</a> = std::shared_ptr&lt;Node&gt;;</span>), RAII.<ul>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
   <a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;&amp;)&gt; localGrad);</span> — <span class="tt">localGrad(outputValue, outputGrad, inputValue)</span> renvoie la contribution à accumuler sur <span class="tt">input-&gt;grad</span>. De même <span class="tt">binaryOp(a, b, forward, localGradA,
   localGradB)</span> pour les opérations à deux parents. Ces deux fabriques construisent le nœud résultat, calculent <span class="tt">value</span> immédiatement (<span class="tt">forward</span> appelé tout de suite — passe avant <b>eager</b>, pas différée), et enregistrent <span class="tt">_backwardFn</span> comme une fermeture qui appelle <span class="tt">localGrad</span>/ <span class="tt">localGradA</span>+<span class="tt">localGradB</span> et <b>accumule</b> (<span class="tt">+=</span>) le résultat dans le(s) <span class="tt">grad</span> du (des) parent(s).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3417"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3423"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Node_8h.html" title="Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).">Source/AiSolver/Math/Autodiff/Node.h</a></span> (nouveau).</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html" title="Tests unitaires du graphe de calcul dynamique aisolver::autodiff::Node (LOT-ANNEXE-02,...">Unit/AiSolver/Math/test_autodiff_node.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__autodiff__node_8cpp.html" title="Tests unitaires du graphe de calcul dynamique aisolver::autodiff::Node (LOT-ANNEXE-02,...">Source/Test/Unit/AiSolver/Math/test_autodiff_node.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3418"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3424"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a37e8e0528957d1ff05a956a1c1b8869b" title="Construit une feuille du graphe (paramètre ou entrée), sans parent.">variable</a></span> crée une feuille</b> : <span class="tt">_parents</span> vide (indirectement vérifiable via l'absence d'effet d'un appel à <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> en aval, TACHE-03 — ce test est donc écrit ici comme vérification de structure minimale : la valeur est bien celle fournie, le gradient initial est bien nul).</li>
@@ -128,22 +128,22 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span> calculent <span class="tt">value</span> immédiatement</b> (passe avant <em>eager</em>) : le résultat de <span class="tt">forward</span> est visible dans <span class="tt">value</span> dès la construction du nœud, sans appel explicite supplémentaire.</li>
 <li><b><span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span> enregistrent bien <span class="tt">_parents</span></b> : vérifié indirectement en TACHE-03 (le parcours topologique doit les retrouver) — cette tâche vérifie uniquement que la construction ne lève ni n'assert sur un cas simple (ex. <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span> avec une fonction <span class="tt">forward</span> identité).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3419"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3425"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">_backwardFn</span> capture ses parents par copie de <span class="tt">shared_ptr</span></b> (pas de référence brute) — un <span class="tt">Node</span> doit rester valide tant qu'un autre <span class="tt">Node</span> le référence comme parent, même si l'appelant d'origine a relâché sa propre référence entre la construction du graphe et l'appel à <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>.</li>
 <li><b>Pas d'accumulation dans <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span> elles-mêmes</b> : elles ne font qu'<b>enregistrer</b> la règle de dérivation ; l'accumulation effective dans <span class="tt">grad</span> des parents n'a lieu que lorsque <span class="tt">_backwardFn</span> est <b>appelée</b>, par <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> (TACHE-03) — ne pas appeler <span class="tt">localGrad</span> au moment de la construction du nœud, seulement au moment de la propagation.</li>
 <li><b><span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt; grad</span> initialisé à zéro dès la construction, jamais laissé dans un état indéterminé</b> : un optimiseur (<span class="tt">LOT-ANNEXE-04</span>) qui lirait <span class="tt">grad</span> avant tout <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> doit lire des zéros, pas des valeurs non initialisées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3420"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3426"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">Node</span>, <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec" title="Un Node n&#39;est jamais manipulé que par pointeur partagé (jamais copié, jamais sur la pile).">NodePtr</a></span>, <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a37e8e0528957d1ff05a956a1c1b8869b" title="Construit une feuille du graphe (paramètre ou entrée), sans parent.">variable</a></span>, <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>, <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3421"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3427"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-autodiff.html" title="Différentiation automatique et rétropropagation">Différentiation automatique et rétropropagation</a> (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode inverse), en particulier sa section 3 (graphe de calcul construit à l'exécution, <em>define-by-run</em>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3422"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3428"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-002</span> (déclarée dans <a class="el" href="lot-annexe-02.html#md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2epic" title="Lot-Annexe/LOT-ANNEXE-02-moteur-autodiff/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -202,7 +202,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>. </p>
-<p>Délègue à <span class="tt">computeWeightedPolicyGradientLoss</span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>, <span class="tt">LOT-ANNEXE-13</span> TACHE-02 : formule factorisée avec <span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>, poids = retour brut ici plutôt que l'avantage) — comportement strictement inchangé depuis <span class="tt">LOT-ANNEXE-12</span>.</p>
+<p>Délègue à <span class="tt"><a class="el" href="test__policy__gradient__loss_8cpp.html#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>), formule commune à REINFORCE et à l'acteur-critique : seul le poids change, le <b>retour brut</b> ici, l'avantage pour <span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>.</p>
 <p>Convention de signe : la perte est déjà le <b>négatif</b> de l'objectif de policy gradient (à minimiser par un optimiseur de descente de gradient standard, <span class="tt">LOT-ANNEXE-04</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>

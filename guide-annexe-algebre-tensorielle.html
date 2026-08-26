@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -141,10 +141,10 @@ Pourquoi ce chapitre</h1>
 <div class="line">        <span class="keywordflow">return</span> <a class="code hl_function" href="classTensor.html#a50da6d193436a772b2bb11ca7f02ec6c">data</a>[position];</div>
 <div class="line">    }</div>
 <div class="line">};</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:52</div></div>
-<div class="ttc" id="aclassTensor_html_a46961050b852e170e532c6793bca78cd"><div class="ttname"><a href="classTensor.html#a46961050b852e170e532c6793bca78cd">Tensor::shape</a></div><div class="ttdeci">const std::vector&lt; std::size_t &gt; &amp; shape() const</div><div class="ttdef"><b>Definition</b> Tensor.h:69</div></div>
-<div class="ttc" id="aclassTensor_html_a50da6d193436a772b2bb11ca7f02ec6c"><div class="ttname"><a href="classTensor.html#a50da6d193436a772b2bb11ca7f02ec6c">Tensor::data</a></div><div class="ttdeci">T * data()</div><div class="ttdef"><b>Definition</b> Tensor.h:98</div></div>
-<div class="ttc" id="aclassTensor_html_a878b102e02dcd22ffab831673ce5058e"><div class="ttname"><a href="classTensor.html#a878b102e02dcd22ffab831673ce5058e">Tensor::at</a></div><div class="ttdeci">T &amp; at(std::initializer_list&lt; std::size_t &gt; indices)</div><div class="ttdoc">Accès à un élément par ses indices (un indice par dimension).</div><div class="ttdef"><b>Definition</b> Tensor.h:88</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:61</div></div>
+<div class="ttc" id="aclassTensor_html_a46961050b852e170e532c6793bca78cd"><div class="ttname"><a href="classTensor.html#a46961050b852e170e532c6793bca78cd">Tensor::shape</a></div><div class="ttdeci">const std::vector&lt; std::size_t &gt; &amp; shape() const</div><div class="ttdef"><b>Definition</b> Tensor.h:78</div></div>
+<div class="ttc" id="aclassTensor_html_a50da6d193436a772b2bb11ca7f02ec6c"><div class="ttname"><a href="classTensor.html#a50da6d193436a772b2bb11ca7f02ec6c">Tensor::data</a></div><div class="ttdeci">T * data()</div><div class="ttdef"><b>Definition</b> Tensor.h:130</div></div>
+<div class="ttc" id="aclassTensor_html_a878b102e02dcd22ffab831673ce5058e"><div class="ttname"><a href="classTensor.html#a878b102e02dcd22ffab831673ce5058e">Tensor::at</a></div><div class="ttdeci">T &amp; at(std::initializer_list&lt; std::size_t &gt; indices)</div><div class="ttdoc">Accès à un élément par ses indices (un indice par dimension).</div><div class="ttdef"><b>Definition</b> Tensor.h:119</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md276"></a>
 3. Opérations élémentaires (élément par élément)</h1>
 <p>L'addition, la soustraction, la multiplication et la division <b>élément par élément</b> entre deux tenseurs de <b>même forme</b> produisent un tenseur de cette même forme, où chaque case est le résultat de l'opération appliquée aux deux cases correspondantes :</p>

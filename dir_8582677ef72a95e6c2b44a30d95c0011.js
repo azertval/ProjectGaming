@@ -12,6 +12,7 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "EditorStatus.cpp", "EditorStatus_8cpp.html", "EditorStatus_8cpp" ],
     [ "EditorStatus.h", "EditorStatus_8h.html", "EditorStatus_8h" ],
     [ "EditorTool.h", "EditorTool_8h.html", "EditorTool_8h" ],
+    [ "FileOperationResult.h", "FileOperationResult_8h.html", "FileOperationResult_8h" ],
     [ "LevelBrowserPanel.cpp", "LevelBrowserPanel_8cpp.html", null ],
     [ "LevelBrowserPanel.h", "LevelBrowserPanel_8h.html", "LevelBrowserPanel_8h" ],
     [ "LevelFileOperations.cpp", "LevelFileOperations_8cpp.html", null ],

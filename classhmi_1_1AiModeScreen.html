@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -131,7 +131,7 @@ Private Slots</h2></td></tr>
 <tr class="memitem:aa68e7f67ec80b65d38601b873b22c961" id="r_aa68e7f67ec80b65d38601b873b22c961"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa68e7f67ec80b65d38601b873b22c961">onLaunchTraining</a> ()</td></tr>
 <tr class="memitem:a40ee3e9a90317be505880597716adc3d" id="r_a40ee3e9a90317be505880597716adc3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40ee3e9a90317be505880597716adc3d">onStopTraining</a> ()</td></tr>
 <tr class="memitem:a6a1c0f296ce2d76b7a5305cd24ecead8" id="r_a6a1c0f296ce2d76b7a5305cd24ecead8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a1c0f296ce2d76b7a5305cd24ecead8">onTrainingProgress</a> (int index, double bestReward, double meanReward, double successRate)</td></tr>
-<tr class="memitem:a01d36e56549449949e7aeee7eb3f9a81" id="r_a01d36e56549449949e7aeee7eb3f9a81"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01d36e56549449949e7aeee7eb3f9a81">onTrainingPreviewReady</a> (QString modelPath, QString algo, QString levelPath)</td></tr>
+<tr class="memitem:abaf2df992614b0a2c4c10a37e2a53072" id="r_abaf2df992614b0a2c4c10a37e2a53072"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abaf2df992614b0a2c4c10a37e2a53072">onTrainingPreviewReady</a> (QString replayPath, QString algorithmId, QString levelPath, int generation)</td></tr>
 <tr class="memitem:a8dcdc695ba888136b84ef03576968307" id="r_a8dcdc695ba888136b84ef03576968307"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8dcdc695ba888136b84ef03576968307">onTrainingFinished</a> (bool solved, QString modelPath, QString statsPath, QString configPath, QString replayPath, bool replayExported)</td></tr>
 <tr class="memitem:ac1e43398a70354e4c85ca155a4934a7f" id="r_ac1e43398a70354e4c85ca155a4934a7f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac1e43398a70354e4c85ca155a4934a7f">onTrainingFailed</a> (QString message)</td></tr>
 <tr class="memitem:a6ac5188744743b8e158731f3b4d0da91" id="r_a6ac5188744743b8e158731f3b4d0da91"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ac5188744743b8e158731f3b4d0da91">onEvaluate</a> ()</td></tr>
@@ -142,19 +142,20 @@ Private Slots</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a8a97b89e12b3093da9868d029ad52563" id="r_a8a97b89e12b3093da9868d029ad52563"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a8a97b89e12b3093da9868d029ad52563">selectedAlgo</a> () const</td></tr>
+<tr class="memitem:a3a74befb14d126ec1e2dcfe6cd9b2d50" id="r_a3a74befb14d126ec1e2dcfe6cd9b2d50"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3a74befb14d126ec1e2dcfe6cd9b2d50">text</a> (const char *key) const</td></tr>
 <tr class="memitem:a7bfe393a1659bd58c3a64ae5f22e7b61" id="r_a7bfe393a1659bd58c3a64ae5f22e7b61"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7bfe393a1659bd58c3a64ae5f22e7b61">setTrainingControlsEnabled</a> (bool enabled)</td></tr>
 <tr class="memitem:a0a5c381fc4b94c0d6ee807b7905e8220" id="r_a0a5c381fc4b94c0d6ee807b7905e8220"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a5c381fc4b94c0d6ee807b7905e8220">teardownWorker</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab515848318bf4787853d85e5087364d5" id="r_ab515848318bf4787853d85e5087364d5"><td class="memItemLeft">std::unique_ptr&lt; Ui::AiModeScreen &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab515848318bf4787853d85e5087364d5">_ui</a></td></tr>
+<tr class="memitem:a58a0ebc3fde5b41258ae6fb5c942a0c2" id="r_a58a0ebc3fde5b41258ae6fb5c942a0c2"><td class="memItemLeft"><a class="el" href="classhmi_1_1PixelFocusCaret.html">PixelFocusCaret</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a58a0ebc3fde5b41258ae6fb5c942a0c2">_focusCaret</a> = nullptr</td></tr>
+<tr class="memdesc:a58a0ebc3fde5b41258ae6fb5c942a0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque explicite de focus (<span class="tt">EX-IHM-071</span>) pour les contrôles Qt ordinaires de l'écran, que leur feuille de style ne peut pas signaler autrement que par la teinte.  <br /></td></tr>
 <tr class="memitem:a40bbe2c1385718b80055d2b02ac2c96e" id="r_a40bbe2c1385718b80055d2b02ac2c96e"><td class="memItemLeft">std::unique_ptr&lt; QThread &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a40bbe2c1385718b80055d2b02ac2c96e">_workerThread</a></td></tr>
 <tr class="memitem:a7fc1269ebbef2bb32d556ef3c3612162" id="r_a7fc1269ebbef2bb32d556ef3c3612162"><td class="memItemLeft"><a class="el" href="classhmi_1_1TrainingWorker.html">TrainingWorker</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7fc1269ebbef2bb32d556ef3c3612162">_worker</a> = nullptr</td></tr>
 <tr class="memdesc:a7fc1269ebbef2bb32d556ef3c3612162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possédé par <span class="tt"><a class="el" href="#a40bbe2c1385718b80055d2b02ac2c96e">_workerThread</a></span> (deleteLater), pas <span class="tt"><a class="el" href="#ab515848318bf4787853d85e5087364d5">_ui</a></span>.  <br /></td></tr>
-<tr class="memitem:a0df1927631ccca04de53b3478f776451" id="r_a0df1927631ccca04de53b3478f776451"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a0df1927631ccca04de53b3478f776451">_lastPreviewReplayPath</a></td></tr>
-<tr class="memitem:a6861e57ab5baeb6f2e948414a061d7e6" id="r_a6861e57ab5baeb6f2e948414a061d7e6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6861e57ab5baeb6f2e948414a061d7e6">_lastRunModelPath</a></td></tr>
-<tr class="memitem:ae4c395381ea4dec5265d4e3235bd134b" id="r_ae4c395381ea4dec5265d4e3235bd134b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae4c395381ea4dec5265d4e3235bd134b">_lastRunReplayPath</a></td></tr>
-<tr class="memitem:abf53ba37a0e961071028fdfdaf3257ab" id="r_abf53ba37a0e961071028fdfdaf3257ab"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#abf53ba37a0e961071028fdfdaf3257ab">_lastRunAlgo</a></td></tr>
+<tr class="memitem:aee172709b49e016d629345ec0e6f3506" id="r_aee172709b49e016d629345ec0e6f3506"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aee172709b49e016d629345ec0e6f3506">_loc</a> = nullptr</td></tr>
+<tr class="memdesc:aee172709b49e016d629345ec0e6f3506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue courant, mémorisé par <span class="tt"><a class="el" href="#ae20c96c4cb73629790018dbb32b76510" title="Applique la langue active aux libellés et infobulles.">retranslateUi</a></span> : les messages d'état produits pendant un entraînement doivent être traduits eux aussi, longtemps après la construction.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Page du <span class="tt">QStackedWidget</span> (comme <span class="tt"><a class="el" href="classhmi_1_1MainMenu.html" title="Menu principal : point d&#39;entrée de l&#39;application Qt (EX-IHM-040).">MainMenu</a></span>/<span class="tt"><a class="el" href="classhmi_1_1CreditsScreen.html" title="Écran de crédits (développement, bruitages) atteint depuis le menu principal.">CreditsScreen</a></span>), pas un recouvrement. </p>
@@ -479,8 +480,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a01d36e56549449949e7aeee7eb3f9a81" name="a01d36e56549449949e7aeee7eb3f9a81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01d36e56549449949e7aeee7eb3f9a81">&#9670;&#160;</a></span>onTrainingPreviewReady</h2>
+<a id="abaf2df992614b0a2c4c10a37e2a53072" name="abaf2df992614b0a2c4c10a37e2a53072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaf2df992614b0a2c4c10a37e2a53072">&#9670;&#160;</a></span>onTrainingPreviewReady</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -491,17 +492,22 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::AiModeScreen::onTrainingPreviewReady </td>
           <td>(</td>
-          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span>, </td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>replayPath</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>algo</em></span>, </td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>algorithmId</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>&#160;)</td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>generation</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -730,6 +736,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3a74befb14d126ec1e2dcfe6cd9b2d50" name="a3a74befb14d126ec1e2dcfe6cd9b2d50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a74befb14d126ec1e2dcfe6cd9b2d50">&#9670;&#160;</a></span>text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::AiModeScreen::text </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Traduction de <code class="param">key</code> dans la langue courante, vide tant que <span class="tt"><a class="el" href="#ae20c96c4cb73629790018dbb32b76510" title="Applique la langue active aux libellés et infobulles.">retranslateUi</a></span> n'a pas été appelé (l'écran affiche alors les libellés du <span class="tt">.ui</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a5d18cf7cd21e2d526da12361f397aaaf" name="a5d18cf7cd21e2d526da12361f397aaaf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d18cf7cd21e2d526da12361f397aaaf">&#9670;&#160;</a></span>trainingActive()</h2>
 
@@ -757,8 +789,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a0df1927631ccca04de53b3478f776451" name="a0df1927631ccca04de53b3478f776451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0df1927631ccca04de53b3478f776451">&#9670;&#160;</a></span>_lastPreviewReplayPath</h2>
+<a id="a58a0ebc3fde5b41258ae6fb5c942a0c2" name="a58a0ebc3fde5b41258ae6fb5c942a0c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a0ebc3fde5b41258ae6fb5c942a0c2">&#9670;&#160;</a></span>_focusCaret</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -767,7 +799,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">QString hmi::AiModeScreen::_lastPreviewReplayPath</td>
+          <td class="memname"><a class="el" href="classhmi_1_1PixelFocusCaret.html">PixelFocusCaret</a>* hmi::AiModeScreen::_focusCaret = nullptr</td>
         </tr>
       </table>
   </td>
@@ -777,10 +809,13 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Marque explicite de focus (<span class="tt">EX-IHM-071</span>) pour les contrôles Qt ordinaires de l'écran, que leur feuille de style ne peut pas signaler autrement que par la teinte. </p>
+<p>Enfant de l'écran, donc détruit avec lui. </p>
+
 </div>
 </div>
-<a id="abf53ba37a0e961071028fdfdaf3257ab" name="abf53ba37a0e961071028fdfdaf3257ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf53ba37a0e961071028fdfdaf3257ab">&#9670;&#160;</a></span>_lastRunAlgo</h2>
+<a id="aee172709b49e016d629345ec0e6f3506" name="aee172709b49e016d629345ec0e6f3506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee172709b49e016d629345ec0e6f3506">&#9670;&#160;</a></span>_loc</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -789,7 +824,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">QString hmi::AiModeScreen::_lastRunAlgo</td>
+          <td class="memname">const <a class="el" href="classhmi_1_1Localization.html">Localization</a>* hmi::AiModeScreen::_loc = nullptr</td>
         </tr>
       </table>
   </td>
@@ -799,49 +834,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a6861e57ab5baeb6f2e948414a061d7e6" name="a6861e57ab5baeb6f2e948414a061d7e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6861e57ab5baeb6f2e948414a061d7e6">&#9670;&#160;</a></span>_lastRunModelPath</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::AiModeScreen::_lastRunModelPath</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae4c395381ea4dec5265d4e3235bd134b" name="ae4c395381ea4dec5265d4e3235bd134b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4c395381ea4dec5265d4e3235bd134b">&#9670;&#160;</a></span>_lastRunReplayPath</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::AiModeScreen::_lastRunReplayPath</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Catalogue courant, mémorisé par <span class="tt"><a class="el" href="#ae20c96c4cb73629790018dbb32b76510" title="Applique la langue active aux libellés et infobulles.">retranslateUi</a></span> : les messages d'état produits pendant un entraînement doivent être traduits eux aussi, longtemps après la construction. </p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -118,7 +118,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Règle de mise à jour de paramètres à partir de leur gradient accumulé. </p>
-<p>Ne connaît que des <span class="tt"><a class="el" href="classaisolver_1_1autodiff_1_1Node.html" title="Nœud d&#39;un graphe de calcul dynamique (mode reverse, construit à l&#39;exécution).">autodiff::Node</a></span> porteurs de gradient (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html#a2cccda39bc2b145a932e8aed665d6f55">nn::Network::parameters()</a></span>), jamais le réseau ni l'algorithme d'apprentissage qui les a produits. <span class="tt"><a class="el" href="#adf2440110b2c0ddf474f78aee30eaac1" title="Applique une mise à jour à partir des gradients déjà accumulés sur chaque paramètre.">step</a></span> lit <span class="tt">Node::grad()</span> et écrit directement dans <span class="tt">Node::value()</span>, en dehors de toute construction de graphe : un optimiseur n'est jamais lui-même différentié. </p>
+<p>Ne connaît que des <span class="tt"><a class="el" href="classaisolver_1_1autodiff_1_1Node.html" title="Nœud d&#39;un graphe de calcul dynamique (mode reverse, construit à l&#39;exécution).">autodiff::Node</a></span> porteurs de gradient (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html#a2cccda39bc2b145a932e8aed665d6f55">nn::Network::parameters()</a></span>), jamais le réseau ni l'algorithme d'apprentissage qui les a produits. <span class="tt"><a class="el" href="#adf2440110b2c0ddf474f78aee30eaac1" title="Applique une mise à jour à partir des gradients déjà accumulés sur chaque paramètre.">step</a></span> lit le champ <span class="tt">Node::grad</span> et écrit directement dans le champ <span class="tt">Node::value</span>, en dehors de toute construction de graphe : un optimiseur n'est jamais lui-même différentié. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0865d97cda93e7cd1c2038084ff34eaa" name="a0865d97cda93e7cd1c2038084ff34eaa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0865d97cda93e7cd1c2038084ff34eaa">&#9670;&#160;</a></span>~IOptimizer()</h2>

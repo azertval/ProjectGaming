@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -107,11 +107,6 @@ $(function(){initNavTree('test__deterministic__replay_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="PlayerInput_8h_source.html">Core/Physics/PlayerInput.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">TrivialLevelFixture.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:DeterministicReplayResult" id="r_DeterministicReplayResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue complète d'un rejeu déterministe : la séquence d'actions produite, le statut de fin d'épisode et la récompense cumulée sur ce rejeu (destinée à <span class="tt">ReplayFile::finalReward</span>).  <a href="structDeterministicReplayResult.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:adda23dcaaf73b2335b5a52701af05d68" id="r_adda23dcaaf73b2335b5a52701af05d68"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> </td></tr>
@@ -128,7 +123,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a519604150ee87b2b981aecae604343d3" id="r_a519604150ee87b2b981aecae604343d3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a519604150ee87b2b981aecae604343d3">TEST</a> (DeterministicReplayTest, RejeuDUnIndividuNonResolvant)</td></tr>
 <tr class="memdesc:a519604150ee87b2b981aecae604343d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rejeu d'un individu qui ne peut pas progresser (budget de pas nul) produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue.  <br /></td></tr>
 <tr class="memitem:adc74180e04ea7aa0e7a7ba6f05afdd02" id="r_adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02">replayBestIndividual</a> (evolutionary::Individual &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=evolutionary::DEFAULT_STUCK_THRESHOLD)</td></tr>
-<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
+<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
 <tr class="memdesc:aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie standard « politique » du programme Lot-Annexe : une couche cachée <span class="tt">tanh</span>, une couche de sortie <span class="tt">softmax</span> de taille <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> (<span class="tt"><a class="el" href="ActionSpace_8h.html" title="Espace d&#39;action discret et fini de l&#39;agent (LOT-ANNEXE-07, EX-IA-007).">AiSolver/Env/ActionSpace.h</a></span>).  <br /></td></tr>
 </table>
@@ -235,7 +230,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
+<p>Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
 <p>Réutilise <b>exactement</b> le même code de décodage (<span class="tt">decodeArgmax</span>) et de calcul de récompense que <span class="tt">FitnessEvaluator::evaluateFitness</span> (<span class="tt">LOT-ANNEXE-10</span>) — décision de cadrage de l'épic : élimine toute possibilité de divergence entre « ce que l'algorithme a mesuré comme réussite » et « ce qui est effectivement exporté ». Le réseau de <span class="tt">individual</span> n'est jamais modifié (poids inchangés avant/après l'appel) ; <span class="tt">individual</span> n'est pris par référence non constante que parce que <span class="tt">nn::Network::forward</span> (<span class="tt">LOT-ANNEXE-03</span>) ne l'est pas — même déviation pragmatique que <span class="tt">FitnessEvaluator::evaluateFitness</span>, documentée ici plutôt que dans l'épic. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">individual</td><td>Individu à rejouer (poids figés, lecture seule au sens fonctionnel). </td></tr>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-05-tache-02-replication-ordre-pas.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-02-replication-ordre-pas"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-05.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2epic" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/epic.md">LOT-ANNEXE-05</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3560"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3566"></a>
 Contexte</h1>
 <p><span class="tt">playLevel()</span> (<span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>) est la référence normative de l'ordre de composition d'un pas de simulation, elle-même alignée sur <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span> (<span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span>, étapes 1bis à 5). Cette tâche implémente <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> en reproduisant cet ordre <b>exactement</b>, étape par étape, avec l'ajout du <span class="tt"><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></span> (présent chez <span class="tt">GameSession</span>, absent de <span class="tt">playLevel()</span> — voir la décision de cadrage de l'épic).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3561"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3567"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">aisolver::HeadlessLevelEnvironment::step</a></span></b> (<span class="tt"><a class="el" href="HeadlessLevelEnvironment_8cpp.html">Source/AiSolver/Env/HeadlessLevelEnvironment.cpp</a></span>), dans cet ordre strict, à chaque appel :<ol type="1">
@@ -111,20 +111,20 @@ Travail à réaliser</h1>
      update(box, world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).mass);</span> (masse transmise, <span class="tt">EX-GP-019</span>/ <span class="tt">EX-GP-025</span>).</li>
 <li><span class="tt">_dangers.update();</span> (avance le compteur de pas fixes des dangers mobile/temporisé, <span class="tt">EX-GP-051</span>/ <span class="tt">EX-GP-053</span>).</li>
 <li>Assemble les boîtes de danger actif — même logique que <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a>::
-     collectActiveDangerBoxes()</span> (dangers mobiles via <span class="tt">_dangers.moverBox(index)</span>, dangers temporisés actifs via <span class="tt"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a>(TileType::DangerBlink, …)</span> filtré par <span class="tt">_dangers.isBlinkActive</span>, dangers commutés actifs via <span class="tt"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a>(TileType::DangerSwitched, …)</span> filtré par <span class="tt">_mechanisms.isDangerActive</span>) — puis <span class="tt">core::evaluateOutcome(box, level(), extraDangerBoxes)</span>.</li>
+     collectActiveDangerBoxes()</span> (dangers mobiles via <span class="tt">_dangers.moverBox(index)</span>, dangers temporisés actifs via <span class="tt"><a class="el" href="namespacecore.html#a9f3ed859b26e4626a4313019328d59f6" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a>(TileType::DangerBlink, …)</span> filtré par <span class="tt">_dangers.isBlinkActive</span>, dangers commutés actifs via <span class="tt"><a class="el" href="namespacecore.html#a9f3ed859b26e4626a4313019328d59f6" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a>(TileType::DangerSwitched, …)</span> filtré par <span class="tt">_mechanisms.isDangerActive</span>) — puis <span class="tt">core::evaluateOutcome(box, level(), extraDangerBoxes)</span>.</li>
 <li>Incrémente <span class="tt">_stepIndex</span>, construit et renvoie <span class="tt"><a class="el" href="structStepObservation.html" title="Retour d&#39;un appel à HeadlessLevelEnvironment::step : issue, boîte et état complet du personnage à l&#39;i...">StepObservation</a>{outcome, box, playerState,
      playerVelocity, _stepIndex}</span>.</li>
 </ol>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3562"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3568"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8cpp.html">Source/AiSolver/Env/HeadlessLevelEnvironment.cpp</a></span> (corps de <span class="tt">step</span>).</li>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span> (méthode privée <span class="tt">collectActiveDangerBoxes</span>, miroir de celle de <span class="tt">GameSession</span>, si extraite pour la lisibilité).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__headless__level__environment_8cpp.html" title="Tests unitaires de aisolver::HeadlessLevelEnvironment (LOT-ANNEXE-05).">Source/Test/Unit/AiSolver/Env/test_headless_level_environment.cpp</a></span> (complété).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3563"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3569"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Un pas de marche simple</b> (<span class="tt">demo-deplacement.json</span>, <span class="tt">moveX = 1.0f</span>) : la position <span class="tt">x</span> du personnage augmente d'un pas à l'autre, l'issue reste <span class="tt">Playing</span> tant que la sortie n'est pas atteinte.</li>
@@ -134,7 +134,7 @@ Tests (obligatoires)</h1>
 <li><b>Danger avancé</b> (<span class="tt">demo-dangers-avances.json</span>, script s'aventurant volontairement vers une alcôve à danger mobile) : l'issue devient <span class="tt">Lost</span> au contact — preuve que <span class="tt">DangerController</span> est bien actif, à la différence de <span class="tt">playLevel()</span>.</li>
 <li><b>Ordre exact</b> : un test dédié vérifie qu'inverser deux étapes (ex. physique avant blocs) change le résultat sur un niveau où l'ordre compte (bloc poussé puis marché dessus le même pas) — documente pourquoi l'ordre n'est pas arbitraire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3564"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3570"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">previousBox</span> doit être capturée avant l'étape 2</b>, jamais recalculée après : la poussée d'un bloc doit voir la position du personnage <b>telle que laissée par le pas précédent</b>, pas celle en cours de résolution (piège déjà documenté dans <span class="tt">playLevel()</span>/<span class="tt">GameSession::update</span>).</li>
@@ -142,15 +142,15 @@ Points d'attention</h1>
 <li><b><span class="tt">mechanisms.update</span> reçoit la boîte finale du pas</b> (après physique et sweep), pas <span class="tt">previousBox</span> : un mécanisme doit réagir à la position <b>actuelle</b>, pas à celle d'avant le déplacement.</li>
 <li><b><span class="tt">DangerController</span> est un ajout par rapport à <span class="tt">playLevel()</span></b> (voir décision de cadrage de l'épic) : ne pas le lire comme une divergence involontaire lors de la revue de TACHE-05.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3565"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3571"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">step</span> implémente l'ordre complet ci-dessus, testé (<span class="tt">ctest</span> vert) sur au moins un niveau par mécanique (mécanisme, plaque, bloc plein, bloc réduit, danger avancé) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3566"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3572"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — agent, environnement, boucle <span class="tt">reset</span>/<span class="tt">step</span>, épisode, propriété de Markov.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3567"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3573"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-005</span> (nouvelle, portée principalement par cette tâche). </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-14-tache-02-integration-harnais.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2tache-02-integration-harnais"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-14.html#md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2epic" title="Lot-Annexe/LOT-ANNEXE-14-algorithme-avance/epic.md">LOT-ANNEXE-14</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Advanced</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3976"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3982"></a>
 Contexte</h1>
 <p>TACHE-01 produit un algorithme entraînable (<span class="tt">PpoTrainer</span> ou <span class="tt"><a class="el" href="classDqnTrainer.html" title="Assemble QNetwork (principal + cible), ReplayBuffer, computeDqnLoss et un optimiseur (optim::IOptimiz...">DqnTrainer</a></span>) mais potentiellement autonome, avec sa propre boucle de collecte. Cette tâche s'assure qu'il s'intègre au <b>même</b> harnais que tous les lots précédents de la génération 3 : <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (LOT-ANNEXE-05) comme seule source d'observations/récompenses, <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09) comme seul canal de journalisation — sans court-circuit ni format de sortie parallèle qui rendrait la comparaison de TACHE-03 plus difficile qu'elle ne devrait l'être.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3977"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3983"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Vérifier/adapter que le trainer retenu (TACHE-01) consomme <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> exactement comme <span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span> (LOT-ANNEXE-12) ou la boucle par pas de DQN — un seul niveau chargé à la fois, aucune notion de changement de niveau en cours de run (régime niveau-par-niveau, décision transverse à tout le programme).</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b>Configuration</b> : les hyperparamètres propres à l'algorithme retenu (<span class="tt">clip_epsilon</span> et nombre d'époques par batch pour PPO ; capacité du <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>, période de synchronisation du réseau cible et calendrier de décroissance de <span class="tt">ε</span> pour DQN) sont exposés par une structure de configuration dédiée, du même esprit que celle de <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>/<span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> (LOT-ANNEXE-12/13), pas des constantes codées en dur dans le trainer.</li>
 <li><b>Reproductibilité</b> : comme pour LOT-ANNEXE-12/13, la graine du générateur pseudo-aléatoire est un paramètre explicite de configuration, dérivée déterministiquement pour chaque épisode/mini-lot, de sorte qu'un run complet soit intégralement reproductible à graine de base fixée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3978"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3984"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Le ou les fichiers de trainer de TACHE-01 (<span class="tt">PpoTrainer.h/.cpp</span> ou <span class="tt"><a class="el" href="DqnTrainer_8h.html" title="Boucle d&#39;entraînement DQN par pas, intégrée au harnais existant (LOT-ANNEXE-14, TACHE-01/TACHE-02,...">DqnTrainer.h</a>/.cpp</span>), complétés pour la journalisation et la configuration.</li>
 <li>Éventuel fichier de configuration dédié (<span class="tt">Source/AiSolver/Training/Advanced/AdvancedTrainerConfig.h</span>, nouveau) si non déjà couvert par TACHE-01.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3985"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>CSV bien formé</b> : après un run court, le fichier produit par <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> contient un nombre de lignes cohérent avec la configuration du run, colonnes compatibles avec le format déjà utilisé par les lots amont de la génération 3 (colonnes communes identiques, colonnes spécifiques additionnelles).</li>
@@ -119,22 +119,22 @@ Tests (obligatoires)</h1>
 <li><b>Respect strict du régime niveau-par-niveau</b> : le trainer n'accepte qu'un seul <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> construit pour un seul niveau à la fois ; aucune API ne permet de lui en substituer un autre en cours de run.</li>
 <li><b>Configuration effective</b> : faire varier un hyperparamètre (ex. <span class="tt">clip_epsilon</span> ou capacité du <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>) via la structure de configuration change effectivement le comportement observé du trainer (pas une valeur ignorée en pratique).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3986"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span></b> ni introduire un format de journal parallèle : toute colonne supplémentaire propre à l'algorithme s'ajoute au schéma existant, elle ne le remplace pas — condition nécessaire pour que TACHE-03 puisse comparer les runs sans transformation de données.</li>
 <li><b>DQN n'a pas de notion d'« épisode collecté puis rejoué » comme PPO/REINFORCE/acteur-critique</b> : la journalisation doit néanmoins rester alignée sur la fin de chaque épisode de jeu (victoire, échec, timeout selon LOT-ANNEXE-08), même si les mises à jour de poids surviennent à une fréquence différente (par mini-lot, pas par épisode) — bien distinguer, dans le code et les commentaires, « pas de mise à jour » et « pas d'épisode ».</li>
 <li>Garder la structure de configuration <b>simple et explicite</b> (pas de valeurs par défaut cachées non documentées) : ce sont précisément les hyperparamètres qui seront ajustés lors de la comparaison de TACHE-03.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3981"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3987"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Trainer retenu intégré au harnais existant, testé (<span class="tt">ctest</span> vert), CSV compatible avec les lots amont ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3982"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3988"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-ppo-dqn.html" title="PPO et DQN">PPO et DQN</a> — PPO (limitation du pas par <em>clipping</em>) et DQN (valeur d'action, rejeu d'expérience, réseau cible).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3983"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3989"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-015</span> (nouvelle). </p>
 </div></div><!-- contents -->

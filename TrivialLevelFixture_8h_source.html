@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -106,7 +106,7 @@ $(function(){initNavTree('TrivialLevelFixture_8h_source.html','',''); });
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespaceaisolver__test.html">   19</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver__test.html">aisolver_test</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4">   23</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4">kTrivialLevelJson</a> = R<span class="stringliteral">&quot;({</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">   23</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">TRIVIAL_LEVEL_JSON</a> = R<span class="stringliteral">&quot;({</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="stringliteral">  &quot;name&quot;: &quot;TrivialAI&quot;,</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="stringliteral">  &quot;width&quot;: 4,</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="stringliteral">  &quot;height&quot;: 3,</span></div>
@@ -133,7 +133,7 @@ $(function(){initNavTree('TrivialLevelFixture_8h_source.html','',''); });
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::filesystem::remove_all(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>, ignored);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::filesystem::create_directories(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        std::ofstream <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a>(<a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a>(), std::ios::binary | std::ios::trunc);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a> &lt;&lt; <a class="code hl_variable" href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4">kTrivialLevelJson</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a> &lt;&lt; <a class="code hl_variable" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">TRIVIAL_LEVEL_JSON</a>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
@@ -168,7 +168,7 @@ $(function(){initNavTree('TrivialLevelFixture_8h_source.html','',''); });
 <div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a7d8a20ac9b469d9459a472e1caab1386"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">aisolver_test::TrivialLevelDirectory::~TrivialLevelDirectory</a></div><div class="ttdeci">~TrivialLevelDirectory()</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:53</div></div>
 <div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a89eca80494b6bdb0a2c90cc18c2d0d2b"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">aisolver_test::TrivialLevelDirectory::_path</a></div><div class="ttdeci">std::filesystem::path _path</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:67</div></div>
 <div class="ttc" id="anamespaceaisolver__test_html"><div class="ttname"><a href="namespaceaisolver__test.html">aisolver_test</a></div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:19</div></div>
-<div class="ttc" id="anamespaceaisolver__test_html_a4220be06568144e351699450b1f57bc4"><div class="ttname"><a href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4">aisolver_test::kTrivialLevelJson</a></div><div class="ttdeci">constexpr const char * kTrivialLevelJson</div><div class="ttdoc">Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite...</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:23</div></div>
+<div class="ttc" id="anamespaceaisolver__test_html_a0178ed19a2e2d894ee174c22d9360a0f"><div class="ttname"><a href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">aisolver_test::TRIVIAL_LEVEL_JSON</a></div><div class="ttdeci">constexpr const char * TRIVIAL_LEVEL_JSON</div><div class="ttdoc">Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite...</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

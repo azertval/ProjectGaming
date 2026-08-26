@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -116,11 +116,11 @@ $(function(){initNavTree('MechanismStateEncoder_8h_source.html','',''); });
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
 <div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classaisolver_1_1MechanismStateEncoder.html#a499f4914babdbb7fd964b822696453e3">   57</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classaisolver_1_1MechanismStateEncoder.html#a499f4914babdbb7fd964b822696453e3">channelCount</a>() const noexcept {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver_1_1MechanismStateEncoder.html#a1c49050ef75da16405336f5e53e247b4">kChannelCount</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver_1_1MechanismStateEncoder.html#ac2f8c3aeacf73a7c270d2488b6eaec90">CHANNEL_COUNT</a>;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classaisolver_1_1MechanismStateEncoder.html#a1c49050ef75da16405336f5e53e247b4">   61</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classaisolver_1_1MechanismStateEncoder.html#a1c49050ef75da16405336f5e53e247b4">kChannelCount</a> = 2;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classaisolver_1_1MechanismStateEncoder.html#ac2f8c3aeacf73a7c270d2488b6eaec90">   61</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classaisolver_1_1MechanismStateEncoder.html#ac2f8c3aeacf73a7c270d2488b6eaec90">CHANNEL_COUNT</a> = 2;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
@@ -132,13 +132,13 @@ $(function(){initNavTree('MechanismStateEncoder_8h_source.html','',''); });
 <div class="ttc" id="aTensor_8h_html"><div class="ttname"><a href="Tensor_8h.html">Tensor.h</a></div><div class="ttdoc">Conteneur tensoriel N-D générique (aisolver::Tensor), header-only.</div></div>
 <div class="ttc" id="aclassaisolver_1_1MechanismStateEncoder_html"><div class="ttname"><a href="classaisolver_1_1MechanismStateEncoder.html">aisolver::MechanismStateEncoder</a></div><div class="ttdoc">Encode l&#39;état dynamique des mécanismes de la fenêtre (porte ouverte/fermée, danger actif),...</div><div class="ttdef"><b>Definition</b> MechanismStateEncoder.h:39</div></div>
 <div class="ttc" id="aclassaisolver_1_1MechanismStateEncoder_html_a13155b63a3333c2007945cefc00a8940"><div class="ttname"><a href="classaisolver_1_1MechanismStateEncoder.html#a13155b63a3333c2007945cefc00a8940">aisolver::MechanismStateEncoder::encode</a></div><div class="ttdeci">Tensor&lt; float &gt; encode(const core::MechanismController &amp;mechanisms, const core::DangerController &amp;dangers, const core::Level &amp;level, core::GridPosition center, int radius) const</div><div class="ttdoc">Encode l&#39;état des mécanismes dans une fenêtre centrée sur center.</div><div class="ttdef"><b>Definition</b> MechanismStateEncoder.cpp:52</div></div>
-<div class="ttc" id="aclassaisolver_1_1MechanismStateEncoder_html_a1c49050ef75da16405336f5e53e247b4"><div class="ttname"><a href="classaisolver_1_1MechanismStateEncoder.html#a1c49050ef75da16405336f5e53e247b4">aisolver::MechanismStateEncoder::kChannelCount</a></div><div class="ttdeci">static constexpr int kChannelCount</div><div class="ttdef"><b>Definition</b> MechanismStateEncoder.h:61</div></div>
 <div class="ttc" id="aclassaisolver_1_1MechanismStateEncoder_html_a499f4914babdbb7fd964b822696453e3"><div class="ttname"><a href="classaisolver_1_1MechanismStateEncoder.html#a499f4914babdbb7fd964b822696453e3">aisolver::MechanismStateEncoder::channelCount</a></div><div class="ttdeci">int channelCount() const noexcept</div><div class="ttdef"><b>Definition</b> MechanismStateEncoder.h:57</div></div>
-<div class="ttc" id="aclassaisolver_1_1Tensor_html"><div class="ttname"><a href="classaisolver_1_1Tensor.html">aisolver::Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:52</div></div>
+<div class="ttc" id="aclassaisolver_1_1MechanismStateEncoder_html_ac2f8c3aeacf73a7c270d2488b6eaec90"><div class="ttname"><a href="classaisolver_1_1MechanismStateEncoder.html#ac2f8c3aeacf73a7c270d2488b6eaec90">aisolver::MechanismStateEncoder::CHANNEL_COUNT</a></div><div class="ttdeci">static constexpr int CHANNEL_COUNT</div><div class="ttdef"><b>Definition</b> MechanismStateEncoder.h:61</div></div>
+<div class="ttc" id="aclassaisolver_1_1Tensor_html"><div class="ttname"><a href="classaisolver_1_1Tensor.html">aisolver::Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:61</div></div>
 <div class="ttc" id="aclasscore_1_1DangerController_html"><div class="ttname"><a href="classcore_1_1DangerController.html">core::DangerController</a></div><div class="ttdoc">Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...</div><div class="ttdef"><b>Definition</b> DangerController.h:31</div></div>
 <div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.</div><div class="ttdef"><b>Definition</b> Level.h:152</div></div>
 <div class="ttc" id="aclasscore_1_1MechanismController_html"><div class="ttname"><a href="classcore_1_1MechanismController.html">core::MechanismController</a></div><div class="ttdoc">Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...</div><div class="ttdef"><b>Definition</b> MechanismController.h:71</div></div>
-<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgParsing.cpp:6</div></div>
+<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgumentParsing.cpp:6</div></div>
 <div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

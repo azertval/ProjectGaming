@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-64-tache-02-camera-suivi.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-64-cadrage-camera-choisi_2tache-02-camera-suivi"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-64.html#md_Lot_2LOT-64-cadrage-camera-choisi_2epic" title="Lot/LOT-64-cadrage-camera-choisi/epic.md">LOT-64</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3012"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3017"></a>
 Contexte</h1>
 <p>C'est le mode qui <b>manque au moteur</b>, et la tâche substantielle du lot. <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span> sait placer un centre et un zoom ; tout le reste — décider <b>où</b> est ce centre — est aujourd'hui répondu de deux façons seulement : le centre du niveau (<span class="tt">LOT-16</span>), ou le centre de la salle courante (<span class="tt">LOT-32</span>). Aucune ne suit le personnage.</p>
 <p><span class="tt">EX-REN-015</span> écarte d'ailleurs explicitement le suivi (« sans jamais suivre le personnage en continu ») — non parce qu'il serait mauvais, mais parce que le <span class="tt">LOT-32</span> traitait le cas des grands niveaux à salles. Ce lot en fait l'un des trois modes, choisi par le niveau.</p>
 <p>La famille de défauts d'une caméra de suivi est connue : caméra qui tremble parce qu'elle colle exactement au personnage, qui oscille à chaque changement de direction, qui déborde des limites et montre le vide hors grille, ou qui rend le rendu flou parce que son centre n'est pas aligné sur la grille de pixels.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3013"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3018"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Zone morte</b> : le personnage se déplace librement dans un rectangle central ; la caméra ne bouge que lorsqu'il en sort. C'est ce qui supprime le tremblement permanent.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Fonction pure</b> : à partir de (position du personnage, sens, cadrage, limites du niveau, état précédent de la caméra), produire le centre suivant. Testable sans GPU (<span class="tt">EX-NFR-004</span>), comme <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span> et <span class="tt">hmi::Parallax</span> l'ont déjà été.</li>
 <li><b>Aucun effet sur la simulation</b> (<span class="tt">EX-ARCH-012</span>) : la caméra lit, elle n'écrit rien.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3014"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3019"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/FollowCamera.{h,cpp}</span> (nouveau) — logique pure.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="GameViewport_8cpp.html">Source/HMI/Game/GameViewport.cpp</a></span> — sélection du mode selon le niveau.</li>
 <li><span class="tt"><a class="el" href="test__follow__camera_8cpp.html" title="Tests unitaires de la caméra de suivi : zone morte, anticipation, lissage, bornage (EX-REN-016,...">Source/Test/Unit/HMI/Graphics/test_follow_camera.cpp</a></span> (nouveau), <span class="tt">Source/Test/CMakeLists.txt</span> (compiler <span class="tt"><a class="el" href="FollowCamera_8cpp.html">FollowCamera.cpp</a></span> dans <span class="tt">UnitTests</span>, comme <span class="tt"><a class="el" href="RoomGrid_8cpp.html">RoomGrid.cpp</a></span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3015"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3020"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Zone morte</b> : un déplacement à l'intérieur de la zone ne déplace <b>pas</b> la caméra ; en sortir la déplace.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li><b>Déterminisme</b> : mêmes entrées, même trajectoire de caméra.</li>
 <li>Tests <b>purs</b>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3016"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3021"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le lissage doit être cadencé sur le pas de simulation</b>, pas sur la fréquence de rendu : depuis le <span class="tt">LOT-33</span>, les deux sont découplées, et une caméra lissée par image se comporte différemment à 60 et à 144 Hz.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li><span class="tt">EX-REN-015</span> affirme aujourd'hui que la caméra ne suit <b>jamais</b> le personnage en continu : cette formulation devra être nuancée à la <span class="tt">TACHE-04</span>, la contrainte devenant propre au mode <em>par salle</em>.</li>
 <li>Ne pas rendre les paramètres (taille de zone morte, anticipation, lissage) éditables : constantes nommées, hors périmètre du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3017"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3022"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un mode de caméra suivi existe, avec zone morte, anticipation progressive, lissage cadencé sur le pas fixe, bornage aux limites (centrage sur l'axe trop étroit) et alignement pixel ; la logique est pure et testée sans GPU ; aucun effet sur la simulation ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3018"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3023"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-016</span> (modes de cadrage, dont la caméra de suivi bornée) ; réutilise <span class="tt">EX-REN-013</span> (caméra 2D), <span class="tt">EX-REN-015</span> (mode par salle), <span class="tt">EX-ARCH-022</span> (zoom entier, <em>nearest</em>), <span class="tt">EX-ARCH-021</span> (pixels par unité), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

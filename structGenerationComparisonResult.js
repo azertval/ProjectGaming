@@ -1,5 +1,5 @@
 var structGenerationComparisonResult =
 [
-    [ "name", "structGenerationComparisonResult.html#af547600bff28243376aeb2e1b2154bd1", null ],
-    [ "report", "structGenerationComparisonResult.html#ac77d986acde6b78dcd23c52ae9ee8962", null ]
+    [ "name", "structGenerationComparisonResult.html#ae475c303c23db6ec2670e7286a40c5d4", null ],
+    [ "report", "structGenerationComparisonResult.html#ac6cb0d75f9f95edfdc13e3249061fcec", null ]
 ];

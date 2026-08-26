@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-59-tache-02-ecran-pause.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-02-ecran-pause"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2789"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2794"></a>
 Contexte</h1>
 <p>Échap, en cours de partie, quitte <b>directement</b> vers le menu principal. Une pression malheureuse sur un tableau difficile perd la partie en cours, sans confirmation ni retour possible. C'est le comportement décrit — et déploré — par <span class="tt">EX-REN-031</span>.</p>
 <p>Le point délicat n'est pas l'écran : c'est ce que devient la simulation pendant qu'il est affiché.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2790"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2795"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Écran de pause</b> avec quatre entrées : <em>Reprendre</em>, <em>Recommencer le niveau</em>, <em>Options</em>, <em>Quitter vers le menu</em>. Le dernier demande confirmation, puisqu'il perd la progression du tableau en cours.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Le rendu continue</b> : la scène reste dessinée derrière l'écran de pause (l'interpolation d'affichage se fige naturellement, la position simulée n'avançant plus).</li>
 <li><em>Recommencer le niveau</em> passe par le <b>même</b> chemin que le redémarrage après échec (<span class="tt">EX-GP-032</span>), déjà implémenté dans <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> — pas un second chemin de rechargement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2791"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2796"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/PauseScreen.{h,cpp}</span> (nouveau) et sa mise en page dans <span class="tt">Source/Elements/UI/PauseScreen.ui</span>.</li>
@@ -116,7 +116,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/{fr,en}.lang</span> — libellés.</li>
 <li><span class="tt"><a class="el" href="test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe.">Source/Test/Unit/Core/Time/test_fixed_timestep.cpp</a></span> — suspension et réarmement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2792"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2797"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aucun pas consommé en pause</b> : sur une séquence où l'alimentation est suspendue puis reprise, le nombre total de pas est celui du temps <b>hors</b> pause, à la tolérance d'un pas près.</li>
@@ -125,7 +125,7 @@ Tests (obligatoires)</h1>
 <li><em>Recommencer</em> remet le niveau dans son état initial, identiquement au redémarrage après échec.</li>
 <li>Les libellés de l'écran existent dans les <b>deux</b> catalogues de traduction.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2793"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2798"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas multiplier <span class="tt">dt</span> par zéro.</b> La boucle consommerait toujours des pas, et tout ce qui se compte en pas — animations, dangers temporisés, budgets — dériverait pendant la pause.</li>
@@ -133,18 +133,18 @@ Points d'attention</h1>
 <li>La pause ne doit pas être atteignable depuis l'essai de l'éditeur sans que le retour soit défini : trancher explicitement dans la table de la <span class="tt">TACHE-01</span>.</li>
 <li>La manette est <em>pollée</em> : vérifier qu'un appui maintenu au moment de la pause ne fait pas osciller entrée/sortie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2794"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2799"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Échap ouvre une pause qui suspend réellement la simulation et la restitue à l'identique ; aucun rattrapage au retour ; <em>Recommencer</em> réutilise le chemin de redémarrage existant ; navigable clavier / souris / manette, traduit ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2795"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2800"></a>
 État</h1>
 <p><span class="tt">GameViewport::tick()</span> cesse d'alimenter l'accumulateur de <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span> pendant la pause, mais continue d'appeler <span class="tt">InputState::beginFrame()</span> chaque image (juste hors de la boucle de pas) pour éviter qu'un bouton manette tenu en ouvrant la pause laisse un front périmé qui ferait osciller entrée/sortie à la reprise — piège explicitement anticipé par cette tâche, couvert par un test dédié (<span class="tt">test_fixed_timestep.cpp::PauseSansAppelNAccumuleAucunPas</span>).</p>
 <p>Manette : bouton <b>B</b> plutôt que Start (ce projet n'a pas de bouton Start dans son énumération <span class="tt">GamepadButton</span> remappable ; B est déjà la convention « retour » établie ailleurs dans l'IHM, et la tâche accepte « Start / B » comme alternatives).</p>
 <p><b>Bug réel trouvé et corrigé à l'essai manuel (<span class="tt">TACHE-07</span>) : le recouvrement ne s'affichait pas du tout.</b> <span class="tt"><a class="el" href="classhmi_1_1PauseScreen.html" title="Recouvrement de pause affiché par-dessus la scène de jeu figée (EX-GP-041).">hmi::PauseScreen</a></span> recouvrait initialement <span class="tt">_editorContainer</span> comme un simple widget Qt <b>frère</b> (jamais une page de <span class="tt">_stack</span>), sur la foi d'un patron cru « documenté par Qt ». En pratique : la simulation se figeait bien (<span class="tt">pauseSimulation</span>), mais aucun écran n'apparaissait — personnage figé, rien à l'écran. Cause réelle (confirmée par la documentation/les forums Qt officiels) : une fenêtre <b>native</b> embarquée via <span class="tt">QWidget::createWindowContainer</span> peint <b>toujours</b> par-dessus ses <b>frères</b> Qt ordinaires dans la même fenêtre de haut niveau, quel que soit leur <span class="tt">raise()</span> — ce n'est pas une histoire de descendant vs frère, c'est une limitation de superposition au sein d'une même fenêtre native. Correction : <span class="tt">_pauseScreen</span> (et <span class="tt">_levelCompleteScreen</span>, <span class="tt">TACHE-03</span>) sont devenus des <b>fenêtres de haut niveau</b> propres (<span class="tt">Qt::Tool | Qt::FramelessWindowHint</span>, fond translucide, possédées par <span class="tt">MainWindow</span>), positionnées en coordonnées <b>écran</b> sur le rectangle de <span class="tt">_editorContainer</span> (<span class="tt">syncOverlayGeometry</span>, resynchronisé sur redimensionnement <b>et</b> déplacement de la fenêtre principale). Voir <span class="tt">MainWindow::applyScreenDressing</span>/<span class="tt">syncOverlayGeometry</span> pour le détail.</p>
 <p><b>Deuxième bug réel, une fois l'écran visible : Entrée sans effet, seule Espace fonctionnait.</b> D'abord <span class="tt">Qt::Tool</span> comme indicateur de fenêtre : sur Windows, Qt affiche une fenêtre <span class="tt">Qt::Tool</span> avec <span class="tt">SW_SHOWNOACTIVATE</span> — par conception, pour les palettes flottantes qui ne doivent jamais voler le focus — ce qui empêchait <span class="tt">activateWindow()</span> de fonctionner. Remplacé par <span class="tt">Qt::Dialog</span>, conçu pour s'activer normalement. Puis, une fois la fenêtre bien activée, un <b>troisième</b> bug de la même veine : Entrée restait sans effet sur le bouton qui avait pourtant le focus (la navigation Tab/flèches fonctionnait). Cause : <span class="tt">QPushButton::autoDefault</span> ne vaut <span class="tt">true</span> par défaut que si un <b>ancêtre C++ réel</b> du bouton est un <span class="tt">QDialog</span> (<span class="tt">qobject_cast&lt;QDialog*&gt;</span>, vérifié dynamiquement) — <span class="tt">Qt::Dialog</span> n'est qu'un indicateur de fenêtre côté gestionnaire de fenêtres, <span class="tt">PauseScreen</span> reste un <span class="tt">QWidget</span> ordinaire côté classe C++. <span class="tt">setAutoDefault(true)</span> posé explicitement sur chaque bouton (et, par le même défaut, sur ceux de <span class="tt">MainMenu</span>/<span class="tt">LevelCompleteScreen</span>/<span class="tt">LevelSelectScreen</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2796"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2801"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-004</span> (écran de pause) ; lève <span class="tt">EX-REN-031</span> pour sa partie pause ; réutilise <span class="tt">EX-GP-032</span> (redémarrage), <span class="tt">EX-GP-041</span> (transitions), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-CTRL-012</span> (remappage). </p>
 </div></div><!-- contents -->

@@ -42,6 +42,8 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "PauseScreen.h", "PauseScreen_8h.html", "PauseScreen_8h" ],
     [ "PixelArtScale.cpp", "PixelArtScale_8cpp.html", "PixelArtScale_8cpp" ],
     [ "PixelArtScale.h", "PixelArtScale_8h.html", "PixelArtScale_8h" ],
+    [ "PixelFocusCaret.cpp", "PixelFocusCaret_8cpp.html", null ],
+    [ "PixelFocusCaret.h", "PixelFocusCaret_8h.html", "PixelFocusCaret_8h" ],
     [ "PixelFrameGeometry.cpp", "PixelFrameGeometry_8cpp.html", "PixelFrameGeometry_8cpp" ],
     [ "PixelFrameGeometry.h", "PixelFrameGeometry_8h.html", "PixelFrameGeometry_8h" ],
     [ "PixelFrameWidget.cpp", "PixelFrameWidget_8cpp.html", null ],

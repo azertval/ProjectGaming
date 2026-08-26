@@ -5,5 +5,5 @@ var classaisolver_1_1TileWindowEncoder =
     [ "encode", "classaisolver_1_1TileWindowEncoder.html#af1d9b9869ffa3b185848c4aa4beea616", null ],
     [ "windowSize", "classaisolver_1_1TileWindowEncoder.html#a11f0ce4d8a3800a19053a1e9e1d24750", null ],
     [ "_radius", "classaisolver_1_1TileWindowEncoder.html#a195fd2d4637d668decac6e1fd0f57093", null ],
-    [ "kChannelCount", "classaisolver_1_1TileWindowEncoder.html#aa5c3741ed70e631eea2e1c02c6a3275e", null ]
+    [ "CHANNEL_COUNT", "classaisolver_1_1TileWindowEncoder.html#a3d7346f8eca14d6fd7e1455359c06530", null ]
 ];

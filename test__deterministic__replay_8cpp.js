@@ -1,6 +1,5 @@
 var test__deterministic__replay_8cpp =
 [
-    [ "DeterministicReplayResult", "structDeterministicReplayResult.html", "structDeterministicReplayResult" ],
     [ "EpisodeStatus", "test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68", null ],
     [ "policyTopology", "test__deterministic__replay_8cpp.html#aeaf47d1d255cef866aa8de90bdf3bcd2", null ],
     [ "replayBestIndividual", "test__deterministic__replay_8cpp.html#adc74180e04ea7aa0e7a7ba6f05afdd02", null ],

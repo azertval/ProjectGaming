@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,7 +101,9 @@ $(function(){initNavTree('classaisolver_1_1GridDistanceField.html','','classaiso
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac003bbacdb039cdd95dcb737ad79fc4e" id="r_ac003bbacdb039cdd95dcb737ad79fc4e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac003bbacdb039cdd95dcb737ad79fc4e">GridDistanceField</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tileMap, const <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &amp;target)</td></tr>
-<tr class="memdesc:ac003bbacdb039cdd95dcb737ad79fc4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le champ par BFS multi-source à partir de <code class="param">target</code>.  <br /></td></tr>
+<tr class="memdesc:ac003bbacdb039cdd95dcb737ad79fc4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le champ par BFS à partir de l'unique case <code class="param">target</code>.  <br /></td></tr>
+<tr class="memitem:ae88b26de7378f3dda32e19556e1240b9" id="r_ae88b26de7378f3dda32e19556e1240b9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae88b26de7378f3dda32e19556e1240b9">GridDistanceField</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tileMap, const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &amp;targets)</td></tr>
+<tr class="memdesc:ae88b26de7378f3dda32e19556e1240b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le champ par BFS <b>multi-source</b> à partir de <code class="param">targets</code>.  <br /></td></tr>
 <tr class="memitem:adad70b2ea7b27273589ea5d75b698dd1" id="r_adad70b2ea7b27273589ea5d75b698dd1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adad70b2ea7b27273589ea5d75b698dd1">distance</a> (const <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &amp;position) const noexcept</td></tr>
 <tr class="memdesc:adad70b2ea7b27273589ea5d75b698dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance de plus court chemin, en nombre de cases, depuis <code class="param">position</code> jusqu'à la case cible passée au constructeur.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -113,11 +115,16 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement solides d'un <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>), pré-calculée une fois par BFS multi-source depuis une case cible. </p>
-<p>Remplace la distance euclidienne en ligne droite (décision de cadrage initiale de <span class="tt">LOT-ANNEXE-08</span>) comme base de la récompense de progression : la distance euclidienne pousse un agent à s'approcher en ligne droite de la sortie même quand un mur force un détour, ce qui donne une récompense négative aux pas de détour pourtant nécessaires &ndash; un signal qui combat activement la bonne politique plutôt que de simplement l'ignorer. <span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span> corrige cela sans introduire de recherche de chemin complète (pas de replanification par pas, pas de notion de coût autre que le nombre de cases) : un unique BFS à la construction, puis des lectures <span class="tt">O(1)</span>.</p>
-<p>Cases dynamiques (portes, plateformes mobiles) non prises en compte : seule la solidité statique (<span class="tt"><a class="el" href="classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457" title="Indique si la tuile à une case est statiquement solide.">core::TileMap::isSolid</a></span>) borne le BFS, cohérent avec la portée de la récompense partagée (<span class="tt">LOT-ANNEXE-08</span>), qui ne modélise déjà aucun mécanisme spécifique à un niveau. </p>
+<p>Sert de base à la récompense de progression (<span class="tt">EX-IA-023</span>). La propriété recherchée est que <em>tout pas rapprochant du but sur un chemin réellement empruntable</em> soit récompensé, y compris un détour imposé par un mur : une distance à vol d'oiseau pénaliserait ce détour, et dirigerait donc l'agent contre la seule solution disponible.</p>
+<p>Le coût est borné par construction : un unique BFS à quatre voisins, sans pondération ni replanification, puis des lectures <span class="tt">O(1)</span>. La distance se compte en nombre de cases, jamais en coût de déplacement &ndash; il n'y a pas de planificateur de chemin ici.</p>
+<p>Accepte n'importe quelle <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>, et c'est le choix de cette grille qui fixe ce que « empruntable » veut dire :</p><ul>
+<li><span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span> ne connaît que la solidité <b>statique</b> ;</li>
+<li><span class="tt"><a class="el" href="classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2">core::MechanismController::collisionMap()</a></span> connaît en plus l'état <b>courant</b> des portes, solides tant qu'elles sont fermées (le contrôleur les gère dynamiquement, <span class="tt">TileMap::isSolid</span> les ignore).</li>
+</ul>
+<p>Une porte verrouillée encore fermée doit être vue comme un mur, sans quoi le champ mesure la progression le long d'un chemin qui n'existe pas et la clé qui l'ouvre ne raccourcit rien. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac003bbacdb039cdd95dcb737ad79fc4e" name="ac003bbacdb039cdd95dcb737ad79fc4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac003bbacdb039cdd95dcb737ad79fc4e">&#9670;&#160;</a></span>GridDistanceField()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac003bbacdb039cdd95dcb737ad79fc4e">&#9670;&#160;</a></span>GridDistanceField() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,11 +142,41 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calcule le champ par BFS multi-source à partir de <code class="param">target</code>. </p>
+<p>Calcule le champ par BFS à partir de l'unique case <code class="param">target</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tileMap</td><td>Grille statique du niveau (cases solides/non-solides). </td></tr>
+    <tr><td class="paramname">tileMap</td><td>Grille de collision (cases solides/non-solides) &ndash; <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a>:: collisionMap()</span> pour respecter l'état courant des portes, <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span> pour la seule solidité statique. </td></tr>
     <tr><td class="paramname">target</td><td>Case cible (typiquement <span class="tt"><a class="el" href="classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273">core::Level::exit()</a></span>), point de départ du BFS. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae88b26de7378f3dda32e19556e1240b9" name="ae88b26de7378f3dda32e19556e1240b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae88b26de7378f3dda32e19556e1240b9">&#9670;&#160;</a></span>GridDistanceField() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">aisolver::GridDistanceField::GridDistanceField </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tileMap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>targets</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le champ par BFS <b>multi-source</b> à partir de <code class="param">targets</code>. </p>
+<p>Généralise le constructeur à cible unique : la distance renvoyée par <span class="tt"><a class="el" href="#adad70b2ea7b27273589ea5d75b698dd1" title="Distance de plus court chemin, en nombre de cases, depuis position jusqu&#39;à la case cible passée au co...">distance()</a></span> est celle au <b>plus proche</b> élément de <code class="param">targets</code>, ce qui permet de faire cohabiter la sortie du niveau avec les positions des déclencheurs (<span class="tt"><a class="el" href="structcore_1_1Mechanism.html#a5dd9b9cdb7f5f631367af20f9abbf545">core::Mechanism::switchPosition</a></span>) pas encore résolus comme cibles concurrentes &ndash; l'objectif immédiat le plus proche, sans hiérarchie ni connaissance de l'ordre de résolution attendu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tileMap</td><td>Grille de collision (voir constructeur à cible unique). </td></tr>
+    <tr><td class="paramname">targets</td><td>Cases cibles ; une case hors-grille ou solide est simplement ignorée (garde défensive, ne fait pas échouer les autres cibles). Vide -&gt; champ entièrement inatteignable. </td></tr>
   </table>
   </dd>
 </dl>

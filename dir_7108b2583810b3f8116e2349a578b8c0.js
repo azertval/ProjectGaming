@@ -6,8 +6,6 @@ var dir_7108b2583810b3f8116e2349a578b8c0 =
     [ "ActorCriticTrainer.h", "ActorCriticTrainer_8h.html", "ActorCriticTrainer_8h" ],
     [ "AdvantageCalculator.cpp", "AdvantageCalculator_8cpp.html", "AdvantageCalculator_8cpp" ],
     [ "AdvantageCalculator.h", "AdvantageCalculator_8h.html", "AdvantageCalculator_8h" ],
-    [ "ConvergenceComparator.cpp", "ConvergenceComparator_8cpp.html", "ConvergenceComparator_8cpp" ],
-    [ "ConvergenceComparator.h", "ConvergenceComparator_8h.html", "ConvergenceComparator_8h" ],
     [ "CriticLoss.cpp", "CriticLoss_8cpp.html", "CriticLoss_8cpp" ],
     [ "CriticLoss.h", "CriticLoss_8h.html", "CriticLoss_8h" ],
     [ "CriticNetwork.cpp", "CriticNetwork_8cpp.html", null ],

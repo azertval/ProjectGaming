@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -112,13 +112,13 @@ $(function(){initNavTree('Episode_8h_source.html','',''); });
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>[[nodiscard]] <a class="code hl_enumeration" href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="code hl_function" href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971">classifyEpisode</a>(<a class="code hl_enumeration" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome, <span class="keywordtype">int</span> stepIndex,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>[[nodiscard]] <a class="code hl_enumeration" href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="code hl_function" href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971">classifyEpisode</a>(<a class="code hl_enumeration" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome, <span class="keywordtype">int</span> stepIndex,</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                            <span class="keywordtype">int</span> stepsSinceProgress, <span class="keywordtype">int</span> hardStepBudget,</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                            <span class="keywordtype">int</span> stuckThreshold);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}  <span class="comment">// namespace aisolver</span></div>
 <div class="ttc" id="aLevelOutcome_8h_html"><div class="ttname"><a href="LevelOutcome_8h.html">LevelOutcome.h</a></div><div class="ttdoc">Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage.</div></div>
-<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgParsing.cpp:6</div></div>
+<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgumentParsing.cpp:6</div></div>
 <div class="ttc" id="anamespaceaisolver_html_a59583736f24a97702e07be216ee2c971"><div class="ttname"><a href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971">aisolver::classifyEpisode</a></div><div class="ttdeci">EpisodeStatus classifyEpisode(core::LevelOutcome outcome, int stepIndex, int stepsSinceProgress, int hardStepBudget, int stuckThreshold)</div><div class="ttdoc">Classe la fin d&#39;épisode à partir de l&#39;issue du jeu et des compteurs de pas/progression.</div><div class="ttdef"><b>Definition</b> Episode.cpp:8</div></div>
 <div class="ttc" id="anamespaceaisolver_html_adda23dcaaf73b2335b5a52701af05d68"><div class="ttname"><a href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68">aisolver::EpisodeStatus</a></div><div class="ttdeci">EpisodeStatus</div><div class="ttdoc">Statut d&#39;un épisode d&#39;entraînement, plus riche que core::LevelOutcome (qui ignore blocage et plafond ...</div><div class="ttdef"><b>Definition</b> Episode.h:20</div></div>
 <div class="ttc" id="anamespaceaisolver_html_adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5"><div class="ttname"><a href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5">aisolver::EpisodeStatus::Won</a></div><div class="ttdeci">@ Won</div><div class="ttdef"><b>Definition</b> Episode.h:22</div></div>
@@ -127,7 +127,7 @@ $(function(){initNavTree('Episode_8h_source.html','',''); });
 <div class="ttc" id="anamespaceaisolver_html_adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102"><div class="ttname"><a href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102">aisolver::EpisodeStatus::Stuck</a></div><div class="ttdeci">@ Stuck</div><div class="ttdef"><b>Definition</b> Episode.h:25</div></div>
 <div class="ttc" id="anamespaceaisolver_html_adda23dcaaf73b2335b5a52701af05d68ab578b733cbb788fc6ad208314d2c4c2b"><div class="ttname"><a href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68ab578b733cbb788fc6ad208314d2c4c2b">aisolver::EpisodeStatus::Lost</a></div><div class="ttdeci">@ Lost</div><div class="ttdef"><b>Definition</b> Episode.h:23</div></div>
 <div class="ttc" id="anamespacecore_html_a60398ec3835dd2882a7d3a9eaddb65aa"><div class="ttname"><a href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a></div><div class="ttdeci">LevelOutcome</div><div class="ttdoc">Issue courante d&#39;un niveau, déduite de la position du personnage.</div><div class="ttdef"><b>Definition</b> LevelOutcome.h:20</div></div>
-<div class="ttc" id="atest__deterministic__replay_8cpp_html_adda23dcaaf73b2335b5a52701af05d68"><div class="ttname"><a href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a></div><div class="ttdeci">EpisodeStatus</div><div class="ttdoc">Statut d&#39;un épisode d&#39;entraînement, plus riche que core::LevelOutcome (qui ignore blocage et plafond ...</div><div class="ttdef"><b>Definition</b> Episode.h:20</div></div>
+<div class="ttc" id="atest__argmax__rollout_8cpp_html_adda23dcaaf73b2335b5a52701af05d68"><div class="ttname"><a href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a></div><div class="ttdeci">EpisodeStatus</div><div class="ttdoc">Statut d&#39;un épisode d&#39;entraînement, plus riche que core::LevelOutcome (qui ignore blocage et plafond ...</div><div class="ttdef"><b>Definition</b> Episode.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

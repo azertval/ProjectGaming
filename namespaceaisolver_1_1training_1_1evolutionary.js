@@ -20,5 +20,5 @@ var namespaceaisolver_1_1training_1_1evolutionary =
     [ "DEFAULT_POPULATION_SIZE", "namespaceaisolver_1_1training_1_1evolutionary.html#ab851aa207dc417337f1443db7c4ca063", null ],
     [ "DEFAULT_STUCK_THRESHOLD", "namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee", null ],
     [ "DEFAULT_TOURNAMENT_SIZE", "namespaceaisolver_1_1training_1_1evolutionary.html#a0718fea91b9e98b2e70bf3fc25652ed0", null ],
-    [ "kUnevaluatedFitness", "namespaceaisolver_1_1training_1_1evolutionary.html#a69b6964796abaaf8d0e5f3d346740bed", null ]
+    [ "UNEVALUATED_FITNESS", "namespaceaisolver_1_1training_1_1evolutionary.html#abfefeda8c7d6844d92c1ea7be687792f", null ]
 ];

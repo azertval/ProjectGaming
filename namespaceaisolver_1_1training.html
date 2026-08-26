@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -103,20 +103,14 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run acteur-critique : mêmes défauts que <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>), pour rester le niveau de contrôle comparable prescrit par TACHE-04.  <a href="structaisolver_1_1training_1_1ActorCriticConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ActorCriticTrainer" id="r_ActorCriticTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1ActorCriticTrainer.html">ActorCriticTrainer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangée), calcul de retour (<span class="tt"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangé), avantage (<span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), perte de politique (<span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>) et perte du critique (<span class="tt"><a class="el" href="#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span>) en une boucle par épisode optimisant les <b>deux</b> réseaux, chacun via son propre <span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>.  <a href="classaisolver_1_1training_1_1ActorCriticTrainer.html#details">More...</a><br /></td></tr>
-<tr class="memitem:RunConvergenceMetrics" id="r_RunConvergenceMetrics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Métriques de convergence d'un unique run (un CSV).  <a href="structaisolver_1_1training_1_1RunConvergenceMetrics.html#details">More...</a><br /></td></tr>
-<tr class="memitem:ConvergenceReport" id="r_ConvergenceReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ConvergenceReport.html">ConvergenceReport</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.  <a href="structaisolver_1_1training_1_1ConvergenceReport.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CriticNetwork" id="r_CriticNetwork"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1CriticNetwork.html">CriticNetwork</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réseau distinct de la politique (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span>, <span class="tt">LOT-ANNEXE-03</span>), même bibliothèque de couches, une seule sortie scalaire non bornée (aucune activation finale).  <a href="classaisolver_1_1training_1_1CriticNetwork.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DeterministicReplayResult" id="r_DeterministicReplayResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1DeterministicReplayResult.html">DeterministicReplayResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue complète d'un rejeu déterministe : la séquence d'actions produite, le statut de fin d'épisode et la récompense cumulée sur ce rejeu (destinée à <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#aaceef3f373a462b7fdacce92aebadabf" title="Statistique finale de l&#39;entraînement (ex. récompense cumulée du dernier épisode réussi).">ReplayFile::finalReward</a></span>).  <a href="structaisolver_1_1training_1_1DeterministicReplayResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DqnConfig" id="r_DqnConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1DqnConfig.html">DqnConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run DQN &ndash; structure explicite dédiée (pas de constante codée en dur dans le trainer), même esprit que <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span>/<span class="tt"><a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html" title="Paramètres d&#39;un run acteur-critique : mêmes défauts que ReinforceConfig (LOT-ANNEXE-12),...">ActorCriticConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>).  <a href="structaisolver_1_1training_1_1DqnConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DqnTrainer" id="r_DqnTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1DqnTrainer.html">DqnTrainer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble <span class="tt"><a class="el" href="classaisolver_1_1training_1_1QNetwork.html" title="Réseau distinct de la politique/du critique (nn::Network, LOT-ANNEXE-03), une sortie par action de l&#39;...">QNetwork</a></span> (principal + cible), <span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>, <span class="tt"><a class="el" href="#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">computeDqnLoss</a></span> et un optimiseur (<span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>, <span class="tt">LOT-ANNEXE-04</span>) en une boucle par pas, journalisée par épisode (<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, <span class="tt">LOT-ANNEXE-09</span>) exactement comme <span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>/<span class="tt"><a class="el" href="classaisolver_1_1training_1_1ActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>.  <a href="classaisolver_1_1training_1_1DqnTrainer.html#details">More...</a><br /></td></tr>
-<tr class="memitem:NamedSeries" id="r_NamedSeries"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1NamedSeries.html">NamedSeries</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> par essai (même schéma de colonnes communes que <span class="tt">ConvergenceComparator</span>).  <a href="structaisolver_1_1training_1_1NamedSeries.html#details">More...</a><br /></td></tr>
-<tr class="memitem:GenerationComparisonResult" id="r_GenerationComparisonResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1GenerationComparisonResult.html">GenerationComparisonResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structaisolver_1_1training_1_1NamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structaisolver_1_1training_1_1GenerationComparisonResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:QNetwork" id="r_QNetwork"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1QNetwork.html">QNetwork</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réseau distinct de la politique/du critique (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span>, <span class="tt">LOT-ANNEXE-03</span>), une sortie par action de l'espace discret (<span class="tt">ActionSpace::actionCount()</span>, <span class="tt">LOT-ANNEXE-07</span>), aucune activation finale (valeurs <span class="tt">Q(s, a)</span> non bornées, pas une distribution de probabilité).  <a href="classaisolver_1_1training_1_1QNetwork.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Transition" id="r_Transition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1Transition.html">Transition</a></td></tr>
@@ -124,8 +118,6 @@ Classes</h2></td></tr>
 d'épisode)</span> — donnée pure, aucune logique de calcul (même décision de cadrage que <span class="tt"><a class="el" href="structaisolver_1_1training_1_1TrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">TrajectoryStep</a></span>, <span class="tt">LOT-ANNEXE-12</span>).  <a href="structaisolver_1_1training_1_1Transition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReplayBuffer" id="r_ReplayBuffer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1ReplayBuffer.html">ReplayBuffer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque <span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReplayBuffer.html#a9f61b4b87685544407ff01bd81a72f21" title="Ajoute une transition ; évince la plus ancienne si size() == capacity().">push</a></span> évince la transition la plus ancienne (tampon en anneau, jamais de réallocation en cours de run).  <a href="classaisolver_1_1training_1_1ReplayBuffer.html#details">More...</a><br /></td></tr>
-<tr class="memitem:DeterministicReplayResult" id="r_DeterministicReplayResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1DeterministicReplayResult.html">DeterministicReplayResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue complète d'un rejeu déterministe : la séquence d'actions produite, le statut de fin d'épisode et la récompense cumulée sur ce rejeu (destinée à <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#aaceef3f373a462b7fdacce92aebadabf" title="Statistique finale de l&#39;entraînement (ex. récompense cumulée du dernier épisode réussi).">ReplayFile::finalReward</a></span>).  <a href="structaisolver_1_1training_1_1DeterministicReplayResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StoppingConfig" id="r_StoppingConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1StoppingConfig.html">StoppingConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critère d'arrêt d'une session d'entraînement : résolution stable, ou plafond.  <a href="structaisolver_1_1training_1_1StoppingConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelTrainingSession" id="r_LevelTrainingSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html">LevelTrainingSession</a></td></tr>
@@ -150,7 +142,7 @@ d'épisode)</span> — donnée pure, aucune logique de calcul (même décision d
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ad2fe21d4ed50eaaf580365b4eb83c05c" id="r_ad2fe21d4ed50eaaf580365b4eb83c05c"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad2fe21d4ed50eaaf580365b4eb83c05c">ActionSequence</a> = std::vector&lt;<a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&gt;</td></tr>
-<tr class="memdesc:ad2fe21d4ed50eaaf580365b4eb83c05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séquence d'entrées rejouable en jeu, une par pas fixe (<span class="tt">1/60 s</span>) — même type que <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#ae130ca724c83e62a6736caafe9e268f2" title="Séquence ordonnée d&#39;entrées, une par pas fixe (1/60 s).">ReplayFile::steps</a></span> (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), consommé tel quel par <span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v1 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
+<tr class="memdesc:ad2fe21d4ed50eaaf580365b4eb83c05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séquence d'entrées rejouable en jeu, une par pas fixe (<span class="tt">1/60 s</span>) — même type que <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#ae130ca724c83e62a6736caafe9e268f2" title="Séquence ordonnée d&#39;entrées, une par pas fixe (1/60 s).">ReplayFile::steps</a></span> (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), consommé tel quel par <span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -166,24 +158,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6267d02ff25e0644b4e1c68c985f7aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
 <tr class="memitem:a9c627d75f8bb215c30409e37bbcfbe06" id="r_a9c627d75f8bb215c30409e37bbcfbe06"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06">computeAdvantages</a> (const std::vector&lt; float &gt; &amp;returns, <a class="el" href="classCriticNetwork.html">CriticNetwork</a> &amp;critic, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory)</td></tr>
 <tr class="memdesc:a9c627d75f8bb215c30409e37bbcfbe06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule <span class="tt">advantage_t = returns[t] − critic.forward(observation_t)</span>, pour chaque pas.  <br /></td></tr>
-<tr class="memitem:a2f56ad144c82570e40925363ddfdd9d0" id="r_a2f56ad144c82570e40925363ddfdd9d0"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0">analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2f56ad144c82570e40925363ddfdd9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
-<tr class="memitem:add00975471503535b34b74ebb42ec1e9" id="r_add00975471503535b34b74ebb42ec1e9"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1ConvergenceReport.html">ConvergenceReport</a>&#160;</td><td class="memItemRight"><a class="el" href="#add00975471503535b34b74ebb42ec1e9">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:add00975471503535b34b74ebb42ec1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
 <tr class="memitem:a9e34ec7fba384cf00159367fb67ebea2" id="r_a9e34ec7fba384cf00159367fb67ebea2"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e34ec7fba384cf00159367fb67ebea2">computeCriticLoss</a> (<a class="el" href="classCriticNetwork.html">CriticNetwork</a> &amp;critic, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;returns)</td></tr>
 <tr class="memdesc:a9e34ec7fba384cf00159367fb67ebea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t((valeur_t − returns[t])^2)</span>.  <br /></td></tr>
-<tr class="memitem:a182940e411c5c7c01ec3f01bca030580" id="r_a182940e411c5c7c01ec3f01bca030580"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a182940e411c5c7c01ec3f01bca030580">computeDqnLoss</a> (<a class="el" href="classQNetwork.html">QNetwork</a> &amp;mainNetwork, <a class="el" href="classQNetwork.html">QNetwork</a> &amp;targetNetwork, const std::vector&lt; <a class="el" href="structTransition.html">Transition</a> &gt; &amp;batch, float gamma)</td></tr>
-<tr class="memdesc:a182940e411c5c7c01ec3f01bca030580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreur quadratique moyenne, sur un mini-lot, entre <span class="tt">Q(s_t, a_t)</span> (réseau principal, nœud de graphe d'autodiff) et la cible de Bellman <span class="tt">reward_t + gamma * max_a Q_cible(s_{t+1}, a)</span> (réseau cible, valeur détachée du graphe &ndash; jamais rétropropagée, même convention que <span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>/<span class="tt">CriticLoss</span>, <span class="tt">LOT-ANNEXE-13</span>).  <br /></td></tr>
-<tr class="memitem:a2cf9c7efba9b2708c903109fcca12bab" id="r_a2cf9c7efba9b2708c903109fcca12bab"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab">compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2cf9c7efba9b2708c903109fcca12bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
-<tr class="memitem:a5a030a9e6b1b0ac6e2ab114e631b730a" id="r_a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a5a030a9e6b1b0ac6e2ab114e631b730a">evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
-<tr class="memdesc:a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
 <tr class="memitem:adb8a3c669b3b89e1c99290bf67963d46" id="r_adb8a3c669b3b89e1c99290bf67963d46"><td class="memItemLeft">std::optional&lt; <a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb8a3c669b3b89e1c99290bf67963d46">argmaxRollout</a> (<a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html">eval::TrainedPolicy</a> &amp;policy, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
 <tr class="memdesc:adb8a3c669b3b89e1c99290bf67963d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme.  <br /></td></tr>
 <tr class="memitem:adc74180e04ea7aa0e7a7ba6f05afdd02" id="r_adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02">replayBestIndividual</a> (<a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1Individual.html">evolutionary::Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=<a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee">evolutionary::DEFAULT_STUCK_THRESHOLD</a>)</td></tr>
-<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
-<tr class="memitem:a8c8d4565f238d5c68371e67f3c01e79f" id="r_a8c8d4565f238d5c68371e67f3c01e79f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8c8d4565f238d5c68371e67f3c01e79f">updateConsecutiveStableWins</a> (int previousCount, bool sameChampionAsBefore, bool resolvingNow) noexcept</td></tr>
-<tr class="memdesc:a8c8d4565f238d5c68371e67f3c01e79f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
+<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
+<tr class="memitem:a182940e411c5c7c01ec3f01bca030580" id="r_a182940e411c5c7c01ec3f01bca030580"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a182940e411c5c7c01ec3f01bca030580">computeDqnLoss</a> (<a class="el" href="classQNetwork.html">QNetwork</a> &amp;mainNetwork, <a class="el" href="classQNetwork.html">QNetwork</a> &amp;targetNetwork, const std::vector&lt; <a class="el" href="structTransition.html">Transition</a> &gt; &amp;batch, float gamma)</td></tr>
+<tr class="memdesc:a182940e411c5c7c01ec3f01bca030580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreur quadratique moyenne, sur un mini-lot, entre <span class="tt">Q(s_t, a_t)</span> (réseau principal, nœud de graphe d'autodiff) et la cible de Bellman <span class="tt">reward_t + gamma * max_a Q_cible(s_{t+1}, a)</span> (réseau cible, valeur détachée du graphe &ndash; jamais rétropropagée, même convention que <span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>/<span class="tt">CriticLoss</span>, <span class="tt">LOT-ANNEXE-13</span>).  <br /></td></tr>
+<tr class="memitem:aa8e28f430662fd6d2a2e1580306d1d01" id="r_aa8e28f430662fd6d2a2e1580306d1d01"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8e28f430662fd6d2a2e1580306d1d01">updateConsecutiveStableWins</a> (int previousCount, bool sameFitnessAsBefore, bool resolvingNow) noexcept</td></tr>
+<tr class="memdesc:aa8e28f430662fd6d2a2e1580306d1d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
 <tr class="memitem:a313ce7ace0a798aef9a2041d24a50efb" id="r_a313ce7ace0a798aef9a2041d24a50efb"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a313ce7ace0a798aef9a2041d24a50efb">computeReinforceLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;returns)</td></tr>
 <tr class="memdesc:a313ce7ace0a798aef9a2041d24a50efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>.  <br /></td></tr>
 <tr class="memitem:ab4eecaaa8132cd4c0592e3176185a4aa" id="r_ab4eecaaa8132cd4c0592e3176185a4aa"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa">computeReturns</a> (const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, float gamma)</td></tr>
@@ -191,9 +175,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a36fa9e5fa28fc2058be1367395544c55" id="r_a36fa9e5fa28fc2058be1367395544c55"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55">computeWeightedPolicyGradientLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;weights)</td></tr>
 <tr class="memdesc:a36fa9e5fa28fc2058be1367395544c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * weights[t])</span> sur <span class="tt">trajectory</span>.  <br /></td></tr>
 <tr class="memitem:a17e8060b88edb8fbbf0d755f5a7d6f16" id="r_a17e8060b88edb8fbbf0d755f5a7d6f16"><td class="memItemLeft"><a class="el" href="structReplayExportResult.html">ReplayExportResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16">exportReplay</a> (const <a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> &amp;replay, bool solved, const std::filesystem::path &amp;levelPath, const std::filesystem::path &amp;outputPath, const std::string &amp;algorithmName, std::uint64_t seed, const std::string &amp;algorithmId={})</td></tr>
-<tr class="memdesc:a17e8060b88edb8fbbf0d755f5a7d6f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <span class="tt">replay</span> au format de rejeu v1 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle).  <br /></td></tr>
+<tr class="memdesc:a17e8060b88edb8fbbf0d755f5a7d6f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <span class="tt">replay</span> au format de rejeu v2 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle).  <br /></td></tr>
 <tr class="memitem:aca3e53f83fe5be541d81e5f6464a9cd5" id="r_aca3e53f83fe5be541d81e5f6464a9cd5"><td class="memItemLeft"><a class="el" href="structTrainAndExportOutcome.html">TrainAndExportOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#aca3e53f83fe5be541d81e5f6464a9cd5">trainLevelAndExportReplay</a> (const std::filesystem::path &amp;levelPath, const <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aff53901ca4ce748a056cddca71b02c6c">evolutionary::NetworkTopology</a> &amp;topology, const <a class="el" href="structaisolver_1_1training_1_1evolutionary_1_1EvolutionaryConfig.html">evolutionary::EvolutionaryConfig</a> &amp;config, const <a class="el" href="structStoppingConfig.html">StoppingConfig</a> &amp;stopping, std::uint64_t seed, const std::filesystem::path &amp;statsCsvPath, const std::filesystem::path &amp;replayOutputPath, <a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a> environmentConfig={})</td></tr>
-<tr class="memdesc:aca3e53f83fe5be541d81e5f6464a9cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v1 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>).  <br /></td></tr>
+<tr class="memdesc:aca3e53f83fe5be541d81e5f6464a9cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>).  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="ad2fe21d4ed50eaaf580365b4eb83c05c" name="ad2fe21d4ed50eaaf580365b4eb83c05c"></a>
@@ -208,7 +192,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Séquence d'entrées rejouable en jeu, une par pas fixe (<span class="tt">1/60 s</span>) — même type que <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#ae130ca724c83e62a6736caafe9e268f2" title="Séquence ordonnée d&#39;entrées, une par pas fixe (1/60 s).">ReplayFile::steps</a></span> (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), consommé tel quel par <span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v1 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
+<p>Séquence d'entrées rejouable en jeu, une par pas fixe (<span class="tt">1/60 s</span>) — même type que <span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#ae130ca724c83e62a6736caafe9e268f2" title="Séquence ordonnée d&#39;entrées, une par pas fixe (1/60 s).">ReplayFile::steps</a></span> (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), consommé tel quel par <span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
 
 </div>
 </div>
@@ -245,51 +229,6 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a2f56ad144c82570e40925363ddfdd9d0" name="a2f56ad144c82570e40925363ddfdd9d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f56ad144c82570e40925363ddfdd9d0">&#9670;&#160;</a></span>analyzeRun()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structaisolver_1_1training_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a> aisolver::training::analyzeRun </td>
-          <td>(</td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">csvPath</td><td>Chemin du CSV (en-tête + une ligne par épisode). </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Plafond de récompense défini une fois pour toute la comparaison. </td></tr>
-    <tr><td class="paramname">finalWindowSize</td><td>Taille de la fenêtre de fin de run pour <span class="tt">finalWindowMeanReward</span>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd>Le CSV contient une colonne <span class="tt">bestReward</span> (nom retrouvé dans l'en-tête). </dd></dl>
-
-</div>
-</div>
 <a id="adb8a3c669b3b89e1c99290bf67963d46" name="adb8a3c669b3b89e1c99290bf67963d46"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb8a3c669b3b89e1c99290bf67963d46">&#9670;&#160;</a></span>argmaxRollout()</h2>
 
@@ -324,94 +263,6 @@ Functions</h2></td></tr>
 
 <p>Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme. </p>
 <p>Utilisée par <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">aisolver::cli::runEvaluate</a></span>/<span class="tt">runExportReplay</span> (<span class="tt">LOT-ANNEXE-19</span>) et par <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html" title="Travailleur QObject, déplacé sur un QThread par l&#39;appelant (AiModeScreen) : run() bloque jusqu&#39;à la f...">hmi::TrainingWorker</a></span> (<span class="tt">LOT-ANNEXE-21</span>) — un seul rejeu déterministe générique, jamais réimplémenté par appelant. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">std::nullopt</span> si <span class="tt">levelPath</span> ne se charge pas ou si <span class="tt">policy</span> refuse <span class="tt">Argmax</span> (erreur récupérable, jamais de plantage). </dd></dl>
-
-</div>
-</div>
-<a id="add00975471503535b34b74ebb42ec1e9" name="add00975471503535b34b74ebb42ec1e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add00975471503535b34b74ebb42ec1e9">&#9670;&#160;</a></span>compareConvergence()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structaisolver_1_1training_1_1ConvergenceReport.html">ConvergenceReport</a> aisolver::training::compareConvergence </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPaths</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">csvPaths</td><td>Un CSV par essai ; au moins un élément. </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
-    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2cf9c7efba9b2708c903109fcca12bab" name="a2cf9c7efba9b2708c903109fcca12bab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cf9c7efba9b2708c903109fcca12bab">&#9670;&#160;</a></span>compareGenerations()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt; aisolver::training::compareGenerations </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>series</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Applique <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">series</td><td>Une entrée par approche comparée (évolutionniste, REINFORCE, acteur-critique, algorithme avancé, ...) ; chaque série lue indépendamment des autres. </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Même seuil, partagé par toutes les séries comparées. </td></tr>
-    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre de fin de run, partagée par toutes les séries. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -638,7 +489,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>. </p>
-<p>Délègue à <span class="tt"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>, <span class="tt">LOT-ANNEXE-13</span> TACHE-02 : formule factorisée avec <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>, poids = retour brut ici plutôt que l'avantage) — comportement strictement inchangé depuis <span class="tt">LOT-ANNEXE-12</span>.</p>
+<p>Délègue à <span class="tt"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>), formule commune à REINFORCE et à l'acteur-critique : seul le poids change, le <b>retour brut</b> ici, l'avantage pour <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>.</p>
 <p>Convention de signe : la perte est déjà le <b>négatif</b> de l'objectif de policy gradient (à minimiser par un optimiseur de descente de gradient standard, <span class="tt">LOT-ANNEXE-04</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
@@ -737,45 +588,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a030a9e6b1b0ac6e2ab114e631b730a" name="a5a030a9e6b1b0ac6e2ab114e631b730a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a030a9e6b1b0ac6e2ab114e631b730a">&#9670;&#160;</a></span>evolutionaryEpisodeBudget()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t aisolver::training::evolutionaryEpisodeBudget </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>generationCount</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>populationSize</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">generationCount</td><td>Nombre de générations exécutées. </td></tr>
-    <tr><td class="paramname">populationSize</td><td>Taille de la population (<span class="tt"><a class="el" href="structEvolutionaryConfig.html#a40b020cf25b9e6dff08a4ce07a9e5153">EvolutionaryConfig::populationSize</a></span>). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">generationCount * populationSize</span> (un épisode par individu évalué, par génération). </dd></dl>
-
-</div>
-</div>
 <a id="a17e8060b88edb8fbbf0d755f5a7d6f16" name="a17e8060b88edb8fbbf0d755f5a7d6f16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17e8060b88edb8fbbf0d755f5a7d6f16">&#9670;&#160;</a></span>exportReplay()</h2>
 
@@ -828,7 +640,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Écrit <span class="tt">replay</span> au format de rejeu v1 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle). </p>
+<p>Écrit <span class="tt">replay</span> au format de rejeu v2 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">replay</td><td>Rejeu produit par <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (séquence, statut, récompense). </td></tr>
@@ -882,7 +694,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v1 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
+<p>Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>). </p>
 <p>Réutilise <b>exactement</b> le même code de décodage (<span class="tt"><a class="el" href="namespaceaisolver.html#aa2c594166eb644b6546d993c245e48c7" title="Sélectionne l&#39;action de probabilité maximale (décodage déterministe).">decodeArgmax</a></span>) et de calcul de récompense que <span class="tt">FitnessEvaluator::evaluateFitness</span> (<span class="tt">LOT-ANNEXE-10</span>) — décision de cadrage de l'épic : élimine toute possibilité de divergence entre « ce que l'algorithme a mesuré comme réussite » et « ce qui est effectivement exporté ». Le réseau de <span class="tt">individual</span> n'est jamais modifié (poids inchangés avant/après l'appel) ; <span class="tt">individual</span> n'est pris par référence non constante que parce que <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html#ada6b9c336cea72496aefd0f6fa043440" title="Passe avant bout-en-bout : enchaîne couche-&gt;forward() puis son activation (si non nulle) pour chaque ...">nn::Network::forward</a></span> (<span class="tt">LOT-ANNEXE-03</span>) ne l'est pas — même déviation pragmatique que <span class="tt">FitnessEvaluator::evaluateFitness</span>, documentée ici plutôt que dans l'épic. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">individual</td><td>Individu à rejouer (poids figés, lecture seule au sens fonctionnel). </td></tr>
@@ -953,8 +765,8 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v1 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>). </p>
-<p>Volontairement minimal (pas d'options, pas de reprise) : un usage manuel réel de ce lot, l'outil ergonomique (CLI) restant hors périmètre (<span class="tt">LOT-ANNEXE-19</span>, génération 5). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>). </p>
+<p>Volontairement minimal : ni options ni reprise. C'est la brique que <span class="tt">aisolver-cli</span> enveloppe (<span class="tt"><a class="el" href="Commands_8cpp.html">Cli/Commands.cpp</a></span>), pas l'interface d'usage. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">levelPath</td><td>Chemin du fichier de niveau <b>unique</b> à entraîner. </td></tr>
     <tr><td class="paramname">topology</td><td>Topologie du réseau de chaque individu. </td></tr>
@@ -970,8 +782,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c8d4565f238d5c68371e67f3c01e79f" name="a8c8d4565f238d5c68371e67f3c01e79f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8d4565f238d5c68371e67f3c01e79f">&#9670;&#160;</a></span>updateConsecutiveStableWins()</h2>
+<a id="aa8e28f430662fd6d2a2e1580306d1d01" name="aa8e28f430662fd6d2a2e1580306d1d01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e28f430662fd6d2a2e1580306d1d01">&#9670;&#160;</a></span>updateConsecutiveStableWins()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -987,7 +799,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>sameChampionAsBefore</em></span>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>sameFitnessAsBefore</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1006,7 +818,7 @@ Functions</h2></td></tr>
 <p>Toute rupture (nouveau champion, ou champion non résolvant) remet le compteur à zéro puis, si la génération courante résout tout de même le niveau, redémarre immédiatement une nouvelle série à <span class="tt">1</span> (décision de cadrage de l'épic) — pas une réinitialisation muette qui perdrait cette information. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">previousCount</td><td>Compteur avant cette génération. </td></tr>
-    <tr><td class="paramname">sameChampionAsBefore</td><td>Le champion de cette génération est-il, poids pour poids, celui de la génération précédente (aucun individu ne l'a dépassé) ? </td></tr>
+    <tr><td class="paramname">sameFitnessAsBefore</td><td>Le champion de cette génération a-t-il exactement la même fitness que celui de la précédente (aucun individu ne l'a dépassé) ? C'est une égalité de <b>performance</b>, pas d'identité : deux individus distincts qui résolvent le niveau aussi bien comptent comme une série stable, ce que le critère d'arrêt cherche précisément à mesurer. </td></tr>
     <tr><td class="paramname">resolvingNow</td><td>Le champion de cette génération résout-il le niveau (<span class="tt"><a class="el" href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68a19abd416eb9fe03ae7400a22446956a5">EpisodeStatus::Won</a></span>) ? </td></tr>
   </table>
   </dd>

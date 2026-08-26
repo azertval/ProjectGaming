@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -113,12 +113,20 @@ Classes</h2></td></tr>
 <tr class="memitem:BenchmarkResult" id="r_BenchmarkResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html">BenchmarkResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumule les issues de <span class="tt">N</span> répétitions et expose les métriques agrégées de fiabilité.  <a href="structaisolver_1_1eval_1_1BenchmarkResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:BenchmarkRunner" id="r_BenchmarkRunner"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html">BenchmarkRunner</a></td></tr>
+<tr class="memitem:RunConvergenceMetrics" id="r_RunConvergenceMetrics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Métriques de convergence d'un unique run (un CSV).  <a href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ConvergenceReport" id="r_ConvergenceReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.  <a href="structaisolver_1_1eval_1_1ConvergenceReport.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelBenchmarkResult" id="r_CrossLevelBenchmarkResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une exécution croisée : le <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> (<span class="tt">LOT-ANNEXE-15</span>) déjà produit par <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, assemblé avec les deux identifiants de niveau distincts.  <a href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelPair" id="r_CrossLevelPair"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html">CrossLevelPair</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une paire à exécuter : une politique déjà entraînée sur <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#ad447269e4ce4af382f145ce0e746fe80">trainedOnLevel</a></span>, exécutée sur <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#a976e2728b8975fb82f5a4af6fac4d9a0">executedOnLevelPath</a></span> (<span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#a87c7430ae16a03f2bcc768ee449c47ab">executedOnLevel</a></span> en est le nom lisible).  <a href="structaisolver_1_1eval_1_1CrossLevelPair.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EvolutionaryTrainedPolicy" id="r_EvolutionaryTrainedPolicy"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy.html">EvolutionaryTrainedPolicy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">N'accepte que <span class="tt"><a class="el" href="#a6e8e78cba916b1686b3779c394faa10fa2c978c1dc4d52877220803916c037c34">ActionDecodingMode::Argmax</a></span> : seul mode que la génération 2 (évolutionniste) a jamais connu (décision de cadrage de <span class="tt">LOT-ANNEXE-10</span>, réaffirmée ici) — un appel en <span class="tt">Stochastic</span> est un usage incorrect signalé (<span class="tt"><a class="el" href="classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy.html#ad38d41e3d14601b7f728bf1da1df9f81" title="Sélectionne une action à partir d&#39;une observation déjà encodée.">selectAction</a></span> retourne <span class="tt">std::nullopt</span>), pas silencieusement ignoré.  <a href="classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy.html#details">More...</a><br /></td></tr>
+<tr class="memitem:NamedSeries" id="r_NamedSeries"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1NamedSeries.html">NamedSeries</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> par essai (même schéma de colonnes communes que <span class="tt">ConvergenceComparator</span>).  <a href="structaisolver_1_1eval_1_1NamedSeries.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GenerationComparisonResult" id="r_GenerationComparisonResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html">GenerationComparisonResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structaisolver_1_1eval_1_1NamedSeries.html#a45756688601293f0c6677a13e5b3ecbe" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:NoisyObservationWrapper" id="r_NoisyObservationWrapper"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1NoisyObservationWrapper.html">NoisyObservationWrapper</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décore un <span class="tt"><a class="el" href="classaisolver_1_1ObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span> (<span class="tt">LOT-ANNEXE-06</span>) : encode normalement puis ajoute un bruit gaussien indépendant (moyenne <span class="tt">0</span>, écart-type <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1NoisyObservationWrapper.html#a71600eccd8851933b8b814e215b747cf">noiseAmplitude</a></span>) à chaque composante du vecteur d'observation, <b>avant</b> transmission à la politique.  <a href="classaisolver_1_1eval_1_1NoisyObservationWrapper.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReinforceTrainedPolicy" id="r_ReinforceTrainedPolicy"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1ReinforceTrainedPolicy.html">ReinforceTrainedPolicy</a></td></tr>
@@ -137,10 +145,18 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:af17ffe9cc9a0273b81e7687f17018760" id="r_af17ffe9cc9a0273b81e7687f17018760"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#af17ffe9cc9a0273b81e7687f17018760">deriveSeed</a> (std::uint64_t base, int repetitionIndex)</td></tr>
 <tr class="memdesc:af17ffe9cc9a0273b81e7687f17018760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dérive une graine déterministe et distincte pour la répétition <code class="param">repetitionIndex</code> à partir d'une graine de base.  <br /></td></tr>
+<tr class="memitem:ab828e7c63835fe909deadc98e741299e" id="r_ab828e7c63835fe909deadc98e741299e"><td class="memItemLeft"><a class="el" href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab828e7c63835fe909deadc98e741299e">analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:ab828e7c63835fe909deadc98e741299e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
+<tr class="memitem:a6cd298aafd54f7b991dc89580f50dec2" id="r_a6cd298aafd54f7b991dc89580f50dec2"><td class="memItemLeft"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a6cd298aafd54f7b991dc89580f50dec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
 <tr class="memitem:aaf26f64fe2ef9185674cbe32910b01c5" id="r_aaf26f64fe2ef9185674cbe32910b01c5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structCrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf26f64fe2ef9185674cbe32910b01c5">runCrossLevelCampaign</a> (const std::vector&lt; <a class="el" href="structCrossLevelPair.html">CrossLevelPair</a> &gt; &amp;pairs, const <a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a> &amp;config)</td></tr>
 <tr class="memdesc:aaf26f64fe2ef9185674cbe32910b01c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (sans modification) pour chaque paire, dans l'ordre fourni.  <br /></td></tr>
 <tr class="memitem:acbb0ca76677dedea89d4ce4bde5993c2" id="r_acbb0ca76677dedea89d4ce4bde5993c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acbb0ca76677dedea89d4ce4bde5993c2">writeCrossLevelCsv</a> (const std::vector&lt; <a class="el" href="structCrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a> &gt; &amp;results, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:acbb0ca76677dedea89d4ce4bde5993c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un rapport CSV distinguant explicitement, colonne par colonne, le niveau d'entraînement du niveau d'exécution (jamais fusionnés) — même échappement que <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>/<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (<span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">AiSolver/Stats/CsvFormat.h</a></span>).  <br /></td></tr>
+<tr class="memitem:a03ed0a9b92ba524110076d38715fa25a" id="r_a03ed0a9b92ba524110076d38715fa25a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a">compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a03ed0a9b92ba524110076d38715fa25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
+<tr class="memitem:ad3b982ce5423c714f5a7d8b9e132d103" id="r_ad3b982ce5423c714f5a7d8b9e132d103"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103">evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
+<tr class="memdesc:ad3b982ce5423c714f5a7d8b9e132d103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
 </table>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a6e8e78cba916b1686b3779c394faa10f" name="a6e8e78cba916b1686b3779c394faa10f"></a>
@@ -173,6 +189,139 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ab828e7c63835fe909deadc98e741299e" name="ab828e7c63835fe909deadc98e741299e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab828e7c63835fe909deadc98e741299e">&#9670;&#160;</a></span>analyzeRun()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a> aisolver::eval::analyzeRun </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPath</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csvPath</td><td>Chemin du CSV (en-tête + une ligne par épisode). </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Seuil de récompense défini une fois pour toute la comparaison. </td></tr>
+    <tr><td class="paramname">finalWindowSize</td><td>Taille de la fenêtre de fin de run pour <span class="tt">finalWindowMeanReward</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Le CSV contient une colonne <span class="tt">bestReward</span> (nom retrouvé dans l'en-tête). </dd></dl>
+
+</div>
+</div>
+<a id="a6cd298aafd54f7b991dc89580f50dec2" name="a6cd298aafd54f7b991dc89580f50dec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd298aafd54f7b991dc89580f50dec2">&#9670;&#160;</a></span>compareConvergence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a> aisolver::eval::compareConvergence </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPaths</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csvPaths</td><td>Un CSV par essai ; au moins un élément. </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
+    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a03ed0a9b92ba524110076d38715fa25a" name="a03ed0a9b92ba524110076d38715fa25a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ed0a9b92ba524110076d38715fa25a">&#9670;&#160;</a></span>compareGenerations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt; aisolver::eval::compareGenerations </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>series</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rewardThreshold</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>finalWindowSize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applique <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">series</td><td>Une entrée par approche comparée (évolutionniste, REINFORCE, acteur-critique, algorithme avancé, ...) ; chaque série lue indépendamment des autres. </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Même seuil, partagé par toutes les séries comparées. </td></tr>
+    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre de fin de run, partagée par toutes les séries. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af17ffe9cc9a0273b81e7687f17018760" name="af17ffe9cc9a0273b81e7687f17018760"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af17ffe9cc9a0273b81e7687f17018760">&#9670;&#160;</a></span>deriveSeed()</h2>
 
@@ -202,6 +351,45 @@ Functions</h2></td></tr>
 
 <p>Dérive une graine déterministe et distincte pour la répétition <code class="param">repetitionIndex</code> à partir d'une graine de base. </p>
 <p>Même convention que <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>/<span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> (<span class="tt">seedBase + index</span>) : simple, déterministe, jamais l'horloge ni <span class="tt">std::rand</span>. </p>
+
+</div>
+</div>
+<a id="ad3b982ce5423c714f5a7d8b9e132d103" name="ad3b982ce5423c714f5a7d8b9e132d103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b982ce5423c714f5a7d8b9e132d103">&#9670;&#160;</a></span>evolutionaryEpisodeBudget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aisolver::eval::evolutionaryEpisodeBudget </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>generationCount</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>populationSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">generationCount</td><td>Nombre de générations exécutées. </td></tr>
+    <tr><td class="paramname">populationSize</td><td>Taille de la population (<span class="tt"><a class="el" href="structEvolutionaryConfig.html#a40b020cf25b9e6dff08a4ce07a9e5153">EvolutionaryConfig::populationSize</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">generationCount * populationSize</span> (un épisode par individu évalué, par génération). </dd></dl>
 
 </div>
 </div>

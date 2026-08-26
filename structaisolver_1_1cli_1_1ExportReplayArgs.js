@@ -1,6 +1,6 @@
 var structaisolver_1_1cli_1_1ExportReplayArgs =
 [
-    [ "algo", "structaisolver_1_1cli_1_1ExportReplayArgs.html#a776bf086e6301bb5475475b96d2e9623", null ],
+    [ "algorithmId", "structaisolver_1_1cli_1_1ExportReplayArgs.html#a5cc8a270801221a9a2d89bef866b4d65", null ],
     [ "level", "structaisolver_1_1cli_1_1ExportReplayArgs.html#a0633eb52990b791eb121adef40041f2b", null ],
     [ "model", "structaisolver_1_1cli_1_1ExportReplayArgs.html#a0da188a323062469f82ffaba3a50e46b", null ],
     [ "output", "structaisolver_1_1cli_1_1ExportReplayArgs.html#ae3d70aadaf417a92924b62b5cc8cf91d", null ],

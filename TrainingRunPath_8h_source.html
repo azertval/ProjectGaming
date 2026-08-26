@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,7 +104,7 @@ $(function(){initNavTree('TrainingRunPath_8h_source.html','',''); });
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver.html">aisolver</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceaisolver.html#a7240db6bfdbb8a3a9acce0ada7c6a71d">   22</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="namespaceaisolver.html#a7240db6bfdbb8a3a9acce0ada7c6a71d">kDefaultTrainingRunsRoot</a> = <span class="stringliteral">&quot;TrainingRuns&quot;</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceaisolver.html#a8f19efd09b31184b6b1a209f25dc593d">   22</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="namespaceaisolver.html#a8f19efd09b31184b6b1a209f25dc593d">DEFAULT_TRAINING_RUNS_ROOT</a> = <span class="stringliteral">&quot;TrainingRuns&quot;</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>[[nodiscard]] std::filesystem::path <a class="code hl_function" href="namespaceaisolver.html#aa17e50f126f244b7559548162fc9e134">makeTrainingRunPath</a>(</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> std::filesystem::path&amp; trainingRunsRoot, std::string_view levelName,</div>
@@ -113,8 +113,8 @@ $(function(){initNavTree('TrainingRunPath_8h_source.html','',''); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>[[nodiscard]] std::string <a class="code hl_function" href="namespaceaisolver.html#a94f49d6b0ed3a6c1d11c7e81ed110d52">generateRunId</a>();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}  <span class="comment">// namespace aisolver</span></div>
-<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgParsing.cpp:6</div></div>
-<div class="ttc" id="anamespaceaisolver_html_a7240db6bfdbb8a3a9acce0ada7c6a71d"><div class="ttname"><a href="namespaceaisolver.html#a7240db6bfdbb8a3a9acce0ada7c6a71d">aisolver::kDefaultTrainingRunsRoot</a></div><div class="ttdeci">constexpr const char * kDefaultTrainingRunsRoot</div><div class="ttdoc">Racine par défaut des sorties d&#39;entraînement, relative à la racine du dépôt (déjà exclue de Git par ....</div><div class="ttdef"><b>Definition</b> TrainingRunPath.h:22</div></div>
+<div class="ttc" id="anamespaceaisolver_html"><div class="ttname"><a href="namespaceaisolver.html">aisolver</a></div><div class="ttdef"><b>Definition</b> ArgumentParsing.cpp:6</div></div>
+<div class="ttc" id="anamespaceaisolver_html_a8f19efd09b31184b6b1a209f25dc593d"><div class="ttname"><a href="namespaceaisolver.html#a8f19efd09b31184b6b1a209f25dc593d">aisolver::DEFAULT_TRAINING_RUNS_ROOT</a></div><div class="ttdeci">constexpr const char * DEFAULT_TRAINING_RUNS_ROOT</div><div class="ttdoc">Racine par défaut des sorties d&#39;entraînement, relative à la racine du dépôt (déjà exclue de Git par ....</div><div class="ttdef"><b>Definition</b> TrainingRunPath.h:22</div></div>
 <div class="ttc" id="anamespaceaisolver_html_a94f49d6b0ed3a6c1d11c7e81ed110d52"><div class="ttname"><a href="namespaceaisolver.html#a94f49d6b0ed3a6c1d11c7e81ed110d52">aisolver::generateRunId</a></div><div class="ttdeci">std::string generateRunId()</div><div class="ttdoc">Génère un identifiant de run par horodatage ISO 8601 compact (ex.</div><div class="ttdef"><b>Definition</b> TrainingRunPath.cpp:37</div></div>
 <div class="ttc" id="anamespaceaisolver_html_aa17e50f126f244b7559548162fc9e134"><div class="ttname"><a href="namespaceaisolver.html#aa17e50f126f244b7559548162fc9e134">aisolver::makeTrainingRunPath</a></div><div class="ttdeci">std::filesystem::path makeTrainingRunPath(const std::filesystem::path &amp;trainingRunsRoot, std::string_view levelName, std::string_view runId)</div><div class="ttdoc">Construit le chemin trainingRunsRoot / levelName / runId / &quot;stats.csv&quot; et crée les dossiers intermédi...</div><div class="ttdef"><b>Definition</b> TrainingRunPath.cpp:28</div></div>
 </div><!-- fragment --></div><!-- contents -->

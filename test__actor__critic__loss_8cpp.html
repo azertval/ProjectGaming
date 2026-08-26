@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -198,7 +198,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>. </p>
-<p>Délègue à <span class="tt">computeWeightedPolicyGradientLoss</span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt">nn::Network</span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Délègue à <span class="tt"><a class="el" href="test__policy__gradient__loss_8cpp.html#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt">nn::Network</span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
     <tr><td class="paramname">trajectory</td><td>Trajectoire collectée (<span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>). </td></tr>

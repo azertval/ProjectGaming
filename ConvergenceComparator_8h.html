@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Training/ActorCritic/ConvergenceComparator.h File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Eval/ConvergenceComparator.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,26 +104,27 @@ $(function(){initNavTree('ConvergenceComparator_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining_3A_3ARunConvergenceMetrics" id="r_aisolver_3A_3Atraining_3A_3ARunConvergenceMetrics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1RunConvergenceMetrics.html">aisolver::training::RunConvergenceMetrics</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Métriques de convergence d'un unique run (un CSV).  <a href="structaisolver_1_1training_1_1RunConvergenceMetrics.html#details">More...</a><br /></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining_3A_3AConvergenceReport" id="r_aisolver_3A_3Atraining_3A_3AConvergenceReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ConvergenceReport.html">aisolver::training::ConvergenceReport</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.  <a href="structaisolver_1_1training_1_1ConvergenceReport.html#details">More...</a><br /></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval_3A_3ARunConvergenceMetrics" id="r_aisolver_3A_3Aeval_3A_3ARunConvergenceMetrics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html">aisolver::eval::RunConvergenceMetrics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Métriques de convergence d'un unique run (un CSV).  <a href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html#details">More...</a><br /></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval_3A_3AConvergenceReport" id="r_aisolver_3A_3Aeval_3A_3AConvergenceReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">aisolver::eval::ConvergenceReport</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.  <a href="structaisolver_1_1eval_1_1ConvergenceReport.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:aisolver" id="r_aisolver"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver.html">aisolver</a></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining" id="r_aisolver_3A_3Atraining"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html">aisolver::training</a></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval" id="r_aisolver_3A_3Aeval"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html">aisolver::eval</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2f56ad144c82570e40925363ddfdd9d0" id="r_a2f56ad144c82570e40925363ddfdd9d0"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#a2f56ad144c82570e40925363ddfdd9d0">aisolver::training::analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2f56ad144c82570e40925363ddfdd9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
-<tr class="memitem:add00975471503535b34b74ebb42ec1e9" id="r_add00975471503535b34b74ebb42ec1e9"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1ConvergenceReport.html">ConvergenceReport</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#add00975471503535b34b74ebb42ec1e9">aisolver::training::compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:add00975471503535b34b74ebb42ec1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
+<tr class="memitem:ab828e7c63835fe909deadc98e741299e" id="r_ab828e7c63835fe909deadc98e741299e"><td class="memItemLeft"><a class="el" href="structaisolver_1_1eval_1_1RunConvergenceMetrics.html">RunConvergenceMetrics</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html#ab828e7c63835fe909deadc98e741299e">aisolver::eval::analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:ab828e7c63835fe909deadc98e741299e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
+<tr class="memitem:a6cd298aafd54f7b991dc89580f50dec2" id="r_a6cd298aafd54f7b991dc89580f50dec2"><td class="memItemLeft"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html#a6cd298aafd54f7b991dc89580f50dec2">aisolver::eval::compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a6cd298aafd54f7b991dc89580f50dec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Comparaison chiffrée de convergence entre plusieurs runs d'un même algorithme, à partir des CSV <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (<span class="tt">LOT-ANNEXE-13</span>, TACHE-04, <span class="tt">EX-IA-014</span>). </p>
-<p>Décision de cadrage : les CSV lus par ce comparateur ont le <b>même schéma de colonnes</b> que ceux produits par <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> (<span class="tt">LOT-ANNEXE-12</span>), qu'ils proviennent d'un run REINFORCE ou d'un run <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> (<span class="tt">LOT-ANNEXE-13</span>, TACHE-03) — la perte du critique, spécifique à l'acteur-critique, est journalisée à part (voir <span class="tt"><a class="el" href="ActorCriticTrainer_8h.html" title="Boucle d&#39;entraînement acteur-critique par épisodes (LOT-ANNEXE-13, TACHE-03, EX-IA-014) — étend Reinf...">ActorCriticTrainer.h</a></span>) et n'entre pas dans cette comparaison. Les colonnes sont retrouvées par nom dans l'en-tête (pas par position fixe), pour rester robuste à un ajout de colonne futur dans <span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">Stats/CsvFormat.h</a></span>. </p>
+<p>Décision de cadrage : les CSV lus par ce comparateur ont le <b>même schéma de colonnes</b> que ceux produits par <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> (<span class="tt">LOT-ANNEXE-12</span>), qu'ils proviennent d'un run REINFORCE ou d'un run <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> (<span class="tt">LOT-ANNEXE-13</span>, TACHE-03) — la perte du critique, spécifique à l'acteur-critique, est journalisée à part (voir <span class="tt"><a class="el" href="ActorCriticTrainer_8h.html" title="Boucle d&#39;entraînement acteur-critique par épisodes (LOT-ANNEXE-13, TACHE-03, EX-IA-014) — même ossatu...">ActorCriticTrainer.h</a></span>) et n'entre pas dans cette comparaison. Les colonnes sont retrouvées par nom dans l'en-tête (pas par position fixe), pour rester robuste à un ajout de colonne futur dans <span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">Stats/CsvFormat.h</a></span>.</p>
+<p><b>API de bibliothèque, sans point d'entrée <span class="tt">aisolver-cli</span>.</b> L'outil en ligne de commande n'expose que <span class="tt">train</span>, <span class="tt">evaluate</span> et <span class="tt">export-replay</span> : ce module est appelé par ses tests, et reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été exécutée une fois et ses résultats consignés (<span class="tt">Documentation/Lot-Annexe/</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -137,7 +138,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_53313a0329ae6869ebe758cc286a2e1b.html">Training</a></li><li class="navelem"><a href="dir_7108b2583810b3f8116e2349a578b8c0.html">ActorCritic</a></li><li class="navelem"><a href="ConvergenceComparator_8h.html">ConvergenceComparator.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_2231b708cdc27fe07e064cc3175f0fbd.html">Eval</a></li><li class="navelem"><a href="ConvergenceComparator_8h.html">ConvergenceComparator.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

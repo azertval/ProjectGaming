@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-51.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> (plomberie de mode), <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (fond), <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (objets), <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> (décors). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2430"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2435"></a>
 Objectif</h1>
 <p>Livrer l'outil d'inspection du mode design : voir, dans l'éditeur, <b>ce qui a été configuré sur chaque calque</b> à un endroit précis.</p>
 <p>Ce lot est <b>délibérément distinct</b> de la bascule <span class="tt">F8</span> (LOT-41). <span class="tt">F8</span> <b>compose</b> le rendu final (surcharge &gt; skin &gt; damier) ; ce mode <b>décompose</b>, pour auditer. Il n'est jamais exposé au joueur.</p>
 <p>Il arrive tardivement dans le programme à dessein : un outil d'audit des calques n'a de valeur que lorsque les calques existent réellement — fond (LOT-44), skins (LOT-42), objets (LOT-45), décors sur trois couches (LOT-49), personnage (LOT-48).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2431"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2436"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2432"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2437"></a>
 Inclus</h2>
 <ul>
 <li><b>Contrôle de visibilité par calque</b>, éditeur uniquement : une case à cocher par calque pertinent — Fond, Décor d'arrière-plan, Skin des tuiles, Objets interactifs, Personnage, Décor de premier plan — chacune activable et désactivable indépendamment.</li>
@@ -112,14 +112,14 @@ Inclus</h2>
 <li>Réutilisation du même résolveur que le rendu composé — deux règles d'affichage, un seul résolveur.</li>
 <li>Toute UI de ce mode passe par le catalogue de traduction.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2433"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2438"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Tout ce qui touche au jeu réel ou au mode essai : éditeur uniquement, aucun effet sur <span class="tt">GameSession</span>.</li>
 <li>Modification des données depuis ce mode : c'est une vue, pas un outil d'édition.</li>
 <li>Persistance des cases cochées entre deux sessions.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2439"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Cases de visibilité plutôt qu'un contrôle à trois états</b> — décision <b>révisée</b> par rapport au cadrage initial, qui prévoyait un sélecteur « Fond seul / Physique seul / Interactif seul ». À coût d'implémentation identique, des cases indépendantes offrent les états isolés <b>et</b> toutes leurs combinaisons, ce qui est le vrai besoin d'audit (« le décor de premier plan cache-t-il quelque chose d'important ? » suppose deux calques visibles, pas un).</li>
@@ -128,13 +128,13 @@ Décisions de cadrage</h1>
 <li><b>Aucun repli en mode isolé</b> : un calque vide doit se voir vide. Afficher un repli reviendrait à masquer précisément l'information recherchée.</li>
 <li><b><span class="tt">RenderLayer::Object</span> prend son sens à ce lot</b> — décision prise à l'implémentation, non prévue au cadrage initial : ce calque était réservé mais resté inutilisé (<span class="tt">LOT-45</span> garde les objets interactifs sur <span class="tt">RenderLayer::Tile</span>, un override étant une propriété de n'importe quelle case, pas d'un calque à part). <span class="tt"><a class="el" href="classhmi_1_1LayerVisibility.html" title="Jeu de visibilités par calque, pour le mode d&#39;inspection « définition des textures » (LOT-51).">hmi::LayerVisibility</a></span> réutilise donc son bit comme <b>axe de résolution</b> — « la surcharge par instance doit-elle s'afficher ? » — distinct du bit <span class="tt">RenderLayer::Tile</span> — « le skin de type doit-il s'afficher ? » — plutôt que d'ajouter une structure parallèle qui aurait contredit « indexé par <span class="tt">RenderLayer</span>, pas par une liste écrite à la main ». Les deux entités restent sur <span class="tt">RenderLayer::Tile</span> pour l'ordre de dessin, inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2435"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2440"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Amendée : <span class="tt">EX-EDIT-044</span> (visibilité par calque : isolement et combinaisons).</li>
 <li>Réutilisées : <span class="tt">EX-REN-043</span> (rendu multi-calques), <span class="tt">EX-REN-044</span> (fond), <span class="tt">EX-EDIT-042</span> (skins), <span class="tt">EX-EDIT-043</span> (objets interactifs), <span class="tt">EX-DEC-002</span> (couches de décor), <span class="tt">EX-REN-046</span> (distinct de la bascule), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-004</span> (vérification sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2436"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2441"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -149,7 +149,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-51-tache-03-controles-documentation.html#md_Lot_2LOT-51-visibilite-calques_2tache-03-controles-documentation" title="Lot/LOT-51-visibilite-calques/tache-03-controles-documentation.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Contrôles d'interface traduits + documentation  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2437"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2442"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Chaque calque peut être affiché ou masqué indépendamment, y compris en combinaisons.</li>
@@ -159,10 +159,10 @@ Critères d'acceptation du lot</h1>
 <li>Les libellés distinguent sans ambiguïté ce mode d'aperçu de la bascule <span class="tt">F8</span>.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen, lint verts ; vérification manuelle des combinaisons principales.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2438"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2443"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-41.html" title="LOT-41 — Bascule Physique/Texture (`F8`, non remappable)">LOT-41</a> (plomberie de mode), <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (skins), <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> (fond), <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (objets), <a class="el" href="lot-48.html" title="LOT-48 — Personnage : skin et animations depuis fichier">LOT-48</a> (personnage), <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> et <a class="el" href="lot-50.html" title="LOT-50 — Décors : placement et manipulation dans l&#39;éditeur">LOT-50</a> (décors). Éditeur uniquement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2439"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2444"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-51-tache-01-visibilite-calques.html" title="TACHE-01 — Jeu de visibilités par calque">TACHE-01 — Jeu de visibilités par calque</a></li>

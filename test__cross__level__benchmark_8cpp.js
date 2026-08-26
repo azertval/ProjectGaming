@@ -1,7 +1,5 @@
 var test__cross__level__benchmark_8cpp =
 [
-    [ "EnvironmentConfig", "structEnvironmentConfig.html", "structEnvironmentConfig" ],
-    [ "ObservationEncoder", "classObservationEncoder.html", "classObservationEncoder" ],
     [ "CrossLevelBenchmarkResult", "structCrossLevelBenchmarkResult.html", "structCrossLevelBenchmarkResult" ],
     [ "CrossLevelPair", "structCrossLevelPair.html", "structCrossLevelPair" ],
     [ "LevelTrainingSession", "classLevelTrainingSession.html", "classLevelTrainingSession" ],

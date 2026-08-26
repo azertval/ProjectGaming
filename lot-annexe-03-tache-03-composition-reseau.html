@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-03-tache-03-composition-reseau.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2tache-03-composition-reseau"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">LOT-ANNEXE-03</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Nn</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3474"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3480"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> (TACHE-01) et les activations (TACHE-02, plus <span class="tt">relu</span>/<span class="tt">tanhOp</span> de <span class="tt">LOT-ANNEXE-02</span>) existent séparément ; cette tâche les compose en une séquence utilisable comme un seul objet — le réseau complet que consommeront les algorithmes d'apprentissage (génération 2/3) et l'optimiseur (<span class="tt">LOT-ANNEXE-04</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3475"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3481"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Network_8h.html" title="Composition de couches Dense en un réseau séquentiel (LOT-ANNEXE-03).">Source/AiSolver/Nn/Network.h</a></span></b> : classe <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">aisolver::nn::Network</a></span>, non copiable.<ul>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3482"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Network_8h.html" title="Composition de couches Dense en un réseau séquentiel (LOT-ANNEXE-03).">Source/AiSolver/Nn/Network.h</a></span> (nouveau).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__network_8cpp.html" title="Tests unitaires de aisolver::nn::Network (LOT-ANNEXE-03, TACHE-03) : composition, accès aux paramètre...">Unit/AiSolver/Nn/test_network.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__network_8cpp.html" title="Tests unitaires de aisolver::nn::Network (LOT-ANNEXE-03, TACHE-03) : composition, accès aux paramètre...">Source/Test/Unit/AiSolver/Nn/test_network.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3483"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Forward bout-en-bout</b> : un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> à trois couches (<span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> + <span class="tt">relu</span>, <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> + <span class="tt">sigmoid</span>, <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> sans activation) transforme une entrée <span class="tt">[4,1]</span> en une sortie de la forme attendue par la dernière couche, valeurs cohérentes avec un calcul manuel sur un cas simple.</li>
@@ -128,22 +128,22 @@ Tests (obligatoires)</h1>
 <li><b>Activation <span class="tt">nullptr</span> laisse la sortie linéaire</b> : une couche ajoutée sans activation ne subit aucune transformation après <span class="tt"><a class="el" href="classDense.html#a686045c9e291d0160112cc09142512b1" title="Passe avant : add(matmul(weights, input), bias).">Dense::forward()</a></span>.</li>
 <li><b>Ordre des couches respecté</b> : deux réseaux construits avec les mêmes couches mais ajoutées dans un ordre différent produisent des sorties différentes sur la même entrée (garde-fou contre un stockage qui ignorerait l'ordre d'ajout, ex. structure non séquentielle par erreur).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3484"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> ne connaît aucune fonction de perte</b> (cf. décision de cadrage de l'épic) : elle s'arrête à <span class="tt">forward()</span>, la perte et son calcul de gradient (<span class="tt">autodiff::backward()</span>) restent à la charge de l'appelant (génération 2/3).</li>
 <li><b><span class="tt">ActivationFn</span> est un <span class="tt">std::function</span>, donc une petite indirection à chaque appel</b> : jugé négligeable ici (pas d'objectif de performance pour la génération 0, cf. <span class="tt">LOT-ANNEXE-01</span>) ; à reconsidérer seulement si un profilage futur l'identifie comme un point chaud réel.</li>
 <li><b>Une couche ajoutée via <span class="tt">addLayer</span> change de forme d'entrée attendue à la couche suivante</b> : aucune vérification de compatibilité des dimensions n'est faite à l'ajout (<span class="tt">addLayer</span> ne connaît pas la forme de sortie de la couche précédente indépendamment d'un appel à <span class="tt">forward()</span>) ; une incompatibilité se manifestera par l'assertion de <span class="tt">matmul</span> (<span class="tt">LOT-ANNEXE-01</span>) au premier <span class="tt">forward()</span> — comportement jugé suffisant, une vérification anticipée dupliquerait cette logique sans bénéfice pour un réseau construit par du code (pas par une configuration utilisateur externe à valider).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3485"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> disponible et testé (<span class="tt">ctest</span> vert) pour la composition, l'accès aux paramètres et la rétropropagation de bout en bout ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3486"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reseaux-neurones.html" title="Réseaux de neurones">Réseaux de neurones</a> — neurone, couche dense, fonctions d'activation, initialisation des poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3487"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-003</span> (déclarée dans <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

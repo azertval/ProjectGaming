@@ -2,9 +2,9 @@ var classaisolver_1_1PlayerStateEncoder =
 [
     [ "encode", "classaisolver_1_1PlayerStateEncoder.html#ab514ca4421828bc3b81030605554ab71", null ],
     [ "size", "classaisolver_1_1PlayerStateEncoder.html#aa94e28b1b4aa67bd3c44b37423cef329", null ],
-    [ "kNominalCoyoteTime", "classaisolver_1_1PlayerStateEncoder.html#a5ff444b39baecf755bea6ab39498927a", null ],
-    [ "kNominalDashDuration", "classaisolver_1_1PlayerStateEncoder.html#a88abad38879b59c859b9072685f42f77", null ],
-    [ "kNominalJumpBufferTime", "classaisolver_1_1PlayerStateEncoder.html#adf794025ca69cfb062decea051d0e2fa", null ],
-    [ "kNominalWallJumpLockTime", "classaisolver_1_1PlayerStateEncoder.html#a01769cf5ad380d1507e6a02610c07227", null ],
-    [ "kPlayerStateSize", "classaisolver_1_1PlayerStateEncoder.html#a57366576f815d6c0351126017ed5d889", null ]
+    [ "NOMINAL_COYOTE_TIME", "classaisolver_1_1PlayerStateEncoder.html#a459652ac96647ee2ba257a4e59efc242", null ],
+    [ "NOMINAL_DASH_DURATION", "classaisolver_1_1PlayerStateEncoder.html#a01dbbfc1cb1339b6296598d4aa09d594", null ],
+    [ "NOMINAL_JUMP_BUFFER_TIME", "classaisolver_1_1PlayerStateEncoder.html#abec076db92e7b1bd324bae3225a73c4f", null ],
+    [ "NOMINAL_WALL_JUMP_LOCK_TIME", "classaisolver_1_1PlayerStateEncoder.html#a2550a616e7574336b2307c9f42378dc0", null ],
+    [ "PLAYER_STATE_SIZE", "classaisolver_1_1PlayerStateEncoder.html#ac7e104dc967326b9128687890eeebeb6", null ]
 ];

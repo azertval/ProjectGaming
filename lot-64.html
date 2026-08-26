@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-64.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build <span class="tt">/W4 /WX</span>, 1114 tests <span class="tt">ctest</span> à 100 %, lint d'exigences, cahier de test régénéré, Doxygen vert sur la version épinglée par la CI ; l'essai manuel des trois modes et des zones de caméra reste à faire avant fusion, voir tache-04). Prérequis : <a class="el" href="lot-32.html" title="LOT-32 — Niveaux à salles (façon Celeste)">LOT-32</a> (partition en salles), <a class="el" href="lot-16.html" title="LOT-16 — Niveaux de grande taille">LOT-16</a> (caméra niveau entier), <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> (architecture de l'information de l'éditeur). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2995"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3000"></a>
 Objectif</h1>
 <p>Rendre au level designer le <b>choix du cadrage</b>, aujourd'hui entièrement décidé par le moteur.</p>
 <p>Le comportement actuel est une règle unique, en dur, et invisible depuis l'éditeur : si le niveau tient dans une <b>salle</b> (<span class="tt">RoomGrid::ROOM_WIDTH_TILES</span> × <span class="tt">ROOM_HEIGHT_TILES</span>, soit 24 × 14 tuiles, deux <b>constantes de compilation</b>), la caméra cadre le niveau entier (<span class="tt">LOT-16</span>) ; au-delà, elle bascule salle par salle avec une coupure nette (<span class="tt">EX-REN-015</span>, <span class="tt">LOT-32</span>). Le designer ne choisit rien : il <b>subit</b> une bascule de comportement au moment où son niveau franchit 24 tuiles de large.</p>
@@ -105,9 +105,9 @@ Objectif</h1>
 <li><b>Le moteur n'a aucune caméra de suivi.</b> C'est le cadrage le plus répandu du genre — la caméra accompagne le personnage, avec une zone morte et une anticipation — et il n'existe nulle part. Un niveau large et bas (une course, une poursuite) n'a aujourd'hui qu'un mauvais choix : subir des coupures de salle qui n'ont aucun sens sur un couloir horizontal.</li>
 <li><b>Le cadrage n'est pas une propriété du niveau.</b> Il devrait l'être : c'est une décision de <b>conception</b>, au même titre que le placement des dangers. Un tableau de puzzle veut voir la salle entière ; un tableau d'adresse veut suivre le personnage.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2996"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3001"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2997"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3002"></a>
 Inclus</h2>
 <ul>
 <li><b>Mode de cadrage porté par le niveau</b> (<span class="tt">EX-LVL-006</span>), donnée sérialisée et validée comme le reste du format.</li>
@@ -119,14 +119,14 @@ Inclus</h2>
 <li><b>Zones de caméra dessinées à la main</b> (<span class="tt">EX-LVL-007</span>, <span class="tt">EX-EDIT-029</span>) en mode <em>par salle</em> : le designer peut dessiner des rectangles de taille arbitraire directement sur le canevas plutôt que de subir la grille automatique uniforme, ce qui permet de <b>mélanger plusieurs tailles de caméra au sein d'un même niveau</b>. Priorité par ordre d'ajout en cas de chevauchement, repli sur le niveau entier si aucune zone ne couvre le personnage.</li>
 <li><b>Taille de la caméra de suivi réglable par niveau</b> (<span class="tt">EX-REN-017</span>), mêmes champs que la taille de salle du mode <em>par salle</em>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2998"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3003"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Transitions animées entre zones de caméra, déclencheurs de caméra (objets posés dans le niveau qui changeraient le cadrage à l'exécution) : les zones restent une <b>donnée statique</b> du niveau, pas une couche d'objets à éditer ni un système scripté.</li>
 <li>Effets de caméra (secousse, zoom scénarisé) — la secousse relève du <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>.</li>
 <li>Caméra libre en jeu, mode photo.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2999"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3004"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le mode est une donnée du niveau, pas un réglage d'application.</b> Un réglage global ferait du cadrage une préférence de joueur alors que c'est une décision de conception : un tableau de puzzle conçu pour être vu en entier devient injouable en caméra suivi.</li>
@@ -137,13 +137,13 @@ Décisions de cadrage</h1>
 <li><b>Les zones de caméra et la taille réglable du mode suivi ont été intégrées en cours de lot</b>, suite à un besoin exprimé par le level designer une fois les trois modes de base livrés : mélanger plusieurs tailles de caméra dans un même niveau (mode <em>par salle</em>) était impossible tant que la seule granularité était une grille uniforme par niveau. Choix délibéré : les intégrer <b>dans ce lot</b> plutôt que d'ouvrir un nouveau lot après fusion, pour livrer une fonctionnalité de cadrage cohérente et complète en une seule fois plutôt qu'en deux passes sur le même code.</li>
 <li><b>Ce lot précède <a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66</a></b> : refondre les niveaux de démonstration avant que le choix de cadrage existe obligerait à les reprendre deux fois.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3000"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3005"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-LVL-006</span> (le niveau porte son mode de cadrage), <span class="tt">EX-REN-016</span> (trois modes de cadrage, dont la caméra de suivi bornée), <span class="tt">EX-EDIT-028</span> (choix et prévisualisation dans l'éditeur), <span class="tt">EX-LVL-007</span> (zones de caméra dessinées à la main), <span class="tt">EX-REN-017</span> (taille de suivi réglable), <span class="tt">EX-EDIT-029</span> (outil de dessin et tableau des zones dans l'éditeur).</li>
 <li>Réutilisées : <span class="tt">EX-REN-013</span> (caméra 2D, zoom pixel art natif), <span class="tt">EX-REN-015</span> (cadrage par salle — devient l'un des trois modes), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-ARCH-022</span> (échantillonnage <em>nearest</em>, zoom entier), <span class="tt">EX-LVL-004</span>/<span class="tt">EX-LVL-005</span> (validation, version de format), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-EDIT-005</span> (annulation), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle de <span class="tt">Core</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3001"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3006"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -162,7 +162,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-64-tache-05-zones-camera-taille-suivi.html#md_Lot_2LOT-64-cadrage-camera-choisi_2tache-05-zones-camera-taille-suivi" title="Lot/LOT-64-cadrage-camera-choisi/tache-05-zones-camera-taille-suivi.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Zones de caméra dessinées à la main et taille de suivi réglable  </td><td class="markdownTableBodyNone"><span class="tt">Source/Core/Levels</span>, <span class="tt">Source/HMI/{Graphics,Editor,Game}</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3002"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3007"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un niveau <b>sans</b> mode déclaré se joue exactement comme aujourd'hui — les quinze tableaux livrés et le test système sont inchangés.</li>
@@ -175,10 +175,10 @@ Critères d'acceptation du lot</h1>
 <li>La taille de la caméra de suivi est réglable par niveau, avec repli sur la taille par défaut actuelle si non déclarée.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3003"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3008"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-32.html" title="LOT-32 — Niveaux à salles (façon Celeste)">LOT-32</a> (partition en salles, <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span>), <a class="el" href="lot-16.html" title="LOT-16 — Niveaux de grande taille">LOT-16</a> (caméra niveau entier) et <a class="el" href="lot-05.html" title="LOT-05 — Rendu 2D : atlas, sprites &amp; caméra">LOT-05</a> (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>). S'intègre à l'éditeur livré par <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a>. Prérequis de <a class="el" href="lot-66.html" title="LOT-66 — Reproductibilité et référentiel">LOT-66</a>, qui choisira un cadrage par tableau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3004"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3009"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-64-tache-01-mode-cadrage-format.html" title="TACHE-01 — Mode de cadrage dans le format de niveau">TACHE-01 — Mode de cadrage dans le format de niveau</a></li>

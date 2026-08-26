@@ -23,6 +23,7 @@ var namespaceaisolver =
     [ "ObservationEncoder", "classaisolver_1_1ObservationEncoder.html", "classaisolver_1_1ObservationEncoder" ],
     [ "PlayerStateEncoder", "classaisolver_1_1PlayerStateEncoder.html", "classaisolver_1_1PlayerStateEncoder" ],
     [ "RewardConfig", "structaisolver_1_1RewardConfig.html", "structaisolver_1_1RewardConfig" ],
+    [ "ObjectiveDistanceFieldCache", "classaisolver_1_1ObjectiveDistanceFieldCache.html", "classaisolver_1_1ObjectiveDistanceFieldCache" ],
     [ "TileWindowEncoder", "classaisolver_1_1TileWindowEncoder.html", "classaisolver_1_1TileWindowEncoder" ],
     [ "Rng", "classaisolver_1_1Rng.html", "classaisolver_1_1Rng" ],
     [ "Tensor", "classaisolver_1_1Tensor.html", "classaisolver_1_1Tensor" ],
@@ -55,6 +56,7 @@ var namespaceaisolver =
     [ "actionCount", "namespaceaisolver.html#a4f3464dafad270e2884fb0ba7d1d0034", null ],
     [ "add", "namespaceaisolver.html#a0c215845fcb11428c0a6a05028bbd126", null ],
     [ "addScalar", "namespaceaisolver.html#a58ef67f6c9b91d3945d4343d5cca1849", null ],
+    [ "buildObjectiveDistanceField", "namespaceaisolver.html#a72b8d383d7626ce3d84aa8a7b5e6ea97", null ],
     [ "checkGradient", "namespaceaisolver.html#a9e329421866b257cf6a93da46b53cb3b", null ],
     [ "classifyEpisode", "namespaceaisolver.html#a59583736f24a97702e07be216ee2c971", null ],
     [ "computeLevelFingerprint", "namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3", null ],
@@ -90,6 +92,6 @@ var namespaceaisolver =
     [ "transpose", "namespaceaisolver.html#aa021d9acc72bb653937b573c3c13b8f2", null ],
     [ "validateReplay", "namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3", null ],
     [ "writeReplay", "namespaceaisolver.html#a3399a1e98c29b1c3b60517627cd06cb1", null ],
-    [ "kDefaultTrainingRunsRoot", "namespaceaisolver.html#a7240db6bfdbb8a3a9acce0ada7c6a71d", null ],
-    [ "kReplayFormatVersion", "namespaceaisolver.html#a555dca592758c1fdf33b8eb0573102e1", null ]
+    [ "DEFAULT_TRAINING_RUNS_ROOT", "namespaceaisolver.html#a8f19efd09b31184b6b1a209f25dc593d", null ],
+    [ "REPLAY_FORMAT_VERSION", "namespaceaisolver.html#a1442f909369c172e067dd62fe6afa24b", null ]
 ];

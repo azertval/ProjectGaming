@@ -1,14 +1,26 @@
 var test__convergence__comparator_8cpp =
 [
+    [ "EnvironmentConfig", "structEnvironmentConfig.html", "structEnvironmentConfig" ],
+    [ "HeadlessLevelEnvironment", "classHeadlessLevelEnvironment.html", "classHeadlessLevelEnvironment" ],
+    [ "ObservationEncoder", "classObservationEncoder.html", "classObservationEncoder" ],
+    [ "TrainingStatsRecorder", "classTrainingStatsRecorder.html", "classTrainingStatsRecorder" ],
+    [ "Sgd", "classSgd.html", "classSgd" ],
+    [ "ActorCriticConfig", "structActorCriticConfig.html", "structActorCriticConfig" ],
+    [ "ActorCriticTrainer", "classActorCriticTrainer.html", "classActorCriticTrainer" ],
+    [ "CriticNetwork", "classCriticNetwork.html", "classCriticNetwork" ],
     [ "ReinforceConfig", "structReinforceConfig.html", "structReinforceConfig" ],
     [ "ReinforceTrainer", "classReinforceTrainer.html", "classReinforceTrainer" ],
-    [ "analyzeRun", "test__convergence__comparator_8cpp.html#a2f56ad144c82570e40925363ddfdd9d0", null ],
+    [ "analyzeRun", "test__convergence__comparator_8cpp.html#ab828e7c63835fe909deadc98e741299e", null ],
     [ "buildNetwork", "test__convergence__comparator_8cpp.html#ac04a455df7a8844fe27f78b4da9d4515", null ],
-    [ "compareConvergence", "test__convergence__comparator_8cpp.html#add00975471503535b34b74ebb42ec1e9", null ],
+    [ "compareConvergence", "test__convergence__comparator_8cpp.html#a6cd298aafd54f7b991dc89580f50dec2", null ],
     [ "policyTopology", "test__convergence__comparator_8cpp.html#aeaf47d1d255cef866aa8de90bdf3bcd2", null ],
+    [ "TEST", "test__convergence__comparator_8cpp.html#a7791de19703b85f99fba9845bd401d97", null ],
     [ "TEST", "test__convergence__comparator_8cpp.html#aa815323e76ff7b70669f93351f11971f", null ],
     [ "TEST", "test__convergence__comparator_8cpp.html#aadbc6146f696158e7c5a5f5640fd2b65", null ],
+    [ "TEST", "test__convergence__comparator_8cpp.html#a3a633017d7ee7c49abef9bc29c614e29", null ],
+    [ "TEST", "test__convergence__comparator_8cpp.html#a7dd5a5da6871954b862dceebbcf7f99c", null ],
     [ "TEST", "test__convergence__comparator_8cpp.html#a833273f4c3fda2470b353dfc3c1ebcad", null ],
+    [ "TEST", "test__convergence__comparator_8cpp.html#ac2408cb491972f853987e1fcdd4fcf6d", null ],
     [ "TEST", "test__convergence__comparator_8cpp.html#a80af4d4febf4e508aa3cbc94502e491d", null ],
     [ "TEST", "test__convergence__comparator_8cpp.html#a006f08a6be785865a90a1eb32084e4fc", null ]
 ];

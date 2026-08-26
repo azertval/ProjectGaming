@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -99,9 +99,12 @@ $(function(){initNavTree('test__reward_8cpp.html','',''); });
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="GridDistanceField_8h_source.html">AiSolver/Env/GridDistanceField.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Reward_8h_source.html">AiSolver/Env/Reward.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelOutcome_8h_source.html">Core/Levels/LevelOutcome.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -116,12 +119,80 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0d3c9114ec39d5305980b48ed086baf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs par défaut de <span class="tt">RewardConfig</span> ne produisent ni <span class="tt">NaN</span> ni valeur aberrante.  <br /></td></tr>
 <tr class="memitem:a0cb9c3e5ff705e2255d6df1ca1a4776c" id="r_a0cb9c3e5ff705e2255d6df1ca1a4776c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0cb9c3e5ff705e2255d6df1ca1a4776c">TEST</a> (RewardTest, DetourAutourDunMurRecompensePositivement)</td></tr>
 <tr class="memdesc:a0cb9c3e5ff705e2255d6df1ca1a4776c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pas de détour nécessaire autour d'un mur reçoit une récompense de progression positive, même s'il éloigne le personnage de la sortie en ligne droite.  <br /></td></tr>
+<tr class="memitem:a452a820dab711f0328e9c68c94ee3380" id="r_a452a820dab711f0328e9c68c94ee3380"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a452a820dab711f0328e9c68c94ee3380">TEST</a> (RewardTest, PorteVerrouilleeFermeeCibleLaCleTantQueLaSortieEstInatteignable)</td></tr>
+<tr class="memdesc:a452a820dab711f0328e9c68c94ee3380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tant qu'une porte verrouillée reste fermée, <span class="tt">buildObjectiveDistanceField</span> cible sa clé en plus de la sortie &ndash; s'approcher de la clé produit une progression positive même quand la sortie est inatteignable derrière la porte (amendement LOT-ANNEXE-21, <span class="tt">EX-IA-023</span> déplacé des murs statiques aux mécanismes).  <br /></td></tr>
+<tr class="memitem:acfc03ebdf48a929d40cad93faa85a068" id="r_acfc03ebdf48a929d40cad93faa85a068"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acfc03ebdf48a929d40cad93faa85a068">TEST</a> (ObjectiveDistanceFieldCacheTest, ChampMisEnCacheIdentiqueAUneReconstruction)</td></tr>
+<tr class="memdesc:acfc03ebdf48a929d40cad93faa85a068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le champ rendu par <span class="tt">ObjectiveDistanceFieldCache</span> est numériquement identique à celui d'une reconstruction systématique, à état de portes constant comme après ouverture.  <br /></td></tr>
+<tr class="memitem:a6c83076a770484ddab0782792354f1b8" id="r_a6c83076a770484ddab0782792354f1b8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6c83076a770484ddab0782792354f1b8">TEST</a> (ObjectiveDistanceFieldCacheTest, ReconstruitLeChampQuandUnePorteChangeDEtat)</td></tr>
+<tr class="memdesc:a6c83076a770484ddab0782792354f1b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache se reconstruit à la bascule d'une porte : le champ rendu après ouverture n'est plus celui d'avant.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <a class="el" href="namespaceaisolver.html#acfa113b8f54b1f1c80752e87fdcee984" title="Calcule la récompense d&#39;un pas unique, fonction pure sans état interne ni effet de bord.">aisolver::computeReward</a> (LOT-ANNEXE-08, TACHE-01 ; amendement distance de grille, EX-IA-023). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="acfc03ebdf48a929d40cad93faa85a068" name="acfc03ebdf48a929d40cad93faa85a068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc03ebdf48a929d40cad93faa85a068">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ObjectiveDistanceFieldCacheTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChampMisEnCacheIdentiqueAUneReconstruction</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le champ rendu par <span class="tt">ObjectiveDistanceFieldCache</span> est numériquement identique à celui d'une reconstruction systématique, à état de portes constant comme après ouverture. </p>
+<p>C'est l'invariant que le cache promet : il supprime un recalcul, il ne change aucune récompense. Les tests de reproductibilité ne l'attraperaient pas — deux exécutions également périmées restent identiques l'une à l'autre. <b>Cas de test :</b> <b>Le champ mis en cache est identique à une reconstruction, avant et après ouverture d'une porte.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Couloir verrouillé : comparer <span class="tt">cache.field()</span> à <span class="tt">buildObjectiveDistanceField()</span> case par case.<br  />
+2. Rappeler <span class="tt">cache.field()</span> sans rien changer, comparer à nouveau.<br  />
+3. Ouvrir la porte (clé ramassée), comparer une troisième fois.<br  />
+ <b>Resultat attendu :</b> Les trois champs coïncident case par case avec la reconstruction correspondante. </p>
+
+</div>
+</div>
+<a id="a6c83076a770484ddab0782792354f1b8" name="a6c83076a770484ddab0782792354f1b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c83076a770484ddab0782792354f1b8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ObjectiveDistanceFieldCacheTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ReconstruitLeChampQuandUnePorteChangeDEtat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le cache se reconstruit à la bascule d'une porte : le champ rendu après ouverture n'est plus celui d'avant. </p>
+<p>La signature de validité est le vecteur des états de portes. Un cache qui ne la relirait pas continuerait de viser la clé — déjà ramassée — au lieu de la sortie devenue atteignable, et la récompense guiderait l'agent vers une case sans objet pour le reste de l'épisode. <b>Cas de test :</b> <b>Ouvrir une porte invalide le champ mis en cache.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Porte fermée : relever la distance de l'entrée (cible = la clé).<br  />
+2. Ramasser la clé pour ouvrir la porte.<br  />
+3. Relever à nouveau la distance de l'entrée via le MÊME cache.<br  />
+ <b>Resultat attendu :</b> La distance passe de 1 (clé) à 4 (sortie devenue atteignable) : le champ a bien été reconstruit. </p>
+
+</div>
+</div>
 <a id="a976110974e8dfcefe1293343970df8b8" name="a976110974e8dfcefe1293343970df8b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a976110974e8dfcefe1293343970df8b8">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a976110974e8dfcefe1293343970df8b8">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +223,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0cb9c3e5ff705e2255d6df1ca1a4776c" name="a0cb9c3e5ff705e2255d6df1ca1a4776c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cb9c3e5ff705e2255d6df1ca1a4776c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cb9c3e5ff705e2255d6df1ca1a4776c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,8 +253,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a452a820dab711f0328e9c68c94ee3380" name="a452a820dab711f0328e9c68c94ee3380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452a820dab711f0328e9c68c94ee3380">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">RewardTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PorteVerrouilleeFermeeCibleLaCleTantQueLaSortieEstInatteignable</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tant qu'une porte verrouillée reste fermée, <span class="tt">buildObjectiveDistanceField</span> cible sa clé en plus de la sortie &ndash; s'approcher de la clé produit une progression positive même quand la sortie est inatteignable derrière la porte (amendement LOT-ANNEXE-21, <span class="tt">EX-IA-023</span> déplacé des murs statiques aux mécanismes). </p>
+<p><b>Cas de test :</b> <b>Porte verrouillée fermée : approcher la clé progresse malgré une sortie inatteignable.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Couloir 5x1 : clé en <span class="tt">(1,0)</span>, porte verrouillée fermée en <span class="tt">(2,0)</span>, sortie en <span class="tt">(4,0)</span> &ndash; inatteignable tant que la porte est fermée.<br  />
+2. Vérifie que le champ à cible unique (sortie seule, ancien comportement) renvoie la sentinelle pour la case d'entrée.<br  />
+3. Vérifie que <span class="tt">buildObjectiveDistanceField</span> renvoie une distance finie et décroissante à mesure qu'on s'approche de la clé, et que le pas correspondant reçoit une récompense de progression positive.<br  />
+ <b>Resultat attendu :</b> Distance finie/décroissante vers la clé via le champ objectif, alors que le champ à cible unique (sortie) reste inatteignable ; récompense de progression strictement positive. </p>
+
+</div>
+</div>
 <a id="a88c4f10cf1a8b06085a39dd03768d69c" name="a88c4f10cf1a8b06085a39dd03768d69c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88c4f10cf1a8b06085a39dd03768d69c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c4f10cf1a8b06085a39dd03768d69c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +314,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad97a10989c68a3a6c5c52c1c630d759e" name="ad97a10989c68a3a6c5c52c1c630d759e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad97a10989c68a3a6c5c52c1c630d759e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad97a10989c68a3a6c5c52c1c630d759e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +344,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0d3c9114ec39d5305980b48ed086baf6" name="a0d3c9114ec39d5305980b48ed086baf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3c9114ec39d5305980b48ed086baf6">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d3c9114ec39d5305980b48ed086baf6">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

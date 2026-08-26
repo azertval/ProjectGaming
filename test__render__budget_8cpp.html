@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -97,12 +97,14 @@ $(function(){initNavTree('test__render__budget_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Transform_8h_source.html">Core/Ecs/Components/Transform.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CameraFraming_8h_source.html">Core/Levels/CameraFraming.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelScene_8h_source.html">Core/Levels/LevelScene.h</a>&quot;</code><br />
@@ -112,6 +114,7 @@ $(function(){initNavTree('test__render__budget_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="PlaneFileNaming_8h_source.html">HMI/Editor/PlaneFileNaming.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BackgroundRenderer_8h_source.html">HMI/Graphics/BackgroundRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CameraZones_8h_source.html">HMI/Graphics/CameraZones.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ParticleRenderer_8h_source.html">HMI/Graphics/ParticleRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaneVisuals_8h_source.html">HMI/Graphics/PlaneVisuals.h</a>&quot;</code><br />
@@ -290,9 +293,9 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Budget de rendu<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Charger demo-final (plusieurs salles).<br  />
+ 1. Charger demo-synthese (plusieurs salles).<br  />
 2. Composer sa scene sur la salle d'entree, en mode Texture.<br  />
- <b>Resultat attendu :</b> Au moins la moitie des primitives examinees sont ecartees par le culling. </p>
+ <b>Resultat attendu :</b> Une fraction significative des primitives examinees est ecartee par le culling. </p>
 
 </div>
 </div>

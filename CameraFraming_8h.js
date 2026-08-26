@@ -11,6 +11,6 @@ var CameraFraming_8h =
     [ "core::parseCameraFramingMode", "namespacecore.html#acae8699b6c75742b88007ea470bf54ea", null ],
     [ "core::resolveCameraFraming", "namespacecore.html#ac4655b6e996ba6d305c643f5f7d8e156", null ],
     [ "core::validateCameraFramingConfig", "namespacecore.html#a8066c4006517959fe9db47cdbfb50cc9", null ],
-    [ "core::kDefaultRoomHeightTiles", "namespacecore.html#a8d60e23fab3fca80f398689d249f986b", null ],
-    [ "core::kDefaultRoomWidthTiles", "namespacecore.html#a79045c3b980c73b69626fdf0630e30bc", null ]
+    [ "core::DEFAULT_ROOM_HEIGHT_TILES", "namespacecore.html#a27bf5fbce0dbeda08de2d7e82e64d719", null ],
+    [ "core::DEFAULT_ROOM_WIDTH_TILES", "namespacecore.html#a16d88a44dd10fb55af743080cdf23310", null ]
 ];

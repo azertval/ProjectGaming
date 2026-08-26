@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,18 +105,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a5e96e99192c8a210e3dae14966e99548" id="r_a5e96e99192c8a210e3dae14966e99548"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e96e99192c8a210e3dae14966e99548">TEST</a> (ScreenFlowTest, OptionsRevientVersSonEcranDOrigine)</td></tr>
 <tr class="memdesc:a5e96e99192c8a210e3dae14966e99548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options revient vers l'écran d'où il a été ouvert : Menu si ouvert depuis Menu, Pause si ouvert depuis Pause &ndash; porté par l'état, pas par une variable à part.  <br /></td></tr>
 <tr class="memitem:a82e6c5b8936c42e92fc5e5922497fcde" id="r_a82e6c5b8936c42e92fc5e5922497fcde"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a82e6c5b8936c42e92fc5e5922497fcde">TEST</a> (ScreenFlowTest, TransitionInterditeEstRefusee)</td></tr>
-<tr class="memdesc:a82e6c5b8936c42e92fc5e5922497fcde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une transition interdite est refusée (std::nullopt), notamment Editor -&gt; Pause et Menu -&gt; NiveauTermine (exemples cités par TACHE-01).  <br /></td></tr>
+<tr class="memdesc:a82e6c5b8936c42e92fc5e5922497fcde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une transition interdite est refusée (std::nullopt), notamment Editor -&gt; Pause et Menu -&gt; LevelComplete (exemples cités par TACHE-01).  <br /></td></tr>
 <tr class="memitem:a5a63566b44429b7d441036fe010c8e8c" id="r_a5a63566b44429b7d441036fe010c8e8c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5a63566b44429b7d441036fe010c8e8c">TEST</a> (ScreenFlowTest, HabillageDeFenetreEstCeluiAttenduParEcran)</td></tr>
 <tr class="memdesc:a5a63566b44429b7d441036fe010c8e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'habillage de fenêtre attendu pour chacun des sept écrans correspond à ce que <span class="tt">MainWindow</span> appliquait à la main avant l'extraction de la table (docks, barres, commandes d'édition, navigation manette).  <br /></td></tr>
-<tr class="memitem:aa12b20cc8cbbf07c13ae2f2aed163803" id="r_aa12b20cc8cbbf07c13ae2f2aed163803"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa12b20cc8cbbf07c13ae2f2aed163803">TEST</a> (ScreenFlowTest, ContinuerOuRejouerDepuisNiveauTermineRameneAGame)</td></tr>
-<tr class="memdesc:aa12b20cc8cbbf07c13ae2f2aed163803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejouer ou continuer depuis l'écran de fin de niveau ramène toujours à Game &ndash; jamais directement à un autre écran (le contenu réel du niveau suivant est décidé ailleurs, hors de la responsabilité de la machine à états).  <br /></td></tr>
+<tr class="memitem:a3225af4023084daa87c0d5aa84d17cc9" id="r_a3225af4023084daa87c0d5aa84d17cc9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3225af4023084daa87c0d5aa84d17cc9">TEST</a> (ScreenFlowTest, ContinuerOuRejouerDepuisLevelCompleteRameneAGame)</td></tr>
+<tr class="memdesc:a3225af4023084daa87c0d5aa84d17cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejouer ou continuer depuis l'écran de fin de niveau ramène toujours à Game &ndash; jamais directement à un autre écran (le contenu réel du niveau suivant est décidé ailleurs, hors de la responsabilité de la machine à états).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la machine à états des écrans (LOT-59 TACHE-01, EX-GP-041). </p>
 <p>Logique pure, sans Qt. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="aa12b20cc8cbbf07c13ae2f2aed163803" name="aa12b20cc8cbbf07c13ae2f2aed163803"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa12b20cc8cbbf07c13ae2f2aed163803">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<a id="a3225af4023084daa87c0d5aa84d17cc9" name="a3225af4023084daa87c0d5aa84d17cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3225af4023084daa87c0d5aa84d17cc9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,18 +129,18 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ContinuerOuRejouerDepuisNiveauTermineRameneAGame</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">ContinuerOuRejouerDepuisLevelCompleteRameneAGame</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Rejouer ou continuer depuis l'écran de fin de niveau ramène toujours à Game &ndash; jamais directement à un autre écran (le contenu réel du niveau suivant est décidé ailleurs, hors de la responsabilité de la machine à états). </p>
-<p><b>Cas de test :</b> <b>Continuer/Rejouer depuis NiveauTermine ramène à Game.</b><br  />
+<p><b>Cas de test :</b> <b>Continuer/Rejouer depuis LevelComplete ramène à Game.</b><br  />
  <b>Categorie :</b> Unitaire · Machine à états des écrans<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Résoudre ContinueAfterLevel depuis NiveauTermine.<br  />
-2. Résoudre ReplayLevel depuis NiveauTermine.<br  />
+ 1. Résoudre ContinueAfterLevel depuis LevelComplete.<br  />
+2. Résoudre ReplayLevel depuis LevelComplete.<br  />
  <b>Resultat attendu :</b> Les deux transitions mènent à Game. </p>
 
 </div>
@@ -224,13 +224,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une transition interdite est refusée (std::nullopt), notamment Editor -&gt; Pause et Menu -&gt; NiveauTermine (exemples cités par TACHE-01). </p>
+<p>Une transition interdite est refusée (std::nullopt), notamment Editor -&gt; Pause et Menu -&gt; LevelComplete (exemples cités par TACHE-01). </p>
 <p><b>Cas de test :</b> <b>Une transition interdite est refusée.</b><br  />
  <b>Categorie :</b> Unitaire · Machine à états des écrans<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Tenter Editor -&gt; Pause (via OpenPause).<br  />
-2. Tenter Menu -&gt; NiveauTermine (via LevelSucceeded).<br  />
+2. Tenter Menu -&gt; LevelComplete (via LevelSucceeded).<br  />
 3. Tenter Menu -&gt; Pause directement.<br  />
  <b>Resultat attendu :</b> Chaque tentative renvoie std::nullopt. </p>
 

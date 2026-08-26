@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,17 +105,10 @@ $(function(){initNavTree('test__dqn__trainer_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Sgd_8h_source.html">AiSolver/Optim/Sgd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingStatsRecorder_8h_source.html">AiSolver/Stats/TrainingStatsRecorder.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DqnTrainer_8h_source.html">AiSolver/Training/Advanced/DqnTrainer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Advanced/QNetwork.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DqnTrainer_8h_source.html">AiSolver/Training/Dqn/DqnTrainer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Dqn/QNetwork.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">TrivialLevelFixture.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:DqnConfig" id="r_DqnConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structDqnConfig.html">DqnConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run DQN &ndash; structure explicite dédiée (pas de constante codée en dur dans le trainer), même esprit que <span class="tt"><a class="el" href="structReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span>/<span class="tt"><a class="el" href="structActorCriticConfig.html" title="Paramètres d&#39;un run acteur-critique : mêmes défauts que ReinforceConfig (LOT-ANNEXE-12),...">ActorCriticConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>).  <a href="structDqnConfig.html#details">More...</a><br /></td></tr>
-<tr class="memitem:DqnTrainer" id="r_DqnTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classDqnTrainer.html">DqnTrainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble <span class="tt"><a class="el" href="classQNetwork.html" title="Réseau distinct de la politique/du critique (nn::Network, LOT-ANNEXE-03), une sortie par action de l&#39;...">QNetwork</a></span> (principal + cible), <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>, <span class="tt"><a class="el" href="test__dqn__loss_8cpp.html#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">computeDqnLoss</a></span> et un optimiseur (<span class="tt">optim::IOptimizer</span>, <span class="tt">LOT-ANNEXE-04</span>) en une boucle par pas, journalisée par épisode (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, <span class="tt">LOT-ANNEXE-09</span>) exactement comme <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>/<span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>.  <a href="classDqnTrainer.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae114a13a953f68010b03a1902b217745" id="r_ae114a13a953f68010b03a1902b217745"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae114a13a953f68010b03a1902b217745">TEST</a> (DqnTrainerTest, CsvBienFormes)</td></tr>

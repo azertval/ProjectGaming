@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-09-tache-04-fichier-par-run.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2tache-04-fichier-par-run"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-09.html#md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2epic" title="Lot-Annexe/LOT-ANNEXE-09-journalisation-statistiques/epic.md">LOT-ANNEXE-09</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Stats</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3755"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (TACHE-01) prend un chemin de fichier CSV en construction ; cette tâche définit comment ce chemin est construit pour que deux runs (même niveau ou niveaux différents) ne se marchent jamais dessus, et où ces fichiers générés vivent dans l'arborescence du dépôt.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3756"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">std::filesystem::path <a class="el" href="namespaceaisolver.html#aa17e50f126f244b7559548162fc9e134" title="Construit le chemin trainingRunsRoot / levelName / runId / &quot;stats.csv&quot; et crée les dossiers intermédi...">aisolver::makeTrainingRunPath</a>(const std::filesystem::path&amp;
@@ -106,34 +106,34 @@ Travail à réaliser</h1>
 <li><b><span class="tt">std::string <a class="el" href="namespaceaisolver.html#a94f49d6b0ed3a6c1d11c7e81ed110d52" title="Génère un identifiant de run par horodatage ISO 8601 compact (ex.">aisolver::generateRunId()</a></span></b> : identifiant de run par horodatage ISO 8601 compact (ex. <span class="tt">20260729-143512</span>), suffixé si nécessaire pour éviter une collision dans la même seconde (compteur incrémental en repli).</li>
 <li>Constante documentée <span class="tt">constexpr const char* kDefaultTrainingRunsRoot = "TrainingRuns";</span> (chemin relatif à la racine du dépôt, cohérent avec l'entrée <span class="tt">.gitignore</span> <span class="tt">/TrainingRuns/</span> déjà en place) — l'appelant (CLI, <span class="tt">LOT-ANNEXE-19</span>) résout ce chemin relatif en absolu selon son propre répertoire de travail, cette tâche ne fait aucune hypothèse sur le répertoire courant du processus.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3757"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TrainingRunPath_8h.html" title="Construction du chemin de fichier CSV d&#39;un run d&#39;entraînement, sous /TrainingRuns/ (LOT-ANNEXE-09,...">Source/AiSolver/Stats/TrainingRunPath.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3752"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3758"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Construction du chemin</b> : <span class="tt">makeTrainingRunPath</span> produit le chemin attendu et crée effectivement les dossiers intermédiaires (vérifié avec un répertoire temporaire de test, pas le vrai <span class="tt">/TrainingRuns/</span> du dépôt).</li>
 <li><b>Absence de collision</b> : deux appels à <span class="tt">generateRunId()</span> dans la même seconde produisent des identifiants distincts.</li>
 <li><b>Isolation par niveau</b> : deux runs sur des <span class="tt">levelName</span> différents produisent des chemins disjoints, y compris leurs dossiers intermédiaires.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3753"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3759"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">kDefaultTrainingRunsRoot</span> reste un nom relatif</b> : cette tâche ne fixe jamais un chemin absolu en dur, pour rester portable d'une machine à l'autre (même principe que <span class="tt">levelPath</span> du format de rejeu, <span class="tt">LOT-ANNEXE-07</span>).</li>
 <li><b>Le dossier <span class="tt">/TrainingRuns/</span> est déjà exclu de Git</b> (<span class="tt">.gitignore</span>, ajouté par le cadrage général du programme) — cette tâche ne modifie pas <span class="tt">.gitignore</span>, elle produit seulement des fichiers dans un dossier déjà ignoré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3754"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3760"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">makeTrainingRunPath</span>/<span class="tt">generateRunId</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3755"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3761"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — récompense cumulée (retour), plafond de performance d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3756"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3762"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-010</span> (nouvelle, partagée avec TACHE-01/02/03/05 du même lot). </p>
 </div></div><!-- contents -->

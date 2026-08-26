@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -120,7 +120,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fait vivre les dangers <b>mobile</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">TileType::DangerMover</a></span>, <span class="tt">EX-GP-051</span>) et <b>temporisé</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">TileType::DangerBlink</a></span>, <span class="tt">EX-GP-053</span>) d'un niveau. </p>
 <p>Logique <b>pure</b> (aucun rendu ni fenêtre), déterministe au pas fixe (<span class="tt">EX-NFR-002</span>) : la position d'un danger mobile et l'activation d'un danger temporisé ne dépendent que du nombre de pas fixes écoulés depuis le chargement, jamais d'un temps réel accumulé en flottant. Ne gère <b>pas</b> le danger <b>commuté</b> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">TileType::DangerSwitched</a></span>, <span class="tt">EX-GP-052</span>), résolu par <span class="tt"><a class="el" href="namespacecore.html" title="Espace de noms du moteur et de la logique de jeu.">core</a>::
-<a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></span> (même détection front/continu que déclencheur↔porte, réutilisée telle quelle) ; ne gère pas non plus le danger <b>directionnel</b> (<span class="tt">EX-GP-050</span>), purement géométrique (<span class="tt"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></span>), sans état à faire vivre. </p>
+<a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></span> (même détection front/continu que déclencheur↔porte, réutilisée telle quelle) ; ne gère pas non plus le danger <b>directionnel</b> (<span class="tt">EX-GP-050</span>), purement géométrique (<span class="tt"><a class="el" href="namespacecore.html#a9f3ed859b26e4626a4313019328d59f6" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></span>), sans état à faire vivre. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa9b9f7b94b567f93eeb8139cc63cd977" name="aa9b9f7b94b567f93eeb8139cc63cd977"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9b9f7b94b567f93eeb8139cc63cd977">&#9670;&#160;</a></span>DangerController()</h2>
@@ -202,7 +202,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Boîte <b>mortelle courante</b> du danger mobile <code class="param">index</code> (dans l'ordre de <span class="tt"><a class="el" href="classcore_1_1Level.html#a4cae6fe32995982eebc6c73c4bfbae10">Level::moverConfigs()</a></span>), en unités de grille. </p>
-<p>Aller-retour <b>linéaire déterministe</b> entre <span class="tt">startPosition</span> et <span class="tt">startPosition + range</span> cases sur l'axe de la configuration (<span class="tt"><a class="el" href="structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8">core::DangerMoverConfig::axis</a></span>), à une vitesse de conception fixe (<span class="tt">kMoverSpeed</span>). Sa position <b>initiale</b> de la grille (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">TileType</a>::
+<p>Aller-retour <b>linéaire déterministe</b> entre <span class="tt">startPosition</span> et <span class="tt">startPosition + range</span> cases sur l'axe de la configuration (<span class="tt"><a class="el" href="structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8">core::DangerMoverConfig::axis</a></span>), à une vitesse de conception fixe (<span class="tt">MOVER_SPEED</span>). Sa position <b>initiale</b> de la grille (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">TileType</a>::
 DangerMover</span>) n'est donc plus à jour une fois le contrôleur avancé — c'est cette boîte, pas un balayage de la grille statique, qui doit être testée pour la résolution de fin de niveau (<span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>). </p>
 
 </div>

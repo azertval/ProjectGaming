@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-01-tache-02-tensor-nd.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2tache-02-tensor-nd"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">LOT-ANNEXE-01</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3372"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3378"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> (TACHE-01) fournit l'aléatoire ; il manque encore le conteneur numérique sur lequel tout le reste du programme s'appuie (poids de réseau, observations, actions). <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;T&gt;</span> est un gabarit <b>header-only</b> (comme les types génériques du projet) : forme et <em>stride</em> explicites, allocation contiguë, vues sans copie.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3379"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Tensor_8h.html" title="Conteneur tensoriel N-D générique (aisolver::Tensor), header-only.">Source/AiSolver/Math/Tensor.h</a></span></b> : classe gabarit <span class="tt">template &lt;typename T&gt; class <a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span>.<ul>
@@ -113,14 +113,14 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3374"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3380"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Tensor_8h.html" title="Conteneur tensoriel N-D générique (aisolver::Tensor), header-only.">Source/AiSolver/Math/Tensor.h</a></span> (nouveau, header-only — pas d'entrée <span class="tt">.cpp</span> dans <span class="tt">Source/AiSolver/CMakeLists.txt</span>, un gabarit n'a rien à compiler séparément).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__tensor_8cpp.html" title="Tests unitaires du conteneur tensoriel aisolver::Tensor&lt;T&gt; (LOT-ANNEXE-01, TACHE-02).">Unit/AiSolver/Math/test_tensor.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__tensor_8cpp.html" title="Tests unitaires du conteneur tensoriel aisolver::Tensor&lt;T&gt; (LOT-ANNEXE-01, TACHE-02).">Source/Test/Unit/AiSolver/Math/test_tensor.cpp</a></span> (nouveau, cf. TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3375"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3381"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Construction et forme</b> : <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;({2, 3}).shape()</span> renvoie <span class="tt">{2, 3}</span>, <span class="tt">.size()</span> renvoie <span class="tt">6</span>, tous les éléments initialisés à <span class="tt">0.0f</span>.</li>
@@ -131,22 +131,22 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">clone()</span> ne partage pas</b> : après <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt; c = a.clone();</span>, écrire dans <span class="tt">c</span> <b>ne modifie pas</b> <span class="tt">a</span>.</li>
 <li><b>Assertions sur formes invalides</b> : <span class="tt">at()</span> avec un mauvais nombre d'indices ou un indice hors bornes, et <span class="tt">view()</span> avec un nombre d'éléments incompatible, déclenchent <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> (vérifié en configuration où les assertions ne sont pas strippées).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3376"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3382"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">view()</span> ne copie jamais implicitement</b> : c'est la source la plus probable de bug (modifier une vue en pensant modifier une copie indépendante, ou l'inverse) — documenté explicitement en Doxygen sur <span class="tt">view()</span> et <span class="tt">clone()</span>, avec un exemple des deux comportements.</li>
 <li><b>Les <em>strides</em> d'une vue ne sont pas forcément ceux qu'on obtiendrait en construisant un <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> de la même forme depuis zéro</b> dans le cas général (sous-vues non contiguës) — hors périmètre de cette tâche (<span class="tt">view()</span> ne couvre que le reshape à volume constant, pas les sous-vues par tranche/*slice*), mais le champ <span class="tt">strides()</span> reste public pour que ce cas soit ajoutable plus tard sans changer la représentation.</li>
 <li><b><span class="tt">shared_ptr</span> a un coût d'indirection et de comptage atomique</b> : accepté ici pour la simplicité et la sécurité mémoire (RAII) ; la contrainte de performance de ce lot est nulle (cf. exclusions de l'épic).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3377"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3383"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a>&lt;float&gt;</span> disponible, testé (<span class="tt">ctest</span> vert), Doxygen à jour sur la classe et chaque méthode publique ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3378"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3384"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle et calcul numérique</a> (tenseurs, forme et <em>stride</em>, produit matriciel, réductions, générateurs pseudo-aléatoires), en particulier sa section 2 (représentation en mémoire : forme, <em>stride</em>, tampon contigu, vue sans copie).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3379"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3385"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-001</span> (déclarée dans <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

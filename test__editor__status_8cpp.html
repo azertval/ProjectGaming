@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -113,7 +113,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a4816b6985e934f1641a88f9fc4eb0923" id="r_a4816b6985e934f1641a88f9fc4eb0923"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4816b6985e934f1641a88f9fc4eb0923">TEST</a> (EditorStatusTest, AideChangeAvecLOutilActif)</td></tr>
 <tr class="memdesc:a4816b6985e934f1641a88f9fc4eb0923"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'aide affichee change avec l'outil actif.  <br /></td></tr>
 <tr class="memitem:ac43f0e765535e43f45e58d539c0a2d82" id="r_ac43f0e765535e43f45e58d539c0a2d82"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac43f0e765535e43f45e58d539c0a2d82">TEST</a> (EditorStatusTest, MemeContexteProduitLaMemeAide)</td></tr>
-<tr class="memdesc:ac43f0e765535e43f45e58d539c0a2d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">La restauration apres un message transitoire redonne la meme aide, pour le meme outil : la fonction pure est deterministe (le defaut corrige vivait dans MainWindow, qui ne rappelait jamais ce calcul apres l'expiration d'un message).  <br /></td></tr>
+<tr class="memdesc:ac43f0e765535e43f45e58d539c0a2d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">La restauration apres un message transitoire redonne la meme aide, pour le meme outil.  <br /></td></tr>
 <tr class="memitem:a2cef0e6a8023b218c6dc61ffbc0b58a6" id="r_a2cef0e6a8023b218c6dc61ffbc0b58a6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2cef0e6a8023b218c6dc61ffbc0b58a6">TEST</a> (EditorStatusTest, ContextePixelEditProduitLesZonesEtLAideAttendues)</td></tr>
 <tr class="memdesc:a2cef0e6a8023b218c6dc61ffbc0b58a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contexte d'atelier pixel art produit les six zones attendues (asset, modifie, outil, pixel survole, zoom, couleur) et l'aide de l'outil de canevas actif &ndash; sans toucher au contexte de niveau (mutuellement exclusifs).  <br /></td></tr>
 <tr class="memitem:a3c4ee13d1a20fd2780b861bcd327e41d" id="r_a3c4ee13d1a20fd2780b861bcd327e41d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3c4ee13d1a20fd2780b861bcd327e41d">TEST</a> (EditorStatusTest, ModeContraintFigureDansLaZoneCouleur)</td></tr>
@@ -388,8 +388,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La restauration apres un message transitoire redonne la meme aide, pour le meme outil : la fonction pure est deterministe (le defaut corrige vivait dans MainWindow, qui ne rappelait jamais ce calcul apres l'expiration d'un message). </p>
-<p><b>Cas de test :</b> <b>La decision est deterministe : meme contexte, meme resultat.</b><br  />
+<p>La restauration apres un message transitoire redonne la meme aide, pour le meme outil. </p>
+<p><span class="tt">editorStatusLines</span> est PURE : restaurer la barre d'etat consiste donc simplement a la rappeler avec le meme contexte, sans avoir a memoriser ce qui y etait affiche. <b>Cas de test :</b> <b>La decision est deterministe : meme contexte, meme resultat.</b><br  />
  <b>Categorie :</b> Unitaire · Barre d'etat de l'editeur<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

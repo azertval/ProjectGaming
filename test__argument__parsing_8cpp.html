@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('test__argument__parsing_8cpp.html','',''); });
 <p>Tests unitaires de l'analyse d'arguments de <span class="tt">aisolver-cli</span> (LOT-ANNEXE-19, TACHE-01, <span class="tt">EX-IA-020</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="ArgParsing_8h_source.html">AiSolver/Cli/ArgParsing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArgumentParsing_8h_source.html">AiSolver/Cli/ArgumentParsing.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Commands_8h_source.html">AiSolver/Cli/Commands.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -127,20 +127,22 @@ Functions</h2></td></tr>
 <tr class="memitem:a42c9c25e449f94a190c495bd09b5171f" id="r_a42c9c25e449f94a190c495bd09b5171f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a42c9c25e449f94a190c495bd09b5171f">TEST</a> (ParseTrainArgsTest, AnalyseLesSurchargesIndividuelles)</td></tr>
 <tr class="memdesc:a42c9c25e449f94a190c495bd09b5171f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> analyse toutes les surcharges d'hyperparametres individuelles.  <br /></td></tr>
 <tr class="memitem:a2193174387507d555f4b867b5e5249a3" id="r_a2193174387507d555f4b867b5e5249a3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2193174387507d555f4b867b5e5249a3">TEST</a> (ParseEvaluateArgsTest, RejetteUnModeleUnAlgorithmeOuUnNiveauManquant)</td></tr>
-<tr class="memdesc:a2193174387507d555f4b867b5e5249a3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span> rejette un appel manquant <span class="tt">--model</span>, <span class="tt">--algo</span> ou <span class="tt">--level</span>.  <br /></td></tr>
+<tr class="memdesc:a2193174387507d555f4b867b5e5249a3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> rejette un appel manquant <span class="tt">--model</span>, <span class="tt">--algo</span> ou <span class="tt">--level</span>.  <br /></td></tr>
 <tr class="memitem:a6c76752443507d4739914ded5b81e973" id="r_a6c76752443507d4739914ded5b81e973"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6c76752443507d4739914ded5b81e973">TEST</a> (ParseEvaluateArgsTest, AnalyseUnAppelValideAvecRapportOptionnel)</td></tr>
-<tr class="memdesc:a6c76752443507d4739914ded5b81e973"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span> analyse un appel complet avec <span class="tt">--repetitions</span> et <span class="tt">--report</span>.  <br /></td></tr>
+<tr class="memdesc:a6c76752443507d4739914ded5b81e973"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> analyse un appel complet avec <span class="tt">--repetitions</span> et <span class="tt">--report</span>.  <br /></td></tr>
 <tr class="memitem:a5f3cbe24d667d8ad645b90107efd0471" id="r_a5f3cbe24d667d8ad645b90107efd0471"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5f3cbe24d667d8ad645b90107efd0471">TEST</a> (ParseExportReplayArgsTest, RejetteUneSortieManquante)</td></tr>
-<tr class="memdesc:a5f3cbe24d667d8ad645b90107efd0471"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span> rejette un appel sans <span class="tt">--output</span>.  <br /></td></tr>
+<tr class="memdesc:a5f3cbe24d667d8ad645b90107efd0471"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span> rejette un appel sans <span class="tt">--output</span>.  <br /></td></tr>
 <tr class="memitem:af69221f6e7033bd64bb038560cc94cd9" id="r_af69221f6e7033bd64bb038560cc94cd9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af69221f6e7033bd64bb038560cc94cd9">TEST</a> (ParseExportReplayArgsTest, AnalyseUnAppelValide)</td></tr>
-<tr class="memdesc:af69221f6e7033bd64bb038560cc94cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span> analyse un appel complet avec <span class="tt">--seed</span>.  <br /></td></tr>
+<tr class="memdesc:af69221f6e7033bd64bb038560cc94cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span> analyse un appel complet avec <span class="tt">--seed</span>.  <br /></td></tr>
+<tr class="memitem:a5e8e4cddba91c477180411669aafb71d" id="r_a5e8e4cddba91c477180411669aafb71d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e8e4cddba91c477180411669aafb71d">TEST</a> (ParseTrainArgsTest, ValeurNumeriqueInvalideRefuseeSansLever)</td></tr>
+<tr class="memdesc:a5e8e4cddba91c477180411669aafb71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur numerique invalide produit un message d'usage, jamais un plantage.  <br /></td></tr>
 <tr class="memitem:ade8fa1868816e9e0eb448cd9e642e7ae" id="r_ade8fa1868816e9e0eb448cd9e642e7ae"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade8fa1868816e9e0eb448cd9e642e7ae">findOption</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
 <tr class="memdesc:ade8fa1868816e9e0eb448cd9e642e7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche <span class="tt">--name valeur</span> dans <code class="param">args</code> et retourne <span class="tt">valeur</span>.  <br /></td></tr>
 <tr class="memitem:abdcffd0275a6e91a2b6f3efa9bd7f0e6" id="r_abdcffd0275a6e91a2b6f3efa9bd7f0e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abdcffd0275a6e91a2b6f3efa9bd7f0e6">hasFlag</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
 <tr class="memitem:ab33f7a79233d89171c80842b7c1d3541" id="r_ab33f7a79233d89171c80842b7c1d3541"><td class="memItemLeft">std::optional&lt; <a class="el" href="structEvaluateArgs.html">EvaluateArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541">parseEvaluateArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
-<tr class="memdesc:ab33f7a79233d89171c80842b7c1d3541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).     <br /></td></tr>
+<tr class="memdesc:ab33f7a79233d89171c80842b7c1d3541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">evaluate</span> (hors nom de sous-commande).  <br /></td></tr>
 <tr class="memitem:af81379ab0670ccf1f6ddc55331c46305" id="r_af81379ab0670ccf1f6ddc55331c46305"><td class="memItemLeft">std::optional&lt; <a class="el" href="structExportReplayArgs.html">ExportReplayArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305">parseExportReplayArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
-<tr class="memdesc:af81379ab0670ccf1f6ddc55331c46305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).     <br /></td></tr>
+<tr class="memdesc:af81379ab0670ccf1f6ddc55331c46305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">export-replay</span> (hors nom de sous-commande).  <br /></td></tr>
 <tr class="memitem:aae8244b40b1c253b01c5b0febe5adcf7" id="r_aae8244b40b1c253b01c5b0febe5adcf7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structTrainArgs.html">TrainArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7">parseTrainArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
 <tr class="memdesc:aae8244b40b1c253b01c5b0febe5adcf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).  <br /></td></tr>
 </table>
@@ -243,7 +245,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).    </p>
+<p>Analyse les arguments de <span class="tt">evaluate</span> (hors nom de sous-commande). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">args</td><td>Arguments bruts (ex. <span class="tt">argv[2..]</span>). </td></tr>
@@ -251,7 +253,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>/<span class="tt">--algo</span> manquent ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées.    </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>, <span class="tt">--algo</span> ou <span class="tt">--model</span> manquent, ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées. </dd></dl>
 
 </div>
 </div>
@@ -282,7 +284,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).    </p>
+<p>Analyse les arguments de <span class="tt">export-replay</span> (hors nom de sous-commande). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">args</td><td>Arguments bruts (ex. <span class="tt">argv[2..]</span>). </td></tr>
@@ -290,7 +292,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>/<span class="tt">--algo</span> manquent ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées.    </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>, <span class="tt">--algo</span>, <span class="tt">--model</span> ou <span class="tt">--output</span> manquent, ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées. </dd></dl>
 
 </div>
 </div>
@@ -334,7 +336,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a700956c23045de82678cb50fe69e6de4" name="a700956c23045de82678cb50fe69e6de4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a700956c23045de82678cb50fe69e6de4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a700956c23045de82678cb50fe69e6de4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -364,7 +366,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac181d357e507278c478453037d767bc4" name="ac181d357e507278c478453037d767bc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac181d357e507278c478453037d767bc4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac181d357e507278c478453037d767bc4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,7 +396,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a61e64e9645f2f6d0b837156326d0d159" name="a61e64e9645f2f6d0b837156326d0d159"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61e64e9645f2f6d0b837156326d0d159">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e64e9645f2f6d0b837156326d0d159">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +426,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6c76752443507d4739914ded5b81e973" name="a6c76752443507d4739914ded5b81e973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c76752443507d4739914ded5b81e973">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c76752443507d4739914ded5b81e973">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -442,20 +444,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span> analyse un appel complet avec <span class="tt">--repetitions</span> et <span class="tt">--report</span>. </p>
+<p><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> analyse un appel complet avec <span class="tt">--repetitions</span> et <span class="tt">--report</span>. </p>
 <p><b>Cas de test :</b> Appel complet avec options -&gt; analyse correcte.<br  />
  <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Arguments <span class="tt">--model m.bin --algo pg --level l.json --repetitions 10 --report
  r.csv</span>.<br  />
-2. <span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">repetitions == 10</span>, <span class="tt">report == "r.csv"</span>. </p>
 
 </div>
 </div>
 <a id="a2193174387507d555f4b867b5e5249a3" name="a2193174387507d555f4b867b5e5249a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2193174387507d555f4b867b5e5249a3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2193174387507d555f4b867b5e5249a3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,19 +475,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span> rejette un appel manquant <span class="tt">--model</span>, <span class="tt">--algo</span> ou <span class="tt">--level</span>. </p>
+<p><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> rejette un appel manquant <span class="tt">--model</span>, <span class="tt">--algo</span> ou <span class="tt">--level</span>. </p>
 <p><b>Cas de test :</b> Argument requis manquant -&gt; rejet.<br  />
  <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Trois appels, chacun omettant respectivement <span class="tt">--model</span>, <span class="tt">--algo</span> ou <span class="tt">--level</span>.<br  />
-2. <span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de train (hors nom de sous-commande).">parseEvaluateArgs</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">std::nullopt</span> dans les trois cas. </p>
 
 </div>
 </div>
 <a id="af69221f6e7033bd64bb038560cc94cd9" name="af69221f6e7033bd64bb038560cc94cd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af69221f6e7033bd64bb038560cc94cd9">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af69221f6e7033bd64bb038560cc94cd9">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -503,20 +505,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span> analyse un appel complet avec <span class="tt">--seed</span>. </p>
+<p><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span> analyse un appel complet avec <span class="tt">--seed</span>. </p>
 <p><b>Cas de test :</b> Appel complet -&gt; analyse correcte.<br  />
  <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Arguments <span class="tt">--model m.bin --algo avance --level l.json --output o.json --seed
  3</span>.<br  />
-2. <span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span>.<br  />
- <b>Resultat attendu :</b> <span class="tt">algo == "avance"</span>, <span class="tt">seed == 3</span>. </p>
+2. <span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span>.<br  />
+ <b>Resultat attendu :</b> <span class="tt">algorithmId == "avance"</span>, <span class="tt">seed == 3</span>. </p>
 
 </div>
 </div>
 <a id="a5f3cbe24d667d8ad645b90107efd0471" name="a5f3cbe24d667d8ad645b90107efd0471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f3cbe24d667d8ad645b90107efd0471">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f3cbe24d667d8ad645b90107efd0471">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -534,19 +536,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span> rejette un appel sans <span class="tt">--output</span>. </p>
+<p><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span> rejette un appel sans <span class="tt">--output</span>. </p>
 <p><b>Cas de test :</b> <span class="tt">--output</span> manquant -&gt; rejet.<br  />
  <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Arguments <span class="tt">--model m.bin --algo evo --level l.json</span> (sans <span class="tt">--output</span>).<br  />
-2. <span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de train (hors nom de sous-commande).">parseExportReplayArgs</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">std::nullopt</span> et message d'erreur non vide. </p>
 
 </div>
 </div>
 <a id="af349dad9819b6113a7d477941970a272" name="af349dad9819b6113a7d477941970a272"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af349dad9819b6113a7d477941970a272">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af349dad9819b6113a7d477941970a272">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -571,12 +573,12 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Arguments <span class="tt">--level demo.json --algo &lt;evo|pg|ac|avance&gt;</span> pour chaque valeur.<br  />
 2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
- <b>Resultat attendu :</b> Analyse reussie, <span class="tt">algo</span> egal a la valeur fournie, pour les quatre cas. </p>
+ <b>Resultat attendu :</b> Analyse reussie, <span class="tt">algorithmId</span> egal a la valeur fournie, pour les quatre cas. </p>
 
 </div>
 </div>
 <a id="a42c9c25e449f94a190c495bd09b5171f" name="a42c9c25e449f94a190c495bd09b5171f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42c9c25e449f94a190c495bd09b5171f">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42c9c25e449f94a190c495bd09b5171f">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -606,7 +608,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad47d37f7048ec21b5547c3d5b35a9d68" name="ad47d37f7048ec21b5547c3d5b35a9d68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad47d37f7048ec21b5547c3d5b35a9d68">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47d37f7048ec21b5547c3d5b35a9d68">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -636,7 +638,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5cae28f35748750378487ff301e52980" name="a5cae28f35748750378487ff301e52980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cae28f35748750378487ff301e52980">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cae28f35748750378487ff301e52980">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,7 +668,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a71c3a37914f91d555ede3b3b89928c5b" name="a71c3a37914f91d555ede3b3b89928c5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71c3a37914f91d555ede3b3b89928c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c3a37914f91d555ede3b3b89928c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,6 +694,36 @@ Functions</h2></td></tr>
  1. Arguments <span class="tt">--algo evo</span> (sans <span class="tt">--level</span>).<br  />
 2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">std::nullopt</span> et message d'erreur non vide. </p>
+
+</div>
+</div>
+<a id="a5e8e4cddba91c477180411669aafb71d" name="a5e8e4cddba91c477180411669aafb71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e8e4cddba91c477180411669aafb71d">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseTrainArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ValeurNumeriqueInvalideRefuseeSansLever</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une valeur numerique invalide produit un message d'usage, jamais un plantage. </p>
+<p><b>Cas de test :</b> Argument numerique invalide -&gt; refus explicite, aucune exception.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> avec <span class="tt">--seed abc</span>.<br  />
+2. Recommencer avec <span class="tt">--seed 12abc</span>, qui commence par un nombre sans en etre un.<br  />
+ <b>Resultat attendu :</b> Les deux appels renvoient <span class="tt">std::nullopt</span> avec un message citant l'option et la valeur recue — <span class="tt">std::stoull</span> levait une exception non rattrapee, qui terminait le processus. </p>
 
 </div>
 </div>

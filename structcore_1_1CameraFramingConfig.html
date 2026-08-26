@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -112,7 +112,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cadrage de caméra résolu d'un niveau : le mode retenu et ses paramètres. </p>
-<p><span class="tt"><a class="el" href="#a6d169bf7896002d862c862213d070c1f">roomWidthTiles</a></span>/<span class="tt"><a class="el" href="#ae20fc5eef068fe3bc180bdca58cb5ddb">roomHeightTiles</a></span> ont deux usages selon le mode : en <span class="tt">PerRoom</span>, la taille de chaque salle du découpage <b>automatique</b> en grille (ignorée si <span class="tt"><a class="el" href="#a75511a5d232794eb1be7a83f22825600" title="Zones de caméra dessinées à la main (mode PerRoom uniquement) : si non vide, remplace entièrement le ...">zones</a></span> est non vide) ; en <span class="tt">Follow</span>, la taille fixe de la zone visible par la caméra de suivi. <span class="tt">std::nullopt</span> signifie « taille par défaut » (<span class="tt"><a class="el" href="namespacecore.html#a79045c3b980c73b69626fdf0630e30bc" title="Taille de salle par défaut du mode par salle, en cases.">kDefaultRoomWidthTiles</a></span>/<span class="tt"><a class="el" href="namespacecore.html#a8d60e23fab3fca80f398689d249f986b">kDefaultRoomHeightTiles</a></span>), jamais une taille de zéro case. Sans objet dans les deux cas pour <span class="tt">WholeLevel</span>. </p>
+<p><span class="tt"><a class="el" href="#a6d169bf7896002d862c862213d070c1f">roomWidthTiles</a></span>/<span class="tt"><a class="el" href="#ae20fc5eef068fe3bc180bdca58cb5ddb">roomHeightTiles</a></span> ont deux usages selon le mode : en <span class="tt">PerRoom</span>, la taille de chaque salle du découpage <b>automatique</b> en grille (ignorée si <span class="tt"><a class="el" href="#a75511a5d232794eb1be7a83f22825600" title="Zones de caméra dessinées à la main (mode PerRoom uniquement) : si non vide, remplace entièrement le ...">zones</a></span> est non vide) ; en <span class="tt">Follow</span>, la taille fixe de la zone visible par la caméra de suivi. <span class="tt">std::nullopt</span> signifie « taille par défaut » (<span class="tt"><a class="el" href="namespacecore.html#a16d88a44dd10fb55af743080cdf23310" title="Taille de salle par défaut du mode par salle, en cases.">DEFAULT_ROOM_WIDTH_TILES</a></span>/<span class="tt"><a class="el" href="namespacecore.html#a27bf5fbce0dbeda08de2d7e82e64d719">DEFAULT_ROOM_HEIGHT_TILES</a></span>), jamais une taille de zéro case. Sans objet dans les deux cas pour <span class="tt">WholeLevel</span>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ae616b4e2d2da30d5002951e6231c4512" name="ae616b4e2d2da30d5002951e6231c4512"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae616b4e2d2da30d5002951e6231c4512">&#9670;&#160;</a></span>operator==()</h2>

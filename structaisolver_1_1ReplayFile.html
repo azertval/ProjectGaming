@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,8 +100,8 @@ $(function(){initNavTree('structaisolver_1_1ReplayFile.html','','structaisolver_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a1049dee72c033952da18d152807b5472" id="r_a1049dee72c033952da18d152807b5472"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1049dee72c033952da18d152807b5472">formatVersion</a> = <a class="el" href="namespaceaisolver.html#a555dca592758c1fdf33b8eb0573102e1">kReplayFormatVersion</a></td></tr>
-<tr class="memdesc:a1049dee72c033952da18d152807b5472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numéro de version explicite du format (voir <span class="tt"><a class="el" href="namespaceaisolver.html#a555dca592758c1fdf33b8eb0573102e1" title="Version courante du format de rejeu (EX-IA-008), même principe que core::kLevelFormatVersion (EX-LVL-...">kReplayFormatVersion</a></span>).  <br /></td></tr>
+<tr class="memitem:a1049dee72c033952da18d152807b5472" id="r_a1049dee72c033952da18d152807b5472"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1049dee72c033952da18d152807b5472">formatVersion</a> = <a class="el" href="namespaceaisolver.html#a1442f909369c172e067dd62fe6afa24b">REPLAY_FORMAT_VERSION</a></td></tr>
+<tr class="memdesc:a1049dee72c033952da18d152807b5472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numéro de version explicite du format (voir <span class="tt"><a class="el" href="namespaceaisolver.html#a1442f909369c172e067dd62fe6afa24b" title="Version courante du format de rejeu (EX-IA-008), même principe que core::LEVEL_FORMAT_VERSION (EX-LVL...">REPLAY_FORMAT_VERSION</a></span>).  <br /></td></tr>
 <tr class="memitem:a94de81921b39db40d91de06054a68790" id="r_a94de81921b39db40d91de06054a68790"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a94de81921b39db40d91de06054a68790">levelPath</a></td></tr>
 <tr class="memdesc:a94de81921b39db40d91de06054a68790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin <b>relatif</b> (à <span class="tt">Source/Elements/Levels</span>) du niveau d'origine — jamais un chemin absolu, pour rester portable d'une machine à l'autre.  <br /></td></tr>
 <tr class="memitem:a4b3cb20f997d7d77da4b9635de168297" id="r_a4b3cb20f997d7d77da4b9635de168297"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a4b3cb20f997d7d77da4b9635de168297">levelFingerprint</a> = 0</td></tr>
@@ -154,7 +154,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Identifiant court de l'algorithme d'origine (ex. </p>
-<p><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span>, <span class="tt">"avance"</span> — mêmes valeurs que l'argument <span class="tt">--algo</span> du CLI, <span class="tt">LOT-ANNEXE-19</span>), pour retrouver a posteriori de quel algorithme un rejeu est issu sans consulter les journaux d'entraînement. Chaîne libre, pas une énumération figée. <span class="tt">""</span> (valeur sentinelle) sur un fichier <span class="tt"><a class="el" href="#a1049dee72c033952da18d152807b5472" title="Numéro de version explicite du format (voir kReplayFormatVersion).">formatVersion</a> == 1</span> (<span class="tt">LOT-ANNEXE-17</span>). </p>
+<p><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span>, <span class="tt">"avance"</span> — mêmes valeurs que l'argument <span class="tt">--algo</span> du CLI, <span class="tt">LOT-ANNEXE-19</span>), pour retrouver a posteriori de quel algorithme un rejeu est issu sans consulter les journaux d'entraînement. Chaîne libre, pas une énumération figée. <span class="tt">""</span> (valeur sentinelle) sur un fichier <span class="tt"><a class="el" href="#a1049dee72c033952da18d152807b5472" title="Numéro de version explicite du format (voir REPLAY_FORMAT_VERSION).">formatVersion</a> == 1</span> (<span class="tt">LOT-ANNEXE-17</span>). </p>
 
 </div>
 </div>
@@ -213,12 +213,12 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t aisolver::ReplayFile::formatVersion = <a class="el" href="namespaceaisolver.html#a555dca592758c1fdf33b8eb0573102e1">kReplayFormatVersion</a></td>
+          <td class="memname">std::uint32_t aisolver::ReplayFile::formatVersion = <a class="el" href="namespaceaisolver.html#a1442f909369c172e067dd62fe6afa24b">REPLAY_FORMAT_VERSION</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Numéro de version explicite du format (voir <span class="tt"><a class="el" href="namespaceaisolver.html#a555dca592758c1fdf33b8eb0573102e1" title="Version courante du format de rejeu (EX-IA-008), même principe que core::kLevelFormatVersion (EX-LVL-...">kReplayFormatVersion</a></span>). </p>
+<p>Numéro de version explicite du format (voir <span class="tt"><a class="el" href="namespaceaisolver.html#a1442f909369c172e067dd62fe6afa24b" title="Version courante du format de rejeu (EX-IA-008), même principe que core::LEVEL_FORMAT_VERSION (EX-LVL...">REPLAY_FORMAT_VERSION</a></span>). </p>
 
 </div>
 </div>
@@ -299,7 +299,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Durée totale du rejeu (<span class="tt">steps.size() × delta de pas fixe</span>), calculée une fois à l'export plutôt que recalculée à chaque lecture — commodité d'affichage/de reporting, jamais une source de vérité (le nombre de pas réel de <span class="tt"><a class="el" href="#ae130ca724c83e62a6736caafe9e268f2" title="Séquence ordonnée d&#39;entrées, une par pas fixe (1/60 s).">steps</a></span> fait foi pour la simulation). </p>
-<p><span class="tt">0.0f</span> (valeur sentinelle) sur un fichier <span class="tt"><a class="el" href="#a1049dee72c033952da18d152807b5472" title="Numéro de version explicite du format (voir kReplayFormatVersion).">formatVersion</a> == 1</span> (<span class="tt">LOT-ANNEXE-17</span>). </p>
+<p><span class="tt">0.0f</span> (valeur sentinelle) sur un fichier <span class="tt"><a class="el" href="#a1049dee72c033952da18d152807b5472" title="Numéro de version explicite du format (voir REPLAY_FORMAT_VERSION).">formatVersion</a> == 1</span> (<span class="tt">LOT-ANNEXE-17</span>). </p>
 
 </div>
 </div>

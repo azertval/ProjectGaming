@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,11 +101,11 @@ $(function(){initNavTree('structhmi_1_1TrainingRequest.html','','structhmi_1_1Tr
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a02f31207cc2e7f38a830377b8d8df021" id="r_a02f31207cc2e7f38a830377b8d8df021"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a02f31207cc2e7f38a830377b8d8df021">levelPath</a></td></tr>
-<tr class="memitem:a8d5eb33c278bd62a86b0b42e5aa41902" id="r_a8d5eb33c278bd62a86b0b42e5aa41902"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a8d5eb33c278bd62a86b0b42e5aa41902">algo</a></td></tr>
-<tr class="memdesc:a8d5eb33c278bd62a86b0b42e5aa41902"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span>.  <br /></td></tr>
+<tr class="memitem:ad251907b3ec439510e553431435303d4" id="r_ad251907b3ec439510e553431435303d4"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad251907b3ec439510e553431435303d4">algorithmId</a></td></tr>
+<tr class="memdesc:ad251907b3ec439510e553431435303d4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span>.  <br /></td></tr>
 <tr class="memitem:a4ce839f141c536108cac996c94607254" id="r_a4ce839f141c536108cac996c94607254"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a4ce839f141c536108cac996c94607254">seed</a> = 0</td></tr>
 <tr class="memitem:a2ce19046e79f65d2efed831cd1eaa920" id="r_a2ce19046e79f65d2efed831cd1eaa920"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a2ce19046e79f65d2efed831cd1eaa920">runsRoot</a></td></tr>
-<tr class="memdesc:a2ce19046e79f65d2efed831cd1eaa920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide : défaut <span class="tt">aisolver::training::kDefaultTrainingRunsRoot</span>.  <br /></td></tr>
+<tr class="memdesc:a2ce19046e79f65d2efed831cd1eaa920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide : défaut <span class="tt">aisolver::training::DEFAULT_TRAINING_RUNS_ROOT</span>.  <br /></td></tr>
 <tr class="memitem:a161860f58a44503cb6e16935ca8613c8" id="r_a161860f58a44503cb6e16935ca8613c8"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a161860f58a44503cb6e16935ca8613c8">populationSize</a></td></tr>
 <tr class="memitem:ad3ee2a89713af118ae726c1e4242e2f9" id="r_ad3ee2a89713af118ae726c1e4242e2f9"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad3ee2a89713af118ae726c1e4242e2f9">mutationRate</a></td></tr>
 <tr class="memitem:a4043ab37244238926be7623345e665f9" id="r_a4043ab37244238926be7623345e665f9"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4043ab37244238926be7623345e665f9">episodes</a></td></tr>
@@ -117,14 +117,14 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html" title="Arguments de train.">aisolver::cli::TrainArgs</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> (<span class="tt">LOT-ANNEXE-19</span>), en <span class="tt">QString</span>/valeurs simples pour rester utilisables sans dépendre de <span class="tt">AiSolver/Cli</span> depuis un en-tête Qt. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a8d5eb33c278bd62a86b0b42e5aa41902" name="a8d5eb33c278bd62a86b0b42e5aa41902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d5eb33c278bd62a86b0b42e5aa41902">&#9670;&#160;</a></span>algo</h2>
+<a id="ad251907b3ec439510e553431435303d4" name="ad251907b3ec439510e553431435303d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad251907b3ec439510e553431435303d4">&#9670;&#160;</a></span>algorithmId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QString hmi::TrainingRequest::algo</td>
+          <td class="memname">QString hmi::TrainingRequest::algorithmId</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -245,7 +245,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vide : défaut <span class="tt">aisolver::training::kDefaultTrainingRunsRoot</span>. </p>
+<p>Vide : défaut <span class="tt">aisolver::training::DEFAULT_TRAINING_RUNS_ROOT</span>. </p>
 
 </div>
 </div>

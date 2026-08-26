@@ -17,5 +17,5 @@ var LevelLoader_8h =
       [ "core::LevelValidationError::UnsupportedFormatVersion", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4", null ],
       [ "core::LevelValidationError::InvalidCameraFraming", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a8ebb0d1c1c8fab3e269157f5b98a862e", null ]
     ] ],
-    [ "core::kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ]
+    [ "core::LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ]
 ];

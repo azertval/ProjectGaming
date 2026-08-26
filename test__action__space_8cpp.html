@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,15 +102,15 @@ $(function(){initNavTree('test__action__space_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a589cb9d124e35a9444cc0368baebb358" id="r_a589cb9d124e35a9444cc0368baebb358"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a589cb9d124e35a9444cc0368baebb358">TEST</a> (ActionSpaceTest, NombreTotalDeCombinaisons)</td></tr>
-<tr class="memdesc:a589cb9d124e35a9444cc0368baebb358"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 24 (3 directions x 2 x 2 x 2), verifie explicitement.  <br /></td></tr>
+<tr class="memdesc:a589cb9d124e35a9444cc0368baebb358"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 48 (3 directions x 2 x 2 x 2 x 2), verifie explicitement.  <br /></td></tr>
 <tr class="memitem:a5770f187363305e3c3c77112b11b9475" id="r_a5770f187363305e3c3c77112b11b9475"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5770f187363305e3c3c77112b11b9475">TEST</a> (ActionSpaceTest, BijectionIndiceVersActionVersIndice)</td></tr>
 <tr class="memdesc:a5770f187363305e3c3c77112b11b9475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour tout indice valide, <span class="tt">indexOf(actionAt(indice)) == indice</span> (bijection indice -&gt; action -&gt; indice).  <br /></td></tr>
 <tr class="memitem:abd35d3fa55a0a802cefcecd1655c40cc" id="r_abd35d3fa55a0a802cefcecd1655c40cc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abd35d3fa55a0a802cefcecd1655c40cc">TEST</a> (ActionSpaceTest, AucuneCollisionEntreActions)</td></tr>
-<tr class="memdesc:abd35d3fa55a0a802cefcecd1655c40cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aucune collision entre deux indices differents : les 24 actions sont deux a deux distinctes.  <br /></td></tr>
+<tr class="memdesc:abd35d3fa55a0a802cefcecd1655c40cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aucune collision entre deux indices differents : les 48 actions sont deux a deux distinctes.  <br /></td></tr>
 <tr class="memitem:ab55aaab4053055b6b81bb69a7c63cc48" id="r_ab55aaab4053055b6b81bb69a7c63cc48"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab55aaab4053055b6b81bb69a7c63cc48">TEST</a> (ActionSpaceTest, TraductionDirectionVersMoveX)</td></tr>
 <tr class="memdesc:ab55aaab4053055b6b81bb69a7c63cc48"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">toPlayerInput</span> traduit chaque <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span> en <span class="tt">moveX</span> attendu, <span class="tt">moveY</span> toujours 0.  <br /></td></tr>
 <tr class="memitem:a80f6598688fe768d4659b3079559b444" id="r_a80f6598688fe768d4659b3079559b444"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80f6598688fe768d4659b3079559b444">TEST</a> (ActionSpaceTest, TraductionBooleensFidele)</td></tr>
-<tr class="memdesc:a80f6598688fe768d4659b3079559b444"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">toPlayerInput</span> reporte fidelement <span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>.  <br /></td></tr>
+<tr class="memdesc:a80f6598688fe768d4659b3079559b444"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">toPlayerInput</span> reporte fidelement <span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>/ <span class="tt">interactPressed</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de aisolver::ActionSpace (LOT-ANNEXE-07, TACHE-01). </p>
@@ -134,14 +134,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Aucune collision entre deux indices differents : les 24 actions sont deux a deux distinctes. </p>
-<p><b>Cas de test :</b> <b>Les 24 actions sont deux a deux distinctes.</b><br  />
+<p>Aucune collision entre deux indices differents : les 48 actions sont deux a deux distinctes. </p>
+<p><b>Cas de test :</b> <b>Les 48 actions sont deux a deux distinctes.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Convertir chaque action de <span class="tt">[0, <a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a>)</span> en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> via <span class="tt">toPlayerInput</span>.<br  />
 2. Comparer chaque paire.<br  />
- <b>Resultat attendu :</b> Aucune paire de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> produite n'est identique sur les quatre champs pilotes par l'espace d'action (<span class="tt">moveX</span>/<span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>). </p>
+ <b>Resultat attendu :</b> Aucune paire de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> produite n'est identique sur les cinq champs pilotes par l'espace d'action (<span class="tt">moveX</span>/<span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>/ <span class="tt">interactPressed</span>). </p>
 
 </div>
 </div>
@@ -193,13 +193,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 24 (3 directions x 2 x 2 x 2), verifie explicitement. </p>
-<p><b>Cas de test :</b> <b><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 24.</b><br  />
+<p><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 48 (3 directions x 2 x 2 x 2 x 2), verifie explicitement. </p>
+<p><b>Cas de test :</b> <b><span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> vaut exactement 48.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Lire <span class="tt"><a class="el" href="namespaceaisolver.html#a4f3464dafad270e2884fb0ba7d1d0034">aisolver::actionCount()</a></span>.<br  />
- <b>Resultat attendu :</b> La valeur est 24. </p>
+ <b>Resultat attendu :</b> La valeur est 48. </p>
 
 </div>
 </div>
@@ -222,14 +222,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">toPlayerInput</span> reporte fidelement <span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>. </p>
-<p><b>Cas de test :</b> <b>Traduction fidele des trois booleens de l'action.</b><br  />
+<p><span class="tt">toPlayerInput</span> reporte fidelement <span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>/ <span class="tt">interactPressed</span>. </p>
+<p><b>Cas de test :</b> <b>Traduction fidele des quatre booleens de l'action.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Construire une action avec les trois booleens a <span class="tt">true</span>.<br  />
+ 1. Construire une action avec les quatre booleens a <span class="tt">true</span>.<br  />
 2. Traduire via <span class="tt">toPlayerInput</span>.<br  />
- <b>Resultat attendu :</b> Les trois champs correspondants de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> valent <span class="tt">true</span>. </p>
+ <b>Resultat attendu :</b> Les quatre champs correspondants de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> valent <span class="tt">true</span>. </p>
 
 </div>
 </div>

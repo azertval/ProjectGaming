@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-annexe-03-tache-04-initialisation-serialisation.ht
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2tache-04-initialisation-serialisation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">LOT-ANNEXE-03</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Nn</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3482"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3488"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> (TACHE-03) n'a encore aucun moyen de survivre à la fin du processus qui l'a entraîné : cette tâche livre la sérialisation d'un réseau entraîné sur disque — le mécanisme par lequel un modèle appris hors ligne devient rejouable en jeu.</p>
 <p><b>Écart avec la planification initiale</b> : cette tâche devait aussi livrer le corps de <span class="tt"><a class="el" href="test__weight__init_8cpp.html#a0e929d0cc1af12e1d24e1acace342af7" title="Initialise weights en place selon scheme, fanIn/fanOut déduits de sa forme [outputSize,...">initializeWeights</a></span> (<span class="tt">WeightInitScheme::Xavier</span>/<span class="tt">He</span>), TACHE-01 n'en posant que le contrat. En pratique, le DoD de TACHE-01 (« deux couches ont des poids différents ») exigeait une initialisation réellement aléatoire pour être testable — <span class="tt"><a class="el" href="WeightInit_8h.html" title="Schémas d&#39;initialisation des poids d&#39;une couche dense (LOT-ANNEXE-03).">WeightInit.h</a></span>/<span class="tt">.cpp</span> ont donc été livrés complets dès TACHE-01 (cf. ses points d'attention). Cette tâche se limite à la sérialisation ; ses propres tests statistiques sur l'initialisation (bornes Xavier, plausibilité He, reproductibilité par graine) restent ici, dans <span class="tt"><a class="el" href="test__weight__init_8cpp.html" title="Tests statistiques de aisolver::nn::initializeWeights (LOT-ANNEXE-03, TACHE-04) : bornes Xavier,...">test_weight_init.cpp</a></span> — seule l'implémentation a changé de tâche, pas sa couverture de test.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3483"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3489"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Serialization_8h.html" title="Format binaire versionné de sauvegarde/chargement des poids d&#39;un Network (LOT-ANNEXE-03).">Source/AiSolver/Nn/Serialization.h</a></span>/<span class="tt">.cpp</span></b> : format binaire versionné.<ul>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3484"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3490"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Serialization_8h.html" title="Format binaire versionné de sauvegarde/chargement des poids d&#39;un Network (LOT-ANNEXE-03).">Source/AiSolver/Nn/Serialization.h</a></span> (nouveau).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__weight__init_8cpp.html" title="Tests statistiques de aisolver::nn::initializeWeights (LOT-ANNEXE-03, TACHE-04) : bornes Xavier,...">Source/Test/Unit/AiSolver/Nn/test_weight_init.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="test__serialization_8cpp.html" title="Tests unitaires de aisolver::nn::saveWeights/loadWeights (LOT-ANNEXE-03, TACHE-04) : sauvegarde/recha...">Source/Test/Unit/AiSolver/Nn/test_serialization.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3485"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3491"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Xavier reste dans les bornes</b> : sur un grand nombre d'éléments initialisés, tous restent dans <span class="tt">[-bound, bound]</span> calculé pour la forme donnée.</li>
@@ -128,22 +128,22 @@ Tests (obligatoires)</h1>
 <li><b>Rejet d'un fichier invalide</b> : <span class="tt">loadWeights</span> sur un fichier au magique incorrect, à la version inconnue, ou dont la forme d'une couche ne correspond pas au <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> cible renvoie <span class="tt">false</span>, sans planter ni corrompre l'état du <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> (les poids restent ceux d'avant l'appel en cas d'échec — pas de modification partielle).</li>
 <li><b>Fichier absent</b> : <span class="tt">loadWeights</span> sur un chemin inexistant renvoie <span class="tt">false</span> proprement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3486"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3492"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">loadWeights</span> ne modifie le <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> cible qu'en cas de succès complet</b> : lire d'abord l'intégralité du fichier en mémoire (ou valider la cohérence de toutes les formes avant d'écrire quoi que ce soit) évite un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> dans un état à moitié chargé si une incohérence est détectée à mi-fichier.</li>
 <li><b>Le format ne stocke aucune information de structure au-delà des formes</b> (pas de type d'activation, pas de schéma d'initialisation) : reconstruire un <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> compatible (mêmes couches, mêmes activations, dans le même ordre) reste la responsabilité du code appelant avant d'appeler <span class="tt">loadWeights</span> — cohérent avec la décision de ne pas viser l'interopérabilité ni l'auto-description complète (cf. exclusions de l'épic).</li>
 <li><b><span class="tt">WEIGHTS_FILE_VERSION</span> doit être incrémenté</b> dès que le format binaire change (nouveau champ, ordre différent) — jamais réutilisé pour un format incompatible avec la version précédente, sous peine de charger silencieusement des données corrompues dans un futur lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3487"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3493"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__weight__init_8cpp.html#a0e929d0cc1af12e1d24e1acace342af7" title="Initialise weights en place selon scheme, fanIn/fanOut déduits de sa forme [outputSize,...">initializeWeights</a></span>, <span class="tt">saveWeights</span>, <span class="tt">loadWeights</span> disponibles et testés (<span class="tt">ctest</span> vert), y compris les cas d'erreur (fichier invalide, absent, incompatible) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3488"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3494"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reseaux-neurones.html" title="Réseaux de neurones">Réseaux de neurones</a> — neurone, couche dense, fonctions d'activation, initialisation des poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3489"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3495"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-003</span> (déclarée dans <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

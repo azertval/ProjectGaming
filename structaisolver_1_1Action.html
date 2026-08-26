@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){initNavTree('structaisolver_1_1Action.html','','structaisolver_1_1A
 </div><!--header-->
 <div class="contents">
 
-<p>Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.  
+<p>Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ActionSpace_8h_source.html">ActionSpace.h</a>&gt;</code></p>
@@ -104,14 +104,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a67d7eaf2a247fa3fbc18e1d253da9f2e" id="r_a67d7eaf2a247fa3fbc18e1d253da9f2e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a67d7eaf2a247fa3fbc18e1d253da9f2e">jumpPressed</a> = false</td></tr>
 <tr class="memitem:a0e1472fad68619d9fab264957ce9e463" id="r_a0e1472fad68619d9fab264957ce9e463"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0e1472fad68619d9fab264957ce9e463">jumpHeld</a> = false</td></tr>
 <tr class="memitem:ad6ef5bf69a9140c046962c5e5c0dca4f" id="r_ad6ef5bf69a9140c046962c5e5c0dca4f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad6ef5bf69a9140c046962c5e5c0dca4f">dashPressed</a> = false</td></tr>
+<tr class="memitem:a34c37683da6a98f0dcb27e666da119b4" id="r_a34c37683da6a98f0dcb27e666da119b4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a34c37683da6a98f0dcb27e666da119b4">interactPressed</a> = false</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:aeb215e3e84d086678dde4d79f19e3d78" id="r_aeb215e3e84d086678dde4d79f19e3d78"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeb215e3e84d086678dde4d79f19e3d78">operator==</a> (const <a class="el" href="structAction.html">Action</a> &amp;, const <a class="el" href="structAction.html">Action</a> &amp;)=default</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash. </p>
-<p><span class="tt">moveY</span> n'est volontairement pas représenté ici (toujours <span class="tt">0</span> une fois traduit en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, voir <span class="tt"><a class="el" href="namespaceaisolver.html#a45874eecdbf9a34fd9448a5ab97d8162" title="Traduit une action discrète en core::PlayerInput, consommé par HeadlessLevelEnvironment::step (LOT-AN...">toPlayerInput</a></span>) : décision de cadrage de l'épic, aucun niveau n'exploite un dash orienté verticalement. </p>
+<div class="textblock"><p>Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir. </p>
+<p><span class="tt">moveY</span> n'est volontairement pas représenté ici (toujours <span class="tt">0</span> une fois traduit en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, voir <span class="tt"><a class="el" href="namespaceaisolver.html#a45874eecdbf9a34fd9448a5ab97d8162" title="Traduit une action discrète en core::PlayerInput, consommé par HeadlessLevelEnvironment::step (LOT-AN...">toPlayerInput</a></span>) : décision de cadrage de l'épic, aucun niveau n'exploite un dash orienté verticalement.</p>
+<p><span class="tt"><a class="el" href="#a34c37683da6a98f0dcb27e666da119b4">interactPressed</a></span> fait partie de l'espace parce qu'une clé (<span class="tt">TileType::Key</span>) ne se ramasse qu'au contact <b>et</b> à l'action « Interagir » (<span class="tt"><a class="el" href="classcore_1_1MechanismController.html#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">core::MechanismController::update</a></span>, <span class="tt">EX-CTRL-022</span>) : sans cette dimension, aucune politique ne pourrait ouvrir une porte verrouillée, quel que soit son entraînement.</p>
+<p>Ce bit n'a aujourd'hui aucun inconvénient à être posé — il ne sert qu'aux clés, et son effet est définitif : une porte ouverte ne se referme pas, rappuyer est sans effet. L'agent l'apprend donc plutôt que de le recevoir câblé : c'est le choix de rester fidèle aux entrées du jeu réel, et de ne pas dépendre du fait qu'interagir reste gratuit si un mécanisme futur lui donne un coût. Le prix est connu : la couche de sortie de chaque réseau double. </p>
 </div><a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
 <a id="aeb215e3e84d086678dde4d79f19e3d78" name="aeb215e3e84d086678dde4d79f19e3d78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb215e3e84d086678dde4d79f19e3d78">&#9670;&#160;</a></span>operator==</h2>
@@ -165,6 +168,20 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespaceaisolver.html#a8b91e4ce2193d2729de1836c406dcc90">Direction</a> aisolver::Action::direction = <a class="el" href="namespaceaisolver.html#a8b91e4ce2193d2729de1836c406dcc90a6adf97f83acf6453d4a6a4b1070f3754">Direction::None</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34c37683da6a98f0dcb27e666da119b4" name="a34c37683da6a98f0dcb27e666da119b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c37683da6a98f0dcb27e666da119b4">&#9670;&#160;</a></span>interactPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool aisolver::Action::interactPressed = false</td>
         </tr>
       </table>
 </div><div class="memdoc">

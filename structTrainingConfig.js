@@ -1,5 +1,6 @@
 var structTrainingConfig =
 [
+    [ "algorithmId", "structTrainingConfig.html#a2776829cd5530117e29b3f089b96251a", null ],
     [ "dqnBatchSize", "structTrainingConfig.html#a5c5549b2122731206dc7beebae17abbb", null ],
     [ "dqnEpsilonDecaySteps", "structTrainingConfig.html#aacd3abb373bd59a63fd83df335da4066", null ],
     [ "dqnEpsilonEnd", "structTrainingConfig.html#a2d99c705212b0e2377595719548396d5", null ],

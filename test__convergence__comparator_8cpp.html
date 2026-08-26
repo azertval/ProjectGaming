@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/AiSolver/Training/test_convergence_comparator.cpp File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/AiSolver/Eval/test_convergence_comparator.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -103,20 +103,36 @@ $(function(){initNavTree('test__convergence__comparator_8cpp.html','',''); });
 <code>#include &lt;system_error&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">../Training/TrivialLevelFixture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ConvergenceComparator_8h_source.html">AiSolver/Eval/ConvergenceComparator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rng_8h_source.html">AiSolver/Math/Rng.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Sgd_8h_source.html">AiSolver/Optim/Sgd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingStatsRecorder_8h_source.html">AiSolver/Stats/TrainingStatsRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ActorCriticTrainer_8h_source.html">AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ConvergenceComparator_8h_source.html">AiSolver/Training/ActorCritic/ConvergenceComparator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CriticNetwork_8h_source.html">AiSolver/Training/ActorCritic/CriticNetwork.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ReinforceTrainer_8h_source.html">AiSolver/Training/PolicyGradient/ReinforceTrainer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">TrivialLevelFixture.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:EnvironmentConfig" id="r_EnvironmentConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression.  <a href="structEnvironmentConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:HeadlessLevelEnvironment" id="r_HeadlessLevelEnvironment"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue <b>un seul niveau</b>, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une API <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset</a></span>/<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step</a></span> (<span class="tt">EX-IA-005</span>).  <a href="classHeadlessLevelEnvironment.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ObservationEncoder" id="r_ObservationEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classObservationEncoder.html">ObservationEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatène, dans un ordre fixe et documenté, les trois encodeurs d'observation en un seul vecteur d'entrée de réseau.  <a href="classObservationEncoder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingStatsRecorder" id="r_TrainingStatsRecorder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classTrainingStatsRecorder.html">TrainingStatsRecorder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à <span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">record</a></span>, jamais rouvert en ajout (voir <span class="tt">makeTrainingRunPath</span>/<span class="tt">generateRunId</span>, <span class="tt"><a class="el" href="TrainingRunPath_8h.html" title="Construction du chemin de fichier CSV d&#39;un run d&#39;entraînement, sous /TrainingRuns/ (LOT-ANNEXE-09,...">TrainingRunPath.h</a></span>, pour la construction du chemin d'un nouveau run).  <a href="classTrainingStatsRecorder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Sgd" id="r_Sgd"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classSgd.html">Sgd</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGD : <span class="tt">value -= learningRate * grad</span>, avec un terme d'inertie optionnel.  <a href="classSgd.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ActorCriticConfig" id="r_ActorCriticConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structActorCriticConfig.html">ActorCriticConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run acteur-critique : mêmes défauts que <span class="tt"><a class="el" href="structReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>), pour rester le niveau de contrôle comparable prescrit par TACHE-04.  <a href="structActorCriticConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ActorCriticTrainer" id="r_ActorCriticTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classActorCriticTrainer.html">ActorCriticTrainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangée), calcul de retour (<span class="tt"><a class="el" href="test__return__calculator_8cpp.html#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangé), avantage (<span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), perte de politique (<span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>) et perte du critique (<span class="tt"><a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span>) en une boucle par épisode optimisant les <b>deux</b> réseaux, chacun via son propre <span class="tt">optim::IOptimizer</span>.  <a href="classActorCriticTrainer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CriticNetwork" id="r_CriticNetwork"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classCriticNetwork.html">CriticNetwork</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réseau distinct de la politique (<span class="tt">nn::Network</span>, <span class="tt">LOT-ANNEXE-03</span>), même bibliothèque de couches, une seule sortie scalaire non bornée (aucune activation finale).  <a href="classCriticNetwork.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReinforceConfig" id="r_ReinforceConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structReinforceConfig.html">ReinforceConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run REINFORCE : <span class="tt"><a class="el" href="structReinforceConfig.html#ac03edfeaf84232791b5f677be1102109">gamma</a></span> proche de <span class="tt">1</span> par défaut (voir décision de cadrage de l'épic), <span class="tt"><a class="el" href="structReinforceConfig.html#ac90fb79dd840dbbdcb12a503bdda87be">seedBase</a></span> d'où dérive déterministiquement la graine de chaque épisode.  <a href="structReinforceConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReinforceTrainer" id="r_ReinforceTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classReinforceTrainer.html">ReinforceTrainer</a></td></tr>
@@ -127,17 +143,25 @@ Functions</h2></td></tr>
 <tr class="memitem:a80af4d4febf4e508aa3cbc94502e491d" id="r_a80af4d4febf4e508aa3cbc94502e491d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80af4d4febf4e508aa3cbc94502e491d">TEST</a> (ConvergenceComparatorTest, NombreDEpisodesJusquAuPlafond)</td></tr>
 <tr class="memdesc:a80af4d4febf4e508aa3cbc94502e491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur un CSV synthétique de récompense croissante connue, le nombre d'épisodes calculé correspond exactement à la première atteinte du seuil.  <br /></td></tr>
 <tr class="memitem:a006f08a6be785865a90a1eb32084e4fc" id="r_a006f08a6be785865a90a1eb32084e4fc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a006f08a6be785865a90a1eb32084e4fc">TEST</a> (ConvergenceComparatorTest, PlafondJamaisAtteint)</td></tr>
-<tr class="memdesc:a006f08a6be785865a90a1eb32084e4fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Si le plafond n'est jamais atteint, <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> ne plante pas et renvoie un indicateur explicite d'absence (pas un nombre d'épisodes erroné).  <br /></td></tr>
+<tr class="memdesc:a006f08a6be785865a90a1eb32084e4fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Si le plafond n'est jamais atteint, <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> ne plante pas et renvoie un indicateur explicite d'absence (pas un nombre d'épisodes erroné).  <br /></td></tr>
 <tr class="memitem:aadbc6146f696158e7c5a5f5640fd2b65" id="r_aadbc6146f696158e7c5a5f5640fd2b65"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aadbc6146f696158e7c5a5f5640fd2b65">TEST</a> (ConvergenceComparatorTest, EcartTypeDeFinDeRun)</td></tr>
 <tr class="memdesc:aadbc6146f696158e7c5a5f5640fd2b65"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'écart-type calculé à travers plusieurs essais synthétiques correspond à celui d'une distribution à variance connue construite à la main.  <br /></td></tr>
 <tr class="memitem:a833273f4c3fda2470b353dfc3c1ebcad" id="r_a833273f4c3fda2470b353dfc3c1ebcad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a833273f4c3fda2470b353dfc3c1ebcad">TEST</a> (ConvergenceComparatorTest, LectureCroiseeReinforceEtActeurCritique)</td></tr>
 <tr class="memdesc:a833273f4c3fda2470b353dfc3c1ebcad"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">ConvergenceComparator</span> lit sans erreur des CSV réellement produits par <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> et par <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>, malgré leur provenance différente.  <br /></td></tr>
 <tr class="memitem:aa815323e76ff7b70669f93351f11971f" id="r_aa815323e76ff7b70669f93351f11971f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa815323e76ff7b70669f93351f11971f">TEST</a> (ConvergenceComparatorTest, ComparaisonReinforceVsActorCritiqueSurNiveauDeControle)</td></tr>
 <tr class="memdesc:aa815323e76ff7b70669f93351f11971f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocole de comparaison de TACHE-04 : plusieurs essais (graines différentes) de <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> et <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>, même niveau de contrôle, même budget d'épisodes.  <br /></td></tr>
-<tr class="memitem:a2f56ad144c82570e40925363ddfdd9d0" id="r_a2f56ad144c82570e40925363ddfdd9d0"><td class="memItemLeft">RunConvergenceMetrics&#160;</td><td class="memItemRight"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0">analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2f56ad144c82570e40925363ddfdd9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
-<tr class="memitem:add00975471503535b34b74ebb42ec1e9" id="r_add00975471503535b34b74ebb42ec1e9"><td class="memItemLeft">ConvergenceReport&#160;</td><td class="memItemRight"><a class="el" href="#add00975471503535b34b74ebb42ec1e9">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:add00975471503535b34b74ebb42ec1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
+<tr class="memitem:a7dd5a5da6871954b862dceebbcf7f99c" id="r_a7dd5a5da6871954b862dceebbcf7f99c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7dd5a5da6871954b862dceebbcf7f99c">TEST</a> (ConvergenceComparatorTest, FichierAbsentRendDesMetriquesNeutres)</td></tr>
+<tr class="memdesc:a7dd5a5da6871954b862dceebbcf7f99c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un CSV absent ou illisible rend des métriques neutres, sans exception ni valeur inventée.  <br /></td></tr>
+<tr class="memitem:a3a633017d7ee7c49abef9bc29c614e29" id="r_a3a633017d7ee7c49abef9bc29c614e29"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3a633017d7ee7c49abef9bc29c614e29">TEST</a> (ConvergenceComparatorTest, EnTeteSansColonneBestRewardRendDesMetriquesNeutres)</td></tr>
+<tr class="memdesc:a3a633017d7ee7c49abef9bc29c614e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un en-tête qui ne déclare pas <span class="tt">bestReward</span> rend des métriques neutres : la série est refusée en bloc plutôt que lue sur la mauvaise colonne.  <br /></td></tr>
+<tr class="memitem:ac2408cb491972f853987e1fcdd4fcf6d" id="r_ac2408cb491972f853987e1fcdd4fcf6d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac2408cb491972f853987e1fcdd4fcf6d">TEST</a> (ConvergenceComparatorTest, LigneTronqueeIgnoreeSansPerdreLeResteDuFichier)</td></tr>
+<tr class="memdesc:ac2408cb491972f853987e1fcdd4fcf6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne tronquée est ignorée, et <b>seulement elle</b> : les lignes valides du même fichier restent lues.  <br /></td></tr>
+<tr class="memitem:a7791de19703b85f99fba9845bd401d97" id="r_a7791de19703b85f99fba9845bd401d97"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7791de19703b85f99fba9845bd401d97">TEST</a> (ConvergenceComparatorTest, ChampNonNumeriqueIgnoreSansPerdreLeResteDuFichier)</td></tr>
+<tr class="memdesc:a7791de19703b85f99fba9845bd401d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un champ non numérique est ignoré, et <b>seulement lui</b> : les lignes valides du même fichier restent lues.  <br /></td></tr>
+<tr class="memitem:ab828e7c63835fe909deadc98e741299e" id="r_ab828e7c63835fe909deadc98e741299e"><td class="memItemLeft">RunConvergenceMetrics&#160;</td><td class="memItemRight"><a class="el" href="#ab828e7c63835fe909deadc98e741299e">analyzeRun</a> (const std::filesystem::path &amp;csvPath, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:ab828e7c63835fe909deadc98e741299e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un CSV produit par <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> et calcule ses métriques de convergence.  <br /></td></tr>
+<tr class="memitem:a6cd298aafd54f7b991dc89580f50dec2" id="r_a6cd298aafd54f7b991dc89580f50dec2"><td class="memItemLeft">ConvergenceReport&#160;</td><td class="memItemRight"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a6cd298aafd54f7b991dc89580f50dec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
 <tr class="memitem:ac04a455df7a8844fe27f78b4da9d4515" id="r_ac04a455df7a8844fe27f78b4da9d4515"><td class="memItemLeft">std::unique_ptr&lt; nn::Network &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac04a455df7a8844fe27f78b4da9d4515">buildNetwork</a> (const <a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:ac04a455df7a8844fe27f78b4da9d4515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un <span class="tt">nn::Network</span> neuf conforme à <code class="param">topology</code>.  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
@@ -146,8 +170,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <span class="tt">ConvergenceComparator</span> (LOT-ANNEXE-13, TACHE-04) sur des CSV synthétiques, puis vérification qu'il lit sans erreur des CSV réellement produits par <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> (LOT-ANNEXE-12) et <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> (LOT-ANNEXE-13, TACHE-03). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a2f56ad144c82570e40925363ddfdd9d0" name="a2f56ad144c82570e40925363ddfdd9d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f56ad144c82570e40925363ddfdd9d0">&#9670;&#160;</a></span>analyzeRun()</h2>
+<a id="ab828e7c63835fe909deadc98e741299e" name="ab828e7c63835fe909deadc98e741299e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab828e7c63835fe909deadc98e741299e">&#9670;&#160;</a></span>analyzeRun()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +180,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">RunConvergenceMetrics <a class="el" href="namespaceaisolver_1_1training.html#a2f56ad144c82570e40925363ddfdd9d0">aisolver::training::analyzeRun</a> </td>
+          <td class="memname">RunConvergenceMetrics <a class="el" href="namespaceaisolver_1_1eval.html#ab828e7c63835fe909deadc98e741299e">aisolver::eval::analyzeRun</a> </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPath</em></span>, </td>
         </tr>
@@ -182,7 +206,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csvPath</td><td>Chemin du CSV (en-tête + une ligne par épisode). </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Plafond de récompense défini une fois pour toute la comparaison. </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Seuil de récompense défini une fois pour toute la comparaison. </td></tr>
     <tr><td class="paramname">finalWindowSize</td><td>Taille de la fenêtre de fin de run pour <span class="tt">finalWindowMeanReward</span>. </td></tr>
   </table>
   </dd>
@@ -229,8 +253,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="add00975471503535b34b74ebb42ec1e9" name="add00975471503535b34b74ebb42ec1e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add00975471503535b34b74ebb42ec1e9">&#9670;&#160;</a></span>compareConvergence()</h2>
+<a id="a6cd298aafd54f7b991dc89580f50dec2" name="a6cd298aafd54f7b991dc89580f50dec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd298aafd54f7b991dc89580f50dec2">&#9670;&#160;</a></span>compareConvergence()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +263,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ConvergenceReport <a class="el" href="namespaceaisolver_1_1training.html#add00975471503535b34b74ebb42ec1e9">aisolver::training::compareConvergence</a> </td>
+          <td class="memname">ConvergenceReport <a class="el" href="namespaceaisolver_1_1eval.html#a6cd298aafd54f7b991dc89580f50dec2">aisolver::eval::compareConvergence</a> </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPaths</em></span>, </td>
         </tr>
@@ -265,8 +289,8 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csvPaths</td><td>Un CSV par essai ; au moins un élément. </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
-    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
+    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -311,8 +335,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7791de19703b85f99fba9845bd401d97" name="a7791de19703b85f99fba9845bd401d97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7791de19703b85f99fba9845bd401d97">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ConvergenceComparatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChampNonNumeriqueIgnoreSansPerdreLeResteDuFichier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un champ non numérique est ignoré, et <b>seulement lui</b> : les lignes valides du même fichier restent lues. </p>
+<p><b>Cas de test :</b> <b>analyzeRun : champ non numérique ignoré, le reste du fichier reste lu.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. CSV <span class="tt">index,bestReward</span> dont la deuxième ligne porte <span class="tt">abc</span> en <span class="tt">bestReward</span>.<br  />
+</p><ol type="1">
+<li><span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> avec un seuil de 15.<br  />
+ <b>Resultat attendu :</b> Les deux lignes valides (10 et 20) sont retenues : moyenne 15, seuil atteint au deuxième élément lu. </li>
+</ol>
+
+</div>
+</div>
 <a id="aa815323e76ff7b70669f93351f11971f" name="aa815323e76ff7b70669f93351f11971f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa815323e76ff7b70669f93351f11971f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa815323e76ff7b70669f93351f11971f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,13 +392,13 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. 4 essais de chaque algorithme, 60 épisodes, niveau trivial.<br  />
-2. <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> sur chaque série.<br  />
+2. <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> sur chaque série.<br  />
  <b>Resultat attendu :</b> Écart-type fini et positif ou nul des deux côtés. </p>
 
 </div>
 </div>
 <a id="aadbc6146f696158e7c5a5f5640fd2b65" name="aadbc6146f696158e7c5a5f5640fd2b65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbc6146f696158e7c5a5f5640fd2b65">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbc6146f696158e7c5a5f5640fd2b65">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,13 +422,72 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Trois CSV synthétiques à récompense finale constante <span class="tt">8</span>, <span class="tt">10</span>, <span class="tt">12</span>.<br  />
-2. <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span>, fenêtre couvrant tout le run.<br  />
+2. <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span>, fenêtre couvrant tout le run.<br  />
  <b>Resultat attendu :</b> Écart-type calculé égal à celui de <span class="tt">{8, 10, 12}</span> (<span class="tt">~1.633</span>). </p>
 
 </div>
 </div>
+<a id="a3a633017d7ee7c49abef9bc29c614e29" name="a3a633017d7ee7c49abef9bc29c614e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a633017d7ee7c49abef9bc29c614e29">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ConvergenceComparatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EnTeteSansColonneBestRewardRendDesMetriquesNeutres</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un en-tête qui ne déclare pas <span class="tt">bestReward</span> rend des métriques neutres : la série est refusée en bloc plutôt que lue sur la mauvaise colonne. </p>
+<p>C'est la distinction qui compte : lire silencieusement une autre colonne produirait des chiffres plausibles et faux, bien pires qu'une absence de résultat. <b>Cas de test :</b> <b>analyzeRun : en-tête sans colonne bestReward -&gt; métriques neutres.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. CSV dont l'en-tête est <span class="tt">index,meanReward</span> (pas de <span class="tt">bestReward</span>), avec des lignes de données valides.<br  />
+2. <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>.<br  />
+ <b>Resultat attendu :</b> <span class="tt">episodesToThreshold</span> absent et <span class="tt">finalWindowMeanReward</span> nul : aucune colonne voisine n'est lue à la place. </p>
+
+</div>
+</div>
+<a id="a7dd5a5da6871954b862dceebbcf7f99c" name="a7dd5a5da6871954b862dceebbcf7f99c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd5a5da6871954b862dceebbcf7f99c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ConvergenceComparatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FichierAbsentRendDesMetriquesNeutres</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un CSV absent ou illisible rend des métriques neutres, sans exception ni valeur inventée. </p>
+<p><b>Cas de test :</b> <b>analyzeRun : fichier absent -&gt; métriques neutres.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> sur un chemin qui n'existe pas.<br  />
+ <b>Resultat attendu :</b> Aucune exception ; <span class="tt">episodesToThreshold</span> absent et <span class="tt">finalWindowMeanReward</span> nul. </p>
+
+</div>
+</div>
 <a id="a833273f4c3fda2470b353dfc3c1ebcad" name="a833273f4c3fda2470b353dfc3c1ebcad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a833273f4c3fda2470b353dfc3c1ebcad">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a833273f4c3fda2470b353dfc3c1ebcad">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,13 +511,45 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Run court de chaque algorithme sur le niveau trivial.<br  />
-2. <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> sur chaque CSV produit.<br  />
+2. <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> sur chaque CSV produit.<br  />
  <b>Resultat attendu :</b> Aucune exception ; <span class="tt">totalTrials == 1</span> des deux côtés. </p>
 
 </div>
 </div>
+<a id="ac2408cb491972f853987e1fcdd4fcf6d" name="ac2408cb491972f853987e1fcdd4fcf6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2408cb491972f853987e1fcdd4fcf6d">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ConvergenceComparatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LigneTronqueeIgnoreeSansPerdreLeResteDuFichier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une ligne tronquée est ignorée, et <b>seulement elle</b> : les lignes valides du même fichier restent lues. </p>
+<p><b>Cas de test :</b> <b>analyzeRun : ligne tronquée ignorée, le reste du fichier reste lu.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. CSV <span class="tt">index,bestReward</span> dont la deuxième ligne de données n'a qu'un champ.<br  />
+</p><ol type="1">
+<li><span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> avec un seuil de 15.<br  />
+ <b>Resultat attendu :</b> Les deux lignes valides (10 et 20) sont retenues : moyenne 15, seuil atteint au deuxième élément lu. </li>
+</ol>
+
+</div>
+</div>
 <a id="a80af4d4febf4e508aa3cbc94502e491d" name="a80af4d4febf4e508aa3cbc94502e491d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80af4d4febf4e508aa3cbc94502e491d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80af4d4febf4e508aa3cbc94502e491d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,13 +573,13 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. CSV synthétique <span class="tt">[0, 1, 2, ..., 9]</span>, seuil <span class="tt">5</span>.<br  />
-2. <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">episodesToThreshold == 5</span> (l'épisode d'index <span class="tt">5</span> est le premier <span class="tt">&gt;= 5</span>). </p>
 
 </div>
 </div>
 <a id="a006f08a6be785865a90a1eb32084e4fc" name="a006f08a6be785865a90a1eb32084e4fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a006f08a6be785865a90a1eb32084e4fc">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a006f08a6be785865a90a1eb32084e4fc">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -450,13 +597,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Si le plafond n'est jamais atteint, <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> ne plante pas et renvoie un indicateur explicite d'absence (pas un nombre d'épisodes erroné). </p>
+<p>Si le plafond n'est jamais atteint, <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span> ne plante pas et renvoie un indicateur explicite d'absence (pas un nombre d'épisodes erroné). </p>
 <p><b>Cas de test :</b> <b>analyzeRun : plafond jamais atteint.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. CSV synthétique dont aucune valeur n'atteint le seuil.<br  />
-2. <span class="tt"><a class="el" href="#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">episodesToThreshold</span> absent (<span class="tt">std::nullopt</span>). </p>
 
 </div>
@@ -474,7 +621,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_b2e19c2470c154dcc7e85c3caee9daa6.html">AiSolver</a></li><li class="navelem"><a href="dir_097cade96c6046bf5bf9beabf8f07c34.html">Training</a></li><li class="navelem"><a href="test__convergence__comparator_8cpp.html">test_convergence_comparator.cpp</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_b2e19c2470c154dcc7e85c3caee9daa6.html">AiSolver</a></li><li class="navelem"><a href="dir_d63ef91f4568d3f8ef07466079e10cee.html">Eval</a></li><li class="navelem"><a href="test__convergence__comparator_8cpp.html">test_convergence_comparator.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

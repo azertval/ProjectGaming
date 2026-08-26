@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -116,10 +116,6 @@ $(function(){initNavTree('test__cross__level__benchmark_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:EnvironmentConfig" id="r_EnvironmentConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression.  <a href="structEnvironmentConfig.html#details">More...</a><br /></td></tr>
-<tr class="memitem:ObservationEncoder" id="r_ObservationEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classObservationEncoder.html">ObservationEncoder</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatène, dans un ordre fixe et documenté, les trois encodeurs d'observation en un seul vecteur d'entrée de réseau.  <a href="classObservationEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelBenchmarkResult" id="r_CrossLevelBenchmarkResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structCrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une exécution croisée : le <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> (<span class="tt">LOT-ANNEXE-15</span>) déjà produit par <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, assemblé avec les deux identifiants de niveau distincts.  <a href="structCrossLevelBenchmarkResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelPair" id="r_CrossLevelPair"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structCrossLevelPair.html">CrossLevelPair</a></td></tr>
@@ -339,13 +335,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Campagne reelle de transfert (TACHE-02) : un modele evolutionniste entraine uniquement sur le niveau trivial (deplacement lateral pur, un pas), execute sur deux niveaux jamais vus &ndash; l'un partageant la meme mecanique (corridor plus long), l'autre en exigeant une differente (breche a sauter). </p>
-<p>Attente déclarée avant mesure (décision de cadrage de l'épic, <span class="tt">EX-IA-017</span>) : le régime d'entraînement niveau-par-niveau n'exerce aucune pression de généralisation, un transfert faible est attendu et n'est pas un échec du programme. Ce test ne fige aucun seuil de réussite &ndash; seule la validité structurelle des résultats est vérifiée ; les valeurs numériques imprimées ici sont celles recopiées dans <span class="tt"><a class="el" href="resultats-transfert_8md.html">resultats-transfert.md</a></span>. <b>Cas de test :</b> Campagne de transfert reelle sur deux paires de niveaux illustratives.<br  />
+<p>Attente déclarée avant mesure (décision de cadrage de l'épic, <span class="tt">EX-IA-017</span>) : le régime d'entraînement niveau-par-niveau n'exerce aucune pression de généralisation, un transfert faible est attendu et n'est pas un échec du programme. Ce test ne fige donc aucun seuil de <em>réussite</em> : il fige la mesure effectivement obtenue &ndash; transfert nul, timeout systématique au plafond de pas &ndash; telle qu'elle est consignée dans <span class="tt"><a class="el" href="resultats-transfert_8md.html">resultats-transfert.md</a></span>. Si ces valeurs changent, ce n'est pas le test qu'il faut assouplir : c'est la documentation qui est périmée. <b>Cas de test :</b> Campagne de transfert reelle sur deux paires de niveaux illustratives.<br  />
  <b>Categorie :</b> Unitaire (integration niveaux reels) · AiSolver Eval<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Entrainement evolutionniste jusqu'a resolution stable sur le niveau trivial.<br  />
 2. Execution croisee (20 repetitions) sur un niveau de meme mecanique et un niveau de mecanique differente.<br  />
- <b>Resultat attendu :</b> Deux resultats, taux de reussite dans [0, 1], pas moyen fini et positif. </p>
+ <b>Resultat attendu :</b> Deux resultats etiquetes TrivialLong et Gap, 20 episodes chacun, taux de reussite nul et pas moyen egal au plafond &ndash; les valeurs consignees dans <a class="el" href="resultats-transfert_8md.html">resultats-transfert.md</a>. </p>
 
 </div>
 </div>

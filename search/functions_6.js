@@ -27,5 +27,5 @@ var searchData=
   ['getorload_24',['getOrLoad',['../classhmi_1_1CacheRegistry.html#a908d1f3eb7c3853ed4c843c5fb27f466',1,'hmi::CacheRegistry']]],
   ['getunderkey_25',['getUnderKey',['../classhmi_1_1TextureCache.html#ac28feac2b71b9c2f751d189cbd28a47c',1,'hmi::TextureCache']]],
   ['glyph_26',['glyph',['../structhmi_1_1FontMetrics.html#aac5b7c0434ca48b7cfc46d5f00860cae',1,'hmi::FontMetrics']]],
-  ['griddistancefield_27',['GridDistanceField',['../classaisolver_1_1GridDistanceField.html#ac003bbacdb039cdd95dcb737ad79fc4e',1,'aisolver::GridDistanceField']]]
+  ['griddistancefield_27',['GridDistanceField',['../classaisolver_1_1GridDistanceField.html#ac003bbacdb039cdd95dcb737ad79fc4e',1,'aisolver::GridDistanceField::GridDistanceField(const core::TileMap &amp;tileMap, const core::GridPosition &amp;target)'],['../classaisolver_1_1GridDistanceField.html#ae88b26de7378f3dda32e19556e1240b9',1,'aisolver::GridDistanceField::GridDistanceField(const core::TileMap &amp;tileMap, const std::vector&lt; core::GridPosition &gt; &amp;targets)']]]
 ];

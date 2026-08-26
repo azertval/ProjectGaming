@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-33-tache-02-presentation-flip.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-33-fluidite-moteur_2tache-02-presentation-flip"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-33.html#md_Lot_2LOT-33-fluidite-moteur_2epic" title="Lot/LOT-33-fluidite-moteur/epic.md">LOT-33</a> · <b>Module :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1787"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1792"></a>
 Contexte</h1>
 <p>La swap chain était créée avec l'ancien modèle de présentation <em>blt</em> (<span class="tt">DXGI_SWAP_EFFECT_DISCARD</span>, un seul back buffer). Sous Windows 10/11, ce modèle impose au compositeur (DWM) une <b>copie supplémentaire</b> du back buffer à chaque présentation, ce qui ajoute de la latence entrée → image et nuit à la régularité de la cadence. Le modèle <b>flip</b> (<span class="tt">DXGI_SWAP_EFFECT_FLIP_DISCARD</span>) présente le back buffer <b>directement</b>, sans cette copie — c'est la présentation recommandée pour toute application Direct3D moderne, y compris V-Sync activée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1788"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1793"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">GraphicsDevice</span> : swap chain en <span class="tt">DXGI_SWAP_EFFECT_FLIP_DISCARD</span> avec <b>deux</b> back buffers (<span class="tt">BufferCount = 2</span>), format <span class="tt">R8G8B8A8_UNORM</span> (compatible flip), <span class="tt">SampleDesc.Count = 1</span>.</li>
@@ -105,25 +105,25 @@ Travail à réaliser</h1>
 <li><span class="tt">resize()</span> : dé-lier explicitement la cible de rendu (<span class="tt">OMSetRenderTargets(0, nullptr, nullptr)</span>) avant <span class="tt">ResizeBuffers</span>, en plus de libérer la render target view (une liaison résiduelle compterait comme une référence vivante et ferait échouer le redimensionnement).</li>
 <li>V-Sync inchangée : <span class="tt">present()</span> continue d'utiliser l'intervalle de synchronisation selon <span class="tt">vsyncEnabled()</span> (<span class="tt">EX-REN-022</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1789"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1794"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/GraphicsDevice.h</span> : documentation de la classe (flip model).</li>
 <li><span class="tt">Source/HMI/Graphics/GraphicsDevice.cpp</span> : description de la swap chain, <span class="tt">clear()</span> (reliure), <span class="tt">resize()</span> (dé-liaison avant <span class="tt">ResizeBuffers</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1790"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1795"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Dépendance D3D11 : vérification <b>visuelle</b> (le jeu démarre, affiche, se redimensionne, reste net) — comme tout le rendu depuis <span class="tt">LOT-05</span>. Aucun test unitaire GPU.</li>
 <li>Non-régression de la suite (aucun code de simulation touché) : reste verte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1791"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1796"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Fenêtre créée en flip model, rendu correct, redimensionnement sans artefact ni erreur DXGI, V-Sync toujours activable.</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, API documentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1792"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1797"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-004</span>, <span class="tt">EX-REN-002</span>, <span class="tt">EX-REN-022</span>, <span class="tt">EX-NFR-041</span>. </p>
 </div></div><!-- contents -->

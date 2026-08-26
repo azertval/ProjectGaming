@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-09-tache-02-colonnes-csv.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2tache-02-colonnes-csv"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-09.html#md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2epic" title="Lot-Annexe/LOT-ANNEXE-09-journalisation-statistiques/epic.md">LOT-ANNEXE-09</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Stats</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3733"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3739"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (TACHE-01) sait qu'il doit écrire une ligne par appel ; cette tâche définit le format exact de cette ligne — l'en-tête, l'ordre des colonnes, l'échappement — condition pour que le harnais de benchmark (<span class="tt">LOT-ANNEXE-15</span>) puisse plus tard lire ces fichiers de façon fiable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3734"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3740"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>En-tête de colonnes</b> (<span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">Source/AiSolver/Stats/CsvFormat.h</a>/.cpp</span>, fonction <span class="tt">std::string
@@ -107,35 +107,35 @@ Travail à réaliser</h1>
   movingAverage, float delta, std::string_view timestampIso8601)</span>) : valeurs séparées par virgules, <span class="tt">levelName</span> entre guillemets si elle contient une virgule (échappement CSV minimal mais correct, pas une bibliothèque CSV complète — un seul champ textuel dans tout le schéma).</li>
 <li><span class="tt"><a class="el" href="classTrainingStatsRecorder.html#ab684eb50f97ca529476231b56d032f02">TrainingStatsRecorder::TrainingStatsRecorder</a></span> (TACHE-01) écrit <span class="tt">csvHeader()</span> immédiatement à la construction ; chaque <span class="tt">record</span> construit sa ligne via <span class="tt">csvRow(...)</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3735"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3741"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">Source/AiSolver/Stats/CsvFormat.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="TrainingStatsRecorder_8cpp.html">Source/AiSolver/Stats/TrainingStatsRecorder.cpp</a></span> — modifié (utilise <span class="tt">csvHeader</span>/<span class="tt">csvRow</span>).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3742"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>En-tête exact</b> : <span class="tt">csvHeader()</span> produit la liste de colonnes documentée, dans l'ordre exact.</li>
 <li><b>Échappement</b> : un <span class="tt">levelName</span> contenant une virgule est correctement entouré de guillemets dans <span class="tt">csvRow</span>, et se relit comme une seule valeur (test round-trip avec un analyseur CSV minimal dédié au test, pas une dépendance de production).</li>
 <li><b>Stabilité inter-lignes</b> : deux appels à <span class="tt">csvRow</span> avec des <span class="tt">TrainingStatsRow</span> différentes produisent des lignes du <b>même</b> nombre de champs, dans le même ordre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3743"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucune dépendance à une bibliothèque CSV tierce</b> : le format réel n'a qu'un seul champ textuel à risque d'échappement (<span class="tt">levelName</span>) — une fonction dédiée de quelques lignes suffit, conforme à la contrainte « from scratch, aucune dépendance tierce nouvelle » du programme.</li>
 <li><b>L'horodatage est au format ISO 8601</b> (<span class="tt">AAAA-MM-JJThh:mm:ssZ</span>), trié lexicographiquement dans le même ordre que chronologiquement — utile si plusieurs runs sont un jour agrégés (génération 4).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3744"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">csvHeader</span>/<span class="tt">csvRow</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3745"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — récompense cumulée (retour), plafond de performance d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3746"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-010</span> (nouvelle, partagée avec TACHE-01/03/04/05 du même lot). </p>
 </div></div><!-- contents -->

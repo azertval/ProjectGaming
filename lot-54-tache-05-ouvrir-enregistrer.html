@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -97,12 +97,12 @@ $(function(){initNavTree('lot-54-tache-05-ouvrir-enregistrer.html','',''); });
 <blockquote class="doxtable">
 <p><b>Amendement de portée.</b> Le second point d'entrée (« éditer cet asset » depuis le panneau Textures recentré, sur l'asset couramment assigné) n'a <b>pas</b> été câblé dans cette passe : seul le point d'entrée principal (choisir un fichier dans <span class="tt">Assets/</span>, via <span class="tt">QFileDialog</span>) est livré. <span class="tt">TexturePanel</span> est un composant volumineux déjà testé, et l'ajout d'un bouton "éditer" qui pousserait un chemin d'asset vers <span class="tt">PixelCanvas::setImage</span> reste un point d'extension simple à réaliser dans une passe ultérieure, sans changer la forme d'<span class="tt">openPixelAssetOpenDialog</span>. Le reste de la tâche (créer, enregistrer, enregistrer sous, garde-fous d'écrasement et de perte de travail) est livré tel que cadré. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2561"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2566"></a>
 Contexte</h1>
 <p>Le canevas (TACHE-03) travaille en mémoire ; il faut le relier aux fichiers d'assets. La bibliothèque de LOT-43 fournit déjà la navigation, la validation de nom et la <b>détection des références</b> — un asset peut être cité par plusieurs niveaux et par <span class="tt">skins.json</span>.</p>
 <p>C'est cette détection qui rend l'enregistrement délicat : écraser un asset utilisé par cinq niveaux n'est pas une opération anodine, et l'utilisateur n'a aucun moyen de le savoir sans qu'on le lui dise.</p>
 <p>Le second point d'entrée a changé de nature depuis <a class="el" href="lot-57.html" title="LOT-57 — Architecture de l&#39;information de l&#39;éditeur">LOT-57</a> : le panneau Textures y est recentré sur ce qui <b>définit l'apparence</b> du niveau — Skins, Fond, Animations — et débarrassé de ce qui n'en relevait pas. C'est exactement le voisinage où « éditer cet asset » a du sens, et l'atelier s'y branche sans avoir à réorganiser quoi que ce soit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2562"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2567"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Ouvrir</b> un asset existant depuis la bibliothèque (LOT-43), comme point d'entrée principal de l'atelier, et depuis le panneau Textures recentré (TACHE-03 de LOT-57) sur l'asset couramment assigné.</li>
@@ -113,7 +113,7 @@ Travail à réaliser</h1>
 <li><b>Garde-fou de perte de travail</b> : fermer l'atelier ou ouvrir un autre asset avec des modifications non enregistrées demande confirmation — même patron que l'éditeur de niveaux (<span class="tt">EX-EDIT-021</span>).</li>
 <li><b>Enregistrer sous</b> : créer une copie plutôt qu'écraser, la voie de sortie naturelle quand le garde-fou d'écrasement se déclenche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2563"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2568"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span>, <span class="tt">TexturePanel.{h,cpp}</span>, <span class="tt">AssetThumbnailView.{h,cpp}</span>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Interface/EditorActions.{h,cpp}</span> (créé en <span class="tt">LOT-56</span>) — commandes de fichier de l'atelier.</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2564"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2569"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Préservation des dimensions</b> : ouvrir puis enregistrer sans modification produit une image de mêmes dimensions et de mêmes pixels.</li>
@@ -131,19 +131,19 @@ Tests (obligatoires)</h1>
 <li><b>Aucune commande de fichier redéclarée</b> : le test de définition unique de LOT-56 couvre aussi les commandes de l'atelier.</li>
 <li>Logique testée sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2565"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2570"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas réimplémenter la détection des références</b> : elle existe depuis LOT-43 et doit rester unique, sinon les deux implémentations divergeront.</li>
 <li>L'enregistrement doit déclencher l'<b>invalidation ciblée</b> du cache (LOT-43, TACHE-03) pour que l'aperçu live (TACHE-08) se mette à jour — mais l'invalidation elle-même n'est pas le sujet de cette tâche.</li>
 <li>Une création à une taille non conforme ne doit pas être possible du tout, plutôt que refusée après coup : c'est la différence entre un outil qui guide et un outil qui punit.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2566"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2571"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Ouvrir, créer et enregistrer un asset fonctionne depuis la bibliothèque et depuis le panneau Textures recentré ; les commandes sont des actions uniques ; les dimensions sont préservées ; l'écrasement d'un asset référencé et la perte de travail sont couverts par des garde-fous nommant les éléments concernés ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2567"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2572"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-IHM-055</span> (commandes exposées comme actions), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit). </p>
 </div></div><!-- contents -->

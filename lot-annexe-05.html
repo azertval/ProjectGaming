@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-annexe-05.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2epic"></a></p>
 <blockquote class="doxtable">
-<p>Statut : <b>non commencé</b>. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0 fournit de quoi compiler <span class="tt">AiSolver</span>, sans dépendance <b>fonctionnelle</b> sur elle). Premier lot de la génération 1 : donne à tout algorithme d'apprentissage à venir un moyen de <b>jouer</b> un niveau sans fenêtre ni GPU. </p>
+<p>Statut : <b>fait</b>. Prérequis : aucun lot annexe (peut démarrer dès que la génération 0 fournit de quoi compiler <span class="tt">AiSolver</span>, sans dépendance <b>fonctionnelle</b> sur elle). Premier lot de la génération 1 : donne à tout algorithme d'apprentissage à venir un moyen de <b>jouer</b> un niveau sans fenêtre ni GPU. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3541"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3547"></a>
 Objectif</h1>
 <p>Aucun algorithme d'apprentissage (génération 2 : recherche évolutionniste, génération 3 : apprentissage par gradient) ne peut s'exécuter sans un moyen de faire avancer un niveau, pas à pas, des dizaines de milliers de fois par seconde, sans Direct3D 11 ni Qt. Cette orchestration existe déjà — mais <b>écrite deux fois</b> : <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span> (<span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span>, utilisée en jeu) et <span class="tt">playLevel()</span> (<span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>, sa reproduction headless qui sert de test système de non-régression). Ce lot introduit une <b>troisième</b> implémentation, dans <span class="tt">Source/AiSolver/Env</span>, fidèle aux deux premières et pensée dès le départ pour l'usage qu'en feront les générations 2 et 3 : rejouable des millions de fois, sans aucun état de rendu, derrière une API <span class="tt">reset</span>/<span class="tt">step</span> minimale.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3542"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3548"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3543"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3549"></a>
 Inclus</h2>
 <ul>
 <li><span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">aisolver::HeadlessLevelEnvironment</a></span> (<span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a>/.cpp</span>) : <span class="tt">reset(chemin)</span> charge un niveau et fait apparaître le personnage à l'entrée ; <span class="tt">step(core::
@@ -111,7 +111,7 @@ Inclus</h2>
 <li>Cible CMake <span class="tt">AiSolver</span>, liée uniquement à <span class="tt">Core</span>.</li>
 <li>Garde de fidélité permanente en CI : rejeu de toute la table de niveaux scriptés de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> à travers <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, avec assertion <b>pas-à-pas</b>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3544"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3550"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Tout rendu.</b> <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> n'ajoute à l'entité joueur que les quatre composants nécessaires à la physique (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span>, <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span>, <span class="tt"><a class="el" href="structcore_1_1Collider.html" title="Étendue physique d&#39;une entité pour la collision : une boîte alignée aux axes (AABB).">core::Collider</a></span>, <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>) — ni <span class="tt">Sprite</span> ni <span class="tt">Animation</span>, exactement comme <span class="tt">playLevel()</span>.</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>La politique de fin d'épisode</b> (à partir de quand un blocage devient une fin d'épisode, quelle récompense en résulte) : LOT-ANNEXE-08, qui consomme les compteurs bruts exposés ici.</li>
 <li><b>L'encodage tenseur de l'observation</b> : LOT-ANNEXE-06, qui consomme <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> en lecture seule.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3545"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3551"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Aucune ligne de <span class="tt">Core</span> n'est modifiée.</b> <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> n'appelle que des méthodes publiques déjà exposées : <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span>, <span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html#ab500e26acff834eb6866e6b78af23e98" title="Applique un pas de simulation à toutes les entités « personnage ».">core::CharacterPhysicsSystem::update</a></span>, <span class="tt"><a class="el" href="namespacecore.html" title="Espace de noms du moteur et de la logique de jeu.">core</a>::
@@ -129,16 +129,16 @@ Décisions de cadrage</h1>
 <li><b>La grille de collision n'est jamais mutée sur le <span class="tt">Level</span>.</b> Comme <span class="tt">GameSession</span>/<span class="tt">playLevel()</span>, <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> recompose une <span class="tt">TileMap</span> de collision à chaque pas (<span class="tt">mechanisms.collisionMap()</span> puis <span class="tt">blocks.collisionMap(...)</span>) ; le <span class="tt">Level</span> chargé reste la source de vérité immuable — nécessaire pour qu'un <span class="tt">reset</span> répété sur le même chemin reparte d'un état strictement identique (déterminisme, <span class="tt">EX-NFR-002</span>).</li>
 <li><b>Budget de pas et mesure de progression exposés, jamais interprétés.</b> <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> reste une enveloppe de simulation pure : elle expose des compteurs (<span class="tt">stepIndex</span>, <span class="tt">stepsSinceProgress</span>, <span class="tt">bestProgress</span>) mais ne décide jamais elle-même qu'un épisode est « bloqué » — cette décision dépend de l'algorithme et du niveau (LOT-ANNEXE-08), une seule responsabilité par module.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3546"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3552"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> (agent, environnement, boucle <span class="tt">reset</span>/<span class="tt">step</span>/observation/action/récompense). Source directe de la forme de l'interface : Brockman et al. (2016, <em>OpenAI Gym</em>, popularise l'interface <span class="tt">reset</span>/<span class="tt">step</span>) — <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> s'en inspire dans sa forme uniquement, sans aucune dépendance à cette bibliothèque.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3547"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3553"></a>
 Exigences couvertes</h1>
 <ul>
-<li>Nouvelle :<a class="anchor" id="EX-IA-005"></a><b>EX-IA-005</b> — Le jeu doit être jouable <b>sans fenêtre ni GPU</b>, au pas fixe, via une API <span class="tt">reset(chemin)</span>/<span class="tt">step(core::PlayerInput)</span> reproduisant fidèlement l'orchestration de simulation du jeu (mécanismes, blocs, physique, dangers, issue), sans aucune modification de <span class="tt">Core</span>, avec une garde de non-régression pas-à-pas permanente en CI.</li>
+<li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-005" title="EX-IA-005"><span class="tt">EX-IA-005</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-GP-001</span> à <span class="tt">EX-GP-025</span>/<span class="tt">050</span>-<span class="tt">053</span> (modèle de niveau et mécaniques, consommées en lecture seule), <span class="tt">EX-NFR-002</span> (déterminisme au pas fixe), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-ARCH-011</span>/<span class="tt">EX-ARCH-030</span> (données pures, orchestration par systèmes).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3548"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3554"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -147,17 +147,17 @@ Découpage</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Tâche  </th><th class="markdownTableHeadNone">Intitulé  </th><th class="markdownTableHeadNone">Emplacement  </th><th class="markdownTableHeadCenter">État  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-01-headless-level-environment.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-01-headless-level-environment" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-01-headless-level-environment.md">TACHE-01</a>  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : squelette, <span class="tt">reset</span>, entité joueur  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-01-headless-level-environment.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-01-headless-level-environment" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-01-headless-level-environment.md">TACHE-01</a>  </td><td class="markdownTableBodyNone"><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : squelette, <span class="tt">reset</span>, entité joueur  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-02-replication-ordre-pas.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-02-replication-ordre-pas" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-02-replication-ordre-pas.md">TACHE-02</a>  </td><td class="markdownTableBodyNone"><span class="tt">step</span> : réplication exacte de l'ordre de composition par pas  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-02-replication-ordre-pas.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-02-replication-ordre-pas" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-02-replication-ordre-pas.md">TACHE-02</a>  </td><td class="markdownTableBodyNone"><span class="tt">step</span> : réplication exacte de l'ordre de composition par pas  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-03-budget-pas-detection-blocage.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-03-budget-pas-detection-blocage" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-03-budget-pas-detection-blocage.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Budget de pas et mesure de progression (blocage)  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-03-budget-pas-detection-blocage.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-03-budget-pas-detection-blocage" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-03-budget-pas-detection-blocage.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Budget de pas et mesure de progression (blocage)  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Env</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-04-cible-cmake-aisolver.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-04-cible-cmake-aisolver" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-04-cible-cmake-aisolver.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Cible CMake <span class="tt">AiSolver</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver</span>, <span class="tt">Source/CMakeLists.txt</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-04-cible-cmake-aisolver.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-04-cible-cmake-aisolver" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-04-cible-cmake-aisolver.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Cible CMake <span class="tt">AiSolver</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver</span>, <span class="tt">Source/CMakeLists.txt</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-05-garde-fidelite-parcours-complet.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-05-garde-fidelite-parcours-complet" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-05-garde-fidelite-parcours-complet.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Garde de fidélité pas-à-pas (CI permanente)  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Systeme</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="lot-annexe-05-tache-05-garde-fidelite-parcours-complet.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-05-garde-fidelite-parcours-complet" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/tache-05-garde-fidelite-parcours-complet.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Garde de fidélité pas-à-pas (CI permanente)  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Systeme</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3549"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3555"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span> charge n'importe quel niveau JSON valide de <span class="tt">Source/Elements/Levels</span> et positionne le personnage à l'entrée, budgets de saut/dash inclus.</li>
@@ -168,10 +168,10 @@ Critères d'acceptation du lot</h1>
 <li><span class="tt">AiSolver</span> compile en cible séparée, liée uniquement à <span class="tt">Core</span>, sans dépendance Qt/HMI/D3D11.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3550"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3556"></a>
 Dépendances</h1>
 <p>Enveloppe, en lecture seule, du <span class="tt">Core</span> existant : <span class="tt">Level</span>/<span class="tt">TileMap</span>/<span class="tt">LevelLoader</span> (LOT-07), <span class="tt">CharacterPhysicsSystem</span> (LOT-08), <span class="tt">MechanismController</span> (LOT-12) étendu par la masse et la plaque de pression (LOT-19), <span class="tt">BlockController</span> (LOT-21) et les blocs à taille fractionnaire (LOT-24), <span class="tt">DangerController</span> (LOT-31), le pas fixe déterministe (LOT-33). Réplique fidèlement l'orchestration de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span> et du test système <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> (séquence de niveaux <span class="tt">demo-*.json</span>, LOT-25). Aucun autre lot annexe en amont.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3551"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3557"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-05-tache-01-headless-level-environment.html" title="TACHE-01 — HeadlessLevelEnvironment : squelette, reset, entité joueur">TACHE-01 — HeadlessLevelEnvironment : squelette, reset, entité joueur</a></li>

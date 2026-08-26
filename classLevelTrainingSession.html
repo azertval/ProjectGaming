@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,6 +101,8 @@ $(function(){initNavTree('classLevelTrainingSession.html','','classLevelTraining
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0cccb14183c31ef6c7232b09448a7805" id="r_a0cccb14183c31ef6c7232b09448a7805"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0cccb14183c31ef6c7232b09448a7805">LevelTrainingSession</a> (std::filesystem::path levelPath, evolutionary::NetworkTopology topology, evolutionary::EvolutionaryConfig config, <a class="el" href="structStoppingConfig.html">StoppingConfig</a> stopping, std::uint64_t seed, const std::filesystem::path &amp;statsCsvPath, <a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a> environmentConfig={})</td></tr>
+<tr class="memitem:a77ee5308d33d4aac3f217c5190df29b3" id="r_a77ee5308d33d4aac3f217c5190df29b3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77ee5308d33d4aac3f217c5190df29b3">setOnStatsRow</a> (std::function&lt; void(const TrainingStatsRow &amp;)&gt; onStatsRow)</td></tr>
+<tr class="memdesc:a77ee5308d33d4aac3f217c5190df29b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche <code class="param">onStatsRow</code> sur l'enregistreur de statistiques de la session.  <br /></td></tr>
 <tr class="memitem:ac96998249bc57117e8eb0dedc15632ff" id="r_ac96998249bc57117e8eb0dedc15632ff"><td class="memItemLeft"><a class="el" href="structTrainingResult.html">TrainingResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac96998249bc57117e8eb0dedc15632ff">run</a> (const std::function&lt; bool()&gt; &amp;shouldStop={}, const std::function&lt; void(const evolutionary::Individual &amp;)&gt; &amp;onGenerationChampion={})</td></tr>
 <tr class="memdesc:ac96998249bc57117e8eb0dedc15632ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute des générations jusqu'à ce que le champion reste invaincu et résolvant pendant <span class="tt"><a class="el" href="structStoppingConfig.html#a157e25fd725f7aed91399c1bdff6b51d" title="Nombre de générations consécutives où le champion doit rester invaincu et résolvant pour que la sessi...">StoppingConfig::requiredConsecutiveSuccesses</a></span> générations consécutives, ou jusqu'à <span class="tt"><a class="el" href="structStoppingConfig.html#a1ec353c82c421069411be8b63df03fea" title="Plafond dur de générations : borne le coût d&#39;un entraînement qui ne convergerait jamais.">StoppingConfig::maxGenerations</a></span>, selon ce qui survient en premier.  <br /></td></tr>
 <tr class="memitem:a1ef82820d03331d716dcc002dfaae63b" id="r_a1ef82820d03331d716dcc002dfaae63b"><td class="memItemLeft">const <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1ef82820d03331d716dcc002dfaae63b">environment</a> () const noexcept</td></tr>
@@ -235,6 +237,39 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">shouldStop</td><td>Vérifié au début de chaque génération (<span class="tt">LOT-ANNEXE-21</span>) ; si présent et renvoie <span class="tt">true</span>, la session s'arrête avant cette génération, comme si le plafond avait été atteint (résultat partiel, jamais une exception). <span class="tt">nullptr</span> (défaut) : comportement inchangé, jamais interrompu avant la résolution ou le plafond. </td></tr>
     <tr><td class="paramname">onGenerationChampion</td><td>Appelé après chaque génération avec le champion courant (<span class="tt">LOT-ANNEXE-21</span>) : seul point d'accès de l'appelant au réseau du champion pendant la session (<span class="tt"><a class="el" href="#a0bbd6dabed92036cf5aec677363dd0e3">_trainer</a></span> reste privé) — sert à l'aperçu en direct de l'IHM (rejeu du champion courant), jamais à une décision d'arrêt (voir <span class="tt">shouldStop</span>). <span class="tt">nullptr</span> (défaut) : aucun effet. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a77ee5308d33d4aac3f217c5190df29b3" name="a77ee5308d33d4aac3f217c5190df29b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77ee5308d33d4aac3f217c5190df29b3">&#9670;&#160;</a></span>setOnStatsRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#a77ee5308d33d4aac3f217c5190df29b3">aisolver::training::LevelTrainingSession::setOnStatsRow</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(const TrainingStatsRow &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>onStatsRow</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Branche <code class="param">onStatsRow</code> sur l'enregistreur de statistiques de la session. </p>
+<p>La session <b>possède</b> son enregistreur : elle seule écrit le CSV du run. Un appelant qui veut suivre la progression (afficher un tableau, tracer une courbe) passe par ici plutôt que d'ouvrir un second enregistreur sur le même fichier — deux flux en troncature sur un même chemin se marcheraient dessus, et le rappel du second ne serait jamais appelé. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onStatsRow</td><td>Appelé après chaque génération journalisée, avec la ligne écrite. </td></tr>
   </table>
   </dd>
 </dl>

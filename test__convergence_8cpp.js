@@ -2,7 +2,6 @@ var test__convergence_8cpp =
 [
     [ "PolynomialToyProblem", "structPolynomialToyProblem.html", "structPolynomialToyProblem" ],
     [ "QuadraticToyProblem", "structQuadraticToyProblem.html", "structQuadraticToyProblem" ],
-    [ "Sgd", "classSgd.html", "classSgd" ],
     [ "NodePtr", "test__convergence_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec", null ],
     [ "backward", "test__convergence_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1", null ],
     [ "TEST", "test__convergence_8cpp.html#a53df004190a0e2d216fc62bc0a886d12", null ],

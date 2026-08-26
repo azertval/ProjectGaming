@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,11 +93,11 @@ $(function(){initNavTree('lot-29-tache-03-ui-remappage.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-29-remappage-touches_2tache-03-ui-remappage"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-29.html#md_Lot_2LOT-29-remappage-touches_2epic" title="Lot/LOT-29-remappage-touches/epic.md">LOT-29</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span>, <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1649"></a>
+<p><b>Lot :</b> <a class="el" href="lot-29.html#md_Lot_2LOT-29-remappage-touches_2epic" title="Lot/LOT-29-remappage-touches/epic.md">LOT-29</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span>, <span class="tt">HMI/main.cpp</span> · <b>Statut :</b> ✅</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1654"></a>
 Contexte</h1>
 <p>Rend le remappage accessible depuis le menu Options : deux nouveaux écrans listant respectivement les actions de jeu et d'éditeur, sur le même patron que <span class="tt">OptionsScreen</span>/<span class="tt">OptionsModel</span> (liste navigable au clavier/souris, action confirmée par Entrée/clic).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1650"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1655"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">Source/HMI/Interface/GameKeybindingsModel.h</span>/<span class="tt">.cpp</span></b> (nouveau) : logique testable, patron <span class="tt">OptionsModel</span> — liste de 8 lignes (6 actions + « Réinitialiser » + « Retour »), navigation Haut/Bas/survol/clic (réutilise les constantes publiques de <span class="tt">MenuModel</span>, comme <span class="tt">OptionsModel</span>). Sélectionner puis confirmer une ligne d'action bascule un état <span class="tt">_capturing</span> (aucune navigation tant qu'actif) ; la frame suivante consulte <span class="tt">KeyName::capturedKey</span>, applique <span class="tt">GameKeyBindings::setKey</span> (échange géré par la classe elle-même, TACHE-01), déclenche <span class="tt">save(path)</span>, sort de la capture. La ligne « Réinitialiser » appelle <span class="tt">resetToDefaults()</span> + <span class="tt">save</span>. La ligne « Retour » produit une action de sortie (interprétée par l'écran comme <span class="tt">ScreenTransition::switchTo(ScreenId::Options)</span>).</li>
@@ -107,45 +107,45 @@ Travail à réaliser</h1>
 <li><b><span class="tt">Source/HMI/Interface/OptionsScreen.cpp</span></b> : les deux nouvelles actions produisent <span class="tt">ScreenTransition::switchTo(ScreenId::GameKeybindings)</span>/<span class="tt">switchTo(ScreenId::EditorKeybindings)</span>.</li>
 <li><b><span class="tt">Source/HMI/Interface/IScreen.h</span></b> : <span class="tt">ScreenId</span> gagne <span class="tt">GameKeybindings</span>, <span class="tt">EditorKeybindings</span>.</li>
 <li><b><span class="tt">Source/HMI/Interface/ScreenManager.cpp</span></b> : <span class="tt">screenName()</span> gagne les deux nouveaux cas.</li>
-<li><b><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span></b> : construit <span class="tt"><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::GameKeyBindings</a> gameBindings =
+<li><b><span class="tt">Source/HMI/main.cpp</span></b> : construit <span class="tt"><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::GameKeyBindings</a> gameBindings =
   hmi::GameKeyBindings::load(settingsPath)</span> et <span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::EditorKeyBindings</a> editorBindings =
   hmi::EditorKeyBindings::load(settingsPath)</span> une fois au démarrage (à côté de <span class="tt">localization</span>), capturées par référence dans la fabrique d'écrans ; nouveaux <span class="tt">case</span> pour <span class="tt">ScreenId::GameKeybindings</span>/<span class="tt">EditorKeybindings</span> ; les <span class="tt">case Game</span>/<span class="tt">Editor</span> existants passent désormais <span class="tt">gameBindings</span>/<span class="tt">editorBindings</span> (branchement TACHE-02 finalisé ici si pas déjà fait).</li>
 <li><b>Localisation</b> (<span class="tt">Source/Elements/Localization/fr.lang</span>/<span class="tt">en.lang</span>) : <span class="tt">options.touches_jeu</span>, <span class="tt">options.touches_editeur</span>, <span class="tt">keybindings.titre_jeu</span>, <span class="tt">keybindings.titre_editeur</span>, <span class="tt">keybindings.reinitialiser</span>, <span class="tt">keybindings.appuyez_touche</span>, libellés des 6 + 9 actions.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1651"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1656"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameKeybindingsModel.h</span>/<span class="tt">.cpp</span>, <span class="tt">GameKeybindingsScreen.h</span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt">Source/HMI/Interface/EditorKeybindingsModel.h</span>/<span class="tt">.cpp</span>, <span class="tt">EditorKeybindingsScreen.h</span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt">Source/HMI/Interface/OptionsModel.h</span>/<span class="tt">.cpp</span>, <span class="tt">OptionsScreen.cpp</span>.</li>
 <li><span class="tt">Source/HMI/Interface/IScreen.h</span>, <span class="tt">ScreenManager.cpp</span>.</li>
-<li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
+<li><span class="tt">Source/HMI/main.cpp</span>.</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (nouveaux fichiers source).</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>/<span class="tt">en.lang</span>.</li>
 <li>Tests : <span class="tt">Source/Test/Unit/HMI/Interface/test_options_model.cpp</span> (mis à jour), <span class="tt">test_game_keybindings_model.cpp</span>, <span class="tt">test_editor_keybindings_model.cpp</span> (nouveaux).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1652"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1657"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">OptionsModel</span> : les 4 options, navigation, et les deux nouvelles actions renvoyées correctement.</li>
 <li><span class="tt">GameKeybindingsModel</span>/<span class="tt">EditorKeybindingsModel</span> : navigation identique au patron <span class="tt">OptionsModel</span> ; confirmer une action entre en capture ; une touche capturée valide met à jour le binding correspondant et sort de la capture ; <span class="tt">Échap</span>/<span class="tt">Entrée</span> pendant la capture ne modifient rien et la laissent ouverte (sauf si le modèle choisit <span class="tt">Échap</span> = annuler la capture sans modifier — à trancher en implémentant, cohérent avec la convention « Échap annule » déjà en place ailleurs dans l'éditeur, ex. <span class="tt">TextInputField</span>) ; « Réinitialiser » restaure les défauts ; « Retour » renvoie l'action de sortie.</li>
 <li>Un test bout-en-bout léger (ou revue manuelle documentée ici) : ouvrir Options → Touches de jeu → remapper Sauter → Retour → Retour → Jouer, confirme que la nouvelle touche saute bien.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1653"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1658"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">Échap</span> pendant la capture, tranché</b> : annule la capture (binding inchangé), géré directement dans <span class="tt">GameKeybindingsModel</span>/<span class="tt">EditorKeybindingsModel::update</span> (avant même d'appeler <span class="tt">capturedKey</span>, qui reste inchangée : elle ignore <span class="tt">Échap</span>/<span class="tt">Entrée</span> comme touche <b>cible</b>, ce qui est un besoin distinct). Cohérent avec <span class="tt">TextInputField</span> (<span class="tt">Échap</span> = annuler une saisie en cours).</li>
 <li><b>Pas de sortie par <span class="tt">Échap</span> hors capture</b> : contrairement à <span class="tt">MenuScreen</span>/<span class="tt">GameScreen</span>/ <span class="tt">EditorScreen</span>, les deux nouveaux écrans (comme <span class="tt">OptionsScreen</span>, déjà ainsi) ne quittent que par la ligne « Retour » sélectionnée + validée — <span class="tt">OptionsModel</span> ne gère déjà pas <span class="tt">Échap</span> non plus, décision reconduite à l'identique plutôt que réinventée.</li>
 <li><b>Mise en page dédiée</b>, pas celle de <span class="tt">MenuModel</span> : <span class="tt">MenuModel::OPTIONS_TOP</span>/<span class="tt">OPTION_SPACING</span> (pensés pour 2 à 4 lignes) déborderait largement une fenêtre 720p avec 8 ou 11 lignes — <span class="tt">GameKeybindingsModel</span> définit ses propres constantes compactes (<span class="tt">ROWS_TOP=110</span>, <span class="tt">ROW_SPACING=40</span>, <span class="tt">ROW_SCALE=2.4</span>), réutilisées telles quelles par <span class="tt">EditorKeybindingsModel</span> (même principe qu'<span class="tt">OptionsModel</span> réutilisant <span class="tt">MenuModel::MARGIN_X</span>). Seul <span class="tt">MenuModel::MARGIN_X</span> (alignement horizontal) est repris tel quel des deux côtés.</li>
 <li>Les deux nouveaux écrans ne dessinent <b>pas</b> le bouton de langue (<span class="tt">LanguageSelector</span>) — contrairement à <span class="tt">OptionsScreen</span>, ce ne sont pas des écrans de premier niveau.</li>
-<li>Écart de build <span class="tt">nlohmann_json</span>/cible <span class="tt">ProjectGaming</span> : voir TACHE-02 (constaté au premier build complet incluant <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>, pas spécifique à cette tâche).</li>
+<li>Écart de build <span class="tt">nlohmann_json</span>/cible <span class="tt">ProjectGaming</span> : voir TACHE-02 (constaté au premier build complet incluant <span class="tt">main.cpp</span>, pas spécifique à cette tâche).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1654"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1659"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux sous-menus sont accessibles, fonctionnels, et persistent leurs changements ; navigation complète Options → sous-menu → remap → retour testée manuellement ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1655"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1660"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-012</span>. </p>
 </div></div><!-- contents -->

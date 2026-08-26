@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,7 +104,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5dfa25a6eac22f7eb6b5fa0f038cac15" id="r_a5dfa25a6eac22f7eb6b5fa0f038cac15"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5dfa25a6eac22f7eb6b5fa0f038cac15">runGeneration</a> ()</td></tr>
 <tr class="memdesc:a5dfa25a6eac22f7eb6b5fa0f038cac15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute exactement une génération : (1) évalue tous les individus, (2) journalise la génération courante, (3) construit la génération suivante dans un double tampon (élite clonée sans réévaluation, reste par sélection + croisement + mutation), (4) échange les tampons.  <br /></td></tr>
 <tr class="memitem:a4b6a7bf0876b7e52c0754854d987748a" id="r_a4b6a7bf0876b7e52c0754854d987748a"><td class="memItemLeft">const <a class="el" href="classIndividual.html">Individual</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4b6a7bf0876b7e52c0754854d987748a">bestIndividual</a> () const</td></tr>
-<tr class="memitem:a9045f479909a20007ec927195befe89b" id="r_a9045f479909a20007ec927195befe89b"><td class="memItemLeft"><a class="el" href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9045f479909a20007ec927195befe89b">lastChampionStatus</a> () const noexcept</td></tr>
+<tr class="memitem:a9045f479909a20007ec927195befe89b" id="r_a9045f479909a20007ec927195befe89b"><td class="memItemLeft"><a class="el" href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9045f479909a20007ec927195befe89b">lastChampionStatus</a> () const noexcept</td></tr>
 <tr class="memitem:a817d934c551de7642ba2221bb04ca60e" id="r_a817d934c551de7642ba2221bb04ca60e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a817d934c551de7642ba2221bb04ca60e">generationIndex</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -119,7 +119,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ab23a22e2740457ea0a2944f078c593d7" id="r_ab23a22e2740457ea0a2944f078c593d7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab23a22e2740457ea0a2944f078c593d7">_levelName</a></td></tr>
 <tr class="memitem:aac6b8ffae169fad59bd329eeabfd8cf5" id="r_aac6b8ffae169fad59bd329eeabfd8cf5"><td class="memItemLeft"><a class="el" href="classPopulation.html">Population</a>&#160;</td><td class="memItemRight"><a class="el" href="#aac6b8ffae169fad59bd329eeabfd8cf5">_population</a></td></tr>
 <tr class="memitem:acae647af8b8441e05b594c8edd55a8e8" id="r_acae647af8b8441e05b594c8edd55a8e8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#acae647af8b8441e05b594c8edd55a8e8">_generationIndex</a> = 0</td></tr>
-<tr class="memitem:adf41983a8b0ff3d949249276f76fb176" id="r_adf41983a8b0ff3d949249276f76fb176"><td class="memItemLeft"><a class="el" href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#adf41983a8b0ff3d949249276f76fb176">_lastChampionStatus</a> = EpisodeStatus::Ongoing</td></tr>
+<tr class="memitem:adf41983a8b0ff3d949249276f76fb176" id="r_adf41983a8b0ff3d949249276f76fb176"><td class="memItemLeft"><a class="el" href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#adf41983a8b0ff3d949249276f76fb176">_lastChampionStatus</a> = EpisodeStatus::Ongoing</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable, journalisée via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>. </p>
@@ -246,7 +246,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html#a9045f479909a20007ec927195befe89b">aisolver::training::evolutionary::EvolutionaryTrainer::lastChampionStatus</a> </td>
+          <td class="memname"><a class="el" href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html#a9045f479909a20007ec927195befe89b">aisolver::training::evolutionary::EvolutionaryTrainer::lastChampionStatus</a> </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -358,7 +358,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="test__deterministic__replay_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html#adf41983a8b0ff3d949249276f76fb176">aisolver::training::evolutionary::EvolutionaryTrainer::_lastChampionStatus</a> = EpisodeStatus::Ongoing</td>
+          <td class="memname"><a class="el" href="test__argmax__rollout_8cpp.html#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a> <a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html#adf41983a8b0ff3d949249276f76fb176">aisolver::training::evolutionary::EvolutionaryTrainer::_lastChampionStatus</a> = EpisodeStatus::Ongoing</td>
         </tr>
       </table>
   </td>

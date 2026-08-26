@@ -11,5 +11,5 @@ var LevelSequence_8h =
       [ "core::LevelSequenceError::MissingLevelFile", "namespacecore.html#a11710ea83ff0491921176355c55fa4bbaba35c21b69d8dc6ba93ac503fed3a3ee", null ],
       [ "core::LevelSequenceError::UnsupportedFormatVersion", "namespacecore.html#a11710ea83ff0491921176355c55fa4bba7d194788f42fea83b92833f89101a8f4", null ]
     ] ],
-    [ "core::kLevelSequenceFormatVersion", "namespacecore.html#a092aaea01e9801e07160e2829611801b", null ]
+    [ "core::LEVEL_SEQUENCE_FORMAT_VERSION", "namespacecore.html#aa2bda549f4b3a6da7d1947bdb5d82bc5", null ]
 ];

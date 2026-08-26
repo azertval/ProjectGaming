@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -107,13 +107,13 @@ $(function(){initNavTree('test__benchmark__runner_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="EvolutionaryTrainedPolicy_8h_source.html">AiSolver/Eval/EvolutionaryTrainedPolicy.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainedPolicy_8h_source.html">AiSolver/Eval/TrainedPolicy.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rng_8h_source.html">AiSolver/Math/Rng.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Advanced/QNetwork.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Dqn/QNetwork.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:Action" id="r_Action"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structAction.html">Action</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.  <a href="structAction.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.  <a href="structAction.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Rng" id="r_Rng"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classRng.html">Rng</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source d'aléatoire déterministe et reproductible à partir d'une seule graine.  <a href="classRng.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Tensor_3C_20T_20_3E" id="r_Tensor_3C_20T_20_3E"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classTensor.html">Tensor&lt; T &gt;</a></td></tr>
@@ -240,7 +240,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Nombre total d'actions distinctes de l'espace d'action (<span class="tt">3 × 2 × 2 × 2 = 24</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Nombre total d'actions distinctes de l'espace d'action (<span class="tt">3 × 2 × 2 × 2 × 2 = 48</span>). </dd></dl>
 
 </div>
 </div>

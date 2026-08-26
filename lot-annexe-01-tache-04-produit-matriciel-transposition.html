@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-01-tache-04-produit-matriciel-transposition
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2tache-04-produit-matriciel-transposition"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">LOT-ANNEXE-01</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3388"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3394"></a>
 Contexte</h1>
 <p>Les opérations élémentaires (TACHE-03) ne suffisent pas à exprimer une couche dense (<span class="tt">y = W·x + b</span>) : il manque le produit matriciel. Cette tâche l'ajoute, restreint aux tenseurs de rang 2 (matrices) — seule forme réellement consommée par <span class="tt">LOT-ANNEXE-03</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3395"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Matmul_8h.html" title="Produit matriciel et transposition, restreints aux tenseurs de rang 2 (header-only).">Source/AiSolver/Math/Matmul.h</a></span></b> : fonctions libres gabarits dans <span class="tt">namespace <a class="el" href="namespaceaisolver.html">aisolver</a></span> (header-only).<ul>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3396"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Matmul_8h.html" title="Produit matriciel et transposition, restreints aux tenseurs de rang 2 (header-only).">Source/AiSolver/Math/Matmul.h</a></span> (nouveau, header-only).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__matmul_8cpp.html" title="Tests unitaires de aisolver::matmul/aisolver::transpose (LOT-ANNEXE-01, TACHE-04).">Unit/AiSolver/Math/test_matmul.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__matmul_8cpp.html" title="Tests unitaires de aisolver::matmul/aisolver::transpose (LOT-ANNEXE-01, TACHE-04).">Source/Test/Unit/AiSolver/Math/test_matmul.cpp</a></span> (nouveau, cf. TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3397"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Produit par l'identité</b> : <span class="tt">matmul(a, identité[n,n]) == a</span> pour une matrice <span class="tt">a</span> quelconque de forme <span class="tt">[m, n]</span>.</li>
@@ -125,22 +125,22 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">transpose</span> involutive</b> : <span class="tt">transpose(transpose(a)) == a</span> (mêmes valeurs, même forme).</li>
 <li><b><span class="tt">transpose</span> puis <span class="tt">matmul</span></b> : <span class="tt">matmul(a, transpose(a))</span> sur une matrice non carrée produit une matrice carrée symétrique de la bonne forme, valeurs vérifiées sur un petit cas fixé à la main.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3398"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Complexité cubique naïve</b> : acceptable pour ce lot (pas d'objectif de performance), mais à documenter en Doxygen (<span class="tt">@note complexité O(m·k·n), sans optimisation par blocs</span>) pour que l'absence de vectorisation ne soit pas prise pour un oubli lors d'une revue future.</li>
 <li><b><span class="tt">matmul</span>/<span class="tt">transpose</span> restreints au rang 2</b> : un usage à rang différent est une erreur de programmation (couche mal composée), pas une entrée à valider — même politique <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span> que le reste du lot.</li>
 <li><b>Ne pas anticiper le produit matriciel par lots (<em>batched</em>)</b> : <span class="tt">LOT-ANNEXE-03</span> empilera des appels <span class="tt">matmul</span> 2D plutôt que d'exiger une troisième dimension ici (cf. exclusions de l'épic) — résister à la tentation de généraliser avant qu'un consommateur réel n'existe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3399"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">matmul</span>/<span class="tt">transpose</span> disponibles, testés (<span class="tt">ctest</span> vert) sur cas connus et cas limites, Doxygen à jour (complexité documentée) ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3400"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle et calcul numérique</a> (tenseurs, forme et <em>stride</em>, produit matriciel, réductions, générateurs pseudo-aléatoires), en particulier sa section 4 (produit matriciel, exemple travaillé à la main, transposition).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3401"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-001</span> (déclarée dans <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

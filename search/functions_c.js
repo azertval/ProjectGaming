@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['main_0',['main',['../Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp'],['../main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.cpp']]],
+  ['main_0',['main',['../AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp'],['../HMI_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp']]],
   ['mainmenu_1',['MainMenu',['../classhmi_1_1MainMenu.html#aa6ec7e441fc34e25766e6f8d9fe3f24b',1,'hmi::MainMenu']]],
   ['mainwindow_2',['MainWindow',['../classhmi_1_1MainWindow.html#a846dc46b97c2b6eaeddc5c4e987d47c6',1,'hmi::MainWindow']]],
   ['maketrainingrunpath_3',['makeTrainingRunPath',['../namespaceaisolver.html#aa17e50f126f244b7559548162fc9e134',1,'aisolver']]],

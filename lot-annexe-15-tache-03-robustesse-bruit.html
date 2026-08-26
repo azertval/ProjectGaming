@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-15-tache-03-robustesse-bruit.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-15-benchmark-multi-algorithmes_2tache-03-robustesse-bruit"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-15.html#md_Lot-Annexe_2LOT-ANNEXE-15-benchmark-multi-algorithmes_2epic" title="Lot-Annexe/LOT-ANNEXE-15-benchmark-multi-algorithmes/epic.md">LOT-ANNEXE-15</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Eval</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4019"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4025"></a>
 Contexte</h1>
 <p>TACHE-01/02 mesurent la performance brute d'un modèle sur son niveau d'origine, dans les mêmes conditions exactes qu'à l'entraînement. Un modèle en surapprentissage peut afficher un taux de réussite excellent dans ces conditions tout en n'ayant appris qu'une trajectoire précise plutôt que des réflexes robustes. Cette tâche introduit une perturbation légère et contrôlée de l'observation perçue par la politique, pour révéler cet écart.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4020"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4026"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">aisolver::NoisyObservationWrapper</span></b> (<span class="tt"><a class="el" href="NoisyObservation_8h.html" title="Décorateur d&#39;encodeur d&#39;observation appliquant un bruit gaussien léger, pour le test de robustesse (L...">Source/AiSolver/Eval/NoisyObservation.h</a>/.cpp</span>) : décore l'encodeur d'observation de <span class="tt">LOT-ANNEXE-06</span> — applique un bruit gaussien de faible amplitude (configurable, via <span class="tt"><a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">aisolver::Rng</a></span> dérivé d'une graine de base + indice de répétition, cohérence avec la décision de cadrage de l'épic) sur le tenseur d'observation <b>avant</b> qu'il soit transmis à la politique, sans jamais toucher l'état réel simulé par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>) — l'issue (<span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>) reste jugée sur l'état réel non perturbé.</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
   repetitions, float noiseAmplitude, uint64_t baseSeed)</span></b> (réutilise TACHE-01) : exécute les mêmes répétitions que <span class="tt">run()</span> (TACHE-01) mais à travers <span class="tt"><a class="el" href="classNoisyObservationWrapper.html" title="Décore un ObservationEncoder (LOT-ANNEXE-06) : encode normalement puis ajoute un bruit gaussien indép...">NoisyObservationWrapper</a></span>, produit un <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> comparable directement (même structure) à celui obtenu sans bruit.</li>
 <li>Comparaison documentée : l'écart de taux de réussite entre <span class="tt">run()</span> et <span class="tt">runWithNoise()</span> sur le même modèle est le signal de robustesse recherché.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4021"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4027"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="NoisyObservation_8h.html" title="Décorateur d&#39;encodeur d&#39;observation appliquant un bruit gaussien léger, pour le test de robustesse (L...">Source/AiSolver/Eval/NoisyObservation.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="BenchmarkRunner_8h.html" title="Exécution automatisée répétée d&#39;une politique entraînée sur son niveau d&#39;origine (LOT-ANNEXE-15,...">Source/AiSolver/Eval/BenchmarkRunner.h</a>/.cpp</span> — modifié (ajout de <span class="tt">runWithNoise</span>, TACHE-01).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4022"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4028"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Le bruit n'affecte jamais l'état réel simulé</b> : pour une même graine, la trajectoire réelle (positions successives dans <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) est identique entre <span class="tt">run()</span> et <span class="tt">runWithNoise()</span>, seule l'observation transmise à la politique diffère — vérifié explicitement (pas seulement déduit du taux de réussite final).</li>
@@ -121,21 +121,21 @@ Tests (obligatoires)</h1>
 <li><b>Modèle évolutionniste (décodage <span class="tt">Argmax</span> uniquement)</b> : le bruit peut faire basculer une décision <span class="tt">argmax</span> d'une action à une autre sur une observation proche d'une frontière de décision — contrairement au cas sans bruit (TACHE-01, variance nulle attendue), la variance sous bruit peut redevenir non nulle, vérifié comme comportement attendu, pas comme une anomalie.</li>
 <li><b>Reproductibilité</b> : deux exécutions de <span class="tt">runWithNoise</span> avec la même graine de base produisent les mêmes résultats (même tirage de bruit à chaque répétition).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4023"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4029"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classNoisyObservationWrapper.html" title="Décore un ObservationEncoder (LOT-ANNEXE-06) : encode normalement puis ajoute un bruit gaussien indép...">NoisyObservationWrapper</a></span> ne modifie aucun fichier de <span class="tt">LOT-ANNEXE-06</span></b> : c'est un décorateur qui s'interpose entre l'encodeur existant et la politique, sans toucher à <span class="tt">Source/AiSolver/Env</span> (cohérent avec le critère d'acceptation 5 de l'épic — aucune ligne de <span class="tt">Training/*</span> ni de <span class="tt">Env</span> modifiée par la génération 4).</li>
 <li><b>L'amplitude du bruit reste un paramètre documenté et borné</b> (pas de recherche adversariale d'amplitude qui ferait échouer la politique à tout prix — décision de cadrage de l'épic).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4024"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4030"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classNoisyObservationWrapper.html" title="Décore un ObservationEncoder (LOT-ANNEXE-06) : encode normalement puis ajoute un bruit gaussien indép...">NoisyObservationWrapper</a></span>/<span class="tt">runWithNoise</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-016</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4025"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4031"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a> — variance entre exécutions, graines multiples, mesure honnête d'un agent entraîné.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4026"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4032"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-016</span> (nouvelle, partagée avec TACHE-01/02 du même lot). </p>
 </div></div><!-- contents -->

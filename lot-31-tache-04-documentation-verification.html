@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,15 +94,15 @@ $(function(){initNavTree('lot-31-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-31-blocs-danger-avances_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-31.html#md_Lot_2LOT-31-blocs-danger-avances_2epic" title="Lot/LOT-31-blocs-danger-avances/epic.md">LOT-31</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1727"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1732"></a>
 Contexte</h1>
 <p>Dernière tâche : aligne la documentation sur le comportement réellement livré par TACHE-01/02/03 — conformément au principe du projet, la documentation (<span class="tt">Guide</span>, format de niveau) ne décrit que du code déjà implémenté, jamais en avance sur lui.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1728"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1733"></a>
 Travail réalisé</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span></b> : marqueurs ⚠️ « non implémenté » retirés de <span class="tt">EX-GP-050</span>–<span class="tt">EX-GP-053</span> et de la sous-section « Dangers avancés » (comportement livré, TACHE-01 à 03).</li>
 <li><b><span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span></b> : section « Format retenu » étendue aux sept nouveaux types (<span class="tt">dangerUp</span>/<span class="tt">dangerDown</span>/<span class="tt">dangerLeft</span>/<span class="tt">dangerRight</span>/<span class="tt">dangerMover</span>/ <span class="tt">dangerSwitched</span>/<span class="tt">dangerBlink</span>) et leurs champs optionnels (valeurs par défaut incluses).</li>
-<li><b><span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span></b> : nouvelle section « Dangers avancés » — <span class="tt"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></span> (géométrique, sans état), <span class="tt"><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></span> (mobile/temporisé, nouveau), extension de <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> (commuté, pas de duplication de la détection front/continu), et la nouvelle signature de <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span> (<span class="tt">extraDangerBoxes</span>, composée par l'appelant faute de dépendance <span class="tt">Core/Levels</span> → <span class="tt">Core/Gameplay</span>).</li>
+<li><b><span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span></b> : nouvelle section « Dangers avancés » — <span class="tt"><a class="el" href="namespacecore.html#a9f3ed859b26e4626a4313019328d59f6" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></span> (géométrique, sans état), <span class="tt"><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></span> (mobile/temporisé, nouveau), extension de <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> (commuté, pas de duplication de la détection front/continu), et la nouvelle signature de <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span> (<span class="tt">extraDangerBoxes</span>, composée par l'appelant faute de dépendance <span class="tt">Core/Levels</span> → <span class="tt">Core/Gameplay</span>).</li>
 <li><b><span class="tt"><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></span></b> : nouvelle section 9 — restructuration de la catégorie « Piège » (<span class="tt">EX-EDIT-018</span>), nouvelle exigence <span class="tt">EX-EDIT-019</span> (liaison danger commuté, même geste qu'une porte), et la réduction de périmètre actée en TACHE-03 (pas de widget dédié pour l'axe/la portée d'un danger mobile — valeurs de conception par défaut sans geste dédié).</li>
 <li><b><span class="tt">Source/Elements/Levels/README.md</span></b> : liste des types de tuiles étendue aux sept nouveaux ; décompte de la séquence de démo mis à jour (14 fichiers).</li>
 <li><b><span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span></b> : <span class="tt">@subpage lot-31</span> ajouté (fait dès le cadrage du lot).</li>
@@ -110,7 +110,7 @@ Travail réalisé</h1>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : lancés localement (<span class="tt">python
   scripts/lint_exigences.py</span>, <span class="tt">python scripts/generate_cahier_test.py</span>, <span class="tt">python scripts/check_demo_sequence.py</span>) — tous verts. Doxygen d'abord vérifié seulement avec le binaire <b>local</b> (1.17.0, zéro avertissement), poussé sans le binaire <b>1.9.8 exact de la CI</b> — la CI a échoué sur <span class="tt"><a class="el" href="tache-03-integration-editeur_8md.html">tache-03-integration-editeur.md</a></span> : un span citait le chemin du fichier contenant <span class="tt">buildLevelScene</span> suivi d'un double deux-points et du nom de la fonction, exactement le piège connu (mémoire <span class="tt">project_doxygen_colon_link_pitfall</span>) — repéré par la CI, pas par le 1.17.0 local, confirmant la mémoire <span class="tt">project_ci_local_reproduction</span>. Corrigé en citant seulement le symbole réellement documenté et son fichier séparément. Puis <b>revérifié avec le binaire 1.9.8 exact</b> (téléchargé depuis <span class="tt">www.doxygen.nl/files/</span>) : <span class="tt">0</span>, aucune ligne de sortie. Relu aussi pour l'autre piège connu, deux astérisques fermantes suivies d'un slash refermant un commentaire prématurément (mémoire <span class="tt">project_bold_slash_comment_closing_pitfall</span>, découvert pendant ce lot) — aucune occurrence restante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1729"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1734"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1735"></a>
 Tests (réalisés)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> : <span class="tt">0</span> (138 exigences déclarées, 111 référencées).</li>
@@ -129,13 +129,13 @@ Tests (réalisés)</h1>
 <li>Doxygen : <span class="tt">0</span> aux deux binaires, local (1.17.0) <b>et</b> 1.9.8 exact de la CI.</li>
 <li>Build complet <span class="tt">/W4 /WX</span> et suite de tests complète (453 Unit + 81 Integration + 3 Système) vertes, sans régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1731"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1736"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 <li>Doxygen vérifié avec le binaire <b>1.9.8 exact de la CI</b>, pas seulement le binaire local — fait (après un premier push qui a révélé l'écart, cf. ci-dessus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1732"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1737"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-050</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-052</span>, <span class="tt">EX-GP-053</span>, <span class="tt">EX-LVL-002</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-EDIT-001</span>, <span class="tt">EX-EDIT-002</span>, <span class="tt">EX-EDIT-003</span>. </p>
 </div></div><!-- contents -->

@@ -1,6 +1,5 @@
 var test__noisy__observation_8cpp =
 [
-    [ "HeadlessLevelEnvironment", "classHeadlessLevelEnvironment.html", "classHeadlessLevelEnvironment" ],
     [ "StepObservation", "structStepObservation.html", "structStepObservation" ],
     [ "NoisyObservationWrapper", "classNoisyObservationWrapper.html", "classNoisyObservationWrapper" ],
     [ "TEST", "test__noisy__observation_8cpp.html#a2b813dcdaf5f77ab511503aa043a6942", null ],

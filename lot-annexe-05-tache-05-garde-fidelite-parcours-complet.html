@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,45 +94,45 @@ $(function(){initNavTree('lot-annexe-05-tache-05-garde-fidelite-parcours-complet
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-05-garde-fidelite-parcours-complet"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-05.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2epic" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/epic.md">LOT-ANNEXE-05</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Systeme</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3584"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3590"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (TACHE-01/02) est une réplique <b>indépendante</b> de l'orchestration de <span class="tt">playLevel()</span>/<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span> (décision de cadrage de l'épic : pas de partage de code, pour ne pas faire dépendre <span class="tt">HMI</span> d'<span class="tt">AiSolver</span>). Une réplique indépendante peut diverger silencieusement au fil des lots futurs (<span class="tt">Core</span> évolue, <span class="tt">playLevel()</span> est mis à jour, <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> oublié — ou l'inverse). Sans garde automatisée, cette dérive ne serait détectée qu'au moment où un agent entraîné en headless échouerait, inexplicablement, une fois rejoué en jeu. Cette tâche transforme ce risque en échec de CI <b>immédiat et localisé</b> (le pas exact où ça diverge, pas seulement « le niveau a échoué »).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3585"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3591"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Étendre <span class="tt">playLevel()</span></b> (<span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>) pour qu'il construise également un <span class="tt"><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></span> et assemble les boîtes de danger actif (même logique que <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a9f1833d9f4e7866a77066ebe43ce727e">hmi::GameSession::collectActiveDangerBoxes</a></span>, voir TACHE-02), passées à <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span> — jusqu'ici, <span class="tt">playLevel()</span> était un sous-ensemble de l'orchestration réelle (pas de dangers avancés) ; cette extension en fait un miroir <b>complet</b> de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span>, condition nécessaire pour qu'une comparaison pas-à-pas avec <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> ait un sens sur les 15 niveaux de la séquence, y compris <span class="tt">demo-dangers-avances.json</span>.</li>
 <li><b>Nouveau test</b> <span class="tt">ParcoursCompletSystemeHeadlessEnvironment.FideliteParPas</span> (même fichier) : pour chaque <span class="tt">ScriptedLevel</span> de la table existante (<span class="tt">sequence</span>), exécute en parallèle, pas par pas : (a) l'orchestration de référence étendue ci-dessus (<span class="tt">playLevel()</span> internalisée pas-à-pas plutôt que jusqu'à l'issue finale) et (b) <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">aisolver::HeadlessLevelEnvironment::step</a></span> avec <b>exactement</b> le même <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> calculé par le script réactif du niveau. Après chaque pas, <span class="tt">EXPECT_EQ</span> (ou <span class="tt">EXPECT_NEAR</span> avec une tolérance nulle/<span class="tt">epsilon</span> machine pour les flottants) sur la position (<span class="tt">Transform::position.x</span>/<span class="tt">.y</span>), la vitesse (<span class="tt">Velocity::value.x</span>/<span class="tt">.y</span>) et l'issue (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) — échec au <b>premier</b> pas divergent, avec le numéro de pas et le nom du niveau dans le message d'échec.</li>
 <li><b>Réutilise <span class="tt">PROJECTGAMING_LEVELS_DIR</span></b> (déjà défini sur <span class="tt">SystemTests</span>, TACHE-04) pour charger les mêmes fichiers <span class="tt">demo-*.json</span> des deux côtés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3586"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3592"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> (extension de <span class="tt">playLevel()</span> + nouveau <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST</a></span>).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (déjà mis à jour en TACHE-04 : <span class="tt">AiSolver</span> lié à <span class="tt">SystemTests</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3587"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3593"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Parité complète de la séquence</b> : les 15 niveaux de <span class="tt">sequence</span> (LOT-25) sont rejoués sans aucune divergence pas-à-pas entre les deux orchestrations, jusqu'à l'issue <span class="tt">Won</span> de chacun.</li>
 <li><b>Le test échoue si on le casse volontairement</b> (vérification manuelle en revue, pas un <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST</a></span> livré) : introduire un écart délibéré dans <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (ex. omettre l'étape sweep boîte-boîte) fait échouer <span class="tt">FideliteParPas</span> sur le premier niveau à bloc réduit, avec le pas exact indiqué — preuve que la garde détecte réellement une divergence, pas seulement qu'elle passe par accident.</li>
 <li><b>Non-régression</b> : <span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span> (test existant) reste vert sans modification de son propre comportement (seule <span class="tt">playLevel()</span>, sa dépendance interne, est étendue — de façon strictement additive pour les niveaux qui n'utilisent pas de danger avancé).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3588"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3594"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Comparaison au pas, pas seulement à l'issue finale</b> : c'est la différence explicite avec <span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span> (existant, qui ne vérifie que <span class="tt">Won</span> en sortie de boucle) — deux orchestrations peuvent atteindre la même issue finale par des trajectoires différentes (compensation d'erreurs), ce que la comparaison finale seule ne détecterait jamais.</li>
 <li><b>Extension de <span class="tt">playLevel()</span> strictement additive.</b> Ajouter le <span class="tt">DangerController</span> ne doit rien changer au comportement des 14 niveaux qui n'ont pas de danger avancé (boîtes actives vides → <span class="tt">evaluateOutcome</span> se comporte comme avant) ; seul <span class="tt">demo-dangers-avances.json</span> est concerné, et son script (<span class="tt">rightOnly()</span>, couloir principal) ne croise aucun danger actif — l'issue <span class="tt">Won</span> déjà vérifiée par le test existant doit rester inchangée.</li>
 <li><b>Cette garde ne remplace pas une revue de code</b> sur les futurs changements de <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span> ou de <span class="tt">Core</span> : elle détecte une divergence de <b>comportement observable</b> (position, vitesse, issue), pas une divergence de code qui resterait sans effet observable sur ces niveaux précis.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3589"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3595"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">playLevel()</span> étendu et <span class="tt">FideliteParPas</span> verts en CI (<span class="tt">ctest</span>) sur les 15 niveaux ; test existant <span class="tt">FranchitTouteLaSequence</span> toujours vert ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3590"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3596"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — agent, environnement, boucle <span class="tt">reset</span>/<span class="tt">step</span>, épisode, propriété de Markov.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3591"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3597"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-005</span> (nouvelle). </p>
 </div></div><!-- contents -->

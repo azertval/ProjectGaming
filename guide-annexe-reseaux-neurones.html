@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -110,7 +110,7 @@ Pourquoi ce chapitre</h1>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classTensor.html">Tensor&lt;float&gt;</a> forward(<span class="keyword">const</span> <a class="code hl_class" href="classTensor.html">Tensor&lt;float&gt;</a>&amp; input) {</div>
 <div class="line">    <span class="keywordflow">return</span> activation(matmul(weights, input) + bias);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:52</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Conteneur numérique N-dimensionnel à forme et stride explicites.</div><div class="ttdef"><b>Definition</b> Tensor.h:61</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md357"></a>
 3. Pourquoi une fonction d'activation (et pourquoi non linéaire)</h1>
 <p>Sans fonction d'activation (ou avec une activation qui serait elle-même linéaire, comme <span class="tt">activation(x) = x</span>), empiler plusieurs couches denses ne servirait à <b>rien</b> : la composition de plusieurs transformations linéaires reste une transformation linéaire. Preuve courte : si <span class="tt">couche1(x) = W₁x + b₁</span> et <span class="tt">couche2(x) = W₂x + b₂</span>, alors :</p>

@@ -11,9 +11,13 @@ var namespaceaisolver_1_1eval =
     [ "EpisodeOutcome", "structaisolver_1_1eval_1_1EpisodeOutcome.html", "structaisolver_1_1eval_1_1EpisodeOutcome" ],
     [ "BenchmarkResult", "structaisolver_1_1eval_1_1BenchmarkResult.html", "structaisolver_1_1eval_1_1BenchmarkResult" ],
     [ "BenchmarkRunner", "classaisolver_1_1eval_1_1BenchmarkRunner.html", "classaisolver_1_1eval_1_1BenchmarkRunner" ],
+    [ "RunConvergenceMetrics", "structaisolver_1_1eval_1_1RunConvergenceMetrics.html", "structaisolver_1_1eval_1_1RunConvergenceMetrics" ],
+    [ "ConvergenceReport", "structaisolver_1_1eval_1_1ConvergenceReport.html", "structaisolver_1_1eval_1_1ConvergenceReport" ],
     [ "CrossLevelBenchmarkResult", "structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html", "structaisolver_1_1eval_1_1CrossLevelBenchmarkResult" ],
     [ "CrossLevelPair", "structaisolver_1_1eval_1_1CrossLevelPair.html", "structaisolver_1_1eval_1_1CrossLevelPair" ],
     [ "EvolutionaryTrainedPolicy", "classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy.html", "classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy" ],
+    [ "NamedSeries", "structaisolver_1_1eval_1_1NamedSeries.html", "structaisolver_1_1eval_1_1NamedSeries" ],
+    [ "GenerationComparisonResult", "structaisolver_1_1eval_1_1GenerationComparisonResult.html", "structaisolver_1_1eval_1_1GenerationComparisonResult" ],
     [ "NoisyObservationWrapper", "classaisolver_1_1eval_1_1NoisyObservationWrapper.html", "classaisolver_1_1eval_1_1NoisyObservationWrapper" ],
     [ "ReinforceTrainedPolicy", "classaisolver_1_1eval_1_1ReinforceTrainedPolicy.html", "classaisolver_1_1eval_1_1ReinforceTrainedPolicy" ],
     [ "TrainedPolicy", "classaisolver_1_1eval_1_1TrainedPolicy.html", "classaisolver_1_1eval_1_1TrainedPolicy" ],
@@ -21,7 +25,11 @@ var namespaceaisolver_1_1eval =
       [ "Argmax", "namespaceaisolver_1_1eval.html#a6e8e78cba916b1686b3779c394faa10fa2c978c1dc4d52877220803916c037c34", null ],
       [ "Stochastic", "namespaceaisolver_1_1eval.html#a6e8e78cba916b1686b3779c394faa10fa7034d72178527959767784e9faadfca7", null ]
     ] ],
+    [ "analyzeRun", "namespaceaisolver_1_1eval.html#ab828e7c63835fe909deadc98e741299e", null ],
+    [ "compareConvergence", "namespaceaisolver_1_1eval.html#a6cd298aafd54f7b991dc89580f50dec2", null ],
+    [ "compareGenerations", "namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a", null ],
     [ "deriveSeed", "namespaceaisolver_1_1eval.html#af17ffe9cc9a0273b81e7687f17018760", null ],
+    [ "evolutionaryEpisodeBudget", "namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103", null ],
     [ "runCrossLevelCampaign", "namespaceaisolver_1_1eval.html#aaf26f64fe2ef9185674cbe32910b01c5", null ],
     [ "writeCrossLevelCsv", "namespaceaisolver_1_1eval.html#acbb0ca76677dedea89d4ce4bde5993c2", null ]
 ];

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,45 +94,45 @@ $(function(){initNavTree('lot-annexe-09-tache-03-moyenne-mobile-delta.html','','
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2tache-03-moyenne-mobile-delta"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-09.html#md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2epic" title="Lot-Annexe/LOT-ANNEXE-09-journalisation-statistiques/epic.md">LOT-ANNEXE-09</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Stats</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3747"></a>
 Contexte</h1>
 <p>C'est la tâche qui répond le plus directement à la demande explicite de l'utilisateur : pouvoir savoir, en ouvrant le CSV, si l'entraînement a atteint son plafond — sans recalculer quoi que ce soit dans un tableur. TACHE-01/02 posent l'interface et le format ; cette tâche calcule les deux colonnes qui rendent un plateau visible directement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3748"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1MovingAverageTracker.html" title="Moyenne mobile sur les windowSize dernières valeurs poussées.">aisolver::MovingAverageTracker</a></span></b> (<span class="tt"><a class="el" href="MovingAverage_8h.html" title="Moyenne mobile sur fenêtre glissante, utilisée pour détecter un plateau d&#39;entraînement (LOT-ANNEXE-09...">Source/AiSolver/Stats/MovingAverage.h</a>/.cpp</span>) : fenêtre glissante de taille configurable (<span class="tt">N</span> lignes, ex. <span class="tt">20</span>) sur <span class="tt">bestReward</span> (ou <span class="tt">meanReward</span>, à documenter comme choix par défaut — la meilleure récompense de chaque génération/épisode reflète mieux un plafond que la moyenne, plus bruitée) ; <span class="tt">float push(float value)</span> retourne la nouvelle moyenne mobile après ajout de <span class="tt">value</span>.</li>
 <li><b>Delta</b> : différence entre la moyenne mobile courante et celle d'il y a <span class="tt">N</span> lignes (ou, plus simplement, entre la moyenne mobile courante et la précédente) — proche de <span class="tt">0</span> signale un plateau, documenté explicitement dans le Doxygen du fichier.</li>
 <li><b><span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">TrainingStatsRecorder::record</a></span></b> (TACHE-01) intègre un <span class="tt">MovingAverageTracker</span> interne, calcule <span class="tt">movingAverageReward</span>/<span class="tt">rewardDelta</span> à chaque appel et les passe à <span class="tt">csvRow</span> (TACHE-02).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3749"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="MovingAverage_8h.html" title="Moyenne mobile sur fenêtre glissante, utilisée pour détecter un plateau d&#39;entraînement (LOT-ANNEXE-09...">Source/AiSolver/Stats/MovingAverage.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="TrainingStatsRecorder_8cpp.html">Source/AiSolver/Stats/TrainingStatsRecorder.cpp</a></span> — modifié (intègre le tracker).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3750"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Moyenne mobile correcte</b> sur une séquence de valeurs connues, avant et après que la fenêtre soit pleine (comportement documenté pour les <span class="tt">N</span> premières lignes, où la fenêtre n'est pas encore complète — moyenne sur les valeurs disponibles, pas une valeur sentinelle).</li>
 <li><b>Delta proche de zéro sur un plateau synthétique</b> : une séquence de valeurs constantes après un certain point produit un delta qui tend vers <span class="tt">0</span>, vérifié explicitement (scénario direct du besoin exprimé par l'utilisateur).</li>
 <li><b>Delta significativement positif sur une séquence strictement croissante</b> : distingue un entraînement qui progresse encore d'un plateau.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3745"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3751"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La taille de fenêtre (<span class="tt">N</span>) est un paramètre documenté, pas une constante magique enfouie</b> — ajustable par l'appelant selon la volatilité attendue de l'algorithme (l'évolutionniste, par génération, et le policy gradient, par épisode, n'ont pas la même échelle de bruit d'une ligne à l'autre).</li>
 <li><b>Ce lot ne décide jamais qu'un plateau est atteint</b> (pas de seuil d'arrêt automatique) — seulement la donnée qui permet à un humain de le constater, cohérent avec la décision de cadrage de l'épic.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3746"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3752"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">MovingAverageTracker</span> disponible et testé (<span class="tt">ctest</span> vert), intégré à <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3753"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — récompense cumulée (retour), plafond de performance d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3754"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-010</span> (nouvelle, partagée avec TACHE-01/02/04/05 du même lot). </p>
 </div></div><!-- contents -->

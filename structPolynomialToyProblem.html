@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){initNavTree('structPolynomialToyProblem.html','','structPolynomialT
 </div><!--header-->
 <div class="contents">
 
-<p>Régression polynomiale à coefficients connus (<span class="tt">y = kCoeffA*x^2 + kCoeffB*x + <a class="el" href="#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  
+<p>Régression polynomiale à coefficients connus (<span class="tt">y = COEFF_A*x^2 + COEFF_B*x + <a class="el" href="#ae4d20955279eba0f0a448b7eddf5fa1f">COEFF_C</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ToyProblems_8h_source.html">ToyProblems.h</a>&gt;</code></p>
@@ -109,13 +109,13 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a145021142899e604c3358298f6e39e99" id="r_a145021142899e604c3358298f6e39e99"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a145021142899e604c3358298f6e39e99">kCoeffA</a> = 2.0f</td></tr>
-<tr class="memitem:a8c15f05ffd08d1dfa490e8b8b767d294" id="r_a8c15f05ffd08d1dfa490e8b8b767d294"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a8c15f05ffd08d1dfa490e8b8b767d294">kCoeffB</a> = -3.0f</td></tr>
-<tr class="memitem:a99b975214db44e0f4f27e69494f8c7b8" id="r_a99b975214db44e0f4f27e69494f8c7b8"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a> = 1.0f</td></tr>
-<tr class="memitem:a3490a91d3c7d17e3c3325b55210dce23" id="r_a3490a91d3c7d17e3c3325b55210dce23"><td class="memItemLeft">static constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a3490a91d3c7d17e3c3325b55210dce23">kSampleCount</a> = 20</td></tr>
+<tr class="memitem:a03b50fb50498095a56ce9d76a4b491af" id="r_a03b50fb50498095a56ce9d76a4b491af"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a03b50fb50498095a56ce9d76a4b491af">COEFF_A</a> = 2.0f</td></tr>
+<tr class="memitem:acd5b053252fdccb3f65490ab7e526040" id="r_acd5b053252fdccb3f65490ab7e526040"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#acd5b053252fdccb3f65490ab7e526040">COEFF_B</a> = -3.0f</td></tr>
+<tr class="memitem:ae4d20955279eba0f0a448b7eddf5fa1f" id="r_ae4d20955279eba0f0a448b7eddf5fa1f"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ae4d20955279eba0f0a448b7eddf5fa1f">COEFF_C</a> = 1.0f</td></tr>
+<tr class="memitem:adc1951f5f58da9ade860f34e18cd8f87" id="r_adc1951f5f58da9ade860f34e18cd8f87"><td class="memItemLeft">static constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#adc1951f5f58da9ade860f34e18cd8f87">SAMPLE_COUNT</a> = 20</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Régression polynomiale à coefficients connus (<span class="tt">y = kCoeffA*x^2 + kCoeffB*x + <a class="el" href="#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques. </p>
+<div class="textblock"><p>Régression polynomiale à coefficients connus (<span class="tt">y = COEFF_A*x^2 + COEFF_B*x + <a class="el" href="#ae4d20955279eba0f0a448b7eddf5fa1f">COEFF_C</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a1e81592f5f01879e9448d08e3687d9fa" name="a1e81592f5f01879e9448d08e3687d9fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e81592f5f01879e9448d08e3687d9fa">&#9670;&#160;</a></span>generateSamples()</h2>
@@ -139,7 +139,7 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><span class="tt"><a class="el" href="#a3490a91d3c7d17e3c3325b55210dce23">kSampleCount</a></span> points <span class="tt">(x, y)</span> générés à partir de <span class="tt">rng</span>, <span class="tt">x</span> uniforme dans <span class="tt">[-3, 3]</span>, <span class="tt">y</span> calculé exactement (aucun bruit ajouté). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt"><a class="el" href="#adc1951f5f58da9ade860f34e18cd8f87">SAMPLE_COUNT</a></span> points <span class="tt">(x, y)</span> générés à partir de <span class="tt">rng</span>, <span class="tt">x</span> uniforme dans <span class="tt">[-3, 3]</span>, <span class="tt">y</span> calculé exactement (aucun bruit ajouté). </dd></dl>
 
 </div>
 </div>
@@ -174,8 +174,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a145021142899e604c3358298f6e39e99" name="a145021142899e604c3358298f6e39e99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a145021142899e604c3358298f6e39e99">&#9670;&#160;</a></span>kCoeffA</h2>
+<a id="a03b50fb50498095a56ce9d76a4b491af" name="a03b50fb50498095a56ce9d76a4b491af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b50fb50498095a56ce9d76a4b491af">&#9670;&#160;</a></span>COEFF_A</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,7 +184,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a145021142899e604c3358298f6e39e99">aisolver::PolynomialToyProblem::kCoeffA</a> = 2.0f</td>
+          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a03b50fb50498095a56ce9d76a4b491af">aisolver::PolynomialToyProblem::COEFF_A</a> = 2.0f</td>
         </tr>
       </table>
   </td>
@@ -196,8 +196,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c15f05ffd08d1dfa490e8b8b767d294" name="a8c15f05ffd08d1dfa490e8b8b767d294"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c15f05ffd08d1dfa490e8b8b767d294">&#9670;&#160;</a></span>kCoeffB</h2>
+<a id="acd5b053252fdccb3f65490ab7e526040" name="acd5b053252fdccb3f65490ab7e526040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd5b053252fdccb3f65490ab7e526040">&#9670;&#160;</a></span>COEFF_B</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,7 +206,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a8c15f05ffd08d1dfa490e8b8b767d294">aisolver::PolynomialToyProblem::kCoeffB</a> = -3.0f</td>
+          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#acd5b053252fdccb3f65490ab7e526040">aisolver::PolynomialToyProblem::COEFF_B</a> = -3.0f</td>
         </tr>
       </table>
   </td>
@@ -218,8 +218,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a99b975214db44e0f4f27e69494f8c7b8" name="a99b975214db44e0f4f27e69494f8c7b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99b975214db44e0f4f27e69494f8c7b8">&#9670;&#160;</a></span>kCoeffC</h2>
+<a id="ae4d20955279eba0f0a448b7eddf5fa1f" name="ae4d20955279eba0f0a448b7eddf5fa1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d20955279eba0f0a448b7eddf5fa1f">&#9670;&#160;</a></span>COEFF_C</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +228,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a99b975214db44e0f4f27e69494f8c7b8">aisolver::PolynomialToyProblem::kCoeffC</a> = 1.0f</td>
+          <td class="memname">float <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#ae4d20955279eba0f0a448b7eddf5fa1f">aisolver::PolynomialToyProblem::COEFF_C</a> = 1.0f</td>
         </tr>
       </table>
   </td>
@@ -240,8 +240,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3490a91d3c7d17e3c3325b55210dce23" name="a3490a91d3c7d17e3c3325b55210dce23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3490a91d3c7d17e3c3325b55210dce23">&#9670;&#160;</a></span>kSampleCount</h2>
+<a id="adc1951f5f58da9ade860f34e18cd8f87" name="adc1951f5f58da9ade860f34e18cd8f87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc1951f5f58da9ade860f34e18cd8f87">&#9670;&#160;</a></span>SAMPLE_COUNT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +250,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a3490a91d3c7d17e3c3325b55210dce23">aisolver::PolynomialToyProblem::kSampleCount</a> = 20</td>
+          <td class="memname">std::size_t <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#adc1951f5f58da9ade860f34e18cd8f87">aisolver::PolynomialToyProblem::SAMPLE_COUNT</a> = 20</td>
         </tr>
       </table>
   </td>

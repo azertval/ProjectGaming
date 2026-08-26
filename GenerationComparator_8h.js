@@ -1,7 +1,7 @@
 var GenerationComparator_8h =
 [
-    [ "aisolver::training::NamedSeries", "structaisolver_1_1training_1_1NamedSeries.html", "structaisolver_1_1training_1_1NamedSeries" ],
-    [ "aisolver::training::GenerationComparisonResult", "structaisolver_1_1training_1_1GenerationComparisonResult.html", "structaisolver_1_1training_1_1GenerationComparisonResult" ],
-    [ "aisolver::training::compareGenerations", "namespaceaisolver_1_1training.html#a2cf9c7efba9b2708c903109fcca12bab", null ],
-    [ "aisolver::training::evolutionaryEpisodeBudget", "namespaceaisolver_1_1training.html#a5a030a9e6b1b0ac6e2ab114e631b730a", null ]
+    [ "aisolver::eval::NamedSeries", "structaisolver_1_1eval_1_1NamedSeries.html", "structaisolver_1_1eval_1_1NamedSeries" ],
+    [ "aisolver::eval::GenerationComparisonResult", "structaisolver_1_1eval_1_1GenerationComparisonResult.html", "structaisolver_1_1eval_1_1GenerationComparisonResult" ],
+    [ "aisolver::eval::compareGenerations", "namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a", null ],
+    [ "aisolver::eval::evolutionaryEpisodeBudget", "namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103", null ]
 ];

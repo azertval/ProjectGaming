@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -110,8 +110,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa5c3741ed70e631eea2e1c02c6a3275e" id="r_aa5c3741ed70e631eea2e1c02c6a3275e"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa5c3741ed70e631eea2e1c02c6a3275e">kChannelCount</a> = 33</td></tr>
-<tr class="memdesc:aa5c3741ed70e631eea2e1c02c6a3275e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> au moment de ce lot (33 : <span class="tt">Empty</span>…<span class="tt">MovingPlatform</span>).  <br /></td></tr>
+<tr class="memitem:a3d7346f8eca14d6fd7e1455359c06530" id="r_a3d7346f8eca14d6fd7e1455359c06530"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a3d7346f8eca14d6fd7e1455359c06530">CHANNEL_COUNT</a> = 33</td></tr>
+<tr class="memdesc:a3d7346f8eca14d6fd7e1455359c06530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> au moment de ce lot (33 : <span class="tt">Empty</span>…<span class="tt">MovingPlatform</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -211,7 +211,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Encode la fenêtre centrée sur <code class="param">center</code> d'une <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>. </p>
-<p>Une case hors limites (<span class="tt">!tiles.inBounds(...)</span>) est encodée en vecteur nul sur les <span class="tt"><a class="el" href="#a6788ba0e754eed7a8d26607112796dd9" title="Nombre de canaux catégoriels = nombre de valeurs de core::TileType (Core/Levels/TileType....">channelCount()</a></span> canaux (aucune catégorie active) — distinguable de toute case réelle, sans introduire de 30ᵉ catégorie « hors limites » dans <span class="tt">Core</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Une case hors limites (<span class="tt">!tiles.inBounds(...)</span>) est encodée en vecteur nul sur les <span class="tt"><a class="el" href="#a6788ba0e754eed7a8d26607112796dd9" title="Nombre de canaux catégoriels = nombre de valeurs de core::TileType (Core/Levels/TileType....">channelCount()</a></span> canaux (aucune catégorie active) — distinguable de toute case réelle, sans introduire de catégorie « hors limites » supplémentaire dans <span class="tt">Core</span>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tiles</td><td>Grille de collision à lire. </td></tr>
     <tr><td class="paramname">center</td><td>Case de grille où se trouve le personnage (calcul délégué à l'appelant, donnée pure). </td></tr>
@@ -271,8 +271,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa5c3741ed70e631eea2e1c02c6a3275e" name="aa5c3741ed70e631eea2e1c02c6a3275e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5c3741ed70e631eea2e1c02c6a3275e">&#9670;&#160;</a></span>kChannelCount</h2>
+<a id="a3d7346f8eca14d6fd7e1455359c06530" name="a3d7346f8eca14d6fd7e1455359c06530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d7346f8eca14d6fd7e1455359c06530">&#9670;&#160;</a></span>CHANNEL_COUNT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +281,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int aisolver::TileWindowEncoder::kChannelCount = 33</td>
+          <td class="memname">int aisolver::TileWindowEncoder::CHANNEL_COUNT = 33</td>
         </tr>
       </table>
   </td>

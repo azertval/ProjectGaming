@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -106,7 +106,7 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:Action" id="r_Action"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1Action.html">Action</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.  <a href="structaisolver_1_1Action.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.  <a href="structaisolver_1_1Action.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GridDistanceField" id="r_GridDistanceField"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement solides d'un <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>), pré-calculée une fois par BFS multi-source depuis une case cible.  <a href="classaisolver_1_1GridDistanceField.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StepObservation" id="r_StepObservation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1StepObservation.html">StepObservation</a></td></tr>
@@ -123,6 +123,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode la cinématique propre du personnage (vitesse, contact, minuteries, budgets) en un vecteur de taille fixe, complémentaire à <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span> (environnement immédiat).  <a href="classaisolver_1_1PlayerStateEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:RewardConfig" id="r_RewardConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constantes de la fonction de récompense (<span class="tt">EX-IA-009</span>).  <a href="structaisolver_1_1RewardConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ObjectiveDistanceFieldCache" id="r_ObjectiveDistanceFieldCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1ObjectiveDistanceFieldCache.html">ObjectiveDistanceFieldCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Champ de distances vers l'objectif immédiat, reconstruit seulement lorsqu'il cesse d'être valide.  <a href="classaisolver_1_1ObjectiveDistanceFieldCache.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileWindowEncoder" id="r_TileWindowEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1TileWindowEncoder.html">TileWindowEncoder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode une fenêtre carrée de <span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span>, centrée sur une case, en tenseur one-hot.  <a href="classaisolver_1_1TileWindowEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Rng" id="r_Rng"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1Rng.html">Rng</a></td></tr>
@@ -144,7 +146,7 @@ Classes</h2></td></tr>
 <tr class="memitem:QuadraticToyProblem" id="r_QuadraticToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1QuadraticToyProblem.html">QuadraticToyProblem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quadratique convexe à minimum connu : <span class="tt">f(x) = (x - target)^2</span>, gradient <span class="tt">2(x - target)</span>.  <a href="structaisolver_1_1QuadraticToyProblem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PolynomialToyProblem" id="r_PolynomialToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1PolynomialToyProblem.html">PolynomialToyProblem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régression polynomiale à coefficients connus (<span class="tt">y = kCoeffA*x^2 + kCoeffB*x + <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  <a href="structaisolver_1_1PolynomialToyProblem.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régression polynomiale à coefficients connus (<span class="tt">y = COEFF_A*x^2 + COEFF_B*x + <a class="el" href="structaisolver_1_1PolynomialToyProblem.html#ae4d20955279eba0f0a448b7eddf5fa1f">COEFF_C</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  <a href="structaisolver_1_1PolynomialToyProblem.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -180,7 +182,7 @@ Functions</h2></td></tr>
 <tr class="memitem:abac6fb128f0210708c1ac95475a47219" id="r_abac6fb128f0210708c1ac95475a47219"><td class="memItemLeft"><a class="el" href="structAction.html">Action</a>&#160;</td><td class="memItemRight"><a class="el" href="#abac6fb128f0210708c1ac95475a47219">decodeStochastic</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; &amp;distribution, float temperature, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:abac6fb128f0210708c1ac95475a47219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échantillonne une action selon la distribution, pondérée par une température.  <br /></td></tr>
 <tr class="memitem:aaa9c005c559e8b4e96ece3a1aec29b3c" id="r_aaa9c005c559e8b4e96ece3a1aec29b3c"><td class="memItemLeft"><a class="el" href="structAction.html">Action</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaa9c005c559e8b4e96ece3a1aec29b3c">actionAt</a> (std::size_t index)</td></tr>
-<tr class="memdesc:aaa9c005c559e8b4e96ece3a1aec29b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>).  <br /></td></tr>
+<tr class="memdesc:aaa9c005c559e8b4e96ece3a1aec29b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>).  <br /></td></tr>
 <tr class="memitem:a08e0bc710addf53ab9170d92a336018f" id="r_a08e0bc710addf53ab9170d92a336018f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memitem:a45874eecdbf9a34fd9448a5ab97d8162" id="r_a45874eecdbf9a34fd9448a5ab97d8162"><td class="memItemLeft"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight"><a class="el" href="#a45874eecdbf9a34fd9448a5ab97d8162">toPlayerInput</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memdesc:a45874eecdbf9a34fd9448a5ab97d8162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>).  <br /></td></tr>
@@ -189,6 +191,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a59583736f24a97702e07be216ee2c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classe la fin d'épisode à partir de l'issue du jeu et des compteurs de pas/progression.  <br /></td></tr>
 <tr class="memitem:acfa113b8f54b1f1c80752e87fdcee984" id="r_acfa113b8f54b1f1c80752e87fdcee984"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acfa113b8f54b1f1c80752e87fdcee984">computeReward</a> (const <a class="el" href="structaisolver_1_1RewardConfig.html">RewardConfig</a> &amp;config, const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;distanceField, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;previousBox, const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;currentBox, <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome)</td></tr>
 <tr class="memdesc:acfa113b8f54b1f1c80752e87fdcee984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.  <br /></td></tr>
+<tr class="memitem:a72b8d383d7626ce3d84aa8a7b5e6ea97" id="r_a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="memItemLeft"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a>&#160;</td><td class="memItemRight"><a class="el" href="#a72b8d383d7626ce3d84aa8a7b5e6ea97">buildObjectiveDistanceField</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms)</td></tr>
+<tr class="memdesc:a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le champ de distances de l'<b>objectif immédiat</b> courant (<span class="tt">LOT-ANNEXE-21</span>).  <br /></td></tr>
 <tr class="memitem:a98e499722c1bf9e864602845e1154f06" id="r_a98e499722c1bf9e864602845e1154f06"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a98e499722c1bf9e864602845e1154f06 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98e499722c1bf9e864602845e1154f06">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
 <tr class="memdesc:a98e499722c1bf9e864602845e1154f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produit matriciel standard entre deux matrices (rang 2) <span class="tt">[m,k] * [k,n] -&gt; [m,n]</span>.  <br /></td></tr>
@@ -256,10 +260,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a555dca592758c1fdf33b8eb0573102e1" id="r_a555dca592758c1fdf33b8eb0573102e1"><td class="memItemLeft">constexpr std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a555dca592758c1fdf33b8eb0573102e1">kReplayFormatVersion</a> = 2</td></tr>
-<tr class="memdesc:a555dca592758c1fdf33b8eb0573102e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb" title="Version courante du format de niveau JSON (EX-LVL-005).">core::kLevelFormatVersion</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur.  <br /></td></tr>
-<tr class="memitem:a7240db6bfdbb8a3a9acce0ada7c6a71d" id="r_a7240db6bfdbb8a3a9acce0ada7c6a71d"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a7240db6bfdbb8a3a9acce0ada7c6a71d">kDefaultTrainingRunsRoot</a> = &quot;TrainingRuns&quot;</td></tr>
-<tr class="memdesc:a7240db6bfdbb8a3a9acce0ada7c6a71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Racine par défaut des sorties d'entraînement, relative à la racine du dépôt (déjà exclue de Git par <span class="tt">.gitignore</span>, <span class="tt">/TrainingRuns/</span>).  <br /></td></tr>
+<tr class="memitem:a1442f909369c172e067dd62fe6afa24b" id="r_a1442f909369c172e067dd62fe6afa24b"><td class="memItemLeft">constexpr std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1442f909369c172e067dd62fe6afa24b">REPLAY_FORMAT_VERSION</a> = 2</td></tr>
+<tr class="memdesc:a1442f909369c172e067dd62fe6afa24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e" title="Version courante du format de niveau JSON (EX-LVL-005).">core::LEVEL_FORMAT_VERSION</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur.  <br /></td></tr>
+<tr class="memitem:a8f19efd09b31184b6b1a209f25dc593d" id="r_a8f19efd09b31184b6b1a209f25dc593d"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8f19efd09b31184b6b1a209f25dc593d">DEFAULT_TRAINING_RUNS_ROOT</a> = &quot;TrainingRuns&quot;</td></tr>
+<tr class="memdesc:a8f19efd09b31184b6b1a209f25dc593d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Racine par défaut des sorties d'entraînement, relative à la racine du dépôt (déjà exclue de Git par <span class="tt">.gitignore</span>, <span class="tt">/TrainingRuns/</span>).  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="af11f067d4f1b224aeaa363c793c3711b" name="af11f067d4f1b224aeaa363c793c3711b"></a>
@@ -393,8 +397,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>). </p>
-<p>L'ordre d'énumération (direction en poids fort, puis <span class="tt">jumpPressed</span>, <span class="tt">jumpHeld</span>, <span class="tt">dashPressed</span>) est un <b>invariant stable</b> : une fois qu'un modèle a été entraîné sur cet ordre (génération 2/3), le changer romprait la correspondance entre l'indice de sortie d'un réseau déjà entraîné et l'action qu'il désigne réellement (voir TACHE-01, points d'attention). </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> correspondant à un indice donné (inverse de <span class="tt"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a></span>). </p>
+<p>L'ordre d'énumération (direction en poids fort, puis <span class="tt">jumpPressed</span>, <span class="tt">jumpHeld</span>, <span class="tt">dashPressed</span>, <span class="tt">interactPressed</span> en poids faible) est un <b>invariant</b> : l'indice de sortie d'un réseau entraîné ne désigne l'action attendue que sous cet ordre. Le changer sans réentraîner rendrait les modèles silencieusement faux ; changer le <em>nombre</em> d'actions, lui, les rend franchement incompatibles — <span class="tt"><a class="el" href="namespaceaisolver_1_1nn.html#af9693a4d60fca2addb3be3704e137f6b" title="Recharge dans network les poids sauvegardés dans path.">nn::loadWeights</a></span> refuse la forme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>Indice dans <span class="tt">[0, <a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a>)</span>. </td></tr>
   </table>
@@ -426,7 +430,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Nombre total d'actions distinctes de l'espace d'action (<span class="tt">3 × 2 × 2 × 2 = 24</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Nombre total d'actions distinctes de l'espace d'action (<span class="tt">3 × 2 × 2 × 2 × 2 = 48</span>). </dd></dl>
 
 </div>
 </div>
@@ -491,6 +495,44 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> additionné au même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="a72b8d383d7626ce3d84aa8a7b5e6ea97" name="a72b8d383d7626ce3d84aa8a7b5e6ea97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72b8d383d7626ce3d84aa8a7b5e6ea97">&#9670;&#160;</a></span>buildObjectiveDistanceField()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> aisolver::buildObjectiveDistanceField </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mechanisms</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit le champ de distances de l'<b>objectif immédiat</b> courant (<span class="tt">LOT-ANNEXE-21</span>). </p>
+<p>Cible la sortie <b>et</b> la position de chaque déclencheur (<span class="tt"><a class="el" href="structcore_1_1Mechanism.html#a5dd9b9cdb7f5f631367af20f9abbf545">core::Mechanism::switchPosition</a></span> &ndash; clé, interrupteur ou plaque de pression) dont la porte liée n'est pas encore ouverte (<span class="tt">!mechanisms.isDoorOpen(index)</span>), sur la grille de collision <b>courante</b> (<span class="tt">mechanisms.collisionMap()</span>, portes fermées solides). <span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html#adad70b2ea7b27273589ea5d75b698dd1" title="Distance de plus court chemin, en nombre de cases, depuis position jusqu&#39;à la case cible passée au co...">GridDistanceField::distance()</a></span> renvoie alors la distance à la plus proche de ces cibles : tant qu'une porte reste fermée, s'approcher de son déclencheur réduit la distance exactement comme s'approcher de la sortie le ferait une fois le chemin dégagé &ndash; sans connaître ni l'ordre de résolution attendu ni la nature du mécanisme (générique, ne nécessite aucune modification quand un niveau ajoute de nouveaux mécanismes). L'ensemble des cibles ne dépend que de l'état ouvert/fermé des portes : le champ reste valide tant qu'aucune porte ne change d'état, et n'a donc à être reconstruit qu'à ce moment-là. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau chargé (sortie, liaisons de mécanismes). </td></tr>
+    <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du pas courant (état ouvert/fermé, grille de collision à jour). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -682,10 +724,10 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 
 <p>Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord. </p>
-<p>La distance à la sortie est une distance de plus court chemin sur la grille, respectant les murs (<span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span>, amendement <span class="tt">LOT-ANNEXE-08</span> motivé par <span class="tt">EX-IA-023</span> : la distance euclidienne en ligne droite, utilisée avant cet amendement, pénalisait les pas de détour pourtant nécessaires autour d'un mur, un signal actif contre la bonne politique plutôt que simplement imparfait). Le centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées monde, 1 case = 1 unité monde, même convention que <span class="tt">HMI::GameViewport::cellAt</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>La progression se mesure en distance de plus court chemin sur la grille, murs compris (<span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span>, <span class="tt">EX-IA-023</span>) : c'est la seule mesure qui récompense un détour imposé par la géométrie du niveau. Le centre de la boîte du personnage est converti en case de grille (partie entière des coordonnées monde, 1 case = 1 unité monde, même convention que <span class="tt">HMI::GameViewport::cellAt</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config</td><td>Constantes de la fonction de récompense. </td></tr>
-    <tr><td class="paramname">distanceField</td><td>Champ de distances vers la sortie, précalculé une fois par niveau (<span class="tt"><a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">GridDistanceField</a></span>, construit à partir de <span class="tt"><a class="el" href="classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef">core::Level::tileMap()</a></span>/<span class="tt">exit()</span>). </td></tr>
+    <tr><td class="paramname">distanceField</td><td>Champ de distances vers l'objectif <b>immédiat</b> courant, pas vers la sortie seule (<span class="tt"><a class="el" href="#a72b8d383d7626ce3d84aa8a7b5e6ea97" title="Construit le champ de distances de l&#39;objectif immédiat courant (LOT-ANNEXE-21).">buildObjectiveDistanceField</a></span>) : une porte verrouillée fermée n'est pas un chemin, et le détour par sa clé doit donc compter comme une progression. </td></tr>
     <tr><td class="paramname">previousBox</td><td>Boîte du personnage avant ce pas. </td></tr>
     <tr><td class="paramname">currentBox</td><td>Boîte du personnage après ce pas. </td></tr>
     <tr><td class="paramname">outcome</td><td>Issue du niveau à l'issue de ce pas. </td></tr>
@@ -1036,7 +1078,7 @@ template&lt;typename T&gt; </div>
 <p>Construit le chemin <span class="tt">trainingRunsRoot / levelName / runId / "stats.csv"</span> et crée les dossiers intermédiaires manquants. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">trainingRunsRoot</td><td>Racine des runs d'entraînement (voir <span class="tt"><a class="el" href="#a7240db6bfdbb8a3a9acce0ada7c6a71d" title="Racine par défaut des sorties d&#39;entraînement, relative à la racine du dépôt (déjà exclue de Git par ....">kDefaultTrainingRunsRoot</a></span>). </td></tr>
+    <tr><td class="paramname">trainingRunsRoot</td><td>Racine des runs d'entraînement (voir <span class="tt"><a class="el" href="#a8f19efd09b31184b6b1a209f25dc593d" title="Racine par défaut des sorties d&#39;entraînement, relative à la racine du dépôt (déjà exclue de Git par ....">DEFAULT_TRAINING_RUNS_ROOT</a></span>). </td></tr>
     <tr><td class="paramname">levelName</td><td>Nom du niveau entraîné : isole les runs de niveaux différents dans des dossiers disjoints (régime d'entraînement niveau par niveau). </td></tr>
     <tr><td class="paramname">runId</td><td>Identifiant du run (voir <span class="tt"><a class="el" href="#a94f49d6b0ed3a6c1d11c7e81ed110d52" title="Génère un identifiant de run par horodatage ISO 8601 compact (ex.">generateRunId</a></span>) : deux runs successifs sur le même niveau restent chacun consultables séparément. </td></tr>
   </table>
@@ -1076,7 +1118,7 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 
 <p>Produit matriciel standard entre deux matrices (rang 2) <span class="tt">[m,k] * [k,n] -&gt; [m,n]</span>. </p>
-<dl class="section note"><dt>Note</dt><dd>Complexité O(m·k·n), triple boucle directe, sans optimisation par blocs — cohérent avec l'exclusion de performance de l'épic LOT-ANNEXE-01 (correction visée, pas la vitesse). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Complexité O(m·k·n), triple boucle directe, sans découpage en blocs ni parallélisation. L'adressage, lui, est sorti des boucles : <span class="tt"><a class="el" href="classaisolver_1_1Tensor.html#a878b102e02dcd22ffab831673ce5058e" title="Accès à un élément par ses indices (un indice par dimension).">Tensor::at()</a></span> reconstruirait une <span class="tt">initializer_list</span>, déréférencerait le tampon partagé et relirait deux <span class="tt">std::vector</span> du tas à <b>chaque</b> multiplication-addition, alors que les pas sont invariants. L'ordre <span class="tt">i, j, p</span> est <b>conservé</b> : c'est lui qui fixe l'ordre des sommations flottantes, donc le résultat au bit près — le dépot éprouve la reproductibilité intégrale de ses entraînements. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><span class="tt">a.rank() == 2 &amp;&amp; b.rank() == 2 &amp;&amp; a.shape()[1] == b.shape()[0]</span> (<span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT</a></span>). </dd></dl>
 
 </div>
@@ -1599,7 +1641,7 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 
 <p>Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>). </p>
-<p><span class="tt">moveX</span> vaut <span class="tt">-1</span>/<span class="tt">0</span>/<span class="tt">1</span> selon <span class="tt"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span>, <span class="tt">moveY</span> est toujours <span class="tt">0</span> (décision de cadrage de l'épic). Les champs d'interaction (<span class="tt">interactPressed</span>/<span class="tt">interactHeld</span>/<span class="tt">interactReleased</span>) ne font pas partie de l'espace d'action de ce lot et restent à leur valeur par défaut (<span class="tt">false</span>) : aucun niveau de la séquence <span class="tt">demo-*.json</span> ne conditionne sa résolution sur l'interaction manuelle plutôt que le contact automatique des mécanismes. </p>
+<p><span class="tt">moveX</span> vaut <span class="tt">-1</span>/<span class="tt">0</span>/<span class="tt">1</span> selon <span class="tt"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span>, <span class="tt">moveY</span> est toujours <span class="tt">0</span> (décision de cadrage de l'épic). <span class="tt">interactPressed</span> est reporté tel quel ; <span class="tt">interactHeld</span>/<span class="tt">interactReleased</span> restent à <span class="tt">false</span> (aucun mécanisme du jeu ne les consulte, seul le front <span class="tt">interactPressed</span> compte pour le ramassage d'une clé, <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">core::MechanismController::update</a></span>). </p>
 
 </div>
 </div>
@@ -1713,8 +1755,8 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="a7240db6bfdbb8a3a9acce0ada7c6a71d" name="a7240db6bfdbb8a3a9acce0ada7c6a71d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7240db6bfdbb8a3a9acce0ada7c6a71d">&#9670;&#160;</a></span>kDefaultTrainingRunsRoot</h2>
+<a id="a8f19efd09b31184b6b1a209f25dc593d" name="a8f19efd09b31184b6b1a209f25dc593d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f19efd09b31184b6b1a209f25dc593d">&#9670;&#160;</a></span>DEFAULT_TRAINING_RUNS_ROOT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1723,7 +1765,7 @@ template&lt;typename T&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char* aisolver::kDefaultTrainingRunsRoot = &quot;TrainingRuns&quot;</td>
+          <td class="memname">const char* aisolver::DEFAULT_TRAINING_RUNS_ROOT = &quot;TrainingRuns&quot;</td>
         </tr>
       </table>
   </td>
@@ -1738,8 +1780,8 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="a555dca592758c1fdf33b8eb0573102e1" name="a555dca592758c1fdf33b8eb0573102e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a555dca592758c1fdf33b8eb0573102e1">&#9670;&#160;</a></span>kReplayFormatVersion</h2>
+<a id="a1442f909369c172e067dd62fe6afa24b" name="a1442f909369c172e067dd62fe6afa24b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1442f909369c172e067dd62fe6afa24b">&#9670;&#160;</a></span>REPLAY_FORMAT_VERSION</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1748,7 +1790,7 @@ template&lt;typename T&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t aisolver::kReplayFormatVersion = 2</td>
+          <td class="memname">std::uint32_t aisolver::REPLAY_FORMAT_VERSION = 2</td>
         </tr>
       </table>
   </td>
@@ -1758,8 +1800,8 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a4e9944a74ac070775a2730be05705abb" title="Version courante du format de niveau JSON (EX-LVL-005).">core::kLevelFormatVersion</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur. </p>
-<p>Passée à <span class="tt">2</span> par <span class="tt">LOT-ANNEXE-17</span> (TACHE-02, stabilisation du format v1) : ajout de <span class="tt">totalDurationSeconds</span> et <span class="tt">algorithmId</span>. Un fichier <span class="tt">formatVersion == 1</span> (écrit avant ce lot, sans ces deux champs) reste lisible sans erreur — ils sont alors pris à leur valeur sentinelle (<span class="tt">0.0f</span> et <span class="tt">""</span>). </p>
+<p>Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e" title="Version courante du format de niveau JSON (EX-LVL-005).">core::LEVEL_FORMAT_VERSION</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur. </p>
+<p>La version 2 ajoute <span class="tt">totalDurationSeconds</span> et <span class="tt">algorithmId</span> à la version 1. La lecture reste ascendante : un fichier en version 1 ne porte pas ces deux champs et se lit sans erreur, avec leur valeur sentinelle (<span class="tt">0.0f</span> et <span class="tt">""</span>). </p>
 
 </div>
 </div>

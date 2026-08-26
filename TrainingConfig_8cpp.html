@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,8 +93,10 @@ $(function(){initNavTree('TrainingConfig_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;system_error&gt;</code><br />
 <code>#include &lt;nlohmann/json.hpp&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -108,6 +110,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af3ff45c03f528343fcd566389265aaee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la configuration effective d'un run : défauts documentés → fichier <span class="tt">--config</span> (s'il est fourni) → arguments individuels (<code class="param">overrides</code>, priorité la plus haute).  <br /></td></tr>
 <tr class="memitem:a5a2ddbb91586b43f38bc7d36f165f4f5" id="r_a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1cli.html#a5a2ddbb91586b43f38bc7d36f165f4f5">aisolver::cli::writeTrainingConfigJson</a> (const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;config, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit la configuration résolue <code class="param">config</code> dans <code class="param">path</code> (<span class="tt">config.json</span> du dossier de run), pour qu'un run passé reste reproductible sans connaître les valeurs par défaut du code de l'époque.  <br /></td></tr>
+<tr class="memitem:a98a4851fff34724311010336fa9094a3" id="r_a98a4851fff34724311010336fa9094a3"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1cli.html#a98a4851fff34724311010336fa9094a3">aisolver::cli::hiddenSizeForModel</a> (const std::filesystem::path &amp;modelPath)</td></tr>
+<tr class="memdesc:a98a4851fff34724311010336fa9094a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille de couche cachée avec laquelle <code class="param">modelPath</code> a été entraîné.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

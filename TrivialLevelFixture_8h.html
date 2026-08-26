@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,7 +105,7 @@ $(function(){initNavTree('TrivialLevelFixture_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:aisolver_5Ftest_3A_3ATrivialLevelDirectory" id="r_aisolver_5Ftest_3A_3ATrivialLevelDirectory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver__test_1_1TrivialLevelDirectory.html">aisolver_test::TrivialLevelDirectory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Répertoire temporaire du test courant contenant <span class="tt"><a class="el" href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4" title="Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite...">kTrivialLevelJson</a></span> sur disque (requis par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>, qui charge par chemin de fichier), nettoyé à la destruction (RAII) — même patron que <span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span>.  <a href="classaisolver__test_1_1TrivialLevelDirectory.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Répertoire temporaire du test courant contenant <span class="tt"><a class="el" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f" title="Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite...">TRIVIAL_LEVEL_JSON</a></span> sur disque (requis par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>, qui charge par chemin de fichier), nettoyé à la destruction (RAII) — même patron que <span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span>.  <a href="classaisolver__test_1_1TrivialLevelDirectory.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -113,8 +113,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4220be06568144e351699450b1f57bc4" id="r_a4220be06568144e351699450b1f57bc4"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver__test.html#a4220be06568144e351699450b1f57bc4">aisolver_test::kTrivialLevelJson</a></td></tr>
-<tr class="memdesc:a4220be06568144e351699450b1f57bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite (aucun saut, aucun obstacle).  <br /></td></tr>
+<tr class="memitem:a0178ed19a2e2d894ee174c22d9360a0f" id="r_a0178ed19a2e2d894ee174c22d9360a0f"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">aisolver_test::TRIVIAL_LEVEL_JSON</a></td></tr>
+<tr class="memdesc:a0178ed19a2e2d894ee174c22d9360a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite (aucun saut, aucun obstacle).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Niveau minimal (entrée/sortie adjacentes) utilisé par les tests de LOT-ANNEXE-11 (<span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>, <span class="tt">DeterministicReplay</span>, <span class="tt">ReplayExport</span>) : résoluble par un simple déplacement d'une case vers la droite, pour une convergence évolutionniste rapide et fiable en test, indépendante de la difficulté réelle d'un niveau <span class="tt">demo-*.json</span>. </p>

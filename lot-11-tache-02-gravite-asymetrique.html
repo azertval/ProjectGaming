@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-11-tache-02-gravite-asymetrique.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-11-ressenti-avance_2tache-02-gravite-asymetrique"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-11.html#md_Lot_2LOT-11-ressenti-avance_2epic" title="Lot/LOT-11-ressenti-avance/epic.md">LOT-11</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1011"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1016"></a>
 Contexte</h1>
 <p>Cœur du ressenti (<span class="tt">EX-GP-018</span>) : la <b>gravité effective</b> dépend de la phase du saut. On remplace le simple <span class="tt">velocity.y += gravity * dt</span> du <span class="tt">CharacterPhysicsSystem</span> par une gravité modulée, sans toucher au reste (saut, wall slide, dash restent compatibles).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1012"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1017"></a>
 Travail à réaliser</h1>
 <p>Dans la partie « gravité » de <span class="tt">CharacterPhysicsSystem::update</span> (hors dash), calculer une gravité <b>effective</b> <span class="tt">g</span> avant intégration :</p><ul>
 <li>base : <span class="tt">g = _config.gravity</span> ;</li>
@@ -107,13 +107,13 @@ Travail à réaliser</h1>
 <li>puis <span class="tt">velocity.y += g * fixedDelta</span> et la <b>borne de chute</b> existante (<span class="tt">maxFallSpeed</span>) inchangée.</li>
 </ul>
 <p>La montée (<span class="tt">velocity.y &lt; 0</span> hors apex) garde la gravité de base → la chute est <b>plus rapide</b> que la montée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1013"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1018"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></span>/<span class="tt">.cpp</span> (+ <span class="tt">&lt;cmath&gt;</span> pour <span class="tt">std::abs</span>).</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1014"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1019"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chute plus rapide que la montée</b> : après un saut, l'accélération verticale en <b>chute</b> (<span class="tt">Δvy</span>/pas) est <b>supérieure</b> à la décélération en <b>montée</b> (hors apex).</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><b>Compatibilité</b> : le saut atteint toujours une hauteur cohérente ; wall slide et dash inchangés (leurs tests restent verts).</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1015"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1020"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre des multiplicateurs</b> : appliquer chute → fast-fall → apex sur un même <span class="tt">g</span> (documenter).</li>
 <li><b>Ne pas casser la borne</b> <span class="tt">maxFallSpeed</span> ni la suspension de gravité <b>pendant le dash</b>.</li>
 <li>La modulation vit <b>dans le système</b> ; les réglages restent des <b>données</b> (<span class="tt">EX-ARCH-011</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1016"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1021"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Gravité asymétrique + apex hang + fast-fall fonctionnels et <b>testés</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1017"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1022"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-018</span>, <span class="tt">EX-GP-011</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

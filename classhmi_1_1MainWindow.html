@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -149,7 +149,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ace1ef846c7704477a23af655b4f78e74" id="r_ace1ef846c7704477a23af655b4f78e74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74">refreshStatusHelp</a> ()</td></tr>
 <tr class="memdesc:ace1ef846c7704477a23af655b4f78e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule et réaffiche la barre d'état (zones permanentes + aide contextuelle) depuis l'état courant du viewport (<span class="tt">LOT-57</span> TACHE-01, <span class="tt"><a class="el" href="namespacehmi.html#a8a9b5847205047e29cd377960c0ff15c" title="Décide le contenu de la barre d&#39;état de l&#39;éditeur pour context.">hmi::editorStatusLines</a></span>) — seule voie de mise à jour, appelée par tout changement pertinent (outil, survol, zoom, brouillon) ainsi qu'à l'expiration d'un message transitoire, pour la restaurer.  <br /></td></tr>
 <tr class="memitem:a77025d20fbce06f8f0fd55455cc6eca8" id="r_a77025d20fbce06f8f0fd55455cc6eca8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77025d20fbce06f8f0fd55455cc6eca8">showTransientStatusMessage</a> (const QString &amp;message, int timeoutMs)</td></tr>
-<tr class="memdesc:a77025d20fbce06f8f0fd55455cc6eca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>) — remplace <span class="tt">QStatusBar::showMessage</span>'s minuteur interne, qui laissait la barre vide à l'expiration au lieu de reprendre la main.  <br /></td></tr>
+<tr class="memdesc:a77025d20fbce06f8f0fd55455cc6eca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>).  <br /></td></tr>
 <tr class="memitem:a79a0a32f6374cffe570e60650baadca4" id="r_a79a0a32f6374cffe570e60650baadca4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79a0a32f6374cffe570e60650baadca4">applyPanelFocus</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a79a0a32f6374cffe570e60650baadca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en avant le panneau associé à <code class="param">tool</code> (<span class="tt"><a class="el" href="namespacehmi.html#a581615846aad015aff0e0a17e4f997c4">hmi::panelForTool</a></span>), si le réglage est actif et que l'utilisateur n'a rien imposé lui-même (<span class="tt">LOT-57</span> TACHE-02) — jamais un masquage, une simple suggestion de premier plan parmi les onglets regroupés.  <br /></td></tr>
 <tr class="memitem:a8cbad498c7c99b413ae8352e9ab30f06" id="r_a8cbad498c7c99b413ae8352e9ab30f06"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8cbad498c7c99b413ae8352e9ab30f06">applyPixelPanelFocus</a> (<a class="el" href="namespacehmi.html#a9cb51e9b7642963a83312d94737fe571">hmi::PixelTool</a> tool)</td></tr>
@@ -2222,7 +2222,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 
-<p>Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>) — remplace <span class="tt">QStatusBar::showMessage</span>'s minuteur interne, qui laissait la barre vide à l'expiration au lieu de reprendre la main. </p>
+<p>Affiche <code class="param">message</code> pour <code class="param">timeoutMs</code> dans la barre d'état, puis restaure l'aide contextuelle (<span class="tt"><a class="el" href="#ace1ef846c7704477a23af655b4f78e74" title="Recalcule et réaffiche la barre d&#39;état (zones permanentes + aide contextuelle) depuis l&#39;état courant ...">refreshStatusHelp</a></span>). </p>
+<p>La barre d'état n'est jamais laissée vide : à l'expiration d'un message transitoire, elle reprend l'aide du contexte courant. C'est pourquoi le minuteur est porté ici et non délégué à <span class="tt">QStatusBar::showMessage</span>, dont l'expiration ne rappelle rien. </p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-06-decouvrabilite.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-06-decouvrabilite"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1178"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1183"></a>
 Contexte</h1>
 <p>Toutes les commandes de l'éditeur (Ctrl+S, <span class="tt">P</span>, Ctrl+Z/Y, Maj+clic, flèches, et désormais <span class="tt">F2</span>, molette, glisser droit, <span class="tt">1</span>/<span class="tt">2</span>/<span class="tt">3</span>, Ctrl+C/V) sont aujourd'hui invisibles à l'écran — seule la documentation externe les liste. La palette n'a ni icône ni texte au-delà d'un aplat de couleur, et plusieurs liaisons interrupteur↔porte simultanées se distinguent mal (une seule teinte cyan partagée).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1179"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1184"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">ToolBar</span></b> (nouveau, <span class="tt">Source/HMI/Editor/</span>) : classe de géométrie pure (même esprit que <span class="tt">TilePalette</span>) exposant les entrées cliquables des outils (<span class="tt">Pinceau</span>/<span class="tt">Rectangle</span>/<span class="tt">Selection</span>, TACHE-05) et l'outil sélectionné ; dessinée par <span class="tt">EditorScreen</span> sous la palette.</li>
@@ -105,7 +105,7 @@ Travail à réaliser</h1>
 <li><b>Libellés de palette</b> : un court texte (« Vide », « Plein », « Danger », « Entrée », « Sortie », « Interrupteur », « Porte ») sous chaque entrée de <span class="tt">TilePalette</span>, via <span class="tt">BitmapFont</span>.</li>
 <li><b>Liaisons lisibles</b> : dans <span class="tt">EditorScreen::renderGrid</span>, remplacer la teinte cyan unique (<span class="tt">LINK_TINT</span>) par une teinte choisie dans un petit ensemble fixe (~6 couleurs), assignée par interrupteur selon son ordre d'apparition dans <span class="tt">LevelDraft::mechanisms()</span> ; chaque porte reprend la teinte de son interrupteur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1180"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1185"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/ToolBar.h</span>/<span class="tt">.cpp</span> (nouveau).</li>
@@ -113,29 +113,29 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (rendu barre d'outils/aide/libellés, teintes de liaison par interrupteur).</li>
 <li>Tests unitaires (<span class="tt">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1181"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1186"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">ToolBar::handleClick</span> sélectionne l'outil couvert par les coordonnées cliquées, sans effet en dehors de sa zone (même contrat que <span class="tt">TilePalette::handleClick</span>).</li>
 <li>Deux liaisons interrupteur↔porte simultanées reçoivent des teintes <b>différentes</b> ; une porte et son interrupteur partagent toujours la <b>même</b> teinte.</li>
 <li><span class="tt">F1</span> bascule l'état d'affichage de l'aide (test au niveau de l'état, pas du rendu pixel).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1182"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1187"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">ToolBar</span> et les libellés restent des ajouts purement additifs au rendu existant : aucune modification de la sémantique de peinture/liaison/redimensionnement déjà livrée.</li>
 <li>Rester cohérent avec le vocabulaire visuel déjà établi (teintes translucides sur quads, comme la surbrillance de survol et la liaison en attente, LOT-14) plutôt que d'introduire un nouveau langage graphique.</li>
 <li>Le cycle de couleurs de liaison doit rester lisible même si le nombre d'interrupteurs dépasse la taille de l'ensemble fixe (réutilisation cyclique documentée, pas un blocage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1188"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Barre d'outils, aide, libellés et liaisons multicolores opérationnels et testés (<span class="tt">ctest</span> vert) ; vérifiés visuellement ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1184"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1189"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-015</span>, <span class="tt">EX-EDIT-016</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1185"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1190"></a>
 Ajustement post-livraison (essai utilisateur)</h1>
 <p>Deux retours d'un essai interactif, après la livraison initiale de cette tâche, ont fait évoluer le périmètre au-delà de ce qui précède :</p>
 <ul>

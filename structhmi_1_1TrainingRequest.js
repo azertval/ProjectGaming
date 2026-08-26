@@ -1,6 +1,6 @@
 var structhmi_1_1TrainingRequest =
 [
-    [ "algo", "structhmi_1_1TrainingRequest.html#a8d5eb33c278bd62a86b0b42e5aa41902", null ],
+    [ "algorithmId", "structhmi_1_1TrainingRequest.html#ad251907b3ec439510e553431435303d4", null ],
     [ "episodes", "structhmi_1_1TrainingRequest.html#a4043ab37244238926be7623345e665f9", null ],
     [ "gamma", "structhmi_1_1TrainingRequest.html#a41b6ffccd277007f2f10a6d58a84137f", null ],
     [ "learningRate", "structhmi_1_1TrainingRequest.html#a04e21e98fb947956e029cf82a326ed44", null ],

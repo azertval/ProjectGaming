@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -136,7 +136,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Widget de remappage des <b>touches d'éditeur</b> (<span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">EditorKeyBindings</a></span>), destiné à l'onglet « Éditeur » de la page Options. </p>
-<p>Patron identique à <span class="tt"><a class="el" href="classhmi_1_1KeybindingsWidget.html" title="Widget de remappage des touches de jeu (GameKeyBindings), destiné à l&#39;onglet « Commande clavier » de ...">KeybindingsWidget</a></span> (touches de jeu) : chaque action affiche sa touche courante, cliquer capture la <b>prochaine touche pressée</b> (échange auto si déjà prise), persistée immédiatement dans le fichier partagé. <span class="tt"><a class="el" href="#a1e1548bcd52083cf6d65c0ee0b43bf2c" title="Émis après chaque remappage réussi (touche capturée et sauvegardée).">bindingsChanged</a></span> signale à l'appelant de resynchroniser les raccourcis effectifs des <span class="tt">QAction</span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455" title="Fait refléter bindings sur le raccourci effectif de chaque commande concernée (hmi::keyBindingIconCat...">hmi::EditorActions::applyShortcuts</a></span>), sans quoi un remappage ici resterait invisible dans le menu/la barre d'outils — exactement le défaut que ce lot corrige. </p>
+<p>Patron identique à <span class="tt"><a class="el" href="classhmi_1_1KeybindingsWidget.html" title="Widget de remappage des touches de jeu (GameKeyBindings), destiné à l&#39;onglet « Commande clavier » de ...">KeybindingsWidget</a></span> (touches de jeu) : chaque action affiche sa touche courante, cliquer capture la <b>prochaine touche pressée</b> (échange auto si déjà prise), persistée immédiatement dans le fichier partagé. <span class="tt"><a class="el" href="#a1e1548bcd52083cf6d65c0ee0b43bf2c" title="Émis après chaque remappage réussi (touche capturée et sauvegardée).">bindingsChanged</a></span> <b>oblige</b> l'appelant à resynchroniser les raccourcis effectifs des <span class="tt">QAction</span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#a15651f937c395ecf4bc082bc5c79f455" title="Fait refléter bindings sur le raccourci effectif de chaque commande concernée (hmi::keyBindingIconCat...">hmi::EditorActions::applyShortcuts</a></span>) : ce widget écrit la liaison, il ne touche pas aux actions, et un remappage non resynchronisé resterait invisible dans le menu et la barre d'outils. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad802770b228d4c1c469e7095033dc536" name="ad802770b228d4c1c469e7095033dc536"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad802770b228d4c1c469e7095033dc536">&#9670;&#160;</a></span>EditorKeybindingsWidget()</h2>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -118,8 +118,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2bfb26577a4b5494e191c0ac7fd80d06"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">shouldStop</span> renvoyant <span class="tt">true</span> dès le premier appel interrompt la session après une seule génération, bien avant le plafond (<span class="tt">LOT-ANNEXE-21</span>).  <br /></td></tr>
 <tr class="memitem:a9559918c65f7ecccfc0b4ec0460f23d7" id="r_a9559918c65f7ecccfc0b4ec0460f23d7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9559918c65f7ecccfc0b4ec0460f23d7">TEST</a> (LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion)</td></tr>
 <tr class="memdesc:a9559918c65f7ecccfc0b4ec0460f23d7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">onGenerationChampion</span> reçoit, à chaque génération, le champion réellement retenu par le trainer interne (<span class="tt">LOT-ANNEXE-21</span>) : seul point d'accès externe à son réseau pendant la session.  <br /></td></tr>
-<tr class="memitem:a8c8d4565f238d5c68371e67f3c01e79f" id="r_a8c8d4565f238d5c68371e67f3c01e79f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8c8d4565f238d5c68371e67f3c01e79f">updateConsecutiveStableWins</a> (int previousCount, bool sameChampionAsBefore, bool resolvingNow) noexcept</td></tr>
-<tr class="memdesc:a8c8d4565f238d5c68371e67f3c01e79f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classLevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
+<tr class="memitem:aa8e28f430662fd6d2a2e1580306d1d01" id="r_aa8e28f430662fd6d2a2e1580306d1d01"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8e28f430662fd6d2a2e1580306d1d01">updateConsecutiveStableWins</a> (int previousCount, bool sameFitnessAsBefore, bool resolvingNow) noexcept</td></tr>
+<tr class="memdesc:aa8e28f430662fd6d2a2e1580306d1d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classLevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
 <tr class="memdesc:aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie standard « politique » du programme Lot-Annexe : une couche cachée <span class="tt">tanh</span>, une couche de sortie <span class="tt">softmax</span> de taille <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> (<span class="tt"><a class="el" href="ActionSpace_8h.html" title="Espace d&#39;action discret et fini de l&#39;agent (LOT-ANNEXE-07, EX-IA-007).">AiSolver/Env/ActionSpace.h</a></span>).  <br /></td></tr>
 </table>
@@ -345,8 +345,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c8d4565f238d5c68371e67f3c01e79f" name="a8c8d4565f238d5c68371e67f3c01e79f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8d4565f238d5c68371e67f3c01e79f">&#9670;&#160;</a></span>updateConsecutiveStableWins()</h2>
+<a id="aa8e28f430662fd6d2a2e1580306d1d01" name="aa8e28f430662fd6d2a2e1580306d1d01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e28f430662fd6d2a2e1580306d1d01">&#9670;&#160;</a></span>updateConsecutiveStableWins()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,14 +355,14 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="namespaceaisolver_1_1training.html#a8c8d4565f238d5c68371e67f3c01e79f">aisolver::training::updateConsecutiveStableWins</a> </td>
+          <td class="memname">int <a class="el" href="namespaceaisolver_1_1training.html#aa8e28f430662fd6d2a2e1580306d1d01">aisolver::training::updateConsecutiveStableWins</a> </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>previousCount</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>sameChampionAsBefore</em></span>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>sameFitnessAsBefore</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -381,7 +381,7 @@ Functions</h2></td></tr>
 <p>Toute rupture (nouveau champion, ou champion non résolvant) remet le compteur à zéro puis, si la génération courante résout tout de même le niveau, redémarre immédiatement une nouvelle série à <span class="tt">1</span> (décision de cadrage de l'épic) — pas une réinitialisation muette qui perdrait cette information. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">previousCount</td><td>Compteur avant cette génération. </td></tr>
-    <tr><td class="paramname">sameChampionAsBefore</td><td>Le champion de cette génération est-il, poids pour poids, celui de la génération précédente (aucun individu ne l'a dépassé) ? </td></tr>
+    <tr><td class="paramname">sameFitnessAsBefore</td><td>Le champion de cette génération a-t-il exactement la même fitness que celui de la précédente (aucun individu ne l'a dépassé) ? C'est une égalité de <b>performance</b>, pas d'identité : deux individus distincts qui résolvent le niveau aussi bien comptent comme une série stable, ce que le critère d'arrêt cherche précisément à mesurer. </td></tr>
     <tr><td class="paramname">resolvingNow</td><td>Le champion de cette génération résout-il le niveau (<span class="tt">EpisodeStatus::Won</span>) ? </td></tr>
   </table>
   </dd>

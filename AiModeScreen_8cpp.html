@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,6 +96,7 @@ $(function(){initNavTree('AiModeScreen_8cpp.html','',''); });
 <p>Voir <span class="tt"><a class="el" href="AiModeScreen_8h.html" title="Écran « Mode IA » du menu principal (LOT-ANNEXE-21, EX-IA-022) : trois onglets (Entraînement,...">AiModeScreen.h</a></span>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="AiModeScreen_8h_source.html">HMI/Interface/AiModeScreen.h</a>&quot;</code><br />
+<code>#include &lt;QApplication&gt;</code><br />
 <code>#include &lt;QComboBox&gt;</code><br />
 <code>#include &lt;QFileDialog&gt;</code><br />
 <code>#include &lt;QLabel&gt;</code><br />
@@ -107,10 +108,12 @@ $(function(){initNavTree('AiModeScreen_8cpp.html','',''); });
 <code>#include &lt;QTableWidgetItem&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;system_error&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ReplayFile_8h_source.html">AiSolver/Replay/ReplayFile.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="EvaluationHelper_8h_source.html">HMI/Ai/EvaluationHelper.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ModelEvaluation_8h_source.html">HMI/Ai/ModelEvaluation.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ApplicationTheme_8h_source.html">HMI/Interface/ApplicationTheme.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DesignTokens_8h_source.html">HMI/Interface/DesignTokens.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PixelFocusCaret_8h_source.html">HMI/Interface/PixelFocusCaret.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
 <code>#include &quot;ui_AiModeScreen.h&quot;</code><br />
@@ -121,7 +124,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Voir <span class="tt"><a class="el" href="AiModeScreen_8h.html" title="Écran « Mode IA » du menu principal (LOT-ANNEXE-21, EX-IA-022) : trois onglets (Entraînement,...">AiModeScreen.h</a></span>. </p>
-<p>Ne référence jamais <span class="tt">AiSolver/Training</span>/<span class="tt">Nn</span>/<span class="tt">Optim</span> directement (amendement de <span class="tt">LOT-ANNEXE-18</span> limité à <span class="tt">HMI/Ai</span>, voir <span class="tt">epic.md</span> de <span class="tt">LOT-ANNEXE-21</span>) : délègue à <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html" title="Travailleur QObject, déplacé sur un QThread par l&#39;appelant (AiModeScreen) : run() bloque jusqu&#39;à la f...">hmi::TrainingWorker</a></span> (thread, entraînement) et <span class="tt"><a class="el" href="namespacehmi.html#a9d273e253c37f6033ab963e74c20aee3" title="Évalue le modèle modelPath (topologie de algo) sur levelPath, repetitions fois, en mode Argmax.">hmi::evaluateModel</a></span> (<span class="tt">HMI/Ai/EvaluationHelper</span>). </p>
+<p>Ne référence jamais <span class="tt">AiSolver/Training</span>/<span class="tt">Nn</span>/<span class="tt">Optim</span> directement (amendement de <span class="tt">LOT-ANNEXE-18</span> limité à <span class="tt">HMI/Ai</span>, voir <span class="tt">epic.md</span> de <span class="tt">LOT-ANNEXE-21</span>) : délègue à <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html" title="Travailleur QObject, déplacé sur un QThread par l&#39;appelant (AiModeScreen) : run() bloque jusqu&#39;à la f...">hmi::TrainingWorker</a></span> (thread, entraînement) et <span class="tt"><a class="el" href="namespacehmi.html#aae0c56dcacd78f6eebfb767e631fabb3" title="Évalue le modèle modelPath (topologie de algorithmId) sur levelPath, repetitions fois,...">hmi::evaluateModel</a></span> (<span class="tt">HMI/Ai/ModelEvaluation</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

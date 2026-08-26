@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-66.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build Debug/Release, <span class="tt">ctest</span> à 100 %, lint d'exigences, cahier de test régénéré, séquence démo synchronisée, Doxygen vert ; l'essai réel du zip Release hors machine de développement reste à faire avant de poser le tag, voir TACHE-04). Prérequis : tous les autres lots du programme <span class="tt">0.1.0</span> (<a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> → [LOT-65](<a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65 — Refonte des niveaux de démonstration</a>), et <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>) — c'est le <b>dernier lot avant le tag <span class="tt">v0.1.0</span></b>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3146"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3151"></a>
 Objectif</h1>
 <p>Remettre le dépôt en état d'être publié : que la version se construise à l'identique partout, que son numéro n'existe qu'à un seul endroit, et que le référentiel d'exigences dise la vérité sur ce qui est livré.</p>
 <p>Trois écarts, tous mineurs pris isolément, tous gênants au moment de tagger :</p>
@@ -106,9 +106,9 @@ Objectif</h1>
 <li><b>Toutes les spécifications sont marquées « brouillon »</b> : <span class="tt"><a class="el" href="architecture_8md.html">architecture.md</a></span>, <span class="tt"><a class="el" href="gameplay_8md.html">gameplay.md</a></span>, <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>, <span class="tt"><a class="el" href="rendu-technique_8md.html">rendu-technique.md</a></span>, <span class="tt"><a class="el" href="controles_8md.html">controles.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt"><a class="el" href="interface-ihm_8md.html">interface-ihm.md</a></span>, <span class="tt"><a class="el" href="exigences-non-fonctionnelles_8md.html">exigences-non-fonctionnelles.md</a></span>. Deux fichiers ont pourtant su adopter un statut de livraison (<span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>) : le modèle existe, il n'a pas été appliqué. Publier une <span class="tt">0.1.0</span> sur un référentiel intégralement en brouillon est incohérent.</li>
 </ul>
 <p>S'y ajoutent six exigences déclarées et jamais référencées, et la bascule de version elle-même.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3147"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3152"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3148"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3153"></a>
 Inclus</h2>
 <ul>
 <li><b>Qt épinglé et vérifié</b> sur les trois environnements, avec un message clair en cas de divergence.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b>Rattachement ou requalification</b> des exigences orphelines restantes.</li>
 <li><b>Bascule <span class="tt">0.1.0</span></b> : <span class="tt">project(VERSION)</span>, chapeau de jalon dans le <span class="tt">CHANGELOG.md</span>, vérification des notes de release.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3149"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3154"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Montée de version de Qt : ce lot <b>épingle</b> la version en usage, il ne la change pas.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Signature de code, installeur, distribution hors GitHub.</li>
 <li>Le tag lui-même, qui suit le merge, selon le processus de <span class="tt">CONTRIBUTING.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3150"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3155"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Dernier lot du programme.</b> Les statuts de spécification ne peuvent être arrêtés qu'une fois connu ce qui est réellement livré ; les figer plus tôt garantirait de les refaire.</li>
@@ -134,13 +134,13 @@ Décisions de cadrage</h1>
 <li><b>Un statut par fichier de spécification</b>, pas un statut global : <span class="tt"><a class="el" href="architecture_8md.html">architecture.md</a></span> est stable depuis longtemps, <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> contient encore des propositions à valider. Un statut unique serait faux pour l'un ou pour l'autre.</li>
 <li><b>Les exigences orphelines ne sont pas toutes des trous.</b> <span class="tt">EX-ARCH-001</span>, <span class="tt">EX-ARCH-060</span>, <span class="tt">EX-ARCH-070</span> et <span class="tt">EX-NFR-032</span> sont des <b>invariants transverses</b> que tout lot respecte sans avoir à les citer ; <span class="tt">EX-VIS-002</span> à <span class="tt">EX-VIS-007</span> sont des objectifs de vision, réalisés par des lots qui référencent les exigences détaillées plutôt que l'objectif. La bonne réponse est de le <b>dire</b> dans le référentiel, pas de fabriquer des références artificielles. <span class="tt">EX-DEC-031</span> (paramètres de conversion photo → pixel art) est en revanche un vrai reste de post-MVP, à marquer comme tel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3151"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3156"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Aucune nouvelle exigence.</li>
 <li>Réutilisées : <span class="tt">EX-BUILD-010</span> (provisionnement reproductible et épinglé de Qt), <span class="tt">EX-NFR-030</span> (construction exclusivement via CMake, reproductible), <span class="tt">EX-NFR-031</span> (dépendances épinglées), <span class="tt">EX-NFR-032</span> (cible Windows), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-ARCH-001</span> (sens des dépendances), <span class="tt">EX-VIS-002</span> à <span class="tt">EX-VIS-007</span> (objectifs, requalifiés), <span class="tt">EX-DEC-031</span> (post-MVP, marqué).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3152"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3157"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -157,7 +157,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-66-tache-04-bascule-0-1-0.html#md_Lot_2LOT-66-reproductibilite-referentiel_2tache-04-bascule-0-1-0" title="Lot/LOT-66-reproductibilite-referentiel/tache-04-bascule-0-1-0.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Bascule <span class="tt">0.1.0</span> et vérification finale  </td><td class="markdownTableBodyNone"><span class="tt">CMakeLists.txt</span>, <span class="tt">CHANGELOG.md</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3153"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3158"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Construire sur un poste dont la version de Qt diffère de celle de la CI produit un message explicite, et non un échec silencieux ou une divergence invisible.</li>
@@ -167,10 +167,10 @@ Critères d'acceptation du lot</h1>
 <li><span class="tt">python scripts/extract_release_notes.py v0.1.0</span> produit des notes complètes.</li>
 <li>La CI complète est verte, jobs Release, ASan, analyse statique et format compris.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3154"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3159"></a>
 Dépendances</h1>
 <p>Clôt le programme <span class="tt">0.1.0</span>. Suppose livrés <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>, <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a>, <a class="el" href="lot-60.html" title="LOT-60 — Audio : socle et bruitages">LOT-60</a>, <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>, <a class="el" href="lot-61.html" title="LOT-61 — Diagnostics d&#39;une version publiée">LOT-61</a>, <a class="el" href="lot-62.html" title="LOT-62 — Budget de rendu mesuré">LOT-62</a>, <a class="el" href="lot-63.html" title="LOT-63 — Mécanismes manquants du référentiel">LOT-63</a>, <a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a> et <a class="el" href="lot-65.html" title="LOT-65 — Refonte des niveaux de démonstration">LOT-65</a> — ou, pour ceux qui auraient été rognés, la mise à jour du référentiel en conséquence.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3155"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3160"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-66-tache-01-qt-epingle.html" title="TACHE-01 — Qt épinglé sur les trois environnements">TACHE-01 — Qt épinglé sur les trois environnements</a></li>

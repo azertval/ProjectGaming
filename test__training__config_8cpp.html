@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,6 +100,7 @@ $(function(){initNavTree('test__training__config_8cpp.html','',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -120,6 +121,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa1eb7a9cc83a5b14ee14dbd7a4cd5dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une surcharge d'argument individuel prime sur la valeur du fichier de configuration.  <br /></td></tr>
 <tr class="memitem:ade08d631cf6d334d7b0c3af0a90be053" id="r_ade08d631cf6d334d7b0c3af0a90be053"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ade08d631cf6d334d7b0c3af0a90be053">TEST</a> (WriteTrainingConfigJsonTest, EcritUneConfigurationRelueEtIdentique)</td></tr>
 <tr class="memdesc:ade08d631cf6d334d7b0c3af0a90be053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une configuration ecrite par <span class="tt"><a class="el" href="#a5a2ddbb91586b43f38bc7d36f165f4f5" title="Écrit la configuration résolue config dans path (config.json du dossier de run), pour qu&#39;un run passé...">writeTrainingConfigJson</a></span> se relit a l'identique.  <br /></td></tr>
+<tr class="memitem:acdfb01b5297c9acbd658281a449ec807" id="r_acdfb01b5297c9acbd658281a449ec807"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acdfb01b5297c9acbd658281a449ec807">TEST</a> (LoadTrainingConfigTest, ValeurDuMauvaisTypeIgnoreeSansLever)</td></tr>
+<tr class="memdesc:acdfb01b5297c9acbd658281a449ec807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur du mauvais type dans le fichier laisse le defaut en place, sans lever.  <br /></td></tr>
+<tr class="memitem:a7bde9ba9d48f81a9b900175db46bde45" id="r_a7bde9ba9d48f81a9b900175db46bde45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7bde9ba9d48f81a9b900175db46bde45">TEST</a> (HiddenSizeForModelTest, ResolueDepuisLeConfigDuRunSinonDefaut)</td></tr>
+<tr class="memdesc:a7bde9ba9d48f81a9b900175db46bde45"><td class="mdescLeft">&#160;</td><td class="mdescRight">La taille de couche cachee d'un modele est relue dans le <span class="tt">config.json</span> de son run.  <br /></td></tr>
 <tr class="memitem:af3ff45c03f528343fcd566389265aaee" id="r_af3ff45c03f528343fcd566389265aaee"><td class="memItemLeft"><a class="el" href="structTrainingConfig.html">TrainingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#af3ff45c03f528343fcd566389265aaee">loadTrainingConfig</a> (const std::optional&lt; std::filesystem::path &gt; &amp;configFile, const <a class="el" href="structCommandLineOverrides.html">CommandLineOverrides</a> &amp;overrides)</td></tr>
 <tr class="memdesc:af3ff45c03f528343fcd566389265aaee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la configuration effective d'un run : défauts documentés → fichier <span class="tt">--config</span> (s'il est fourni) → arguments individuels (<code class="param">overrides</code>, priorité la plus haute).  <br /></td></tr>
 <tr class="memitem:a5a2ddbb91586b43f38bc7d36f165f4f5" id="r_a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5a2ddbb91586b43f38bc7d36f165f4f5">writeTrainingConfigJson</a> (const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;config, const std::filesystem::path &amp;path)</td></tr>
@@ -167,8 +172,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7bde9ba9d48f81a9b900175db46bde45" name="a7bde9ba9d48f81a9b900175db46bde45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bde9ba9d48f81a9b900175db46bde45">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">HiddenSizeForModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ResolueDepuisLeConfigDuRunSinonDefaut</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La taille de couche cachee d'un modele est relue dans le <span class="tt">config.json</span> de son run. </p>
+<p><b>Cas de test :</b> Taille de couche cachee resolue depuis le config.json voisin du modele.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un <span class="tt">config.json</span> portant une <span class="tt">hiddenSize</span> differente du defaut, dans un dossier de run.<br  />
+2. Appeler <span class="tt">hiddenSizeForModel</span> sur le chemin d'un modele de ce dossier.<br  />
+3. Recommencer sans <span class="tt">config.json</span>.<br  />
+ <b>Resultat attendu :</b> La taille du fichier est renvoyee, et le defaut documente lorsque le fichier est absent — sans quoi tout modele entraine avec une autre taille serait irrecuperable. </p>
+
+</div>
+</div>
 <a id="aa1eb7a9cc83a5b14ee14dbd7a4cd5dac" name="aa1eb7a9cc83a5b14ee14dbd7a4cd5dac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1eb7a9cc83a5b14ee14dbd7a4cd5dac">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1eb7a9cc83a5b14ee14dbd7a4cd5dac">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +235,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a113726c3af0af36346e369d984dc4311" name="a113726c3af0af36346e369d984dc4311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a113726c3af0af36346e369d984dc4311">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a113726c3af0af36346e369d984dc4311">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,7 +265,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4dc5fe90003d5a29feeda83b798c9de2" name="a4dc5fe90003d5a29feeda83b798c9de2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dc5fe90003d5a29feeda83b798c9de2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc5fe90003d5a29feeda83b798c9de2">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +294,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a85e34348dbfe88839ae38521bafc52cf" name="a85e34348dbfe88839ae38521bafc52cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e34348dbfe88839ae38521bafc52cf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85e34348dbfe88839ae38521bafc52cf">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,8 +322,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acdfb01b5297c9acbd658281a449ec807" name="acdfb01b5297c9acbd658281a449ec807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdfb01b5297c9acbd658281a449ec807">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LoadTrainingConfigTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ValeurDuMauvaisTypeIgnoreeSansLever</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une valeur du mauvais type dans le fichier laisse le defaut en place, sans lever. </p>
+<p><b>Cas de test :</b> Valeur JSON du mauvais type -&gt; defaut conserve, aucune exception.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un fichier ou <span class="tt">gamma</span> est une chaine et <span class="tt">episodes</span> un booleen.<br  />
+2. <span class="tt"><a class="el" href="#af3ff45c03f528343fcd566389265aaee" title="Résout la configuration effective d&#39;un run : défauts documentés → fichier --config (s&#39;il est fourni) ...">loadTrainingConfig</a></span> sur ce fichier.<br  />
+ <b>Resultat attendu :</b> Les deux champs gardent leur valeur par defaut, le champ bien type du meme fichier est pris en compte, et aucune exception ne franchit la frontiere du module (<span class="tt">EX-NFR-040</span>). </p>
+
+</div>
+</div>
 <a id="ade08d631cf6d334d7b0c3af0a90be053" name="ade08d631cf6d334d7b0c3af0a90be053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade08d631cf6d334d7b0c3af0a90be053">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade08d631cf6d334d7b0c3af0a90be053">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -110,11 +110,9 @@ $(function(){initNavTree('test__convergence_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:PolynomialToyProblem" id="r_PolynomialToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structPolynomialToyProblem.html">PolynomialToyProblem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régression polynomiale à coefficients connus (<span class="tt">y = kCoeffA*x^2 + kCoeffB*x + <a class="el" href="structPolynomialToyProblem.html#a99b975214db44e0f4f27e69494f8c7b8">kCoeffC</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  <a href="structPolynomialToyProblem.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Régression polynomiale à coefficients connus (<span class="tt">y = COEFF_A*x^2 + COEFF_B*x + <a class="el" href="structPolynomialToyProblem.html#ae4d20955279eba0f0a448b7eddf5fa1f">COEFF_C</a></span>), ajustée par un vecteur de poids de forme <span class="tt">[1, 3]</span> (colonnes <span class="tt">[x^2, x, 1]</span>) minimisant l'erreur quadratique moyenne sur un jeu de points synthétiques.  <a href="structPolynomialToyProblem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:QuadraticToyProblem" id="r_QuadraticToyProblem"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structQuadraticToyProblem.html">QuadraticToyProblem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quadratique convexe à minimum connu : <span class="tt">f(x) = (x - target)^2</span>, gradient <span class="tt">2(x - target)</span>.  <a href="structQuadraticToyProblem.html#details">More...</a><br /></td></tr>
-<tr class="memitem:Sgd" id="r_Sgd"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classSgd.html">Sgd</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGD : <span class="tt">value -= learningRate * grad</span>, avec un terme d'inertie optionnel.  <a href="classSgd.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -270,7 +268,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Optim<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Exécuter deux fois la même boucle d'entraînement <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> sur <span class="tt"><a class="el" href="structPolynomialToyProblem.html" title="Régression polynomiale à coefficients connus (y = kCoeffA*x^2 + kCoeffB*x + kCoeffC),...">PolynomialToyProblem</a></span>, même graine <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span>.<br  />
+ 1. Exécuter deux fois la même boucle d'entraînement <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> sur <span class="tt"><a class="el" href="structPolynomialToyProblem.html" title="Régression polynomiale à coefficients connus (y = COEFF_A*x^2 + COEFF_B*x + COEFF_C),...">PolynomialToyProblem</a></span>, même graine <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span>.<br  />
 2. Comparer les poids finaux.<br  />
  <b>Resultat attendu :</b> Les poids finaux des deux exécutions sont strictement égaux. </p>
 

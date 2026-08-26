@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Training/Advanced/DqnLoss.h Source File</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Training/Dqn/DqnLoss.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,8 +100,8 @@ $(function(){initNavTree('DqnLoss_8h_source.html','',''); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="Node_8h.html">AiSolver/Math/Autodiff/Node.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="QNetwork_8h.html">AiSolver/Training/Advanced/QNetwork.h</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="ReplayBuffer_8h.html">AiSolver/Training/Advanced/ReplayBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="QNetwork_8h.html">AiSolver/Training/Dqn/QNetwork.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="ReplayBuffer_8h.html">AiSolver/Training/Dqn/ReplayBuffer.h</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver_1_1training.html">aisolver::training</a> {</div>
@@ -114,7 +114,7 @@ $(function(){initNavTree('DqnLoss_8h_source.html','',''); });
 <div class="ttc" id="aQNetwork_8h_html"><div class="ttname"><a href="QNetwork_8h.html">QNetwork.h</a></div><div class="ttdoc">Réseau de valeur d&#39;action Q(s, ·) (LOT-ANNEXE-14, TACHE-01, EX-IA-015).</div></div>
 <div class="ttc" id="aReplayBuffer_8h_html"><div class="ttname"><a href="ReplayBuffer_8h.html">ReplayBuffer.h</a></div><div class="ttdoc">Mémoire de rejeu de transitions (LOT-ANNEXE-14, TACHE-01, EX-IA-015).</div></div>
 <div class="ttc" id="aclassaisolver_1_1training_1_1QNetwork_html"><div class="ttname"><a href="classaisolver_1_1training_1_1QNetwork.html">aisolver::training::QNetwork</a></div><div class="ttdoc">Réseau distinct de la politique/du critique (nn::Network, LOT-ANNEXE-03), une sortie par action de l&#39;...</div><div class="ttdef"><b>Definition</b> QNetwork.h:29</div></div>
-<div class="ttc" id="anamespaceaisolver_1_1autodiff_html_a15b58de0bd40ab5a4ca686df4f5edfec"><div class="ttname"><a href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">aisolver::autodiff::NodePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; NodePtr</div><div class="ttdoc">Un Node n&#39;est jamais manipulé que par pointeur partagé (jamais copié, jamais sur la pile).</div><div class="ttdef"><b>Definition</b> Node.h:19</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1autodiff_html_a15b58de0bd40ab5a4ca686df4f5edfec"><div class="ttname"><a href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">aisolver::autodiff::NodePtr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; NodePtr</div><div class="ttdoc">Un Node n&#39;est jamais manipulé que par pointeur partagé (jamais copié, jamais sur la pile).</div><div class="ttdef"><b>Definition</b> Node.h:22</div></div>
 <div class="ttc" id="anamespaceaisolver_1_1training_html"><div class="ttname"><a href="namespaceaisolver_1_1training.html">aisolver::training</a></div><div class="ttdef"><b>Definition</b> ActorCriticLoss.cpp:8</div></div>
 <div class="ttc" id="anamespaceaisolver_1_1training_html_a182940e411c5c7c01ec3f01bca030580"><div class="ttname"><a href="namespaceaisolver_1_1training.html#a182940e411c5c7c01ec3f01bca030580">aisolver::training::computeDqnLoss</a></div><div class="ttdeci">autodiff::NodePtr computeDqnLoss(QNetwork &amp;mainNetwork, QNetwork &amp;targetNetwork, const std::vector&lt; Transition &gt; &amp;batch, float gamma)</div><div class="ttdoc">Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...</div><div class="ttdef"><b>Definition</b> DqnLoss.cpp:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -123,7 +123,7 @@ $(function(){initNavTree('DqnLoss_8h_source.html','',''); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_53313a0329ae6869ebe758cc286a2e1b.html">Training</a></li><li class="navelem"><a href="dir_f607717b848dc66a7fc3bc4e6ceaca87.html">Advanced</a></li><li class="navelem"><a href="DqnLoss_8h.html">DqnLoss.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_53313a0329ae6869ebe758cc286a2e1b.html">Training</a></li><li class="navelem"><a href="dir_3ba3f964a34f70b11ee27d808a875951.html">Dqn</a></li><li class="navelem"><a href="DqnLoss_8h.html">DqnLoss.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

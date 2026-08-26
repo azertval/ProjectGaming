@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,11 +102,6 @@ $(function(){initNavTree('test__evolutionary__non__regression_8cpp.html','','');
 <code>#include &quot;<a class="el" href="EvolutionaryTrainer_8h_source.html">AiSolver/Training/Evolutionary/EvolutionaryTrainer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:EvolutionaryTrainer" id="r_EvolutionaryTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classEvolutionaryTrainer.html">EvolutionaryTrainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable, journalisée via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>.  <a href="classEvolutionaryTrainer.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a32a4dd747be42358b9be92d854b772ee" id="r_a32a4dd747be42358b9be92d854b772ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a32a4dd747be42358b9be92d854b772ee">TEST</a> (EvolutionaryNonRegressionTest, CroissanceDuFitnessSurNiveauTrivial)</td></tr>
@@ -179,9 +174,9 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. <span class="tt"><a class="el" href="classEvolutionaryTrainer.html" title="Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable,...">EvolutionaryTrainer</a></span> sur <span class="tt">demo-deplacement.json</span>, population de 24, seed fixée.<br  />
+ 1. <span class="tt"><a class="el" href="classEvolutionaryTrainer.html" title="Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable,...">EvolutionaryTrainer</a></span> sur <span class="tt">demo-deplacement.json</span>, population <span class="tt">POPULATION_SIZE</span>, seed fixée.<br  />
 </p><ol type="1">
-<li>Enchaîner 40 générations, en observant <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual()</a>.fitness</span> après chacune.<br  />
+<li>Enchaîner <span class="tt">GENERATIONS</span> générations, en observant <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual()</a>.fitness</span> après chacune.<br  />
  <b>Resultat attendu :</b> Le meilleur fitness ne régresse jamais d'une génération à l'autre ; le meilleur fitness final dépasse <span class="tt">MINIMUM_FITNESS_THRESHOLD</span>. </li>
 </ol>
 

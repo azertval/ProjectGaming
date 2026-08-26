@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -125,10 +125,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contexte d'édition dont la barre d'état décide l'affichage.  <a href="structhmi_1_1EditorStatusContext.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorStatusLines" id="r_EditorStatusLines"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EditorStatusLines.html">EditorStatusLines</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lignes à afficher pour la barre d'état de l'éditeur, à un instant donné.  <a href="structhmi_1_1EditorStatusLines.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FileOperationResult" id="r_FileOperationResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Succès (avec le chemin résultant) ou échec (avec un message lisible).  <a href="structhmi_1_1FileOperationResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelBrowserPanel" id="r_LevelBrowserPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer.  <a href="classhmi_1_1LevelBrowserPanel.html#details">More...</a><br /></td></tr>
-<tr class="memitem:FileOpResult" id="r_FileOpResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une opération fichier : succès (avec le chemin résultant) ou erreur lisible.  <a href="structhmi_1_1FileOpResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelFileOperations" id="r_LevelFileOperations"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LevelFileOperations.html">LevelFileOperations</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opérations sur les fichiers de niveaux d'un dossier, <b>sans dépendance Qt/GPU</b>.  <a href="classhmi_1_1LevelFileOperations.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkSegment" id="r_LinkSegment"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LinkSegment.html">LinkSegment</a></td></tr>
@@ -160,7 +160,7 @@ Classes</h2></td></tr>
 <tr class="memitem:PathHit" id="r_PathHit"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathHit.html">PathHit</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Élément visé par un clic (voir <span class="tt"><a class="el" href="#aa7136d52da0c16b03b6aa44ed4b16761" title="Désigne l&#39;élément sous point : quel parcours, et quelle poignée le cas échéant.">hmi::designatePathAt</a></span>).  <a href="structhmi_1_1PathHit.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PathGestureAction" id="r_PathGestureAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathGestureAction.html">PathGestureAction</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer par l'appelant : en aperçu pendant le glisser (<span class="tt"><a class="el" href="#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">updatePathGesture</a></span>, consommée par le rendu), ou pour de bon au relâchement (<span class="tt"><a class="el" href="#ad328cc852695bf64550233a5aca951ce" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">endPathGesture</a></span>, consommée par les mutateurs).  <a href="structhmi_1_1PathGestureAction.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> à appliquer par l'appelant : en aperçu pendant le glisser (<span class="tt"><a class="el" href="#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">updatePathGesture</a></span>, consommée par le rendu), ou pour de bon au relâchement (<span class="tt"><a class="el" href="#ad328cc852695bf64550233a5aca951ce" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">endPathGesture</a></span>, consommée par les mutateurs).  <a href="structhmi_1_1PathGestureAction.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PathGestureState" id="r_PathGestureState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PathGestureState.html">PathGestureState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État complet du geste, possédé par l'appelant.  <a href="structhmi_1_1PathGestureState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PixelCanvas" id="r_PixelCanvas"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelCanvas.html">PixelCanvas</a></td></tr>
@@ -411,6 +411,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Options <b>unique</b>, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal (thème <span class="tt">theme.qss</span>).  <a href="classhmi_1_1OptionsPage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PauseScreen" id="r_PauseScreen"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PauseScreen.html">PauseScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de pause affiché par-dessus la scène de jeu figée (<span class="tt">EX-GP-041</span>).  <a href="classhmi_1_1PauseScreen.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PixelFocusCaret" id="r_PixelFocusCaret"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelFocusCaret.html">PixelFocusCaret</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Curseur de focus flottant, posé à gauche du contrôle focalisé de l'écran hôte.  <a href="classhmi_1_1PixelFocusCaret.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PixelFrameQuad" id="r_PixelFrameQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PixelFrameQuad.html">PixelFrameQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pavé plein, en pixels, relatif au coin haut-gauche du widget.  <a href="structhmi_1_1PixelFrameQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PixelFrameWidget" id="r_PixelFrameWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelFrameWidget.html">PixelFrameWidget</a></td></tr>
@@ -468,7 +470,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#ace704959d626f266592987f16eb2f3d5ac1a39b6a60f8b2f87e23d60ab649d994">Unlink</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
+<tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
 <tr class="memitem:a484fc821d307ce050da2a61ed1760a8d" id="r_a484fc821d307ce050da2a61ed1760a8d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a484fc821d307ce050da2a61ed1760a8d">PaletteThumbnailSource</a> { <a class="el" href="#a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f">Atlas</a>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf">Skin</a>
 , <a class="el" href="#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
@@ -543,7 +545,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2">Assign</a>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
  }</td></tr>
-<tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
+<tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
 <tr class="memitem:a3a61aed1c8e95c289c829398d48488de" id="r_a3a61aed1c8e95c289c829398d48488de"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> { <br />
 &#160;&#160;<a class="el" href="#a3a61aed1c8e95c289c829398d48488dea280e2398821e9b67fa22ab6d512c746b">Jumped</a>
 , <a class="el" href="#a3a61aed1c8e95c289c829398d48488dead686e9ef2eb30c76874d445ae35bccc2">Landed</a>
@@ -681,7 +683,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9">TextureAssignTool</a>
 <br />
  }</td></tr>
-<tr class="memdesc:aa4f5968d7b564d555f29fdc5d2fc9585"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique.  <a href="#aa4f5968d7b564d555f29fdc5d2fc9585">More...</a><br /></td></tr>
+<tr class="memdesc:aa4f5968d7b564d555f29fdc5d2fc9585"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique.  <a href="#aa4f5968d7b564d555f29fdc5d2fc9585">More...</a><br /></td></tr>
 <tr class="memitem:a133516ef8002bd9e4d870db9494f5867" id="r_a133516ef8002bd9e4d870db9494f5867"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a133516ef8002bd9e4d870db9494f5867">GameAction</a> { <br />
 &#160;&#160;<a class="el" href="#a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca">MoveLeft</a>
 , <a class="el" href="#a133516ef8002bd9e4d870db9494f5867a78af9b7fcdf1574f729de1454e15257b">MoveRight</a>
@@ -693,7 +695,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a133516ef8002bd9e4d870db9494f5867aefbc873e4634f3db63d62377d36e5f56">Interact</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
+<tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
 <tr class="memitem:a7bd1f14c12b142d5227ad2560e7c5e88" id="r_a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> { <br />
 &#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</a>
 , <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</a>
@@ -855,7 +857,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">Options</a>
 , <br />
 &#160;&#160;<a class="el" href="#a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">Pause</a>
-, <a class="el" href="#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21">NiveauTermine</a>
+, <a class="el" href="#a168b24f798c2e6d06beb9472a071528dafadd249ca99ec988612da6329ccc7ffc">LevelComplete</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569">LevelSelect</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">Credits</a>
 , <br />
@@ -903,8 +905,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9d273e253c37f6033ab963e74c20aee3" id="r_a9d273e253c37f6033ab963e74c20aee3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9d273e253c37f6033ab963e74c20aee3">evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algo, int repetitions)</td></tr>
-<tr class="memdesc:a9d273e253c37f6033ab963e74c20aee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algo</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
+<tr class="memitem:aae0c56dcacd78f6eebfb767e631fabb3" id="r_aae0c56dcacd78f6eebfb767e631fabb3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae0c56dcacd78f6eebfb767e631fabb3">evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algorithmId, int repetitions)</td></tr>
+<tr class="memdesc:aae0c56dcacd78f6eebfb767e631fabb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
 <tr class="memitem:a949e50cc6c6b8c2df661c6277ac59506" id="r_a949e50cc6c6b8c2df661c6277ac59506"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a949e50cc6c6b8c2df661c6277ac59506">soundForEvent</a> (<a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> event)</td></tr>
 <tr class="memdesc:a949e50cc6c6b8c2df661c6277ac59506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe un <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> à un identifiant de <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">hmi::SoundCatalog</a></span>.  <br /></td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
@@ -1080,7 +1082,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a9a410292879939089d6bf584f60d60e6" id="r_a9a410292879939089d6bf584f60d60e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9a410292879939089d6bf584f60d60e6">isLevelUnlocked</a> (const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;progression, const std::vector&lt; std::string &gt; &amp;sequence, const std::string &amp;levelName)</td></tr>
 <tr class="memdesc:a9a410292879939089d6bf584f60d60e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle de déverrouillage (<span class="tt">LOT-59</span> TACHE-06, <span class="tt">EX-IHM-005</span>) : fonction <b>pure</b>, seule source de vérité sur ce qui est jouable &ndash; un écran ne fait que l'afficher, jamais sa propre condition.  <br /></td></tr>
 <tr class="memitem:a5b07931e9a29f7bcbffef65e91c124b0" id="r_a5b07931e9a29f7bcbffef65e91c124b0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b07931e9a29f7bcbffef65e91c124b0">isLevelPlayable</a> (const <a class="el" href="classhmi_1_1Progression.html">Progression</a> &amp;progression, const std::vector&lt; std::string &gt; &amp;sequence, const std::string &amp;levelName)</td></tr>
-<tr class="memdesc:a5b07931e9a29f7bcbffef65e91c124b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement.  <br /></td></tr>
+<tr class="memdesc:a5b07931e9a29f7bcbffef65e91c124b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#affbaf55db3c297c638c8399aa855dbfe" title="Vrai dans les builds de développement (Debug), faux en Release.">core::DEVELOPER_BUILD</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement.  <br /></td></tr>
 <tr class="memitem:ab940bcb1480c0e6616726dd361be3c1d" id="r_ab940bcb1480c0e6616726dd361be3c1d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab940bcb1480c0e6616726dd361be3c1d">assetFamilyName</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
 <tr class="memdesc:ab940bcb1480c0e6616726dd361be3c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'une famille d'assets, utilisé dans les messages de journalisation.  <br /></td></tr>
 <tr class="memitem:a842c2e980bf7c8686d4a549d583d6866" id="r_a842c2e980bf7c8686d4a549d583d6866"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a>&#160;</td><td class="memItemRight"><a class="el" href="#a842c2e980bf7c8686d4a549d583d6866">assetDimensionContract</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
@@ -1736,7 +1738,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique. </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> d'éditeur logique, remappable indépendamment de la touche physique. </p>
 <p>Sous-ensemble <b>significatif</b> des raccourcis de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span>, mode édition), pas exhaustif (décision de cadrage <span class="tt">LOT-29</span>) : navigation de menu, redimensionnement par flèches, <span class="tt">Ctrl+R</span>, <span class="tt">"0"</span>, <span class="tt">Tab</span>, Maj+clic restent câblés en dur. Le modificateur <span class="tt">Ctrl</span> de Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici remappable. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354" name="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354"></a>Save&#160;</td><td class="fielddoc"></td></tr>
@@ -1995,7 +1997,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche. </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> de jeu logique, remappable indépendamment de la touche physique qui la déclenche. </p>
 <p>Miroir des sept lectures de <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>. Chaque action a une touche <b>unique</b> et pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait en collision dès qu'une <b>autre</b> action est remappée sur cette même touche, les deux se déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca" name="a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca"></a>MoveLeft&#160;</td><td class="fielddoc"></td></tr>
@@ -2280,7 +2282,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ». </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ». </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9" name="ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9"></a>Ignore&#160;</td><td class="fielddoc"><p>Case cliquée ni déclencheur ni cible : sans effet. </p>
 </td></tr>
@@ -2901,7 +2903,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb" name="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb"></a>Game&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8" name="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8"></a>Options&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f" name="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21" name="a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21"></a>NiveauTermine&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dafadd249ca99ec988612da6329ccc7ffc" name="a168b24f798c2e6d06beb9472a071528dafadd249ca99ec988612da6329ccc7ffc"></a>LevelComplete&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569" name="a168b24f798c2e6d06beb9472a071528daab6c96d1fa3464b353f8da4213d53569"></a>LevelSelect&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51" name="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51"></a>Credits&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9" name="a168b24f798c2e6d06beb9472a071528da1af7f4ce6abc06f9091acece8303cde9"></a>AiMode&#160;</td><td class="fielddoc"></td></tr>
@@ -3064,7 +3066,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ». </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ». </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9" name="a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9"></a>Ignore&#160;</td><td class="fielddoc"><p>Case vide, ou aucun asset sélectionné dans la bibliothèque : sans effet. </p>
 </td></tr>
@@ -3649,7 +3651,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Charge le modèle de feuille de style embarqué (<span class="tt">:/resources/theme.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'application. </p>
-<p>Repli explicite : fichier absent/illisible ou marqueur inconnu -&gt; avertissement journalisé, l'application reste utilisable sans feuille de style (comportement historique de <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>, non régressé). </p>
+<p>Repli explicite : fichier absent/illisible ou marqueur inconnu -&gt; avertissement journalisé, l'application reste utilisable sans feuille de style (comportement historique de <span class="tt">main.cpp</span>, non régressé). </p>
 
 </div>
 </div>
@@ -4189,7 +4191,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>. </p>
-<p>Logique pure (<span class="tt">EX-NFR-010</span>), sans dépendance Direct3D/Qt : utilisée à la fois par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (repli si l'asset fichier est absent/illisible, <span class="tt">EX-NFR-040</span>) et par l'export ponctuel de l'atlas de base en fichier (<span class="tt">--export-atlas</span>, cf. <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>), pour que les deux chemins restent l'unique source de vérité de ce contenu. </p><dl class="section return"><dt>Returns</dt><dd>L'image générée (dimensions et pixels). </dd></dl>
+<p>Logique pure (<span class="tt">EX-NFR-010</span>), sans dépendance Direct3D/Qt : utilisée à la fois par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (repli si l'asset fichier est absent/illisible, <span class="tt">EX-NFR-040</span>) et par l'export ponctuel de l'atlas de base en fichier (<span class="tt">--export-atlas</span>, cf. <span class="tt">main.cpp</span>), pour que les deux chemins restent l'unique source de vérité de ce contenu. </p><dl class="section return"><dt>Returns</dt><dd>L'image générée (dimensions et pixels). </dd></dl>
 
 </div>
 </div>
@@ -6087,8 +6089,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9d273e253c37f6033ab963e74c20aee3" name="a9d273e253c37f6033ab963e74c20aee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d273e253c37f6033ab963e74c20aee3">&#9670;&#160;</a></span>evaluateModel()</h2>
+<a id="aae0c56dcacd78f6eebfb767e631fabb3" name="aae0c56dcacd78f6eebfb767e631fabb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae0c56dcacd78f6eebfb767e631fabb3">&#9670;&#160;</a></span>evaluateModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6109,7 +6111,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>algo</em></span>, </td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>algorithmId</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -6124,12 +6126,12 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algo</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax. </p>
+<p>Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">modelPath</td><td>Chemin des poids sauvegardés (<span class="tt">nn::saveWeights</span>, format <span class="tt">LOT-ANNEXE-03</span>). </td></tr>
     <tr><td class="paramname">levelPath</td><td>Niveau sur lequel évaluer. </td></tr>
-    <tr><td class="paramname">algo</td><td><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span> — choisit l'adaptateur <span class="tt">eval::TrainedPolicy</span> et la topologie réseau adaptée. </td></tr>
+    <tr><td class="paramname">algorithmId</td><td><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span> — choisit l'adaptateur <span class="tt">eval::TrainedPolicy</span> et la topologie réseau adaptée. </td></tr>
     <tr><td class="paramname">repetitions</td><td>Nombre d'épisodes rejoués pour la mesure. </td></tr>
   </table>
   </dd>
@@ -6605,7 +6607,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Faut-il re-sonder XInput maintenant ? </p>
-<p><span class="tt">XInputGetState</span> est notablement coûteux sur un slot vide (le pilote énumère les périphériques à chaque appel) : sonder sans relâche une manette absente provoque des micro-saccades chez un joueur clavier (<span class="tt">LOT-33</span>). L'espacement est donc décidé <b>en temps réel</b>, jamais en nombre d'appels : le sondage est déclenché tantôt par la boucle de rendu (une fois par image), tantôt par un temporisateur d'interface (150 ms pour la navigation de menu, 500 ms pour l'onglet des options). Un compteur d'appels donnait donc des délais de détection allant de deux secondes à <b>une minute</b> selon l'appelant — une manette branchée en cours de route n'était jamais vue depuis les écrans d'interface (défaut réel constaté, <span class="tt">LOT-69</span>).</p>
+<p><span class="tt">XInputGetState</span> est notablement coûteux sur un slot vide (le pilote énumère les périphériques à chaque appel) : sonder sans relâche une manette absente provoque des micro-saccades chez un joueur clavier (<span class="tt">LOT-33</span>). L'espacement est donc décidé <b>en temps réel</b>, jamais en nombre d'appels : le sondage est déclenché tantôt par la boucle de rendu (une fois par image), tantôt par un temporisateur d'interface (150 ms pour la navigation de menu, 500 ms pour l'onglet des options). Un compteur d'appels ferait dépendre le délai de détection de l'appelant, dans un rapport de plus de cent entre le plus rapide et le plus lent : c'est la cadence en secondes qui doit être garantie, pas un nombre de tours.</p>
 <p>Fonction <b>pure</b> (<span class="tt">EX-NFR-010</span>) : décidée ici, testable sans manette ni fenêtre. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">wasConnected</td><td>État de connexion du dernier sondage effectif. </td></tr>
@@ -7043,7 +7045,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1" title="Vrai dans les builds de développement (Debug), faux en Release.">core::kDeveloperBuild</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement. </p>
+<p>Variante utilisée par l'IHM (affichage de l'écran de sélection ET garde au lancement, <span class="tt">LOT-70</span>) : identique à <span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span>, sauf en build de <b>développement</b> (<span class="tt"><a class="el" href="namespacecore.html#affbaf55db3c297c638c8399aa855dbfe" title="Vrai dans les builds de développement (Debug), faux en Release.">core::DEVELOPER_BUILD</a></span>, <span class="tt"><a class="el" href="BuildConfig_8h.html" title="Indicateurs de configuration de build (développement vs release).">Core/BuildConfig.h</a></span>) où elle retourne toujours vrai &ndash; pour tester un tableau donné sans rejouer toute la séquence depuis le début à chaque lancement. </p>
 <p><span class="tt"><a class="el" href="#a9a410292879939089d6bf584f60d60e6" title="Règle de déverrouillage (LOT-59 TACHE-06, EX-IHM-005) : fonction pure, seule source de vérité sur ce ...">isLevelUnlocked</a></span> elle-même reste inchangée (ses tests couvrent la règle de progression indépendamment du type de build) ; en Release les deux fonctions coïncident. </p>
 
 </div>
@@ -8209,7 +8211,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Choisit la vignette à afficher pour un type de tuile dans la palette. </p>
-<p>Peindre sans voir ce que l'on pose serait une régression d'usage introduite par le <span class="tt">LOT-42</span> lui-même : dès que le canevas affiche des textures, une palette qui continue de montrer des pastilles de couleur fait choisir « la tuile violette » à l'aveugle.</p>
+<p>INVARIANT : ce que la palette montre est ce que le canevas posera. Dès lors que le canevas affiche des textures, une palette qui montrerait encore des pastilles de couleur ferait choisir « la tuile violette » à l'aveugle.</p>
 <p>Applique <b>exactement</b> la même priorité que le canevas (<span class="tt"><a class="el" href="#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>) — mode Physique → couleur plate ; sinon skin assigné ; sinon damier. Les deux ne peuvent diverger que si l'on duplique la décision, d'où cette fonction unique plutôt qu'un choix pris dans le widget.</p>
 <p>Un type en mode <span class="tt">bitmask16</span> rend la case <b>représentative</b> de la planche (l'intérieur plein) : la planche entière serait illisible en vignette, et la case zéro — la tuile isolée — serait un cas particulier peu représentatif du motif.</p>
 <p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
@@ -11897,8 +11899,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Espaces dans lesquels <code class="param">panel</code> est affiché. </p>
-<p><b>Un masque, pas une valeur unique</b>, depuis le <span class="tt">LOT-69</span> TACHE-08. La déclaration précédente était <em>totale</em> — « chaque panneau appartient à exactement un espace » — et cela ne tient plus : le canevas, l'historique et la palette servent <b>à la fois</b> à l'atelier pixel art et au mode création. Dupliquer les docks serait pire (deux canevas, deux historiques, deux états à tenir synchronisés) ; le masque dit simplement la vérité.</p>
-<p>La garde de complétude change en conséquence : elle vérifiait « exactement un espace », elle vérifie désormais « <b>masque non vide</b> ». Un panneau sans espace resterait affiché partout, ce qui viderait la séparation de son sens — et ne se verrait qu'à l'écran, jamais en relecture. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><b>Un masque, pas une valeur unique</b> (<span class="tt">LOT-69</span> TACHE-08) : un panneau peut servir à plusieurs espaces à la fois — le canevas, l'historique et la palette appartiennent aussi bien à l'atelier pixel art qu'au mode création. Les dupliquer par espace coûterait deux canevas, deux historiques et deux états à tenir synchronisés.</p>
+<p>GARDE DE COMPLÉTUDE : le masque d'un panneau n'est <b>jamais vide</b>. Un panneau sans espace resterait affiché partout, ce qui viderait la séparation de son sens — et ne se verrait qu'à l'écran, jamais en relecture. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">panel</td><td>Panneau interrogé. </td></tr>
   </table>

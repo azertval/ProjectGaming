@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,13 +111,13 @@ Functions</h2></td></tr>
 <tr class="memitem:ade8fa1868816e9e0eb448cd9e642e7ae" id="r_ade8fa1868816e9e0eb448cd9e642e7ae"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade8fa1868816e9e0eb448cd9e642e7ae">findOption</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
 <tr class="memdesc:ade8fa1868816e9e0eb448cd9e642e7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche <span class="tt">--name valeur</span> dans <code class="param">args</code> et retourne <span class="tt">valeur</span>.  <br /></td></tr>
 <tr class="memitem:abdcffd0275a6e91a2b6f3efa9bd7f0e6" id="r_abdcffd0275a6e91a2b6f3efa9bd7f0e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abdcffd0275a6e91a2b6f3efa9bd7f0e6">hasFlag</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
-<tr class="memitem:a4f601abd0cdd60e5efba4d66435d4800" id="r_a4f601abd0cdd60e5efba4d66435d4800"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4f601abd0cdd60e5efba4d66435d4800">isKnownAlgorithm</a> (const std::string &amp;algo)</td></tr>
+<tr class="memitem:a49061d27424d5c414442f34d5f809fd8" id="r_a49061d27424d5c414442f34d5f809fd8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a49061d27424d5c414442f34d5f809fd8">isKnownAlgorithm</a> (const std::string &amp;algorithmId)</td></tr>
 <tr class="memitem:aae8244b40b1c253b01c5b0febe5adcf7" id="r_aae8244b40b1c253b01c5b0febe5adcf7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structTrainArgs.html">TrainArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7">parseTrainArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
 <tr class="memdesc:aae8244b40b1c253b01c5b0febe5adcf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).  <br /></td></tr>
 <tr class="memitem:ab33f7a79233d89171c80842b7c1d3541" id="r_ab33f7a79233d89171c80842b7c1d3541"><td class="memItemLeft">std::optional&lt; <a class="el" href="structEvaluateArgs.html">EvaluateArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541">parseEvaluateArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
-<tr class="memdesc:ab33f7a79233d89171c80842b7c1d3541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).     <br /></td></tr>
+<tr class="memdesc:ab33f7a79233d89171c80842b7c1d3541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">evaluate</span> (hors nom de sous-commande).  <br /></td></tr>
 <tr class="memitem:af81379ab0670ccf1f6ddc55331c46305" id="r_af81379ab0670ccf1f6ddc55331c46305"><td class="memItemLeft">std::optional&lt; <a class="el" href="structExportReplayArgs.html">ExportReplayArgs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305">parseExportReplayArgs</a> (const std::vector&lt; std::string &gt; &amp;args, std::string &amp;error)</td></tr>
-<tr class="memdesc:af81379ab0670ccf1f6ddc55331c46305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).     <br /></td></tr>
+<tr class="memdesc:af81379ab0670ccf1f6ddc55331c46305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse les arguments de <span class="tt">export-replay</span> (hors nom de sous-commande).  <br /></td></tr>
 <tr class="memitem:a2d43895118384262149603a42a7d35d5" id="r_a2d43895118384262149603a42a7d35d5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2d43895118384262149603a42a7d35d5">runTrain</a> (const <a class="el" href="structTrainArgs.html">TrainArgs</a> &amp;args)</td></tr>
 <tr class="memdesc:a2d43895118384262149603a42a7d35d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt">train</span> : construit et lance un entraînement complet sur <span class="tt">args.level</span>, journalise (<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>), sauvegarde les poids du modèle final et exporte un rejeu si résolu.  <br /></td></tr>
 <tr class="memitem:a96fcc0165b6691ab9a7bce381a780f64" id="r_a96fcc0165b6691ab9a7bce381a780f64"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a96fcc0165b6691ab9a7bce381a780f64">runEvaluate</a> (const <a class="el" href="structEvaluateArgs.html">EvaluateArgs</a> &amp;args)</td></tr>
@@ -128,6 +128,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af3ff45c03f528343fcd566389265aaee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la configuration effective d'un run : défauts documentés → fichier <span class="tt">--config</span> (s'il est fourni) → arguments individuels (<code class="param">overrides</code>, priorité la plus haute).  <br /></td></tr>
 <tr class="memitem:a5a2ddbb91586b43f38bc7d36f165f4f5" id="r_a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5a2ddbb91586b43f38bc7d36f165f4f5">writeTrainingConfigJson</a> (const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;config, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit la configuration résolue <code class="param">config</code> dans <code class="param">path</code> (<span class="tt">config.json</span> du dossier de run), pour qu'un run passé reste reproductible sans connaître les valeurs par défaut du code de l'époque.  <br /></td></tr>
+<tr class="memitem:a98a4851fff34724311010336fa9094a3" id="r_a98a4851fff34724311010336fa9094a3"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a98a4851fff34724311010336fa9094a3">hiddenSizeForModel</a> (const std::filesystem::path &amp;modelPath)</td></tr>
+<tr class="memdesc:a98a4851fff34724311010336fa9094a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille de couche cachée avec laquelle <code class="param">modelPath</code> a été entraîné.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ade8fa1868816e9e0eb448cd9e642e7ae" name="ade8fa1868816e9e0eb448cd9e642e7ae"></a>
@@ -199,8 +201,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4f601abd0cdd60e5efba4d66435d4800" name="a4f601abd0cdd60e5efba4d66435d4800"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f601abd0cdd60e5efba4d66435d4800">&#9670;&#160;</a></span>isKnownAlgorithm()</h2>
+<a id="a98a4851fff34724311010336fa9094a3" name="a98a4851fff34724311010336fa9094a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a4851fff34724311010336fa9094a3">&#9670;&#160;</a></span>hiddenSizeForModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aisolver::cli::hiddenSizeForModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Taille de couche cachée avec laquelle <code class="param">modelPath</code> a été entraîné. </p>
+<p>Un modèle n'est rechargeable que sur la topologie exacte qui l'a produit : <span class="tt"><a class="el" href="namespaceaisolver_1_1nn.html#af9693a4d60fca2addb3be3704e137f6b" title="Recharge dans network les poids sauvegardés dans path.">nn::loadWeights</a></span> compare les formes et refuse le moindre écart. Or l'entraînement respecte <span class="tt">hiddenSize</span>, qu'un run peut avoir changé : supposer la valeur par défaut à la relecture rend tout modèle entraîné autrement définitivement illisible. La taille est donc relue dans le <span class="tt">config.json</span> déposé à côté du modèle — c'est ce à quoi sert ce fichier. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelPath</td><td>Chemin du fichier de poids ; son dossier est celui du run. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La taille lue, ou <span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a968451bde43bec9fcb231a8a165384ff" title="Taille de la couche cachée par défaut de policyTopology : compromis capacité/coût de propagation avan...">training::evolutionary::DEFAULT_HIDDEN_SIZE</a></span> si le <span class="tt">config.json</span> est absent (modèle déplacé hors de son dossier de run) — seule valeur supposable alors. </dd></dl>
+
+</div>
+</div>
+<a id="a49061d27424d5c414442f34d5f809fd8" name="a49061d27424d5c414442f34d5f809fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49061d27424d5c414442f34d5f809fd8">&#9670;&#160;</a></span>isKnownAlgorithm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +247,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool aisolver::cli::isKnownAlgorithm </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>algo</em></span></td><td>)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>algorithmId</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -221,7 +257,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <span class="tt">algo</span> est l'une des quatre valeurs acceptées (<span class="tt">evo</span>/<span class="tt">pg</span>/<span class="tt">ac</span>/<span class="tt">avance</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si <span class="tt">algorithmId</span> est l'une des quatre valeurs acceptées (<span class="tt">evo</span>/<span class="tt">pg</span>/<span class="tt">ac</span>/<span class="tt">avance</span>). </dd></dl>
 
 </div>
 </div>
@@ -291,7 +327,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).    </p>
+<p>Analyse les arguments de <span class="tt">evaluate</span> (hors nom de sous-commande). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">args</td><td>Arguments bruts (ex. <span class="tt">argv[2..]</span>). </td></tr>
@@ -299,7 +335,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>/<span class="tt">--algo</span> manquent ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées.    </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>, <span class="tt">--algo</span> ou <span class="tt">--model</span> manquent, ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées. </dd></dl>
 
 </div>
 </div>
@@ -330,7 +366,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Analyse les arguments de <span class="tt">train</span> (hors nom de sous-commande).    </p>
+<p>Analyse les arguments de <span class="tt">export-replay</span> (hors nom de sous-commande). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">args</td><td>Arguments bruts (ex. <span class="tt">argv[2..]</span>). </td></tr>
@@ -338,7 +374,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>/<span class="tt">--algo</span> manquent ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées.    </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les arguments analysés, ou <span class="tt">std::nullopt</span> si <span class="tt">--level</span>, <span class="tt">--algo</span>, <span class="tt">--model</span> ou <span class="tt">--output</span> manquent, ou si <span class="tt">--algo</span> n'est pas l'une des quatre valeurs acceptées. </dd></dl>
 
 </div>
 </div>

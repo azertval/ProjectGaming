@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-67-tache-07-contenu-documentation.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-67-trajectoires-editables_2tache-07-contenu-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-67.html#md_Lot_2LOT-67-trajectoires-editables_2epic" title="Lot/LOT-67-trajectoires-editables/epic.md">LOT-67</a> · <b>Emplacement :</b> <span class="tt">Source/Elements/Levels</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3236"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3241"></a>
 Contexte</h1>
 <p>Un lot n'est livre que si le referentiel dit la verite sur ce qu'il apporte, et si le contenu livre illustre le format qu'il introduit.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3237"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3242"></a>
 Travail a realiser</h1>
 <ul>
 <li>Declarer les exigences nouvelles (<span class="tt">EX-GP-054</span>, <span class="tt">EX-GP-055</span>, <span class="tt">EX-LVL-008</span>, <span class="tt">EX-EDIT-032</span>, <span class="tt">EX-EDIT-033</span>) et <b>amender</b> <span class="tt">EX-GP-026</span>, dont la limite a deux points disparait.</li>
@@ -105,19 +105,19 @@ Travail a realiser</h1>
 <li>Documenter le format (<span class="tt">Source/Elements/Levels/README.md</span>) et le comportement (<span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span>), en y portant la distinction budget/capacite sous forme de tableau.</li>
 <li>Mettre a jour <span class="tt">CHANGELOG.md</span>, inscrire le lot dans <span class="tt"><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></span>, regenerer <span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3238"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3243"></a>
 Fichiers impactes</h1>
 <p><span class="tt">Source/Elements/Levels/demo-plateforme.json</span>, <span class="tt">README.md</span>, <span class="tt"><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></span>, <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span>, <span class="tt"><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></span>, <span class="tt"><a class="el" href="guide-niveaux_8md.html">Documentation/Guide/guide-niveaux.md</a></span>, <span class="tt">Documentation/Lot/</span>, <span class="tt">CHANGELOG.md</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3239"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3244"></a>
 Tests (obligatoires)</h1>
 <p>Le lint d'exigences (<span class="tt">scripts/lint_exigences.py</span>) verifie que chaque exigence declaree est referencee au moins une fois ; <span class="tt">scripts/generate_cahier_test.py --check</span> verifie que chaque test porte son bloc de documentation de cas de test.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3240"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3245"></a>
 Points d'attention</h1>
 <p><b>Aucun nouveau tableau n'est concu ici.</b> La migration de format ne change aucun comportement, ce qui garde le test de parcours complet valide. Dessiner un niveau exploitant reellement les circuits fermes est un acte de <em>level design</em>, distinct de ce lot d'outillage — et il faudra alors eviter d'y meler une pente, a cause du defaut connu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3241"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3246"></a>
 Definition de fait (DoD)</h1>
 <p>Lint d'exigences vert, cahier de test regenere, tous les niveaux livres se chargent, <span class="tt">ctest</span> a 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3242"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3247"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-008</span>, <span class="tt">EX-LVL-005</span>, <span class="tt">EX-GP-054</span>, <span class="tt">EX-GP-055</span>, <span class="tt">EX-EDIT-032</span>, <span class="tt">EX-EDIT-033</span>. </p>
 </div></div><!-- contents -->

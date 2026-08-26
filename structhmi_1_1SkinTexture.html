@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,7 +111,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a0316ae368528ded031318a4f742faa2f" id="r_a0316ae368528ded031318a4f742faa2f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0316ae368528ded031318a4f742faa2f">height</a> = 0</td></tr>
 <tr class="memdesc:a0316ae368528ded031318a4f742faa2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la texture, en pixels.  <br /></td></tr>
 <tr class="memitem:adb205ea88fb4f3ffa43f9e210046042c" id="r_adb205ea88fb4f3ffa43f9e210046042c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb205ea88fb4f3ffa43f9e210046042c">animatedFrame</a></td></tr>
-<tr class="memdesc:adb205ea88fb4f3ffa43f9e210046042c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon (image fixe : région entière, comme avant ce lot).  <br /></td></tr>
+<tr class="memdesc:adb205ea88fb4f3ffa43f9e210046042c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon — image fixe, dont la région échantillonnée est l'image entière.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Skin déjà chargé, prêt à être lié par la composition. </p>
@@ -128,7 +128,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon (image fixe : région entière, comme avant ce lot). </p>
+<p>Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon — image fixe, dont la région échantillonnée est l'image entière. </p>
 <p>N'a de sens qu'en mode <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">SkinMode::Single</a></span> sans silhouette : <span class="tt">bitmask16</span> et le détourage de silhouette excluent l'animation (limite assumée, voir <span class="tt"><a class="el" href="namespacehmi.html#a703532077ec14c39205ccde5efbfb6bc" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">resolveTileAppearance</a></span>). </p>
 
 </div>

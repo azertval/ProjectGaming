@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-10-tache-04-boucle-generation.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2tache-04-boucle-generation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-10.html#md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2epic" title="Lot-Annexe/LOT-ANNEXE-10-algorithme-evolutionniste/epic.md">LOT-ANNEXE-10</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Evolutionary</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3800"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3806"></a>
 Contexte</h1>
 <p>TACHE-01 à TACHE-03 fournissent les briques élémentaires (population, évaluation de fitness, opérateurs génétiques) mais aucune ne les assemble en une boucle exécutable. Cette tâche fournit ce point d'assemblage — la première chose qu'un appelant externe (LOT-ANNEXE-11) manipule réellement — et la connecte à <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09) pour rendre chaque génération observable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3801"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3807"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html" title="Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable,...">aisolver::training::evolutionary::EvolutionaryTrainer</a></span></b> : construit à partir d'une <span class="tt"><a class="el" href="structEvolutionaryConfig.html" title="Regroupe les paramètres de l&#39;algorithme évolutionniste, valeurs par défaut documentées ci-dessus (con...">EvolutionaryConfig</a></span> (TACHE-03, incluant la taille de population de TACHE-01), d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;</span> (LOT-ANNEXE-05), d'un <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> seedé explicitement et d'un <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a>&amp;</span> (LOT-ANNEXE-09). Possède une <span class="tt"><a class="el" href="classPopulation.html" title="Ensemble de taille fixe N d&#39;individus de même topologie, poids indépendants.">Population</a></span> interne.</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b><span class="tt">bestIndividual() const</span></b> : accès en lecture seule au meilleur individu connu de la génération courante — utilisé plus tard par LOT-ANNEXE-11/TACHE-02 pour le rejeu final.</li>
 <li>Aucune notion de critère d'arrêt métier dans cette classe : <span class="tt">runGeneration()</span> exécute <b>exactement une</b> génération par appel ; c'est à l'appelant (LOT-ANNEXE-11) de décider combien de fois l'invoquer et pourquoi s'arrêter (décision de cadrage de l'épic).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3802"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3808"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="EvolutionaryTrainer_8h.html" title="Boucle de génération de l&#39;algorithme évolutionniste (LOT-ANNEXE-10, EX-IA-011).">Source/AiSolver/Training/Evolutionary/EvolutionaryTrainer.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__evolutionary__trainer_8cpp.html" title="Tests unitaires de EvolutionaryTrainer (LOT-ANNEXE-10, TACHE-04).">Source/Test/Unit/AiSolver/Training/test_evolutionary_trainer.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3803"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3809"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Taille de population préservée</b> : après <span class="tt">runGeneration()</span>, la population contient toujours exactement <span class="tt">N</span> individus.</li>
@@ -119,22 +119,22 @@ Tests (obligatoires)</h1>
 <li><b>Indice de génération correct</b> : les appels à <span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">TrainingStatsRecorder::record</a></span> reçoivent un indice de génération strictement croissant, sans saut ni répétition, correspondant au nombre d'appels effectifs à <span class="tt">runGeneration()</span>.</li>
 <li><b>Cohérence de <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual()</a></span></b> : à tout instant après un appel à <span class="tt">runGeneration()</span>, l'individu retourné a bien le fitness maximal de la population courante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3804"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3810"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'élite n'est pas réévaluée</b> : son fitness de la génération précédente reste valable tant que ses poids ne changent pas (elle est recopiée, pas régénérée) — économise un run d'environnement complet par génération ; ne pas réintroduire un appel à <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span> sur l'élite par erreur.</li>
 <li><b>Double tampon obligatoire</b> : construire la génération suivante « en place » dans le même buffer risquerait qu'un individu sélectionné tardivement comme parent ait déjà été écrasé par un enfant d'une opération précédente de la <b>même</b> génération.</li>
 <li><b><span class="tt"><a class="el" href="classEvolutionaryTrainer.html" title="Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable,...">EvolutionaryTrainer</a></span> ne sait pas ce qu'est un niveau « résolu »</b> : uniquement le fitness numérique, jamais un booléen de succès — ce booléen (nécessaire au critère d'arrêt de LOT-ANNEXE-11) provient de LOT-ANNEXE-08, pas de cette classe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3805"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3811"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Boucle de génération disponible, testée (<span class="tt">ctest</span> vert), journalisée via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-011</span> déclarée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3806"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3812"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — population, fitness, sélection, croisement, mutation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3807"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3813"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-011</span> (nouvelle). </p>
 </div></div><!-- contents -->

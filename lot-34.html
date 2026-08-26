@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-34.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>implémenté</b> (build/tests verts ; vérification IHM manuelle en cours). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1804"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1809"></a>
 Programme de refonte de l'IHM (LOT-34 → LOT-39)</h1>
 <p>Ce lot ouvre un <b>programme pluri-lots</b> de refonte de l'interface. L'éditeur et l'UI hors-jeu actuels sont dessinés <b>entièrement à la main</b> (quads <span class="tt">SpriteBatch</span> + police bitmap procédurale, <b>aucune bibliothèque d'UI</b>, <b>aucune primitive de ligne</b>). Cela rend illisibles les liaisons d'interrupteurs (indiquées par simple teinte de case), fragile la liste des niveaux, pénible l'arrivée des textures, et coûteux à maintenir (<span class="tt">EditorScreen</span> ≈ 1200 lignes mêlant interaction et dessin bas niveau).</p>
 <p><b>Décision structurante (tranchée avec le demandeur)</b> : migrer <b>toute l'UI hors-jeu</b> (éditeur, menus, options, remappage) vers <b>Qt</b> (application desktop, docking <span class="tt">QDockWidget</span>, layouts réglables hors code). <b>Seul le rendu in-game reste DirectX 11</b>, embarqué dans un viewport Qt. <span class="tt">Core</span> (modèle, validation, ECS, physique) <b>n'est pas touché</b> : toute la logique d'édition est déjà isolée dans <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (pur, testé) et le format dans <span class="tt">LevelLoader</span>/<span class="tt">LevelWriter</span>.</p>
@@ -117,12 +117,12 @@ Programme de refonte de l'IHM (LOT-34 → LOT-39)</h1>
 <td class="markdownTableBodyNone"><a class="el" href="lot-39.html" title="LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)">LOT-39</a>  </td><td class="markdownTableBodyNone">Textures depuis fichiers (loader + assets)  </td><td class="markdownTableBodyNone">« Quand j'implémenterai des textures, ce sera compliqué »  </td></tr>
 </table>
 <p>Chaque lot est <b>livré et vérifié indépendamment</b> (une PR chacun) ; l'ancien exécutable reste fonctionnel en parallèle jusqu'à parité (retrait au LOT-38).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1805"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1810"></a>
 Objectif</h1>
 <p>Poser la <b>fondation technique</b> : une application Qt (<span class="tt">QApplication</span> + <span class="tt">QMainWindow</span>) qui possède la fenêtre principale et la boucle d'événements, dans laquelle le <b>rendu Direct3D 11 existant est embarqué</b> via un <span class="tt">QWindow</span> natif. À la fin du lot, un niveau se <b>charge, s'affiche et se joue</b> dans la fenêtre Qt, avec exactement le même rendu, le même déterminisme et le même ressenti d'entrées qu'aujourd'hui — <b>sans aucune interface d'édition</b> (introduite au LOT-35). C'est le lot qui dérisque l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1806"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1811"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1807"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1812"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">HMI</span> devient une bibliothèque de rendu</b> (au lieu de l'exécutable) : <span class="tt">GraphicsDevice</span>, <span class="tt">SpriteBatch</span>, <span class="tt">SpriteRenderer</span>, <span class="tt">TextureAtlas</span>, <span class="tt">Camera2D</span>, <span class="tt">TileVisuals</span>, <span class="tt">RoomGrid</span>, <span class="tt">BitmapFont</span>, <span class="tt">FlagIcons</span> restent tels quels et sont liés par la nouvelle cible.</li>
@@ -131,10 +131,10 @@ Inclus</h2>
 <li><b>Boucle de rendu pilotée par Qt</b> rejouant <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span> : un tick (<span class="tt">QWindow::requestUpdate</span> ou <span class="tt">QTimer</span>) mesure le temps réel écoulé, appelle <span class="tt">timestep.advance</span>, exécute les pas, appelle <span class="tt">beginInputFrame()</span> <b>par pas consommé</b> (discipline <span class="tt">LOT-33</span> préservée), puis présente une fois par frame avec <span class="tt">interpolationAlpha</span> (<span class="tt">EX-ARCH-031</span>).</li>
 <li><b>Entrées Qt → <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></span></b> : traduction des événements clavier/souris Qt du viewport vers l'état d'entrée existant ; <b>relâchement global à la perte de focus</b> (<span class="tt">focusOut</span>, <span class="tt">EX-CTRL</span> du <span class="tt">LOT-33</span>). <b>XInput manette conservé</b> (sondage dans le tick, throttling <span class="tt">LOT-33</span> réutilisé).</li>
 <li><b>Build</b> : <span class="tt">find_package(Qt6 COMPONENTS Widgets Gui)</span>, <span class="tt">CMAKE_AUTOMOC/AUTOUIC/AUTORCC ON</span> ; provisionnement Qt documenté (local + CI, voir Décisions). <span class="tt">HMI</span> et <span class="tt">Editor</span> lient <span class="tt">Core</span>.</li>
-<li><b>Coexistence</b> : l'ancien exécutable <span class="tt">ProjectGaming</span> (boucle <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span> + <span class="tt">hmi::Window</span>) <b>reste compilé et jouable</b> — aucune régression de jeu pendant toute la migration.</li>
+<li><b>Coexistence</b> : l'ancien exécutable <span class="tt">ProjectGaming</span> (boucle <span class="tt">main.cpp</span> + <span class="tt">hmi::Window</span>) <b>reste compilé et jouable</b> — aucune régression de jeu pendant toute la migration.</li>
 <li>Documentation (guide d'architecture IHM, provisionnement Qt), tests de la logique nouvelle découplée de Qt.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1808"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1813"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Toute UI d'édition</b> (palette, outils, docks, peinture) — LOT-35. Ce lot n'affiche que le jeu.</li>
@@ -143,7 +143,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Textures depuis fichiers</b> — LOT-39 ; le <span class="tt">TextureAtlas</span> procédural reste la source d'images.</li>
 <li><b>Portage du rendu du jeu vers une autre API</b> — le rendu in-game <b>reste D3D11</b>, inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1809"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1814"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Qt possède la boucle, D3D11 rend dans un <span class="tt">QWindow</span> natif</b> : approche standard des éditeurs de jeux — <span class="tt">createWindowContainer</span> fournit un HWND présentable sans second processus ni fenêtre séparée. Alternative écartée : éditeur externe (autre techno) → duplication du rendu d'aperçu.</li>
@@ -153,13 +153,13 @@ Décisions de cadrage</h1>
 <li><b>Release : l'exe cesse d'être « autonome » au sens strict</b> (<span class="tt">release.yml</span>). Le lien dynamique Qt impose de <b>déployer les DLL Qt</b> à côté du binaire via <b><span class="tt">windeployqt</span></b> (Core/Gui/Widgets + plugin <span class="tt">platforms/qwindows.dll</span>) avant de packager l'archive <span class="tt">debug-latest</span>. À anticiper : c'est le changement le plus visible par rapport au modèle <span class="tt">FetchContent</span> header-only. Le basculement effectif de la release sur <span class="tt">ProjectGaming</span> (et le retrait de l'ancien exe) est finalisé au <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a>.</li>
 <li><b>Coexistence des deux exécutables jusqu'à parité</b> : ne jamais laisser le jeu injouable entre deux lots ; l'ancien chemin est retiré seulement quand le nouveau couvre tout (LOT-38).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1810"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1815"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-001</span> (l'UI hors-jeu repose sur Qt), <span class="tt">EX-IHM-002</span> (rendu in-game D3D11 embarqué dans un viewport Qt), <span class="tt">EX-BUILD-010</span> (dépendance Qt provisionnée et documentée, local + CI).</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-CTRL-020</span>/<span class="tt">EX-CTRL-021</span> (latence et échantillonnage des entrées), <span class="tt">EX-ARCH-031</span> (interpolation de rendu), <span class="tt">EX-REN-004</span> (présentation flip), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-ARCH-011</span>/<span class="tt">EX-ARCH-012</span> (frontière <span class="tt">HMI → Core</span>, <span class="tt">Core</span> intact).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1811"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1816"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot. </p>
@@ -176,7 +176,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-34-tache-04-niveau-jouable-doc.html#md_Lot_2LOT-34-refonte-ihm-qt-socle_2tache-04-niveau-jouable-doc" title="Lot/LOT-34-refonte-ihm-qt-socle/tache-04-niveau-jouable-doc.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Chargement/affichage/jeu d'un niveau dans le viewport ; documentation &amp; vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Editor</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1812"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1817"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt">cmake --preset vs</span> configure et compile la nouvelle cible <span class="tt">ProjectGaming</span> <b>et</b> l'ancien <span class="tt">ProjectGaming</span>, Qt6 étant provisionné localement ; le provisionnement est <b>documenté et reproductible</b> en CI (<span class="tt">windows-2022</span>).</li>
@@ -186,13 +186,13 @@ Critères d'acceptation du lot</h1>
 <li>La simulation reste <b>strictement déterministe</b> : la suite de tests passe à 100 % sans changement de résultat (<span class="tt">EX-NFR-002</span>).</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement (code généré <span class="tt">moc</span> isolé, en-têtes Qt traités en externe), Doxygen (binaire CI 1.9.8 vérifié localement) et lint des exigences verts. La logique nouvelle découplée de Qt (traduction d'entrées, cadence) est <b>couverte par des tests</b> ; l'intégration Qt/D3D11 (dépendance GPU) est <b>vérifiée visuellement</b>, comme les autres lots de rendu.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1813"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1818"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise <span class="tt">hmi::GraphicsDevice</span>/<span class="tt">SpriteBatch</span>/<span class="tt">SpriteRenderer</span>/<span class="tt">Camera2D</span> (<span class="tt">LOT-01</span>/<span class="tt">05</span>), <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span> + <span class="tt">interpolationAlpha</span> (<span class="tt">LOT-01</span>/<span class="tt">33</span>), la discipline d'entrées du <span class="tt">LOT-33</span>, et <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>/<span class="tt">LevelScene</span> (<span class="tt">LOT-07</span>…). Introduit la dépendance externe <b>Qt6</b>.</li>
 <li><b>Prérequis de tous les lots suivants</b> (LOT-35 → LOT-39) : rien ne peut être bâti dans l'IHM Qt tant que ce socle n'est pas livré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1814"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1819"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-34-tache-01-provisionnement-qt-build.html" title="TACHE-01 — Provisionnement Qt (local + CI/release) &amp; intégration CMake ; `HMI` en bibliothèque">TACHE-01 — Provisionnement Qt (local + CI/release) &amp; intégration CMake ; `HMI` en bibliothèque</a></li>

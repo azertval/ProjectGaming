@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/AiSolver/Training/test_generation_comparator.cpp File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/AiSolver/Eval/test_generation_comparator.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){initNavTree('test__generation__comparator_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>/<span class="tt"><a class="el" href="#a5a030a9e6b1b0ac6e2ab114e631b730a" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span> (LOT-ANNEXE-14, TACHE-03), puis comparaison chiffrée réelle à quatre séries (évolutionniste, REINFORCE, acteur-critique, DQN) qui clôt l'exigence ferme de la génération 3.  
+<p>Tests unitaires de <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>/<span class="tt"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span> (LOT-ANNEXE-14, TACHE-03), puis comparaison chiffrée réelle à quatre séries (évolutionniste, REINFORCE, acteur-critique, DQN) qui clôt l'exigence ferme de la génération 3.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
@@ -103,28 +103,34 @@ $(function(){initNavTree('test__generation__comparator_8cpp.html','',''); });
 <code>#include &lt;system_error&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">../Training/TrivialLevelFixture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GenerationComparator_8h_source.html">AiSolver/Eval/GenerationComparator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rng_8h_source.html">AiSolver/Math/Rng.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Sgd_8h_source.html">AiSolver/Optim/Sgd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingStatsRecorder_8h_source.html">AiSolver/Stats/TrainingStatsRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ActorCriticTrainer_8h_source.html">AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CriticNetwork_8h_source.html">AiSolver/Training/ActorCritic/CriticNetwork.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DqnTrainer_8h_source.html">AiSolver/Training/Advanced/DqnTrainer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="GenerationComparator_8h_source.html">AiSolver/Training/Advanced/GenerationComparator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Advanced/QNetwork.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DqnTrainer_8h_source.html">AiSolver/Training/Dqn/DqnTrainer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Dqn/QNetwork.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EvolutionaryConfig_8h_source.html">AiSolver/Training/Evolutionary/EvolutionaryConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EvolutionaryTrainer_8h_source.html">AiSolver/Training/Evolutionary/EvolutionaryTrainer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ReinforceTrainer_8h_source.html">AiSolver/Training/PolicyGradient/ReinforceTrainer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">TrivialLevelFixture.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:GenerationComparisonResult" id="r_GenerationComparisonResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structNamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structGenerationComparisonResult.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structNamedSeries.html#a45756688601293f0c6677a13e5b3ecbe" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structGenerationComparisonResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:NamedSeries" id="r_NamedSeries"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structNamedSeries.html">NamedSeries</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> par essai (même schéma de colonnes communes que <span class="tt">ConvergenceComparator</span>).  <a href="structNamedSeries.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DqnConfig" id="r_DqnConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structDqnConfig.html">DqnConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run DQN &ndash; structure explicite dédiée (pas de constante codée en dur dans le trainer), même esprit que <span class="tt"><a class="el" href="structReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span>/<span class="tt"><a class="el" href="structActorCriticConfig.html" title="Paramètres d&#39;un run acteur-critique : mêmes défauts que ReinforceConfig (LOT-ANNEXE-12),...">ActorCriticConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>).  <a href="structDqnConfig.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DqnTrainer" id="r_DqnTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classDqnTrainer.html">DqnTrainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble <span class="tt"><a class="el" href="classQNetwork.html" title="Réseau distinct de la politique/du critique (nn::Network, LOT-ANNEXE-03), une sortie par action de l&#39;...">QNetwork</a></span> (principal + cible), <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>, <span class="tt"><a class="el" href="test__dqn__loss_8cpp.html#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">computeDqnLoss</a></span> et un optimiseur (<span class="tt">optim::IOptimizer</span>, <span class="tt">LOT-ANNEXE-04</span>) en une boucle par pas, journalisée par épisode (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, <span class="tt">LOT-ANNEXE-09</span>) exactement comme <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>/<span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>.  <a href="classDqnTrainer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EvolutionaryTrainer" id="r_EvolutionaryTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classEvolutionaryTrainer.html">EvolutionaryTrainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble population, évaluation de fitness et opérateurs génétiques en une boucle exécutable, journalisée via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>.  <a href="classEvolutionaryTrainer.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -138,19 +144,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:a30871d2dd77c16418b64a626c0259569"><td class="mdescLeft">&#160;</td><td class="mdescRight">La conversion générations/individus vers un nombre d'épisodes de jeu équivalent est cohérente avec le budget déclaré pour les autres approches (un individu évalué == un épisode).  <br /></td></tr>
 <tr class="memitem:a31fd42c3a86a3ddc6f34bc1913bf4444" id="r_a31fd42c3a86a3ddc6f34bc1913bf4444"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a31fd42c3a86a3ddc6f34bc1913bf4444">TEST</a> (GenerationComparatorTest, ComparaisonAQuatreSeriesClotureGeneration3)</td></tr>
 <tr class="memdesc:a31fd42c3a86a3ddc6f34bc1913bf4444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparaison chiffrée à quatre séries (TACHE-03) : évolutionniste (LOT-ANNEXE-10), REINFORCE (LOT-ANNEXE-12), acteur-critique (LOT-ANNEXE-13) et DQN (ce lot, TACHE-01), même niveau de contrôle, même budget d'épisodes de jeu (conversion équitable pour l'évolutionniste).  <br /></td></tr>
-<tr class="memitem:add00975471503535b34b74ebb42ec1e9" id="r_add00975471503535b34b74ebb42ec1e9"><td class="memItemLeft">ConvergenceReport&#160;</td><td class="memItemRight"><a class="el" href="#add00975471503535b34b74ebb42ec1e9">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:add00975471503535b34b74ebb42ec1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
-<tr class="memitem:a2cf9c7efba9b2708c903109fcca12bab" id="r_a2cf9c7efba9b2708c903109fcca12bab"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab">compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2cf9c7efba9b2708c903109fcca12bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
-<tr class="memitem:a5a030a9e6b1b0ac6e2ab114e631b730a" id="r_a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a5a030a9e6b1b0ac6e2ab114e631b730a">evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
-<tr class="memdesc:a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
+<tr class="memitem:a6cd298aafd54f7b991dc89580f50dec2" id="r_a6cd298aafd54f7b991dc89580f50dec2"><td class="memItemLeft">ConvergenceReport&#160;</td><td class="memItemRight"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a6cd298aafd54f7b991dc89580f50dec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
+<tr class="memitem:a03ed0a9b92ba524110076d38715fa25a" id="r_a03ed0a9b92ba524110076d38715fa25a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a">compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a03ed0a9b92ba524110076d38715fa25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
+<tr class="memitem:ad3b982ce5423c714f5a7d8b9e132d103" id="r_ad3b982ce5423c714f5a7d8b9e132d103"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103">evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
+<tr class="memdesc:ad3b982ce5423c714f5a7d8b9e132d103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
 <tr class="memitem:ac04a455df7a8844fe27f78b4da9d4515" id="r_ac04a455df7a8844fe27f78b4da9d4515"><td class="memItemLeft">std::unique_ptr&lt; nn::Network &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac04a455df7a8844fe27f78b4da9d4515">buildNetwork</a> (const <a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:ac04a455df7a8844fe27f78b4da9d4515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un <span class="tt">nn::Network</span> neuf conforme à <code class="param">topology</code>.  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
 <tr class="memdesc:aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie standard « politique » du programme Lot-Annexe : une couche cachée <span class="tt">tanh</span>, une couche de sortie <span class="tt">softmax</span> de taille <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> (<span class="tt"><a class="el" href="ActionSpace_8h.html" title="Espace d&#39;action discret et fini de l&#39;agent (LOT-ANNEXE-07, EX-IA-007).">AiSolver/Env/ActionSpace.h</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>/<span class="tt"><a class="el" href="#a5a030a9e6b1b0ac6e2ab114e631b730a" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span> (LOT-ANNEXE-14, TACHE-03), puis comparaison chiffrée réelle à quatre séries (évolutionniste, REINFORCE, acteur-critique, DQN) qui clôt l'exigence ferme de la génération 3. </p>
+<div class="textblock"><p>Tests unitaires de <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>/<span class="tt"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span> (LOT-ANNEXE-14, TACHE-03), puis comparaison chiffrée réelle à quatre séries (évolutionniste, REINFORCE, acteur-critique, DQN) qui clôt l'exigence ferme de la génération 3. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac04a455df7a8844fe27f78b4da9d4515" name="ac04a455df7a8844fe27f78b4da9d4515"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac04a455df7a8844fe27f78b4da9d4515">&#9670;&#160;</a></span>buildNetwork()</h2>
@@ -190,8 +196,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="add00975471503535b34b74ebb42ec1e9" name="add00975471503535b34b74ebb42ec1e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add00975471503535b34b74ebb42ec1e9">&#9670;&#160;</a></span>compareConvergence()</h2>
+<a id="a6cd298aafd54f7b991dc89580f50dec2" name="a6cd298aafd54f7b991dc89580f50dec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd298aafd54f7b991dc89580f50dec2">&#9670;&#160;</a></span>compareConvergence()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +206,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ConvergenceReport <a class="el" href="namespaceaisolver_1_1training.html#add00975471503535b34b74ebb42ec1e9">aisolver::training::compareConvergence</a> </td>
+          <td class="memname">ConvergenceReport <a class="el" href="namespaceaisolver_1_1eval.html#a6cd298aafd54f7b991dc89580f50dec2">aisolver::eval::compareConvergence</a> </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPaths</em></span>, </td>
         </tr>
@@ -226,16 +232,16 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csvPaths</td><td>Un CSV par essai ; au moins un élément. </td></tr>
-    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
-    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#a2f56ad144c82570e40925363ddfdd9d0" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
+    <tr><td class="paramname">rewardThreshold</td><td>Même seuil que <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>, partagé entre les deux algorithmes comparés. </td></tr>
+    <tr><td class="paramname">finalWindowSize</td><td>Même fenêtre que <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#ab828e7c63835fe909deadc98e741299e" title="Lit un CSV produit par TrainingStatsRecorder et calcule ses métriques de convergence.">analyzeRun</a></span>. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2cf9c7efba9b2708c903109fcca12bab" name="a2cf9c7efba9b2708c903109fcca12bab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cf9c7efba9b2708c903109fcca12bab">&#9670;&#160;</a></span>compareGenerations()</h2>
+<a id="a03ed0a9b92ba524110076d38715fa25a" name="a03ed0a9b92ba524110076d38715fa25a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ed0a9b92ba524110076d38715fa25a">&#9670;&#160;</a></span>compareGenerations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +250,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt; <a class="el" href="namespaceaisolver_1_1training.html#a2cf9c7efba9b2708c903109fcca12bab">aisolver::training::compareGenerations</a> </td>
+          <td class="memname">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt; <a class="el" href="namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a">aisolver::eval::compareGenerations</a> </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>series</em></span>, </td>
         </tr>
@@ -266,7 +272,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Applique <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni. </p>
+<p>Applique <span class="tt"><a class="el" href="test__convergence__comparator_8cpp.html#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">series</td><td>Une entrée par approche comparée (évolutionniste, REINFORCE, acteur-critique, algorithme avancé, ...) ; chaque série lue indépendamment des autres. </td></tr>
@@ -278,8 +284,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a030a9e6b1b0ac6e2ab114e631b730a" name="a5a030a9e6b1b0ac6e2ab114e631b730a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a030a9e6b1b0ac6e2ab114e631b730a">&#9670;&#160;</a></span>evolutionaryEpisodeBudget()</h2>
+<a id="ad3b982ce5423c714f5a7d8b9e132d103" name="ad3b982ce5423c714f5a7d8b9e132d103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b982ce5423c714f5a7d8b9e132d103">&#9670;&#160;</a></span>evolutionaryEpisodeBudget()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +294,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="namespaceaisolver_1_1training.html#a5a030a9e6b1b0ac6e2ab114e631b730a">aisolver::training::evolutionaryEpisodeBudget</a> </td>
+          <td class="memname">std::size_t <a class="el" href="namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103">aisolver::eval::evolutionaryEpisodeBudget</a> </td>
           <td>(</td>
           <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>generationCount</em></span>, </td>
         </tr>
@@ -380,7 +386,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. 3 essais de chaque approche, budget de jeu equivalent, niveau trivial.<br  />
-2. <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span> sur les quatre series.<br  />
+2. <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span> sur les quatre series.<br  />
  <b>Resultat attendu :</b> Les quatre rapports sont presents, ecart-type fini et positif ou nul. </p>
 
 </div>
@@ -410,7 +416,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. <span class="tt">generationCount = 15</span>, <span class="tt">populationSize = 8</span>.<br  />
-2. <span class="tt"><a class="el" href="#a5a030a9e6b1b0ac6e2ab114e631b730a" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103" title="Convertit un budget évolutionniste (générations × population) en nombre équivalent d&#39;épisodes de jeu ...">evolutionaryEpisodeBudget</a></span>.<br  />
  <b>Resultat attendu :</b> <span class="tt">120</span> (== 15 * 8). </p>
 
 </div>
@@ -440,7 +446,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Deux series avec des colonnes supplementaires differentes.<br  />
-2. <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
  <b>Resultat attendu :</b> Les deux series sont lues sans erreur, resultats presents. </p>
 
 </div>
@@ -470,7 +476,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Deux series synthetiques.<br  />
-2. <span class="tt"><a class="el" href="#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> direct vs <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> direct vs <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
  <b>Resultat attendu :</b> Memes metriques (episodesToThreshold, ecart-type) des deux cotes. </p>
 
 </div>
@@ -500,7 +506,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Trois series, l'une vide.<br  />
-2. <span class="tt"><a class="el" href="#a2cf9c7efba9b2708c903109fcca12bab" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
+2. <span class="tt"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a" title="Applique compareConvergence (LOT-ANNEXE-13) à chaque série, dans l&#39;ordre fourni.">compareGenerations</a></span>.<br  />
  <b>Resultat attendu :</b> Rapport absent pour la serie vide, present pour les deux autres. </p>
 
 </div>
@@ -518,7 +524,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_b2e19c2470c154dcc7e85c3caee9daa6.html">AiSolver</a></li><li class="navelem"><a href="dir_097cade96c6046bf5bf9beabf8f07c34.html">Training</a></li><li class="navelem"><a href="test__generation__comparator_8cpp.html">test_generation_comparator.cpp</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_b2e19c2470c154dcc7e85c3caee9daa6.html">AiSolver</a></li><li class="navelem"><a href="dir_d63ef91f4568d3f8ef07466079e10cee.html">Eval</a></li><li class="navelem"><a href="test__generation__comparator_8cpp.html">test_generation_comparator.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

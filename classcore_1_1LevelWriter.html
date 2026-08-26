@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -230,7 +230,7 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">planes</td><td>Plans picturaux du niveau (<span class="tt">EX-DEC-040</span>, LOT-69), émis dans le tableau racine optionnel <span class="tt">"planes"</span>, omis si vide. Chaque champ à sa valeur par défaut est omis (convention du <span class="tt">LOT-67</span>). </td></tr>
     <tr><td class="paramname">parallaxEnabled</td><td>Drapeau de parallaxe du niveau (<span class="tt">EX-DEC-043</span>) ; omis quand il vaut <span class="tt">true</span>, sa valeur par défaut. </td></tr>
     <tr><td class="paramname">platformConfigs</td><td>Configurations explicites de plateformes mobiles (<span class="tt">EX-GP-026</span>), même remarque que <code class="param">moverConfigs</code> pour les champs <span class="tt">waypoints</span>/<span class="tt">mode</span>/<span class="tt">speed</span>/ <span class="tt">phase</span>. La route est toujours écrite en <span class="tt">waypoints</span> : le couple <span class="tt">endX</span>/<span class="tt">endY</span> d'avant le multi-points reste <b>lu</b> par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> mais n'est plus jamais produit (<span class="tt">EX-LVL-008</span>). </td></tr>
-    <tr><td class="paramname">cameraFraming</td><td>Cadrage de caméra résolu (<span class="tt">EX-LVL-006</span>) ; le champ <span class="tt">"cameraFraming"</span> n'est émis que s'il <b>diverge</b> de ce que la règle de repli (<span class="tt"><a class="el" href="namespacecore.html#ac4655b6e996ba6d305c643f5f7d8e156" title="Résout le cadrage effectif d&#39;un niveau à partir du champ déclaré (peut être absent).">resolveCameraFraming</a></span>) recalculerait pour ces dimensions &ndash; un niveau dont le cadrage résolu coïncide avec le repli reste sans le champ, comme avant ce lot (<span class="tt">EX-LVL-006</span>, aucune régression de round-trip). </td></tr>
+    <tr><td class="paramname">cameraFraming</td><td>Cadrage de caméra résolu (<span class="tt">EX-LVL-006</span>) ; le champ <span class="tt">"cameraFraming"</span> n'est émis que s'il <b>diverge</b> de ce que la règle de repli (<span class="tt"><a class="el" href="namespacecore.html#ac4655b6e996ba6d305c643f5f7d8e156" title="Résout le cadrage effectif d&#39;un niveau à partir du champ déclaré (peut être absent).">resolveCameraFraming</a></span>) recalculerait pour ces dimensions. Invariant de round-trip : un fichier <b>sans</b> le champ, dont le cadrage résolu coïncide avec le repli, ressort <b>sans</b> le champ (<span class="tt">EX-LVL-006</span>). </td></tr>
     <tr><td class="paramname">airJumps</td><td>Sauts aériens accordés par le tableau (<span class="tt">EX-GP-055</span>) ; champ omis si absent (le niveau s'en remet alors au réglage du moteur). </td></tr>
     <tr><td class="paramname">dashCharges</td><td>Charges de dash accordées par le tableau (<span class="tt">EX-GP-055</span>) ; même règle. </td></tr>
   </table>

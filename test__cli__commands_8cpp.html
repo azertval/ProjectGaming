@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -114,7 +114,7 @@ $(function(){initNavTree('test__cli__commands_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:TrivialLevelDirectory" id="r_TrivialLevelDirectory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classTrivialLevelDirectory.html">TrivialLevelDirectory</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Répertoire temporaire du test courant contenant <span class="tt">kTrivialLevelJson</span> sur disque (requis par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>, qui charge par chemin de fichier), nettoyé à la destruction (RAII) — même patron que <span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span>.  <a href="classTrivialLevelDirectory.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Répertoire temporaire du test courant contenant <span class="tt">TRIVIAL_LEVEL_JSON</span> sur disque (requis par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>, qui charge par chemin de fichier), nettoyé à la destruction (RAII) — même patron que <span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span>.  <a href="classTrivialLevelDirectory.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -217,7 +217,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Integration · AiSolver Cli<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. <span class="tt"><a class="el" href="structTrainArgs.html" title="Arguments de train.">TrainArgs</a></span> (<span class="tt">algo=evo</span>, niveau trivial, population reduite).<br  />
+ 1. <span class="tt"><a class="el" href="structTrainArgs.html" title="Arguments de train.">TrainArgs</a></span> (<span class="tt">algorithmId=evo</span>, niveau trivial, population reduite).<br  />
 2. <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">runTrain</a></span>.<br  />
  <b>Resultat attendu :</b> Code de sortie <span class="tt">0</span> ; <span class="tt">stats.csv</span>, <span class="tt">model.bin</span>, <span class="tt">config.json</span> et <span class="tt">replay.json</span> (niveau resolu) presents dans le dossier de run. </p>
 

@@ -7,5 +7,5 @@ var classaisolver_1_1training_1_1QNetwork =
     [ "network", "classaisolver_1_1training_1_1QNetwork.html#a337ab35c3d14b1f972a7809426569138", null ],
     [ "parameters", "classaisolver_1_1training_1_1QNetwork.html#ad558fa25693f3ae61ee7442e3257fba2", null ],
     [ "_network", "classaisolver_1_1training_1_1QNetwork.html#a36013ee2187fb2fceb6eed521b5b74cb", null ],
-    [ "kDefaultHiddenSize", "classaisolver_1_1training_1_1QNetwork.html#a8c18b900552a0cfa97c6336b9105e0a0", null ]
+    [ "DEFAULT_HIDDEN_SIZE", "classaisolver_1_1training_1_1QNetwork.html#a2b1ea8dbab52e15de8184cca3203f8d8", null ]
 ];

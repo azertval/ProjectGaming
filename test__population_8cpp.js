@@ -5,5 +5,5 @@ var test__population_8cpp =
     [ "TEST", "test__population_8cpp.html#ab27b31996eb055bdb2a6ac36fec77b8c", null ],
     [ "TEST", "test__population_8cpp.html#a4119592b98c5f57efaa7d6cc38ef09c8", null ],
     [ "TEST", "test__population_8cpp.html#adfd2da5b9634282a295035b332bb8703", null ],
-    [ "kUnevaluatedFitness", "test__population_8cpp.html#a69b6964796abaaf8d0e5f3d346740bed", null ]
+    [ "UNEVALUATED_FITNESS", "test__population_8cpp.html#abfefeda8c7d6844d92c1ea7be687792f", null ]
 ];

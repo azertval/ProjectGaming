@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,17 +102,19 @@ $(function(){initNavTree('classcore_1_1PlatformController.html','','classcore_1_
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af53e0729c7989f621641586e851bb206" id="r_af53e0729c7989f621641586e851bb206"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af53e0729c7989f621641586e851bb206">PlatformController</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:af53e0729c7989f621641586e851bb206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur depuis <code class="param">level</code> : compteur de pas à zéro (toutes les plateformes à leur position de départ).  <br /></td></tr>
-<tr class="memitem:aa92c730bb854441785f2bab8d35fa061" id="r_aa92c730bb854441785f2bab8d35fa061"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa92c730bb854441785f2bab8d35fa061">update</a> () noexcept</td></tr>
-<tr class="memdesc:aa92c730bb854441785f2bab8d35fa061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance d'un pas fixe : fait progresser le compteur de pas consommé par <span class="tt"><a class="el" href="#a4edb35d10efd2e486c62de25082deb41">boxAt</a></span>.  <br /></td></tr>
+<tr class="memitem:a8e9b72250f15eb2c6fb8694d404ab874" id="r_a8e9b72250f15eb2c6fb8694d404ab874"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874">update</a> ()</td></tr>
+<tr class="memdesc:a8e9b72250f15eb2c6fb8694d404ab874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance d'un pas fixe : fait progresser le compteur de pas consommé par <span class="tt"><a class="el" href="#a4edb35d10efd2e486c62de25082deb41">boxAt</a></span>.  <br /></td></tr>
 <tr class="memitem:a6d1fcaadd014eb9a2c65dfb8c42a1fc4" id="r_a6d1fcaadd014eb9a2c65dfb8c42a1fc4"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a6d1fcaadd014eb9a2c65dfb8c42a1fc4">count</a> () const noexcept</td></tr>
 <tr class="memitem:a4edb35d10efd2e486c62de25082deb41" id="r_a4edb35d10efd2e486c62de25082deb41"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4edb35d10efd2e486c62de25082deb41">boxAt</a> (std::size_t index) const noexcept</td></tr>
 <tr class="memitem:a46049477fd76e2e6772e2bb3541c3092" id="r_a46049477fd76e2e6772e2bb3541c3092"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a46049477fd76e2e6772e2bb3541c3092">previousBoxAt</a> (std::size_t index) const noexcept</td></tr>
 <tr class="memitem:a17c7c29083b7621c60298b1ce96744a5" id="r_a17c7c29083b7621c60298b1ce96744a5"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a17c7c29083b7621c60298b1ce96744a5">deltaAt</a> (std::size_t index) const noexcept</td></tr>
 <tr class="memitem:afb8fb267aeeaed8c3c767979ae00b32d" id="r_afb8fb267aeeaed8c3c767979ae00b32d"><td class="memItemLeft"><a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a>&#160;</td><td class="memItemRight"><a class="el" href="#afb8fb267aeeaed8c3c767979ae00b32d">sampleAt</a> (std::size_t index) const noexcept</td></tr>
-<tr class="memitem:a030bab451c48d64de1c6a7521d49fd98" id="r_a030bab451c48d64de1c6a7521d49fd98"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a030bab451c48d64de1c6a7521d49fd98">samples</a> () const</td></tr>
+<tr class="memitem:a9073c587e2ee7ca87ac7635fe5880894" id="r_a9073c587e2ee7ca87ac7635fe5880894"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9073c587e2ee7ca87ac7635fe5880894">samples</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:aeaf1a4ecb67eecf602b59f49d97f7844" id="r_aeaf1a4ecb67eecf602b59f49d97f7844"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeaf1a4ecb67eecf602b59f49d97f7844">refreshSamples</a> ()</td></tr>
+<tr class="memdesc:aeaf1a4ecb67eecf602b59f49d97f7844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule <span class="tt"><a class="el" href="#a26a914d50bcaf87b760425b33223d7d9" title="Échantillons du pas courant, une entrée par _configs, reconstruits par update().">_samples</a></span> pour le pas courant.  <br /></td></tr>
 <tr class="memitem:abe7ecbb0b10f1c65859ea9251b490ee0" id="r_abe7ecbb0b10f1c65859ea9251b490ee0"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#abe7ecbb0b10f1c65859ea9251b490ee0">boxAtStep</a> (std::size_t index, long long stepCount) const noexcept</td></tr>
 <tr class="memdesc:abe7ecbb0b10f1c65859ea9251b490ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position déterministe de la plateforme <code class="param">index</code> au pas <code class="param">stepCount</code> (fonction pure du numéro de pas, jamais d'état accumulé).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -123,6 +125,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae869601690f8509cd22db6008c683ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routes précalculées, une par entrée de <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span> et dans le même ordre (<span class="tt">EX-GP-054</span>).  <br /></td></tr>
 <tr class="memitem:a1f96d74d5bd280989aa069e74f8e3b6e" id="r_a1f96d74d5bd280989aa069e74f8e3b6e"><td class="memItemLeft">long long&#160;</td><td class="memItemRight"><a class="el" href="#a1f96d74d5bd280989aa069e74f8e3b6e">_stepCount</a> = 0</td></tr>
 <tr class="memdesc:a1f96d74d5bd280989aa069e74f8e3b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas fixes écoulés depuis le chargement.  <br /></td></tr>
+<tr class="memitem:a26a914d50bcaf87b760425b33223d7d9" id="r_a26a914d50bcaf87b760425b33223d7d9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a26a914d50bcaf87b760425b33223d7d9">_samples</a></td></tr>
+<tr class="memdesc:a26a914d50bcaf87b760425b33223d7d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échantillons du pas courant, une entrée par <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span>, reconstruits par <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fait vivre les <b>plateformes mobiles</b> d'un niveau (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b">TileType::MovingPlatform</a></span>, <span class="tt">EX-GP-026</span>). </p>
@@ -180,7 +184,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La boîte <b>courante</b> (après le dernier <span class="tt"><a class="el" href="#aa92c730bb854441785f2bab8d35fa061" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>) de la plateforme <code class="param">index</code>, en unités monde. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La boîte <b>courante</b> (après le dernier <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>) de la plateforme <code class="param">index</code>, en unités monde. </dd></dl>
 
 </div>
 </div>
@@ -289,7 +293,34 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La boîte de la plateforme <code class="param">index</code> <b>au pas précédent</b> (juste avant le dernier <span class="tt"><a class="el" href="#aa92c730bb854441785f2bab8d35fa061" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>) — pour le delta de portage et l'interpolation d'affichage. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La boîte de la plateforme <code class="param">index</code> <b>au pas précédent</b> (juste avant le dernier <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>) — pour le delta de portage et l'interpolation d'affichage. </dd></dl>
+
+</div>
+</div>
+<a id="aeaf1a4ecb67eecf602b59f49d97f7844" name="aeaf1a4ecb67eecf602b59f49d97f7844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf1a4ecb67eecf602b59f49d97f7844">&#9670;&#160;</a></span>refreshSamples()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::PlatformController::refreshSamples </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recalcule <span class="tt"><a class="el" href="#a26a914d50bcaf87b760425b33223d7d9" title="Échantillons du pas courant, une entrée par _configs, reconstruits par update().">_samples</a></span> pour le pas courant. </p>
 
 </div>
 </div>
@@ -319,8 +350,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a030bab451c48d64de1c6a7521d49fd98" name="a030bab451c48d64de1c6a7521d49fd98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a030bab451c48d64de1c6a7521d49fd98">&#9670;&#160;</a></span>samples()</h2>
+<a id="a9073c587e2ee7ca87ac7635fe5880894" name="a9073c587e2ee7ca87ac7635fe5880894"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9073c587e2ee7ca87ac7635fe5880894">&#9670;&#160;</a></span>samples()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,7 +360,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; core::PlatformController::samples </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp; core::PlatformController::samples </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -337,23 +368,21 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Tous les échantillons courants (<span class="tt"><a class="el" href="#afb8fb267aeeaed8c3c767979ae00b32d">sampleAt</a></span>), dans l'ordre de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a>::
-        platformConfigs()</span> — commodité pour l'appelant qui compose la liste complète en un appel plutôt que d'itérer <span class="tt"><a class="el" href="#a6d1fcaadd014eb9a2c65dfb8c42a1fc4">count()</a></span>/<span class="tt"><a class="el" href="#afb8fb267aeeaed8c3c767979ae00b32d">sampleAt</a></span> lui-même. </dd></dl>
+        platformConfigs()</span> — commodité pour l'appelant qui compose la liste complète en un appel plutôt que d'itérer <span class="tt"><a class="el" href="#a6d1fcaadd014eb9a2c65dfb8c42a1fc4">count()</a></span>/<span class="tt"><a class="el" href="#afb8fb267aeeaed8c3c767979ae00b32d">sampleAt</a></span> lui-même.</dd></dl>
+<p>La liste est recalculée par <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>, jamais à la lecture : chaque consommateur d'un même pas (physique du personnage, poussée des blocs, interpolation d'affichage) la lit sans reconstruire un vecteur. Référence valable jusqu'au prochain <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>. </p>
 
 </div>
 </div>
-<a id="aa92c730bb854441785f2bab8d35fa061" name="aa92c730bb854441785f2bab8d35fa061"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa92c730bb854441785f2bab8d35fa061">&#9670;&#160;</a></span>update()</h2>
+<a id="a8e9b72250f15eb2c6fb8694d404ab874" name="a8e9b72250f15eb2c6fb8694d404ab874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e9b72250f15eb2c6fb8694d404ab874">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::PlatformController::update </td>
@@ -362,11 +391,6 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Avance d'un pas fixe : fait progresser le compteur de pas consommé par <span class="tt"><a class="el" href="#a4edb35d10efd2e486c62de25082deb41">boxAt</a></span>. </p>
@@ -417,6 +441,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Routes précalculées, une par entrée de <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span> et dans le même ordre (<span class="tt">EX-GP-054</span>). </p>
+
+</div>
+</div>
+<a id="a26a914d50bcaf87b760425b33223d7d9" name="a26a914d50bcaf87b760425b33223d7d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a914d50bcaf87b760425b33223d7d9">&#9670;&#160;</a></span>_samples</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a>&gt; core::PlatformController::_samples</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Échantillons du pas courant, une entrée par <span class="tt"><a class="el" href="#aeb1af0d6ecf44ac6c5245a94d98291b0">_configs</a></span>, reconstruits par <span class="tt"><a class="el" href="#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">update()</a></span>. </p>
 
 </div>
 </div>

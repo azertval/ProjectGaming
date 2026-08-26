@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,7 +105,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fournit les informations globales du moteur. </p>
-<p>Classe d'amorçage servant d'exemple de convention (RAII, membres privés). Elle sera remplacée par la véritable logique de jeu lors du premier lot. </p>
+<p>Sans état : une seule fonction statique, qui expose le numéro de version du moteur. Elle existe pour que ce numéro ait <b>un</b> point d'accès depuis le code, alimenté par le système de build plutôt que recopié — voir <span class="tt"><a class="el" href="#a80c1e60da14c218b7846ff3201a325a6" title="Retourne la version du moteur, telle que déclarée par le système de build.">version()</a></span> ci-dessous. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a80c1e60da14c218b7846ff3201a325a6" name="a80c1e60da14c218b7846ff3201a325a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80c1e60da14c218b7846ff3201a325a6">&#9670;&#160;</a></span>version()</h2>

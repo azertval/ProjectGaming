@@ -1,6 +1,6 @@
 var structTrainArgs =
 [
-    [ "algo", "structTrainArgs.html#a201fc725efdf3ec7b5582acdeb7cd290", null ],
+    [ "algorithmId", "structTrainArgs.html#aae19c48a2d44d724d7889eca6375952a", null ],
     [ "configFile", "structTrainArgs.html#aef82871dfe6bc1d75ad1c9c045c5c3d1", null ],
     [ "episodes", "structTrainArgs.html#a7419217efee9279e886bc57d3bc57afc", null ],
     [ "gamma", "structTrainArgs.html#a8732bf2f3938db391a0b41d525cc914d", null ],

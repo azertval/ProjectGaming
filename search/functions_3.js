@@ -1,7 +1,7 @@
 var searchData=
 [
   ['dangercontroller_0',['DangerController',['../classcore_1_1DangerController.html#aa9b9f7b94b567f93eeb8139cc63cd977',1,'core::DangerController']]],
-  ['dangerhitbox_1',['dangerHitbox',['../namespacecore.html#a6c0f85da9ce20757943b19c8034f459e',1,'core']]],
+  ['dangerhitbox_1',['dangerHitbox',['../namespacecore.html#a9f3ed859b26e4626a4313019328d59f6',1,'core']]],
   ['dangerlinks_2',['dangerLinks',['../classcore_1_1MechanismController.html#a04eb177a0e57012f684384151afc8dd5',1,'core::MechanismController::dangerLinks()'],['../classcore_1_1Level.html#ac843149dd61590cf118ab6339a65e470',1,'core::Level::dangerLinks()'],['../classcore_1_1LevelDraft.html#abe14e1da77a3425a405a8f6830a7cc66',1,'core::LevelDraft::dangerLinks()']]],
   ['dangers_3',['dangers',['../classaisolver_1_1HeadlessLevelEnvironment.html#a548543780dba54cc14ffb3ccaaae64fc',1,'aisolver::HeadlessLevelEnvironment::dangers()'],['../classHeadlessLevelEnvironment.html#a548543780dba54cc14ffb3ccaaae64fc',1,'HeadlessLevelEnvironment::dangers()']]],
   ['dashbudget_4',['dashBudget',['../classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d',1,'core::Level::dashBudget()'],['../classcore_1_1LevelDraft.html#ac8048001ee2bf60309c234ff6f717ff4',1,'core::LevelDraft::dashBudget()']]],
@@ -49,5 +49,5 @@ var searchData=
   ['dressingfor_46',['dressingFor',['../namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94',1,'hmi']]],
   ['dressingforworkspace_47',['dressingForWorkspace',['../namespacehmi.html#aaebc5001a9e15748fcf70eac997f48c6',1,'hmi']]],
   ['dropblocks_48',['dropBlocks',['../classcore_1_1BlockController.html#a26c5b394ff976688bc1932b0b9a33df1',1,'core::BlockController']]],
-  ['duplicate_49',['duplicate',['../classhmi_1_1AssetFileOperations.html#a04cf5e56f73e1c67072eabfaa5486720',1,'hmi::AssetFileOperations::duplicate()'],['../classhmi_1_1LevelFileOperations.html#a211ad9cc234f61dc4e93d2f53c5f6471',1,'hmi::LevelFileOperations::duplicate()']]]
+  ['duplicate_49',['duplicate',['../classhmi_1_1AssetFileOperations.html#a1cb03e5161c60571fb66960f5ab0702a',1,'hmi::AssetFileOperations::duplicate()'],['../classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968',1,'hmi::LevelFileOperations::duplicate()']]]
 ];

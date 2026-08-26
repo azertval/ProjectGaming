@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-annexe-13-tache-02-avantage.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2tache-02-avantage"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-13.html#md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2epic" title="Lot-Annexe/LOT-ANNEXE-13-acteur-critique/epic.md">LOT-ANNEXE-13</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/ActorCritic</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3931"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3937"></a>
 Contexte</h1>
 <p>Le critique (TACHE-01) sait désormais estimer la valeur d'un état. Cette tâche exploite cette estimation pour calculer, à chaque pas d'une trajectoire, l'<b>avantage</b> — <span class="tt">retour_t − valeur_estimée_t</span> — et branche ce nouveau signal dans la perte de politique de LOT-ANNEXE-12 à la place du retour brut <span class="tt">G_t</span>. C'est le cœur de la réduction de variance : l'avantage est positif quand l'action a fait <b>mieux que ce à quoi on s'attendait</b> depuis cet état, négatif dans le cas contraire — un signal beaucoup plus discriminant que le retour brut de tout l'épisode.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3932"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3938"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">aisolver::training::computeAdvantages</a></span></b> (<span class="tt"><a class="el" href="AdvantageCalculator_8h.html" title="Avantage (retour − valeur estimée) remplaçant le retour brut dans la perte de politique (LOT-ANNEXE-1...">Source/AiSolver/Training/ActorCritic/AdvantageCalculator.h</a>/.cpp</span>) : fonction <span class="tt">std::vector&lt;float&gt; <a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a>(const std::vector&lt;float&gt;&amp; returns, training::CriticNetwork&amp; critic, const <a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a>&amp; trajectory)</span> — pour chaque pas, appelle <span class="tt">critic.forward</span> sur l'observation du pas (valeur détachée du graphe, <span class="tt">float</span>, pour ce calcul de diagnostic/vecteur), calcule <span class="tt">advantage_t = returns[t] − valeur_t</span>.</li>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">aisolver::training::computeActorCriticLoss</a></span></b> (<span class="tt"><a class="el" href="ActorCriticLoss_8h.html" title="Perte de politique acteur-critique : computeReinforceLoss (LOT-ANNEXE-12) où le poids par pas est l&#39;a...">Source/AiSolver/Training/ActorCritic/ActorCriticLoss.h</a>/.cpp</span>) : variante de <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (LOT-ANNEXE-12, TACHE-03) qui prend un <span class="tt">std::vector&lt;float&gt;</span> d'avantages à la place du <span class="tt">std::vector&lt;float&gt;</span> de retours — même construction de graphe d'autodiff (<span class="tt">-log π(a_t|s_t) × advantage_t</span>, moyenné sur l'épisode), même appel à <span class="tt">policy.forward</span> rejoué par pas. Réutilise la politique (LOT-ANNEXE-03) sans modification.</li>
 <li>La fonction de LOT-ANNEXE-12 (<span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>) n'est <b>pas dupliquée entièrement</b> : factoriser la partie commune (construction du graphe <span class="tt">-log π(a_t|s_t) × poids_t</span>, où <span class="tt">poids_t</span> est soit le retour brut soit l'avantage selon l'appelant) dans une fonction interne partagée entre <span class="tt">Source/AiSolver/Training/PolicyGradient</span> et <span class="tt">Source/AiSolver/Training/ActorCritic</span>, pour éviter que les deux lots divergent silencieusement sur la formule de perte.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3933"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3939"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="AdvantageCalculator_8h.html" title="Avantage (retour − valeur estimée) remplaçant le retour brut dans la perte de politique (LOT-ANNEXE-1...">Source/AiSolver/Training/ActorCritic/AdvantageCalculator.h</a></span> (nouveau).</li>
@@ -114,7 +114,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="ReinforceLoss_8h.html" title="Perte REINFORCE construite comme un graphe d&#39;autodiff (LOT-ANNEXE-12, TACHE-03, EX-IA-013) — la tâche...">Source/AiSolver/Training/PolicyGradient/ReinforceLoss.h</a>/.cpp</span> (factorisation de la formule de perte commune, sans changement de comportement pour LOT-ANNEXE-12).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3934"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3940"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Signe de l'avantage</b> : un pas dont le retour dépasse la valeur estimée produit un avantage positif ; l'inverse produit un avantage négatif ; égalité produit un avantage nul.</li>
@@ -122,22 +122,22 @@ Tests (obligatoires)</h1>
 <li><b>Non-régression de la formule REINFORCE</b> : après factorisation, <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (LOT-ANNEXE-12) produit des résultats <b>strictement identiques</b> à ceux d'avant cette tâche, sur les mêmes cas de test déjà existants (gradient checking de LOT-ANNEXE-12 toujours vert, sans modification de ses assertions).</li>
 <li><b>Gradient checking de <span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span></b> : par rapport aux poids de la politique uniquement (le critique est traité comme une donnée détachée dans ce graphe, cf. points d'attention) — même méthodologie que LOT-ANNEXE-12 (TACHE-03/TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3935"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3941"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'avantage utilisé dans la perte de politique est une valeur détachée du graphe du critique</b> (calculée via <span class="tt">forward</span> puis convertie en <span class="tt">float</span>, pas gardée comme nœud d'autodiff connecté) : le gradient de la perte de politique ne doit <b>pas</b> se propager dans les poids du critique — les deux réseaux sont optimisés par des pertes et des passages de rétropropagation strictement séparés (cohérent avec la décision de cadrage « pas de poids partagés »). Une fuite de gradient ici serait un bug silencieux (le critique influencerait l'acteur d'une façon non voulue, difficile à détecter sans ce point d'attention explicite).</li>
 <li><b>Ne pas réintroduire de normalisation d'avantage inter-épisodes</b> ici non plus, pour la même raison qu'en LOT-ANNEXE-12 (mise à jour épisode par épisode, pas de lot d'épisodes).</li>
 <li>La <b>factorisation avec LOT-ANNEXE-12</b> doit rester un simple partage de la formule de graphe, pas une dépendance de <span class="tt">PolicyGradient</span> vers <span class="tt">ActorCritic</span> ou l'inverse dans un sens qui romprait la hiérarchie : privilégier un utilitaire commun à un niveau partagé (<span class="tt">Source/AiSolver/Training/</span>) plutôt qu'un sous-module qui dépend de l'autre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3936"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3942"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span> et <span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> disponibles et testés (<span class="tt">ctest</span> vert), y compris non-régression de LOT-ANNEXE-12 ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3937"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3943"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-acteur-critique.html" title="Acteur-critique">Acteur-critique</a> — variance du gradient, fonction de valeur, critique, avantage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3938"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3944"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-014</span> (nouvelle). </p>
 </div></div><!-- contents -->

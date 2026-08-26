@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -113,12 +113,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a118b79f16a9a373bc156d192e64d51cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mur partiel force un détour : la distance de grille suit le chemin réel, plus longue que la distance de Manhattan en ligne directe.  <br /></td></tr>
 <tr class="memitem:a98ae553248b09495abfd108c0eb136ca" id="r_a98ae553248b09495abfd108c0eb136ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a98ae553248b09495abfd108c0eb136ca">TEST</a> (GridDistanceFieldTest, CaseHorsGrilleRenvoieLaSentinelle)</td></tr>
 <tr class="memdesc:a98ae553248b09495abfd108c0eb136ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case hors-grille renvoie la distance sentinelle sans planter.  <br /></td></tr>
+<tr class="memitem:a43203e087e13d8098ebe34d05844de8b" id="r_a43203e087e13d8098ebe34d05844de8b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a43203e087e13d8098ebe34d05844de8b">TEST</a> (GridDistanceFieldTest, MultiCiblesDistanceALaPlusProche)</td></tr>
+<tr class="memdesc:a43203e087e13d8098ebe34d05844de8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le constructeur multi-cibles renvoie la distance à la <b>plus proche</b> des cibles fournies (amendement LOT-ANNEXE-21).  <br /></td></tr>
+<tr class="memitem:a930d739394dd99546ed9f366a6445bdd" id="r_a930d739394dd99546ed9f366a6445bdd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a930d739394dd99546ed9f366a6445bdd">TEST</a> (GridDistanceFieldTest, MultiCiblesIgnoreUneCibleSolideOuHorsGrille)</td></tr>
+<tr class="memdesc:a930d739394dd99546ed9f366a6445bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une cible solide ou hors-grille dans la liste multi-cibles est ignorée, sans empêcher les autres cibles valides de produire un champ atteignable.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <a class="el" href="classaisolver_1_1GridDistanceField.html" title="Distance de plus court chemin en nombre de cases (4-connexité, respectant les cases statiquement soli...">aisolver::GridDistanceField</a> (amendement LOT-ANNEXE-08, EX-IA-023). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a98ae553248b09495abfd108c0eb136ca" name="a98ae553248b09495abfd108c0eb136ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98ae553248b09495abfd108c0eb136ca">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ae553248b09495abfd108c0eb136ca">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +152,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a37c833135b5e21b0bfe26dda37df1077" name="a37c833135b5e21b0bfe26dda37df1077"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37c833135b5e21b0bfe26dda37df1077">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c833135b5e21b0bfe26dda37df1077">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +181,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac2770ab18d5cded9466adef1def60c33" name="ac2770ab18d5cded9466adef1def60c33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2770ab18d5cded9466adef1def60c33">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2770ab18d5cded9466adef1def60c33">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,8 +210,67 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a43203e087e13d8098ebe34d05844de8b" name="a43203e087e13d8098ebe34d05844de8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43203e087e13d8098ebe34d05844de8b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GridDistanceFieldTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MultiCiblesDistanceALaPlusProche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le constructeur multi-cibles renvoie la distance à la <b>plus proche</b> des cibles fournies (amendement LOT-ANNEXE-21). </p>
+<p><b>Cas de test :</b> <b>Multi-cibles : distance à la plus proche des cibles fournies.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille ouverte 10x10, deux cibles <span class="tt">(0,0)</span> et <span class="tt">(9,9)</span>.<br  />
+2. Lit la distance d'une case proche de chaque cible.<br  />
+ <b>Resultat attendu :</b> Chaque case obtient la distance à la cible la plus proche, pas la plus lointaine. </p>
+
+</div>
+</div>
+<a id="a930d739394dd99546ed9f366a6445bdd" name="a930d739394dd99546ed9f366a6445bdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a930d739394dd99546ed9f366a6445bdd">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GridDistanceFieldTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MultiCiblesIgnoreUneCibleSolideOuHorsGrille</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une cible solide ou hors-grille dans la liste multi-cibles est ignorée, sans empêcher les autres cibles valides de produire un champ atteignable. </p>
+<p><b>Cas de test :</b> <b>Multi-cibles : une cible invalide n'empêche pas les autres de fonctionner.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Grille 5x5, case <span class="tt">(1,1)</span> solide utilisée comme première cible, <span class="tt">(4,4)</span> valide comme seconde.<br  />
+ <b>Resultat attendu :</b> La distance à <span class="tt">(4,4)</span> reste correcte malgré la cible solide. </p>
+
+</div>
+</div>
 <a id="a118b79f16a9a373bc156d192e64d51cf" name="a118b79f16a9a373bc156d192e64d51cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a118b79f16a9a373bc156d192e64d51cf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a118b79f16a9a373bc156d192e64d51cf">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +299,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9d7c06d9f4617d0ed14e693d24709695" name="a9d7c06d9f4617d0ed14e693d24709695"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d7c06d9f4617d0ed14e693d24709695">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d7c06d9f4617d0ed14e693d24709695">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -137,6 +137,13 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a> : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus robuste au choix du taux d'apprentissage que <span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span>, au prix d'un état interne plus riche par paramètre. </p>
+<p>Mise à jour appliquée à chaque paramètre, au pas <em>t</em> (<span class="tt">g</span> = gradient courant) : </p><pre class="fragment">m &lt;- beta1 * m + (1 - beta1) * g              (moyenne du gradient)
+v &lt;- beta2 * v + (1 - beta2) * g^2            (moyenne du carre du gradient)
+mChapeau = m / (1 - beta1^t)                  (correction de biais)
+vChapeau = v / (1 - beta2^t)
+theta   &lt;- theta - lr * mChapeau / (racine(vChapeau) + epsilon)
+</pre><p>La <b>correction de biais</b> n'est pas un raffinement : <span class="tt">m</span> et <span class="tt">v</span> partent de zéro, donc les premières moyennes sont tirées vers zéro d'autant plus fort que <span class="tt">beta</span> est proche de 1. Sans elle, les tout premiers pas seraient très en deçà de leur amplitude voulue — or ce sont ceux qui décident de la trajectoire. Le facteur <span class="tt">1 - beta^t</span> tend vers 1, la correction s'efface donc d'elle-même ensuite ; c'est ce qui justifie le compteur de pas dans l'état.</p>
+<p>Diviser par <span class="tt">racine(vChapeau)</span> normalise le pas par l'amplitude récente du gradient : chaque paramètre avance d'un pas comparable, quelle que soit l'échelle de sa dérivée. <span class="tt">epsilon</span> ne fait qu'éviter la division par zéro quand le gradient est nul depuis longtemps.</p>
 <p>L'état (moments <span class="tt">m</span>/<span class="tt">v</span>, compteur de pas) persiste d'un appel à <span class="tt"><a class="el" href="#a48cfa20b8294e9cbbca43109e11cc60e">step</a></span> à l'autre : une même instance ne doit servir qu'un seul réseau (le compteur de pas est partagé par tous les paramètres passés à <span class="tt"><a class="el" href="#a48cfa20b8294e9cbbca43109e11cc60e">step</a></span>, pas remis à zéro entre deux réseaux distincts). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6902af315c40b39125451f2826826f05" name="a6902af315c40b39125451f2826826f05"></a>

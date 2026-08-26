@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-64-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-64-cadrage-camera-choisi_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-64.html#md_Lot_2LOT-64-cadrage-camera-choisi_2epic" title="Lot/LOT-64-cadrage-camera-choisi/epic.md">LOT-64</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span>, <span class="tt">Documentation</span> · <b>Statut :</b> fait (vérification automatisée complète ; essai manuel restant à faire par le level designer avant fusion, voir DoD)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3026"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3031"></a>
 Contexte</h1>
 <p>Ce lot modifie une exigence <b>livrée</b>, ce qui est rare et demande de la précision. <span class="tt">EX-REN-015</span> affirme aujourd'hui que la caméra ne suit « <b>jamais</b> le personnage en continu ». C'était vrai, et c'était une décision de conception assumée du <span class="tt">LOT-32</span>. Ce lot ne l'annule pas : il en fait une propriété du <b>mode par salle</b>, à côté de deux autres modes. La formulation doit refléter cette nuance sans laisser croire que la décision du <span class="tt">LOT-32</span> était mauvaise.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3027"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3032"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Spécifications</b> :<ul>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li><b>Cahier de test</b> régénéré ; chaque nouveau <span class="tt"><a class="el" href="test__animation__personnage_8cpp.html#a7869699d21aa0764adb7b4f64fd228f2" title="Au sol et immobile, le clip est Idle et l&#39;image alterne 0/1 après chaque durée d&#39;image.">TEST()</a></span> porte son bloc <span class="tt">\castest{}</span> écrit en même temps que lui.</li>
 <li><b>Vérification manuelle</b>, au moment prévu : un tableau dans chacun des trois modes, en observant particulièrement la netteté du pixel art en mode suivi et le comportement aux bords du niveau. Étendue par <a class="el" href="lot-64-tache-05-zones-camera-taille-suivi.html#md_Lot_2LOT-64-cadrage-camera-choisi_2tache-05-zones-camera-taille-suivi" title="Lot/LOT-64-cadrage-camera-choisi/tache-05-zones-camera-taille-suivi.md">TACHE-05</a> : dessiner des zones de tailles différentes dans un même niveau et vérifier la bascule entre elles au canevas comme en jeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3028"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3033"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Documentation/Specification/{rendu-technique,niveaux,editeur-niveaux}.md</span>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="partager-un-niveau_8md.html">Documentation/Manuel/partager-un-niveau.md</a></span>, <span class="tt">CHANGELOG.md</span>.</li>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3029"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3034"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> — <span class="tt">EX-LVL-006</span>, <span class="tt">EX-REN-016</span> et <span class="tt">EX-EDIT-028</span> déclarées une fois et référencées.</li>
@@ -129,7 +129,7 @@ Tests (obligatoires)</h1>
 <li><span class="tt">ctest --preset vs</span> à 100 %, <b>et</b> les jobs Release et ASan de <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>.</li>
 <li><b>Non-régression du contenu livré</b> : les quinze tableaux existants se jouent exactement comme avant — c'est le critère d'acceptation numéro un du lot, et il se vérifie ici une dernière fois.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3030"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3035"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Reformuler <span class="tt">EX-REN-015</span> sans la renier.</b> Sa justification — ne pas rapetisser le rendu, ne pas suivre en continu sur un niveau à salles — reste valable pour son mode. Une exigence livrée qu'on réécrit doit garder trace de son intention d'origine.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Le manuel s'adresse à un non-codeur : « ce tableau se voit d'un coup d'œil » plutôt que « mode de cadrage statique ».</li>
 <li><b>Trouvé pendant l'essai manuel</b> : la parallaxe des décors (<span class="tt">EX-DEC-006</span>) n'avait jamais eu d'effet visible avant ce lot (aucune caméra ne défilait en continu) ; le mode <em>suivi</em> la rend visible pour la première fois, et un décor Fond/Premier plan semble alors « suivre » la caméra. Neutralisée spécifiquement pour ce mode (<span class="tt"><a class="el" href="namespacehmi.html#a649774d217a61e4b37f00d309fa3b60e" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>, <span class="tt">applyDecorParallax</span>) — signe qu'une caractéristique dormante d'un lot antérieur peut redevenir active à l'improviste quand une nouvelle caméra change une hypothèse implicite (« la caméra ne défile jamais »).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3031"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3036"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois nouvelles exigences sont déclarées, <span class="tt">EX-REN-015</span> est reformulée en conservant sa justification, guides et manuel décrivent les trois modes et leurs pièges, le cahier est régénéré, la CI complète est verte, la non-régression des quinze tableaux est vérifiée et l'essai manuel est fait.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3032"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3037"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-006</span>, <span class="tt">EX-REN-016</span>, <span class="tt">EX-EDIT-028</span> (déclarées ici) ; réutilise <span class="tt">EX-REN-015</span> (reformulée), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-020</span> (tests), <span class="tt">EX-NFR-021</span> (test système), <span class="tt">EX-NFR-022</span> (CI verte). </p>
 </div></div><!-- contents -->

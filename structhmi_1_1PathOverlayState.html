@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -103,7 +103,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aa268633540b1d5096bb9e08d163b5b97" id="r_aa268633540b1d5096bb9e08d163b5b97"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PathSelection.html">PathSelection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa268633540b1d5096bb9e08d163b5b97">selected</a></td></tr>
 <tr class="memdesc:aa268633540b1d5096bb9e08d163b5b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parcours actuellement sélectionné (outil « Parcours »), si un l'est : seul un parcours sélectionné affiche ses poignées, pour ne pas saturer le canevas.  <br /></td></tr>
 <tr class="memitem:afa9258b6b654f28a1e485d99c10be38e" id="r_afa9258b6b654f28a1e485d99c10be38e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1PathGestureAction.html">PathGestureAction</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afa9258b6b654f28a1e485d99c10be38e">preview</a></td></tr>
-<tr class="memdesc:afa9258b6b654f28a1e485d99c10be38e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'<b>aperçu</b> du geste en cours (<span class="tt"><a class="el" href="namespacehmi.html#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">hmi::updatePathGesture</a></span>), appliquée sur une copie locale de la configuration pour montrer la manipulation avant validation.  <br /></td></tr>
+<tr class="memdesc:afa9258b6b654f28a1e485d99c10be38e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> d'<b>aperçu</b> du geste en cours (<span class="tt"><a class="el" href="namespacehmi.html#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">hmi::updatePathGesture</a></span>), appliquée sur une copie locale de la configuration pour montrer la manipulation avant validation.  <br /></td></tr>
 <tr class="memitem:a65d3ea89b36d8c3e5380055e22ee8452" id="r_a65d3ea89b36d8c3e5380055e22ee8452"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a65d3ea89b36d8c3e5380055e22ee8452">worldUnitsPerScreenPixel</a> = 0.02f</td></tr>
 <tr class="memdesc:a65d3ea89b36d8c3e5380055e22ee8452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échelle inverse de la caméra (<span class="tt">1 / (PIXELS_PER_UNIT * zoom)</span>), pour des poignées de taille écran constante — fournie par le viewport, seul à connaître le zoom courant.  <br /></td></tr>
 </table>
@@ -122,7 +122,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash.">Action</a> d'<b>aperçu</b> du geste en cours (<span class="tt"><a class="el" href="namespacehmi.html#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">hmi::updatePathGesture</a></span>), appliquée sur une copie locale de la configuration pour montrer la manipulation avant validation. </p>
+<p><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> d'<b>aperçu</b> du geste en cours (<span class="tt"><a class="el" href="namespacehmi.html#af736321fdd7ce3607695e85f2cc620e4" title="Fait progresser un glisser en cours.">hmi::updatePathGesture</a></span>), appliquée sur une copie locale de la configuration pour montrer la manipulation avant validation. </p>
 <p><span class="tt">std::nullopt</span> hors glisser. </p>
 
 </div>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,10 +101,10 @@ $(function(){initNavTree('structTrainArgs.html','','structTrainArgs-members'); }
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a49ef6a5a07c52a42884c6d74bd49a57d" id="r_a49ef6a5a07c52a42884c6d74bd49a57d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a49ef6a5a07c52a42884c6d74bd49a57d">level</a></td></tr>
-<tr class="memitem:a201fc725efdf3ec7b5582acdeb7cd290" id="r_a201fc725efdf3ec7b5582acdeb7cd290"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a201fc725efdf3ec7b5582acdeb7cd290">algo</a></td></tr>
+<tr class="memitem:aae19c48a2d44d724d7889eca6375952a" id="r_aae19c48a2d44d724d7889eca6375952a"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aae19c48a2d44d724d7889eca6375952a">algorithmId</a></td></tr>
 <tr class="memitem:a9894ab046b46b5a401613f7f29bc6410" id="r_a9894ab046b46b5a401613f7f29bc6410"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a9894ab046b46b5a401613f7f29bc6410">seed</a> = 0</td></tr>
 <tr class="memitem:aef82871dfe6bc1d75ad1c9c045c5c3d1" id="r_aef82871dfe6bc1d75ad1c9c045c5c3d1"><td class="memItemLeft">std::optional&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef82871dfe6bc1d75ad1c9c045c5c3d1">configFile</a></td></tr>
-<tr class="memitem:a69dacb39cfffb406c50c1ffe6bb995cc" id="r_a69dacb39cfffb406c50c1ffe6bb995cc"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a69dacb39cfffb406c50c1ffe6bb995cc">runsRoot</a> = kDefaultTrainingRunsRoot</td></tr>
+<tr class="memitem:a69dacb39cfffb406c50c1ffe6bb995cc" id="r_a69dacb39cfffb406c50c1ffe6bb995cc"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a69dacb39cfffb406c50c1ffe6bb995cc">runsRoot</a> = DEFAULT_TRAINING_RUNS_ROOT</td></tr>
 <tr class="memitem:a0f501e61bf17dd8e863ebd78fab36a4f" id="r_a0f501e61bf17dd8e863ebd78fab36a4f"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0f501e61bf17dd8e863ebd78fab36a4f">populationSize</a></td></tr>
 <tr class="memitem:acba8db8e12a81f84248a8e972a13cfd3" id="r_acba8db8e12a81f84248a8e972a13cfd3"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acba8db8e12a81f84248a8e972a13cfd3">mutationRate</a></td></tr>
 <tr class="memitem:a7419217efee9279e886bc57d3bc57afc" id="r_a7419217efee9279e886bc57d3bc57afc"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7419217efee9279e886bc57d3bc57afc">episodes</a></td></tr>
@@ -115,14 +115,14 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Arguments de <span class="tt">train</span>. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a201fc725efdf3ec7b5582acdeb7cd290" name="a201fc725efdf3ec7b5582acdeb7cd290"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a201fc725efdf3ec7b5582acdeb7cd290">&#9670;&#160;</a></span>algo</h2>
+<a id="aae19c48a2d44d724d7889eca6375952a" name="aae19c48a2d44d724d7889eca6375952a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae19c48a2d44d724d7889eca6375952a">&#9670;&#160;</a></span>algorithmId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string <a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html#a201fc725efdf3ec7b5582acdeb7cd290">aisolver::cli::TrainArgs::algo</a></td>
+          <td class="memname">std::string <a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html#aae19c48a2d44d724d7889eca6375952a">aisolver::cli::TrainArgs::algorithmId</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -248,7 +248,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::filesystem::path <a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html#a69dacb39cfffb406c50c1ffe6bb995cc">aisolver::cli::TrainArgs::runsRoot</a> = kDefaultTrainingRunsRoot</td>
+          <td class="memname">std::filesystem::path <a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html#a69dacb39cfffb406c50c1ffe6bb995cc">aisolver::cli::TrainArgs::runsRoot</a> = DEFAULT_TRAINING_RUNS_ROOT</td>
         </tr>
       </table>
 </div><div class="memdoc">

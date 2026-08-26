@@ -1,9 +1,5 @@
 var test__actor__critic__trainer_8cpp =
 [
-    [ "TrainingStatsRecorder", "classTrainingStatsRecorder.html", "classTrainingStatsRecorder" ],
-    [ "ActorCriticConfig", "structActorCriticConfig.html", "structActorCriticConfig" ],
-    [ "ActorCriticTrainer", "classActorCriticTrainer.html", "classActorCriticTrainer" ],
-    [ "CriticNetwork", "classCriticNetwork.html", "classCriticNetwork" ],
     [ "buildNetwork", "test__actor__critic__trainer_8cpp.html#ac04a455df7a8844fe27f78b4da9d4515", null ],
     [ "policyTopology", "test__actor__critic__trainer_8cpp.html#aeaf47d1d255cef866aa8de90bdf3bcd2", null ],
     [ "TEST", "test__actor__critic__trainer_8cpp.html#ac4af555388f3d4db12dc138a773c558c", null ],

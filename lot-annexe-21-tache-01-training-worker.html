@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-21-tache-01-training-worker.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-21-mode-ia-ihm_2tache-01-training-worker"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-21.html#md_Lot-Annexe_2LOT-ANNEXE-21-mode-ia-ihm_2epic" title="Lot-Annexe/LOT-ANNEXE-21-mode-ia-ihm/epic.md">LOT-ANNEXE-21</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver</span>, <span class="tt">Source/HMI/Ai</span> · <b>Statut :</b> en cours</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4186"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4192"></a>
 Contexte</h1>
 <p>Aucune des boucles d'entraînement existantes (<span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>, <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>, <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>, <span class="tt"><a class="el" href="classDqnTrainer.html" title="Assemble QNetwork (principal + cible), ReplayBuffer, computeDqnLoss et un optimiseur (optim::IOptimiz...">DqnTrainer</a></span>) n'expose de point d'observation ou d'interruption : chacune s'exécute jusqu'à son critère d'arrêt naturel, exactement ce qu'il faut pour <span class="tt">aisolver-cli</span> (synchrone, jamais interrompu) mais insuffisant pour une IHM qui doit rester réactive. Cette tâche ajoute des points d'extension minimaux à <span class="tt">AiSolver</span>, puis un exécuteur Qt (<span class="tt">TrainingWorker</span>) qui les utilise sans dupliquer la moindre règle d'apprentissage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4187"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4193"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a144852827f07cadb0739b3aefef07be0" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span></b> (<span class="tt">Source/AiSolver/Stats</span>) : observateur optionnel, appelé à la fin de chaque <span class="tt">record()</span> — point unique déjà traversé par les quatre familles d'algorithmes, aucune modification des boucles elles-mêmes nécessaire pour la progression.</li>
@@ -106,42 +106,42 @@ Travail à réaliser</h1>
 <li><b><span class="tt">AiSolver/Training/ArgmaxRollout</span></b> : extraction sans changement de comportement de la fonction homonyme, jusqu'ici piégée dans l'espace de noms anonyme de <span class="tt"><a class="el" href="Commands_8cpp.html">Cli/Commands.cpp</a></span> — partagée entre la CLI et <span class="tt">TrainingWorker</span>.</li>
 <li><b><span class="tt">HMI/Ai/TrainingWorker</span></b> (<span class="tt">QObject</span>, déplacé sur un <span class="tt">QThread</span> par l'appelant) : dispatch d'algorithme calqué sur <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">aisolver::cli::runTrain</a></span>, mêmes types de construction (<span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span>, <span class="tt">LOT-ANNEXE-19</span>). Signaux <span class="tt">progress</span>, <span class="tt">previewReady</span>, <span class="tt">finished</span>, <span class="tt">failed</span> ; slot <span class="tt">requestStop</span> (indicateur atomique, thread-safe).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4188"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4194"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TrainingStatsRecorder_8h.html" title="Journalisation CSV incrémentale des statistiques d&#39;un entraînement, partagée par tout algorithme (évo...">Source/AiSolver/Stats/TrainingStatsRecorder.h</a>/.cpp</span> — modifié (<span class="tt">setOnRecord</span>).</li>
 <li><span class="tt"><a class="el" href="LevelTrainingSession_8h.html" title="Boucle d&#39;entraînement pour un unique niveau et critère d&#39;arrêt (LOT-ANNEXE-11, EX-IA-012).">Source/AiSolver/Training/LevelTrainingSession.h</a>/.cpp</span> — modifié (<span class="tt">shouldStop</span>, <span class="tt">onGenerationChampion</span>).</li>
 <li><span class="tt"><a class="el" href="ReinforceTrainer_8h.html" title="Boucle d&#39;entraînement REINFORCE par épisodes, journalisée (LOT-ANNEXE-12, TACHE-04,...">Source/AiSolver/Training/PolicyGradient/ReinforceTrainer.h</a>/.cpp</span> — modifié (<span class="tt">shouldStop</span>).</li>
-<li><span class="tt"><a class="el" href="ActorCriticTrainer_8h.html" title="Boucle d&#39;entraînement acteur-critique par épisodes (LOT-ANNEXE-13, TACHE-03, EX-IA-014) — étend Reinf...">Source/AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>/.cpp</span> — modifié (<span class="tt">shouldStop</span>).</li>
-<li><span class="tt"><a class="el" href="DqnTrainer_8h.html" title="Boucle d&#39;entraînement DQN par pas, intégrée au harnais existant (LOT-ANNEXE-14, TACHE-01/TACHE-02,...">Source/AiSolver/Training/Advanced/DqnTrainer.h</a>/.cpp</span> — modifié (<span class="tt">shouldStop</span>).</li>
+<li><span class="tt"><a class="el" href="ActorCriticTrainer_8h.html" title="Boucle d&#39;entraînement acteur-critique par épisodes (LOT-ANNEXE-13, TACHE-03, EX-IA-014) — même ossatu...">Source/AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>/.cpp</span> — modifié (<span class="tt">shouldStop</span>).</li>
+<li><span class="tt">Source/AiSolver/Training/Advanced/DqnTrainer.h/.cpp</span> — modifié (<span class="tt">shouldStop</span>).</li>
 <li><span class="tt"><a class="el" href="ArgmaxRollout_8h.html" title="Rejeu déterministe d&#39;un eval::TrainedPolicy en mode Argmax (LOT-ANNEXE-19, extrait en LOT-ANNEXE-21 d...">Source/AiSolver/Training/ArgmaxRollout.h</a>/.cpp</span> — nouveau (extrait de <span class="tt"><a class="el" href="Commands_8cpp.html">Cli/Commands.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="Commands_8cpp.html">Source/AiSolver/Cli/Commands.cpp</a></span> — modifié (utilise <span class="tt">training::argmaxRollout</span>).</li>
 <li><span class="tt"><a class="el" href="TrainingWorker_8h.html" title="Exécute un entraînement (LOT-ANNEXE-21, EX-IA-022) sur un QThread séparé, pour que l&#39;onglet Entraînem...">Source/HMI/Ai/TrainingWorker.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span>, <span class="tt">Source/HMI/CMakeLists.txt</span> — modifiés (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4189"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4195"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">shouldStop</span> interrompt avant le critère naturel</b> : sur chacune des quatre boucles, un <span class="tt">shouldStop</span> renvoyant <span class="tt">true</span> dès le premier appel produit un résultat après une seule génération/un seul épisode (jamais jusqu'au plafond).</li>
 <li><b><span class="tt">setOnRecord</span> observe sans effet de bord</b> : le CSV produit reste identique bit à bit avec ou sans observateur enregistré ; l'observateur reçoit exactement une ligne par appel à <span class="tt">record</span>.</li>
 <li><b><span class="tt">onGenerationChampion</span> reçoit le vrai champion</b> : le réseau transmis produit, rejoué en mode Argmax, la même séquence que celle obtenue en interrogeant <span class="tt"><a class="el" href="structTrainingResult.html#a9e976b92ffec92d690c5d5e55f185ffc" title="Meilleur individu connu au moment de l&#39;arrêt (poids figés, copie indépendante de la population intern...">TrainingResult::bestIndividual</a></span> à l'issue d'un run équivalent sans interruption.</li>
-<li><b><span class="tt">argmaxRollout</span> inchangé après extraction</b> : même résultat, à niveau/modèle/graine identiques, qu'avant l'extraction (non-régression, comparé aux tests déjà existants de <span class="tt">LOT-ANNEXE-19</span>).</li>
+<li><b><span class="tt"><a class="el" href="test__argmax__rollout_8cpp.html#adb8a3c669b3b89e1c99290bf67963d46" title="Rejoue policy en mode Argmax sur environment/levelPath, jusqu&#39;à fin d&#39;épisode ou budget de pas — même...">argmaxRollout</a></span> inchangé après extraction</b> : même résultat, à niveau/modèle/graine identiques, qu'avant l'extraction (non-régression, comparé aux tests déjà existants de <span class="tt">LOT-ANNEXE-19</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4190"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4196"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Chaque extension reste additive</b> (paramètre par défaut, comportement inchangé si non fourni) : aucun appelant existant (<span class="tt">aisolver-cli</span>, tests unitaires/d'intégration) ne doit changer.</li>
 <li><b><span class="tt">TrainingWorker</span> ne réimplémente aucune règle</b> : toute divergence de comportement entre un run lancé depuis l'IHM et le même lancé via <span class="tt">aisolver-cli train</span> (mêmes arguments, même graine) est un bug de cette tâche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4191"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4197"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Hooks <span class="tt">AiSolver</span> et <span class="tt">TrainingWorker</span> fonctionnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4192"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4198"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (threading, observation, interruption). Le vocabulaire employé (génération, épisode, champion, politique) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4193"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4199"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-022</span> (nouvelle, partagée avec TACHE-02/03 du même lot). </p>
 </div></div><!-- contents -->

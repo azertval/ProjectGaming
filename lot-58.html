@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-58.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>en cours</b>. Prérequis : aucun. À exécuter <b>tôt</b> dans le programme <span class="tt">0.1.0</span> : c'est lui qui protège les lots de contenu qui suivent. TACHE-01 à TACHE-05 faites et vérifiées localement (couverture mesurée à 93.66 %, seuil posé à 85 %) ; seule TACHE-06 garde une réserve — la vérification CI réelle (<span class="tt">gh pr checks</span>) reste à faire au premier passage en ligne, faute d'avoir ouvert de PR pour ce lot (choix explicite : vérification locale uniquement). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2715"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2720"></a>
 Objectif</h1>
 <p>Faire tenir à la CI les promesses que le dépôt écrit déjà.</p>
 <p>Trois vérifications sont <b>déclarées</b> dans les spécifications et les conventions, et <b>exécutées nulle part</b> :</p>
@@ -106,9 +106,9 @@ Objectif</h1>
 <li><b><span class="tt">clang-tidy</span> et <span class="tt">clang-format</span> ne sont exécutés nulle part.</b> <span class="tt"><a class="el" href="conventions_8md.html">conventions.md</a></span> les présente comme de l'« outillage déjà en place » et <span class="tt">CONTRIBUTING.md</span> exige un code formaté avant tout commit ; rien ne le vérifie. Le fichier <span class="tt">.clang-tidy</span> est complet et n'a jamais rien dit.</li>
 </ol>
 <p>Une couverture produite puis oubliée complète le tableau : le rapport est uploadé sans seuil, et ne mesure que <span class="tt">UnitTests.exe</span> — les 89 tests d'intégration et les 3 tests système, c'est-à-dire toute la physique de bout en bout, en sont absents.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2716"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2721"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2717"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2722"></a>
 Inclus</h2>
 <ul>
 <li>Job CI <b>Release</b> : configuration, build et <span class="tt">ctest</span> en Release, contrôle requis pour merger.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li><b><span class="tt">clang-format</span></b> vérifié automatiquement (contrôle, pas réécriture).</li>
 <li><b>Couverture</b> étendue à <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span>, avec un <b>seuil</b> qui fait échouer la CI.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2718"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2723"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Correction de fond des avertissements que clang-tidy révélera au-delà du triage : ce lot <b>rend visible</b> et fixe ce qui est trivial ; une refonte guidée par l'analyse statique serait un lot en soi.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Tests de performance chiffrés — c'est LOT-62 (budget de rendu mesuré, programme de cadrage <span class="tt">0.1.0</span>).</li>
 <li>Signature de code, empaquetage, installeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2724"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Ce lot passe avant les lots de contenu.</b> Il ne produit rien de visible et c'est précisément pour cela qu'on serait tenté de le repousser après <span class="tt">LOT-59</span>, <span class="tt">LOT-60</span> et <span class="tt">LOT-53</span>. L'ordre inverse est le bon : le durcissement doit exister <b>avant</b> le code qu'il doit protéger, sinon chaque lot de contenu ajoute sa part de dette non vérifiée et le premier passage du sanitizer arrive sur un tas.</li>
@@ -134,14 +134,14 @@ Décisions de cadrage</h1>
 <li><b>La couverture obtient un seuil, pas un objectif ambitieux.</b> Le seuil est calé <b>sous</b> la valeur mesurée le jour de la mise en place : son rôle est d'interdire une chute, pas de forcer une hausse. Un seuil inatteignable se contourne.</li>
 <li><b>ASan sur les tests, pas sur l'application.</b> Le sanitizer a besoin d'un scénario reproductible et sans GPU ; les trois exécutables de test le fournissent, l'application Qt/D3D11 non.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2720"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2725"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-NFR-023</span> (la CI vérifie la configuration Release avant tout tag), <span class="tt">EX-NFR-024</span> (analyse statique et formatage vérifiés automatiquement).</li>
 <li><b>Rattachée</b> : <span class="tt">EX-NFR-003</span> (empreinte mémoire stable, vérifiable via AddressSanitizer) — orpheline depuis sa déclaration, ce lot lui donne enfin une exécution.</li>
 <li>Réutilisées : <span class="tt">EX-NFR-013</span> (compilation sans avertissement), <span class="tt">EX-NFR-022</span> (CI : build, tests, couverture), <span class="tt">EX-NFR-012</span> (conventions), <span class="tt">EX-NFR-020</span> (tests unitaires), <span class="tt">EX-NFR-030</span> (construction via CMake), <span class="tt">EX-NFR-041</span> (RAII).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2721"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2726"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -162,7 +162,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-58-tache-06-documentation-verification.html#md_Lot_2LOT-58-verification-release-analyse_2tache-06-documentation-verification" title="Lot/LOT-58-verification-release-analyse/tache-06-documentation-verification.md">TACHE-06</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">🔄  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2722"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2727"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une PR introduisant une casse <b>Release-only</b> (variable inutilisée sous <span class="tt">NDEBUG</span>, assertion portant un effet de bord) est <b>refusée par la CI</b>, et non découverte après le tag.</li>
@@ -172,10 +172,10 @@ Critères d'acceptation du lot</h1>
 <li>La couverture inclut <span class="tt">IntegrationTests</span> et <span class="tt">SystemTests</span>, et une chute sous le seuil fait échouer la CI.</li>
 <li>La durée totale de la CI reste tenable pour un cycle de PR (à mesurer et consigner ; les jobs sont parallèles).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2723"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2728"></a>
 Dépendances</h1>
 <p>Aucun prérequis. Protège tous les lots suivants du programme <span class="tt">0.1.0</span> — en particulier LOT-60 (audio, nouvelle dépendance tierce) et <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a> (recyclage de particules, terrain classique de dépassement de tampon).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2724"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2729"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-58-tache-01-job-release.html" title="TACHE-01 — Job CI de vérification en configuration Release">TACHE-01 — Job CI de vérification en configuration Release</a></li>

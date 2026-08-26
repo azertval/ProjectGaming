@@ -1,7 +1,7 @@
 var searchData=
 [
   ['filelogsink_0',['FileLogSink',['../classcore_1_1FileLogSink.html',1,'core']]],
-  ['fileopresult_1',['FileOpResult',['../structhmi_1_1FileOpResult.html',1,'hmi']]],
+  ['fileoperationresult_1',['FileOperationResult',['../structhmi_1_1FileOperationResult.html',1,'hmi']]],
   ['fitnessevaluation_2',['FitnessEvaluation',['../structaisolver_1_1training_1_1evolutionary_1_1FitnessEvaluation.html',1,'aisolver::training::evolutionary']]],
   ['fixedtimestep_3',['FixedTimestep',['../classcore_1_1FixedTimestep.html',1,'core']]],
   ['followcamerastate_4',['FollowCameraState',['../structhmi_1_1FollowCameraState.html',1,'hmi']]],

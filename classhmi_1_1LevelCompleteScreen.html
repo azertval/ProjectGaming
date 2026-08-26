@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -141,7 +141,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Recouvrement affiché à la réussite d'un tableau (<span class="tt">EX-GP-030</span>), même patron de superposition que <span class="tt"><a class="el" href="classhmi_1_1PauseScreen.html" title="Recouvrement de pause affiché par-dessus la scène de jeu figée (EX-GP-041).">PauseScreen</a></span> (widget frère de <span class="tt">MainWindow::_editorContainer</span>, jamais une page du <span class="tt">QStackedWidget</span>). </p>
-<p>Un seul écran paramétré pour les deux cas décrits par la tâche (« confondre ou non les deux écrans est une décision d'implémentation ») : <span class="tt"><a class="el" href="#a729e089ba3613e217bd2e5f9ccd36899" title="Configure l&#39;écran avant affichage : sequenceComplete choisit la variante (fin de séquence si le table...">configure()</a></span> choisit entre fin de <b>tableau</b> (titre nommé, boutons Continuer/Rejouer/Retour) et fin de <b>séquence</b> (titre de fin, seul Retour au menu &ndash; <span class="tt">Continuer</span> n'a alors rien où mener). <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">ScreenId</a></span> n'a donc pas de troisième état : les deux cas partagent <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da5a916597759e7c491e7d0567658bbb21">ScreenId::NiveauTermine</a></span>. </p>
+<p>Un seul écran paramétré pour les deux cas décrits par la tâche (« confondre ou non les deux écrans est une décision d'implémentation ») : <span class="tt"><a class="el" href="#a729e089ba3613e217bd2e5f9ccd36899" title="Configure l&#39;écran avant affichage : sequenceComplete choisit la variante (fin de séquence si le table...">configure()</a></span> choisit entre fin de <b>tableau</b> (titre nommé, boutons Continuer/Rejouer/Retour) et fin de <b>séquence</b> (titre de fin, seul Retour au menu &ndash; <span class="tt">Continuer</span> n'a alors rien où mener). <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">ScreenId</a></span> n'a donc pas de troisième état : les deux cas partagent <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dafadd249ca99ec988612da6329ccc7ffc">ScreenId::LevelComplete</a></span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeec3356fcaa7034fb1675e22aedfb687" name="aeec3356fcaa7034fb1675e22aedfb687"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeec3356fcaa7034fb1675e22aedfb687">&#9670;&#160;</a></span>LevelCompleteScreen()</h2>

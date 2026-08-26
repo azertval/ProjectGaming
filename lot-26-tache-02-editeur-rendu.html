@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-26-tache-02-editeur-rendu.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-26-pentes-arrondis-plafond_2tache-02-editeur-rendu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-26.html#md_Lot_2LOT-26-pentes-arrondis-plafond_2epic" title="Lot/LOT-26-pentes-arrondis-plafond/epic.md">LOT-26</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1557"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1562"></a>
 Contexte</h1>
 <p>Rend les quatre nouvelles tuiles plaçables dans l'éditeur et affichées avec leur silhouette réelle (triangle/courbe), cohérente avec la hitbox posée en TACHE-01 — sur le modèle des pentes/arrondis de sol (<span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1558"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1563"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">HMI/Editor/EditorLayout.h</span></b> : <span class="tt">PALETTE_TYPE_COUNT</span> <span class="tt">15 → 19</span>.</li>
@@ -110,29 +110,29 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1559"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1564"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/EditorLayout.h</span>, <span class="tt">TilePalette.cpp</span>.</li>
 <li><span class="tt"><a class="el" href="TileVisuals_8h.html" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur.">Source/HMI/Graphics/TileVisuals.h</a></span>/<span class="tt">.cpp</span>, <span class="tt"><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">TextureAtlas.h</a></span>/<span class="tt">.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1560"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1565"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement (pas de test HMI dédié à la génération d'atlas — cohérent avec l'absence de tests directs pour les variantes de sol existantes, <span class="tt">TextureAtlas</span> dépendant de Direct3D).</li>
 <li>Revue de code : vérifier que le jeu de couleurs recalé ne décale aucune couleur existante (comparaison ligne par ligne avec l'ancien tableau <span class="tt">4×4</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1561"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1566"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le recalage du jeu de couleurs est la partie la plus risquée de cette tâche</b> : un agrandissement de grille naïf (juste changer <span class="tt">TILES_PER_SIDE</span>) aurait silencieusement redécalé la couleur de <b>toutes</b> les tuiles existantes à partir de la deuxième ligne, puisque <span class="tt">tileColor</span> indexe une palette à plat par <span class="tt">ligne × largeur + colonne</span> — un bug qui ne se serait révélé qu'à l'exécution (aucun test ne compare les couleurs pixel par pixel), pas à la compilation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1562"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1567"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Quatre nouvelles tuiles plaçables depuis la palette, rendues avec leur silhouette réelle en gris, cohérente avec la hitbox (TACHE-01) ; aucune couleur de tuile existante décalée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1563"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1568"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-006</span> (éditeur et rendu). </p>
 </div></div><!-- contents -->

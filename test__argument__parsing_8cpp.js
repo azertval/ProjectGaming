@@ -19,5 +19,6 @@ var test__argument__parsing_8cpp =
     [ "TEST", "test__argument__parsing_8cpp.html#a42c9c25e449f94a190c495bd09b5171f", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#ad47d37f7048ec21b5547c3d5b35a9d68", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a5cae28f35748750378487ff301e52980", null ],
-    [ "TEST", "test__argument__parsing_8cpp.html#a71c3a37914f91d555ede3b3b89928c5b", null ]
+    [ "TEST", "test__argument__parsing_8cpp.html#a71c3a37914f91d555ede3b3b89928c5b", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a5e8e4cddba91c477180411669aafb71d", null ]
 ];

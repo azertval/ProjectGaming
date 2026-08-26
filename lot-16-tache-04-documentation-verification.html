@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-16-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-16-niveaux-plus-grands_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-16.html#md_Lot_2LOT-16-niveaux-plus-grands_2epic" title="Lot/LOT-16-niveaux-plus-grands/epic.md">LOT-16</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1231"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1236"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1232"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1237"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span></b> : nouvelle section décrivant la boîte de dialogue de redimensionnement (généralisation du slot de saisie de texte, réutilisation de <span class="tt">LevelSizeValidation</span> sur le modèle de <span class="tt">LevelNameValidation</span>) et la correction du cadrage caméra (pourquoi le zoom devient fractionnaire au-delà de l'ajustement ×1, et pourquoi c'est une exception locale à <span class="tt">EX-ARCH-022</span> plutôt qu'un changement de politique).</li>
@@ -107,32 +107,32 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<span class="tt">doxygen Doxyfile</span> depuis <span class="tt">Documentation/</span>) avant de pousser — LOT-15 a laissé un échec CI (caractères <span class="tt">&lt; &gt;</span> non échappés dans un span de code) qui aurait été attrapé par cette vérification ; ne pas s'y reprendre à deux fois.</li>
 <li><b><span class="tt">scripts/lint_exigences.py</span></b> : doit rester vert (nouvelle exigence <span class="tt">EX-EDIT-017</span> déclarée une fois, <span class="tt">EX-REN-013</span> réutilisée sans nouvelle déclaration, aucune référence orpheline).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1233"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1238"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></span>, potentiellement <span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>.</li>
 <li><span class="tt"><a class="el" href="partager-un-niveau_8md.html">Documentation/Manuel/partager-un-niveau.md</a></span>.</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1234"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1239"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> retourne un code de sortie <span class="tt">0</span>.</li>
 <li><span class="tt">doxygen Doxyfile</span> (depuis <span class="tt">Documentation/</span>) se termine avec un code de sortie <span class="tt">0</span> et <b>aucune</b> ligne de sortie (le <span class="tt">Doxyfile</span> du projet est configuré <span class="tt">QUIET=YES</span>, <span class="tt">WARN_AS_ERROR=
   FAIL_ON_WARNINGS</span> : un avertissement produirait une sortie non vide et ferait échouer le CI <span class="tt">docs.yml</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1235"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1240"></a>
 Points d'attention</h1>
 <ul>
 <li>Si un passage nouvellement écrit doit montrer un caractère <span class="tt">&lt;</span>/<span class="tt">&gt;</span> littéral dans un span en accent grave, ne pas le faire — Doxygen l'interprète comme une balise HTML mal fermée à l'intérieur du <span class="tt">&lt;tt&gt;</span> qu'il génère (rencontré en LOT-15). Écrire le caractère en toutes lettres (« chevron ouvrant/fermant ») plutôt que par son glyphe.</li>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<span class="tt">epic.md</span> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1236"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1241"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale verts ; <span class="tt">CHANGELOG.md</span> à jour ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1237"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1242"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

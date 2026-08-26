@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -216,7 +216,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Croisement par moyenne : le réseau enfant a, pour chaque poids, la moyenne des poids correspondants des deux parents (moyenne élément par élément des <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> de poids). </p>
-<p>Déterministe une fois les deux parents choisis : <code class="param">rng</code> n'intervient jamais dans le calcul de la moyenne, seulement pour matérialiser le réseau enfant via <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#ac04a455df7a8844fe27f78b4da9d4515" title="Construit un nn::Network neuf conforme à topology.">buildNetwork</a></span> (poids immédiatement écrasés ci-dessous) — conservé en paramètre pour une éventuelle variante future (hors périmètre ici), et déviation pragmatique du signature de l'épic (<span class="tt">topology</span> ajouté : <span class="tt">nn::Network</span> n'est pas introspectable après construction, la topologie doit être fournie explicitement). </p>
+<p>Déterministe une fois les deux parents choisis : <code class="param">rng</code> n'intervient jamais dans le calcul de la moyenne, seulement pour matérialiser le réseau enfant via <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#ac04a455df7a8844fe27f78b4da9d4515" title="Construit un nn::Network neuf conforme à topology.">buildNetwork</a></span>, dont les poids sont immédiatement écrasés par la moyenne — conservé en paramètre pour une éventuelle variante future (hors périmètre ici). Écart assumé à la signature de l'épic : <span class="tt">topology</span> est ajouté en paramètre parce qu'un <span class="tt">nn::Network</span> n'est pas introspectable après construction — la topologie doit être fournie explicitement. </p>
 
 </div>
 </div>

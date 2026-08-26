@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,16 +96,16 @@ $(function(){initNavTree('lot-57.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a> (visibilité des calques), <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> (jetons, thème, actions et barre d'outils). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2676"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2681"></a>
 Objectif</h1>
 <p>Rendre l'éditeur <b>lisible</b> : afficher l'état dont l'auteur d'un niveau a besoin en permanence, et cesser d'afficher tout le reste tout le temps.</p>
 <p>L'éditeur a gagné un panneau ou un onglet à presque chaque lot du programme d'habillage — jeux de skins au <span class="tt">LOT-42</span>, bibliothèque d'assets au <span class="tt">LOT-43</span>, fond au <span class="tt">LOT-44</span>, surcharges d'objets au <span class="tt">LOT-45</span>, animations au <span class="tt">LOT-46</span>, décors au <span class="tt">LOT-50</span>, calques au <span class="tt">LOT-51</span>. Chaque ajout était justifié isolément ; la répartition d'ensemble n'a jamais été revue. Le résultat se compte : <b>environ 106 contrôles simultanément à l'écran</b>, sur cinq panneaux tous affichés en même temps quel que soit l'outil actif, sans aucun regroupement — ni séparateur, ni groupe, ni inspecteur contextuel. Le seul panneau structuré, celui des textures, l'est par un jeu de six onglets hétérogènes qui concentre à lui seul un tiers des contrôles.</p>
 <p>Plusieurs états sont pilotables depuis <b>deux endroits distincts</b> : la couche d'un décor se règle dans le panneau Outils et dans l'onglet Décors ; le mode d'affichage Physique/Texture bascule à la fois par sa touche et par une case à cocher de l'onglet Calques ; deux listes déroulantes portent le nom « jeu de skins » sans désigner la même chose (celui de la session d'édition, celui du niveau). Deux contrôles pour une valeur, c'est une divergence possible et une question sans réponse : lequel fait autorité.</p>
 <p>Le paradoxe est que cet éditeur saturé de <b>contrôles</b> n'affiche presque aucune <b>information</b>. Il ne montre nulle part quel niveau est ouvert, s'il comporte des modifications non enregistrées — l'état existe pourtant dans le viewport —, quel outil est actif, quelle case est survolée, ni à quel zoom on travaille. La barre d'état ne porte qu'une ligne unique de sept raccourcis concaténés, identique quel que soit l'outil, et <b>définitivement effacée</b> dès qu'un message transitoire l'a remplacée : rien ne la restaure ensuite, hors changement de langue.</p>
 <p>Ce lot ne retire aucune capacité. Il redistribue : ce qui informe devient permanent, ce qui commande devient unique, et ce qui ne sert qu'à un outil s'efface quand cet outil n'est pas actif.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2677"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2682"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2678"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2683"></a>
 Inclus</h2>
 <ul>
 <li><b>Barre d'état structurée</b> : zones permanentes d'état (niveau ouvert, modifications non enregistrées, outil actif, case survolée, zoom) et zone de message transitoire qui <b>restaure</b> l'aide à son expiration ; aide <b>contextuelle à l'outil actif</b>.</li>
@@ -115,7 +115,7 @@ Inclus</h2>
 <li><b>Raccourcis d'éditeur</b> : branchement des actions remappables définies mais jamais lues, et écran de remappage correspondant — les clés de traduction existent déjà et ne sont référencées nulle part.</li>
 <li><b>Aperçu des raccourcis à l'écran</b>, qui concrétise la seconde moitié d'<span class="tt">EX-EDIT-015</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2679"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2684"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Refonte de la disposition dockable</b> : les panneaux restent déplaçables, redimensionnables, détachables et persistés (<span class="tt">EX-IHM-010</span>, <span class="tt">EX-IHM-011</span>). Ce lot change leur <b>regroupement par défaut</b>, pas le mécanisme.</li>
@@ -124,7 +124,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>**Nouveaux outils ou nouvelles capacités d'édition</b> : aucune fonction nouvelle, uniquement une redistribution de l'existant.</li>
 <li><b>HUD du jeu</b> (<a class="el" href="lot-52.html" title="LOT-52 — Texte, police bitmap et affichage tête haute">LOT-52</a>) : l'information d'édition s'affiche dans les widgets Qt, pas dans la scène rendue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2680"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2685"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Redistribuer, pas retirer.</b> Chaque contrôle présent a été ajouté pour une raison ; le problème est sa présence <em>permanente</em>, pas son existence. Le lot ne supprime une capacité que lorsqu'elle est strictement dupliquée.</li>
@@ -134,14 +134,14 @@ Décisions de cadrage</h1>
 <li><b>L'information d'état se calcule à part.</b> Le choix de ce qu'affiche la barre d'état est une décision, pas un rendu : elle est exposée en fonction pure et testée sans Qt, sur le patron déjà retenu pour le HUD au <span class="tt">LOT-52</span>.</li>
 <li><b>Étend <a class="el" href="spec-interface-ihm.html#md_Specification_2interface-ihm" title="Specification/interface-ihm.md"><span class="tt">interface-ihm.md</span></a></b> d'une section 7 : la spécification cadrait l'existence des panneaux, jamais la répartition de l'information entre eux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2681"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2686"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-060</span> (état de travail affiché en permanence, aide contextuelle), <span class="tt">EX-IHM-061</span> (panneaux groupés, suivant l'outil actif sans masquer un panneau ouvert), <span class="tt">EX-IHM-062</span> (un état ou une commande à un seul endroit).</li>
 <li>Concrétise la partie « aperçu des raccourcis clavier » d'<span class="tt">EX-EDIT-015</span>, restée non implémentée depuis le <span class="tt">LOT-15</span>.</li>
 <li>Réutilisées : <span class="tt">EX-IHM-010</span>/<span class="tt">EX-IHM-011</span> (panneaux dockables et disposition persistée), <span class="tt">EX-IHM-055</span> (actions, <span class="tt">LOT-56</span>), <span class="tt">EX-EDIT-044</span> (visibilité des calques, <span class="tt">LOT-51</span>), <span class="tt">EX-CTRL-012</span> (raccourcis d'éditeur remappables), <span class="tt">EX-REN-033</span> (traduction).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2682"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2687"></a>
 Amendement post-essai manuel (2026-08-09)</h1>
 <p>Après livraison des quatre tâches, premier essai manuel réel de l'éditeur reconstruit : deux retours directs sur la disposition, tranchés et implémentés dans la foulée (branche encore ouverte, non mergée — pas un nouveau lot) :</p><ul>
 <li><b>Les « palettes de texture » devaient redevenir un panneau à part</b>, sur le modèle Outils/Palette. Le panneau « Outils » (<span class="tt">ToolPanel</span>), qui ne portait déjà plus que le strict nécessaire de l'outil Décor depuis <span class="tt">LOT-56</span> TACHE-04 (le choix d'outil s'était déplacé vers la barre d'outils), est renommé « Décors » (<span class="tt">DecorsPanel</span>) et regroupe désormais aussi l'inspecteur des décors posés (déplacé de l'onglet « Décors » du panneau Textures, <span class="tt">LOT-50</span>). Le panneau Textures sort du regroupement en onglets de TACHE-02 (Niveaux/Liens restent tabifiés, Textures redevient indépendant, comme Palette/Décors).</li>
@@ -149,7 +149,7 @@ Amendement post-essai manuel (2026-08-09)</h1>
 <li>Les deux sélecteurs de couche de décor (placement du prochain décor, couche du décor sélectionné) vivent désormais dans le même panneau, renommés explicitement (<span class="tt">decorPlacementLayerCombo</span>/ <span class="tt">decorSelectedLayerCombo</span>) plutôt que de porter le même nom générique dans le même <span class="tt">.ui</span>.</li>
 <li><span class="tt">LAYOUT_VERSION</span> 4 → 5 (dock renommé).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2683"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2688"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -166,7 +166,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-57-tache-04-deduplication-raccourcis.html#md_Lot_2LOT-57-editeur-information_2tache-04-deduplication-raccourcis" title="Lot/LOT-57-editeur-information/tache-04-deduplication-raccourcis.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Déduplication des commandes, raccourcis d'éditeur branchés et remappables, aperçu à l'écran  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Input</span>, <span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2684"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2689"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le niveau ouvert, la présence de modifications non enregistrées, l'outil actif, la case survolée et le zoom sont visibles en permanence pendant l'édition.</li>
@@ -178,11 +178,11 @@ Critères d'acceptation du lot</h1>
 <li>Un aperçu des raccourcis est atteignable depuis l'application.</li>
 <li>La disposition sauvegardée d'une session précédente se restaure sans panneau égaré ; libellés dans les deux langues ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2685"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2690"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a>, dont les actions rendent la déduplication structurelle plutôt que cosmétique, et sur <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a>, dont le mode d'inspection par calque est déplacé. Utilise le patron de fonction pure de décision d'affichage établi par <a class="el" href="lot-52.html" title="LOT-52 — Texte, police bitmap et affichage tête haute">LOT-52</a>. Aucune dépendance sur les autres lots du programme d'habillage.</p>
 <p><a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> s'exécute derrière celui-ci et s'y branche : l'atelier pixel art étendra le modèle pur de la barre d'état d'un contexte d'édition d'asset, entrera dans le regroupement des panneaux et dans la table de mise en avant, prendra son point d'entrée dans le panneau Textures recentré, et donnera une seconde cible aux actions Annuler et Refaire dédupliquées ici. Quatre des tâches de ce lot sont donc à écrire en prévoyant ce second contexte d'édition, plutôt qu'en figeant leurs signatures sur le seul contexte niveau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2686"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2691"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-57-tache-01-barre-etat.html" title="TACHE-01 — Barre d&#39;état : état permanent et aide contextuelle">TACHE-01 — Barre d'état : état permanent et aide contextuelle</a></li>

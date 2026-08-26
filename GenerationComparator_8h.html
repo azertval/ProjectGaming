@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Training/Advanced/GenerationComparator.h File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/AiSolver/Eval/GenerationComparator.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,31 +100,32 @@ $(function(){initNavTree('GenerationComparator_8h.html','',''); });
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="ConvergenceComparator_8h_source.html">AiSolver/Training/ActorCritic/ConvergenceComparator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ConvergenceComparator_8h_source.html">AiSolver/Eval/ConvergenceComparator.h</a>&quot;</code><br />
 </div>
 <p><a href="GenerationComparator_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining_3A_3ANamedSeries" id="r_aisolver_3A_3Atraining_3A_3ANamedSeries"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1NamedSeries.html">aisolver::training::NamedSeries</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> par essai (même schéma de colonnes communes que <span class="tt">ConvergenceComparator</span>).  <a href="structaisolver_1_1training_1_1NamedSeries.html#details">More...</a><br /></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining_3A_3AGenerationComparisonResult" id="r_aisolver_3A_3Atraining_3A_3AGenerationComparisonResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1GenerationComparisonResult.html">aisolver::training::GenerationComparisonResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structaisolver_1_1training_1_1NamedSeries.html#a0a5265888d2baa0ada6d53a20efbc6f3" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structaisolver_1_1training_1_1GenerationComparisonResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval_3A_3ANamedSeries" id="r_aisolver_3A_3Aeval_3A_3ANamedSeries"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1NamedSeries.html">aisolver::eval::NamedSeries</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une série nommée : plusieurs essais (graines) du même algorithme, un CSV <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> par essai (même schéma de colonnes communes que <span class="tt">ConvergenceComparator</span>).  <a href="structaisolver_1_1eval_1_1NamedSeries.html#details">More...</a><br /></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval_3A_3AGenerationComparisonResult" id="r_aisolver_3A_3Aeval_3A_3AGenerationComparisonResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1GenerationComparisonResult.html">aisolver::eval::GenerationComparisonResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une série : absent (<span class="tt">std::nullopt</span>) si <a class="el" href="structaisolver_1_1eval_1_1NamedSeries.html#a45756688601293f0c6677a13e5b3ecbe" title="NamedSeries::csvPaths">NamedSeries::csvPaths</a> était vide &ndash; signalé explicitement plutôt qu'un résultat silencieusement faussé (critère d'acceptation de TACHE-03).  <a href="structaisolver_1_1eval_1_1GenerationComparisonResult.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:aisolver" id="r_aisolver"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver.html">aisolver</a></td></tr>
-<tr class="memitem:aisolver_3A_3Atraining" id="r_aisolver_3A_3Atraining"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html">aisolver::training</a></td></tr>
+<tr class="memitem:aisolver_3A_3Aeval" id="r_aisolver_3A_3Aeval"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html">aisolver::eval</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2cf9c7efba9b2708c903109fcca12bab" id="r_a2cf9c7efba9b2708c903109fcca12bab"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#a2cf9c7efba9b2708c903109fcca12bab">aisolver::training::compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
-<tr class="memdesc:a2cf9c7efba9b2708c903109fcca12bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#add00975471503535b34b74ebb42ec1e9" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
-<tr class="memitem:a5a030a9e6b1b0ac6e2ab114e631b730a" id="r_a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#a5a030a9e6b1b0ac6e2ab114e631b730a">aisolver::training::evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
-<tr class="memdesc:a5a030a9e6b1b0ac6e2ab114e631b730a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
+<tr class="memitem:a03ed0a9b92ba524110076d38715fa25a" id="r_a03ed0a9b92ba524110076d38715fa25a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html#a03ed0a9b92ba524110076d38715fa25a">aisolver::eval::compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
+<tr class="memdesc:a03ed0a9b92ba524110076d38715fa25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <span class="tt"><a class="el" href="namespaceaisolver_1_1eval.html#a6cd298aafd54f7b991dc89580f50dec2" title="Agrège les métriques de convergence de plusieurs runs (essais répétés d&#39;un même algorithme,...">compareConvergence</a></span> (<span class="tt">LOT-ANNEXE-13</span>) à chaque série, dans l'ordre fourni.  <br /></td></tr>
+<tr class="memitem:ad3b982ce5423c714f5a7d8b9e132d103" id="r_ad3b982ce5423c714f5a7d8b9e132d103"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1eval.html#ad3b982ce5423c714f5a7d8b9e132d103">aisolver::eval::evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
+<tr class="memdesc:ad3b982ce5423c714f5a7d8b9e132d103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Comparaison chiffrée de convergence entre <em>N</em> approches (<span class="tt">LOT-ANNEXE-14</span>, TACHE-03, <span class="tt">EX-IA-015</span>) &ndash; généralise <span class="tt">ConvergenceComparator</span> (<span class="tt">LOT-ANNEXE-13</span>, deux séries) sans dupliquer sa logique de lecture/calcul, réutilisée telle quelle par série. </p>
+<p><b>API de bibliothèque, sans point d'entrée <span class="tt">aisolver-cli</span>.</b> L'outil en ligne de commande n'expose que <span class="tt">train</span>, <span class="tt">evaluate</span> et <span class="tt">export-replay</span> : ce module est appelé par ses tests, et reste disponible pour une nouvelle campagne. Ce n'est pas un oubli — la campagne du lot a été exécutée une fois et ses résultats consignés (<span class="tt">Documentation/Lot-Annexe/</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -138,7 +139,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_53313a0329ae6869ebe758cc286a2e1b.html">Training</a></li><li class="navelem"><a href="dir_f607717b848dc66a7fc3bc4e6ceaca87.html">Advanced</a></li><li class="navelem"><a href="GenerationComparator_8h.html">GenerationComparator.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_476b0648359b5ab5ea085e601983b06f.html">AiSolver</a></li><li class="navelem"><a href="dir_2231b708cdc27fe07e064cc3175f0fbd.html">Eval</a></li><li class="navelem"><a href="GenerationComparator_8h.html">GenerationComparator.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>
