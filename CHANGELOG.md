@@ -94,6 +94,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   ses 94 lignes de formulaire, cet écran est le seul du jeu assez dense pour poser le problème —
   les autres en comptent au plus douze.
 
+- **Redimensionner la fenêtre figeait l'application.** Le facteur d'agrandissement des écrans est
+  dérivé de la hauteur de la fenêtre ; à chaque changement, la feuille de style de l'application
+  était rejouée — ce qui **repolit les 862 widgets** de l'application et leur recalcule métriques,
+  tailles et dispositions. Mesuré en Debug : **5 secondes par rejeu**. Or un glisser de bordure qui
+  longe un seuil le franchit des dizaines de fois, et chaque franchissement empilait un rejeu
+  complet : la fenêtre restait figée bien après que la souris ait été relâchée. Les rejeux sont
+  désormais **regroupés** — seul le dernier facteur, celui qu'on voit à l'arrivée, est joué. Mesure
+  sur vingt franchissements de seuil : **106,6 s de CPU avant, 10,3 s après**. L'aspect final est
+  identique ; seul le chemin pour y arriver a changé. (En Release, le même rejeu est imperceptible :
+  l'application y consomme 0 % au repos contre ~40 % en Debug pendant les vingt premières
+  secondes.)
+
 - **Crédits — trois sections sur six s'affichaient dans la mauvaise police.** Le thème ciblait les
   intitulés et les lignes de crédit par **nom d'objet**, et la liste n'avait jamais été étendue aux
   sections ajoutées après coup — polices, bibliothèques, licence. Leurs intitulés s'affichaient donc

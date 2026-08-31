@@ -956,16 +956,29 @@ void MainWindow::applyIdentityScale() {
     if (!hmi::setIdentityScale(hmi::pixelArtScale(height()))) {
         return;
     }
-    // DIFFERE au prochain tour de boucle, jamais dans le resizeEvent lui-meme : reposer la feuille
-    // de style de l'application repolit TOUS ses widgets, et le faire au milieu d'un calcul de
-    // disposition ré-entre dans la machinerie de style. Le garde ci-dessus est reevalue a
-    // l'echeance, la fenetre ayant pu se fermer entre-temps.
-    QTimer::singleShot(0, this, [this] {
-        if (_closing || !isVisible()) {
-            return;
-        }
-        hmi::reapplyEditorTheme();
-    });
+    // DIFFERE et REGROUPE, jamais joue dans le resizeEvent lui-meme : reposer la feuille de style
+    // de l'application repolit TOUS ses widgets -- 862 sur cette application, et la re-polish leur
+    // recalcule metriques, tailles et dispositions. Mesure en Debug : 5 secondes par appel.
+    //
+    // Or un glisser de bordure qui longe un seuil de facteur (multiple de PIXEL_ART_BASE_HEIGHT)
+    // le franchit des dizaines de fois : sans regroupement, chaque franchissement empilait un
+    // rejeu complet, et la fenetre restait figee bien apres que l'utilisateur ait lache la souris.
+    // Le minuteur redemarre a chaque changement : seul le DERNIER facteur est finalement joue,
+    // celui qu'on voit a l'arrivee -- l'aspect final est identique, le chemin pour y arriver ne
+    // l'est plus.
+    if (_themeReapplyTimer == nullptr) {
+        _themeReapplyTimer = new QTimer(this);
+        _themeReapplyTimer->setSingleShot(true);
+        _themeReapplyTimer->setInterval(THEME_REAPPLY_DEBOUNCE_MS);
+        connect(_themeReapplyTimer, &QTimer::timeout, this, [this] {
+            // Le garde est reevalue a l'echeance : la fenetre a pu se fermer entre-temps.
+            if (_closing || !isVisible()) {
+                return;
+            }
+            hmi::reapplyEditorTheme();
+        });
+    }
+    _themeReapplyTimer->start();
 }
 
 void MainWindow::moveEvent(QMoveEvent* event) {

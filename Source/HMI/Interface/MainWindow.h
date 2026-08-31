@@ -512,6 +512,15 @@ private:
     GamepadPoller _menuPad;
     InputState _menuPadInput;
     QTimer* _menuNavTimer = nullptr;
+
+    /// Délai de regroupement des rejeux de thème déclenchés par un changement d'échelle.
+    ///
+    /// Assez long pour absorber un glisser de bordure qui longe un seuil, assez court pour que le
+    /// changement d'échelle reste perçu comme immédiat quand on relâche.
+    static constexpr int THEME_REAPPLY_DEBOUNCE_MS = 200;
+
+    /// Minuteur de regroupement (voir `applyIdentityScale`) ; créé au premier changement d'échelle.
+    QTimer* _themeReapplyTimer = nullptr;
 };
 
 }  // namespace hmi
