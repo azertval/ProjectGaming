@@ -9,7 +9,9 @@
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSpinBox>
@@ -19,14 +21,13 @@
 #include <filesystem>
 #include <system_error>
 
-#include "HMI/Interface/TrainingChartWidget.h"
-
 #include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Replay/ReplayFile.h"
 #include "HMI/Ai/ModelEvaluation.h"
 #include "HMI/Interface/ApplicationTheme.h"
 #include "HMI/Interface/DesignTokens.h"
 #include "HMI/Interface/PixelFocusCaret.h"
+#include "HMI/Interface/TrainingChartWidget.h"
 #include "HMI/Localization/Localization.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_AiModeScreen.h"
@@ -92,11 +93,25 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     });
 
     connect(_ui->evaluateButton, &QPushButton::clicked, this, &AiModeScreen::onEvaluate);
+    connect(_ui->stopEvaluationButton, &QPushButton::clicked, this,
+            &AiModeScreen::onStopEvaluation);
+    connect(_ui->browseModelButton, &QPushButton::clicked, this, &AiModeScreen::onBrowseModel);
+    connect(_ui->exportReportButton, &QPushButton::clicked, this, &AiModeScreen::onExportReport);
+    connect(_ui->reuseRunSettingsButton, &QPushButton::clicked, this,
+            &AiModeScreen::onReuseRunSettings);
     connect(_ui->saveModelButton, &QPushButton::clicked, this, &AiModeScreen::onSaveModel);
     connect(_ui->exportReplayButton, &QPushButton::clicked, this, &AiModeScreen::onExportReplay);
     connect(_ui->launchReplayButton, &QPushButton::clicked, this, &AiModeScreen::onLaunchReplay);
-    connect(_ui->openRunFolderButton, &QPushButton::clicked, this,
-            &AiModeScreen::onOpenRunFolder);
+    connect(_ui->openRunFolderButton, &QPushButton::clicked, this, &AiModeScreen::onOpenRunFolder);
+    connect(_ui->browseRunsRootButton, &QPushButton::clicked, this,
+            &AiModeScreen::onBrowseRunsRoot);
+    connect(_ui->loadConfigButton, &QPushButton::clicked, this, &AiModeScreen::onLoadConfig);
+    connect(_ui->saveConfigButton, &QPushButton::clicked, this, &AiModeScreen::onSaveConfig);
+    connect(_ui->resetDefaultsButton, &QPushButton::clicked, this, &AiModeScreen::onResetDefaults);
+
+    // Le dossier des runs est modifiable, mais part de l'emplacement historique (a cote de
+    // l'executable) : un utilisateur qui ne touche a rien retrouve ses runs precedents.
+    _ui->runsRootEdit->setText(QString::fromStdString(runsRootDir().string()));
 
     // Menu evolutif (LOT-ANNEXE-21) : chaque radio d'algorithme ne montre que les groupes de
     // parametres qui lui sont utiles (evite qu'un run DQN affiche "Taille de population", par
@@ -112,10 +127,28 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     connect(_ui->replayTable, &QTableWidget::itemSelectionChanged, this, [this] {
         _ui->launchReplayButton->setEnabled(!_ui->replayTable->selectedItems().isEmpty());
     });
+    // Choisir un run pre-remplit modele et niveau de l'onglet Validation, sans les y figer :
+    // l'evaluation croisee (le meme modele sur un AUTRE niveau) est precisement ce que la ligne de
+    // commande permet et que cet onglet interdisait.
     connect(_ui->runCombo, &QComboBox::currentIndexChanged, this, [this](int) {
-        _ui->saveModelButton->setEnabled(_ui->runCombo->currentData().isValid());
-        _ui->exportReplayButton->setEnabled(_ui->runCombo->currentData().isValid());
+        const QString runDir = _ui->runCombo->currentData().toString();
+        const bool hasRun = !runDir.isEmpty();
+        _ui->saveModelButton->setEnabled(hasRun);
+        _ui->reuseRunSettingsButton->setEnabled(hasRun);
+        if (!hasRun) {
+            return;
+        }
+        const std::filesystem::path runPath(runDir.toStdString());
+        _ui->evalModelEdit->setText(QString::fromStdString((runPath / "model.bin").string()));
+        const QString levelName = QString::fromStdString(runPath.parent_path().filename().string());
+        const int levelIndex = _ui->evalLevelCombo->findText(levelName + ".json");
+        if (levelIndex >= 0) {
+            _ui->evalLevelCombo->setCurrentIndex(levelIndex);
+        }
     });
+    // L'export de rejeu ne depend plus du run selectionne mais du couple modele/niveau saisi.
+    connect(_ui->evalModelEdit, &QLineEdit::textChanged, this,
+            [this](const QString& path) { _ui->exportReplayButton->setEnabled(!path.isEmpty()); });
 
     setTrainingControlsEnabled(true);
     updateFieldVisibility();
@@ -124,7 +157,11 @@ AiModeScreen::AiModeScreen(QWidget* parent)
 }
 
 AiModeScreen::~AiModeScreen() {
+    // Les DEUX fils, pas seulement l'entrainement : detruire un `QThread` encore en cours abandonne
+    // le processus (`QThread: Destroyed while thread is still running` puis `terminate()`), et une
+    // evaluation dure assez longtemps pour que la fenetre se ferme pendant.
     teardownWorker();
+    teardownEvaluationWorker();
 }
 
 QString AiModeScreen::text(const char* key) const {
@@ -153,13 +190,41 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->reinforceAlgorithmRadio->setText(t("ai_mode.algo_pg"));
     _ui->actorCriticAlgorithmRadio->setText(t("ai_mode.algo_ac"));
     _ui->advancedAlgorithmRadio->setText(t("ai_mode.algo_dqn"));
+    _ui->hiddenSizeLabel->setText(t("ai_mode.hidden_size"));
+    _ui->runsRootLabel->setText(t("ai_mode.runs_root"));
+    _ui->browseRunsRootButton->setText(t("ai_mode.browse"));
     _ui->populationLabel->setText(t("ai_mode.population"));
+    _ui->tournamentSizeLabel->setText(t("ai_mode.tournament_size"));
     _ui->mutationRateLabel->setText(t("ai_mode.mutation_rate"));
+    _ui->mutationStrengthLabel->setText(t("ai_mode.mutation_strength"));
+    _ui->maxGenerationsLabel->setText(t("ai_mode.max_generations"));
+    _ui->requiredSuccessesLabel->setText(t("ai_mode.required_successes"));
+    _ui->loadConfigButton->setText(t("ai_mode.load_config"));
+    _ui->saveConfigButton->setText(t("ai_mode.save_config"));
+    _ui->resetDefaultsButton->setText(t("ai_mode.reset_defaults"));
     _ui->stabilityLabel->setText(t("ai_mode.stability"));
     _ui->episodesLabel->setText(t("ai_mode.episodes"));
     _ui->learningRateLabel->setText(t("ai_mode.learning_rate"));
     _ui->gammaLabel->setText(t("ai_mode.gamma"));
     _ui->optimizerLabel->setText(t("ai_mode.optimizer"));
+    _ui->criticLearningRateLabel->setText(t("ai_mode.critic_learning_rate"));
+    _ui->crossoverRateLabel->setText(t("ai_mode.crossover_rate"));
+    _ui->batchEpisodesLabel->setText(t("ai_mode.batch_episodes"));
+    _ui->entropyLabel->setText(t("ai_mode.entropy"));
+    _ui->explorationFloorLabel->setText(t("ai_mode.exploration_floor"));
+    _ui->gradientClipNormLabel->setText(t("ai_mode.gradient_clip"));
+    _ui->actionRepeatLabel->setText(t("ai_mode.action_repeat"));
+    _ui->maxStepsBudgetLabel->setText(t("ai_mode.step_budget"));
+    _ui->stuckThresholdLabel->setText(t("ai_mode.stuck_threshold"));
+    _ui->criticLearningRateSpin->setToolTip(t("ai_mode.critic_learning_rate_tip"));
+    _ui->crossoverRateSpin->setToolTip(t("ai_mode.crossover_rate_tip"));
+    _ui->batchEpisodesSpin->setToolTip(t("ai_mode.batch_episodes_tip"));
+    _ui->entropySpin->setToolTip(t("ai_mode.entropy_tip"));
+    _ui->explorationFloorSpin->setToolTip(t("ai_mode.exploration_floor_tip"));
+    _ui->gradientClipNormSpin->setToolTip(t("ai_mode.gradient_clip_tip"));
+    _ui->actionRepeatSpin->setToolTip(t("ai_mode.action_repeat_tip"));
+    _ui->stepBudgetSpin->setToolTip(t("ai_mode.step_budget_tip"));
+    _ui->stuckThresholdSpin->setToolTip(t("ai_mode.stuck_threshold_tip"));
     _ui->seedLabel->setText(t("ai_mode.seed"));
     _ui->dqnReplayCapacityLabel->setText(t("ai_mode.dqn_replay_capacity"));
     _ui->dqnBatchSizeLabel->setText(t("ai_mode.dqn_batch_size"));
@@ -176,20 +241,34 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->openRunFolderButton->setText(t("ai_mode.open_run_folder"));
     _ui->statsTable->setHorizontalHeaderLabels(
         {t("ai_mode.column_generation"), t("ai_mode.column_best_reward"),
-         t("ai_mode.column_mean_reward"), t("ai_mode.column_success_rate")});
+         t("ai_mode.column_mean_reward"), t("ai_mode.column_worst_reward"),
+         t("ai_mode.column_reward_stddev"), t("ai_mode.column_best_steps"),
+         t("ai_mode.column_success_rate"), t("ai_mode.column_seed")});
+    _ui->trainingChart->setEmptyLabel(t("ai_mode.chart_empty"));
     _ui->trainingChart->setSeriesLabels(t("ai_mode.column_best_reward"),
                                         t("ai_mode.column_mean_reward"),
                                         t("ai_mode.column_success_rate"));
 
     // Onglet Validation & sauvegarde.
     _ui->runLabel->setText(t("ai_mode.run"));
+    _ui->evalModelLabel->setText(t("ai_mode.eval_model"));
+    _ui->browseModelButton->setText(t("ai_mode.browse"));
+    _ui->evalLevelLabel->setText(t("ai_mode.eval_level"));
     _ui->repetitionsLabel->setText(t("ai_mode.repetitions"));
+    _ui->maxStepsLabel->setText(t("ai_mode.max_steps"));
+    _ui->evalSeedLabel->setText(t("ai_mode.eval_seed"));
+    _ui->decodingLabel->setText(t("ai_mode.decoding"));
     _ui->evaluateButton->setText(t("ai_mode.evaluate"));
+    _ui->stopEvaluationButton->setText(t("ai_mode.stop_evaluation"));
     _ui->successRateLabel->setText(t("ai_mode.success_rate"));
     _ui->meanStepsLabel->setText(t("ai_mode.mean_steps"));
+    _ui->meanStepsAllLabel->setText(t("ai_mode.mean_steps_all"));
     _ui->varianceLabel->setText(t("ai_mode.variance"));
+    _ui->repetitionsRunLabel->setText(t("ai_mode.repetitions_run"));
     _ui->saveModelButton->setText(t("ai_mode.save_model"));
     _ui->exportReplayButton->setText(t("ai_mode.export_replay"));
+    _ui->exportReportButton->setText(t("ai_mode.export_report"));
+    _ui->reuseRunSettingsButton->setText(t("ai_mode.reuse_run_settings"));
 
     // Onglet Rejeu.
     _ui->replayTable->setHorizontalHeaderLabels(
@@ -205,8 +284,18 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->reinforceAlgorithmRadio->setToolTip(t("ai_mode.algo_pg_tip"));
     _ui->actorCriticAlgorithmRadio->setToolTip(t("ai_mode.algo_ac_tip"));
     _ui->advancedAlgorithmRadio->setToolTip(t("ai_mode.algo_dqn_tip"));
+    _ui->hiddenSizeSpin->setToolTip(t("ai_mode.hidden_size_tip"));
+    _ui->runsRootEdit->setToolTip(t("ai_mode.runs_root_tip"));
+    _ui->browseRunsRootButton->setToolTip(t("ai_mode.runs_root_tip"));
     _ui->populationSpin->setToolTip(t("ai_mode.population_tip"));
+    _ui->tournamentSizeSpin->setToolTip(t("ai_mode.tournament_size_tip"));
     _ui->mutationRateSpin->setToolTip(t("ai_mode.mutation_rate_tip"));
+    _ui->mutationStrengthSpin->setToolTip(t("ai_mode.mutation_strength_tip"));
+    _ui->maxGenerationsSpin->setToolTip(t("ai_mode.max_generations_tip"));
+    _ui->requiredSuccessesSpin->setToolTip(t("ai_mode.required_successes_tip"));
+    _ui->loadConfigButton->setToolTip(t("ai_mode.load_config_tip"));
+    _ui->saveConfigButton->setToolTip(t("ai_mode.save_config_tip"));
+    _ui->resetDefaultsButton->setToolTip(t("ai_mode.reset_defaults_tip"));
     _ui->episodesSpin->setToolTip(t("ai_mode.episodes_tip"));
     _ui->learningRateSpin->setToolTip(t("ai_mode.learning_rate_tip"));
     _ui->gammaSpin->setToolTip(t("ai_mode.gamma_tip"));
@@ -227,6 +316,15 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->previewButton->setToolTip(t("ai_mode.preview_tip"));
     _ui->runCombo->setToolTip(t("ai_mode.run_tip"));
     _ui->repetitionsSpin->setToolTip(t("ai_mode.repetitions_tip"));
+    _ui->evalModelEdit->setToolTip(t("ai_mode.eval_model_tip"));
+    _ui->browseModelButton->setToolTip(t("ai_mode.eval_model_tip"));
+    _ui->evalLevelCombo->setToolTip(t("ai_mode.eval_level_tip"));
+    _ui->maxStepsSpin->setToolTip(t("ai_mode.max_steps_tip"));
+    _ui->evalSeedSpin->setToolTip(t("ai_mode.eval_seed_tip"));
+    _ui->decodingCombo->setToolTip(t("ai_mode.decoding_tip"));
+    _ui->stopEvaluationButton->setToolTip(t("ai_mode.stop_evaluation_tip"));
+    _ui->exportReportButton->setToolTip(t("ai_mode.export_report_tip"));
+    _ui->reuseRunSettingsButton->setToolTip(t("ai_mode.reuse_run_settings_tip"));
     _ui->evaluateButton->setToolTip(t("ai_mode.evaluate_tip"));
     _ui->saveModelButton->setToolTip(t("ai_mode.save_model_tip"));
     _ui->exportReplayButton->setToolTip(t("ai_mode.export_replay_tip"));
@@ -244,25 +342,40 @@ void AiModeScreen::focusDefaultAction() {
 
 void AiModeScreen::refreshLevelList() {
     _ui->levelCombo->clear();
+    _ui->evalLevelCombo->clear();
     std::error_code error;
     if (!std::filesystem::exists(levelsDir(), error)) {
         return;
     }
     for (const auto& entry : std::filesystem::directory_iterator(levelsDir(), error)) {
         if (entry.path().extension() == ".json") {
-            _ui->levelCombo->addItem(QString::fromStdString(entry.path().filename().string()),
-                                     QString::fromStdString(entry.path().string()));
+            const QString name = QString::fromStdString(entry.path().filename().string());
+            const QString path = QString::fromStdString(entry.path().string());
+            _ui->levelCombo->addItem(name, path);
+            // Meme catalogue pour l'evaluation : un modele peut etre mesure sur un autre niveau
+            // que celui qui l'a entraine (generalisation), comme `evaluate --level` le permet.
+            _ui->evalLevelCombo->addItem(name, path);
         }
     }
     _ui->levelCombo->model()->sort(0);
+    _ui->evalLevelCombo->model()->sort(0);
+}
+
+std::filesystem::path AiModeScreen::selectedRunsRoot() const {
+    // Le dossier choisi par l'utilisateur, pas le dossier fige a cote de l'executable : `runsRoot`
+    // pilotait l'ECRITURE des runs sans piloter leur LECTURE, si bien qu'un run ecrit ailleurs
+    // n'apparaissait jamais dans l'onglet Validation.
+    const QString chosen = _ui->runsRootEdit->text().trimmed();
+    return chosen.isEmpty() ? runsRootDir() : std::filesystem::path(chosen.toStdString());
 }
 
 void AiModeScreen::refreshRunsAndReplays() {
     _ui->runCombo->clear();
     std::error_code error;
-    if (std::filesystem::exists(runsRootDir(), error)) {
+    const std::filesystem::path runsRoot = selectedRunsRoot();
+    if (std::filesystem::exists(runsRoot, error)) {
         // Une entree par run : runsRoot/<niveau>/<runId>/model.bin (LOT-ANNEXE-09 TACHE-04).
-        for (const auto& levelDir : std::filesystem::directory_iterator(runsRootDir(), error)) {
+        for (const auto& levelDir : std::filesystem::directory_iterator(runsRoot, error)) {
             if (!levelDir.is_directory()) {
                 continue;
             }
@@ -271,9 +384,16 @@ void AiModeScreen::refreshRunsAndReplays() {
                 if (!std::filesystem::exists(modelPath, error)) {
                     continue;
                 }
+                // Libelle enrichi : le seul couple niveau/identifiant ne disait pas quel
+                // algorithme avait produit le modele, alors que c'est ce qui determine comment il
+                // se recharge. Relu dans le config.json du run, comme partout ailleurs.
+                const std::string algorithmId =
+                    aisolver::cli::loadTrainingConfig(runDir.path() / "config.json",
+                                                      aisolver::cli::CommandLineOverrides{})
+                        .algorithmId;
                 const QString label =
                     QString::fromStdString(levelDir.path().filename().string() + " · " +
-                                           runDir.path().filename().string());
+                                           runDir.path().filename().string() + " · " + algorithmId);
                 _ui->runCombo->addItem(label, QString::fromStdString(runDir.path().string()));
             }
         }
@@ -318,6 +438,147 @@ void AiModeScreen::stopTrainingIfActive() {
     }
 }
 
+bool AiModeScreen::evaluationActive() const noexcept {
+    return _evaluationWorker != nullptr;
+}
+
+void AiModeScreen::stopEvaluationIfActive() {
+    if (_evaluationWorker != nullptr) {
+        _evaluationWorker->requestStop();
+    }
+}
+
+// Correspondance champ <-> hyperparametre, ecrite UNE fois. Le lancement d'un run, les presets et
+// la reprise des reglages d'un run passe la traversent tous les trois : trois recopies separees
+// divergeraient au premier hyperparametre ajoute.
+aisolver::cli::TrainingConfig AiModeScreen::configFromForm() const {
+    aisolver::cli::TrainingConfig config;
+    config.algorithmId = selectedAlgo().toStdString();
+    config.hiddenSize = static_cast<std::size_t>(_ui->hiddenSizeSpin->value());
+    config.evolutionary.populationSize = static_cast<std::size_t>(_ui->populationSpin->value());
+    config.evolutionary.tournamentSize = _ui->tournamentSizeSpin->value();
+    config.evolutionary.mutationRate = static_cast<float>(_ui->mutationRateSpin->value());
+    config.evolutionary.mutationStrength = static_cast<float>(_ui->mutationStrengthSpin->value());
+    config.stopping.maxGenerations = _ui->maxGenerationsSpin->value();
+    config.stopping.requiredConsecutiveSuccesses = _ui->requiredSuccessesSpin->value();
+    config.episodes = static_cast<std::size_t>(_ui->episodesSpin->value());
+    config.learningRate = static_cast<float>(_ui->learningRateSpin->value());
+    config.gamma = static_cast<float>(_ui->gammaSpin->value());
+    config.optimizer = _ui->optimizerCombo->currentText().toStdString();
+    config.dqnReplayCapacity = static_cast<std::size_t>(_ui->dqnReplayCapacitySpin->value());
+    config.dqnBatchSize = static_cast<std::size_t>(_ui->dqnBatchSizeSpin->value());
+    config.dqnWarmupSize = static_cast<std::size_t>(_ui->dqnWarmupSizeSpin->value());
+    config.dqnUpdatePeriodSteps = static_cast<std::size_t>(_ui->dqnUpdatePeriodSpin->value());
+    config.dqnTargetSyncPeriodSteps =
+        static_cast<std::size_t>(_ui->dqnTargetSyncPeriodSpin->value());
+    config.dqnEpsilonStart = static_cast<float>(_ui->dqnEpsilonStartSpin->value());
+    config.dqnEpsilonEnd = static_cast<float>(_ui->dqnEpsilonEndSpin->value());
+    config.dqnEpsilonDecaySteps = static_cast<std::size_t>(_ui->dqnEpsilonDecaySpin->value());
+    config.criticLearningRate = static_cast<float>(_ui->criticLearningRateSpin->value());
+    config.evolutionary.crossoverRate = static_cast<float>(_ui->crossoverRateSpin->value());
+    config.tuning.batchEpisodes = static_cast<std::size_t>(_ui->batchEpisodesSpin->value());
+    config.tuning.entropyCoefficient = static_cast<float>(_ui->entropySpin->value());
+    config.tuning.explorationFloor = static_cast<float>(_ui->explorationFloorSpin->value());
+    config.tuning.gradientClipNorm = static_cast<float>(_ui->gradientClipNormSpin->value());
+    config.tuning.actionRepeat = _ui->actionRepeatSpin->value();
+    config.maxSteps = _ui->stepBudgetSpin->value();
+    config.stuckThreshold = _ui->stuckThresholdSpin->value();
+    return config;
+}
+
+void AiModeScreen::applyConfigToForm(const aisolver::cli::TrainingConfig& config) {
+    if (config.algorithmId == "pg") {
+        _ui->reinforceAlgorithmRadio->setChecked(true);
+    } else if (config.algorithmId == "ac") {
+        _ui->actorCriticAlgorithmRadio->setChecked(true);
+    } else if (config.algorithmId == "avance") {
+        _ui->advancedAlgorithmRadio->setChecked(true);
+    } else {
+        _ui->evolutionaryAlgorithmRadio->setChecked(true);
+    }
+    _ui->hiddenSizeSpin->setValue(static_cast<int>(config.hiddenSize));
+    _ui->populationSpin->setValue(static_cast<int>(config.evolutionary.populationSize));
+    _ui->tournamentSizeSpin->setValue(config.evolutionary.tournamentSize);
+    _ui->mutationRateSpin->setValue(config.evolutionary.mutationRate);
+    _ui->mutationStrengthSpin->setValue(config.evolutionary.mutationStrength);
+    _ui->maxGenerationsSpin->setValue(config.stopping.maxGenerations);
+    _ui->requiredSuccessesSpin->setValue(config.stopping.requiredConsecutiveSuccesses);
+    _ui->episodesSpin->setValue(static_cast<int>(config.episodes));
+    _ui->learningRateSpin->setValue(config.learningRate);
+    _ui->gammaSpin->setValue(config.gamma);
+    _ui->optimizerCombo->setCurrentText(QString::fromStdString(config.optimizer));
+    _ui->dqnReplayCapacitySpin->setValue(static_cast<int>(config.dqnReplayCapacity));
+    _ui->dqnBatchSizeSpin->setValue(static_cast<int>(config.dqnBatchSize));
+    _ui->dqnWarmupSizeSpin->setValue(static_cast<int>(config.dqnWarmupSize));
+    _ui->dqnUpdatePeriodSpin->setValue(static_cast<int>(config.dqnUpdatePeriodSteps));
+    _ui->dqnTargetSyncPeriodSpin->setValue(static_cast<int>(config.dqnTargetSyncPeriodSteps));
+    _ui->dqnEpsilonStartSpin->setValue(config.dqnEpsilonStart);
+    _ui->dqnEpsilonEndSpin->setValue(config.dqnEpsilonEnd);
+    _ui->dqnEpsilonDecaySpin->setValue(static_cast<int>(config.dqnEpsilonDecaySteps));
+    _ui->criticLearningRateSpin->setValue(config.criticLearningRate);
+    _ui->crossoverRateSpin->setValue(config.evolutionary.crossoverRate);
+    _ui->batchEpisodesSpin->setValue(static_cast<int>(config.tuning.batchEpisodes));
+    _ui->entropySpin->setValue(config.tuning.entropyCoefficient);
+    _ui->explorationFloorSpin->setValue(config.tuning.explorationFloor);
+    _ui->gradientClipNormSpin->setValue(config.tuning.gradientClipNorm);
+    _ui->actionRepeatSpin->setValue(config.tuning.actionRepeat);
+    _ui->stepBudgetSpin->setValue(config.maxSteps);
+    _ui->stuckThresholdSpin->setValue(config.stuckThreshold);
+    updateFieldVisibility();
+}
+
+void AiModeScreen::loadConfigFile(const QString& path) {
+    if (path.isEmpty()) {
+        return;
+    }
+    // Existence verifiee AVANT d'appliquer quoi que ce soit : `loadTrainingConfig` part des defauts
+    // documentes et n'ecrase que les cles presentes, ce qui est la bonne regle pour un fichier
+    // PARTIEL -- mais transforme un fichier absent ou illisible en « remise a zero de tout le
+    // formulaire », silencieuse, alors que l'utilisateur croyait charger des reglages.
+    std::error_code error;
+    const std::filesystem::path configPath(path.toStdString());
+    if (!std::filesystem::exists(configPath, error) || error) {
+        _ui->trainingStatusLabel->setText(text("ai_mode.config_load_failed"));
+        return;
+    }
+    applyConfigToForm(
+        aisolver::cli::loadTrainingConfig(configPath, aisolver::cli::CommandLineOverrides{}));
+}
+
+void AiModeScreen::onLoadConfig() {
+    loadConfigFile(QFileDialog::getOpenFileName(this, text("ai_mode.load_config_title"),
+                                                QString::fromStdString(selectedRunsRoot().string()),
+                                                text("ai_mode.config_filter")));
+}
+
+void AiModeScreen::onSaveConfig() {
+    const QString destination =
+        QFileDialog::getSaveFileName(this, text("ai_mode.save_config_title"),
+                                     QStringLiteral("config.json"), text("ai_mode.config_filter"));
+    if (destination.isEmpty()) {
+        return;
+    }
+    const bool written = aisolver::cli::writeTrainingConfigJson(
+        configFromForm(), std::filesystem::path(destination.toStdString()));
+    _ui->trainingStatusLabel->setText(written ? text("ai_mode.config_saved")
+                                              : text("ai_mode.config_save_failed"));
+}
+
+void AiModeScreen::onResetDefaults() {
+    // Les defauts sont ceux du code partage avec la CLI, jamais une seconde liste de valeurs
+    // inscrite dans l'ecran : l'ecran au demarrage doit decrire le meme run que
+    // `aisolver-cli train` sans option.
+    applyConfigToForm(aisolver::cli::TrainingConfig{});
+}
+
+void AiModeScreen::onBrowseRunsRoot() {
+    const QString chosen = QFileDialog::getExistingDirectory(this, text("ai_mode.runs_root_title"),
+                                                             _ui->runsRootEdit->text());
+    if (!chosen.isEmpty()) {
+        _ui->runsRootEdit->setText(chosen);
+    }
+}
+
 QString AiModeScreen::selectedAlgo() const {
     if (_ui->reinforceAlgorithmRadio->isChecked()) {
         return QStringLiteral("pg");
@@ -346,12 +607,31 @@ void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->reinforceAlgorithmRadio->setEnabled(enabled);
     _ui->actorCriticAlgorithmRadio->setEnabled(enabled);
     _ui->advancedAlgorithmRadio->setEnabled(enabled);
+    _ui->hiddenSizeSpin->setEnabled(enabled);
+    _ui->runsRootEdit->setEnabled(enabled);
+    _ui->browseRunsRootButton->setEnabled(enabled);
     _ui->populationSpin->setEnabled(enabled);
+    _ui->tournamentSizeSpin->setEnabled(enabled);
     _ui->mutationRateSpin->setEnabled(enabled);
+    _ui->mutationStrengthSpin->setEnabled(enabled);
+    _ui->maxGenerationsSpin->setEnabled(enabled);
+    _ui->requiredSuccessesSpin->setEnabled(enabled);
+    _ui->loadConfigButton->setEnabled(enabled);
+    _ui->saveConfigButton->setEnabled(enabled);
+    _ui->resetDefaultsButton->setEnabled(enabled);
     _ui->episodesSpin->setEnabled(enabled);
     _ui->learningRateSpin->setEnabled(enabled);
     _ui->gammaSpin->setEnabled(enabled);
     _ui->optimizerCombo->setEnabled(enabled);
+    _ui->criticLearningRateSpin->setEnabled(enabled);
+    _ui->crossoverRateSpin->setEnabled(enabled);
+    _ui->batchEpisodesSpin->setEnabled(enabled);
+    _ui->entropySpin->setEnabled(enabled);
+    _ui->explorationFloorSpin->setEnabled(enabled);
+    _ui->gradientClipNormSpin->setEnabled(enabled);
+    _ui->actionRepeatSpin->setEnabled(enabled);
+    _ui->stepBudgetSpin->setEnabled(enabled);
+    _ui->stuckThresholdSpin->setEnabled(enabled);
     _ui->seedSpin->setEnabled(enabled);
     _ui->dqnReplayCapacitySpin->setEnabled(enabled);
     _ui->dqnBatchSizeSpin->setEnabled(enabled);
@@ -370,29 +650,33 @@ void AiModeScreen::onLaunchTraining() {
         return;
     }
 
+    const aisolver::cli::TrainingConfig form = configFromForm();
+
     TrainingRequest request;
     request.levelPath = _ui->levelCombo->currentData().toString();
     request.algorithmId = selectedAlgo();
     request.seed = static_cast<std::uint64_t>(_ui->seedSpin->value());
-    request.runsRoot = QString::fromStdString(runsRootDir().string());
-    request.populationSize = static_cast<std::size_t>(_ui->populationSpin->value());
-    request.mutationRate = static_cast<float>(_ui->mutationRateSpin->value());
-    request.episodes = static_cast<std::size_t>(_ui->episodesSpin->value());
-    request.learningRate = static_cast<float>(_ui->learningRateSpin->value());
-    request.gamma = static_cast<float>(_ui->gammaSpin->value());
+    request.runsRoot = _ui->runsRootEdit->text();
+    request.hiddenSize = form.hiddenSize;
+    request.populationSize = form.evolutionary.populationSize;
+    request.tournamentSize = form.evolutionary.tournamentSize;
+    request.mutationRate = form.evolutionary.mutationRate;
+    request.mutationStrength = form.evolutionary.mutationStrength;
+    request.maxGenerations = form.stopping.maxGenerations;
+    request.requiredConsecutiveSuccesses = form.stopping.requiredConsecutiveSuccesses;
+    request.episodes = form.episodes;
+    request.learningRate = form.learningRate;
+    request.gamma = form.gamma;
     request.optimizer = _ui->optimizerCombo->currentText();
     if (request.algorithmId == QLatin1String("avance")) {
-        request.dqnReplayCapacity = static_cast<std::size_t>(_ui->dqnReplayCapacitySpin->value());
-        request.dqnBatchSize = static_cast<std::size_t>(_ui->dqnBatchSizeSpin->value());
-        request.dqnWarmupSize = static_cast<std::size_t>(_ui->dqnWarmupSizeSpin->value());
-        request.dqnUpdatePeriodSteps =
-            static_cast<std::size_t>(_ui->dqnUpdatePeriodSpin->value());
-        request.dqnTargetSyncPeriodSteps =
-            static_cast<std::size_t>(_ui->dqnTargetSyncPeriodSpin->value());
-        request.dqnEpsilonStart = static_cast<float>(_ui->dqnEpsilonStartSpin->value());
-        request.dqnEpsilonEnd = static_cast<float>(_ui->dqnEpsilonEndSpin->value());
-        request.dqnEpsilonDecaySteps =
-            static_cast<std::size_t>(_ui->dqnEpsilonDecaySpin->value());
+        request.dqnReplayCapacity = form.dqnReplayCapacity;
+        request.dqnBatchSize = form.dqnBatchSize;
+        request.dqnWarmupSize = form.dqnWarmupSize;
+        request.dqnUpdatePeriodSteps = form.dqnUpdatePeriodSteps;
+        request.dqnTargetSyncPeriodSteps = form.dqnTargetSyncPeriodSteps;
+        request.dqnEpsilonStart = form.dqnEpsilonStart;
+        request.dqnEpsilonEnd = form.dqnEpsilonEnd;
+        request.dqnEpsilonDecaySteps = form.dqnEpsilonDecaySteps;
     }
 
     _ui->statsTable->setRowCount(0);
@@ -402,15 +686,19 @@ void AiModeScreen::onLaunchTraining() {
     _ui->generationCombo->clear();
     _ui->openRunFolderButton->setEnabled(false);
     _ui->trainingRunFolderValue->setText(QString());
-    // Plafond de generations connu uniquement pour les algorithmes par gradient (episodesSpin) --
-    // l'evolutionniste n'expose pas son plafond de generations dans cet onglet (StoppingConfig
-    // reste aux defauts), d'ou une barre indeterminee (min == max) dans ce cas.
-    if (request.algorithmId == QLatin1String("evo")) {
-        _ui->trainingProgressBar->setRange(0, 0);
-    } else {
-        _ui->trainingProgressBar->setRange(0, _ui->episodesSpin->value());
-    }
+    // Les deux familles bornent leur run par un champ different de l'onglet : plafond de
+    // generations pour l'evolutionniste, budget d'episodes pour les algorithmes par gradient. Un
+    // run peut toujours s'arreter avant (resolution, interruption), auquel cas la barre n'atteint
+    // simplement jamais son maximum -- elle mesure le budget consomme, pas l'avancement vers une
+    // solution.
+    _ui->trainingProgressBar->setRange(0, request.algorithmId == QLatin1String("evo")
+                                              ? _ui->maxGenerationsSpin->value()
+                                              : _ui->episodesSpin->value());
     _ui->trainingProgressBar->setValue(0);
+    _ui->trainingEtaLabel->setText(QString());
+    _ui->stabilityValue->setText(QStringLiteral("—"));
+    _ui->dqnEpsilonCurrentValue->setText(QStringLiteral("—"));
+    _trainingClock.start();
     setTrainingControlsEnabled(false);
     _ui->trainingStatusLabel->setText(text("ai_mode.status_running"));
 
@@ -430,22 +718,71 @@ void AiModeScreen::onStopTraining() {
     _ui->trainingStatusLabel->setText(text("ai_mode.status_stopping"));
 }
 
-void AiModeScreen::onTrainingProgress(int index, double bestReward, double meanReward,
-                                      double successRate) {
+void AiModeScreen::onTrainingProgress(hmi::TrainingProgress step) {
+    // Toutes les colonnes du `stats.csv` du run, pas une selection : c'est la meme information,
+    // affichee au moment ou elle est produite plutot que relue apres coup dans le fichier.
+    //
+    // Fenetre glissante : un run de plusieurs milliers d'episodes allouait autant de fois huit
+    // cellules, sans que personne ne fasse jamais defiler jusqu'aux premieres -- le CSV du run
+    // garde l'historique complet, ce tableau n'a qu'a montrer ce qui vient de se passer.
+    while (_ui->statsTable->rowCount() >= MAX_STATS_ROWS) {
+        _ui->statsTable->removeRow(0);
+    }
     const int row = _ui->statsTable->rowCount();
     _ui->statsTable->insertRow(row);
-    _ui->statsTable->setItem(row, 0, new QTableWidgetItem(QString::number(index)));
-    _ui->statsTable->setItem(row, 1, new QTableWidgetItem(QString::number(bestReward, 'f', 3)));
-    _ui->statsTable->setItem(row, 2, new QTableWidgetItem(QString::number(meanReward, 'f', 3)));
+    _ui->statsTable->setItem(row, 0, new QTableWidgetItem(QString::number(step.index)));
+    _ui->statsTable->setItem(row, 1,
+                             new QTableWidgetItem(QString::number(step.bestReward, 'f', 3)));
+    _ui->statsTable->setItem(row, 2,
+                             new QTableWidgetItem(QString::number(step.meanReward, 'f', 3)));
+    _ui->statsTable->setItem(row, 3,
+                             new QTableWidgetItem(QString::number(step.worstReward, 'f', 3)));
+    _ui->statsTable->setItem(row, 4,
+                             new QTableWidgetItem(QString::number(step.rewardStdDev, 'f', 3)));
+    _ui->statsTable->setItem(row, 5, new QTableWidgetItem(QString::number(step.bestStepCount)));
     _ui->statsTable->setItem(
-        row, 3, new QTableWidgetItem(QString::number(successRate * 100.0, 'f', 1) + "%"));
+        row, 6, new QTableWidgetItem(QString::number(step.successRate * 100.0, 'f', 1) + "%"));
+    _ui->statsTable->setItem(
+        row, 7, new QTableWidgetItem(QString::number(static_cast<qulonglong>(step.seed))));
     _ui->statsTable->scrollToBottom();
-    _ui->trainingStatusLabel->setText(
-        text("ai_mode.status_progress").arg(index).arg(QString::number(bestReward, 'f', 3)));
-    _ui->trainingChart->addPoint(bestReward, meanReward, successRate);
-    if (_ui->trainingProgressBar->maximum() > 0) {
-        _ui->trainingProgressBar->setValue(index);
+    _ui->trainingStatusLabel->setText(text("ai_mode.status_progress")
+                                          .arg(step.index)
+                                          .arg(QString::number(step.bestReward, 'f', 3)));
+    _ui->trainingChart->addPoint(step.bestReward, step.meanReward, step.successRate);
+
+    // Une etape journalisee d'index N signifie N+1 etapes consommees : la barre et l'estimation
+    // comptent un budget consomme, pas un numero d'etape.
+    const int completedSteps = step.index + 1;
+    _ui->trainingProgressBar->setValue(completedSteps);
+    updateEta(completedSteps);
+
+    if (step.consecutiveStable.has_value() && step.requiredStable.has_value()) {
+        _ui->stabilityValue->setText(
+            QStringLiteral("%1 / %2").arg(*step.consecutiveStable).arg(*step.requiredStable));
     }
+    if (step.epsilon.has_value()) {
+        _ui->dqnEpsilonCurrentValue->setText(QString::number(*step.epsilon, 'f', 3));
+    }
+}
+
+void AiModeScreen::updateEta(int completedSteps) {
+    const int total = _ui->trainingProgressBar->maximum();
+    if (completedSteps <= 0 || completedSteps >= total) {
+        _ui->trainingEtaLabel->setText(QString());
+        return;
+    }
+    // Duree moyenne par etape depuis le debut du run plutot qu'un ecart instantane : le cout
+    // d'une generation varie fortement (un episode qui echoue tot est bien plus rapide qu'un
+    // episode qui va au bout), et une moyenne cumulee ne fait pas osciller l'affichage.
+    const qint64 elapsedMs = _trainingClock.elapsed();
+    // Multiplication AVANT division : `elapsedMs / completedSteps` est une division entiere, nulle
+    // des qu'une etape dure moins d'une milliseconde -- l'estimation affichait alors « 0 min 00 s »
+    // pendant tout le run.
+    const qint64 remainingMs = elapsedMs * (total - completedSteps) / completedSteps;
+    const qint64 remainingSeconds = remainingMs / 1000;
+    _ui->trainingEtaLabel->setText(text("ai_mode.eta")
+                                       .arg(remainingSeconds / 60)
+                                       .arg(remainingSeconds % 60, 2, 10, QLatin1Char('0')));
 }
 
 void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorithmId*/,
@@ -469,9 +806,11 @@ void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorith
 // ailleurs de relire les runs anterieurs depuis `runCombo` apres `refreshRunsAndReplays()`.
 void AiModeScreen::onTrainingFinished(bool solved, QString modelPath, QString /*statsPath*/,
                                       QString /*configPath*/, QString /*replayPath*/,
-                                      bool /*replayExported*/) {
-    _ui->trainingStatusLabel->setText(solved ? text("ai_mode.status_done_solved")
-                                             : text("ai_mode.status_done_unsolved"));
+                                      bool /*replayExported*/, int generationsRun) {
+    _ui->trainingStatusLabel->setText(
+        (solved ? text("ai_mode.status_done_solved") : text("ai_mode.status_done_unsolved"))
+            .arg(generationsRun));
+    _ui->trainingEtaLabel->setText(QString());
     _lastRunDir = QString::fromStdString(
         std::filesystem::path(modelPath.toStdString()).parent_path().string());
     _ui->trainingRunFolderValue->setText(_lastRunDir);
@@ -488,8 +827,10 @@ void AiModeScreen::onOpenRunFolder() {
     QDesktopServices::openUrl(QUrl::fromLocalFile(_lastRunDir));
 }
 
-void AiModeScreen::onTrainingFailed(QString message) {
-    _ui->trainingStatusLabel->setText(text("ai_mode.status_error").arg(message));
+void AiModeScreen::onTrainingFailed(QString messageKey, QString detail) {
+    // Le worker ne connait pas le catalogue : il nomme l'echec, l'ecran le traduit.
+    _ui->trainingStatusLabel->setText(
+        text("ai_mode.status_error").arg(text(messageKey.toUtf8().constData()).arg(detail)));
     teardownWorker();
     setTrainingControlsEnabled(true);
 }
@@ -503,39 +844,177 @@ void AiModeScreen::teardownWorker() {
     }
     _workerThread->quit();
     _workerThread->wait();
-    if (_worker) {
-        _worker->deleteLater();
-        _worker = nullptr;
-    }
+    // `delete` direct, jamais `deleteLater()` : la boucle d'evenements du fil vient de se terminer
+    // et ne traitera plus aucun evenement differe -- l'objet fuyait, un par run. Le fil est arrete
+    // et joint, plus personne ne touche au worker.
+    delete _worker;
+    _worker = nullptr;
     _workerThread.reset();
 }
 
+QString AiModeScreen::algorithmOfModel(const QString& modelPath) {
+    if (modelPath.isEmpty()) {
+        return QString();
+    }
+    // Algorithme relu dans le `config.json` DU MODELE, jamais dans celui du run selectionne dans la
+    // liste : un modele parcouru au disque (« Parcourir... ») n'a aucune raison d'appartenir au run
+    // affiche, et l'evaluer sur la mauvaise topologie le refuse ou, pire, le charge en supposant
+    // l'evolutionniste par defaut.
+    const std::filesystem::path runDirectory =
+        std::filesystem::path(modelPath.toStdString()).parent_path();
+    return QString::fromStdString(
+        aisolver::cli::loadTrainingConfig(runDirectory / "config.json",
+                                          aisolver::cli::CommandLineOverrides{})
+            .algorithmId);
+}
+
+std::optional<EvaluationRequest> AiModeScreen::evaluationRequestFromForm() const {
+    const QString modelPath = _ui->evalModelEdit->text();
+    const QString levelPath = _ui->evalLevelCombo->currentData().toString();
+    if (modelPath.isEmpty() || levelPath.isEmpty()) {
+        return std::nullopt;
+    }
+    EvaluationRequest request;
+    request.modelPath = modelPath;
+    request.levelPath = levelPath;
+    request.algorithmId = algorithmOfModel(modelPath);
+    request.repetitions = _ui->repetitionsSpin->value();
+    request.maxStepsPerEpisode = _ui->maxStepsSpin->value();
+    request.seed = static_cast<std::uint64_t>(_ui->evalSeedSpin->value());
+    request.stochasticDecoding = _ui->decodingCombo->currentText() == QLatin1String("stochastic");
+    return request;
+}
+
+void AiModeScreen::setEvaluationControlsEnabled(bool enabled) {
+    _ui->runCombo->setEnabled(enabled);
+    _ui->evalModelEdit->setEnabled(enabled);
+    _ui->browseModelButton->setEnabled(enabled);
+    _ui->evalLevelCombo->setEnabled(enabled);
+    _ui->repetitionsSpin->setEnabled(enabled);
+    _ui->maxStepsSpin->setEnabled(enabled);
+    _ui->evalSeedSpin->setEnabled(enabled);
+    _ui->decodingCombo->setEnabled(enabled);
+    _ui->evaluateButton->setVisible(enabled);
+    _ui->stopEvaluationButton->setVisible(!enabled);
+    // Les actions de l'onglet aussi : elles lisent le meme modele et le meme dossier de run que la
+    // campagne en cours, et « Exporter le rejeu » rejoue le niveau SUR LE FIL DE L'INTERFACE --
+    // cliquer dessus pendant une evaluation figeait la fenetre le temps du rollout.
+    _ui->saveModelButton->setEnabled(enabled);
+    _ui->exportReportButton->setEnabled(enabled);
+    _ui->reuseRunSettingsButton->setEnabled(enabled);
+    _ui->exportReplayButton->setEnabled(enabled && !_ui->evalModelEdit->text().isEmpty());
+}
+
+// Sur son propre thread, comme l'entrainement : une campagne rejoue le niveau `repetitions` fois,
+// chacune jusqu'a `maxStepsPerEpisode` pas -- assez pour figer la fenetre plusieurs minutes si
+// elle etait lancee ici.
 void AiModeScreen::onEvaluate() {
+    if (_evaluationWorker != nullptr) {
+        return;
+    }
+    const std::optional<EvaluationRequest> request = evaluationRequestFromForm();
+    if (!request.has_value()) {
+        return;
+    }
+
+    _lastEvaluation.reset();
+    _lastEvaluationRequest = request;
+    _ui->exportReportButton->setEnabled(false);
+    _ui->evaluationProgressBar->setRange(0, request->repetitions);
+    _ui->evaluationProgressBar->setValue(0);
+    setEvaluationControlsEnabled(false);
+
+    _evaluationThread = std::make_unique<QThread>();
+    _evaluationWorker = new EvaluationWorker(*request);
+    _evaluationWorker->moveToThread(_evaluationThread.get());
+    connect(_evaluationThread.get(), &QThread::started, _evaluationWorker, &EvaluationWorker::run);
+    connect(_evaluationWorker, &EvaluationWorker::progress, this,
+            &AiModeScreen::onEvaluationProgress);
+    connect(_evaluationWorker, &EvaluationWorker::finished, this,
+            &AiModeScreen::onEvaluationFinished);
+    connect(_evaluationWorker, &EvaluationWorker::failed, this, &AiModeScreen::onEvaluationFailed);
+    _evaluationThread->start();
+}
+
+void AiModeScreen::onStopEvaluation() {
+    if (_evaluationWorker != nullptr) {
+        _evaluationWorker->requestStop();
+    }
+}
+
+void AiModeScreen::onEvaluationProgress(int completed, int /*total*/) {
+    _ui->evaluationProgressBar->setValue(completed);
+}
+
+void AiModeScreen::onEvaluationFinished(hmi::EvaluationOutcome outcome) {
+    _lastEvaluation = outcome;
+    _ui->successRateValue->setText(QString::number(outcome.successRate * 100.0, 'f', 1) + "%");
+    _ui->meanStepsValue->setText(QString::number(outcome.meanStepsOnSuccess, 'f', 1));
+    _ui->meanStepsAllValue->setText(QString::number(outcome.meanStepsAll, 'f', 1));
+    _ui->varianceValue->setText(QString::number(outcome.stepVariance, 'f', 2));
+    _ui->repetitionsRunValue->setText(QString::number(outcome.repetitionsRun));
+    _ui->exportReportButton->setEnabled(true);
+    teardownEvaluationWorker();
+    setEvaluationControlsEnabled(true);
+}
+
+void AiModeScreen::onEvaluationFailed() {
+    teardownEvaluationWorker();
+    setEvaluationControlsEnabled(true);
+    QMessageBox::warning(this, text("ai_mode.eval_title"), text("ai_mode.eval_failed"));
+}
+
+void AiModeScreen::teardownEvaluationWorker() {
+    if (!_evaluationThread) {
+        return;
+    }
+    if (_evaluationWorker != nullptr) {
+        _evaluationWorker->requestStop();
+    }
+    _evaluationThread->quit();
+    _evaluationThread->wait();
+    // Meme raison que `teardownWorker` : la boucle d'evenements est terminee, un `deleteLater()`
+    // ne serait jamais traite.
+    delete _evaluationWorker;
+    _evaluationWorker = nullptr;
+    _evaluationThread.reset();
+}
+
+void AiModeScreen::onBrowseModel() {
+    const QString chosen = QFileDialog::getOpenFileName(
+        this, text("ai_mode.browse_model_title"),
+        QString::fromStdString(selectedRunsRoot().string()), text("ai_mode.model_filter"));
+    if (!chosen.isEmpty()) {
+        _ui->evalModelEdit->setText(chosen);
+    }
+}
+
+void AiModeScreen::onExportReport() {
+    if (!_lastEvaluation.has_value() || !_lastEvaluationRequest.has_value()) {
+        return;
+    }
+    const QString destination =
+        QFileDialog::getSaveFileName(this, text("ai_mode.export_report_title"),
+                                     QStringLiteral("benchmark.csv"), text("ai_mode.csv_filter"));
+    if (destination.isEmpty()) {
+        return;
+    }
+    // Meme rapport que `aisolver-cli evaluate --report`. La mise en forme vit dans HMI/Ai, seul
+    // autorise a referencer AiSolver/Eval (amendement de LOT-ANNEXE-18).
+    const bool written =
+        writeEvaluationReport(*_lastEvaluationRequest, *_lastEvaluation, destination);
+    _ui->saveStatusLabel->setText(written ? text("ai_mode.report_exported")
+                                          : text("ai_mode.report_export_failed"));
+}
+
+void AiModeScreen::onReuseRunSettings() {
     const QString runDir = _ui->runCombo->currentData().toString();
     if (runDir.isEmpty()) {
         return;
     }
-    const std::filesystem::path runPath(runDir.toStdString());
-    const std::filesystem::path modelPath = runPath / "model.bin";
-    const std::string levelName = runPath.parent_path().filename().string();
-    const std::filesystem::path levelPath = levelsDir() / (levelName + ".json");
-
-    // Algorithme du run evalue, relu dans son config.json : les boutons radio de l'onglet
-    // Entrainement decrivent le PROCHAIN entrainement, pas celui qui a produit ce modele.
-    const QString runAlgo =
-        QString::fromStdString(aisolver::cli::loadTrainingConfig(
-                                   runPath / "config.json", aisolver::cli::CommandLineOverrides{})
-                                   .algorithmId);
-    const std::optional<EvaluationOutcome> outcome = evaluateModel(
-        QString::fromStdString(modelPath.string()), QString::fromStdString(levelPath.string()),
-        runAlgo, _ui->repetitionsSpin->value());
-    if (!outcome) {
-        QMessageBox::warning(this, text("ai_mode.eval_title"), text("ai_mode.eval_failed"));
-        return;
-    }
-    _ui->successRateValue->setText(QString::number(outcome->successRate * 100.0, 'f', 1) + "%");
-    _ui->meanStepsValue->setText(QString::number(outcome->meanStepsOnSuccess, 'f', 1));
-    _ui->varianceValue->setText(QString::number(outcome->stepVariance, 'f', 2));
+    loadConfigFile(QString::fromStdString(
+        (std::filesystem::path(runDir.toStdString()) / "config.json").string()));
+    _ui->tabs->setCurrentIndex(0);
 }
 
 void AiModeScreen::onSaveModel() {
@@ -556,26 +1035,39 @@ void AiModeScreen::onSaveModel() {
     _ui->saveStatusLabel->setText(error ? text("ai_mode.save_failed") : text("ai_mode.save_ok"));
 }
 
+// Vrai export-replay (rejeu argmax du modele), pas une copie du replay.json du run : celle-ci ne
+// pouvait rien produire pour un niveau autre que celui du run, ni pour un run dont le fichier
+// manque -- alors que le modele sauvegarde reste rejouable. Meme refus qu'en ligne de commande
+// pour un modele qui ne resout pas le niveau (decision de cadrage de LOT-ANNEXE-11).
 void AiModeScreen::onExportReplay() {
-    const QString runDir = _ui->runCombo->currentData().toString();
-    if (runDir.isEmpty()) {
+    const std::optional<EvaluationRequest> request = evaluationRequestFromForm();
+    if (!request.has_value()) {
         return;
     }
-    const std::filesystem::path source =
-        std::filesystem::path(runDir.toStdString()) / "replay.json";
     std::error_code error;
-    if (!std::filesystem::exists(source, error)) {
-        _ui->saveStatusLabel->setText(text("ai_mode.no_replay"));
+    std::filesystem::create_directories(replaysDir(), error);
+    const std::string defaultName =
+        std::filesystem::path(request->levelPath.toStdString()).stem().string() + "_" +
+        request->algorithmId.toStdString() + ".json";
+    const QString destination =
+        QFileDialog::getSaveFileName(this, text("ai_mode.export_replay_title"),
+                                     QString::fromStdString((replaysDir() / defaultName).string()),
+                                     text("ai_mode.replay_filter"));
+    if (destination.isEmpty()) {
         return;
     }
-    std::filesystem::create_directories(replaysDir(), error);
-    const std::filesystem::path runPath(runDir.toStdString());
-    const std::string destinationName =
-        runPath.parent_path().filename().string() + "_" + runPath.filename().string() + ".json";
-    std::filesystem::copy_file(source, replaysDir() / destinationName,
-                               std::filesystem::copy_options::overwrite_existing, error);
-    _ui->saveStatusLabel->setText(error ? text("ai_mode.export_failed")
-                                        : text("ai_mode.export_ok"));
+
+    switch (exportModelReplay(*request, destination)) {
+        case ReplayExportOutcome::Exported:
+            _ui->saveStatusLabel->setText(text("ai_mode.export_ok"));
+            break;
+        case ReplayExportOutcome::NotSolved:
+            _ui->saveStatusLabel->setText(text("ai_mode.export_not_solved"));
+            break;
+        case ReplayExportOutcome::Failed:
+            _ui->saveStatusLabel->setText(text("ai_mode.export_failed"));
+            break;
+    }
     refreshRunsAndReplays();
 }
 

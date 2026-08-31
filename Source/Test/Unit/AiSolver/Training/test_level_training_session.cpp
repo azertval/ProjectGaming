@@ -7,6 +7,8 @@
  */
 
 #include <filesystem>
+#include <utility>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -220,4 +222,45 @@ TEST(LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion) {
     static_cast<void>(result);
 
     EXPECT_EQ(callCount, 3);
+}
+
+/**
+ * @brief `setOnStabilityChanged` publie, génération après génération, l'avancement du critère
+ * d'arrêt par stabilité — la seule grandeur du critère qui ne transparaissait nulle part.
+ * \castest{<b>LevelTrainingSession : observateur de stabilité.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Brancher `setOnStabilityChanged` sur une session au plafond volontairement bas.<br/>
+ * 2. Exécuter la session.<br/>
+ * \tattendu Une notification par génération exécutée, chacune portant le seuil configuré et un
+ * compteur dans `[0, seuil]` ; sans elle, une IHM ne peut pas dire si la session est à une
+ * génération de s'arrêter ou si le compteur vient d'être remis à zéro.}
+ */
+TEST(LevelTrainingSessionTest, ObservateurDeStabilitePublieChaqueGeneration) {
+    const TrivialLevelDirectory level("stabilite_observee");
+    const ObservationEncoder encoder;
+
+    EvolutionaryConfig config;
+    config.populationSize = 8;
+    StoppingConfig stopping;
+    stopping.requiredConsecutiveSuccesses = 1000;  // jamais atteint : la session ira au plafond
+    stopping.maxGenerations = 3;
+
+    LevelTrainingSession session(level.levelPath(), policyTopology(encoder.inputSize()), config,
+                                 stopping, 1, level.file("stats.csv"),
+                                 EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
+
+    std::vector<std::pair<int, int>> notifications;
+    session.setOnStabilityChanged([&notifications](int consecutive, int required) {
+        notifications.emplace_back(consecutive, required);
+    });
+
+    const TrainingResult result = session.run();
+
+    ASSERT_EQ(notifications.size(), static_cast<std::size_t>(result.generationsRun));
+    for (const auto& [consecutive, required] : notifications) {
+        EXPECT_EQ(required, stopping.requiredConsecutiveSuccesses);
+        EXPECT_GE(consecutive, 0);
+        EXPECT_LE(consecutive, stopping.requiredConsecutiveSuccesses);
+    }
 }

@@ -37,6 +37,17 @@
       <attribute name="title"><string>Entraînement</string></attribute>
       <layout class="QHBoxLayout" name="trainingLayout">
        <item>
+        <!-- Colonne de reglages DEFILANTE, jamais posee a nu dans la fenetre.
+             Sans elle, la hauteur minimale de cette colonne remonte jusqu'a la fenetre : vingt-six
+             lignes de formulaire, multipliees par le facteur d'agrandissement des ecrans du jeu
+             (jusqu'a 3x, `hmi::pixelArtScale`), imposaient une hauteur minimale de plus de deux
+             mille pixels. Windows refusait alors de retailler la fenetre, qui debordait sous la
+             barre des taches en rognant son contenu. Un ecran de l'application ne doit JAMAIS
+             contraindre la taille de la fenetre : il s'y adapte, au besoin en defilant. -->
+        <widget class="QScrollArea" name="trainingParamsScroll">
+         <property name="widgetResizable"><bool>true</bool></property>
+         <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+         <widget class="QWidget" name="trainingParamsContents">
         <layout class="QVBoxLayout" name="trainingParamsLayout">
 
          <item>
@@ -64,6 +75,47 @@
               <property name="value"><number>42</number></property>
              </widget>
             </item>
+
+            <item row="3" column="0"><widget class="QLabel" name="hiddenSizeLabel"><property name="text"><string>Taille de couche cachée</string></property></widget></item>
+            <item row="3" column="1">
+             <widget class="QSpinBox" name="hiddenSizeSpin">
+              <property name="minimum"><number>4</number></property>
+              <property name="maximum"><number>1024</number></property>
+              <!-- Valeur de depart alignee sur training::evolutionary::DEFAULT_HIDDEN_SIZE : elle
+                   est de toute facon ecrasee a l'ouverture par applyConfigToForm(TrainingConfig{}),
+                   mais un ecart ici faisait changer le champ au premier clic sur « Reinitialiser
+                   aux defauts ». -->
+              <property name="value"><number>64</number></property>
+             </widget>
+            </item>
+
+            <item row="5" column="0"><widget class="QLabel" name="maxStepsBudgetLabel"><property name="text"><string>Budget de pas</string></property></widget></item>
+            <item row="5" column="1">
+             <widget class="QSpinBox" name="stepBudgetSpin">
+              <property name="minimum"><number>0</number></property>
+              <property name="maximum"><number>1000000</number></property>
+              <property name="value"><number>0</number></property>
+              <property name="specialValueText"><string>Automatique</string></property>
+             </widget>
+            </item>
+
+            <item row="6" column="0"><widget class="QLabel" name="stuckThresholdLabel"><property name="text"><string>Seuil de blocage</string></property></widget></item>
+            <item row="6" column="1">
+             <widget class="QSpinBox" name="stuckThresholdSpin">
+              <property name="minimum"><number>0</number></property>
+              <property name="maximum"><number>1000000</number></property>
+              <property name="value"><number>0</number></property>
+              <property name="specialValueText"><string>Automatique</string></property>
+             </widget>
+            </item>
+
+            <item row="4" column="0"><widget class="QLabel" name="runsRootLabel"><property name="text"><string>Dossier des runs</string></property></widget></item>
+            <item row="4" column="1">
+             <layout class="QHBoxLayout" name="runsRootRow">
+              <item><widget class="QLineEdit" name="runsRootEdit"/></item>
+              <item><widget class="QPushButton" name="browseRunsRootButton"><property name="text"><string>Parcourir…</string></property></widget></item>
+             </layout>
+            </item>
            </layout>
           </widget>
          </item>
@@ -77,27 +129,72 @@
              <widget class="QSpinBox" name="populationSpin">
               <property name="minimum"><number>4</number></property>
               <property name="maximum"><number>2000</number></property>
-              <property name="value"><number>64</number></property>
+              <property name="value"><number>32</number></property>
              </widget>
             </item>
 
-            <item row="1" column="0"><widget class="QLabel" name="mutationRateLabel"><property name="text"><string>Taux de mutation</string></property></widget></item>
+            <item row="1" column="0"><widget class="QLabel" name="tournamentSizeLabel"><property name="text"><string>Taille du tournoi</string></property></widget></item>
             <item row="1" column="1">
+             <widget class="QSpinBox" name="tournamentSizeSpin">
+              <property name="minimum"><number>2</number></property>
+              <property name="maximum"><number>100</number></property>
+              <property name="value"><number>3</number></property>
+             </widget>
+            </item>
+
+            <item row="2" column="0"><widget class="QLabel" name="mutationRateLabel"><property name="text"><string>Taux de mutation</string></property></widget></item>
+            <item row="2" column="1">
              <widget class="QDoubleSpinBox" name="mutationRateSpin">
               <property name="decimals"><number>3</number></property>
               <property name="singleStep"><double>0.010000000000000</double></property>
               <property name="minimum"><double>0.001000000000000</double></property>
               <property name="maximum"><double>1.000000000000000</double></property>
-              <property name="value"><double>0.080000000000000</double></property>
+              <property name="value"><double>0.050000000000000</double></property>
              </widget>
             </item>
 
-            <item row="2" column="0" colspan="2">
-             <layout class="QHBoxLayout" name="stabilityRow">
-              <item><widget class="QLabel" name="stabilityLabel"><property name="text"><string>Générations stables</string></property></widget></item>
-              <item><widget class="QLabel" name="stabilityValue"><property name="text"><string>—</string></property></widget></item>
-             </layout>
+            <item row="3" column="0"><widget class="QLabel" name="mutationStrengthLabel"><property name="text"><string>Force de mutation</string></property></widget></item>
+            <item row="3" column="1">
+             <widget class="QDoubleSpinBox" name="mutationStrengthSpin">
+              <property name="decimals"><number>3</number></property>
+              <property name="singleStep"><double>0.010000000000000</double></property>
+              <property name="minimum"><double>0.001000000000000</double></property>
+              <property name="maximum"><double>5.000000000000000</double></property>
+              <property name="value"><double>0.100000000000000</double></property>
+             </widget>
             </item>
+
+            <item row="4" column="0"><widget class="QLabel" name="maxGenerationsLabel"><property name="text"><string>Générations max</string></property></widget></item>
+            <item row="4" column="1">
+             <widget class="QSpinBox" name="maxGenerationsSpin">
+              <property name="minimum"><number>1</number></property>
+              <property name="maximum"><number>100000</number></property>
+              <property name="value"><number>200</number></property>
+             </widget>
+            </item>
+
+            <item row="5" column="0"><widget class="QLabel" name="requiredSuccessesLabel"><property name="text"><string>Réussites stables exigées</string></property></widget></item>
+            <item row="5" column="1">
+             <widget class="QSpinBox" name="requiredSuccessesSpin">
+              <property name="minimum"><number>1</number></property>
+              <property name="maximum"><number>1000</number></property>
+              <property name="value"><number>5</number></property>
+             </widget>
+            </item>
+
+            <item row="6" column="0"><widget class="QLabel" name="crossoverRateLabel"><property name="text"><string>Taux de croisement</string></property></widget></item>
+            <item row="6" column="1">
+             <widget class="QDoubleSpinBox" name="crossoverRateSpin">
+              <property name="decimals"><number>2</number></property>
+              <property name="singleStep"><double>0.050000000000000</double></property>
+              <property name="minimum"><double>0.000000000000000</double></property>
+              <property name="maximum"><double>1.000000000000000</double></property>
+              <property name="value"><double>0.700000000000000</double></property>
+             </widget>
+            </item>
+
+            <item row="7" column="0"><widget class="QLabel" name="stabilityLabel"><property name="text"><string>Générations stables</string></property></widget></item>
+            <item row="7" column="1"><widget class="QLabel" name="stabilityValue"><property name="text"><string>—</string></property></widget></item>
            </layout>
           </widget>
          </item>
@@ -106,7 +203,7 @@
           <widget class="QGroupBox" name="gradientGroup">
            <property name="title"><string>Par gradient (REINFORCE / Acteur-critique / DQN)</string></property>
            <layout class="QFormLayout" name="gradientForm">
-            <item row="0" column="0"><widget class="QLabel" name="episodesLabel"><property name="text"><string>Épisodes / générations max</string></property></widget></item>
+            <item row="0" column="0"><widget class="QLabel" name="episodesLabel"><property name="text"><string>Épisodes</string></property></widget></item>
             <item row="0" column="1">
              <widget class="QSpinBox" name="episodesSpin">
               <property name="minimum"><number>1</number></property>
@@ -142,6 +239,68 @@
              <widget class="QComboBox" name="optimizerCombo">
               <item><property name="text"><string>sgd</string></property></item>
               <item><property name="text"><string>adam</string></property></item>
+             </widget>
+            </item>
+
+            <item row="4" column="0"><widget class="QLabel" name="criticLearningRateLabel"><property name="text"><string>Taux d'apprentissage du critique</string></property></widget></item>
+            <item row="4" column="1">
+             <widget class="QDoubleSpinBox" name="criticLearningRateSpin">
+              <property name="decimals"><number>3</number></property>
+              <property name="singleStep"><double>0.010000000000000</double></property>
+              <property name="minimum"><double>0.000000000000000</double></property>
+              <property name="maximum"><double>10.000000000000000</double></property>
+              <property name="value"><double>0.500000000000000</double></property>
+             </widget>
+            </item>
+
+            <item row="5" column="0"><widget class="QLabel" name="batchEpisodesLabel"><property name="text"><string>Épisodes par lot</string></property></widget></item>
+            <item row="5" column="1">
+             <widget class="QSpinBox" name="batchEpisodesSpin">
+              <property name="minimum"><number>1</number></property>
+              <property name="maximum"><number>1000</number></property>
+              <property name="value"><number>1</number></property>
+             </widget>
+            </item>
+
+            <item row="6" column="0"><widget class="QLabel" name="entropyLabel"><property name="text"><string>Entropie</string></property></widget></item>
+            <item row="6" column="1">
+             <widget class="QDoubleSpinBox" name="entropySpin">
+              <property name="decimals"><number>3</number></property>
+              <property name="singleStep"><double>0.005000000000000</double></property>
+              <property name="minimum"><double>0.000000000000000</double></property>
+              <property name="maximum"><double>1.000000000000000</double></property>
+              <property name="value"><double>0.010000000000000</double></property>
+             </widget>
+            </item>
+
+            <item row="7" column="0"><widget class="QLabel" name="explorationFloorLabel"><property name="text"><string>Exploration minimale</string></property></widget></item>
+            <item row="7" column="1">
+             <widget class="QDoubleSpinBox" name="explorationFloorSpin">
+              <property name="decimals"><number>3</number></property>
+              <property name="singleStep"><double>0.010000000000000</double></property>
+              <property name="minimum"><double>0.000000000000000</double></property>
+              <property name="maximum"><double>0.900000000000000</double></property>
+              <property name="value"><double>0.050000000000000</double></property>
+             </widget>
+            </item>
+
+            <item row="8" column="0"><widget class="QLabel" name="gradientClipNormLabel"><property name="text"><string>Écrêtage du gradient</string></property></widget></item>
+            <item row="8" column="1">
+             <widget class="QDoubleSpinBox" name="gradientClipNormSpin">
+              <property name="decimals"><number>2</number></property>
+              <property name="singleStep"><double>0.100000000000000</double></property>
+              <property name="minimum"><double>0.000000000000000</double></property>
+              <property name="maximum"><double>100.000000000000000</double></property>
+              <property name="value"><double>1.000000000000000</double></property>
+             </widget>
+            </item>
+
+            <item row="9" column="0"><widget class="QLabel" name="actionRepeatLabel"><property name="text"><string>Images par décision</string></property></widget></item>
+            <item row="9" column="1">
+             <widget class="QSpinBox" name="actionRepeatSpin">
+              <property name="minimum"><number>1</number></property>
+              <property name="maximum"><number>60</number></property>
+              <property name="value"><number>4</number></property>
              </widget>
             </item>
            </layout>
@@ -235,12 +394,22 @@
          </item>
 
          <item>
+          <layout class="QHBoxLayout" name="presetButtonsRow">
+           <item><widget class="QPushButton" name="loadConfigButton"><property name="text"><string>Charger une configuration…</string></property></widget></item>
+           <item><widget class="QPushButton" name="saveConfigButton"><property name="text"><string>Enregistrer la configuration…</string></property></widget></item>
+           <item><widget class="QPushButton" name="resetDefaultsButton"><property name="text"><string>Réinitialiser aux défauts</string></property></widget></item>
+          </layout>
+         </item>
+
+         <item>
           <layout class="QHBoxLayout" name="trainingButtonsRow">
            <item><widget class="QPushButton" name="launchTrainingButton"><property name="text"><string>Lancer l'entraînement</string></property></widget></item>
            <item><widget class="QPushButton" name="stopTrainingButton"><property name="text"><string>Arrêter l'entraînement</string></property><property name="visible"><bool>false</bool></property></widget></item>
           </layout>
          </item>
         </layout>
+         </widget>
+        </widget>
        </item>
 
        <item>
@@ -270,11 +439,24 @@
          </item>
          <item>
           <widget class="QTableWidget" name="statsTable">
-           <property name="columnCount"><number>4</number></property>
+           <!-- Lecture seule : ces tableaux affichent un resultat de calcul, editer une
+                cellule ne changerait que ce qui est dessine. -->
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="alternatingRowColors"><bool>true</bool></property>
+           <property name="columnCount"><number>8</number></property>
            <column><property name="text"><string>Génération</string></property></column>
            <column><property name="text"><string>Meilleure récompense</string></property></column>
            <column><property name="text"><string>Récompense moyenne</string></property></column>
+           <column><property name="text"><string>Pire récompense</string></property></column>
+           <column><property name="text"><string>Écart-type</string></property></column>
+           <column><property name="text"><string>Pas du meilleur</string></property></column>
            <column><property name="text"><string>Taux de réussite</string></property></column>
+           <column><property name="text"><string>Graine</string></property></column>
           </widget>
          </item>
 
@@ -292,14 +474,33 @@
      <!-- ===== Onglet Validation & sauvegarde ===== -->
      <widget class="QWidget" name="validateTab">
       <attribute name="title"><string>Validation &amp; sauvegarde</string></attribute>
+      <layout class="QVBoxLayout" name="validateTabLayout">
+       <item>
+        <!-- Meme raison que l'onglet Entrainement : cet onglet compte une quinzaine de lignes, et
+             sa hauteur minimale remonterait de meme jusqu'a la fenetre. -->
+        <widget class="QScrollArea" name="validateScroll">
+         <property name="widgetResizable"><bool>true</bool></property>
+         <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+         <widget class="QWidget" name="validateContents">
       <layout class="QVBoxLayout" name="validateOuterLayout">
        <item>
         <layout class="QFormLayout" name="validateForm">
          <item row="0" column="0"><widget class="QLabel" name="runLabel"><property name="text"><string>Run</string></property></widget></item>
          <item row="0" column="1"><widget class="QComboBox" name="runCombo"/></item>
 
-         <item row="1" column="0"><widget class="QLabel" name="repetitionsLabel"><property name="text"><string>Répétitions</string></property></widget></item>
+         <item row="1" column="0"><widget class="QLabel" name="evalModelLabel"><property name="text"><string>Modèle</string></property></widget></item>
          <item row="1" column="1">
+          <layout class="QHBoxLayout" name="evalModelRow">
+           <item><widget class="QLineEdit" name="evalModelEdit"><property name="readOnly"><bool>true</bool></property></widget></item>
+           <item><widget class="QPushButton" name="browseModelButton"><property name="text"><string>Parcourir…</string></property></widget></item>
+          </layout>
+         </item>
+
+         <item row="2" column="0"><widget class="QLabel" name="evalLevelLabel"><property name="text"><string>Niveau</string></property></widget></item>
+         <item row="2" column="1"><widget class="QComboBox" name="evalLevelCombo"/></item>
+
+         <item row="3" column="0"><widget class="QLabel" name="repetitionsLabel"><property name="text"><string>Répétitions</string></property></widget></item>
+         <item row="3" column="1">
           <widget class="QSpinBox" name="repetitionsSpin">
            <property name="minimum"><number>1</number></property>
            <property name="maximum"><number>1000</number></property>
@@ -307,7 +508,43 @@
           </widget>
          </item>
 
-         <item row="2" column="0" colspan="2"><widget class="QPushButton" name="evaluateButton"><property name="text"><string>Lancer l'évaluation</string></property></widget></item>
+         <item row="4" column="0"><widget class="QLabel" name="maxStepsLabel"><property name="text"><string>Budget de pas par épisode</string></property></widget></item>
+         <item row="4" column="1">
+          <widget class="QSpinBox" name="maxStepsSpin">
+           <!-- Minimum a zero, qui vaut « derive du niveau » : un budget fixe plus court que celui
+                de l'entrainement declare un modele incapable de terminer un niveau qu'il termine. -->
+           <property name="minimum"><number>0</number></property>
+           <property name="maximum"><number>1000000</number></property>
+           <property name="value"><number>0</number></property>
+           <property name="specialValueText"><string>Automatique</string></property>
+          </widget>
+         </item>
+
+         <item row="5" column="0"><widget class="QLabel" name="evalSeedLabel"><property name="text"><string>Graine</string></property></widget></item>
+         <item row="5" column="1">
+          <widget class="QSpinBox" name="evalSeedSpin">
+           <property name="minimum"><number>0</number></property>
+           <property name="maximum"><number>2147483647</number></property>
+           <property name="value"><number>0</number></property>
+          </widget>
+         </item>
+
+         <item row="6" column="0"><widget class="QLabel" name="decodingLabel"><property name="text"><string>Mode de décodage</string></property></widget></item>
+         <item row="6" column="1">
+          <widget class="QComboBox" name="decodingCombo">
+           <item><property name="text"><string>argmax</string></property></item>
+           <item><property name="text"><string>stochastic</string></property></item>
+          </widget>
+         </item>
+
+         <item row="7" column="0" colspan="2">
+          <layout class="QHBoxLayout" name="evaluateButtonsRow">
+           <item><widget class="QPushButton" name="evaluateButton"><property name="text"><string>Lancer l'évaluation</string></property></widget></item>
+           <item><widget class="QPushButton" name="stopEvaluationButton"><property name="text"><string>Annuler l'évaluation</string></property><property name="visible"><bool>false</bool></property></widget></item>
+          </layout>
+         </item>
+
+         <item row="8" column="0" colspan="2"><widget class="QProgressBar" name="evaluationProgressBar"><property name="value"><number>0</number></property></widget></item>
         </layout>
        </item>
 
@@ -317,8 +554,12 @@
          <item row="0" column="1"><widget class="QLabel" name="successRateValue"><property name="text"><string>—</string></property></widget></item>
          <item row="1" column="0"><widget class="QLabel" name="meanStepsLabel"><property name="text"><string>Pas moyen (réussis)</string></property></widget></item>
          <item row="1" column="1"><widget class="QLabel" name="meanStepsValue"><property name="text"><string>—</string></property></widget></item>
-         <item row="2" column="0"><widget class="QLabel" name="varianceLabel"><property name="text"><string>Variance</string></property></widget></item>
-         <item row="2" column="1"><widget class="QLabel" name="varianceValue"><property name="text"><string>—</string></property></widget></item>
+         <item row="2" column="0"><widget class="QLabel" name="meanStepsAllLabel"><property name="text"><string>Pas moyen (toutes)</string></property></widget></item>
+         <item row="2" column="1"><widget class="QLabel" name="meanStepsAllValue"><property name="text"><string>—</string></property></widget></item>
+         <item row="3" column="0"><widget class="QLabel" name="varianceLabel"><property name="text"><string>Variance</string></property></widget></item>
+         <item row="3" column="1"><widget class="QLabel" name="varianceValue"><property name="text"><string>—</string></property></widget></item>
+         <item row="4" column="0"><widget class="QLabel" name="repetitionsRunLabel"><property name="text"><string>Répétitions jouées</string></property></widget></item>
+         <item row="4" column="1"><widget class="QLabel" name="repetitionsRunValue"><property name="text"><string>—</string></property></widget></item>
         </layout>
        </item>
 
@@ -326,6 +567,8 @@
         <layout class="QHBoxLayout" name="saveButtonsRow">
          <item><widget class="QPushButton" name="saveModelButton"><property name="text"><string>Sauvegarder le modèle</string></property><property name="enabled"><bool>false</bool></property></widget></item>
          <item><widget class="QPushButton" name="exportReplayButton"><property name="text"><string>Exporter comme rejeu publié</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+         <item><widget class="QPushButton" name="exportReportButton"><property name="text"><string>Exporter le rapport CSV…</string></property><property name="enabled"><bool>false</bool></property></widget></item>
+         <item><widget class="QPushButton" name="reuseRunSettingsButton"><property name="text"><string>Reprendre les réglages de ce run</string></property><property name="enabled"><bool>false</bool></property></widget></item>
          <item><widget class="QLabel" name="saveStatusLabel"><property name="text"><string/></property></widget></item>
         </layout>
        </item>
@@ -333,6 +576,10 @@
         <spacer name="validateSpacer">
          <property name="orientation"><enum>Qt::Vertical</enum></property>
         </spacer>
+       </item>
+      </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -343,6 +590,15 @@
       <layout class="QVBoxLayout" name="replayOuterLayout">
        <item>
         <widget class="QTableWidget" name="replayTable">
+           <!-- Lecture seule : ces tableaux affichent un resultat de calcul, editer une
+                cellule ne changerait que ce qui est dessine. -->
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="alternatingRowColors"><bool>true</bool></property>
          <property name="columnCount"><number>4</number></property>
          <column><property name="text"><string>Niveau</string></property></column>
          <column><property name="text"><string>Algorithme</string></property></column>

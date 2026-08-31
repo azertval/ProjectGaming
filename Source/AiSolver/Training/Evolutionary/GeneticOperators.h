@@ -28,18 +28,26 @@ namespace aisolver::training::evolutionary {
                                              const EvolutionaryConfig& config, Rng& rng);
 
 /**
- * @brief Croisement par moyenne : le réseau enfant a, pour chaque poids, la moyenne des poids
- * correspondants des deux parents (moyenne élément par élément des `Tensor` de poids).
+ * @brief Croisement **uniforme** : chaque poids de l'enfant est repris, à pile ou face, de l'un ou
+ * l'autre parent.
  *
- * Déterministe une fois les deux parents choisis : @p rng n'intervient jamais dans le calcul de la
- * moyenne, seulement pour matérialiser le réseau enfant via `buildNetwork`, dont les poids sont
- * immédiatement écrasés par la moyenne — conservé en paramètre pour une éventuelle variante
- * future (hors périmètre ici). Écart assumé à la signature de l'épic : `topology` est ajouté en
- * paramètre parce qu'un `nn::Network` n'est pas introspectable après construction — la topologie
- * doit être fournie explicitement.
+ * Pas une moyenne. Moyenner deux réseaux ne combine pas ce qu'ils ont trouvé : les neurones cachés
+ * n'ont aucune raison de se correspondre d'un réseau à l'autre, et la moyenne de deux solutions
+ * également bonnes est ordinairement moins bonne que chacune. Un tirage par poids conserve au
+ * moins des valeurs qui ont réellement fonctionné quelque part, au lieu d'en fabriquer une
+ * troisième qui n'a fonctionné nulle part.
+ *
+ * Avec probabilité `1 - config.crossoverRate`, aucun croisement n'a lieu : l'enfant copie
+ * @p parentA tel quel, et seule la mutation le fera diverger — c'est le seul chemin par lequel une
+ * trouvaille survit intacte d'une génération à l'autre en dehors de l'unique élite.
+ *
+ * Écart assumé à la signature de l'épic : `topology` est ajouté en paramètre parce qu'un
+ * `nn::Network` n'est pas introspectable après construction — la topologie doit être fournie
+ * explicitement.
  */
 [[nodiscard]] Individual crossover(const Individual& parentA, const Individual& parentB,
-                                   const NetworkTopology& topology, Rng& rng);
+                                   const NetworkTopology& topology,
+                                   const EvolutionaryConfig& config, Rng& rng);
 
 /**
  * @brief Mutation en place : pour chaque poids du réseau, avec probabilité

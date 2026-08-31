@@ -584,6 +584,10 @@ add_executable(IntegrationTests
     # TACHE-03) : rejoue le script d'entrées de test_parcours_complet.cpp via
     # aisolver::HeadlessLevelEnvironment.
     Integration/test_recompense_demo_niveaux.cpp
+    # Calibration du budget de pas et du seuil de blocage derives du niveau (AiSolver/Env/
+    # StepBudget.h) : confronte l'estimation aux traces scriptes des niveaux livres. Ce sont ces
+    # deux tests qui fixent STEPS_PER_OBJECTIVE_CELL et STEP_BUDGET_MARGIN_PERCENT.
+    Integration/test_budget_pas.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

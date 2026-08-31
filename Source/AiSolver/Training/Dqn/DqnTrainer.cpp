@@ -91,8 +91,6 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
         float totalReward = 0.0f;
         int stepCount = 0;
 
-        ObjectiveDistanceFieldCache distanceFieldCache;
-
         while (status == EpisodeStatus::Ongoing && !_environment.budgetExhausted()) {
             Tensor<float> observationVector =
                 observationEncoder.encode(_environment, previousBox, playerState, playerVelocity);
@@ -111,24 +109,31 @@ void DqnTrainer::run(std::size_t episodeCount, const std::function<bool()>& shou
             }
             const Action action = actionAt(actionIndex);
 
-            const StepObservation stepObservation = _environment.step(toPlayerInput(action));
-            // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache le
-            // reconstruit alors, et le rend tel quel sinon.
-            const GridDistanceField& distanceField =
-                distanceFieldCache.field(_environment.level(), _environment.mechanisms());
-            const float reward = computeReward(rewardConfig, distanceField, previousBox,
-                                               stepObservation.playerBox, stepObservation.outcome);
+            // L'action decidee est maintenue `actionRepeat` images ; la transition memorisee
+            // couvre toute la repetition, avec la somme de leurs recompenses.
+            float reward = 0.0f;
+            for (int frame = 0; frame < _config.actionRepeat && status == EpisodeStatus::Ongoing &&
+                                !_environment.budgetExhausted();
+                 ++frame) {
+                const StepObservation stepObservation =
+                    _environment.step(toPlayerInput(action, frame));
+                // Champ de l'environnement : une seule instance par episode, deja reconstruite
+                // par `step()` quand elle a cesse d'etre valide -- et celle-la meme dont la
+                // detection de blocage se sert.
+                reward += computeReward(rewardConfig, _environment.objectiveField(), previousBox,
+                                        stepObservation.playerBox, stepObservation.outcome);
+
+                previousBox = stepObservation.playerBox;
+                playerState = stepObservation.playerState;
+                playerVelocity = stepObservation.playerVelocity;
+
+                status =
+                    classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
+                                    _environment.stepsSinceProgress(),
+                                    std::numeric_limits<int>::max(), _environment.stuckThreshold());
+            }
             totalReward += reward;
             ++stepCount;
-
-            previousBox = stepObservation.playerBox;
-            playerState = stepObservation.playerState;
-            playerVelocity = stepObservation.playerVelocity;
-
-            status =
-                classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
-                                _environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                evolutionary::DEFAULT_STUCK_THRESHOLD);
 
             Tensor<float> nextObservationVector =
                 observationEncoder.encode(_environment, previousBox, playerState, playerVelocity);

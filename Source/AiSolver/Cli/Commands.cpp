@@ -59,6 +59,49 @@ std::optional<T> parseNumber(const std::string& text) {
     return value;
 }
 
+/// Lit une option numerique optionnelle de @p args dans @p target.
+///
+/// Chaque hyperparametre suit exactement le meme protocole (absent : on garde le defaut ; present
+/// mais pas entierement un nombre : message d'usage de la sous-commande) -- l'ecrire une fois
+/// evite que la trentaine d'options de `train` derive vers trente formulations d'erreur
+/// differentes.
+/// @param expected Fragment decrivant le type attendu, tel qu'il apparait dans le message
+///        d'erreur (ex. `"un entier positif"`).
+/// @return `false` si la valeur est presente mais invalide ; @p error est alors rempli.
+template <typename T>
+[[nodiscard]] bool readNumberOption(const std::vector<std::string>& args, const char* name,
+                                    const char* subcommand, const char* expected,
+                                    std::optional<T>& target, std::string& error) {
+    const std::optional<std::string> value = findOption(args, name);
+    if (!value.has_value()) {
+        return true;
+    }
+    const std::optional<T> parsed = parseNumber<T>(*value);
+    if (!parsed.has_value()) {
+        error = std::string(subcommand) + " : " + name + " attend " + expected + ", recu '" +
+                *value + "'";
+        return false;
+    }
+    target = *parsed;
+    return true;
+}
+
+/// @copydoc readNumberOption
+/// Surcharge pour un champ non optionnel, qui porte deja sa valeur par defaut.
+template <typename T>
+[[nodiscard]] bool readNumberOption(const std::vector<std::string>& args, const char* name,
+                                    const char* subcommand, const char* expected, T& target,
+                                    std::string& error) {
+    std::optional<T> parsed;
+    if (!readNumberOption(args, name, subcommand, expected, parsed, error)) {
+        return false;
+    }
+    if (parsed.has_value()) {
+        target = *parsed;
+    }
+    return true;
+}
+
 std::unique_ptr<optim::IOptimizer> makeOptimizer(const std::string& name, float learningRate) {
     if (name == "adam") {
         return std::make_unique<optim::Adam>(learningRate);
@@ -112,14 +155,6 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
     TrainArgs result;
     result.level = *level;
     result.algorithmId = *algorithmId;
-    if (const std::optional<std::string> value = findOption(args, "--seed"); value.has_value()) {
-        const std::optional<std::uint64_t> parsed = parseNumber<std::uint64_t>(*value);
-        if (!parsed) {
-            error = "train : --seed attend un entier positif, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.seed = *parsed;
-    }
     if (const std::optional<std::string> config = findOption(args, "--config");
         config.has_value()) {
         result.configFile = std::filesystem::path(*config);
@@ -128,53 +163,57 @@ std::optional<TrainArgs> parseTrainArgs(const std::vector<std::string>& args, st
         runsRoot.has_value()) {
         result.runsRoot = *runsRoot;
     }
-    if (const std::optional<std::string> value = findOption(args, "--population-size");
-        value.has_value()) {
-        const std::optional<std::size_t> parsed = parseNumber<std::size_t>(*value);
-        if (!parsed) {
-            error = "train : --population-size attend un entier positif, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.populationSize = *parsed;
-    }
-    if (const std::optional<std::string> value = findOption(args, "--mutation-rate");
-        value.has_value()) {
-        const std::optional<float> parsed = parseNumber<float>(*value);
-        if (!parsed) {
-            error = "train : --mutation-rate attend un nombre, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.mutationRate = *parsed;
-    }
-    if (const std::optional<std::string> value = findOption(args, "--episodes");
-        value.has_value()) {
-        const std::optional<std::size_t> parsed = parseNumber<std::size_t>(*value);
-        if (!parsed) {
-            error = "train : --episodes attend un entier positif, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.episodes = *parsed;
-    }
-    if (const std::optional<std::string> value = findOption(args, "--learning-rate");
-        value.has_value()) {
-        const std::optional<float> parsed = parseNumber<float>(*value);
-        if (!parsed) {
-            error = "train : --learning-rate attend un nombre, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.learningRate = *parsed;
-    }
-    if (const std::optional<std::string> value = findOption(args, "--gamma"); value.has_value()) {
-        const std::optional<float> parsed = parseNumber<float>(*value);
-        if (!parsed) {
-            error = "train : --gamma attend un nombre, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.gamma = *parsed;
-    }
     if (const std::optional<std::string> value = findOption(args, "--optimizer");
         value.has_value()) {
         result.optimizer = *value;
+    }
+
+    constexpr const char* INTEGER = "un entier positif";
+    constexpr const char* NUMBER = "un nombre";
+    const bool parsed =
+        readNumberOption(args, "--seed", "train", INTEGER, result.seed, error) &&
+        readNumberOption(args, "--population-size", "train", INTEGER, result.populationSize,
+                         error) &&
+        readNumberOption(args, "--mutation-rate", "train", NUMBER, result.mutationRate, error) &&
+        readNumberOption(args, "--mutation-strength", "train", NUMBER, result.mutationStrength,
+                         error) &&
+        readNumberOption(args, "--tournament-size", "train", INTEGER, result.tournamentSize,
+                         error) &&
+        readNumberOption(args, "--max-generations", "train", INTEGER, result.maxGenerations,
+                         error) &&
+        readNumberOption(args, "--required-successes", "train", INTEGER,
+                         result.requiredConsecutiveSuccesses, error) &&
+        readNumberOption(args, "--hidden-size", "train", INTEGER, result.hiddenSize, error) &&
+        readNumberOption(args, "--episodes", "train", INTEGER, result.episodes, error) &&
+        readNumberOption(args, "--learning-rate", "train", NUMBER, result.learningRate, error) &&
+        readNumberOption(args, "--critic-learning-rate", "train", NUMBER, result.criticLearningRate,
+                         error) &&
+        readNumberOption(args, "--gamma", "train", NUMBER, result.gamma, error) &&
+        readNumberOption(args, "--dqn-replay-capacity", "train", INTEGER, result.dqnReplayCapacity,
+                         error) &&
+        readNumberOption(args, "--dqn-batch-size", "train", INTEGER, result.dqnBatchSize, error) &&
+        readNumberOption(args, "--dqn-warmup-size", "train", INTEGER, result.dqnWarmupSize,
+                         error) &&
+        readNumberOption(args, "--dqn-update-period", "train", INTEGER, result.dqnUpdatePeriodSteps,
+                         error) &&
+        readNumberOption(args, "--dqn-target-sync-period", "train", INTEGER,
+                         result.dqnTargetSyncPeriodSteps, error) &&
+        readNumberOption(args, "--dqn-epsilon-start", "train", NUMBER, result.dqnEpsilonStart,
+                         error) &&
+        readNumberOption(args, "--dqn-epsilon-end", "train", NUMBER, result.dqnEpsilonEnd, error) &&
+        readNumberOption(args, "--dqn-epsilon-decay", "train", INTEGER, result.dqnEpsilonDecaySteps,
+                         error) &&
+        readNumberOption(args, "--batch-episodes", "train", INTEGER, result.batchEpisodes, error) &&
+        readNumberOption(args, "--entropy", "train", NUMBER, result.entropyCoefficient, error) &&
+        readNumberOption(args, "--grad-clip", "train", NUMBER, result.gradientClipNorm, error) &&
+        readNumberOption(args, "--action-repeat", "train", INTEGER, result.actionRepeat, error) &&
+        readNumberOption(args, "--exploration-floor", "train", NUMBER, result.explorationFloor,
+                         error) &&
+        readNumberOption(args, "--crossover-rate", "train", NUMBER, result.crossoverRate, error) &&
+        readNumberOption(args, "--max-steps", "train", INTEGER, result.maxSteps, error) &&
+        readNumberOption(args, "--stuck-threshold", "train", INTEGER, result.stuckThreshold, error);
+    if (!parsed) {
+        return std::nullopt;
     }
     return result;
 }
@@ -206,18 +245,25 @@ std::optional<EvaluateArgs> parseEvaluateArgs(const std::vector<std::string>& ar
     result.model = *model;
     result.algorithmId = *algorithmId;
     result.level = *level;
-    if (const std::optional<std::string> value = findOption(args, "--repetitions");
-        value.has_value()) {
-        const std::optional<int> parsed = parseNumber<int>(*value);
-        if (!parsed) {
-            error = "evaluate : --repetitions attend un entier, recu '" + *value + "'";
-            return std::nullopt;
-        }
-        result.repetitions = *parsed;
-    }
     if (const std::optional<std::string> report = findOption(args, "--report");
         report.has_value()) {
         result.report = std::filesystem::path(*report);
+    }
+    if (const std::optional<std::string> decoding = findOption(args, "--decoding");
+        decoding.has_value()) {
+        if (*decoding != "argmax" && *decoding != "stochastic") {
+            error = "evaluate : --decoding invalide '" + *decoding +
+                    "' (attendu : argmax ou stochastic)";
+            return std::nullopt;
+        }
+        result.stochasticDecoding = *decoding == "stochastic";
+    }
+    if (!readNumberOption(args, "--repetitions", "evaluate", "un entier", result.repetitions,
+                          error) ||
+        !readNumberOption(args, "--max-steps", "evaluate", "un entier positif",
+                          result.maxStepsPerEpisode, error) ||
+        !readNumberOption(args, "--seed", "evaluate", "un entier positif", result.seed, error)) {
+        return std::nullopt;
     }
     return result;
 }
@@ -277,8 +323,34 @@ int runTrain(const TrainArgs& args) {
     }
 
     const CommandLineOverrides overrides{
-        args.populationSize, args.mutationRate, args.episodes,
-        args.learningRate,   args.gamma,        args.optimizer,
+        .populationSize = args.populationSize,
+        .mutationRate = args.mutationRate,
+        .episodes = args.episodes,
+        .learningRate = args.learningRate,
+        .criticLearningRate = args.criticLearningRate,
+        .gamma = args.gamma,
+        .optimizer = args.optimizer,
+        .hiddenSize = args.hiddenSize,
+        .tournamentSize = args.tournamentSize,
+        .mutationStrength = args.mutationStrength,
+        .maxGenerations = args.maxGenerations,
+        .requiredConsecutiveSuccesses = args.requiredConsecutiveSuccesses,
+        .dqnReplayCapacity = args.dqnReplayCapacity,
+        .dqnBatchSize = args.dqnBatchSize,
+        .dqnWarmupSize = args.dqnWarmupSize,
+        .dqnUpdatePeriodSteps = args.dqnUpdatePeriodSteps,
+        .dqnTargetSyncPeriodSteps = args.dqnTargetSyncPeriodSteps,
+        .dqnEpsilonStart = args.dqnEpsilonStart,
+        .dqnEpsilonEnd = args.dqnEpsilonEnd,
+        .dqnEpsilonDecaySteps = args.dqnEpsilonDecaySteps,
+        .batchEpisodes = args.batchEpisodes,
+        .entropyCoefficient = args.entropyCoefficient,
+        .gradientClipNorm = args.gradientClipNorm,
+        .actionRepeat = args.actionRepeat,
+        .explorationFloor = args.explorationFloor,
+        .crossoverRate = args.crossoverRate,
+        .maxSteps = args.maxSteps,
+        .stuckThreshold = args.stuckThreshold,
     };
     TrainingConfig config = loadTrainingConfig(args.configFile, overrides);
     config.algorithmId =
@@ -300,6 +372,11 @@ int runTrain(const TrainArgs& args) {
 
     const std::size_t inputSize = ObservationEncoder().inputSize();
     const AlgorithmLabels labels = labelsFor(args.algorithmId);
+    // Meme configuration d'environnement pour l'entrainement ET pour le rejeu argmax exporte : un
+    // rejeu produit sous un budget plus court que celui de l'entrainement serait tronque avant sa
+    // fin, et le run serait declare non resolu alors qu'il l'est.
+    const EnvironmentConfig environmentConfig{.maxSteps = config.maxSteps,
+                                              .stuckThreshold = config.stuckThreshold};
     bool solved = false;
 
     if (args.algorithmId == "evo") {
@@ -307,7 +384,7 @@ int runTrain(const TrainArgs& args) {
             training::evolutionary::policyTopology(inputSize, config.hiddenSize);
         const training::TrainAndExportOutcome outcome = training::trainLevelAndExportReplay(
             args.level, topology, config.evolutionary, config.stopping, args.seed, statsPath,
-            replayPath);
+            replayPath, environmentConfig);
         solved = outcome.trainingResult.solved;
         if (!nn::saveWeights(outcome.trainingResult.bestIndividual.network(), modelPath)) {
             std::cerr << "train : echec de sauvegarde du modele : " << modelPath << "\n";
@@ -320,11 +397,12 @@ int runTrain(const TrainArgs& args) {
             training::evolutionary::buildNetwork(topology, policyRng);
         const std::unique_ptr<optim::IOptimizer> optimizer =
             makeOptimizer(config.optimizer, config.learningRate);
-        HeadlessLevelEnvironment environment;
+        HeadlessLevelEnvironment environment(environmentConfig);
         TrainingStatsRecorder recorder(statsPath);
         training::ReinforceConfig reinforceConfig;
         reinforceConfig.gamma = config.gamma;
         reinforceConfig.seedBase = args.seed;
+        reinforceConfig.tuning = config.tuning;
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, args.level,
                                            reinforceConfig, recorder, levelName);
         trainer.run(config.episodes);
@@ -334,7 +412,7 @@ int runTrain(const TrainArgs& args) {
             return 1;
         }
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
-        HeadlessLevelEnvironment rolloutEnvironment;
+        HeadlessLevelEnvironment rolloutEnvironment(environmentConfig);
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
@@ -354,12 +432,13 @@ int runTrain(const TrainArgs& args) {
         const std::unique_ptr<optim::IOptimizer> policyOptimizer =
             makeOptimizer(config.optimizer, config.learningRate);
         const std::unique_ptr<optim::IOptimizer> criticOptimizer =
-            makeOptimizer(config.optimizer, config.learningRate);
-        HeadlessLevelEnvironment environment;
+            makeOptimizer(config.optimizer, config.criticLearningRate);
+        HeadlessLevelEnvironment environment(environmentConfig);
         TrainingStatsRecorder recorder(statsPath);
         training::ActorCriticConfig actorCriticConfig;
         actorCriticConfig.gamma = config.gamma;
         actorCriticConfig.seedBase = args.seed;
+        actorCriticConfig.tuning = config.tuning;
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
                                              environment, args.level, actorCriticConfig, recorder,
                                              levelName);
@@ -370,7 +449,7 @@ int runTrain(const TrainArgs& args) {
             return 1;
         }
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
-        HeadlessLevelEnvironment rolloutEnvironment;
+        HeadlessLevelEnvironment rolloutEnvironment(environmentConfig);
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
@@ -387,7 +466,7 @@ int runTrain(const TrainArgs& args) {
         training::QNetwork targetNetwork(inputSize, config.hiddenSize, targetRng);
         const std::unique_ptr<optim::IOptimizer> optimizer =
             makeOptimizer(config.optimizer, config.learningRate);
-        HeadlessLevelEnvironment environment;
+        HeadlessLevelEnvironment environment(environmentConfig);
         TrainingStatsRecorder recorder(statsPath);
         training::DqnConfig dqnConfig;
         dqnConfig.hiddenSize = config.hiddenSize;
@@ -400,9 +479,14 @@ int runTrain(const TrainArgs& args) {
         dqnConfig.epsilonStart = config.dqnEpsilonStart;
         dqnConfig.epsilonEnd = config.dqnEpsilonEnd;
         dqnConfig.epsilonDecaySteps = config.dqnEpsilonDecaySteps;
+        dqnConfig.actionRepeat = config.tuning.actionRepeat;
         dqnConfig.seedBase = args.seed;
+        // CSV secondaire propre a DQN (index,replayBufferSize,epsilon) : la taille de la memoire
+        // de rejeu et l'exploration courante n'ont pas de colonne dans le CSV commun a tous les
+        // algorithmes, et ce sont les deux grandeurs qui expliquent la forme d'une courbe DQN.
         training::DqnTrainer trainer(mainNetwork, targetNetwork, *optimizer, environment,
-                                     args.level, dqnConfig, recorder, levelName);
+                                     args.level, dqnConfig, recorder, levelName,
+                                     runDir / "dqn_stats.csv");
         trainer.run(config.episodes);
 
         if (!nn::saveWeights(mainNetwork.network(), modelPath)) {
@@ -410,7 +494,7 @@ int runTrain(const TrainArgs& args) {
             return 1;
         }
         eval::AdvancedAlgorithmTrainedPolicy evalPolicy(mainNetwork);
-        HeadlessLevelEnvironment rolloutEnvironment;
+        HeadlessLevelEnvironment rolloutEnvironment(environmentConfig);
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, rolloutEnvironment, args.level);
         if (replay.has_value()) {
@@ -435,7 +519,8 @@ int runTrain(const TrainArgs& args) {
 
 int runEvaluate(const EvaluateArgs& args) {
     // Voir ScopedLogLevel (runTrain) : meme raison, rejeu headless repete `args.repetitions` fois.
-    const core::ScopedLogLevel quietDuringEvaluation(core::defaultLogger(), core::LogLevel::Warning);
+    const core::ScopedLogLevel quietDuringEvaluation(core::defaultLogger(),
+                                                     core::LogLevel::Warning);
 
     const std::size_t inputSize = ObservationEncoder().inputSize();
     const std::size_t hiddenSize = hiddenSizeForModel(args.model);
@@ -445,7 +530,10 @@ int runEvaluate(const EvaluateArgs& args) {
 
     eval::BenchmarkConfig config;
     config.repetitions = args.repetitions;
-    config.decodingMode = eval::ActionDecodingMode::Argmax;
+    config.maxStepsPerEpisode = args.maxStepsPerEpisode;
+    config.rngSeedBase = args.seed;
+    config.decodingMode = args.stochasticDecoding ? eval::ActionDecodingMode::Stochastic
+                                                  : eval::ActionDecodingMode::Argmax;
 
     eval::BenchmarkResult result;
     if (args.algorithmId == "avance") {
@@ -498,7 +586,9 @@ int runExportReplay(const ExportReplayArgs& args) {
         training::evolutionary::policyTopology(inputSize, hiddenSize);
     Rng scratchRng(0);
     const AlgorithmLabels labels = labelsFor(args.algorithmId);
-    HeadlessLevelEnvironment environment;
+    // Budget de l'entrainement qui a produit ce modele, pas celui par defaut : un rejeu tronque
+    // avant la fin du niveau ferait passer un modele resolvant pour un modele qui echoue.
+    HeadlessLevelEnvironment environment(environmentConfigForModel(args.model));
 
     std::optional<training::DeterministicReplayResult> replay;
     if (args.algorithmId == "avance") {

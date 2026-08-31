@@ -146,25 +146,30 @@ TEST(DeterministicReplayTest, BorneDeLongueur) {
 }
 
 /**
- * @brief Le rejeu d'un individu qui ne peut pas progresser (budget de pas nul) produit une
- * séquence exploitable sans exception ni plantage, correctement marquée comme non résolue.
+ * @brief Le rejeu d'un individu privé du budget nécessaire produit une séquence exploitable sans
+ * exception ni plantage, correctement marquée comme non résolue.
+ *
+ * Le budget est exprimé en pas, pas en « zéro » : `EnvironmentConfig::maxSteps == 0` signifie
+ * désormais **dérive-le du niveau** (`StepBudget.h`), la seule valeur qui puisse convenir à la
+ * fois à un corridor de deux cases et à `demo-final.json`. Un budget d'un seul pas exprime ce que
+ * ce test veut vraiment : un individu qui n'a pas le temps d'atteindre la sortie.
  * \castest{<b>replayBestIndividual : rejeu d'un individu non résolvant.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget de pas
- * nul.<br/>
- * \tattendu Aucune exception ; `status != Won` ; la séquence produite est vide (aucun pas
- * simulable).}
+ * \tetapes 1. Entraîner un individu.<br/>2. Le rejouer sur un environnement au budget d'un
+ * seul pas.<br/>
+ * \tattendu Aucune exception ; `status != Won` ; la séquence produite ne dépasse pas le
+ * budget.}
  */
 TEST(DeterministicReplayTest, RejeuDUnIndividuNonResolvant) {
     const TrivialLevelDirectory level("non-resolvant");
     TrainingResult training = trainSolvedIndividual(level);
     ASSERT_TRUE(training.solved);
 
-    HeadlessLevelEnvironment zeroBudgetEnvironment(EnvironmentConfig{.maxSteps = 0});
+    HeadlessLevelEnvironment tinyBudgetEnvironment(EnvironmentConfig{.maxSteps = 1});
     const DeterministicReplayResult replay =
-        replayBestIndividual(training.bestIndividual, zeroBudgetEnvironment, level.levelPath());
+        replayBestIndividual(training.bestIndividual, tinyBudgetEnvironment, level.levelPath());
 
     EXPECT_NE(replay.status, aisolver::EpisodeStatus::Won);
-    EXPECT_TRUE(replay.steps.empty());
+    EXPECT_LE(replay.steps.size(), std::size_t{1});
 }

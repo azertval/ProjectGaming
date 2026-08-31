@@ -7,6 +7,7 @@
 
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/MechanismStateEncoder.h"
+#include "AiSolver/Env/ObjectiveEncoder.h"
 #include "AiSolver/Env/PlayerStateEncoder.h"
 #include "AiSolver/Env/TileWindowEncoder.h"
 #include "AiSolver/Math/Tensor.h"
@@ -36,14 +37,24 @@ namespace aisolver {
  * Ordre de concaténation (invariant stable, comme `ActionSpace::actionAt` : un réseau entraîné sur
  * cet ordre romprait sa correspondance entrée/poids si l'ordre changeait) : fenêtre de tuiles
  * (`TileWindowEncoder`), puis état des mécanismes (`MechanismStateEncoder`), puis état joueur
- * (`PlayerStateEncoder`).
+ * (`PlayerStateEncoder`), puis voisinage de l'objectif (`ObjectiveEncoder`).
+ *
+ * La fenêtre de tuiles est lue sur la grille de collision **composée** du pas courant
+ * (`HeadlessLevelEnvironment::collisionMap` : portes à leur état, blocs à leur position), et non
+ * sur la carte statique du fichier : un bloc poussé y resterait sinon dessiné à sa case d'origine,
+ * et l'agent verrait un mur là où il vient d'ouvrir un passage.
  */
 class ObservationEncoder {
 public:
     /// Rayon de fenêtre par défaut (voir `TileWindowEncoder`) : compromis entre visibilité des
     /// obstacles proches et taille du vecteur d'entrée (donc coût de la propagation avant, répétée
     /// à chaque pas de chaque individu de chaque génération).
-    static constexpr int DEFAULT_RADIUS = 2;
+    ///
+    /// `3` (fenêtre `7 × 7`) plutôt que `2` : à `moveSpeed = 3` et pas fixe `1/60`, deux cases de
+    /// visibilité représentent `0,66 s` d'anticipation, moins que la durée d'un saut
+    /// (`jumpSpeed = 15`, apex à ~`0,3 s`, portée ~`2,25` cases) — un agent ne voyait donc pas le
+    /// danger sur lequel il allait retomber au moment de décider de sauter.
+    static constexpr int DEFAULT_RADIUS = 3;
 
     explicit ObservationEncoder(int radius = DEFAULT_RADIUS);
 
@@ -67,6 +78,7 @@ private:
     TileWindowEncoder _tileEncoder;
     MechanismStateEncoder _mechanismEncoder;
     PlayerStateEncoder _playerEncoder;
+    ObjectiveEncoder _objectiveEncoder;
 };
 
 }  // namespace aisolver

@@ -3,7 +3,9 @@
 
 #pragma once
 
+#include <atomic>
 #include <memory>
+#include <mutex>
 #include <string_view>
 #include <vector>
 
@@ -33,9 +35,26 @@ public:
     /// Définit le niveau minimal ; les messages moins graves sont ignorés.
     void setMinimumLevel(LogLevel level);
 
-    /// @return Le niveau minimal courant (voir `ScopedLogLevel`, qui s'en sert pour restaurer le
-    /// niveau précédent après une élévation temporaire).
-    [[nodiscard]] LogLevel minimumLevel() const noexcept { return _minimumLevel; }
+    /// @return Le niveau minimal courant.
+    [[nodiscard]] LogLevel minimumLevel() const noexcept {
+        return _minimumLevel.load(std::memory_order_relaxed);
+    }
+
+    /**
+     * @brief Ouvre une **élévation temporaire** du niveau minimal à au moins @p floor.
+     *
+     * Compte les élévations au lieu de mémoriser un niveau par appelant : l'écran Mode IA peut
+     * faire tourner un entraînement et une évaluation **en même temps**, chacun sur son fil, et
+     * deux portées qui se chevauchent restauraient alors le niveau que la première avait relevé —
+     * laissant le journal muet pour le reste de la session. Le niveau d'origine n'est mémorisé
+     * qu'à la première élévation, et restauré à la dernière sortie.
+     * @param floor Niveau minimal souhaité ; un niveau déjà plus strict n'est jamais assoupli.
+     */
+    void beginLevelElevation(LogLevel floor);
+
+    /// Ferme une élévation ouverte par `beginLevelElevation` ; restaure le niveau d'origine
+    /// lorsque la dernière élévation en cours se ferme.
+    void endLevelElevation();
 
     /**
      * @brief Indique si un niveau passe le filtre courant.
@@ -58,7 +77,13 @@ public:
     void log(LogLevel level, std::string_view message);
 
 private:
-    LogLevel _minimumLevel = LogLevel::Trace;
+    /// Lu à chaque message depuis n'importe quel fil, écrit par les élévations temporaires : le
+    /// type atomique n'est pas cosmétique, un `LogLevel` nu était une course de données.
+    std::atomic<LogLevel> _minimumLevel = LogLevel::Trace;
+    /// Protège le compteur d'élévations et le niveau mémorisé (voir `beginLevelElevation`).
+    std::mutex _elevationMutex;
+    int _elevationDepth = 0;
+    LogLevel _levelBeforeElevation = LogLevel::Trace;
     std::vector<std::unique_ptr<ILogSink>> _sinks;
 };
 

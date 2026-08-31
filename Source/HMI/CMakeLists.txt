@@ -201,6 +201,7 @@ add_executable(ProjectGaming
     # referencer AiSolver/Training/Nn/Optim/Eval (amendement documente de LOT-ANNEXE-18, epic.md).
     Ai/TrainingWorker.cpp
     Ai/ModelEvaluation.cpp
+    Ai/EvaluationWorker.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)

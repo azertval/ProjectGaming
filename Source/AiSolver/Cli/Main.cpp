@@ -17,13 +17,35 @@
 namespace {
 
 void printUsage() {
-    std::cerr << "Usage : aisolver-cli <train|evaluate|export-replay> [options]\n"
-              << "  train --level <chemin> --algo <evo|pg|ac|avance> [--seed N] [--config "
-                 "<chemin>]\n"
-              << "  evaluate --model <chemin> --algo <evo|pg|ac|avance> --level <chemin> "
-                 "[--repetitions N] [--report <chemin>]\n"
-              << "  export-replay --model <chemin> --algo <evo|pg|ac|avance> --level <chemin> "
-                 "--output <chemin> [--seed N]\n";
+    std::cerr
+        << "Usage : aisolver-cli <train|evaluate|export-replay> [options]\n"
+        << "\n"
+        << "  train --level <chemin> --algo <evo|pg|ac|avance>\n"
+        << "    Commun     : [--seed N] [--config <chemin>] [--runs-root <chemin>]\n"
+        << "                 [--hidden-size N] [--max-steps N] [--stuck-threshold N]\n"
+        << "                 (budget et seuil derives du niveau si absents ou nuls)\n"
+        << "    Evolutif   : [--population-size N] [--mutation-rate X] [--mutation-strength X]\n"
+        << "                 [--tournament-size N] [--max-generations N]\n"
+        << "                 [--required-successes N] [--crossover-rate X]\n"
+        << "    Gradient   : [--episodes N] [--learning-rate X] [--gamma X]\n"
+        << "                 [--critic-learning-rate X] (acteur-critique)\n"
+        << "                 [--optimizer <sgd|adam>] [--batch-episodes N] [--entropy X]\n"
+        << "                 [--grad-clip X] [--action-repeat N] [--exploration-floor X]\n"
+        << "    DQN        : [--dqn-replay-capacity N] [--dqn-batch-size N]\n"
+        << "                 [--dqn-warmup-size N] [--dqn-update-period N]\n"
+        << "                 [--dqn-target-sync-period N] [--dqn-epsilon-start X]\n"
+        << "                 [--dqn-epsilon-end X] [--dqn-epsilon-decay N]\n"
+        << "\n"
+        << "  evaluate --model <chemin> --algo <evo|pg|ac|avance> --level <chemin>\n"
+        << "                 [--repetitions N] [--report <chemin>] [--max-steps N] [--seed N]\n"
+        << "                 [--decoding <argmax|stochastic>]\n"
+        << "\n"
+        << "  export-replay --model <chemin> --algo <evo|pg|ac|avance> --level <chemin>\n"
+        << "                 --output <chemin> [--seed N]\n"
+        << "\n"
+        << "Priorite des hyperparametres : defauts documentes, puis --config, puis les options\n"
+        << "individuelles ci-dessus. La configuration resolue est ecrite dans le config.json du\n"
+        << "run.\n";
 }
 
 }  // namespace

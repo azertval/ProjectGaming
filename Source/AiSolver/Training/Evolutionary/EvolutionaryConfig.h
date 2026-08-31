@@ -43,19 +43,32 @@ inline constexpr float DEFAULT_MUTATION_RATE = 0.05f;
 /// un calcul spécifique à ce projet.
 inline constexpr float DEFAULT_MUTATION_STRENGTH = 0.1f;
 
+/// Probabilité qu'un enfant soit issu d'un croisement plutôt que d'une copie du premier parent.
+///
+/// Le croisement était **toujours** appliqué, et c'était une moyenne arithmétique des deux réseaux
+/// parents. Or moyenner deux réseaux de neurones ne combine pas ce que chacun a trouvé : deux
+/// solutions également bonnes obtenues par des routes différentes donnent une moyenne moins bonne
+/// que l'une comme que l'autre (les neurones cachés n'ont aucune raison de se correspondre d'un
+/// réseau à l'autre). Appliqué à chaque enfant sauf l'élite, l'opérateur détruisait donc à chaque
+/// génération l'essentiel de ce que la précédente avait gagné.
+///
+/// À `0,7`, trois enfants sur dix descendent d'un seul parent muté — le seul chemin par lequel une
+/// trouvaille locale survit intacte d'une génération à l'autre.
+inline constexpr float DEFAULT_CROSSOVER_RATE = 0.7f;
+
 /// Regroupe les paramètres de l'algorithme évolutionniste, valeurs par défaut documentées
 /// ci-dessus (constantes nommées, jamais de littéral magique répété).
 ///
-/// Deux mécanismes de l'algorithme génétique n'ont volontairement PAS de taux configurable ici
-/// (décision de cadrage de `LOT-ANNEXE-10`, voir son `epic.md`) : le croisement est **toujours**
-/// appliqué (moyenne des deux parents tirés par tournoi, jamais une chance de passer un parent
-/// inchangé), et l'élitisme conserve **exactement un** individu (le meilleur) d'une génération à
-/// l'autre, jamais un pourcentage — voir `EvolutionaryTrainer::runGeneration`.
+/// L'élitisme conserve **exactement un** individu (le meilleur) d'une génération à l'autre, jamais
+/// un pourcentage -- voir `EvolutionaryTrainer::runGeneration`.
 struct EvolutionaryConfig {
     std::size_t populationSize = DEFAULT_POPULATION_SIZE;
     int tournamentSize = DEFAULT_TOURNAMENT_SIZE;
     float mutationRate = DEFAULT_MUTATION_RATE;
     float mutationStrength = DEFAULT_MUTATION_STRENGTH;
+    /// Probabilité de croiser les deux parents ; sinon l'enfant copie le premier
+    /// (`DEFAULT_CROSSOVER_RATE`). `1` restitue le comportement d'origine.
+    float crossoverRate = DEFAULT_CROSSOVER_RATE;
 };
 
 }  // namespace aisolver::training::evolutionary

@@ -120,3 +120,63 @@ TEST(ReturnCalculatorTest, MonotonieDeLaLongueur) {
             .size(),
         7u);
 }
+
+/**
+ * @brief Centrer-réduire un lot dont **tous** les retours sont négatifs produit des poids des deux
+ *        signes : c'est la moitié manquante du signal d'apprentissage.
+ * \castest{<b>Un lot entièrement négatif produit des poids centrés des deux signes.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Construire un lot de retours tous strictement négatifs.<br/>2. Calculer ses
+ * statistiques puis normaliser chaque épisode.<br/>
+ * \tattendu Après normalisation le lot contient au moins un poids strictement positif et un
+ * strictement négatif ; sans cela la mise à jour ne pourrait que **décourager** toute action
+ * échantillonnée, quelle qu'elle soit.}
+ */
+TEST(ReturnCalculatorTest, NormalisationRendUnLotNegatifExploitable) {
+    std::vector<std::vector<float>> batch{{-30.0f, -20.0f}, {-10.0f, -5.0f, -1.0f}};
+
+    const aisolver::training::WeightStatistics statistics =
+        aisolver::training::weightStatistics(batch);
+    ASSERT_LT(statistics.mean, 0.0f);
+    ASSERT_GT(statistics.standardDeviation, 0.0f);
+
+    for (std::vector<float>& weights : batch) {
+        aisolver::training::normalizeWeights(weights, statistics);
+    }
+
+    bool hasPositive = false;
+    bool hasNegative = false;
+    for (const std::vector<float>& weights : batch) {
+        for (const float weight : weights) {
+            hasPositive = hasPositive || weight > 0.0f;
+            hasNegative = hasNegative || weight < 0.0f;
+        }
+    }
+    EXPECT_TRUE(hasPositive);
+    EXPECT_TRUE(hasNegative);
+}
+
+/**
+ * @brief Un lot dont tous les poids sont égaux n'est pas amplifié : l'écart-type nul ne divise
+ *        jamais.
+ * \castest{<b>Lot dégénéré : centrage sans division par un écart-type nul.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Construire un lot dont tous les poids valent la même valeur.<br/>2.
+ * Normaliser.<br/>
+ * \tattendu Tous les poids valent exactement zéro (centrés), aucun n'est infini ni `NaN`.}
+ */
+TEST(ReturnCalculatorTest, LotDegenereNestPasAmplifie) {
+    std::vector<std::vector<float>> batch{{7.0f, 7.0f}, {7.0f}};
+    const aisolver::training::WeightStatistics statistics =
+        aisolver::training::weightStatistics(batch);
+    EXPECT_FLOAT_EQ(statistics.standardDeviation, 0.0f);
+
+    for (std::vector<float>& weights : batch) {
+        aisolver::training::normalizeWeights(weights, statistics);
+        for (const float weight : weights) {
+            EXPECT_FLOAT_EQ(weight, 0.0f);
+        }
+    }
+}

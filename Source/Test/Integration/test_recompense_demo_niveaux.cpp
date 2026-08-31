@@ -50,22 +50,14 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
     ASSERT_FALSE(sequence.empty());
 
     const aisolver::RewardConfig rewardConfig;
-    // Meme plafond que MAX_SCRIPTED_STEPS (test_parcours_complet.cpp) : le trace de
-    // demo-final.json demande a lui seul pres de 4000 pas, dont de longues attentes devant
-    // les dangers temporises.
-    constexpr int HARD_STEP_BUDGET = 9000;
-    // Seuil de blocage desactive de fait (egal au plafond dur) : ce test verifie l'issue finale
-    // (Won, recompense dominee par le bonus), pas la sensibilite du seuil de blocage (deja
-    // couverte par test_episode.cpp/test_reward_episode.cpp) -- un niveau multi-salles comme
-    // demo-final.json traverse legitimement de longues sections sans ameliorer la distance a la
-    // sortie (detour par une autre salle, attente devant un danger temporise).
-    constexpr int STUCK_THRESHOLD = HARD_STEP_BUDGET;
 
     for (const ScriptedLevel& scripted : sequence) {
-        // Budget de l'environnement aligne sur le plafond du test : sans cela il coupe a
-        // son defaut de 3000 pas, bien avant la fin du trace.
-        aisolver::HeadlessLevelEnvironment env{
-            aisolver::EnvironmentConfig{.maxSteps = HARD_STEP_BUDGET}};
+        // Budget de pas et seuil de blocage DERIVES DU NIVEAU (configuration par defaut) : ce test
+        // relevait auparavant le plafond a 9000 pas et neutralisait le seuil de blocage en
+        // l'egalant au plafond, faute de quoi les niveaux longs etaient coupes avant leur fin. Ces
+        // deux contournements portaient exactement le defaut que `Env/StepBudget.h` corrige --
+        // les retirer transforme ce test en verification de la correction.
+        aisolver::HeadlessLevelEnvironment env;
         ASSERT_TRUE(env.reset(levelPath(scripted.file))) << "niveau : " << scripted.file;
 
         float cumulativeReward = 0.0f;
@@ -101,8 +93,8 @@ TEST(RecompenseDemoNiveauxTest, ChaqueNiveauDemoAtteintWonAvecRecompenseDomineeP
             y = observation.playerBox.min.y;
             ++step;
             status = aisolver::classifyEpisode(observation.outcome, observation.stepIndex,
-                                               env.stepsSinceProgress(), HARD_STEP_BUDGET,
-                                               STUCK_THRESHOLD);
+                                               env.stepsSinceProgress(), env.stepBudget(),
+                                               env.stuckThreshold());
         }
 
         EXPECT_EQ(status, aisolver::EpisodeStatus::Won)

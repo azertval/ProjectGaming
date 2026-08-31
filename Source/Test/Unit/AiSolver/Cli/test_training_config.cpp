@@ -44,9 +44,12 @@ TEST(LoadTrainingConfigTest, SansFichierNiSurchargeProduitLesDefauts) {
     const TrainingConfig config = loadTrainingConfig(std::nullopt, CommandLineOverrides{});
     EXPECT_EQ(config.evolutionary.populationSize,
               aisolver::training::evolutionary::DEFAULT_POPULATION_SIZE);
-    EXPECT_FLOAT_EQ(config.gamma, 0.99f);
-    EXPECT_EQ(config.optimizer, "sgd");
-    EXPECT_EQ(config.episodes, 300u);
+    // Comparaison aux constantes nommees, jamais a une copie de leur valeur : un defaut documente
+    // se change en un seul endroit, et un test qui le duplique n'attrape pas une erreur, il en
+    // cree une seconde.
+    EXPECT_FLOAT_EQ(config.gamma, aisolver::training::DEFAULT_GAMMA);
+    EXPECT_EQ(config.optimizer, TrainingConfig{}.optimizer);
+    EXPECT_EQ(config.episodes, TrainingConfig{}.episodes);
 }
 
 /**
@@ -85,7 +88,7 @@ TEST(LoadTrainingConfigTest, LeFichierSurchargeLesDefauts) {
     EXPECT_EQ(config.evolutionary.populationSize, 16u);
     EXPECT_FLOAT_EQ(config.gamma, 0.9f);
     // Champ absent du fichier : reste au defaut documente, pas ecrase silencieusement.
-    EXPECT_FLOAT_EQ(config.learningRate, 0.01f);
+    EXPECT_FLOAT_EQ(config.learningRate, TrainingConfig{}.learningRate);
     std::filesystem::remove(path);
 }
 
@@ -188,4 +191,43 @@ TEST(HiddenSizeForModelTest, ResolueDepuisLeConfigDuRunSinonDefaut) {
     EXPECT_EQ(aisolver::cli::hiddenSizeForModel(model),
               aisolver::training::evolutionary::DEFAULT_HIDDEN_SIZE);
     std::filesystem::remove_all(runDir);
+}
+
+/**
+ * @brief La chaine de priorite complete vaut aussi pour les hyperparametres ajoutes par
+ * LOT-ANNEXE-22 : defaut, puis fichier `--config`, puis option individuelle.
+ * \castest{Priorite defaut < fichier < option, sur les nouvelles surcharges.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Ecrire un `config.json` fixant `hiddenSize`, `tournamentSize`, `mutationStrength`,
+ * `maxGenerations` et `requiredConsecutiveSuccesses`.<br/>2. `loadTrainingConfig` avec ce fichier
+ * seul.<br/>3. Recommencer en surchargeant `hiddenSize` et `maxGenerations` par options.<br/>
+ * \tattendu Le fichier prime sur les defauts, et les options priment sur le fichier — `hiddenSize`
+ * en particulier, dont un ecart rend un modele definitivement illisible.}
+ */
+TEST(LoadTrainingConfigTest, PrioriteDefautPuisFichierPuisOptionSurLesNouveauxChamps) {
+    const std::filesystem::path path = scratchFile("priorite_nouveaux_champs.json");
+    {
+        std::ofstream file(path);
+        file << R"({"hiddenSize": 40, "tournamentSize": 6, "mutationStrength": 0.4,
+                    "maxGenerations": 33, "requiredConsecutiveSuccesses": 2})";
+    }
+
+    const TrainingConfig fromFile = loadTrainingConfig(path, CommandLineOverrides{});
+    EXPECT_EQ(fromFile.hiddenSize, 40u);
+    EXPECT_EQ(fromFile.evolutionary.tournamentSize, 6);
+    EXPECT_FLOAT_EQ(fromFile.evolutionary.mutationStrength, 0.4f);
+    EXPECT_EQ(fromFile.stopping.maxGenerations, 33);
+    EXPECT_EQ(fromFile.stopping.requiredConsecutiveSuccesses, 2);
+
+    CommandLineOverrides overrides;
+    overrides.hiddenSize = 12;
+    overrides.maxGenerations = 7;
+    const TrainingConfig resolved = loadTrainingConfig(path, overrides);
+    EXPECT_EQ(resolved.hiddenSize, 12u);
+    EXPECT_EQ(resolved.stopping.maxGenerations, 7);
+    // Les champs non surcharges gardent la valeur du fichier, jamais le defaut.
+    EXPECT_EQ(resolved.evolutionary.tournamentSize, 6);
+
+    std::filesystem::remove(path);
 }

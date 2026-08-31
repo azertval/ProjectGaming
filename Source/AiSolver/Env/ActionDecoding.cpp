@@ -52,6 +52,13 @@ Action decodeStochastic(const Tensor<float>& distribution, float temperature, Rn
     }
     const Tensor<float>& weighted = reweighted ? *reweighted : distribution;
     const float total = sum(weighted);
+    // Une distribution non finie ne se tire pas : toute comparaison a `NaN` etant fausse, la
+    // roulette ci-dessous tomberait systematiquement sur la DERNIERE action, silencieusement et
+    // pour tout le reste de l'entrainement. C'est ce qui arrivait quand une entree d'observation
+    // valait `NaN` (voir `PlayerStateEncoder`) -- une erreur de programmation en amont, pas une
+    // entree utilisateur : elle doit s'entendre.
+    PROJECTGAMING_ASSERT(std::isfinite(total) && total > 0.0f,
+                         "decodeStochastic : la distribution doit etre finie et de somme positive");
 
     // Methode de la roulette : tirage uniforme dans [0, 1), parcours de la somme cumulee des
     // probabilites normalisees. Le dernier indice recoit tout reliquat numerique (la somme

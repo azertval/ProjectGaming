@@ -94,8 +94,11 @@ TEST(QtKeyMapTest, LettresEtChiffresConvertisDirectement) {
     EXPECT_EQ(hmi::qtKeyToHmiKey(Qt::Key_Z), std::optional<hmi::Key>(hmi::Key::Z));
     EXPECT_EQ(hmi::qtKeyToHmiKey(Qt::Key_0), std::optional<hmi::Key>(hmi::Key::D0));
     // Bornes de l'intervalle chiffres : Key_9 est suivi, meme sans enumerateur hmi::Key dedie.
-    EXPECT_TRUE(hmi::qtKeyToHmiKey(Qt::Key_9).has_value());
-    EXPECT_EQ(static_cast<int>(*hmi::qtKeyToHmiKey(Qt::Key_9)), static_cast<int>(Qt::Key_9));
+    // Resultat nomme plutot que deux appels imbriques : le cahier de test reprend le texte des
+    // assertions, et Doxygen 1.9.8 echoue a resoudre un appel de fonction cite dans un code span.
+    const std::optional<hmi::Key> nine = hmi::qtKeyToHmiKey(Qt::Key_9);
+    EXPECT_TRUE(nine.has_value());
+    EXPECT_EQ(static_cast<int>(*nine), static_cast<int>(Qt::Key_9));
 }
 
 /**

@@ -8,6 +8,7 @@
 #include "AiSolver/Math/Autodiff/Node.h"
 #include "AiSolver/Nn/Network.h"
 #include "AiSolver/Training/PolicyGradient/Trajectory.h"
+#include "AiSolver/Training/PolicyGradientLoss.h"
 
 /**
  * @file AiSolver/Training/ActorCritic/ActorCriticLoss.h
@@ -25,12 +26,15 @@ namespace aisolver::training {
  * brut). Réutilise la politique (`nn::Network`, `LOT-ANNEXE-03`) sans modification.
  * @param policy     Réseau de politique, rejoué pas à pas (poids **non modifiés** par cet appel).
  * @param trajectory Trajectoire collectée (`TrajectoryCollector`, `LOT-ANNEXE-12`).
- * @param advantages Avantage par pas (`computeAdvantages`), même longueur que `trajectory.steps`.
+ * @param advantages Avantage par pas (`computeAdvantages`), même longueur que `trajectory.steps`,
+ *        typiquement centré-réduit sur le lot (`normalizeWeights`).
+ * @param entropyCoefficient Poids du terme d'entropie, transmis tel quel
+ *        (`computeWeightedPolicyGradientLoss`).
  * @return Nœud scalaire (forme `[1]`) de la perte moyenne, prêt pour `autodiff::backward()`.
  * @pre `advantages.size() == trajectory.steps.size()`, `!trajectory.steps.empty()`.
  */
-[[nodiscard]] autodiff::NodePtr computeActorCriticLoss(nn::Network& policy,
-                                                       const Trajectory& trajectory,
-                                                       const std::vector<float>& advantages);
+[[nodiscard]] autodiff::NodePtr computeActorCriticLoss(
+    nn::Network& policy, const Trajectory& trajectory, const std::vector<float>& advantages,
+    float entropyCoefficient = DEFAULT_ENTROPY_COEFFICIENT);
 
 }  // namespace aisolver::training

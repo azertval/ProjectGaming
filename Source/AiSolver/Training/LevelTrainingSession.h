@@ -103,6 +103,25 @@ public:
     }
 
     /**
+     * @brief Branche @p onStabilityChanged, appelé après chaque génération avec l'avancement du
+     * critère d'arrêt par stabilité.
+     *
+     * Le compteur de séries stables ne transparaît nulle part ailleurs : il vit dans une variable
+     * locale de `run()`, et `TrainingResult` ne rapporte à la fin que `solved`. Un appelant qui
+     * affiche l'entraînement en direct ne peut donc pas dire si la session est à une génération de
+     * s'arrêter ou si le compteur vient d'être remis à zéro — ce rappel est le seul moyen de le
+     * savoir sans réimplémenter le critère.
+     * @param onStabilityChanged Reçoit le compteur courant et le seuil exigé
+     *        (`StoppingConfig::requiredConsecutiveSuccesses`, constant sur toute la session, passé
+     *        pour que le rappel n'ait pas à connaître la configuration). Observation pure : la
+     *        décision d'arrêt reste celle de `run()`.
+     */
+    void setOnStabilityChanged(
+        std::function<void(int consecutive, int required)> onStabilityChanged) {
+        _onStabilityChanged = std::move(onStabilityChanged);
+    }
+
+    /**
      * @brief Exécute des générations jusqu'à ce que le champion reste invaincu et résolvant
      * pendant `StoppingConfig::requiredConsecutiveSuccesses` générations consécutives, ou jusqu'à
      * `StoppingConfig::maxGenerations`, selon ce qui survient en premier.
@@ -135,6 +154,7 @@ private:
     HeadlessLevelEnvironment _environment;
     TrainingStatsRecorder _recorder;
     evolutionary::EvolutionaryTrainer _trainer;
+    std::function<void(int, int)> _onStabilityChanged;
 };
 
 }  // namespace aisolver::training

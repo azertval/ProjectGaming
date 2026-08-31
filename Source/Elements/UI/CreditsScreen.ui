@@ -23,11 +23,13 @@
      <layout class="QVBoxLayout" name="cardLayout">
        <item>
         <widget class="QLabel" name="developmentLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Développement</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="developmentCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- Nom propre : jamais traduit, cf. CreditsScreen::retranslateUi. -->
          <property name="text"><string>Valentin Eloy</string></property>
         </widget>
@@ -40,11 +42,13 @@
        </item>
        <item>
         <widget class="QLabel" name="audioLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Musique et bruitages</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="audioCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- Noms propres et licence : jamais traduits. Detail complet dans
               Source/Elements/Audio/CREDITS.md (fichier par fichier). -->
          <property name="wordWrap"><bool>true</bool></property>
@@ -59,11 +63,13 @@
        </item>
        <item>
         <widget class="QLabel" name="graphicsLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Graphismes</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="graphicsCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- Noms propres et licence : jamais traduits. Detail complet dans
               Source/Elements/Assets/CREDITS.md (fichier par fichier). -->
          <property name="wordWrap"><bool>true</bool></property>
@@ -78,11 +84,13 @@
        </item>
        <item>
         <widget class="QLabel" name="fontsLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Polices</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="fontsCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- Noms propres et licence : jamais traduits. La SIL OFL EXIGE que sa notice accompagne
               les polices partout ou elles sont redistribuees : les fichiers de licence vivent dans
               Source/Elements/Assets/Fonts/. -->
@@ -98,11 +106,13 @@
        </item>
        <item>
         <widget class="QLabel" name="librariesLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Bibliothèques</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="librariesCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- Mention EXIGEE par la LGPLv3 : l'usage de Qt et sa licence doivent etre indiques, et
               le lien reste dynamique pour que l'utilisateur puisse substituer sa propre version.
               Detail complet dans THIRD-PARTY-NOTICES.md. -->
@@ -118,11 +128,13 @@
        </item>
        <item>
         <widget class="QLabel" name="licenseLabel">
+         <property name="creditsRole" stdset="0"><string>section</string></property>
          <property name="text"><string>Licence</string></property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="licenseCredit">
+         <property name="creditsRole" stdset="0"><string>entry</string></property>
          <!-- La licence du JEU, distincte de celles ci-dessus : les ressources restent sous CC0 et
               SIL OFL, Qt sous LGPLv3. Le dire ici evite de laisser croire que tout est GPL. -->
          <property name="wordWrap"><bool>true</bool></property>

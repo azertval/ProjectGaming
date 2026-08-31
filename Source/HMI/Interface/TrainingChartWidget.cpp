@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <algorithm>
+#include <utility>
 
 namespace hmi {
 
@@ -85,6 +86,11 @@ void TrainingChartWidget::clearChart() {
     update();
 }
 
+void TrainingChartWidget::setEmptyLabel(QString label) {
+    _emptyLabel = std::move(label);
+    update();
+}
+
 void TrainingChartWidget::setSeriesLabels(const QString& bestReward, const QString& meanReward,
                                           const QString& successRate) {
     _bestRewardLabel = bestReward;
@@ -104,7 +110,7 @@ void TrainingChartWidget::paintEvent(QPaintEvent* /*event*/) {
     const qreal legendHeight = hasLegend ? QFontMetrics(painter.font()).height() + 8.0 : 0.0;
 
     if (_bestReward.size() < 2) {
-        painter.drawText(rect(), Qt::AlignCenter, tr("Pas encore assez de données"));
+        painter.drawText(rect(), Qt::AlignCenter, _emptyLabel);
         return;
     }
 
@@ -114,21 +120,19 @@ void TrainingChartWidget::paintEvent(QPaintEvent* /*event*/) {
     const QRectF plotArea =
         rect().adjusted(MARGIN, MARGIN, -MARGIN, -MARGIN - static_cast<int>(legendHeight));
 
-    const double minReward =
-        std::min(*std::min_element(_bestReward.begin(), _bestReward.end()),
-                 *std::min_element(_meanReward.begin(), _meanReward.end()));
-    const double maxReward =
-        std::max(*std::max_element(_bestReward.begin(), _bestReward.end()),
-                 *std::max_element(_meanReward.begin(), _meanReward.end()));
+    const double minReward = std::min(*std::min_element(_bestReward.begin(), _bestReward.end()),
+                                      *std::min_element(_meanReward.begin(), _meanReward.end()));
+    const double maxReward = std::max(*std::max_element(_bestReward.begin(), _bestReward.end()),
+                                      *std::max_element(_meanReward.begin(), _meanReward.end()));
 
     const QColor bestColor(80, 200, 120);
     const QColor meanColor(120, 160, 220);
     const QColor successColor(230, 180, 60);
 
     drawSeries(painter, plotArea, {&_bestReward, bestColor, &_bestRewardLabel}, minReward,
-              maxReward);
+               maxReward);
     drawSeries(painter, plotArea, {&_meanReward, meanColor, &_meanRewardLabel}, minReward,
-              maxReward);
+               maxReward);
     // Taux de réussite : échelle propre [0, 1], indépendante de celle des récompenses.
     drawSeries(painter, plotArea, {&_successRate, successColor, &_successRateLabel}, 0.0, 1.0);
 

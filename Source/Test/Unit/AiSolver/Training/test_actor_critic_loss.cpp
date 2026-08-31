@@ -140,8 +140,11 @@ TEST(ActorCriticLossTest, AvantageNulGradientNul) {
     for (const auto& parameter : parameters) {
         parameter->zeroGrad();
     }
+    // Terme d'entropie desactive : c'est la nullite du gradient du terme PONDERE qui est en jeu
+    // ici, et l'entropie ne depend pas des avantages (elle a son propre test,
+    // test_policy_gradient_loss.cpp).
     const aisolver::autodiff::NodePtr loss =
-        computeActorCriticLoss(*policy, trajectory, advantages);
+        computeActorCriticLoss(*policy, trajectory, advantages, 0.0f);
     aisolver::autodiff::backward(loss);
 
     for (const auto& parameter : parameters) {

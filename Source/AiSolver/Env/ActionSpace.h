@@ -79,4 +79,23 @@ struct Action {
  */
 [[nodiscard]] core::PlayerInput toPlayerInput(const Action& action);
 
+/**
+ * @brief Entrées de la @p frameWithinRepeat-ième image d'une action **répétée**.
+ *
+ * Une politique qui retire parmi `48` actions à chaque image de `1/60 s` produit une marche
+ * aléatoire : les directions tirées se compensent et l'agent n'avance pas, quel que soit son
+ * entraînement. Maintenir la même action quelques images rend l'exploration directionnelle, sans
+ * rien changer à la physique — c'est exactement ce qu'un joueur fait en gardant une touche
+ * enfoncée.
+ *
+ * Les **fronts** ne se répètent pas : `jumpPressed`, `dashPressed` et `interactPressed` ne valent
+ * que sur la première image (`frameWithinRepeat == 0`). Les répéter déclencherait un nouveau saut
+ * à chaque image, épuisant le saut aérien dès la première montée
+ * (`core::CharacterPhysicsSystem::applyJump`). `jumpHeld` et `moveX`, eux, décrivent un état
+ * maintenu et se répètent tels quels — c'est `jumpHeld` qui module la hauteur du saut.
+ * @param action            Action décidée au début de la répétition.
+ * @param frameWithinRepeat Index de l'image dans la répétition, `0` pour la première.
+ */
+[[nodiscard]] core::PlayerInput toPlayerInput(const Action& action, int frameWithinRepeat);
+
 }  // namespace aisolver

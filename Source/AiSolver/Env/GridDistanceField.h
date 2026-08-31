@@ -76,6 +76,24 @@ public:
      */
     [[nodiscard]] int distance(const core::GridPosition& position) const noexcept;
 
+    /**
+     * @brief La cible est-elle atteignable depuis @p position par un chemin de cases non solides ?
+     *
+     * Distingue une distance réelle de la **sentinelle** rendue par `distance()`, que rien ne
+     * permet sinon de reconnaître : la sentinelle vaut `largeur × hauteur`, soit `576` sur une
+     * grille `24 × 24`, et une progression calculée entre une case atteignable et une case qui ne
+     * l'est pas vaudrait donc `±576` sur un seul pas.
+     * @param position Case à tester ; hors-grille traitée comme inatteignable.
+     */
+    [[nodiscard]] bool isReachable(const core::GridPosition& position) const noexcept;
+
+    /// @return La sentinelle rendue par `distance()` pour une case inatteignable
+    /// (`largeur × hauteur`), borne supérieure stricte de toute distance atteignable — donc aussi
+    /// la seule constante de normalisation qui ne dépende pas du niveau chargé.
+    [[nodiscard]] int unreachableDistance() const noexcept {
+        return _width * _height;
+    }
+
 private:
     int _width;
     int _height;

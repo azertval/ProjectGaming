@@ -3,7 +3,9 @@
 
 #include "AiSolver/Math/Autodiff/Node.h"
 
+#include <cstddef>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 #include "AiSolver/Math/TensorOps.h"
@@ -80,18 +82,35 @@ void backward(const NodePtr& root) {
     // qu'apres tous ses parents, donc `order` va des feuilles vers `root`. La deduplication par
     // adresse brute (Node*) est sans risque de cycle : un graphe construit uniquement par
     // unaryOp/binaryOp ne peut referencer qu'un noeud deja existant.
+    //
+    // Parcours ITERATIF, avec une pile explicite : la profondeur du graphe vaut le nombre de pas
+    // d'un episode (la perte de policy gradient est une chaine d'`add`, un maillon par pas). Une
+    // recursion y consommerait une trame par pas, et un episode de plusieurs milliers de pas
+    // deborderait la pile de 1 Mio d'un fil Windows -- c'est ce qui bornait la longueur des
+    // episodes bien avant la memoire.
+    //
+    // Chaque entree de pile porte le noeud et l'indice du prochain parent a explorer : le noeud
+    // n'est pousse dans `order` qu'a sa seconde visite, quand tous ses parents le sont deja
+    // (post-fixe). La pile est indexee, jamais referencee : `emplace_back` peut la reallouer.
     std::vector<Node*> order;
     std::unordered_set<Node*> visited;
-    const std::function<void(const NodePtr&)> visit = [&](const NodePtr& node) {
-        if (!visited.insert(node.get()).second) {
-            return;
+    std::vector<std::pair<Node*, std::size_t>> pending;
+    visited.insert(root.get());
+    pending.emplace_back(root.get(), 0);
+    while (!pending.empty()) {
+        const std::size_t top = pending.size() - 1;
+        Node* node = pending[top].first;
+        if (pending[top].second < node->_parents.size()) {
+            Node* parent = node->_parents[pending[top].second].get();
+            ++pending[top].second;
+            if (visited.insert(parent).second) {
+                pending.emplace_back(parent, 0);
+            }
+            continue;
         }
-        for (const NodePtr& parent : node->_parents) {
-            visit(parent);
-        }
-        order.push_back(node.get());
-    };
-    visit(root);
+        order.push_back(node);
+        pending.pop_back();
+    }
 
     // Propagation de root vers les feuilles (ordre inverse de `order`) : quand _backwardFn() est
     // appelee sur un noeud, son propre grad est deja completement accumule (tous les noeuds qui

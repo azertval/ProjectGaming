@@ -55,3 +55,37 @@ TEST(ScopedLogLevelTest, NAssouplitJamaisUnNiveauDejaPlusStrict) {
 
     EXPECT_EQ(logger.minimumLevel(), core::LogLevel::Error);
 }
+
+/**
+ * @brief Deux élévations qui se **chevauchent** ne restaurent le niveau d'origine qu'à la sortie de
+ *        la dernière.
+ *
+ * C'est le cas réel de l'écran Mode IA : un entraînement et une évaluation peuvent tourner en même
+ * temps, chacun élevant le niveau pour la durée de son run. Avec une restauration par objet, la
+ * première portée à se fermer remettait le niveau qu'elle avait mémorisé — `Warning`, déjà relevé
+ * par l'autre — et le journal restait muet pour toute la session.
+ * \castest{<b>Élévations imbriquées : restauration à la sortie de la dernière seulement.</b><br/>
+ * \tcat Unitaire · Core Diagnostics<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Journaliseur à `Info`.<br/>2. Ouvrir une première élévation à `Warning`, puis
+ * une seconde.<br/>3. Fermer la première, vérifier le niveau ; fermer la seconde, vérifier à
+ * nouveau.<br/>
+ * \tattendu Le niveau reste `Warning` tant qu'une élévation est ouverte, et revient à `Info`
+ * seulement quand la dernière se ferme.}
+ */
+TEST(ScopedLogLevelTest, ElevationsImbriqueesNeRestaurentQuALaDerniereSortie) {
+    core::Logger logger;
+    logger.setMinimumLevel(core::LogLevel::Info);
+
+    {
+        const core::ScopedLogLevel outer(logger, core::LogLevel::Warning);
+        EXPECT_EQ(logger.minimumLevel(), core::LogLevel::Warning);
+        {
+            const core::ScopedLogLevel inner(logger, core::LogLevel::Warning);
+            EXPECT_EQ(logger.minimumLevel(), core::LogLevel::Warning);
+        }
+        // La portee interne est fermee, l'externe ne l'est pas : le niveau doit RESTER releve.
+        EXPECT_EQ(logger.minimumLevel(), core::LogLevel::Warning);
+    }
+    EXPECT_EQ(logger.minimumLevel(), core::LogLevel::Info);
+}

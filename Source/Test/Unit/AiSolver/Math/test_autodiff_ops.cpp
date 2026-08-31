@@ -332,26 +332,42 @@ TEST(AutodiffOpsTest, LogExpReciproquesEnAvant) {
 }
 
 /**
- * @brief `logOp` déclenche l'assertion sur un élément d'entrée non strictement positif.
- * \castest{<b>Ops : `logOp` refuse une entrée non positive.</b><br/>
+ * @brief `logOp` refuse une entrée **négative** (erreur de programmation), mais accepte un zéro
+ *        numérique, qu'elle planche.
+ *
+ * La distinction n'est pas cosmétique : l'appelant réel est la perte de policy gradient, dont
+ * l'entrée est une probabilité de `softmax`. Une politique qui se spécialise produit des
+ * probabilités qui **s'annulent en flottant** — ce n'est pas un bug de l'appelant, c'est
+ * l'arithmétique. Assertionner sur ce zéro faisait échouer l'entraînement en Debug et propageait
+ * `-inf` en Release ; un logarithme d'un nombre négatif, lui, reste une erreur de programmation.
+ * \castest{<b>Ops : `logOp` planche un zéro et refuse une entrée négative.</b><br/>
  * \tcat Unitaire · Autodiff<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Construire une feuille contenant `0.0f`.<br/>2. Appeler `logOp()`.<br/>
- * \tattendu Le gestionnaire d'assertion est invoqué avant tout calcul.}
+ * \tetapes 1. Appeler `logOp()` sur une feuille contenant `0.0f`.<br/>2. Appeler `logOp()`
+ * sur une feuille contenant une valeur négative.<br/>
+ * \tattendu Le zéro produit une valeur **finie** sans déclencher d'assertion ; la valeur
+ * négative déclenche le gestionnaire d'assertion.}
  */
-TEST(AutodiffOpsTest, LogOpRefuseEntreeNonPositive) {
+TEST(AutodiffOpsTest, LogOpPlancheLeZeroEtRefuseUneEntreeNegative) {
 #ifdef NDEBUG
     GTEST_SKIP() << "Assertions desactivees en Release";
 #else
-    Tensor<float> data({1});
-    data.at({0}) = 0.0f;
-
     core::setAssertionHandler([](const char*, const char*, const char*, int) {
         throw std::runtime_error("precondition");
     });
 
+    Tensor<float> zero({1});
+    zero.at({0}) = 0.0f;
+    NodePtr floored;
+    EXPECT_NO_THROW({ floored = aisolver::autodiff::logOp(variable(zero)); });
+    ASSERT_TRUE(floored != nullptr);
+    EXPECT_TRUE(std::isfinite(floored->value.at({0})));
+    EXPECT_LT(floored->value.at({0}), 0.0f);
+
+    Tensor<float> negative({1});
+    negative.at({0}) = -1.0f;
     EXPECT_THROW(
-        { [[maybe_unused]] NodePtr result = aisolver::autodiff::logOp(variable(data)); },
+        { [[maybe_unused]] NodePtr result = aisolver::autodiff::logOp(variable(negative)); },
         std::runtime_error);
 
     core::setAssertionHandler(nullptr);

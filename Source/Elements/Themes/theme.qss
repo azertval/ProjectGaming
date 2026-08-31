@@ -134,16 +134,18 @@
     padding: ${identity.space.small}px 0;
 }
 
-/* ---- Credits : hierarchie en-tete / nom / licence ---- */
-#CreditsScreen QLabel#developmentLabel,
-#CreditsScreen QLabel#audioLabel,
-#CreditsScreen QLabel#graphicsLabel {
+/* ---- Credits : hierarchie en-tete / ligne de credit ----
+   Selection par ROLE (propriete dynamique `creditsRole` posee dans CreditsScreen.ui), jamais par
+   nom d'objet : trois sections ajoutees apres coup -- polices, bibliotheques, licence -- n'avaient
+   jamais ete ajoutees a la liste des noms, et s'affichaient donc dans la fonte du corps de page au
+   milieu de sections en accentue. Un role se pose sur le widget au moment ou on l'ecrit ; une liste
+   de noms se met a jour ailleurs, ou pas du tout. */
+#CreditsScreen QLabel[creditsRole="section"] {
     color: ${identity.color.accent};
     font-size: ${identity.size.body}px;
     font-weight: bold;
 }
-#CreditsScreen QLabel#audioCredit,
-#CreditsScreen QLabel#graphicsCredit {
+#CreditsScreen QLabel[creditsRole="entry"] {
     color: ${identity.color.textMuted};
     font-size: ${identity.size.caption}px;
 }
@@ -213,6 +215,28 @@
     border-bottom: ${identity.frame.thickness}px solid ${identity.color.outline};
     padding: ${identity.space.small}px;
 }
+/* Zones defilantes du Mode IA : le cadre pixel doit rester visible AU TRAVERS.
+   Une QScrollArea peint par defaut un fond opaque de la palette systeme, qui poserait un
+   rectangle gris au milieu de la carte. Elle n'est la que pour empecher la colonne de reglages
+   d'imposer sa hauteur a la fenetre -- elle ne doit rien ajouter a l'image. */
+#AiModeScreen QScrollArea,
+#AiModeScreen QScrollArea > QWidget > QWidget {
+    background: transparent;
+    border: none;
+}
+#AiModeScreen QScrollBar:vertical,
+#AiModeScreen QScrollBar:horizontal {
+    background: ${identity.color.surfaceAlt};
+    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+}
+#AiModeScreen QScrollBar::handle {
+    background: ${identity.color.border};
+    border-radius: 0;
+}
+#AiModeScreen QScrollBar::handle:hover {
+    background: ${identity.color.accent};
+}
+
 #OptionsPage QCheckBox::indicator {
     width: ${identity.size.body}px;
     height: ${identity.size.body}px;

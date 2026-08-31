@@ -23,24 +23,28 @@ namespace core {
  * déclenchement de mécanisme…) pendant une simulation IA headless (`HeadlessLevelEnvironment`),
  * rejouée des milliers de fois par entraînement/évaluation — un volume de journalisation sans
  * rapport avec une partie réelle, qui ralentit l'entraînement pour rien (`LOT-ANNEXE-21`).
+ *
+ * **Réentrant et sûr entre fils** : la comptabilité vit dans le `Logger`
+ * (`beginLevelElevation`/`endLevelElevation`), pas dans chaque objet de portée. Deux portées qui se
+ * chevauchent — l'écran Mode IA peut faire tourner un entraînement et une évaluation en même
+ * temps, chacun sur son fil — restauraient sinon le niveau que la première avait relevé, laissant
+ * le journal muet pour le reste de la session.
  */
 class ScopedLogLevel {
 public:
-    ScopedLogLevel(Logger& logger, LogLevel floor)
-        : _logger(logger), _previousLevel(logger.minimumLevel()) {
-        if (_previousLevel < floor) {
-            _logger.setMinimumLevel(floor);
-        }
+    ScopedLogLevel(Logger& logger, LogLevel floor) : _logger(logger) {
+        _logger.beginLevelElevation(floor);
     }
 
-    ~ScopedLogLevel() { _logger.setMinimumLevel(_previousLevel); }
+    ~ScopedLogLevel() {
+        _logger.endLevelElevation();
+    }
 
     ScopedLogLevel(const ScopedLogLevel&) = delete;
     ScopedLogLevel& operator=(const ScopedLogLevel&) = delete;
 
 private:
     Logger& _logger;
-    LogLevel _previousLevel;
 };
 
 }  // namespace core

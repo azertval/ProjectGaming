@@ -35,8 +35,6 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
     DeterministicReplayResult result;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
-    ObjectiveDistanceFieldCache distanceFieldCache;
-
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observation =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -50,11 +48,10 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
         result.steps.push_back(*input);
 
         const StepObservation stepObservation = environment.step(*input);
-        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
-        // le reconstruit alors, et le rend tel quel sinon.
-        const GridDistanceField& distanceField =
-            distanceFieldCache.field(environment.level(), environment.mechanisms());
-        result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
+        // Champ de l'environnement : une seule instance par episode, deja reconstruite par
+        // `step()` quand elle a cesse d'etre valide -- et celle-la meme dont la detection de
+        // blocage se sert.
+        result.finalReward += computeReward(rewardConfig, environment.objectiveField(), previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 
         previousBox = stepObservation.playerBox;
@@ -63,7 +60,7 @@ std::optional<DeterministicReplayResult> argmaxRollout(eval::TrainedPolicy& poli
 
         status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
                                  environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                 evolutionary::DEFAULT_STUCK_THRESHOLD);
+                                 environment.stuckThreshold());
     }
     if (status == EpisodeStatus::Ongoing) {
         status = EpisodeStatus::TimedOut;

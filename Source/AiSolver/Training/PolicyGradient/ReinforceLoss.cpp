@@ -8,8 +8,9 @@
 namespace aisolver::training {
 
 autodiff::NodePtr computeReinforceLoss(nn::Network& policy, const Trajectory& trajectory,
-                                       const std::vector<float>& returns) {
-    return computeWeightedPolicyGradientLoss(policy, trajectory, returns);
+                                       const std::vector<float>& returns,
+                                       float entropyCoefficient) {
+    return computeWeightedPolicyGradientLoss(policy, trajectory, returns, entropyCoefficient);
 }
 
 }  // namespace aisolver::training

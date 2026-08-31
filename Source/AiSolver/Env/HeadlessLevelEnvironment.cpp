@@ -6,6 +6,7 @@
 #include <cmath>
 #include <cstddef>
 
+#include "AiSolver/Env/StepBudget.h"
 #include "Core/Diagnostics/Assert.h"
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Transform.h"
@@ -18,6 +19,18 @@
 #include "Core/Physics/PlayerSpawn.h"
 
 namespace aisolver {
+
+namespace {
+
+/// Case de grille du centre de @p box -- meme convention que `computeReward` (`Reward.cpp`) et
+/// que `hmi::GameViewport::cellAt` : partie entiere des coordonnees monde, 1 case = 1 unite.
+core::GridPosition cellOf(const core::Aabb& box) {
+    const core::Vector2 center = (box.min + box.max) * 0.5f;
+    return core::GridPosition{static_cast<int>(std::floor(center.x)),
+                              static_cast<int>(std::floor(center.y))};
+}
+
+}  // namespace
 
 namespace {
 // Pas fixe déterministe (EX-NFR-002), même constante que STEP dans
@@ -77,13 +90,18 @@ bool HeadlessLevelEnvironment::reset(const std::filesystem::path& levelPath) {
 
     _stepIndex = 0;
     _stepsSinceProgress = 0;
+
+    // Budget et seuil resolus une fois pour toutes, ici : c'est le seul endroit ou le niveau est
+    // connu. Une valeur explicite de la configuration l'emporte toujours sur la derivation.
+    _stepBudget = _config.maxSteps > 0 ? _config.maxSteps : estimateStepBudget(levelRef);
+    _stuckThreshold =
+        _config.stuckThreshold > 0 ? _config.stuckThreshold : stuckThresholdForBudget(_stepBudget);
+
     const core::Aabb spawnBox =
         core::Aabb::fromTopLeftSize(core::playerSpawnPosition(entry.column, entry.row), size);
-    const core::Vector2 spawnCenter = (spawnBox.min + spawnBox.max) * 0.5f;
-    const core::GridPosition exit = levelRef.exit();
-    const core::Vector2 exitCenter{static_cast<float>(exit.column) + 0.5f,
-                                   static_cast<float>(exit.row) + 0.5f};
-    _bestDistanceToExit = (spawnCenter - exitCenter).length();
+    _objectiveCache = ObjectiveDistanceFieldCache{};
+    refreshCollisionAndObjective(spawnBox);
+    _bestObjectiveDistance = objectiveField().distance(cellOf(spawnBox));
 
     return true;
 }
@@ -111,16 +129,44 @@ const core::DangerController& HeadlessLevelEnvironment::dangers() const noexcept
     return *_dangers;
 }
 
+const core::BlockController& HeadlessLevelEnvironment::blocks() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "blocks() appele sans reset() reussi au prealable");
+    return *_blocks;
+}
+
+const core::PlatformController& HeadlessLevelEnvironment::platforms() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "platforms() appele sans reset() reussi au prealable");
+    return *_platforms;
+}
+
+const core::TileMap& HeadlessLevelEnvironment::collisionMap() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "collisionMap() appele sans reset() reussi au prealable");
+    return *_collision;
+}
+
+const GridDistanceField& HeadlessLevelEnvironment::objectiveField() const noexcept {
+    PROJECTGAMING_ASSERT(loaded(), "objectiveField() appele sans reset() reussi au prealable");
+    return _objectiveCache.lastField();
+}
+
 bool HeadlessLevelEnvironment::budgetExhausted() const noexcept {
-    return _stepIndex >= _config.maxSteps;
+    return _stepIndex >= _stepBudget;
+}
+
+int HeadlessLevelEnvironment::stepBudget() const noexcept {
+    return _stepBudget;
+}
+
+int HeadlessLevelEnvironment::stuckThreshold() const noexcept {
+    return _stuckThreshold;
 }
 
 int HeadlessLevelEnvironment::stepsSinceProgress() const noexcept {
     return _stepsSinceProgress;
 }
 
-float HeadlessLevelEnvironment::bestDistanceToExit() const noexcept {
-    return _bestDistanceToExit;
+int HeadlessLevelEnvironment::bestObjectiveDistance() const noexcept {
+    return _bestObjectiveDistance;
 }
 
 std::vector<core::Aabb> HeadlessLevelEnvironment::collectActiveDangerBoxes() const {
@@ -147,18 +193,33 @@ std::vector<core::Aabb> HeadlessLevelEnvironment::collectActiveDangerBoxes() con
     return boxes;
 }
 
+void HeadlessLevelEnvironment::refreshCollisionAndObjective(const core::Aabb& playerBox) {
+    const unsigned long long revisionBefore = _objectiveCache.revision();
+    _collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    static_cast<void>(
+        _objectiveCache.field(*_level, *_mechanisms, *_collision, _blocks->positions()));
+    if (revisionBefore != 0 && _objectiveCache.revision() != revisionBefore) {
+        // L'ensemble des objectifs a change (porte ouverte ou refermee, bloc deplace) : les
+        // distances d'avant et d'apres ne se comparent plus. Le nouvel objectif est presque
+        // toujours plus loin que celui qui vient d'etre atteint -- garder le record precedent
+        // reviendrait a declarer l'agent bloque des l'instant ou il resout une etape.
+        _bestObjectiveDistance = objectiveField().distance(cellOf(playerBox));
+    }
+}
+
 void HeadlessLevelEnvironment::updateProgress(const core::Aabb& playerBox) {
-    const core::Vector2 center = (playerBox.min + playerBox.max) * 0.5f;
-    const core::GridPosition exit = _level->exit();
-    const core::Vector2 exitCenter{static_cast<float>(exit.column) + 0.5f,
-                                   static_cast<float>(exit.row) + 0.5f};
-    const float distance = (center - exitCenter).length();
-    if (_bestDistanceToExit - distance > _config.progressEpsilon) {
+    const core::GridPosition cell = cellOf(playerBox);
+    // Distance de plus court chemin vers l'objectif immediat -- le meme champ que la recompense
+    // (`EX-IA-023`), et non la distance a vol d'oiseau vers la sortie : sur un niveau dont la
+    // solution s'eloigne de la sortie, cette derniere atteignait son record des les premiers pas
+    // et l'episode etait declare bloque peu apres, quoi que fasse l'agent.
+    const int distance = objectiveField().distance(cell);
+    if (_bestObjectiveDistance - distance >= 1) {
         _stepsSinceProgress = 0;
     } else {
         ++_stepsSinceProgress;
     }
-    _bestDistanceToExit = (std::min)(_bestDistanceToExit, distance);
+    _bestObjectiveDistance = (std::min)(_bestObjectiveDistance, distance);
 }
 
 StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
@@ -258,6 +319,7 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
     const core::LevelOutcome outcome = core::evaluateOutcome(box, *_level, extraDangerBoxes);
 
     ++_stepIndex;
+    refreshCollisionAndObjective(box);
     updateProgress(box);
 
     return StepObservation{outcome, box, player, velocity, _stepIndex};

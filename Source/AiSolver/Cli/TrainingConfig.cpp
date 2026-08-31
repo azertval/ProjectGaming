@@ -56,11 +56,13 @@ void applyJsonFile(const std::filesystem::path& configFile, TrainingConfig& conf
     readNumber(root, "tournamentSize", config.evolutionary.tournamentSize);
     readNumber(root, "mutationRate", config.evolutionary.mutationRate);
     readNumber(root, "mutationStrength", config.evolutionary.mutationStrength);
+    readNumber(root, "crossoverRate", config.evolutionary.crossoverRate);
     readNumber(root, "requiredConsecutiveSuccesses", config.stopping.requiredConsecutiveSuccesses);
     readNumber(root, "maxGenerations", config.stopping.maxGenerations);
     readNumber(root, "hiddenSize", config.hiddenSize);
     readNumber(root, "gamma", config.gamma);
     readNumber(root, "learningRate", config.learningRate);
+    readNumber(root, "criticLearningRate", config.criticLearningRate);
     readString(root, "optimizer", config.optimizer);
     readNumber(root, "episodes", config.episodes);
     readNumber(root, "dqnReplayCapacity", config.dqnReplayCapacity);
@@ -71,6 +73,13 @@ void applyJsonFile(const std::filesystem::path& configFile, TrainingConfig& conf
     readNumber(root, "dqnEpsilonStart", config.dqnEpsilonStart);
     readNumber(root, "dqnEpsilonEnd", config.dqnEpsilonEnd);
     readNumber(root, "dqnEpsilonDecaySteps", config.dqnEpsilonDecaySteps);
+    readNumber(root, "batchEpisodes", config.tuning.batchEpisodes);
+    readNumber(root, "entropyCoefficient", config.tuning.entropyCoefficient);
+    readNumber(root, "gradientClipNorm", config.tuning.gradientClipNorm);
+    readNumber(root, "actionRepeat", config.tuning.actionRepeat);
+    readNumber(root, "explorationFloor", config.tuning.explorationFloor);
+    readNumber(root, "maxSteps", config.maxSteps);
+    readNumber(root, "stuckThreshold", config.stuckThreshold);
 }
 
 void applyOverrides(const CommandLineOverrides& overrides, TrainingConfig& config) {
@@ -86,11 +95,29 @@ void applyOverrides(const CommandLineOverrides& overrides, TrainingConfig& confi
     if (overrides.learningRate.has_value()) {
         config.learningRate = *overrides.learningRate;
     }
+    if (overrides.criticLearningRate.has_value()) {
+        config.criticLearningRate = *overrides.criticLearningRate;
+    }
     if (overrides.gamma.has_value()) {
         config.gamma = *overrides.gamma;
     }
     if (overrides.optimizer.has_value()) {
         config.optimizer = *overrides.optimizer;
+    }
+    if (overrides.hiddenSize.has_value()) {
+        config.hiddenSize = *overrides.hiddenSize;
+    }
+    if (overrides.tournamentSize.has_value()) {
+        config.evolutionary.tournamentSize = *overrides.tournamentSize;
+    }
+    if (overrides.mutationStrength.has_value()) {
+        config.evolutionary.mutationStrength = *overrides.mutationStrength;
+    }
+    if (overrides.maxGenerations.has_value()) {
+        config.stopping.maxGenerations = *overrides.maxGenerations;
+    }
+    if (overrides.requiredConsecutiveSuccesses.has_value()) {
+        config.stopping.requiredConsecutiveSuccesses = *overrides.requiredConsecutiveSuccesses;
     }
     if (overrides.dqnReplayCapacity.has_value()) {
         config.dqnReplayCapacity = *overrides.dqnReplayCapacity;
@@ -115,6 +142,30 @@ void applyOverrides(const CommandLineOverrides& overrides, TrainingConfig& confi
     }
     if (overrides.dqnEpsilonDecaySteps.has_value()) {
         config.dqnEpsilonDecaySteps = *overrides.dqnEpsilonDecaySteps;
+    }
+    if (overrides.batchEpisodes.has_value()) {
+        config.tuning.batchEpisodes = *overrides.batchEpisodes;
+    }
+    if (overrides.entropyCoefficient.has_value()) {
+        config.tuning.entropyCoefficient = *overrides.entropyCoefficient;
+    }
+    if (overrides.gradientClipNorm.has_value()) {
+        config.tuning.gradientClipNorm = *overrides.gradientClipNorm;
+    }
+    if (overrides.actionRepeat.has_value()) {
+        config.tuning.actionRepeat = *overrides.actionRepeat;
+    }
+    if (overrides.explorationFloor.has_value()) {
+        config.tuning.explorationFloor = *overrides.explorationFloor;
+    }
+    if (overrides.crossoverRate.has_value()) {
+        config.evolutionary.crossoverRate = *overrides.crossoverRate;
+    }
+    if (overrides.maxSteps.has_value()) {
+        config.maxSteps = *overrides.maxSteps;
+    }
+    if (overrides.stuckThreshold.has_value()) {
+        config.stuckThreshold = *overrides.stuckThreshold;
     }
 }
 
@@ -151,6 +202,7 @@ bool writeTrainingConfigJson(const TrainingConfig& config, const std::filesystem
     root["hiddenSize"] = config.hiddenSize;
     root["gamma"] = config.gamma;
     root["learningRate"] = config.learningRate;
+    root["criticLearningRate"] = config.criticLearningRate;
     root["optimizer"] = config.optimizer;
     root["episodes"] = config.episodes;
     root["dqnReplayCapacity"] = config.dqnReplayCapacity;
@@ -161,6 +213,14 @@ bool writeTrainingConfigJson(const TrainingConfig& config, const std::filesystem
     root["dqnEpsilonStart"] = config.dqnEpsilonStart;
     root["dqnEpsilonEnd"] = config.dqnEpsilonEnd;
     root["dqnEpsilonDecaySteps"] = config.dqnEpsilonDecaySteps;
+    root["crossoverRate"] = config.evolutionary.crossoverRate;
+    root["batchEpisodes"] = config.tuning.batchEpisodes;
+    root["entropyCoefficient"] = config.tuning.entropyCoefficient;
+    root["gradientClipNorm"] = config.tuning.gradientClipNorm;
+    root["actionRepeat"] = config.tuning.actionRepeat;
+    root["explorationFloor"] = config.tuning.explorationFloor;
+    root["maxSteps"] = config.maxSteps;
+    root["stuckThreshold"] = config.stuckThreshold;
 
     file << root.dump(2);
     return file.good();
@@ -173,6 +233,16 @@ std::size_t hiddenSizeForModel(const std::filesystem::path& modelPath) {
         return training::evolutionary::DEFAULT_HIDDEN_SIZE;
     }
     return loadTrainingConfig(configPath, CommandLineOverrides{}).hiddenSize;
+}
+
+EnvironmentConfig environmentConfigForModel(const std::filesystem::path& modelPath) {
+    std::error_code error;
+    const std::filesystem::path configPath = modelPath.parent_path() / "config.json";
+    if (!std::filesystem::exists(configPath, error) || error) {
+        return EnvironmentConfig{};
+    }
+    const TrainingConfig config = loadTrainingConfig(configPath, CommandLineOverrides{});
+    return EnvironmentConfig{.maxSteps = config.maxSteps, .stuckThreshold = config.stuckThreshold};
 }
 
 }  // namespace aisolver::cli

@@ -471,6 +471,18 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     workspaceSelector(startWorkspace)->setChecked(true);
     applyWorkspace(startWorkspace);
 
+    // Contrainte de taille imposee par les ecrans, journalisee une fois au demarrage.
+    //
+    // `QStackedWidget::minimumSizeHint` est le MAXIMUM sur toutes ses pages, y compris celles qu'on
+    // ne regarde pas : un seul ecran trop dense fixe donc la taille minimale de la FENETRE, que
+    // Windows refuse ensuite de retailler -- elle deborde sous la barre des taches en rognant son
+    // contenu, sans rien dire. Le defaut s'est produit deux fois ; cette ligne le rend lisible dans
+    // le journal que l'utilisateur envoie, au lieu de demander une session de mesure a chaque fois.
+    HMI_LOG_INFO("Taille minimale imposee par les ecrans : " +
+                 std::to_string(_stack->minimumSizeHint().width()) + "x" +
+                 std::to_string(_stack->minimumSizeHint().height()) + " (facteur " +
+                 std::to_string(hmi::identityScale()) + ").");
+
     showMenu();  // l'application démarre sur le menu principal.
 }
 
@@ -1229,7 +1241,31 @@ void MainWindow::openAiMode() {
     HMI_LOG_INFO("Navigation : mode IA.");
 }
 
+// Un entrainement survit a la fermeture de l'ecran (il vit sur son propre thread, possede par
+// AiModeScreen) : sans cette confirmation, quitter le Mode IA laisserait un run consommer un coeur
+// en silence, sans plus aucun moyen de le voir ni de l'arreter depuis le jeu.
+bool MainWindow::confirmLeavingActiveTraining() {
+    // L'evaluation compte autant que l'entrainement : une campagne de repetitions occupe son
+    // propre fil aussi longtemps qu'un entrainement court, et la quitter sans la prevenir fige la
+    // fermeture le temps qu'elle se termine.
+    if (!_aiMode->trainingActive() && !_aiMode->evaluationActive()) {
+        return true;
+    }
+    const QMessageBox::StandardButton answer =
+        QMessageBox::question(this, text("ai_mode.leaving_title"), text("ai_mode.leaving_text"),
+                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    if (answer != QMessageBox::Yes) {
+        return false;
+    }
+    _aiMode->stopTrainingIfActive();
+    _aiMode->stopEvaluationIfActive();
+    return true;
+}
+
 void MainWindow::closeAiMode() {
+    if (!confirmLeavingActiveTraining()) {
+        return;
+    }
     if (!transitionScreen(ScreenEvent::CloseAiMode)) {
         return;
     }
@@ -2025,6 +2061,14 @@ void MainWindow::saveLayout() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
+    // Meme confirmation qu'en quittant l'ecran Mode IA (closeAiMode) : fermer la fenetre detruit
+    // AiModeScreen, dont le destructeur JOINT les fils de travail. Sans ce passage, la fermeture
+    // se figeait le temps qu'un entrainement finisse sa generation, sans rien dire a l'utilisateur
+    // -- et refuser la confirmation doit annuler la fermeture, pas la subir.
+    if (!confirmLeavingActiveTraining()) {
+        event->ignore();
+        return;
+    }
     // Pose AVANT toute autre chose : a partir d'ici, plus aucun evenement differe ne doit toucher
     // au theme ni a la disposition (cf. applyIdentityScale).
     _closing = true;

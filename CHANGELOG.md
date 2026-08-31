@@ -6,6 +6,131 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Mode IA — l'apprentissage par gradient était bloqué par son environnement, pas par son
+  algorithme.** Audit complet du solveur et de son écran. Cause racine, mesurée : sur
+  `demo-final.json`, **chaque épisode était coupé au bout de ~215 pas sur les 3 000 disponibles**,
+  et la politique se figeait — 10 000 épisodes archivés produisaient une trajectoire *bit à bit
+  identique* à partir du cinquantième.
+
+  - **Progression mesurée sur l'objectif immédiat, plus à vol d'oiseau vers la sortie.**
+    `HeadlessLevelEnvironment::updateProgress` comparait la distance euclidienne à la sortie à son
+    meilleur record. Sur un niveau dont la solution s'éloigne de la sortie — `demo-final.json`
+    place sa sortie à trois unités de l'entrée, derrière trois portes dont la clé est à l'opposé —
+    ce record était atteint dans les premières secondes et ne pouvait plus être battu : l'épisode
+    était déclaré bloqué 200 pas plus tard, quoi que fasse l'agent. La détection lit désormais le
+    **même champ de distances que la récompense** (`EX-IA-023`), et son record est réamorcé à
+    chaque changement d'objectif.
+  - **Budget de pas et seuil de blocage dérivés du niveau** (`AiSolver/Env/StepBudget.h`) : la
+    chaîne d'objectifs est mesurée case par case, mécanismes compris, et convertie en budget. Le
+    plafond fixe de `3 000` pas était inférieur aux ~`4 000` que demande le tracé de référence de
+    `demo-final.json` — une politique parfaite y aurait expiré. Deux tests d'intégration
+    (`test_budget_pas.cpp`) confrontent l'estimation aux tracés des niveaux livrés et **fixent** les
+    constantes : le budget couvre chaque tracé avec la moitié de marge, et aucun tracé résolvant
+    n'est jamais classé bloqué.
+  - **Un budget de mouvements nul rendait l'observation `NaN`, et sept niveaux livrés en déclarent
+    un.** `dashesRemaining / dashBudget()` valait `0 / 0` dès que le tableau interdit le dash — et
+    un seul `NaN` dans le vecteur d'observation contamine toute la propagation avant : `tanh(NaN)`,
+    puis un `softmax` entièrement `NaN`, dont le tirage d'action retombait invariablement sur la
+    dernière action de l'espace. L'agent rejouait alors le **même** épisode à chaque fois, quelle
+    que soit sa graine et quel que soit son entraînement. Mesure : **2 trajectoires distinctes sur
+    1 500 épisodes** sur chacun de ces sept niveaux, contre plusieurs centaines partout ailleurs —
+    et les deux qu'ils « réussissaient » ne prouvaient rien, cette action constante suffisant à les
+    terminer. Effet de la correction seule, sur `demo-wall-jump.json` : de `0 %` à **`98,5 %`** de
+    réussite. `decodeStochastic` refuse désormais bruyamment une distribution non finie, au lieu de
+    la subir en silence.
+  - **L'observation décrit enfin ce que la récompense mesure.** La fenêtre de tuiles lisait la carte
+    *statique* du fichier : un bloc poussé y restait à sa case d'origine et une plateforme mobile
+    n'était visible qu'à son point de départ. Elle lit maintenant la grille de collision courante,
+    gagne un canal « plateforme mobile », et un `ObjectiveEncoder` expose le **gradient local du
+    champ d'objectif** — sans quoi l'agent était payé pour se rapprocher d'un but dont rien ne lui
+    disait la direction, et deux passages opposés dans le même couloir restaient indiscernables.
+    Rayon de fenêtre porté de `2` à `3`. Conséquence assumée : les modèles entraînés avant ce
+    changement ne se rechargent plus (refus net de `nn::loadWeights`, jamais silencieux).
+  - **Le gradient ne s'effondre plus.** La perte de policy gradient gagne un **terme d'entropie**,
+    les retours sont **centrés-réduits**, la norme du gradient est **écrêtée**, et une part
+    d'uniforme est mélangée à l'échantillonnage (plancher d'exploration) — le terme d'entropie seul
+    ne suffisait pas, sa dérivée s'annulant précisément quand la distribution est déjà saturée. Une
+    action décidée est maintenue quatre images : tirer parmi 48 actions à 60 Hz produisait une
+    marche aléatoire dont le déplacement espéré est nul.
+  - **Défauts réaccordés, chacun sur une mesure** : optimiseur `adam` au lieu de `sgd`, taux
+    `0,003`, couche cachée `64` au lieu de `16`, `gamma` `0,995`, taux propre au critique (`0,5` :
+    sa sortie doit couvrir l'amplitude des retours, pas celle de logits). Croisement évolutionniste
+    **uniforme** et non plus moyenne systématique des deux parents — moyenner deux réseaux ne
+    combine pas ce qu'ils ont trouvé.
+  - **Garde-fous numériques** : tri topologique de `autodiff::backward` rendu itératif et perte
+    assemblée en arbre (une chaîne de profondeur égale au nombre de pas débordait la pile, à la
+    rétropropagation comme à la destruction du graphe) ; `logOp` planché (une probabilité de
+    `softmax` s'annule en flottant dès qu'une politique se spécialise, et `log(0)` contaminait tous
+    les poids) ; terme de progression neutralisé quand une case est inatteignable, au lieu d'un
+    écart de plusieurs centaines de points sur un seul pas.
+  - Tout cela est réglable : `--max-steps`, `--stuck-threshold`, `--batch-episodes`, `--entropy`,
+    `--exploration-floor`, `--grad-clip`, `--action-repeat`, `--crossover-rate`,
+    `--critic-learning-rate`, et les champs correspondants dans l'écran.
+
+  **Mesure** — REINFORCE, réglages par défaut, `1 500` épisodes par niveau, graine fixée. Taux de
+  réussite de la politique **déterministe** (`evaluate --decoding argmax`, 30 répétitions) :
+
+  | Résultat | Niveaux |
+  |---|---|
+  | **Terminé de façon fiable** (≥ 60 % sur les 100 derniers épisodes) | `demo-deplacement` 100 %, `demo-wall-jump` 100 %, `demo-interrupteur` 100 %, `demo-cle` 100 %, `demo-bloc-quart` 100 %, `demo-saut` 94 %, `demo-pente` 76 %, `demo-concave` 69 %, `demo-pente-gauche` 65 %, `demo-bloc` 64 % |
+  | **Terminé parfois** | `demo-dangers-directionnels` 43 %, `demo-plaque-pression` 2 %, `demo-dangers-avances` 1 % |
+  | **Jamais terminé** | `demo-double-saut`, `demo-dash`, `demo-mouvement`, `demo-bloc-reduit`, `demo-plafond`, `demo-plateforme`, `demo-budget`, `demo-synthese`, `demo-final` |
+
+  **Dix niveaux sur vingt-deux, là où l'apprentissage par gradient n'en terminait aucun de façon
+  reproductible** — les réussites précédentes sur `demo-pente` et `demo-plafond` n'étaient pas un
+  apprentissage mais l'action constante décrite plus haut, et `demo-plafond` retombe d'ailleurs à
+  `0 %` maintenant qu'il apprend réellement. `demo-final.json` reste hors de portée : quatre
+  mécanismes en séquence et un itinéraire de près de `4 000` pas, pour une politique sans mémoire
+  qui ne voit que sept cases autour d'elle. Ce qui est levé, c'est ce qui l'empêchait d'**essayer** ;
+  ce qui reste est un problème d'architecture d'agent, pas d'environnement.
+
+- **Mode IA — l'écran imposait sa taille à la fenêtre, qui débordait sous la barre des tâches.**
+  Sa colonne de réglages était posée à nu dans l'onglet : sa hauteur minimale — vingt-six lignes de
+  formulaire, multipliées par le facteur d'agrandissement des écrans du jeu, jusqu'à `3×`
+  (`hmi::pixelArtScale`) — remontait jusqu'à la fenêtre, qui réclamait alors plus de `2 400` pixels
+  de haut. Windows refusait la géométrie, la fenêtre débordait sous la barre des tâches et son
+  contenu était rogné, sans moyen de faire défiler. Les deux onglets denses vivent désormais dans
+  une zone défilante : **un écran s'adapte à la fenêtre, il ne lui dicte jamais sa taille.** Avec
+  ses 94 lignes de formulaire, cet écran est le seul du jeu assez dense pour poser le problème —
+  les autres en comptent au plus douze.
+
+- **Crédits — trois sections sur six s'affichaient dans la mauvaise police.** Le thème ciblait les
+  intitulés et les lignes de crédit par **nom d'objet**, et la liste n'avait jamais été étendue aux
+  sections ajoutées après coup — polices, bibliothèques, licence. Leurs intitulés s'affichaient donc
+  dans la fonte du corps de page au milieu d'intitulés en accentué, et leurs lignes de crédit en
+  taille normale au milieu de lignes en légende. La sélection se fait désormais par **rôle**
+  (`creditsRole`, propriété posée sur le widget dans `CreditsScreen.ui`) : une section ajoutée
+  demain porte son rôle là où on l'écrit, au lieu d'attendre qu'on pense à l'inscrire ailleurs.
+
+- **Mode IA — défauts de l'écran.** Fermer la fenêtre pendant une **évaluation** détruisait un
+  `QThread` en cours d'exécution (le destructeur n'arrêtait que l'entraînement) ; un worker fuyait
+  à chaque run (`deleteLater()` posté sur une boucle d'évènements déjà terminée) ; fermer la fenêtre
+  pendant un entraînement figeait la fermeture sans rien dire, la confirmation n'étant câblée que
+  sur la sortie de l'écran. L'algorithme d'évaluation était lu dans la liste des runs et non dans le
+  modèle choisi — un modèle parcouru au disque était donc évalué avec la mauvaise topologie, ou
+  silencieusement supposé évolutionniste. Le dossier de runs choisi pilotait l'écriture sans piloter
+  la lecture. Le temps restant affichait « 0 min 00 s » pendant tout le run (division entière avant
+  multiplication). Charger un fichier de configuration absent remettait **tout** le formulaire aux
+  défauts, en silence. Le tableau de suivi n'avait aucun plafond de lignes. Six messages d'erreur et
+  le libellé du graphique étaient en français en dur, quelle que soit la langue. `ScopedLogLevel`
+  écrivait un journaliseur global non atomique depuis un fil de travail, et deux portées qui se
+  chevauchaient laissaient le journal muet pour le reste de la session : la comptabilité vit
+  désormais dans `Logger`, protégée et réentrante.
+
+- **LOT-ANNEXE-22** — Mode IA, IHM complète d'entraînement. L'écran expose désormais **tous** les
+  hyperparamètres lus par le moteur, et `aisolver-cli train` gagne les seize drapeaux qui lui
+  manquaient (`--hidden-size`, `--tournament-size`, `--mutation-strength`, `--max-generations`,
+  `--required-successes`, les huit `--dqn-*`) — plus `--max-steps`, `--seed` et `--decoding` sur
+  `evaluate`. Correction notable : le champ « Épisodes / générations max » **ne pilotait rien** pour
+  l'algorithme évolutionniste (`StoppingConfig` restait aux défauts, quel que soit l'affichage), et
+  la barre de progression était de ce fait indéterminée. Trois indicateurs présents dans l'écran
+  mais jamais alimentés — générations stables, epsilon courant, temps restant — sont branchés, et le
+  tableau de suivi affiche les huit colonnes du `stats.csv` au lieu de quatre. L'évaluation passe
+  sur son propre thread (fenêtre réactive, progression, annulation), accepte un niveau et un modèle
+  libres (évaluation croisée), exporte son rapport CSV, et « Exporter comme rejeu » refait réellement
+  jouer le modèle au lieu de copier un fichier. Quitter l'écran pendant un entraînement demande
+  enfin confirmation.
+
 - **LOT-72** — Mouvement avancé : **dash chargé** (bouton de dash et direction opposée maintenus,
   `EX-GP-056`), **poussée renforcée** d'un bloc par un dash boosté (`EX-GP-057`), **ground pound**
   (`EX-GP-058`, sans charge de dash disponible), et un **combo dash + saut** — jump-cancel d'un dash

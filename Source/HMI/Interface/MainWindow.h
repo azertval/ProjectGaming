@@ -343,6 +343,14 @@ private:
     void openAiMode();
     /// Retour au menu depuis l'écran Mode IA.
     void closeAiMode();
+    /// @brief Demande confirmation avant de quitter l'écran Mode IA pendant un entraînement, et
+    /// arrête proprement le run si l'utilisateur confirme.
+    ///
+    /// Le travailleur d'entraînement vit sur son propre thread et **survivrait** à la fermeture de
+    /// l'écran : sans cette confirmation, un run continuerait à tourner sans plus être visible ni
+    /// interruptible depuis le jeu.
+    /// @return `true` si la navigation peut se poursuivre (aucun run actif, ou arrêt confirmé).
+    [[nodiscard]] bool confirmLeavingActiveTraining();
     /// Un rejeu a été choisi dans `_aiMode` (aperçu en direct ou onglet Rejeu) : même chargement
     /// que l'ancien `watchAiPlay`, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran
     /// de jeu, jamais de plantage (`EX-NFR-040`).

@@ -8,6 +8,7 @@
 #include "AiSolver/Nn/Network.h"
 #include "AiSolver/Training/Evolutionary/FitnessEvaluator.h"
 #include "AiSolver/Training/PolicyGradient/Trajectory.h"
+#include "AiSolver/Training/PolicyGradientTuning.h"
 
 /**
  * @file AiSolver/Training/PolicyGradient/TrajectoryCollector.h
@@ -27,10 +28,17 @@ namespace aisolver::training {
  */
 class TrajectoryCollector {
 public:
-    /// @param stuckThreshold Seuil de blocage transmis à `classifyEpisode` (`Episode.h`), même
-    /// défaut que `evolutionary::evaluateFitness` pour rester cohérent entre familles
-    /// d'algorithmes.
-    explicit TrajectoryCollector(int stuckThreshold = evolutionary::DEFAULT_STUCK_THRESHOLD);
+    /**
+     * @param actionRepeat Nombre d'images pendant lesquelles chaque action décidée est maintenue
+     *        (`DEFAULT_ACTION_REPEAT`). Un pas de trajectoire couvre toute la répétition : sa
+     *        récompense est la somme de celles des images qu'elle recouvre, et le gradient porte
+     *        sur la décision, pas sur chacune de ses images.
+     */
+    /// @param explorationFloor Part de tirage uniforme mélangée à la distribution de la politique
+    ///        au moment d'échantillonner (`DEFAULT_EXPLORATION_FLOOR`) ; `0` échantillonne la
+    ///        politique telle quelle.
+    explicit TrajectoryCollector(int actionRepeat = DEFAULT_ACTION_REPEAT,
+                                 float explorationFloor = DEFAULT_EXPLORATION_FLOOR);
 
     /**
      * @brief Rejoue `policy` sur `environment` jusqu'à fin d'épisode, en échantillonnant chaque
@@ -45,7 +53,8 @@ public:
                                             nn::Network& policy, Rng& rng) const;
 
 private:
-    int _stuckThreshold;
+    int _actionRepeat;
+    float _explorationFloor;
 };
 
 }  // namespace aisolver::training

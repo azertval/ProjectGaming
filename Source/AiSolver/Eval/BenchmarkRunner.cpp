@@ -17,13 +17,15 @@ std::uint64_t deriveSeed(std::uint64_t base, int repetitionIndex) {
 }
 
 BenchmarkResult BenchmarkRunner::run(TrainedPolicy& policy, const std::filesystem::path& levelPath,
-                                     const BenchmarkConfig& config) {
-    return runWithNoise(policy, levelPath, config, 0.0f);
+                                     const BenchmarkConfig& config,
+                                     const RepetitionObserver& onRepetition) {
+    return runWithNoise(policy, levelPath, config, 0.0f, onRepetition);
 }
 
 BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
                                               const std::filesystem::path& levelPath,
-                                              const BenchmarkConfig& config, float noiseAmplitude) {
+                                              const BenchmarkConfig& config, float noiseAmplitude,
+                                              const RepetitionObserver& onRepetition) {
     BenchmarkResult result;
     result.episodes.reserve(static_cast<std::size_t>(config.repetitions));
 
@@ -76,6 +78,10 @@ BenchmarkResult BenchmarkRunner::runWithNoise(TrainedPolicy& policy,
         }
 
         result.episodes.push_back(EpisodeOutcome{outcome, stepIndex});
+
+        if (onRepetition && !onRepetition(repetition + 1, config.repetitions)) {
+            break;
+        }
     }
     return result;
 }

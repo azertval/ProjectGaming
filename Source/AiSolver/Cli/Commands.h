@@ -41,8 +41,35 @@ struct TrainArgs {
     std::optional<float> mutationRate;
     std::optional<std::size_t> episodes;
     std::optional<float> learningRate;
+    std::optional<float> criticLearningRate;
     std::optional<float> gamma;
     std::optional<std::string> optimizer;
+    std::optional<std::size_t> hiddenSize;
+    std::optional<int> tournamentSize;
+    std::optional<float> mutationStrength;
+    std::optional<int> maxGenerations;
+    std::optional<int> requiredConsecutiveSuccesses;
+    /// Hyperparamètres DQN, pertinents pour `--algo avance` seulement (voir `TrainingConfig`).
+    std::optional<std::size_t> dqnReplayCapacity;
+    std::optional<std::size_t> dqnBatchSize;
+    std::optional<std::size_t> dqnWarmupSize;
+    std::optional<std::size_t> dqnUpdatePeriodSteps;
+    std::optional<std::size_t> dqnTargetSyncPeriodSteps;
+    std::optional<float> dqnEpsilonStart;
+    std::optional<float> dqnEpsilonEnd;
+    std::optional<std::size_t> dqnEpsilonDecaySteps;
+    /// Réglages de policy gradient, pertinents pour `--algo pg`/`ac` (`--action-repeat` vaut aussi
+    /// pour `--algo avance`) — voir `training::PolicyGradientTuning`.
+    std::optional<std::size_t> batchEpisodes;
+    std::optional<float> entropyCoefficient;
+    std::optional<float> gradientClipNorm;
+    std::optional<int> actionRepeat;
+    std::optional<float> explorationFloor;
+    /// Probabilité de croisement, pertinente pour `--algo evo`.
+    std::optional<float> crossoverRate;
+    /// Budget de pas et seuil de blocage d'un épisode ; absents (ou `0`) = dérivés du niveau.
+    std::optional<int> maxSteps;
+    std::optional<int> stuckThreshold;
 };
 
 /// Arguments de `evaluate`.
@@ -52,6 +79,13 @@ struct EvaluateArgs {
     std::filesystem::path level;
     int repetitions = 30;
     std::optional<std::filesystem::path> report;
+    /// Reste de `eval::BenchmarkConfig`, jusqu'ici figé aux défauts du code. Le budget de pas
+    /// borne un épisode qui n'aboutit pas, la graine de base rend une campagne rejouable à
+    /// l'identique, et le mode de décodage distingue la mesure déterministe (`argmax`, défaut
+    /// historique de cette sous-commande) de la mesure du comportement réellement échantillonné.
+    int maxStepsPerEpisode = 0;
+    std::uint64_t seed = 0;
+    bool stochasticDecoding = false;
 };
 
 /// Arguments de `export-replay`.

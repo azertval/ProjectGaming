@@ -34,6 +34,13 @@ public slots:
     /// Libellés de légende (localisés, rejoués par `AiModeScreen::retranslateUi` comme le reste
     /// de l'écran) — un par courbe, dans l'ordre meilleure récompense / récompense moyenne / taux
     /// de réussite.
+    /// Libellé affiché tant qu'il n'y a pas assez de points pour tracer une courbe.
+    ///
+    /// Fourni par l'appelant, jamais via `tr()` : l'application traduit par son propre catalogue
+    /// (`Source/Elements/Localization/*.lang`) et déploie Qt sans ses traductions
+    /// (`windeployqt --no-translations`) — un `tr()` resterait donc en français en anglais.
+    void setEmptyLabel(QString label);
+
     void setSeriesLabels(const QString& bestReward, const QString& meanReward,
                          const QString& successRate);
 
@@ -50,6 +57,7 @@ private:
     std::deque<double> _meanReward;
     std::deque<double> _successRate;
 
+    QString _emptyLabel;
     QString _bestRewardLabel;
     QString _meanRewardLabel;
     QString _successRateLabel;

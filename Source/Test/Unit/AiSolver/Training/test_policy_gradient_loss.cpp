@@ -67,9 +67,14 @@ Trajectory threeSteps() {
     return trajectory;
 }
 
+/// Perte du **seul** terme pondéré (`entropyCoefficient = 0`).
+///
+/// Les propriétés de forme vérifiées ci-dessous — nullité à poids nuls, linéarité, moyenne et non
+/// somme — sont celles de ce terme-là. Le terme d'entropie, lui, ne dépend pas des poids : il a son
+/// propre test, plus bas.
 float lossValue(aisolver::nn::Network& policy, const Trajectory& trajectory,
                 const std::vector<float>& weights) {
-    return computeWeightedPolicyGradientLoss(policy, trajectory, weights)->value.data()[0];
+    return computeWeightedPolicyGradientLoss(policy, trajectory, weights, 0.0f)->value.data()[0];
 }
 
 }  // namespace
@@ -190,4 +195,89 @@ TEST(PolicyGradientLossTest, PoidsPositifDonneUnePerteStrictementPositive) {
     const float loss = lossValue(*policy, threeSteps(), {1.0f, 2.0f, 0.5f});
     EXPECT_GT(loss, 0.0f);
     EXPECT_TRUE(std::isfinite(loss));
+}
+
+/**
+ * @brief Un épisode de plusieurs milliers de pas se rétropropage **et se détruit** sans déborder
+ *        la pile.
+ *
+ * Le budget de pas est désormais dérivé du niveau (`Env/StepBudget.h`) : un épisode de
+ * `demo-final.json` compte des milliers de pas là où la borne fixe précédente en imposait
+ * quelques centaines. Une perte assemblée en **chaîne** d'`add` aurait alors une profondeur égale
+ * au nombre de pas — ni le tri topologique de `backward()`, ni la destruction récursive du graphe
+ * par ses `shared_ptr` parents ne tiendraient dans la pile d'un mégaoctet d'un fil Windows. La
+ * réduction en arbre ramène cette profondeur à son logarithme ; ce test est la garde permanente de
+ * cette propriété, sur le chemin de production exact.
+ * \castest{<b>Perte de policy gradient sur 4 000 pas : rétropropagation et destruction sûres.
+ * </b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Construire une trajectoire de 4 000 pas.<br/>2. Assembler la perte, appeler
+ * `backward()`.<br/>3. Relâcher le graphe.<br/>
+ * \tattendu Aucun débordement de pile, perte finie, et le gradient du premier paramètre est
+ * non nul (la rétropropagation a bien atteint les poids).}
+ */
+TEST(PolicyGradientLossTest, EpisodeLongSeRetropropageEtSeDetruitSansDebordement) {
+    constexpr std::size_t LONG_EPISODE = 4000;
+
+    const std::unique_ptr<aisolver::nn::Network> policy = tinyPolicy(4242);
+    Trajectory trajectory;
+    trajectory.steps.reserve(LONG_EPISODE);
+    std::vector<float> weights(LONG_EPISODE, 0.0f);
+    for (std::size_t index = 0; index < LONG_EPISODE; ++index) {
+        const auto phase = static_cast<float>(index % 3);
+        trajectory.steps.push_back(stepAt(index % 3, observationOf(phase, 1.0f - phase, 0.5f)));
+        weights[index] = (index % 2 == 0) ? 1.0f : -1.0f;
+    }
+
+    float gradientMagnitude = 0.0f;
+    {
+        const aisolver::autodiff::NodePtr loss =
+            computeWeightedPolicyGradientLoss(*policy, trajectory, weights);
+        EXPECT_TRUE(std::isfinite(loss->value.at({0})));
+
+        aisolver::autodiff::backward(loss);
+        const std::vector<aisolver::autodiff::NodePtr> parameters = policy->parameters();
+        ASSERT_FALSE(parameters.empty());
+        for (std::size_t index = 0; index < parameters.front()->grad.size(); ++index) {
+            gradientMagnitude += std::fabs(parameters.front()->grad.data()[index]);
+        }
+    }  // Relachement du graphe : c'est ici que la destruction recursive debordait.
+
+    EXPECT_GT(gradientMagnitude, 0.0f);
+}
+
+/**
+ * @brief Le terme d'entropie récompense une distribution **étalée** : à poids nuls, la perte vaut
+ *        `-beta x H(pi)`, donc strictement négative, et d'autant plus que la politique est
+ *        indécise.
+ *
+ * C'est ce terme qui empêche la saturation mesurée avant correction : une politique dont un logit
+ * prend l'avantage voyait sa probabilité tendre vers `1`, l'échantillonnage devenir déterministe,
+ * et l'entraînement continuer à tourner sans qu'aucune autre action ne soit plus jamais essayée --
+ * des trajectoires bit à bit identiques dès l'épisode ~50, sur les 9 950 suivants.
+ * \castest{<b>Le terme d'entropie rend la perte négative à poids nuls, proportionnellement à
+ * son coefficient.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Perte à poids nuls et coefficient d'entropie nul.<br/>2. Même perte à
+ * coefficient `0,01`.<br/>3. Même perte à coefficient `0,02`.<br/>
+ * \tattendu La première est nulle ; la deuxième strictement négative ; la troisième vaut
+ * exactement le double de la deuxième (le terme est linéaire en son coefficient).}
+ */
+TEST(PolicyGradientLossTest, LeTermeDEntropieRecompenseUneDistributionEtalee) {
+    const std::unique_ptr<aisolver::nn::Network> policy = tinyPolicy(13);
+    const Trajectory trajectory = threeSteps();
+    const std::vector<float> noWeights{0.0f, 0.0f, 0.0f};
+
+    const float withoutEntropy =
+        computeWeightedPolicyGradientLoss(*policy, trajectory, noWeights, 0.0f)->value.data()[0];
+    const float withEntropy =
+        computeWeightedPolicyGradientLoss(*policy, trajectory, noWeights, 0.01f)->value.data()[0];
+    const float withDoubleEntropy =
+        computeWeightedPolicyGradientLoss(*policy, trajectory, noWeights, 0.02f)->value.data()[0];
+
+    EXPECT_FLOAT_EQ(withoutEntropy, 0.0f);
+    EXPECT_LT(withEntropy, 0.0f);
+    EXPECT_NEAR(withDoubleEntropy, 2.0f * withEntropy, std::abs(withEntropy) * 1e-4f);
 }

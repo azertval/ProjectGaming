@@ -258,3 +258,153 @@ TEST(ParseTrainArgsTest, ValeurNumeriqueInvalideRefuseeSansLever) {
     EXPECT_FALSE(partiel.has_value()) << "une valeur partiellement numerique doit etre refusee";
     EXPECT_FALSE(error.empty());
 }
+
+/**
+ * @brief `parseTrainArgs` lit les hyperparametres evolutionnistes et de topologie ajoutes par
+ * LOT-ANNEXE-22, jusqu'ici accessibles par le seul fichier `--config`.
+ * \castest{Drapeaux `train` de topologie et de critere d'arret.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Arguments `--level`/`--algo evo` plus `--hidden-size`, `--tournament-size`,
+ * `--mutation-strength`, `--max-generations` et `--required-successes`.<br/>2.
+ * `parseTrainArgs`.<br/>
+ * \tattendu Chaque valeur est portee par le champ correspondant de `TrainArgs`, sans quoi le
+ * plafond de generations resterait au defaut quelle que soit la demande.}
+ */
+TEST(ParseTrainArgsTest, LitLesHyperparametresEvolutionnistesEtLaTopologie) {
+    std::string error;
+    const std::optional<TrainArgs> parsed = parseTrainArgs(
+        {"--level", "demo.json", "--algo", "evo", "--hidden-size", "48", "--tournament-size", "7",
+         "--mutation-strength", "0.25", "--max-generations", "20", "--required-successes", "3"},
+        error);
+
+    ASSERT_TRUE(parsed.has_value()) << error;
+    EXPECT_EQ(parsed->hiddenSize, 48u);
+    EXPECT_EQ(parsed->tournamentSize, 7);
+    ASSERT_TRUE(parsed->mutationStrength.has_value());
+    EXPECT_FLOAT_EQ(*parsed->mutationStrength, 0.25f);
+    EXPECT_EQ(parsed->maxGenerations, 20);
+    EXPECT_EQ(parsed->requiredConsecutiveSuccesses, 3);
+}
+
+/**
+ * @brief `parseTrainArgs` lit les huit hyperparametres DQN, que `CommandLineOverrides` declarait
+ * sans qu'aucun drapeau ne les alimente.
+ * \castest{Les huit drapeaux `--dqn-*` de `train`.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Arguments `--algo avance` avec les huit drapeaux `--dqn-*`.<br/>2.
+ * `parseTrainArgs`.<br/>
+ * \tattendu Les huit champs sont renseignes : l'ecran Mode IA les exposait deja, la ligne de
+ * commande ne les atteignait que par fichier de configuration.}
+ */
+TEST(ParseTrainArgsTest, LitLesHuitHyperparametresDqn) {
+    std::string error;
+    const std::optional<TrainArgs> parsed = parseTrainArgs({"--level",
+                                                            "demo.json",
+                                                            "--algo",
+                                                            "avance",
+                                                            "--dqn-replay-capacity",
+                                                            "500",
+                                                            "--dqn-batch-size",
+                                                            "16",
+                                                            "--dqn-warmup-size",
+                                                            "64",
+                                                            "--dqn-update-period",
+                                                            "4",
+                                                            "--dqn-target-sync-period",
+                                                            "100",
+                                                            "--dqn-epsilon-start",
+                                                            "0.8",
+                                                            "--dqn-epsilon-end",
+                                                            "0.02",
+                                                            "--dqn-epsilon-decay",
+                                                            "3000"},
+                                                           error);
+
+    ASSERT_TRUE(parsed.has_value()) << error;
+    EXPECT_EQ(parsed->dqnReplayCapacity, 500u);
+    EXPECT_EQ(parsed->dqnBatchSize, 16u);
+    EXPECT_EQ(parsed->dqnWarmupSize, 64u);
+    EXPECT_EQ(parsed->dqnUpdatePeriodSteps, 4u);
+    EXPECT_EQ(parsed->dqnTargetSyncPeriodSteps, 100u);
+    ASSERT_TRUE(parsed->dqnEpsilonStart.has_value());
+    EXPECT_FLOAT_EQ(*parsed->dqnEpsilonStart, 0.8f);
+    ASSERT_TRUE(parsed->dqnEpsilonEnd.has_value());
+    EXPECT_FLOAT_EQ(*parsed->dqnEpsilonEnd, 0.02f);
+    EXPECT_EQ(parsed->dqnEpsilonDecaySteps, 3000u);
+}
+
+/**
+ * @brief Un nouveau drapeau mal forme produit le message d'usage de la sous-commande, jamais une
+ * exception ni une valeur tronquee.
+ * \castest{Valeur non numerique sur un nouveau drapeau de `train`.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Arguments valides plus `--max-generations abc`.<br/>2. `parseTrainArgs`.<br/>
+ * \tattendu Aucun resultat, et un message d'erreur nommant le drapeau fautif et la valeur recue
+ * (`EX-NFR-040`).}
+ */
+TEST(ParseTrainArgsTest, RejetteUneValeurNonNumeriqueSurUnNouveauDrapeau) {
+    std::string error;
+    const std::optional<TrainArgs> parsed = parseTrainArgs(
+        {"--level", "demo.json", "--algo", "evo", "--max-generations", "abc"}, error);
+
+    EXPECT_FALSE(parsed.has_value());
+    EXPECT_NE(error.find("--max-generations"), std::string::npos);
+    EXPECT_NE(error.find("abc"), std::string::npos);
+}
+
+/**
+ * @brief En l'absence des nouveaux drapeaux, aucune surcharge n'est posee : les defauts documentes
+ * restent en place.
+ * \castest{Nouveaux drapeaux absents -> aucune surcharge.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Arguments reduits a `--level` et `--algo`.<br/>2. `parseTrainArgs`.<br/>
+ * \tattendu Tous les champs optionnels ajoutes restent vides, sans quoi un run sans option
+ * n'utiliserait plus les defauts documentes.}
+ */
+TEST(ParseTrainArgsTest, NouveauxDrapeauxAbsentsNePosentAucuneSurcharge) {
+    std::string error;
+    const std::optional<TrainArgs> parsed =
+        parseTrainArgs({"--level", "demo.json", "--algo", "evo"}, error);
+
+    ASSERT_TRUE(parsed.has_value()) << error;
+    EXPECT_FALSE(parsed->hiddenSize.has_value());
+    EXPECT_FALSE(parsed->tournamentSize.has_value());
+    EXPECT_FALSE(parsed->mutationStrength.has_value());
+    EXPECT_FALSE(parsed->maxGenerations.has_value());
+    EXPECT_FALSE(parsed->requiredConsecutiveSuccesses.has_value());
+    EXPECT_FALSE(parsed->dqnReplayCapacity.has_value());
+}
+
+/**
+ * @brief `parseEvaluateArgs` couvre le reste de `BenchmarkConfig` : budget de pas, graine et mode
+ * de decodage.
+ * \castest{Drapeaux `--max-steps`, `--seed` et `--decoding` de `evaluate`.<br/>
+ * \tcat Unitaire · AiSolver Cli<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Arguments `evaluate` complets avec `--max-steps`, `--seed` et `--decoding
+ * stochastic`.<br/>2. `parseEvaluateArgs`.<br/>3. Recommencer avec `--decoding inconnu`.<br/>
+ * \tattendu Les trois valeurs sont lues ; un mode de decodage inconnu est refuse avec un message
+ * nommant les valeurs attendues.}
+ */
+TEST(ParseEvaluateArgsTest, LitBudgetDePasGraineEtModeDeDecodage) {
+    std::string error;
+    const std::optional<EvaluateArgs> parsed =
+        parseEvaluateArgs({"--model", "m.bin", "--algo", "evo", "--level", "demo.json",
+                           "--max-steps", "750", "--seed", "11", "--decoding", "stochastic"},
+                          error);
+
+    ASSERT_TRUE(parsed.has_value()) << error;
+    EXPECT_EQ(parsed->maxStepsPerEpisode, 750);
+    EXPECT_EQ(parsed->seed, 11u);
+    EXPECT_TRUE(parsed->stochasticDecoding);
+
+    const std::optional<EvaluateArgs> rejected = parseEvaluateArgs(
+        {"--model", "m.bin", "--algo", "evo", "--level", "demo.json", "--decoding", "inconnu"},
+        error);
+    EXPECT_FALSE(rejected.has_value());
+    EXPECT_NE(error.find("argmax"), std::string::npos);
+}

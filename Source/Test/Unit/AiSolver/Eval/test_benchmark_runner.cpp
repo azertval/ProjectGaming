@@ -10,6 +10,8 @@
 #include <memory>
 #include <optional>
 #include <set>
+#include <utility>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -295,4 +297,62 @@ TEST(BenchmarkResultTest, ConvergenceTauxDeReussiteVersProbabiliteTheorique) {
     }
 
     EXPECT_NEAR(result.successRate(), THEORETICAL_PROBABILITY, 0.02);
+}
+
+/**
+ * \castest{Observateur de repetition : progression puis interruption.<br/>
+ * \tcat Unitaire · AiSolver Eval<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Politique scriptee sur le niveau trivial, 10 repetitions demandees.<br/>2.
+ * `onRepetition` enregistre chaque appel et renvoie `false` apres la troisieme.<br/>
+ * \tattendu Exactement 3 notifications, numerotees 1 a 3 et portant le total demande, et un
+ * resultat ne comptant que les 3 repetitions jouees -- sans quoi une IHM ne pourrait ni afficher
+ * l'avancement d'une campagne, ni l'annuler.}
+ */
+TEST(BenchmarkRunnerTest, ObservateurDeRepetitionInterromptLaCampagne) {
+    const TrivialLevelDirectory level("observed_campaign");
+    core::PlayerInput rightInput;
+    rightInput.moveX = 1.0f;
+    ScriptedTrainedPolicy policy(rightInput);
+
+    BenchmarkConfig config;
+    config.repetitions = 10;
+    config.maxStepsPerEpisode = 100;
+    config.decodingMode = ActionDecodingMode::Argmax;
+
+    std::vector<std::pair<int, int>> notifications;
+    const BenchmarkResult result = BenchmarkRunner::run(
+        policy, level.levelPath(), config, [&notifications](int completed, int total) {
+            notifications.emplace_back(completed, total);
+            return completed < 3;
+        });
+
+    ASSERT_EQ(notifications.size(), 3u);
+    for (std::size_t index = 0; index < notifications.size(); ++index) {
+        EXPECT_EQ(notifications[index].first, static_cast<int>(index) + 1);
+        EXPECT_EQ(notifications[index].second, 10);
+    }
+    EXPECT_EQ(result.episodes.size(), 3u);
+}
+
+/**
+ * \castest{Absence d'observateur : comportement inchange.<br/>
+ * \tcat Unitaire · AiSolver Eval<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Meme campagne, sans passer d'observateur.<br/>
+ * \tattendu Les 10 repetitions demandees sont jouees : le parametre ajoute est bien optionnel.}
+ */
+TEST(BenchmarkRunnerTest, SansObservateurLaCampagneVaJusquAuBout) {
+    const TrivialLevelDirectory level("unobserved_campaign");
+    core::PlayerInput rightInput;
+    rightInput.moveX = 1.0f;
+    ScriptedTrainedPolicy policy(rightInput);
+
+    BenchmarkConfig config;
+    config.repetitions = 10;
+    config.maxStepsPerEpisode = 100;
+    config.decodingMode = ActionDecodingMode::Argmax;
+
+    const BenchmarkResult result = BenchmarkRunner::run(policy, level.levelPath(), config);
+    EXPECT_EQ(result.episodes.size(), 10u);
 }

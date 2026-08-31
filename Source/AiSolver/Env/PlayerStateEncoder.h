@@ -31,7 +31,9 @@ namespace aisolver {
  *   8. Dash disponible (`dashChargesRemaining > 0 && dashTimer <= 0`) ? `1.0f` : `0.0f` — même
  *      condition de déclenchement que `core::CharacterPhysicsSystem` (dash en cours **ou** charges
  *      épuisées rendent tous deux un nouveau dash impossible).
- *   9. Budget de saut normalisé (`1.0f` si illimité, `jumpsRemaining / jumpBudget()` sinon).
+ *   9. Budget de saut normalisé : `1.0f` si illimité (`jumpBudget() < 0`), `0.0f` si le tableau
+ *      n'en autorise aucun (`jumpBudget() == 0` — sinon la division rendrait `NaN`, qui contamine
+ *      toute la propagation avant), `jumpsRemaining / jumpBudget()` sinon.
  *   10. Budget de dash normalisé, même formule.
  *
  * L'épic (`Documentation/Lot-Annexe/LOT-ANNEXE-06-encodage-observation/epic.md`) annonce une taille
