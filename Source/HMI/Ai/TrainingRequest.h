@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include <QString>
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <string>
 
 /**
  * @file HMI/Ai/TrainingRequest.h
@@ -16,24 +16,27 @@
  * soumis à `moc` et impossible à compiler dans `UnitTests` ; la requête, elle, n'est que de la
  * **donnée**. Cette séparation est ce qui rend testable la traduction requête -> surcharges
  * (`HMI/Ai/TrainingOverrides.h`) — la traduction précisément où neuf réglages se perdaient.
+ *
+ * **Aucun type Qt ici**, `QString` compris : `UnitTests` compile cette logique directement, et le
+ * job `sanitize` de la CI la construit **sans Qt du tout**. C'est l'écran, qui parle Qt, qui
+ * convertit à la frontière — pas la donnée qui traîne une dépendance d'interface derrière elle.
  */
 
 namespace hmi {
 
 /// Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que
-/// `aisolver::cli::TrainArgs`/`CommandLineOverrides` (`LOT-ANNEXE-19`), en `QString`/valeurs
-/// simples pour rester utilisables sans dépendre de `AiSolver/Cli` depuis un en-tête Qt.
+/// `aisolver::cli::TrainArgs`/`CommandLineOverrides` (`LOT-ANNEXE-19`), en types standard.
 struct TrainingRequest {
-    QString levelPath;
-    QString algorithmId;  ///< `"evo"`, `"pg"`, `"ac"` ou `"avance"`.
+    std::string levelPath;
+    std::string algorithmId;  ///< `"evo"`, `"pg"`, `"ac"` ou `"avance"`.
     std::uint64_t seed = 0;
-    QString runsRoot;  ///< Vide : défaut `aisolver::training::DEFAULT_TRAINING_RUNS_ROOT`.
+    std::string runsRoot;  ///< Vide : défaut `aisolver::training::DEFAULT_TRAINING_RUNS_ROOT`.
     std::optional<std::size_t> populationSize;
     std::optional<float> mutationRate;
     std::optional<std::size_t> episodes;
     std::optional<float> learningRate;
     std::optional<float> gamma;
-    QString optimizer;  ///< Vide : défaut (`"sgd"`).
+    std::string optimizer;  ///< Vide : défaut (`"sgd"`).
     /// Topologie du réseau de politique, commune à tous les algorithmes.
     std::optional<std::size_t> hiddenSize;
     /// Évolutionniste : reste de `EvolutionaryConfig` et critère d'arrêt `StoppingConfig`.

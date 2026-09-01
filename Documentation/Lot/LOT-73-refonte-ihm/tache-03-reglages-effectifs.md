@@ -28,6 +28,14 @@ désormais généralisé par [`EX-IHM-083`](@ref EX-IHM-083).
 - **`hmi::TrainingRequest` extraite** dans `Source/HMI/Ai/TrainingRequest.h`. `TrainingWorker` est un
   `QObject` à signaux, donc soumis à `moc` et impossible à compiler dans `UnitTests` ; la requête,
   elle, n'est que de la donnée. Cette séparation est ce qui rend la suite testable.
+
+  **Et cette donnée ne porte aucun type Qt**, `QString` compris : le job `sanitize` de la CI
+  construit `UnitTests` sous AddressSanitizer **sans installer Qt du tout**, si bien qu'une source
+  compilée dans cette cible qui inclurait `<QString>` échoue — même règle que
+  `HMI/Interface/DesignTokens.cpp` ou `PixelArtScale.cpp`. La requête est donc en `std::string`, et
+  c'est l'écran, qui parle Qt, qui convertit à la frontière. Le défaut a bel et bien été commis
+  pendant ce lot, et n'a été vu ni par le build local ni par les tests locaux — tous deux disposant
+  de Qt : il se reproduit avec `cmake -DCMAKE_DISABLE_FIND_PACKAGE_Qt6=ON`.
 - **Neuf champs ajoutés** à `TrainingRequest`, recopiés par `onLaunchTraining()`. Aucune extension
   du moteur n'a été nécessaire : `aisolver::cli::CommandLineOverrides` les exposait déjà tous.
 - **`hmi::overridesFor`** (`Source/HMI/Ai/TrainingOverrides.h/.cpp`) : la traduction requête →

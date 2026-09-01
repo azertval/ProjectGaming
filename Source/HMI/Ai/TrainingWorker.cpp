@@ -56,9 +56,9 @@ using Clock = std::chrono::steady_clock;
 // "Rejeu 3D" n'a besoin que d'un aperçu recent, pas de chaque generation.
 constexpr auto PREVIEW_INTERVAL = std::chrono::milliseconds(1500);
 
-std::unique_ptr<aisolver::optim::IOptimizer> makeOptimizer(const QString& name,
+std::unique_ptr<aisolver::optim::IOptimizer> makeOptimizer(const std::string& name,
                                                            float learningRate) {
-    if (name.toStdString() == "adam") {
+    if (name == "adam") {
         return std::make_unique<aisolver::optim::Adam>(learningRate);
     }
     return std::make_unique<aisolver::optim::Sgd>(learningRate);
@@ -129,24 +129,25 @@ void TrainingWorker::run() {
     // (RAII, tous les chemins de retour compris).
     const core::ScopedLogLevel quietDuringTraining(core::defaultLogger(), core::LogLevel::Warning);
 
-    const std::filesystem::path levelPath = _request.levelPath.toStdString();
+    const std::filesystem::path levelPath = _request.levelPath;
     if (!std::filesystem::exists(levelPath)) {
-        emit failed(QStringLiteral("ai_mode.error_level_missing"), _request.levelPath);
+        emit failed(QStringLiteral("ai_mode.error_level_missing"),
+                    QString::fromStdString(_request.levelPath));
         return;
     }
 
     const cli::CommandLineOverrides overrides = overridesFor(_request);
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
-    config.algorithmId = _request.algorithmId.toStdString();
-    if (!_request.optimizer.isEmpty()) {
-        config.optimizer = _request.optimizer.toStdString();
+    config.algorithmId = _request.algorithmId;
+    if (!_request.optimizer.empty()) {
+        config.optimizer = _request.optimizer;
     }
 
     const std::string levelName = levelPath.stem().string();
     const std::string runId = generateRunId();
-    const std::filesystem::path runsRoot =
-        _request.runsRoot.isEmpty() ? DEFAULT_TRAINING_RUNS_ROOT
-                                    : std::filesystem::path(_request.runsRoot.toStdString());
+    const std::filesystem::path runsRoot = _request.runsRoot.empty()
+                                               ? DEFAULT_TRAINING_RUNS_ROOT
+                                               : std::filesystem::path(_request.runsRoot);
     const std::filesystem::path statsPath = makeTrainingRunPath(runsRoot, levelName, runId);
     const std::filesystem::path runDir = statsPath.parent_path();
     const std::filesystem::path modelPath = runDir / "model.bin";
@@ -168,7 +169,7 @@ void TrainingWorker::run() {
 
     // Algorithme DEMANDE par l'ecran. Distinct de `algorithmId` plus bas, qui est l'etiquette
     // ecrite dans les metadonnees du run : l'un choisit la branche, l'autre decrit le resultat.
-    const std::string requestedAlgorithm = _request.algorithmId.toStdString();
+    const std::string requestedAlgorithm = _request.algorithmId;
     const std::size_t inputSize = ObservationEncoder().inputSize();
     // Budget de pas et seuil de blocage de la configuration resolue -- derives du niveau quand ils
     // valent zero. Le meme objet sert a l'entrainement, aux apercus et au rejeu final : un apercu
@@ -203,7 +204,8 @@ void TrainingWorker::run() {
         if (replay &&
             writePreviewReplay(*replay, levelPath, previewPath, name, _request.seed, id)) {
             emit previewReady(QString::fromStdString(previewPath.string()),
-                              QString::fromStdString(id), _request.levelPath, generation);
+                              QString::fromStdString(id),
+                              QString::fromStdString(_request.levelPath), generation);
         }
     };
 
@@ -272,8 +274,8 @@ void TrainingWorker::run() {
                 if (writePreviewReplay(replay, levelPath, previewPath, algorithmName, _request.seed,
                                        algorithmId)) {
                     emit previewReady(QString::fromStdString(previewPath.string()),
-                                      QString::fromStdString(algorithmId), _request.levelPath,
-                                      evoGeneration);
+                                      QString::fromStdString(algorithmId),
+                                      QString::fromStdString(_request.levelPath), evoGeneration);
                 }
             });
         solved = result.solved;

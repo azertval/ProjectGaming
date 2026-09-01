@@ -26,8 +26,8 @@ namespace {
 /// valeurs.
 [[nodiscard]] hmi::TrainingRequest fullyPopulatedRequest() {
     hmi::TrainingRequest request;
-    request.levelPath = QStringLiteral("demo.json");
-    request.algorithmId = QStringLiteral("ac");
+    request.levelPath = "demo.json";
+    request.algorithmId = "ac";
     request.seed = 42U;
     request.populationSize = std::size_t{11};
     request.mutationRate = 0.11F;

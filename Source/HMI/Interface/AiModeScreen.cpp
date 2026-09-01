@@ -685,10 +685,12 @@ void AiModeScreen::onLaunchTraining() {
     const aisolver::cli::TrainingConfig form = configFromForm();
 
     TrainingRequest request;
-    request.levelPath = _ui->levelCombo->currentData().toString();
-    request.algorithmId = selectedAlgo();
+    // Conversion a la FRONTIERE : la requete est de la donnee pure (compilee dans UnitTests, que
+    // le job sanitize construit sans Qt), c'est donc a l'ecran de traduire ce que Qt lui donne.
+    request.levelPath = _ui->levelCombo->currentData().toString().toStdString();
+    request.algorithmId = selectedAlgo().toStdString();
     request.seed = static_cast<std::uint64_t>(_ui->seedSpin->value());
-    request.runsRoot = _ui->runsRootEdit->text();
+    request.runsRoot = _ui->runsRootEdit->text().toStdString();
     request.hiddenSize = form.hiddenSize;
     request.populationSize = form.evolutionary.populationSize;
     request.tournamentSize = form.evolutionary.tournamentSize;
@@ -699,7 +701,7 @@ void AiModeScreen::onLaunchTraining() {
     request.episodes = form.episodes;
     request.learningRate = form.learningRate;
     request.gamma = form.gamma;
-    request.optimizer = _ui->optimizerCombo->currentText();
+    request.optimizer = _ui->optimizerCombo->currentText().toStdString();
     // Reglages communs a toutes les familles d'algorithmes. Ils etaient lus par configFromForm()
     // puis JETES : TrainingRequest n'avait pas de champ pour les recevoir, si bien que les regler
     // ne changeait rien -- et que le config.json du run decrivait un run qui n'avait pas tourne,
@@ -715,7 +717,7 @@ void AiModeScreen::onLaunchTraining() {
     request.actionRepeat = form.tuning.actionRepeat;
     request.maxSteps = form.maxSteps;
     request.stuckThreshold = form.stuckThreshold;
-    if (request.algorithmId == QLatin1String("avance")) {
+    if (request.algorithmId == "avance") {
         request.dqnReplayCapacity = form.dqnReplayCapacity;
         request.dqnBatchSize = form.dqnBatchSize;
         request.dqnWarmupSize = form.dqnWarmupSize;
@@ -737,7 +739,7 @@ void AiModeScreen::onLaunchTraining() {
     // run peut toujours s'arreter avant (resolution, interruption), auquel cas la barre n'atteint
     // simplement jamais son maximum -- elle mesure le budget consomme, pas l'avancement vers une
     // solution.
-    _ui->trainingProgressBar->setRange(0, request.algorithmId == QLatin1String("evo")
+    _ui->trainingProgressBar->setRange(0, request.algorithmId == "evo"
                                               ? _ui->maxGenerationsSpin->value()
                                               : _ui->episodesSpin->value());
     _ui->trainingProgressBar->setValue(0);
