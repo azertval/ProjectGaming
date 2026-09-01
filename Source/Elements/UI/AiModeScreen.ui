@@ -89,8 +89,8 @@
              </widget>
             </item>
 
-            <item row="5" column="0"><widget class="QLabel" name="maxStepsBudgetLabel"><property name="text"><string>Budget de pas</string></property></widget></item>
-            <item row="5" column="1">
+            <item row="4" column="0"><widget class="QLabel" name="maxStepsBudgetLabel"><property name="text"><string>Budget de pas</string></property></widget></item>
+            <item row="4" column="1">
              <widget class="QSpinBox" name="stepBudgetSpin">
               <property name="minimum"><number>0</number></property>
               <property name="maximum"><number>1000000</number></property>
@@ -99,8 +99,8 @@
              </widget>
             </item>
 
-            <item row="6" column="0"><widget class="QLabel" name="stuckThresholdLabel"><property name="text"><string>Seuil de blocage</string></property></widget></item>
-            <item row="6" column="1">
+            <item row="5" column="0"><widget class="QLabel" name="stuckThresholdLabel"><property name="text"><string>Seuil de blocage</string></property></widget></item>
+            <item row="5" column="1">
              <widget class="QSpinBox" name="stuckThresholdSpin">
               <property name="minimum"><number>0</number></property>
               <property name="maximum"><number>1000000</number></property>
@@ -109,8 +109,13 @@
              </widget>
             </item>
 
-            <item row="4" column="0"><widget class="QLabel" name="runsRootLabel"><property name="text"><string>Dossier des runs</string></property></widget></item>
-            <item row="4" column="1">
+            <!-- Dernier de la section : c'est un reglage de SORTIE (ou le run s'ecrit), pas un
+                 reglage de ce que le run fait. Il etait declare en ligne 4, entre la topologie et
+                 le budget de pas, alors que le reste suivait l'ordre d'ecriture — l'ordre des
+                 lignes du fichier ne decrivait donc plus l'ordre a l'ecran, ce qui est la seule
+                 chose qu'un fichier de description d'interface ait a faire. -->
+            <item row="6" column="0"><widget class="QLabel" name="runsRootLabel"><property name="text"><string>Dossier des runs</string></property></widget></item>
+            <item row="6" column="1">
              <layout class="QHBoxLayout" name="runsRootRow">
               <item><widget class="QLineEdit" name="runsRootEdit"/></item>
               <item><widget class="QPushButton" name="browseRunsRootButton"><property name="text"><string>Parcourir…</string></property></widget></item>
@@ -433,8 +438,20 @@
           </layout>
          </item>
          <item>
+          <!-- Le graphique PARTAGE la hauteur avec la table plutot que de la lui ceder.
+               Sans politique de taille declaree, un QWidget vaut Preferred/Preferred et une
+               `sizeHint` invalide ; la table voisine, elle, est Expanding par defaut et prenait
+               donc toute la place, ecrasant le graphique sur ses 140 pixels minimaux. Facteur
+               d'etirement 3 contre 4 : la table reste la plus grande, le graphique cesse d'etre
+               une bande. -->
           <widget class="hmi::TrainingChartWidget" name="trainingChart" native="true">
            <property name="minimumSize"><size><width>200</width><height>140</height></size></property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>3</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item>
@@ -448,6 +465,12 @@
             <enum>QAbstractItemView::SelectRows</enum>
            </property>
            <property name="alternatingRowColors"><bool>true</bool></property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>4</verstretch>
+            </sizepolicy>
+           </property>
            <property name="columnCount"><number>8</number></property>
            <column><property name="text"><string>Génération</string></property></column>
            <column><property name="text"><string>Meilleure récompense</string></property></column>

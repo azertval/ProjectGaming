@@ -11,6 +11,8 @@
 #include <cstdint>
 #include <optional>
 
+#include "HMI/Ai/TrainingRequest.h"
+
 /**
  * @file HMI/Ai/TrainingWorker.h
  * @brief Exécute un entraînement (`LOT-ANNEXE-21`, `EX-IA-022`) sur un `QThread` séparé, pour que
@@ -24,42 +26,6 @@
  */
 
 namespace hmi {
-
-/// Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que
-/// `aisolver::cli::TrainArgs`/`CommandLineOverrides` (`LOT-ANNEXE-19`), en `QString`/valeurs
-/// simples pour rester utilisables sans dépendre de `AiSolver/Cli` depuis un en-tête Qt.
-struct TrainingRequest {
-    QString levelPath;
-    QString algorithmId;  ///< `"evo"`, `"pg"`, `"ac"` ou `"avance"`.
-    std::uint64_t seed = 0;
-    QString runsRoot;  ///< Vide : défaut `aisolver::training::DEFAULT_TRAINING_RUNS_ROOT`.
-    std::optional<std::size_t> populationSize;
-    std::optional<float> mutationRate;
-    std::optional<std::size_t> episodes;
-    std::optional<float> learningRate;
-    std::optional<float> gamma;
-    QString optimizer;  ///< Vide : défaut (`"sgd"`).
-    /// Topologie du réseau de politique, commune à tous les algorithmes.
-    std::optional<std::size_t> hiddenSize;
-    /// Évolutionniste : reste de `EvolutionaryConfig` et critère d'arrêt `StoppingConfig`.
-    /// `maxGenerations` est le plafond de générations — distinct d'`episodes`, qui ne concerne
-    /// que les algorithmes par gradient.
-    std::optional<int> tournamentSize;
-    std::optional<float> mutationStrength;
-    std::optional<int> maxGenerations;
-    std::optional<int> requiredConsecutiveSuccesses;
-    /// Hyperparamètres DQN (voir `aisolver::cli::TrainingConfig`), pertinents uniquement pour
-    /// `algorithmId == "avance"` — groupe dédié de l'onglet Entraînement, masqué pour les autres
-    /// algorithmes (`LOT-ANNEXE-21`).
-    std::optional<std::size_t> dqnReplayCapacity;
-    std::optional<std::size_t> dqnBatchSize;
-    std::optional<std::size_t> dqnWarmupSize;
-    std::optional<std::size_t> dqnUpdatePeriodSteps;
-    std::optional<std::size_t> dqnTargetSyncPeriodSteps;
-    std::optional<float> dqnEpsilonStart;
-    std::optional<float> dqnEpsilonEnd;
-    std::optional<std::size_t> dqnEpsilonDecaySteps;
-};
 
 /**
  * @brief Instantané d'une génération/d'un épisode, transporté par le signal
@@ -82,6 +48,15 @@ struct TrainingProgress {
     int bestStepCount = 0;
     double successRate = 0.0;
     std::uint64_t seed = 0;
+    /// Moyenne mobile de la meilleure récompense, et sa variation depuis l'étape précédente
+    /// (`aisolver::TrainingStatsDerived`). L'enregistreur les calculait déjà pour le CSV du run,
+    /// mais ne les transmettait pas : l'écran ne pouvait donc tracer qu'une courbe brute, sur
+    /// laquelle une progression lente est indiscernable du bruit d'une génération à l'autre.
+    double movingAverageReward = 0.0;
+    double rewardDelta = 0.0;
+    /// Pas de simulation cumulés depuis le début du run, renseignés sur le seul chemin DQN
+    /// (`std::nullopt` ailleurs) : c'est de ce compteur que dépend la décroissance d'`epsilon`.
+    std::optional<std::size_t> totalSteps;
     /// `epsilon` courant, renseigné sur le seul chemin DQN (`std::nullopt` ailleurs).
     std::optional<float> epsilon;
     /// Générations consécutives déjà stables et seuil exigé, renseignés sur le seul chemin

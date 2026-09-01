@@ -7,12 +7,27 @@
  */
 
 #include <filesystem>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 
 #include <gtest/gtest.h>
 
 #include "HMI/Localization/Localization.h"
+
+namespace {
+
+// Contenu brut d'un catalogue livre. Les chemins viennent de Test/CMakeLists.txt : le test
+// verifie les fichiers REELLEMENT livres, jamais une copie de test qui pourrait en diverger.
+[[nodiscard]] std::string readFile(const char* path) {
+    std::ifstream file(path);
+    std::ostringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
+}  // namespace
 
 /**
  * @brief L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de
@@ -172,4 +187,38 @@ TEST(LocalizationTest, CatalogueFrancaisLivreSeCharge) {
     EXPECT_EQ(localization.activeLanguage(), "fr");
     EXPECT_EQ(localization.text("menu.quit"), "Quitter");
     EXPECT_EQ(localization.text("menu.continue"), "Continuer");
+}
+
+/**
+ * @brief Les deux catalogues livrés déclarent **exactement** les mêmes clés (`LOT-73`,
+ *        `EX-REN-033`).
+ *
+ * Une clé ajoutée d'un seul côté ne casse rien de visible : `Localization::text` replie sur la
+ * langue par défaut, et l'interface s'affiche — en français au milieu d'un écran anglais. Le
+ * défaut ne se voit donc qu'en changeant de langue, écran par écran, ce que personne ne fait
+ * après avoir ajouté un libellé. Ce test le voit pour nous, dans les deux sens : une clé
+ * anglaise oubliée en français compte autant.
+ * \castest{<b>Les catalogues francais et anglais declarent les memes cles.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger fr.lang et en.lang.<br/>2. Comparer les ensembles de cles dans les
+ * deux sens.<br/>
+ * \tattendu Aucune cle ne manque a l'un ni a l'autre.
+ * }
+ */
+TEST(LocalizationTest, LesDeuxCataloguesDeclarentLesMemesCles) {
+    const std::unordered_map<std::string, std::string> french =
+        hmi::Localization::parseCatalog(readFile(PROJECTGAMING_FR_LANG_PATH));
+    const std::unordered_map<std::string, std::string> english =
+        hmi::Localization::parseCatalog(readFile(PROJECTGAMING_EN_LANG_PATH));
+    ASSERT_FALSE(french.empty());
+    ASSERT_FALSE(english.empty());
+
+    for (const auto& [key, value] : french) {
+        EXPECT_TRUE(english.count(key) > 0) << "cle absente de en.lang : " << key;
+    }
+    for (const auto& [key, value] : english) {
+        EXPECT_TRUE(french.count(key) > 0) << "cle absente de fr.lang : " << key;
+    }
+    EXPECT_EQ(french.size(), english.size());
 }

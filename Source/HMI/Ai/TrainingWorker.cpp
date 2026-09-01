@@ -37,6 +37,7 @@
 #include "AiSolver/Training/PolicyGradient/ReinforceTrainer.h"
 #include "AiSolver/Training/ReplayExport.h"
 #include "Core/Diagnostics/ScopedLogLevel.h"
+#include "HMI/Ai/TrainingOverrides.h"
 
 /**
  * @file HMI/Ai/TrainingWorker.cpp
@@ -89,9 +90,12 @@ bool writePreviewReplay(const aisolver::training::DeterministicReplayResult& rep
 
 // Recopie integrale de la ligne journalisee : les champs propres a un algorithme (epsilon,
 // stabilite) restent absents ici et sont renseignes par la branche qui les connait.
-TrainingProgress toProgress(const aisolver::TrainingStatsRow& row) {
+TrainingProgress toProgress(const aisolver::TrainingStatsRow& row,
+                            const aisolver::TrainingStatsDerived& derived) {
     TrainingProgress step;
     step.index = row.index;
+    step.movingAverageReward = derived.movingAverageReward;
+    step.rewardDelta = derived.rewardDelta;
     step.bestReward = row.bestReward;
     step.meanReward = row.meanReward;
     step.worstReward = row.worstReward;
@@ -131,30 +135,7 @@ void TrainingWorker::run() {
         return;
     }
 
-    // Designateurs plutot qu'une liste positionnelle : `CommandLineOverrides` est le contrat
-    // partage avec la CLI et gagne des champs a chaque hyperparametre expose -- un ajout au milieu
-    // de la structure decalerait silencieusement toutes les valeurs suivantes.
-    const cli::CommandLineOverrides overrides{
-        .populationSize = _request.populationSize,
-        .mutationRate = _request.mutationRate,
-        .episodes = _request.episodes,
-        .learningRate = _request.learningRate,
-        .gamma = _request.gamma,
-        .optimizer = std::nullopt,  // applique plus bas, l'ecran le fournit en QString
-        .hiddenSize = _request.hiddenSize,
-        .tournamentSize = _request.tournamentSize,
-        .mutationStrength = _request.mutationStrength,
-        .maxGenerations = _request.maxGenerations,
-        .requiredConsecutiveSuccesses = _request.requiredConsecutiveSuccesses,
-        .dqnReplayCapacity = _request.dqnReplayCapacity,
-        .dqnBatchSize = _request.dqnBatchSize,
-        .dqnWarmupSize = _request.dqnWarmupSize,
-        .dqnUpdatePeriodSteps = _request.dqnUpdatePeriodSteps,
-        .dqnTargetSyncPeriodSteps = _request.dqnTargetSyncPeriodSteps,
-        .dqnEpsilonStart = _request.dqnEpsilonStart,
-        .dqnEpsilonEnd = _request.dqnEpsilonEnd,
-        .dqnEpsilonDecaySteps = _request.dqnEpsilonDecaySteps,
-    };
+    const cli::CommandLineOverrides overrides = overridesFor(_request);
     cli::TrainingConfig config = cli::loadTrainingConfig(std::nullopt, overrides);
     config.algorithmId = _request.algorithmId.toStdString();
     if (!_request.optimizer.isEmpty()) {
@@ -248,7 +229,10 @@ void TrainingWorker::run() {
         // compteur). On retient donc la ligne et on n'emet qu'apres le second, plutot que
         // d'envoyer a l'ecran une ligne portant la stabilite de la generation precedente.
         std::optional<TrainingProgress> pendingStep;
-        session.setOnStatsRow([&](const TrainingStatsRow& row) { pendingStep = toProgress(row); });
+        session.setOnStatsRow(
+            [&](const TrainingStatsRow& row, const aisolver::TrainingStatsDerived& derived) {
+                pendingStep = toProgress(row, derived);
+            });
         session.setOnStabilityChanged([&](int consecutive, int required) {
             if (!pendingStep.has_value()) {
                 return;
@@ -334,12 +318,13 @@ void TrainingWorker::run() {
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
         recorder.emplace(statsPath);
-        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                               &stepsCompleted, &algorithmId](const TrainingStatsRow& row) {
-            stepsCompleted = row.index + 1;
-            emit progress(toProgress(row));
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
-        });
+        recorder->setOnRecord(
+            [this, &evalPolicy, &maybeEmitPreview, &algorithmName, &stepsCompleted, &algorithmId](
+                const TrainingStatsRow& row, const aisolver::TrainingStatsDerived& derived) {
+                stepsCompleted = row.index + 1;
+                emit progress(toProgress(row, derived));
+                maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
+            });
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, levelPath,
                                            reinforceConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
@@ -377,12 +362,13 @@ void TrainingWorker::run() {
         actorCriticConfig.tuning = config.tuning;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
         recorder.emplace(statsPath);
-        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
-                               &stepsCompleted, &algorithmId](const TrainingStatsRow& row) {
-            stepsCompleted = row.index + 1;
-            emit progress(toProgress(row));
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
-        });
+        recorder->setOnRecord(
+            [this, &evalPolicy, &maybeEmitPreview, &algorithmName, &stepsCompleted, &algorithmId](
+                const TrainingStatsRow& row, const aisolver::TrainingStatsDerived& derived) {
+                stepsCompleted = row.index + 1;
+                emit progress(toProgress(row, derived));
+                maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
+            });
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
                                              environment, levelPath, actorCriticConfig, *recorder,
                                              levelName);
@@ -432,11 +418,17 @@ void TrainingWorker::run() {
         const training::DqnTrainer* runningTrainer = nullptr;
         recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
                                &stepsCompleted, &algorithmId,
-                               &runningTrainer](const TrainingStatsRow& row) {
+                               &runningTrainer](const TrainingStatsRow& row,
+                                                const aisolver::TrainingStatsDerived& derived) {
             stepsCompleted = row.index + 1;
-            TrainingProgress step = toProgress(row);
+            TrainingProgress step = toProgress(row, derived);
             if (runningTrainer != nullptr) {
                 step.epsilon = runningTrainer->currentEpsilon();
+                // Pas de simulation CUMULES depuis le debut du run : c'est le compteur dont
+                // depend la decroissance d'epsilon, et donc la seule facon de lire cette
+                // decroissance autrement que comme un nombre qui baisse tout seul. Le trainer
+                // l'exposait deja, aucun appelant ne le lisait.
+                step.totalSteps = runningTrainer->totalSteps();
             }
             emit progress(step);
             maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);

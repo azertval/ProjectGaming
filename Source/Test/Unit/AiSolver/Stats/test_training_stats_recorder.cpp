@@ -243,7 +243,8 @@ TEST(TrainingStatsRecorderTest, SetOnRecordObserveSansEffetDeBord) {
 
     std::vector<int> observedIndices;
     aisolver::TrainingStatsRecorder recorder(csvPath);
-    recorder.setOnRecord([&observedIndices](const aisolver::TrainingStatsRow& row) {
+    recorder.setOnRecord([&observedIndices](const aisolver::TrainingStatsRow& row,
+                                            const aisolver::TrainingStatsDerived&) {
         observedIndices.push_back(row.index);
     });
 
@@ -256,4 +257,47 @@ TEST(TrainingStatsRecorderTest, SetOnRecordObserveSansEffetDeBord) {
     EXPECT_EQ(observedIndices[1], 1);
     EXPECT_EQ(observedIndices[2], 2);
     EXPECT_EQ(readAllLines(csvPath).size(), 4u);
+}
+
+/**
+ * @brief L'observateur reçoit les grandeurs **dérivées** qui accompagnent la ligne dans le CSV, et
+ *        non la seule ligne brute (`LOT-73`).
+ *
+ * La moyenne mobile et la variation étaient calculées, écrites dans le fichier, puis perdues : un
+ * appelant qui voulait tracer une courbe lissée devait relire le fichier que l'enregistreur venait
+ * d'écrire, ou refaire le calcul — deux façons de dupliquer ce qui existait déjà.
+ * \castest{<b>L'observateur recoit la moyenne mobile et la variation, pas seulement la
+ * ligne.</b><br/>
+ * \tcat Unitaire · Statistiques d'entrainement<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Enregistrer trois lignes de recompenses croissantes.<br/>2. Capturer les grandeurs
+ * derivees recues par l'observateur.<br/>
+ * \tattendu La moyenne mobile suit les recompenses ; la variation est nulle sur la premiere ligne
+ * puis strictement positive.
+ * }
+ */
+TEST(TrainingStatsRecorderTest, ObservateurRecoitLesGrandeursDerivees) {
+    TempDirectory tempDir;
+    const std::filesystem::path csvPath = tempDir.file("stats_derived.csv");
+
+    std::vector<aisolver::TrainingStatsDerived> observed;
+    aisolver::TrainingStatsRecorder recorder(csvPath);
+    recorder.setOnRecord([&observed](const aisolver::TrainingStatsRow&,
+                                     const aisolver::TrainingStatsDerived& derived) {
+        observed.push_back(derived);
+    });
+
+    for (int i = 0; i < 3; ++i) {
+        recorder.record(rowAt(i, static_cast<float>(i + 1)));
+    }
+
+    ASSERT_EQ(observed.size(), 3u);
+    // Premiere ligne : aucune ligne precedente, donc aucune variation a rapporter.
+    EXPECT_FLOAT_EQ(observed[0].rewardDelta, 0.0f);
+    EXPECT_FLOAT_EQ(observed[0].movingAverageReward, 1.0f);
+    // Recompenses croissantes : la moyenne mobile monte, la variation reste strictement positive.
+    EXPECT_GT(observed[1].movingAverageReward, observed[0].movingAverageReward);
+    EXPECT_GT(observed[2].movingAverageReward, observed[1].movingAverageReward);
+    EXPECT_GT(observed[1].rewardDelta, 0.0f);
+    EXPECT_GT(observed[2].rewardDelta, 0.0f);
 }

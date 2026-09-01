@@ -1,8 +1,13 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource prefix="/">
-    <!-- Feuille de style (Elements/Themes) embarquée. L'alias conserve le chemin runtime
-         ":/resources/theme.qss" attendu par main.cpp, indépendamment de l'emplacement source. -->
-    <file alias="resources/theme.qss">../Themes/theme.qss</file>
+    <!-- Feuilles de style (Elements/Themes) embarquées, une par PORTÉE (LOT-73, EX-IHM-082).
+         Elles étaient un seul fichier posé sur l'application entière : un changement de facteur
+         d'agrandissement, qui ne concerne que les écrans du jeu, repolissait alors les 862 widgets
+         de l'application. Séparées, chacune s'applique là où elle porte — l'identité sur la pile
+         d'écrans, le châssis sur l'application.
+         Les alias conservent des chemins runtime stables, indépendants de l'emplacement source. -->
+    <file alias="resources/theme-identity.qss">../Themes/theme-identity.qss</file>
+    <file alias="resources/theme-editor.qss">../Themes/theme-editor.qss</file>
   </qresource>
 </RCC>

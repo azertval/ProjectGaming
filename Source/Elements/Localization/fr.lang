@@ -566,6 +566,7 @@ ai_mode.seed_tip = Graine du générateur aléatoire. Deux runs avec la même gr
 ai_mode.launch_training_tip = Lance l'entraînement en arrière-plan ; la fenêtre reste réactive.
 ai_mode.stop_training_tip = Arrête l'entraînement à la prochaine génération/épisode. Le meilleur individu obtenu jusqu'ici reste sauvegardé.
 ai_mode.generation_tip = Génération (évolutif) ou épisode (autres algorithmes) dont l'aperçu sera rejoué par « Voir en jeu ».
+ai_mode.preview_tip_waiting = Disponible dès le premier aperçu du run : l'entraînement en écrit un régulièrement, quelques secondes après le lancement.
 ai_mode.preview_tip = Rejoue le meilleur individu de la génération/l'épisode sélectionné dans la scène du niveau.
 ai_mode.run_tip = Run entraîné à évaluer, lu dans le dossier des runs choisi dans l'onglet Entraînement.
 ai_mode.repetitions_tip = Nombre d'épisodes rejoués pour mesurer le taux de réussite. Plus élevé = mesure plus fiable, plus lent.
@@ -663,6 +664,7 @@ ai_mode.config_saved = Configuration enregistrée.
 ai_mode.config_save_failed = Échec de l'enregistrement de la configuration.
 ai_mode.config_load_failed = Fichier de configuration introuvable ou illisible : réglages inchangés.
 ai_mode.chart_empty = Pas encore assez de données.
+ai_mode.chart_moving_average = Moyenne mobile
 ai_mode.critic_learning_rate = Taux d'apprentissage du critique
 ai_mode.critic_learning_rate_tip = Séparé du taux de la politique, et bien plus élevé : le critique doit estimer un score qui vaut une centaine de points, la politique n'a qu'à départager des préférences proches de l'unité.
 ai_mode.crossover_rate = Taux de croisement

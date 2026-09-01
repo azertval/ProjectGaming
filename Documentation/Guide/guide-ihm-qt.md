@@ -31,8 +31,8 @@ de l'architecture d'origine :
 - `Interface/` — fenêtre principale, menu, options, remappage (widgets Qt) ;
 - `Editor/` — périmètre éditeur de niveau (palette, outils, navigateur, logique pure).
 
-Les **assets Qt déclaratifs** (mises en page `.ui`, ressource `.qrc`) et le **thème** (`.qss`) vivent
-dans `Source/Elements` (`UI/`, `Themes/`) — éditables hors code. La cible reste **optionnelle** côté
+Les **assets Qt déclaratifs** (mises en page `.ui`, ressource `.qrc`) et le **thème** (`.qss`, une
+feuille par portée depuis le `LOT-73`) vivent dans `Source/Elements` (`UI/`, `Themes/`) — éditables hors code. La cible reste **optionnelle** côté
 build : sans Qt, la configuration CMake n'échoue pas (les tests unitaires, qui compilent les sources
 pures directement, se construisent quand même). `windeployqt` copie les DLL Qt à côté de
 l'exécutable — **aucune bibliothèque à installer** côté utilisateur. Voir `External/README.md` pour
@@ -126,6 +126,40 @@ Deux étapes complètent le socle et sont décrites ailleurs pour ne pas être r
   empilées et leurs signaux sont traités dans @ref guide-ecrans. C'est à cette étape que l'IHM
   « maison » et l'exécutable historique ont été retirés, et que l'internationalisation, la
   journalisation et la manette ont été unifiées sur l'unique application Qt.
+
+## La taille : aucun écran ne contraint la fenêtre (LOT-73)
+
+`QStackedWidget::minimumSizeHint` vaut le **maximum sur toutes ses pages**, y compris celles qui ne
+sont pas affichées. Un écran dense fixe donc, à lui seul, le plancher de la fenêtre entière — la
+page Options posait le sien pendant qu'on regardait le menu principal. Combiné au facteur
+d'agrandissement (@ref guide-design-ihm), ce plancher dépassait la hauteur de l'écran, Windows
+refusait la géométrie, et l'interface débordait sous la barre des tâches en rognant son contenu,
+sans rien dire.
+
+Le défaut s'est produit **trois fois**. Les deux premières ont été corrigées écran par écran, en
+posant une `QScrollArea` dans le fautif ; la troisième a montré ce que cette correction avait de
+faux : une règle qu'il faut se rappeler d'appliquer se reperd au premier écran ajouté.
+
+La garantie vit désormais sur le **chemin d'ajout commun** (`EX-IHM-080`).
+\ref hmi::ScreenPageHost "ScreenPageHost" enveloppe **toute** page passée à
+`MainWindow::addScreenPage`, et combine deux mécanismes :
+
+- une `QScrollArea` redimensionnable, qui fait **défiler** ce qui ne tient pas au lieu de le rogner ;
+- une politique de taille `Ignored`, qui fait contribuer **zéro** au minimum de la fenêtre. La
+  `QScrollArea` seule ne suffirait pas : elle propage encore un plancher, et n'empêcherait pas un
+  appelant de poser une taille minimale sur la page.
+
+Le **viewport** en est exclu : surface de rendu QRhi, il remplit sa page sans jamais défiler, et son
+minimum (320×240) tient sur tout écran.
+
+Deux garde-fous complètent l'invariant : la géométrie restaurée d'une session précédente est ramenée
+dans la zone utile (taille d'abord, position ensuite — déplacer une fenêtre trop grande ne la ferait
+pas tenir), et `MainWindow` **compare** au démarrage la taille minimale imposée par les écrans à la
+zone disponible, en journalisant un avertissement si elle la dépasse.
+
+> `UnitTests` ne lie que `Qt6::Gui`, **pas `Qt6::Widgets`** : aucun test ne peut instancier un widget
+> ni lire un `minimumSizeHint`. L'invariant se teste par ses fonctions **pures** (le facteur borné) et
+> se constate à l'IHM.
 
 ## Ce que cette page ne couvre pas
 

@@ -181,9 +181,13 @@ add_executable(UnitTests
     # (LOT-ANNEXE-21) pour etre reutilise par HMI/Ai/TrainingWorker -- deja fourni par le lien
     # AiSolver ci-dessous, le compiler aussi ici produirait des symboles dupliques.
     ../AiSolver/Cli/Commands.cpp
+    # Traduction requete d ecran -> surcharges CLI (LOT-73, EX-IHM-083) : pure, sans QObject ni
+    # moc, donc compilable ici -- c est la ou neuf reglages se perdaient sans que rien ne le dise.
+    ../HMI/Ai/TrainingOverrides.cpp
     Unit/AiSolver/Cli/test_argument_parsing.cpp
     Unit/AiSolver/Cli/test_training_config.cpp
     Unit/AiSolver/Cli/test_cli_commands.cpp
+    Unit/HMI/Ai/test_training_overrides.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
@@ -563,7 +567,10 @@ target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
     PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets"
     PROJECTGAMING_AUDIO_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Audio"
-    PROJECTGAMING_THEME_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme.qss"
+    # Deux portees depuis le LOT-73 (EX-IHM-082) : les tests de theme lisent les DEUX, pour que
+    # leurs garde-fous continuent de couvrir la totalite du style livre.
+    PROJECTGAMING_THEME_IDENTITY_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme-identity.qss"
+    PROJECTGAMING_THEME_EDITOR_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Themes/theme-editor.qss"
     PROJECTGAMING_MAIN_MENU_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/MainMenu.ui"
     PROJECTGAMING_OPTIONS_PAGE_UI_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/UI/OptionsPage.ui"
     PROJECTGAMING_FR_LANG_PATH="${PROJECT_SOURCE_DIR}/Source/Elements/Localization/fr.lang"

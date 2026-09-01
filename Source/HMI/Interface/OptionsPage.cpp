@@ -41,7 +41,7 @@ constexpr const char* DIAGNOSTICS_SETTINGS_KEY = "diagnostics_overlay";
 OptionsPage::OptionsPage(GameViewport* viewport, AudioEngine* audio,
                          std::filesystem::path keybindingsPath, QWidget* parent)
     : QWidget(parent), _ui(std::make_unique<Ui::OptionsPage>()), _audio(audio) {
-    setObjectName(QStringLiteral("OptionsPage"));  // ciblé par le thème (theme.qss)
+    setObjectName(QStringLiteral("OptionsPage"));  // ciblé par le thème (theme-identity.qss)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
 

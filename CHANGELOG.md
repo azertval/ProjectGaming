@@ -6,6 +6,55 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **IHM — un écran ne dicte plus sa taille à la fenêtre, et changer d'écran ne gèle plus
+  l'interface** (`LOT-73`, `EX-IHM-080` à `EX-IHM-083`). Trois symptômes rapportés à l'usage —
+  fenêtre réclamant plus grand que l'écran, gel de plusieurs secondes en navigation, Mode IA peu
+  lisible et incomplet — remontaient à deux défauts structurels et un écart de périmètre.
+
+  - **Un seul écran dense fixait le plancher de la fenêtre entière.**
+    `QStackedWidget::minimumSizeHint` vaut le maximum sur *toutes* ses pages, masquées comprises ;
+    ce plancher était de surcroît multiplié par le facteur d'agrandissement des écrans du jeu
+    (jusqu'à 3×), lui-même dérivé de la hauteur de la fenêtre — une boucle sans point fixe, que rien
+    ne bornait à l'écran (`availableGeometry` n'apparaissait nulle part dans le dépôt). Sur un
+    affichage de `1920x1009` utiles, le menu principal réclamait `1030x1497` et le Mode IA
+    `2280x1560` : Windows refusait la géométrie et l'interface débordait en rognant son contenu.
+    Le défaut s'était déjà produit **deux fois**, corrigé deux fois écran par écran. `ScreenPageHost`
+    porte désormais la garantie sur le **chemin d'ajout commun** — toute page défile plutôt que de
+    rogner, et contribue zéro au minimum de la fenêtre. Le facteur est borné par la zone d'affichage
+    disponible, la géométrie restaurée y est ramenée, et un dépassement est journalisé au démarrage.
+  - **Une préoccupation d'écran repolissait les 862 widgets de l'application.** Le facteur
+    d'agrandissement ne concerne que les écrans du jeu, mais vivait dans la feuille de style
+    applicative : en changer coûtait **cinq secondes en configuration Debug**. Le regroupement
+    introduit auparavant en atténuait la fréquence sans en réduire l'ampleur, et le faisait atterrir
+    *après* le placement de la fenêtre — d'où le recalage visible. Le thème est scindé en deux
+    feuilles disjointes (`theme-identity.qss`, `theme-editor.qss`), chacune posée à sa portée :
+    l'identité sur la pile d'écrans, le châssis sur l'application. Plus rien à différer, donc plus
+    de regroupement : le facteur s'applique dans le redimensionnement même.
+  - **Neuf réglages du Mode IA étaient lus puis jetés.** `configFromForm()` remplissait le taux
+    d'apprentissage du critique, le taux de croisement, les épisodes par lot, l'entropie,
+    l'exploration minimale, l'écrêtage du gradient, les images par décision, le budget de pas et le
+    seuil de blocage ; `TrainingRequest` n'avait aucun champ pour les recevoir. Les régler ne
+    changeait rien, et le `config.json` du run affirmait le contraire — « Reprendre les réglages de
+    ce run » rechargeait donc des valeurs fausses. La traduction requête → surcharges est extraite
+    en fonction pure (`hmi::overridesFor`) et vérifiée champ par champ. L'écran ouvre par ailleurs
+    sur les défauts du moteur : trois champs en divergeaient, si bien que « Réinitialiser aux
+    défauts » les *changeait*.
+  - **Le Mode IA devient hybride : enveloppe d'identité, contenu d'outil.** Seul écran de la portée
+    identité à n'être pas un écran de joueur, il gardait la police bitmap et le facteur ×3 sur
+    vingt-six lignes de formulaire et une table à huit colonnes. Il conserve fond, titre, cadre et
+    bouton de retour ; son contenu passe à la densité d'un outil, aux couleurs du jeu.
+  - **Le graphique se lit.** Trois graduations avec leurs valeurs, les bornes de l'intervalle de
+    générations, et une quatrième courbe de **moyenne mobile** — que l'enregistreur calculait déjà
+    et écrivait au CSV, mais ne transmettait pas à l'écran. Il ne se fait plus écraser par la table
+    voisine (politique de taille déclarée), et les en-têtes des deux tables sont enfin dimensionnés.
+  - **Garde-fou de parité des traductions** : les deux catalogues doivent déclarer exactement les
+    mêmes clés, dans les deux sens. Une clé manquante d'un côté ne cassait rien de visible — le repli
+    affiche l'autre langue — et ne se voyait qu'en changeant de langue, écran par écran.
+
+  Non traité, consigné dans `LOT-73` TACHE-06 : la latence du **jeu** en configuration Debug (trace
+  émise à chaque frame dans le chemin de rendu, puits de journalisation synchrones, absence de
+  préréglage `RelWithDebInfo`) — famille de défauts distincte du gel d'interface corrigé ici.
+
 - **Mode IA — l'apprentissage par gradient était bloqué par son environnement, pas par son
   algorithme.** Audit complet du solveur et de son écran. Cause racine, mesurée : sur
   `demo-final.json`, **chaque épisode était coupé au bout de ~215 pas sur les 3 000 disponibles**,

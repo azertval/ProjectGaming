@@ -81,6 +81,7 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-69
 - @subpage lot-70
 - @subpage lot-72
+- @subpage lot-73
 
 ## Programme annexe
 

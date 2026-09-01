@@ -8,6 +8,7 @@
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QGroupBox>
+#include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -63,7 +64,7 @@ std::filesystem::path replaysDir() {
 
 AiModeScreen::AiModeScreen(QWidget* parent)
     : QWidget(parent), _ui(std::make_unique<Ui::AiModeScreen>()) {
-    setObjectName(QStringLiteral("AiModeScreen"));  // ciblé par le thème (theme.qss)
+    setObjectName(QStringLiteral("AiModeScreen"));  // ciblé par le thème (theme-identity.qss)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
 
@@ -109,8 +110,17 @@ AiModeScreen::AiModeScreen(QWidget* parent)
     connect(_ui->saveConfigButton, &QPushButton::clicked, this, &AiModeScreen::onSaveConfig);
     connect(_ui->resetDefaultsButton, &QPushButton::clicked, this, &AiModeScreen::onResetDefaults);
 
+    // Le formulaire OUVRE sur les defauts du moteur, jamais sur les litteraux du .ui (EX-IHM-083).
+    // Ces derniers ne sont qu'un repli de conception : trois d'entre eux avaient diverge du code
+    // (taux d'apprentissage 0,01 contre 0,003 ; gamma 0,99 contre 0,995 ; optimiseur "sgd" contre
+    // "adam"), si bien que l'ecran decrivait au demarrage un run que `aisolver-cli train` sans
+    // option n'aurait pas produit -- et que "Reinitialiser aux defauts" CHANGEAIT trois champs
+    // au lieu de n'en changer aucun. Meme appel que le bouton : une seule source de verite.
+    applyConfigToForm(aisolver::cli::TrainingConfig{});
+
     // Le dossier des runs est modifiable, mais part de l'emplacement historique (a cote de
-    // l'executable) : un utilisateur qui ne touche a rien retrouve ses runs precedents.
+    // l'executable) : un utilisateur qui ne touche a rien retrouve ses runs precedents. Pose
+    // APRES applyConfigToForm, qui ne connait pas cet emplacement.
     _ui->runsRootEdit->setText(QString::fromStdString(runsRootDir().string()));
 
     // Menu evolutif (LOT-ANNEXE-21) : chaque radio d'algorithme ne montre que les groupes de
@@ -124,6 +134,17 @@ AiModeScreen::AiModeScreen(QWidget* parent)
             }
         });
     }
+    // En-tetes des deux tables : aucune n'etait dimensionnee. Huit colonnes aux libelles longs
+    // (« Meilleure recompense », « Recompense moyenne »...) restaient a la largeur par defaut, donc
+    // tronquees, avec un defilement horizontal permanent pour lire ce qui aurait tenu. Et l'en-tete
+    // VERTICAL affichait des numeros de ligne qui repetent la colonne « Generation » -- laquelle
+    // porte deja l'index, et avec la bonne valeur.
+    for (QTableWidget* const table : {_ui->statsTable, _ui->replayTable}) {
+        table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+        table->horizontalHeader()->setStretchLastSection(true);
+        table->verticalHeader()->setVisible(false);
+    }
+
     connect(_ui->replayTable, &QTableWidget::itemSelectionChanged, this, [this] {
         _ui->launchReplayButton->setEnabled(!_ui->replayTable->selectedItems().isEmpty());
     });
@@ -245,9 +266,9 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
          t("ai_mode.column_reward_stddev"), t("ai_mode.column_best_steps"),
          t("ai_mode.column_success_rate"), t("ai_mode.column_seed")});
     _ui->trainingChart->setEmptyLabel(t("ai_mode.chart_empty"));
-    _ui->trainingChart->setSeriesLabels(t("ai_mode.column_best_reward"),
-                                        t("ai_mode.column_mean_reward"),
-                                        t("ai_mode.column_success_rate"));
+    _ui->trainingChart->setSeriesLabels(
+        t("ai_mode.column_best_reward"), t("ai_mode.column_mean_reward"),
+        t("ai_mode.chart_moving_average"), t("ai_mode.column_success_rate"));
 
     // Onglet Validation & sauvegarde.
     _ui->runLabel->setText(t("ai_mode.run"));
@@ -312,8 +333,7 @@ void AiModeScreen::retranslateUi(const Localization& loc) {
     _ui->openRunFolderButton->setToolTip(t("ai_mode.open_run_folder_tip"));
     _ui->launchTrainingButton->setToolTip(t("ai_mode.launch_training_tip"));
     _ui->stopTrainingButton->setToolTip(t("ai_mode.stop_training_tip"));
-    _ui->generationCombo->setToolTip(t("ai_mode.generation_tip"));
-    _ui->previewButton->setToolTip(t("ai_mode.preview_tip"));
+    setPreviewAvailable(_ui->previewButton->isEnabled());
     _ui->runCombo->setToolTip(t("ai_mode.run_tip"));
     _ui->repetitionsSpin->setToolTip(t("ai_mode.repetitions_tip"));
     _ui->evalModelEdit->setToolTip(t("ai_mode.eval_model_tip"));
@@ -645,6 +665,18 @@ void AiModeScreen::setTrainingControlsEnabled(bool enabled) {
     _ui->stopTrainingButton->setVisible(!enabled);
 }
 
+void AiModeScreen::setPreviewAvailable(bool available) {
+    // L'etat ET son explication sont poses ENSEMBLE : un bouton grise sans raison affichee
+    // laisse croire a une panne. Ici l'attente est normale -- le premier apercu n'est ecrit
+    // qu'apres quelques secondes d'entrainement -- et le dire coute une infobulle.
+    _ui->previewButton->setEnabled(available);
+    _ui->generationCombo->setEnabled(available);
+    _ui->previewButton->setToolTip(available ? text("ai_mode.preview_tip")
+                                             : text("ai_mode.preview_tip_waiting"));
+    _ui->generationCombo->setToolTip(available ? text("ai_mode.generation_tip")
+                                               : text("ai_mode.preview_tip_waiting"));
+}
+
 void AiModeScreen::onLaunchTraining() {
     if (_worker || _ui->levelCombo->currentData().isNull()) {
         return;
@@ -668,6 +700,21 @@ void AiModeScreen::onLaunchTraining() {
     request.learningRate = form.learningRate;
     request.gamma = form.gamma;
     request.optimizer = _ui->optimizerCombo->currentText();
+    // Reglages communs a toutes les familles d'algorithmes. Ils etaient lus par configFromForm()
+    // puis JETES : TrainingRequest n'avait pas de champ pour les recevoir, si bien que les regler
+    // ne changeait rien -- et que le config.json du run decrivait un run qui n'avait pas tourne,
+    // d'ou "Reprendre les reglages de ce run" rechargeait des valeurs fausses. `IHM superset CLI`
+    // (LOT-ANNEXE-22) vaut dans les deux sens : un reglage expose atteint le moteur, ou ne
+    // s'expose pas (EX-IHM-083).
+    request.criticLearningRate = form.criticLearningRate;
+    request.crossoverRate = form.evolutionary.crossoverRate;
+    request.batchEpisodes = form.tuning.batchEpisodes;
+    request.entropyCoefficient = form.tuning.entropyCoefficient;
+    request.explorationFloor = form.tuning.explorationFloor;
+    request.gradientClipNorm = form.tuning.gradientClipNorm;
+    request.actionRepeat = form.tuning.actionRepeat;
+    request.maxSteps = form.maxSteps;
+    request.stuckThreshold = form.stuckThreshold;
     if (request.algorithmId == QLatin1String("avance")) {
         request.dqnReplayCapacity = form.dqnReplayCapacity;
         request.dqnBatchSize = form.dqnBatchSize;
@@ -681,8 +728,7 @@ void AiModeScreen::onLaunchTraining() {
 
     _ui->statsTable->setRowCount(0);
     _ui->trainingChart->clearChart();
-    _ui->previewButton->setEnabled(false);
-    _ui->generationCombo->setEnabled(false);
+    setPreviewAvailable(false);
     _ui->generationCombo->clear();
     _ui->openRunFolderButton->setEnabled(false);
     _ui->trainingRunFolderValue->setText(QString());
@@ -748,7 +794,8 @@ void AiModeScreen::onTrainingProgress(hmi::TrainingProgress step) {
     _ui->trainingStatusLabel->setText(text("ai_mode.status_progress")
                                           .arg(step.index)
                                           .arg(QString::number(step.bestReward, 'f', 3)));
-    _ui->trainingChart->addPoint(step.bestReward, step.meanReward, step.successRate);
+    _ui->trainingChart->addPoint(step.index, step.bestReward, step.meanReward,
+                                 step.movingAverageReward, step.successRate);
 
     // Une etape journalisee d'index N signifie N+1 etapes consommees : la barre et l'estimation
     // comptent un budget consomme, pas un numero d'etape.
@@ -797,8 +844,7 @@ void AiModeScreen::onTrainingPreviewReady(QString replayPath, QString /*algorith
     if (wasFollowingLatest) {
         _ui->generationCombo->setCurrentIndex(_ui->generationCombo->count() - 1);
     }
-    _ui->generationCombo->setEnabled(true);
-    _ui->previewButton->setEnabled(true);
+    setPreviewAvailable(true);
 }
 
 // Seul `solved` guide le message affiche ; les autres chemins decrivent le run qui vient de

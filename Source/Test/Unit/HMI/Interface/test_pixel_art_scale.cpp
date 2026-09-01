@@ -89,3 +89,88 @@ TEST(PixelArtScaleTest, HauteursCourantesDonnentLesFacteursAnnonces) {
     EXPECT_EQ(hmi::pixelArtScale(1080), 3);
     EXPECT_EQ(hmi::pixelArtScale(1440), 3);
 }
+
+/**
+ * @brief Le facteur borné n'excède jamais celui qu'admet la zone d'affichage disponible. C'est la
+ *        fermeture du cliquet : le facteur grossit les grandeurs d'habillage, qui grossissent la
+ *        taille minimale des écrans, qui grossit la fenêtre — laquelle relancerait le calcul un
+ *        cran plus haut si la seule hauteur de fenêtre décidait.
+ * \castest{<b>Le facteur borne n'excede jamais celui de la zone disponible.</b><br/>
+ * \tcat Unitaire · Echelle pixel art<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Demander le facteur borne pour des couples (hauteur de fenetre, zone
+ * disponible).<br/>2. Comparer au facteur de la seule zone disponible.<br/>
+ * \tattendu Le facteur borne ne depasse jamais celui de la zone disponible.
+ * }
+ */
+TEST(PixelArtScaleTest, FacteurBorneParLaZoneDisponible) {
+    constexpr int WINDOW_HEIGHTS[] = {200, 360, 720, 1080, 1560, 2400};
+    constexpr int AVAILABLE_HEIGHTS[] = {400, 720, 1009, 1080, 1440};
+    for (const int available : AVAILABLE_HEIGHTS) {
+        for (const int window : WINDOW_HEIGHTS) {
+            const int bounded = hmi::pixelArtScaleForDisplay(window, available);
+            EXPECT_LE(bounded, hmi::pixelArtScale(available))
+                << "fenetre " << window << ", zone disponible " << available;
+            EXPECT_GE(bounded, 1) << "fenetre " << window << ", zone disponible " << available;
+        }
+    }
+}
+
+/**
+ * @brief Une fenêtre que Qt a été contraint d'agrandir au-delà de l'écran ne gagne aucun facteur
+ *        pour autant. C'est exactement le cas signalé : sur un écran de 1009 pixels utiles, une
+ *        fenêtre poussée à 1560 réclamait le facteur 3, dont les grandeurs la poussaient plus loin
+ *        encore.
+ * \castest{<b>Une fenetre plus haute que l'ecran ne gagne pas de facteur.</b><br/>
+ * \tcat Unitaire · Echelle pixel art<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Zone disponible de 1009 pixels (cas rapporte).<br/>2. Demander le facteur pour des
+ * hauteurs de fenetre croissantes, jusqu'au-dela de l'ecran.<br/>
+ * \tattendu Le facteur plafonne a celui de la zone disponible et n'augmente plus.
+ * }
+ */
+TEST(PixelArtScaleTest, UneFenetreDebordanteNeGagnePasDeFacteur) {
+    constexpr int AVAILABLE = 1009;  // zone utile rapportee par l'utilisateur (ecran « R271 »).
+    const int ceiling = hmi::pixelArtScale(AVAILABLE);
+    EXPECT_EQ(ceiling, 2) << "1009 px n'admettent pas la maquette a l'echelle 3 (1080 px requis)";
+    for (const int window : {1009, 1160, 1476, 1497, 1560, 3000}) {
+        EXPECT_EQ(hmi::pixelArtScaleForDisplay(window, AVAILABLE), ceiling)
+            << "la fenetre de " << window << " px a gagne un facteur que l'ecran n'admet pas";
+    }
+}
+
+/**
+ * @brief Une zone disponible inconnue laisse la seule hauteur de fenêtre décider. Le cas se produit
+ *        avant que la fenêtre ne soit rattachée à un écran : refuser de choisir y vaudrait mieux
+ *        qu'un facteur arbitraire, mais l'interface doit tout de même s'afficher.
+ * \castest{<b>Une zone disponible inconnue laisse la fenetre decider.</b><br/>
+ * \tcat Unitaire · Echelle pixel art<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Demander le facteur borne avec une zone disponible nulle puis negative.<br/>
+ * \tattendu Le resultat est celui de `pixelArtScale` sur la seule hauteur de fenetre.
+ * }
+ */
+TEST(PixelArtScaleTest, ZoneDisponibleInconnueLaisseLaFenetreDecider) {
+    for (const int window : {0, 360, 720, 1080, 2400}) {
+        EXPECT_EQ(hmi::pixelArtScaleForDisplay(window, 0), hmi::pixelArtScale(window));
+        EXPECT_EQ(hmi::pixelArtScaleForDisplay(window, -1), hmi::pixelArtScale(window));
+    }
+}
+
+/**
+ * @brief Une fenêtre plus petite que l'écran garde son propre facteur : la borne ne doit pas
+ *        *imposer* le facteur de l'écran, seulement l'empêcher d'être dépassé. Sans quoi une petite
+ *        fenêtre sur un grand écran rendrait une maquette plus grande qu'elle.
+ * \castest{<b>Une petite fenetre garde son facteur sur un grand ecran.</b><br/>
+ * \tcat Unitaire · Echelle pixel art<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Zone disponible de 1440 pixels.<br/>2. Demander le facteur pour des fenetres de 360
+ * et 720 pixels.<br/>
+ * \tattendu Respectivement 1 et 2, jamais le facteur 3 que l'ecran admettrait.
+ * }
+ */
+TEST(PixelArtScaleTest, UnePetiteFenetreGardeSonFacteur) {
+    EXPECT_EQ(hmi::pixelArtScaleForDisplay(360, 1440), 1);
+    EXPECT_EQ(hmi::pixelArtScaleForDisplay(720, 1440), 2);
+    EXPECT_EQ(hmi::pixelArtScaleForDisplay(1080, 1440), 3);
+}

@@ -32,6 +32,7 @@
 #include <QPoint>
 #include <QRect>
 #include <QResizeEvent>
+#include <QScreen>
 #include <QSettings>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -90,6 +91,7 @@
 #include "HMI/Interface/OptionsPage.h"
 #include "HMI/Interface/PauseScreen.h"
 #include "HMI/Interface/PixelArtScale.h"
+#include "HMI/Interface/ScreenPageHost.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "ui_MainWindow.h"
 #include "ui_ResizeDialog.h"
@@ -198,11 +200,14 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     _credits = new CreditsScreen();
     _aiMode = new AiModeScreen();
     _stack = new QStackedWidget(this);
-    _stack->addWidget(_menu);
-    _stack->addWidget(_options);
-    _stack->addWidget(_levelSelectScreen);
-    _stack->addWidget(_credits);
-    _stack->addWidget(_aiMode);
+    // Chaque ecran passe par une enveloppe defilante (LOT-73, EX-IHM-080) : sa taille minimale ne
+    // remonte plus jusqu'a la fenetre. Le VIEWPORT en est exclu -- surface de rendu QRhi, il
+    // remplit la page sans jamais defiler, et son minimum (320x240) tient sur tout ecran.
+    addScreenPage(_menu);
+    addScreenPage(_options);
+    addScreenPage(_levelSelectScreen);
+    addScreenPage(_credits);
+    addScreenPage(_aiMode);
     _stack->addWidget(_viewport);
     setCentralWidget(_stack);
     connect(_levelSelectScreen, &LevelSelectScreen::backRequested, this,
@@ -457,7 +462,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // fenetre, et la geometrie restauree peut differer du resize(1280, 720) ci-dessus. Le poser
     // ici, et non avant, evite que la premiere image du menu soit peinte a une echelle qu'un
     // resizeEvent devrait ensuite corriger sous les yeux du joueur.
-    applyIdentityScale();
+    applyIdentityScale(true);
 
     // Espace de travail persiste (LOT-68) : on rouvre l'editeur la ou on l'a laisse. Applique
     // APRES restoreLayout, qui restaurerait sinon des docks des deux espaces.
@@ -471,17 +476,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     workspaceSelector(startWorkspace)->setChecked(true);
     applyWorkspace(startWorkspace);
 
-    // Contrainte de taille imposee par les ecrans, journalisee une fois au demarrage.
-    //
-    // `QStackedWidget::minimumSizeHint` est le MAXIMUM sur toutes ses pages, y compris celles qu'on
-    // ne regarde pas : un seul ecran trop dense fixe donc la taille minimale de la FENETRE, que
-    // Windows refuse ensuite de retailler -- elle deborde sous la barre des taches en rognant son
-    // contenu, sans rien dire. Le defaut s'est produit deux fois ; cette ligne le rend lisible dans
-    // le journal que l'utilisateur envoie, au lieu de demander une session de mesure a chaque fois.
-    HMI_LOG_INFO("Taille minimale imposee par les ecrans : " +
-                 std::to_string(_stack->minimumSizeHint().width()) + "x" +
-                 std::to_string(_stack->minimumSizeHint().height()) + " (facteur " +
-                 std::to_string(hmi::identityScale()) + ").");
+    // Contrainte de taille imposee par les ecrans, verifiee une fois au demarrage (EX-IHM-080).
+    warnIfScreensConstrainWindow();
 
     showMenu();  // l'application démarre sur le menu principal.
 }
@@ -541,7 +537,7 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
     // derriere.
     switch (screen) {
         case ScreenId::Menu:
-            _stack->setCurrentWidget(_menu);
+            showScreenPage(_menu);
             // Rafraîchi ICI plutôt que dans showMenu() : la plupart des retours au menu ne passent
             // PAS par cette méthode -- returnToMenuFromLevelComplete/quitPauseToMenu/
             // closeLevelSelect résolvent chacun leur PROPRE ScreenEvent directement. Poser le
@@ -550,16 +546,16 @@ void MainWindow::applyScreenDressing(ScreenId screen) {
             _menu->setContinueEnabled(!_progression.currentLevel().empty());
             break;
         case ScreenId::Options:
-            _stack->setCurrentWidget(_options);
+            showScreenPage(_options);
             break;
         case ScreenId::LevelSelect:
-            _stack->setCurrentWidget(_levelSelectScreen);
+            showScreenPage(_levelSelectScreen);
             break;
         case ScreenId::Credits:
-            _stack->setCurrentWidget(_credits);
+            showScreenPage(_credits);
             break;
         case ScreenId::AiMode:
-            _stack->setCurrentWidget(_aiMode);
+            showScreenPage(_aiMode);
             break;
         case ScreenId::Editor:
         case ScreenId::Game:
@@ -941,44 +937,113 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
     applyIdentityScale();
 }
 
-void MainWindow::applyIdentityScale() {
+void MainWindow::addScreenPage(QWidget* page) {
+    auto* const host = new hmi::ScreenPageHost(page, _stack);
+    _screenHosts.insert(page, host);
+    _stack->addWidget(host);
+}
+
+void MainWindow::showScreenPage(QWidget* page) {
+    // Repli sur la page elle-meme : le viewport n'est pas enveloppe, et un ecran ajoute sans
+    // passer par addScreenPage doit rester affichable plutot que de ne rien afficher.
+    _stack->setCurrentWidget(_screenHosts.value(page, page));
+}
+
+int MainWindow::availableLogicalHeight() const {
+    const QScreen* const hostScreen = screen();
+    // availableGeometry est exprimee en pixels LOGIQUES en Qt 6, comme height() : les deux
+    // grandeurs sont directement comparables, sans passer par devicePixelRatio.
+    return hostScreen == nullptr ? 0 : hostScreen->availableGeometry().height();
+}
+
+void MainWindow::warnIfScreensConstrainWindow() const {
+    // `QStackedWidget::minimumSizeHint` est le MAXIMUM sur toutes ses pages, y compris celles qu'on
+    // ne regarde pas : un seul ecran trop dense fixerait la taille minimale de la FENETRE, que
+    // Windows refuse ensuite de retailler -- elle deborde sous la barre des taches en rognant son
+    // contenu, sans rien dire. Le defaut s'est produit trois fois.
+    //
+    // Depuis le LOT-73 chaque ecran passe par une enveloppe defilante qui contribue ZERO
+    // (EX-IHM-080), de sorte que ce plancher ne devrait plus jamais approcher la zone utile. On ne
+    // se contente donc plus de journaliser la valeur : on la CONFRONTE a l'ecran, et un
+    // depassement devient un avertissement dans le journal que l'utilisateur envoie.
+    const QSize required = _stack->minimumSizeHint();
+    HMI_LOG_INFO("Taille minimale imposee par les ecrans : " + std::to_string(required.width()) +
+                 "x" + std::to_string(required.height()) + " (facteur " +
+                 std::to_string(hmi::identityScale()) + ").");
+
+    const QScreen* const hostScreen = screen();
+    if (hostScreen == nullptr) {
+        return;
+    }
+    const QSize available = hostScreen->availableGeometry().size();
+    if (required.width() > available.width() || required.height() > available.height()) {
+        HMI_LOG_WARNING("Un ecran impose une taille minimale de " +
+                        std::to_string(required.width()) + "x" + std::to_string(required.height()) +
+                        ", superieure a la zone disponible (" + std::to_string(available.width()) +
+                        "x" + std::to_string(available.height()) +
+                        ") : la fenetre debordera et son contenu sera rogne (EX-IHM-080).");
+    }
+}
+
+void MainWindow::applyIdentityScale(bool beforeFirstShow) {
     // Fenetre en cours de fermeture ou de destruction : ne rien recalculer. Qt envoie encore des
     // evenements de redimensionnement pendant le demontage d'une QMainWindow a docks, ce qui
     // ramenerait le facteur a 1 et declencherait un rejeu de theme sur des widgets a moitie
     // detruits.
-    if (_closing || !isVisible()) {
+    //
+    // L'exception est la CONSTRUCTION : la fenetre n'y est pas encore montree, et la garde
+    // d'invisibilite y rendait l'appel sans effet -- l'application demarrait donc toujours au
+    // facteur 1, le vrai facteur n'arrivant qu'au premier redimensionnement, sous les yeux du
+    // joueur. C'est exactement ce que le commentaire de l'appelant pretendait eviter.
+    if (_closing || (!isVisible() && !beforeFirstShow)) {
         return;
     }
     // Facteur ENTIER des ecrans du jeu (LOT-68, EX-IHM-070), derive de la hauteur LOGIQUE de la
     // fenetre : Qt applique la mise a l echelle systeme par-dessus. Le theme n est rejoue que
     // lorsque le facteur CHANGE -- le refaire a chaque pixel de redimensionnement reconstruirait
     // la feuille de style des dizaines de fois par seconde.
-    if (!hmi::setIdentityScale(hmi::pixelArtScale(height()))) {
+    //
+    // BORNE par la zone d'affichage disponible, jamais par la seule hauteur de fenetre
+    // (EX-IHM-081) : le facteur grossit les grandeurs d'habillage, qui grossissent la taille
+    // minimale des ecrans, qui grossit celle de la fenetre -- laquelle relancerait le calcul un
+    // cran plus haut, sans que rien ne redescende jamais. La zone disponible, elle, ne depend
+    // d'aucune decision de l'application : c'est ce qui ferme la boucle.
+    const bool scaleChanged =
+        hmi::setIdentityScale(hmi::pixelArtScaleForDisplay(height(), availableLogicalHeight()));
+    // A la CONSTRUCTION, la feuille est posee meme si le facteur n'a pas bouge : la pile d'ecrans
+    // n'en porte encore aucune, et la portee identite ne vit plus dans la feuille applicative
+    // depuis le LOT-73. Sans cette exception, une fenetre ouvrant au facteur 1 -- la valeur
+    // initiale -- laisserait les ecrans du jeu sans habillage.
+    if (!scaleChanged && !beforeFirstShow) {
         return;
     }
-    // DIFFERE et REGROUPE, jamais joue dans le resizeEvent lui-meme : reposer la feuille de style
-    // de l'application repolit TOUS ses widgets -- 862 sur cette application, et la re-polish leur
-    // recalcule metriques, tailles et dispositions. Mesure en Debug : 5 secondes par appel.
+    // Seule la feuille de la portee IDENTITE est reposee, et seulement sur la pile d'ecrans
+    // (LOT-73, EX-IHM-082). C'est la difference qui fait disparaitre le gel.
     //
-    // Or un glisser de bordure qui longe un seuil de facteur (multiple de PIXEL_ART_BASE_HEIGHT)
-    // le franchit des dizaines de fois : sans regroupement, chaque franchissement empilait un
-    // rejeu complet, et la fenetre restait figee bien apres que l'utilisateur ait lache la souris.
-    // Le minuteur redemarre a chaque changement : seul le DERNIER facteur est finalement joue,
-    // celui qu'on voit a l'arrivee -- l'aspect final est identique, le chemin pour y arriver ne
-    // l'est plus.
-    if (_themeReapplyTimer == nullptr) {
-        _themeReapplyTimer = new QTimer(this);
-        _themeReapplyTimer->setSingleShot(true);
-        _themeReapplyTimer->setInterval(THEME_REAPPLY_DEBOUNCE_MS);
-        connect(_themeReapplyTimer, &QTimer::timeout, this, [this] {
-            // Le garde est reevalue a l'echeance : la fenetre a pu se fermer entre-temps.
-            if (_closing || !isVisible()) {
-                return;
-            }
-            hmi::reapplyEditorTheme();
-        });
+    // Auparavant, le facteur vivait dans la feuille de style de l'APPLICATION : en changer
+    // repolissait ses 862 widgets, avec recalcul de metriques, de tailles et de dispositions pour
+    // chacun -- cinq secondes par appel en Debug. Il avait fallu REGROUPER ces rejeux derriere un
+    // minuteur, un glisser de bordure franchissant un seuil de facteur des dizaines de fois. Le
+    // regroupement rendait le cout supportable sans le supprimer, et le faisait atterrir APRES le
+    // relachement de la souris, quand la fenetre etait deja placee -- d'ou un recalage visible.
+    //
+    // Le cout est desormais proportionnel a ce qui change reellement : les quelques dizaines de
+    // widgets des ecrans du jeu. Plus rien a differer, donc plus rien a regrouper -- le facteur
+    // s'applique dans le redimensionnement lui-meme, ou l'utilisateur l'attend.
+    applyIdentityStyleSheet();
+}
+
+void MainWindow::applyIdentityStyleSheet() {
+    const QString sheet = hmi::identityStyleSheet();
+    // Feuille absente ou invalide : garder la precedente. Un ecran sans habillage serait pire que
+    // le meme ecran a un facteur perime (EX-NFR-040).
+    if (sheet.isEmpty()) {
+        return;
     }
-    _themeReapplyTimer->start();
+    // Posee sur la PILE, jamais sur l'application : la pile ne contient que les ecrans et le
+    // viewport. Les panneaux dockables, les barres et la barre d'etat -- l'essentiel des 862
+    // widgets -- n'appartiennent pas a cette portee et n'ont donc pas a etre repolis.
+    _stack->setStyleSheet(sheet);
 }
 
 void MainWindow::moveEvent(QMoveEvent* event) {
@@ -2059,6 +2124,32 @@ void MainWindow::restoreLayout() {
     const QByteArray state = settings.value(QString::fromLatin1(STATE_KEY)).toByteArray();
     if (!geometry.isEmpty()) {
         restoreGeometry(geometry);
+        // La geometrie persistee n'a jamais ete bornee a l'ecran (EX-IHM-081) : une session qui
+        // s'est terminee sur une fenetre debordante la restituait telle quelle, et le defaut
+        // survivait au redemarrage. On la ramene dans la zone utile -- taille PUIS position, dans
+        // cet ordre : deplacer une fenetre trop grande ne la ferait pas tenir.
+        const QScreen* const hostScreen = screen();
+        if (hostScreen != nullptr) {
+            const QRect available = hostScreen->availableGeometry();
+            // Bordures de fenetre comprises : c'est le CADRE qui doit tenir dans la zone utile, pas
+            // la seule zone client. resize() dimensionne la zone client, d'ou le retrait.
+            const QSize decorations = frameGeometry().size() - size();
+            const QSize fittedFrame = frameGeometry().size().boundedTo(available.size());
+            if (fittedFrame != frameGeometry().size()) {
+                resize(fittedFrame - decorations);
+            }
+            // move() positionne le CADRE d'une fenetre de haut niveau : aucune conversion a faire.
+            QRect placed = frameGeometry();
+            placed.moveLeft(
+                std::clamp(placed.left(), available.left(),
+                           std::max(available.left(), available.right() - placed.width() + 1)));
+            placed.moveTop(
+                std::clamp(placed.top(), available.top(),
+                           std::max(available.top(), available.bottom() - placed.height() + 1)));
+            if (placed.topLeft() != frameGeometry().topLeft()) {
+                move(placed.topLeft());
+            }
+        }
     }
     if (!state.isEmpty()) {
         _suppressPanelFocusTracking = true;

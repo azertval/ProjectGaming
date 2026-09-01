@@ -21,7 +21,8 @@
  * (`LOT-ANNEXE-19`).
  *
  * Écran **du jeu** : il relève donc de l'identité pixel art (`EX-IHM-070`) — police bitmap,
- * couleurs et facteur d'agrandissement entier reçus de `theme.qss`, cadre à bordure franche
+ * couleurs et facteur d'agrandissement entier reçus de `theme-identity.qss`, cadre à bordure
+ * franche
  * (`PixelFrameWidget`, posé dans le `.ui`) — et de la marque explicite de focus (`EX-IHM-071`),
  * peinte par `PixelFocusCaret` pour les contrôles Qt ordinaires et par `PixelMenuButton` pour
  * l'entrée « Retour ».
@@ -86,6 +87,10 @@ signals:
     void replayRequested(QString replayPath);
 
 private slots:
+    /// Pose l'état d'« aperçu disponible » **et** l'infobulle qui l'explique.
+    /// Les deux ensemble : un contrôle grisé dont rien ne dit pourquoi se lit comme une
+    /// panne, alors que l'attente du premier aperçu est le déroulement normal d'un run.
+    void setPreviewAvailable(bool available);
     void onLaunchTraining();
     void onStopTraining();
     void onTrainingProgress(hmi::TrainingProgress step);

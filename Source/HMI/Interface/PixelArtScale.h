@@ -43,4 +43,28 @@ inline constexpr int PIXEL_ART_MAX_SCALE = 3;
  */
 [[nodiscard]] int pixelArtScale(int windowLogicalHeight) noexcept;
 
+/**
+ * @brief Facteur d'agrandissement **borné par la zone d'affichage réellement disponible**
+ *        (`EX-IHM-081`).
+ *
+ * `pixelArtScale` seule ne connaît que la fenêtre, et c'est insuffisant : le facteur grossit les
+ * grandeurs d'habillage, qui grossissent la taille minimale des écrans, qui grossit celle de la
+ * fenêtre — laquelle relance le calcul un cran plus haut. Rien ne redescend jamais, la fenêtre ne
+ * pouvant pas passer sous son propre minimum : c'est un **cliquet**, et il n'a d'issue que si le
+ * facteur cesse de dépendre d'une hauteur que lui-même fait croître.
+ *
+ * La zone disponible, elle, ne dépend de rien que l'application décide. La borner ferme la boucle :
+ * une fenêtre que Qt a été contraint d'agrandir au-delà de l'écran ne gagne plus de facteur pour
+ * autant.
+ *
+ * @param windowLogicalHeight    Hauteur de la fenêtre, en pixels logiques.
+ * @param availableLogicalHeight Hauteur utile de l'écran hébergeant la fenêtre (hors barre des
+ *                               tâches), en pixels logiques. Une valeur nulle ou négative signifie
+ *                               « écran inconnu » et laisse la seule hauteur de fenêtre décider.
+ * @return Le facteur entier, dans `[1, PIXEL_ART_MAX_SCALE]`, jamais supérieur à celui que la zone
+ *         disponible admet.
+ */
+[[nodiscard]] int pixelArtScaleForDisplay(int windowLogicalHeight,
+                                          int availableLogicalHeight) noexcept;
+
 }  // namespace hmi

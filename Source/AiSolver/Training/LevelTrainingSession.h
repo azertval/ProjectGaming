@@ -96,9 +96,11 @@ public:
      * veut suivre la progression (afficher un tableau, tracer une courbe) passe par ici plutôt que
      * d'ouvrir un second enregistreur sur le même fichier — deux flux en troncature sur un même
      * chemin se marcheraient dessus, et le rappel du second ne serait jamais appelé.
-     * @param onStatsRow Appelé après chaque génération journalisée, avec la ligne écrite.
+     * @param onStatsRow Appelé après chaque génération journalisée, avec la ligne écrite et les
+     *        grandeurs dérivées qui l'accompagnent (moyenne mobile, variation).
      */
-    void setOnStatsRow(std::function<void(const TrainingStatsRow&)> onStatsRow) {
+    void setOnStatsRow(
+        std::function<void(const TrainingStatsRow&, const TrainingStatsDerived&)> onStatsRow) {
         _recorder.setOnRecord(std::move(onStatsRow));
     }
 

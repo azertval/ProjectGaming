@@ -20,9 +20,9 @@ PauseScreen::PauseScreen(QWidget* parent)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
 
-    // Fond translucide pose ici plutot que dans le theme (theme.qss) : propre a ce recouvrement
-    // par-dessus la scene figee, pas un jeton de theme editeur (LOT-56) -- la carte du menu garde
-    // un fond opaque pour rester lisible par-dessus n'importe quel niveau.
+    // Fond translucide pose ici plutot que dans le theme (theme-identity.qss) : propre a ce
+    // recouvrement par-dessus la scene figee, pas un jeton de theme editeur (LOT-56) -- la carte du
+    // menu garde un fond opaque pour rester lisible par-dessus n'importe quel niveau.
     setStyleSheet(
         QStringLiteral("#PauseScreen { background-color: rgba(0, 0, 0, 160); }"
                        "#menuCard { background-color: rgba(32, 32, 32, 230); "

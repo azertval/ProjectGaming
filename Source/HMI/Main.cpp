@@ -210,8 +210,9 @@ int main(int argc, char** argv) {
 
     // Thème complet (palette + feuille de style, LOT-56) du châssis d'édition (portée variable),
     // avant la construction de la fenêtre. La feuille de style couvre désormais toute l'IHM,
-    // produite à partir des jetons (Source/Elements/Themes/theme.qss, TACHE-02) : elle remplace le
-    // chargement direct historique (repli sans fichier de thème préservé dans applyStyleSheet).
+    // produite à partir des jetons (Source/Elements/Themes/theme-editor.qss, TACHE-02) : elle
+    // remplace le chargement direct historique (repli sans fichier de thème préservé dans
+    // applyStyleSheet).
     hmi::applyEditorTheme();
 
     hmi::MainWindow window(sessionLog);

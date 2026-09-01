@@ -183,6 +183,46 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   de chaque commande, et non décidée par le code qui peuple les barres : une répartition implicite
   ne se relit pas et dérive au premier ajout.
 
+## 9. Taille, réactivité et réglages effectifs (LOT-73)
+
+Les sections précédentes ont donné à l'interface son châssis, son habillage et sa répartition de
+l'information. Aucune n'a jamais dit **qui décide de la taille de la fenêtre**. La réponse, de fait,
+était : le plus dense des écrans. `QStackedWidget::minimumSizeHint` valant le maximum sur *toutes*
+ses pages — y compris celles qu'on ne regarde pas — un seul écran chargé fixait le plancher de la
+fenêtre entière ; et ce plancher était multiplié par le facteur d'agrandissement d'`EX-IHM-070`,
+lui-même dérivé de la hauteur de la fenêtre. La boucle se refermait sur elle-même, sans que rien ne
+la borne : la fenêtre grandissait, le facteur montait, le plancher montait, la fenêtre grandissait.
+Windows finissait par refuser la géométrie, et l'interface débordait sous la barre des tâches en
+rognant son contenu, sans rien dire. Le défaut s'est produit trois fois, et a été corrigé deux fois
+écran par écran.
+
+Symétriquement, deux préoccupations vivaient à une portée plus large que la leur. Le facteur
+d'agrandissement, qui ne concerne que les écrans du jeu, était substitué dans la feuille de style de
+l'**application** : en changer repolissait ses 862 widgets, cinq secondes durant en configuration
+Debug. Et l'onglet Entraînement du Mode IA lisait neuf réglages que rien ne transmettait au moteur,
+pendant que le `config.json` du run affirmait le contraire.
+
+- \anchor EX-IHM-080 **EX-IHM-080** — Aucun écran ne doit **contraindre la taille de la fenêtre** :
+  il s'y adapte, au besoin en **défilant**, et ne rogne jamais son contenu sans recours. Cette
+  garantie doit être portée par le **chemin d'ajout commun** des écrans, et non par une convention à
+  réappliquer dans chaque fichier de description d'interface : une règle qu'il faut se rappeler
+  d'appliquer se reperd au premier écran ajouté — c'est déjà arrivé deux fois.
+- \anchor EX-IHM-081 **EX-IHM-081** — Le **facteur d'agrandissement** (`EX-IHM-070`) doit être borné
+  par la **zone d'affichage disponible**, et non par la seule hauteur de la fenêtre ; la géométrie
+  **restaurée** d'une session précédente doit être ramenée dans cette même zone, position et taille.
+  Un facteur dérivé d'une hauteur que lui-même fait croître n'a pas de point fixe : la borne doit
+  venir d'une grandeur dont l'application ne décide pas.
+- \anchor EX-IHM-082 **EX-IHM-082** — Une préoccupation limitée à une **portée** ne doit jamais
+  provoquer un rejeu de style d'une portée **plus large**. Les deux portées d'`EX-IHM-050` (identité
+  du jeu, châssis d'édition) sont donc deux feuilles **disjointes**, appliquées chacune là où elle
+  porte : l'identité sur la pile d'écrans, le châssis sur l'application. Le coût d'un changement
+  d'habillage doit rester proportionnel à ce qui change réellement.
+- \anchor EX-IHM-083 **EX-IHM-083** — Tout **réglage exposé** par un écran doit **atteindre** le
+  moteur, ou ne pas être exposé ; et l'écran doit **ouvrir sur les valeurs par défaut du moteur**,
+  jamais sur une seconde liste de valeurs inscrite dans sa description. Généralise à toute l'IHM le
+  corollaire `IHM ⊇ CLI` du [`LOT-ANNEXE-22`](@ref lot-annexe-22). Un réglage inerte est pire qu'un
+  réglage absent : il se règle, il s'enregistre dans la configuration du run, et il ment.
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans
@@ -190,4 +230,5 @@ de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclarat
 couverte par des tests (`EX-NFR-010`, `EX-NFR-020`). Détail du séquencement : lots
 [`LOT-34`](@ref lot-34) à [`LOT-39`](@ref lot-39) pour la refonte initiale ;
 [`LOT-56`](@ref lot-56) (section 6) et [`LOT-57`](@ref lot-57) (section 7) pour la révision de
-l'apparence et de la répartition de l'information.
+l'apparence et de la répartition de l'information ; [`LOT-73`](@ref lot-73) (section 9) pour
+l'invariant de taille, les portées de thème et les réglages effectifs.

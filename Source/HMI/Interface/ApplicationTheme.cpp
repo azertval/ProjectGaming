@@ -190,12 +190,18 @@ int identityScale() {
     return identityScaleState();
 }
 
-void applyStyleSheet(const DesignTokens& editorTokens) {
-    QFile themeFile(QStringLiteral(":/resources/theme.qss"));
+namespace {
+
+// Charge une feuille embarquee et y substitue les jetons. Chaine VIDE en cas d'echec : l'appelant
+// laisse alors en place la feuille precedente plutot que d'en poser une a moitie substituee.
+// Repli explicite journalise, jamais une exception (EX-NFR-040).
+[[nodiscard]] QString loadStyleSheet(const QString& resourcePath,
+                                     const DesignTokens& editorTokens) {
+    QFile themeFile(resourcePath);
     if (!themeFile.open(QFile::ReadOnly | QFile::Text)) {
-        HMI_LOG_WARNING(
-            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
-        return;
+        HMI_LOG_WARNING("Theme d'interface introuvable (" + resourcePath.toStdString() +
+                        ") : style par defaut.");
+        return {};
     }
     const std::string templateText = QString::fromUtf8(themeFile.readAll()).toStdString();
     // Les familles de police sont ajoutees ICI et non dans buildStyleSheetValues : ce dernier est
@@ -212,11 +218,30 @@ void applyStyleSheet(const DesignTokens& editorTokens) {
     const StyleSheetSubstitutionResult substituted =
         substituteStyleSheetTemplate(templateText, values);
     if (!substituted.ok) {
-        HMI_LOG_WARNING("Theme d'interface invalide (" + substituted.error +
-                        ") : style par defaut.");
+        HMI_LOG_WARNING("Theme d'interface invalide (" + resourcePath.toStdString() + " : " +
+                        substituted.error + ") : style par defaut.");
+        return {};
+    }
+    return QString::fromStdString(substituted.text);
+}
+
+}  // namespace
+
+void applyStyleSheet(const DesignTokens& editorTokens) {
+    // PORTEE APPLICATION : le chassis d'edition SEUL (LOT-73, EX-IHM-082). La portee identite est
+    // posee a part sur la pile d'ecrans par MainWindow -- l'y laisser faisait payer un rejeu
+    // applicatif complet (862 widgets, cinq secondes en Debug) au moindre changement de facteur
+    // d'agrandissement, qui ne concerne pourtant que les ecrans du jeu.
+    const QString sheet =
+        loadStyleSheet(QStringLiteral(":/resources/theme-editor.qss"), editorTokens);
+    if (sheet.isEmpty()) {
         return;
     }
-    qApp->setStyleSheet(QString::fromStdString(substituted.text));
+    qApp->setStyleSheet(sheet);
+}
+
+QString identityStyleSheet() {
+    return loadStyleSheet(QStringLiteral(":/resources/theme-identity.qss"), currentEditorTokens());
 }
 
 void applyFont() {

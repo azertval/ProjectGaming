@@ -15,4 +15,16 @@ int pixelArtScale(int windowLogicalHeight) noexcept {
     return std::clamp(fitted, 1, PIXEL_ART_MAX_SCALE);
 }
 
+int pixelArtScaleForDisplay(int windowLogicalHeight, int availableLogicalHeight) noexcept {
+    const int fromWindow = pixelArtScale(windowLogicalHeight);
+    // Zone disponible inconnue : aucune borne a appliquer. Le cas se produit avant que la fenetre
+    // ne soit rattachee a un ecran, ou sur une plate-forme qui ne sait pas le dire.
+    if (availableLogicalHeight <= 0) {
+        return fromWindow;
+    }
+    // Le MINIMUM des deux, jamais la seule zone disponible : une fenetre petite sur un grand ecran
+    // doit rester a son facteur, sans quoi elle rendrait une maquette plus grande qu'elle.
+    return std::min(fromWindow, pixelArtScale(availableLogicalHeight));
+}
+
 }  // namespace hmi
