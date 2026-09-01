@@ -6,6 +6,32 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.1.3] - 2026-09-01
+
+> Neuvième jalon. Le solveur IA de la version précédente **apprenait mal** : chaque épisode était
+> coupé au bout de ~215 pas sur les 3 000 disponibles, et la politique se figeait si complètement
+> que 10 000 épisodes archivés produisaient une trajectoire *bit à bit identique* à partir du
+> cinquantième. Trois causes, toutes dans l'**environnement** et aucune dans les algorithmes : une
+> progression mesurée à vol d'oiseau vers une sortie dont la solution s'éloigne, un budget de pas
+> plafonné sous ce que demande le tracé de référence, et une division `0 / 0` qui contaminait tout
+> le vecteur d'observation sur les sept niveaux interdisant le dash. Corrigées, mesurées :
+> `demo-wall-jump` passe de `0 %` à `98,5 %` de réussite.
+>
+> Le personnage gagne un **nuancier de mouvement** : dash chargé, poussée renforcée d'un bloc,
+> ground pound, et un combo dash + saut avec jump-cancel, wall-jump en sortie et momentum hérité.
+>
+> Et l'**interface est reprise à la racine**, là où trois symptômes la rendaient pénible à
+> l'usage. Une fenêtre qui réclamait plus grand que l'écran : aucune règle ne disait *qui décide
+> de la taille de la fenêtre*, et la réponse était, de fait, le plus dense des écrans — dont la
+> taille minimale était de surcroît multipliée par un facteur dérivé de la hauteur de cette même
+> fenêtre, une boucle sans point fixe. Un gel de plusieurs secondes à chaque changement d'écran :
+> le facteur d'agrandissement, qui ne concerne que les écrans du jeu, repolissait les 862 widgets
+> de l'application. Un mode IA peu lisible, dont neuf réglages étaient lus puis **jetés** avant
+> d'atteindre le moteur, pendant que la configuration du run affirmait le contraire. Les deux
+> premiers défauts sont désormais tenus par des **invariants** portés par le chemin d'ajout commun
+> des écrans et par deux feuilles de style disjointes — le défaut de taille s'était déjà produit
+> deux fois, et avait été corrigé deux fois écran par écran.
+
 - **IHM — un écran ne dicte plus sa taille à la fenêtre, et changer d'écran ne gèle plus
   l'interface** (`LOT-73`, `EX-IHM-080` à `EX-IHM-083`). Trois symptômes rapportés à l'usage —
   fenêtre réclamant plus grand que l'écran, gel de plusieurs secondes en navigation, Mode IA peu
