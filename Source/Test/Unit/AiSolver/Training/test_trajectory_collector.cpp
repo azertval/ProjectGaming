@@ -61,12 +61,12 @@ std::unique_ptr<aisolver::nn::Network> constantActionNetwork(std::size_t inputSi
 
 /**
  * @brief Un épisode qui n'atteint jamais l'issue (`TimedOut`) produit une trajectoire de longueur
- * exactement égale au budget de pas dur configuré.
+ * exactement égale au budget de pas dur, quand chaque décision couvre une seule image.
  * \castest{<b>TrajectoryCollector : longueur cohérente avec un timeout.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Politique à action constante « ne rien faire ».<br/>2. Collecter un épisode sur le
- * niveau trivial, budget de pas réduit.<br/>
+ * \tetapes 1. Politique à action constante « ne rien faire ».<br/>2. Collecter un épisode sur
+ * le niveau trivial, budget de pas réduit, **une image par décision**.<br/>
  * \tattendu `trajectory.status == TimedOut`, `trajectory.steps.size() == maxSteps`.}
  */
 TEST(TrajectoryCollectorTest, LongueurCoherenteAvecTimeout) {
@@ -79,12 +79,52 @@ TEST(TrajectoryCollectorTest, LongueurCoherenteAvecTimeout) {
     HeadlessLevelEnvironment env(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     ASSERT_TRUE(env.reset(level.levelPath()));
 
-    TrajectoryCollector collector;
+    TrajectoryCollector collector(1);
     Rng rng(1);
     const Trajectory trajectory = collector.collectEpisode(env, *network, rng);
 
     EXPECT_EQ(trajectory.status, aisolver::EpisodeStatus::TimedOut);
     EXPECT_EQ(trajectory.steps.size(), static_cast<std::size_t>(REDUCED_MAX_STEPS));
+}
+
+/**
+ * @brief Une action répétée `K` images produit `K` fois moins de pas de trajectoire, sans changer
+ *        le nombre d'images simulées.
+ *
+ * Un pas de trajectoire est une **décision**, pas une image : c'est sur la décision que porte le
+ * gradient, et sa récompense est la somme de celles des images qu'elle recouvre. Sans cette
+ * distinction, répéter une action multiplierait le poids de chaque décision par `K` dans la perte.
+ * \castest{<b>TrajectoryCollector : la répétition d'action divise le nombre de décisions.</b><br/>
+ * \tcat Unitaire · AiSolver Training<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Collecter un épisode à une image par décision.<br/>2. Collecter le même épisode
+ * à quatre images par décision.<br/>
+ * \tattendu Le second compte le quart des pas du premier (arrondi au supérieur), et l'épisode
+ * couvre le même budget d'images.}
+ */
+TEST(TrajectoryCollectorTest, RepetitionDActionDiviseLeNombreDeDecisions) {
+    const TrivialLevelDirectory level("repetition");
+    const ObservationEncoder encoder;
+    const std::size_t doNothingIndex =
+        aisolver::indexOf(aisolver::Action{aisolver::Direction::None, false, false, false});
+    auto network = constantActionNetwork(encoder.inputSize(), doNothingIndex);
+
+    constexpr int REPEAT = 4;
+    HeadlessLevelEnvironment singleFrameEnv(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
+    ASSERT_TRUE(singleFrameEnv.reset(level.levelPath()));
+    Rng singleRng(1);
+    const Trajectory singleFrame =
+        TrajectoryCollector(1).collectEpisode(singleFrameEnv, *network, singleRng);
+
+    HeadlessLevelEnvironment repeatedEnv(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
+    ASSERT_TRUE(repeatedEnv.reset(level.levelPath()));
+    Rng repeatedRng(1);
+    const Trajectory repeated =
+        TrajectoryCollector(REPEAT).collectEpisode(repeatedEnv, *network, repeatedRng);
+
+    EXPECT_EQ(singleFrame.steps.size(), static_cast<std::size_t>(REDUCED_MAX_STEPS));
+    EXPECT_EQ(repeated.steps.size(),
+              static_cast<std::size_t>((REDUCED_MAX_STEPS + REPEAT - 1) / REPEAT));
 }
 
 /**

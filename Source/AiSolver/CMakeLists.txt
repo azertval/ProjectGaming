@@ -29,6 +29,10 @@ add_library(AiSolver STATIC
     Env/TileWindowEncoder.cpp
     Env/PlayerStateEncoder.cpp
     Env/MechanismStateEncoder.cpp
+    # Voisinage du champ d'objectif rendu visible a l'agent : la recompense mesurait une direction
+    # que l'observation ne contenait pas, ce qu'aucune politique sans memoire ne peut deviner sur un
+    # niveau a plusieurs salles.
+    Env/ObjectiveEncoder.cpp
     # Espace d'action discret, decodage deterministe/stochastique et format de rejeu v1
     # (LOT-ANNEXE-07) : traduisent une distribution produite par un reseau en core::PlayerInput
     # jouable, et exportent une sequence d'actions gagnante dans un fichier rejouable en jeu.
@@ -44,6 +48,11 @@ add_library(AiSolver STATIC
     # mur force un détour.
     Env/GridDistanceField.cpp
     Env/Episode.cpp
+    # Budget de pas et seuil de blocage derives du niveau : la longueur de la chaine d'objectifs
+    # varie d'un facteur dix entre demo-wall-jump.json et demo-final.json, une constante globale ne
+    # peut donc etre juste aux deux bouts -- elle coupait les episodes des niveaux longs bien avant
+    # leur terme.
+    Env/StepBudget.cpp
     # Journalisation CSV incrementale des statistiques d'entrainement (LOT-ANNEXE-09) : format de
     # colonnes unique, reutilise sans changement par toute la generation 2/3 puis par le harnais de
     # benchmark (LOT-ANNEXE-15).

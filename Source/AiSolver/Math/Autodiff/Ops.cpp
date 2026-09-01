@@ -3,6 +3,7 @@
 
 #include "AiSolver/Math/Autodiff/Ops.h"
 
+#include <algorithm>
 #include <cmath>
 
 #include "AiSolver/Math/Matmul.h"
@@ -10,6 +11,21 @@
 #include "Core/Diagnostics/Assert.h"
 
 namespace aisolver::autodiff {
+
+namespace {
+
+/// Plancher applique a l'entree de `logOp`, a l'aller comme au retour.
+///
+/// L'appelant reel est la perte de policy gradient (`Training/PolicyGradientLoss.cpp`), dont
+/// l'entree est une probabilite issue d'un `softmax`. Une politique qui se specialise finit par
+/// produire des probabilites qui **s'annulent en flottant** (deux logits distants de plus de ~88
+/// suffisent) : `log(0)` vaut alors `-inf` et sa derivee `1/0` vaut `+inf`, ce qui detruit tous
+/// les poids au premier pas d'optimisation. Le plancher borne `log` a `-18.4` et la derivee a
+/// `1e8`, ou le gradient amont vaut deja zero -- la valeur reste finie, la formule reste exacte
+/// partout ailleurs.
+constexpr float LOG_INPUT_FLOOR = 1e-8f;
+
+}  // namespace
 
 NodePtr add(const NodePtr& a, const NodePtr& b) {
     return binaryOp(
@@ -135,13 +151,41 @@ NodePtr logOp(const NodePtr& a) {
         a,
         [](const Tensor<float>& value) {
             return aisolver::detail::elementwiseUnary(value, [](float x) {
-                PROJECTGAMING_ASSERT(x > 0.0f,
-                                     "logOp() : tous les elements d'entree doivent etre > 0");
-                return std::log(x);
+                PROJECTGAMING_ASSERT(x >= 0.0f,
+                                     "logOp() : tous les elements d'entree doivent etre >= 0");
+                return std::log((std::max)(x, LOG_INPUT_FLOOR));
             });
         },
         [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& inputValue) {
-            return aisolver::divide(outputGrad, inputValue);
+            // Meme plancher qu'a l'aller : sans lui, `outputGrad / 0` rend un gradient infini qui
+            // contamine tous les poids au premier `step()`.
+            const Tensor<float> flooredInput = aisolver::detail::elementwiseUnary(
+                inputValue, [](float x) { return (std::max)(x, LOG_INPUT_FLOOR); });
+            return aisolver::divide(outputGrad, flooredInput);
+        });
+}
+
+NodePtr sumAll(const NodePtr& a) {
+    return unaryOp(
+        a,
+        [](const Tensor<float>& value) {
+            Tensor<float> result({1});
+            float total = 0.0f;
+            for (std::size_t index = 0; index < value.size(); ++index) {
+                total += value.data()[index];
+            }
+            result.data()[0] = total;
+            return result;
+        },
+        [](const Tensor<float>&, const Tensor<float>& outputGrad, const Tensor<float>& inputValue) {
+            // Derivee d'une somme par rapport a chacun de ses termes : 1. Le gradient scalaire de
+            // sortie est donc diffuse tel quel sur toute la forme d'entree.
+            Tensor<float> result(inputValue.shape());
+            const float seed = outputGrad.data()[0];
+            for (std::size_t index = 0; index < result.size(); ++index) {
+                result.data()[index] = seed;
+            }
+            return result;
         });
 }
 

@@ -48,9 +48,10 @@ AssembledObservation assemble(const aisolver::HeadlessLevelEnvironment& env,
 
     const core::GridPosition center = centerCell(observation.playerBox);
     return AssembledObservation{
-        tileEncoder.encode(env.level().tileMap(), center),
+        tileEncoder.encode(env.collisionMap(), center),
         playerEncoder.encode(observation.playerState, observation.playerVelocity, env.level()),
-        mechanismEncoder.encode(env.mechanisms(), env.dangers(), env.level(), center, radius),
+        mechanismEncoder.encode(env.mechanisms(), env.dangers(), env.platforms(), env.level(),
+                                center, radius),
     };
 }
 

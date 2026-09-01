@@ -19,9 +19,11 @@
 
 #include <gtest/gtest.h>
 
+#include "AiSolver/Cli/TrainingConfig.h"
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Math/Autodiff/Node.h"
+#include "AiSolver/Optim/Adam.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
@@ -34,6 +36,7 @@ using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
 using aisolver::Rng;
 using aisolver::TrainingStatsRecorder;
+using aisolver::optim::Adam;
 using aisolver::optim::Sgd;
 using aisolver::training::ActorCriticConfig;
 using aisolver::training::ActorCriticTrainer;
@@ -68,28 +71,37 @@ std::vector<std::string> splitLines(const std::string& content) {
 }  // namespace
 
 /**
- * @brief Sur le niveau de contrôle trivial, l'erreur quadratique moyenne du critique (moyenne des
- * `(valeur_t - retour_t)^2` sur l'épisode) diminue entre le début et la fin d'un run
- * d'entraînement.
- * \castest{<b>ActorCriticTrainer : convergence du critique.</b><br/>
+ * @brief À **politique figée**, l'erreur quadratique du critique diminue au fil du run : il apprend
+ *        bien à prédire le retour observé.
+ *
+ * La politique est gelée (taux d'apprentissage nul) pour que la **cible** du critique le soit
+ * aussi. Mesurée sur un run ordinaire, l'erreur du critique peut croître alors même qu'il
+ * s'améliore : sa cible est le retour observé, dont l'amplitude augmente à mesure que la politique
+ * gagne plus souvent — l'erreur mesurerait alors le progrès de la politique, pas celui du critique.
+ * \castest{<b>ActorCriticTrainer : à politique figée, le critique converge.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `ActorCriticTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer l'erreur
- * quadratique moyenne du critique des 10 premiers et des 10 derniers épisodes.<br/>
+ * \tetapes 1. Run de `80` épisodes, optimiseur de la politique à taux nul (politique
+ * inchangée).<br/>2. Comparer l'erreur quadratique moyenne du critique des 10 premiers et des 10
+ * derniers épisodes.<br/>
  * \tattendu Erreur moyenne des 10 derniers épisodes strictement inférieure à celle des 10
- * premiers.}
+ * premiers ; les poids de la politique sont restés identiques.}
  */
-TEST(ActorCriticTrainerTest, ConvergenceDuCritique) {
+TEST(ActorCriticTrainerTest, ConvergenceDuCritiqueAPolitiqueFigee) {
     const TrivialLevelDirectory level("convergence");
     const ObservationEncoder encoder;
 
     Rng policyRng(21);
     auto policy = buildNetwork(policyTopology(encoder.inputSize()), policyRng);
-    Sgd policyOptimizer(0.05f);
+    // Taux nul : la politique produit toujours la meme distribution, donc les retours observes
+    // gardent la meme loi d'un episode a l'autre. C'est la seule facon de mesurer le critique sans
+    // mesurer aussi les progres de la politique.
+    Adam frozenPolicyOptimizer(0.0f);
+    const auto policyWeightsBefore = policy->parameters().front()->value.clone();
 
     Rng criticRng(22);
     CriticNetwork critic(encoder.inputSize(), CRITIC_HIDDEN_SIZE, criticRng);
-    Sgd criticOptimizer(0.05f);
+    Adam criticOptimizer(aisolver::cli::TrainingConfig{}.criticLearningRate);
 
     HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
     TrainingStatsRecorder recorder(level.file("stats.csv"));
@@ -99,9 +111,15 @@ TEST(ActorCriticTrainerTest, ConvergenceDuCritique) {
     config.gamma = 0.95f;
     config.seedBase = 21;
 
-    ActorCriticTrainer trainer(*policy, policyOptimizer, critic, criticOptimizer, environment,
+    ActorCriticTrainer trainer(*policy, frozenPolicyOptimizer, critic, criticOptimizer, environment,
                                level.levelPath(), config, recorder, "TrivialAI", criticLossCsv);
     trainer.run(EPISODE_COUNT);
+
+    const auto& policyWeightsAfter = policy->parameters().front()->value;
+    for (std::size_t i = 0; i < policyWeightsBefore.size(); ++i) {
+        ASSERT_FLOAT_EQ(policyWeightsBefore.data()[i], policyWeightsAfter.data()[i])
+            << "la politique devait rester figee";
+    }
 
     const std::vector<std::string> lines = splitLines(readWholeFile(criticLossCsv));
     ASSERT_EQ(lines.size(), EPISODE_COUNT + 1);

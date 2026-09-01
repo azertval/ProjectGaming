@@ -319,6 +319,27 @@ TEST(GradientCheckingTest, ExpOp) {
 }
 
 /**
+ * @brief `checkGradient` valide le gradient analytique de `sumAll` (vérification bloquante exigée
+ *        par `EX-IA-002` pour toute nouvelle opération différentiable).
+ * \castest{<b>Gradient checking : `sumAll`.</b><br/>
+ * \tcat Unitaire · Autodiff<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Tirer un tenseur `3x2` aléatoire (graine fixe).<br/>2. Appeler `checkGradient`
+ * avec `buildGraph = sumAll(input)`.<br/>
+ * \tattendu `passed == true`.}
+ */
+TEST(GradientCheckingTest, SumAll) {
+    aisolver::Rng rng(1107);
+    const std::vector<Tensor<float>> inputs = {randomTensor(rng, {3, 2}, -3.0f, 3.0f)};
+
+    const GradientCheckResult result = checkGradient(
+        [](const std::vector<NodePtr>& nodes) { return aisolver::autodiff::sumAll(nodes[0]); },
+        inputs);
+
+    EXPECT_TRUE(result.passed) << "Ecart maximal : " << result.maxAbsoluteError;
+}
+
+/**
  * @brief `checkGradient` valide le gradient analytique de `selectIndex`.
  * \castest{<b>Gradient checking : `selectIndex`.</b><br/>
  * \tcat Unitaire · Autodiff<br/>

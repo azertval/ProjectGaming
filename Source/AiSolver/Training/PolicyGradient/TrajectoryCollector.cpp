@@ -16,7 +16,13 @@
 
 namespace aisolver::training {
 
-TrajectoryCollector::TrajectoryCollector(int stuckThreshold) : _stuckThreshold(stuckThreshold) {}
+TrajectoryCollector::TrajectoryCollector(int actionRepeat, float explorationFloor)
+    : _actionRepeat(actionRepeat), _explorationFloor(explorationFloor) {
+    PROJECTGAMING_ASSERT(actionRepeat >= 1,
+                         "TrajectoryCollector : actionRepeat doit valoir au moins 1");
+    PROJECTGAMING_ASSERT(explorationFloor >= 0.0f && explorationFloor < 1.0f,
+                         "TrajectoryCollector : explorationFloor doit etre dans [0, 1[");
+}
 
 Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environment,
                                                nn::Network& policy, Rng& rng) const {
@@ -38,8 +44,6 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
     Trajectory trajectory;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
-    ObjectiveDistanceFieldCache distanceFieldCache;
-
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -49,29 +53,49 @@ Trajectory TrajectoryCollector::collectEpisode(HeadlessLevelEnvironment& environ
 
         // Toujours echantillonne (jamais argmax) : REINFORCE a besoin d'exploration pour que le
         // gradient de log-probabilite ait un sens (decision de cadrage de l'epic).
-        const Action action = decodeStochastic(distribution, 1.0f, rng);
+        //
+        // Plancher d'exploration : une part `epsilon` d'uniforme melangee a la distribution, sans
+        // quoi une politique saturee cesse definitivement d'essayer autre chose -- mesure a l'appui
+        // (`PolicyGradientTuning.h`). Le gradient reste celui de la politique, jamais celui de la
+        // distribution melangee.
+        Tensor<float> samplingDistribution = distribution.clone();
+        if (_explorationFloor > 0.0f) {
+            const float uniformShare = _explorationFloor / static_cast<float>(actionCount());
+            for (std::size_t index = 0; index < actionCount(); ++index) {
+                samplingDistribution.data()[index] =
+                    (1.0f - _explorationFloor) * distribution.data()[index] + uniformShare;
+            }
+        }
+        const Action action = decodeStochastic(samplingDistribution, 1.0f, rng);
         const std::size_t actionIndex = indexOf(action);
         const float probability = distribution.data()[actionIndex];
         const float logProbability = std::log(probability);
 
-        const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
-        // le reconstruit alors, et le rend tel quel sinon.
-        const GridDistanceField& distanceField =
-            distanceFieldCache.field(environment.level(), environment.mechanisms());
-        const float reward = computeReward(rewardConfig, distanceField, previousBox,
-                                           stepObservation.playerBox, stepObservation.outcome);
+        // L'action decidee est maintenue `_actionRepeat` images ; la recompense du pas de
+        // trajectoire est la somme de celles des images qu'il recouvre, et l'episode peut se
+        // terminer au milieu d'une repetition.
+        float reward = 0.0f;
+        for (int frame = 0; frame < _actionRepeat && status == EpisodeStatus::Ongoing &&
+                            !environment.budgetExhausted();
+             ++frame) {
+            const StepObservation stepObservation = environment.step(toPlayerInput(action, frame));
+            // Champ de l'environnement : une seule instance par episode, deja reconstruite par
+            // `step()` quand elle a cesse d'etre valide -- et celle-la meme dont la detection de
+            // blocage se sert.
+            reward += computeReward(rewardConfig, environment.objectiveField(), previousBox,
+                                    stepObservation.playerBox, stepObservation.outcome);
+
+            previousBox = stepObservation.playerBox;
+            playerState = stepObservation.playerState;
+            playerVelocity = stepObservation.playerVelocity;
+
+            status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
+                                     environment.stepsSinceProgress(),
+                                     std::numeric_limits<int>::max(), environment.stuckThreshold());
+        }
 
         trajectory.steps.push_back(
             TrajectoryStep{observationVector, actionIndex, logProbability, reward});
-
-        previousBox = stepObservation.playerBox;
-        playerState = stepObservation.playerState;
-        playerVelocity = stepObservation.playerVelocity;
-
-        status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
-                                 environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                 _stuckThreshold);
     }
     if (status == EpisodeStatus::Ongoing) {
         // Budget dur atteint sans que classifyEpisode() (hardStepBudget volontairement desactive

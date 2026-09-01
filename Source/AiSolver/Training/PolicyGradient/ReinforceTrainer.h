@@ -13,6 +13,7 @@
 #include "AiSolver/Optim/IOptimizer.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/PolicyGradient/TrajectoryCollector.h"
+#include "AiSolver/Training/PolicyGradientTuning.h"
 
 /**
  * @file AiSolver/Training/PolicyGradient/ReinforceTrainer.h
@@ -23,10 +24,12 @@
 namespace aisolver::training {
 
 /// Paramètres d'un run REINFORCE : `gamma` proche de `1` par défaut (voir décision de cadrage de
-/// l'épic), `seedBase` d'où dérive déterministiquement la graine de chaque épisode.
+/// l'épic), `seedBase` d'où dérive déterministiquement la graine de chaque épisode, et les réglages
+/// partagés avec l'acteur-critique (`PolicyGradientTuning`).
 struct ReinforceConfig {
-    float gamma = 0.99f;
+    float gamma = DEFAULT_GAMMA;
     std::uint64_t seedBase = 0;
+    PolicyGradientTuning tuning{};
 };
 
 /**
@@ -61,13 +64,16 @@ public:
                      std::string levelName);
 
     /**
-     * @brief Exécute `episodeCount` épisodes : pour chacun, réinitialise l'environnement, collecte
-     * une trajectoire complète (poids figés pendant tout l'épisode), calcule les retours, construit
-     * et rétropropage la perte REINFORCE, applique un pas d'optimiseur, journalise, puis remet à
-     * zéro le gradient accumulé avant l'épisode suivant.
+     * @brief Exécute `episodeCount` épisodes, par **lots** de `tuning.batchEpisodes`.
      *
-     * Une seule passe d'optimisation par trajectoire collectée (pas plusieurs époques sur le même
-     * lot de données, cf. décision de cadrage de l'épic — la différence structurante avec PPO,
+     * Pour chaque lot : réinitialise l'environnement et collecte une trajectoire complète par
+     * épisode (poids figés pendant tout le lot), calcule les retours, les centre-réduit sur le lot
+     * entier (`normalizeWeights`), rétropropage la perte de chaque épisode en **accumulant** les
+     * gradients, écrête leur norme globale, applique **un seul** pas d'optimiseur, journalise une
+     * ligne par épisode, puis remet le gradient à zéro.
+     *
+     * Une seule passe d'optimisation par lot de données collecté (pas plusieurs époques sur le
+     * même lot, cf. décision de cadrage de l'épic — la différence structurante avec PPO,
      * `LOT-ANNEXE-14`).
      * @param episodeCount Nombre d'épisodes à exécuter à la suite de ceux déjà joués.
      * @param shouldStop Vérifié au début de chaque épisode (`LOT-ANNEXE-21`) ; si présent et

@@ -33,5 +33,5 @@ l'application (`../HMI/Ai/`).
 - **Aucune exception ne remonte** d'une entrée malformée : les erreurs sont portées par des types
   résultat (`EX-NFR-040`).
 
-Réf. specs : `EX-IA-*` ([`ia-solveur.md`](../../Documentation/Specification/ia-solveur.md)),
+Réf. specs : `EX-IA-*` ([`ia.md`](../../Documentation/Specification/ia.md)),
 programme [programme annexe](Documentation/Lot-Annexe/lots-annexe.md), guides [`guide-annexe`](../../Documentation/Guide-Annexe/guide-annexe.md).

@@ -106,7 +106,11 @@ TEST(GeneticOperatorsTest, CroisementParentsIdentiques) {
     Individual parentB(aisolver::training::evolutionary::buildNetwork(topology, rngB));
 
     Rng crossRng(9999);
-    Individual child = crossover(parentA, parentB, topology, crossRng);
+    // Croisement force (taux a 1) : ces tests portent sur la COMBINAISON des deux parents,
+    // pas sur la probabilite de la declencher.
+    EvolutionaryConfig alwaysCross;
+    alwaysCross.crossoverRate = 1.0f;
+    Individual child = crossover(parentA, parentB, topology, alwaysCross, crossRng);
 
     auto childParams = child.network().parameters();
     auto parentParams = parentA.network().parameters();
@@ -135,7 +139,11 @@ TEST(GeneticOperatorsTest, CroisementProprieteDeBorne) {
     Individual parentB(aisolver::training::evolutionary::buildNetwork(topology, rngB));
 
     Rng crossRng(9998);
-    Individual child = crossover(parentA, parentB, topology, crossRng);
+    // Croisement force (taux a 1) : ces tests portent sur la COMBINAISON des deux parents,
+    // pas sur la probabilite de la declencher.
+    EvolutionaryConfig alwaysCross;
+    alwaysCross.crossoverRate = 1.0f;
+    Individual child = crossover(parentA, parentB, topology, alwaysCross, crossRng);
 
     auto childParams = child.network().parameters();
     auto paramsA = parentA.network().parameters();

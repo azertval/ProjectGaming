@@ -6,6 +6,8 @@
  * @brief Tests unitaires de aisolver::PlayerStateEncoder (LOT-ANNEXE-06, TACHE-02).
  */
 
+#include <cmath>
+
 #include <gtest/gtest.h>
 
 #include "AiSolver/Env/PlayerStateEncoder.h"
@@ -176,4 +178,49 @@ TEST(PlayerStateEncoderTest, EncodageDeterministe) {
     for (std::size_t index = 0; index < first.size(); ++index) {
         EXPECT_EQ(first.data()[index], second.data()[index]);
     }
+}
+
+/**
+ * @brief Un budget **nul** produit `0`, jamais `NaN` — sept niveaux livrés en déclarent un.
+ *
+ * `0 / 0` vaut `NaN`, et un seul `NaN` dans le vecteur d'observation contamine toute la propagation
+ * avant : `tanh(NaN)`, puis un `softmax` entièrement `NaN`, dont le tirage d'action retombe
+ * invariablement sur la dernière action de l'espace. L'agent rejouait alors le même épisode à
+ * chaque fois — mesure avant correction : **2 trajectoires distinctes sur 1 500 épisodes** sur
+ * chacun des niveaux concernés, contre plusieurs centaines partout ailleurs.
+ * \castest{<b>Budget nul : composante à zéro, jamais `NaN`.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Encoder l'état joueur sur un niveau dont le budget de dash vaut `0`.<br/>2.
+ * Encoder sur un niveau dont le budget de saut vaut `0`.<br/>
+ * \tattendu Les deux composantes de budget sont finies et valent `0`.}
+ */
+TEST(PlayerStateEncoderTest, BudgetNulProduitZeroPasNaN) {
+    const core::LevelLoadResult noDash = core::LevelLoader::loadFromString(R"({
+      "name": "SansDash", "width": 3, "height": 3, "dashBudget": 0,
+      "tiles": [{"x":0,"y":1,"type":"entry"},{"x":1,"y":1,"type":"exit"},
+                {"x":0,"y":2,"type":"solid"},{"x":1,"y":2,"type":"solid"},
+                {"x":2,"y":2,"type":"solid"}]
+    })");
+    ASSERT_TRUE(noDash.ok()) << noDash.error;
+
+    const core::LevelLoadResult noJump = core::LevelLoader::loadFromString(R"({
+      "name": "SansSaut", "width": 3, "height": 3, "jumpBudget": 0,
+      "tiles": [{"x":0,"y":1,"type":"entry"},{"x":1,"y":1,"type":"exit"},
+                {"x":0,"y":2,"type":"solid"},{"x":1,"y":2,"type":"solid"},
+                {"x":2,"y":2,"type":"solid"}]
+    })");
+    ASSERT_TRUE(noJump.ok()) << noJump.error;
+
+    const aisolver::PlayerStateEncoder encoder;
+    const core::Player player;
+    const core::Velocity velocity;
+
+    const aisolver::Tensor<float> withoutDash = encoder.encode(player, velocity, *noDash.level);
+    EXPECT_TRUE(std::isfinite(withoutDash.at({10})));
+    EXPECT_FLOAT_EQ(withoutDash.at({10}), 0.0f);
+
+    const aisolver::Tensor<float> withoutJump = encoder.encode(player, velocity, *noJump.level);
+    EXPECT_TRUE(std::isfinite(withoutJump.at({9})));
+    EXPECT_FLOAT_EQ(withoutJump.at({9}), 0.0f);
 }

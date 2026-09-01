@@ -6,6 +6,218 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.1.3] - 2026-09-01
+
+> Neuvième jalon. Le solveur IA de la version précédente **apprenait mal** : chaque épisode était
+> coupé au bout de ~215 pas sur les 3 000 disponibles, et la politique se figeait si complètement
+> que 10 000 épisodes archivés produisaient une trajectoire *bit à bit identique* à partir du
+> cinquantième. Trois causes, toutes dans l'**environnement** et aucune dans les algorithmes : une
+> progression mesurée à vol d'oiseau vers une sortie dont la solution s'éloigne, un budget de pas
+> plafonné sous ce que demande le tracé de référence, et une division `0 / 0` qui contaminait tout
+> le vecteur d'observation sur les sept niveaux interdisant le dash. Corrigées, mesurées :
+> `demo-wall-jump` passe de `0 %` à `98,5 %` de réussite.
+>
+> Le personnage gagne un **nuancier de mouvement** : dash chargé, poussée renforcée d'un bloc,
+> ground pound, et un combo dash + saut avec jump-cancel, wall-jump en sortie et momentum hérité.
+>
+> Et l'**interface est reprise à la racine**, là où trois symptômes la rendaient pénible à
+> l'usage. Une fenêtre qui réclamait plus grand que l'écran : aucune règle ne disait *qui décide
+> de la taille de la fenêtre*, et la réponse était, de fait, le plus dense des écrans — dont la
+> taille minimale était de surcroît multipliée par un facteur dérivé de la hauteur de cette même
+> fenêtre, une boucle sans point fixe. Un gel de plusieurs secondes à chaque changement d'écran :
+> le facteur d'agrandissement, qui ne concerne que les écrans du jeu, repolissait les 862 widgets
+> de l'application. Un mode IA peu lisible, dont neuf réglages étaient lus puis **jetés** avant
+> d'atteindre le moteur, pendant que la configuration du run affirmait le contraire. Les deux
+> premiers défauts sont désormais tenus par des **invariants** portés par le chemin d'ajout commun
+> des écrans et par deux feuilles de style disjointes — le défaut de taille s'était déjà produit
+> deux fois, et avait été corrigé deux fois écran par écran.
+
+- **IHM — un écran ne dicte plus sa taille à la fenêtre, et changer d'écran ne gèle plus
+  l'interface** (`LOT-73`, `EX-IHM-080` à `EX-IHM-083`). Trois symptômes rapportés à l'usage —
+  fenêtre réclamant plus grand que l'écran, gel de plusieurs secondes en navigation, Mode IA peu
+  lisible et incomplet — remontaient à deux défauts structurels et un écart de périmètre.
+
+  - **Un seul écran dense fixait le plancher de la fenêtre entière.**
+    `QStackedWidget::minimumSizeHint` vaut le maximum sur *toutes* ses pages, masquées comprises ;
+    ce plancher était de surcroît multiplié par le facteur d'agrandissement des écrans du jeu
+    (jusqu'à 3×), lui-même dérivé de la hauteur de la fenêtre — une boucle sans point fixe, que rien
+    ne bornait à l'écran (`availableGeometry` n'apparaissait nulle part dans le dépôt). Sur un
+    affichage de `1920x1009` utiles, le menu principal réclamait `1030x1497` et le Mode IA
+    `2280x1560` : Windows refusait la géométrie et l'interface débordait en rognant son contenu.
+    Le défaut s'était déjà produit **deux fois**, corrigé deux fois écran par écran. `ScreenPageHost`
+    porte désormais la garantie sur le **chemin d'ajout commun** — toute page défile plutôt que de
+    rogner, et contribue zéro au minimum de la fenêtre. Le facteur est borné par la zone d'affichage
+    disponible, la géométrie restaurée y est ramenée, et un dépassement est journalisé au démarrage.
+  - **Une préoccupation d'écran repolissait les 862 widgets de l'application.** Le facteur
+    d'agrandissement ne concerne que les écrans du jeu, mais vivait dans la feuille de style
+    applicative : en changer coûtait **cinq secondes en configuration Debug**. Le regroupement
+    introduit auparavant en atténuait la fréquence sans en réduire l'ampleur, et le faisait atterrir
+    *après* le placement de la fenêtre — d'où le recalage visible. Le thème est scindé en deux
+    feuilles disjointes (`theme-identity.qss`, `theme-editor.qss`), chacune posée à sa portée :
+    l'identité sur la pile d'écrans, le châssis sur l'application. Plus rien à différer, donc plus
+    de regroupement : le facteur s'applique dans le redimensionnement même.
+  - **Neuf réglages du Mode IA étaient lus puis jetés.** `configFromForm()` remplissait le taux
+    d'apprentissage du critique, le taux de croisement, les épisodes par lot, l'entropie,
+    l'exploration minimale, l'écrêtage du gradient, les images par décision, le budget de pas et le
+    seuil de blocage ; `TrainingRequest` n'avait aucun champ pour les recevoir. Les régler ne
+    changeait rien, et le `config.json` du run affirmait le contraire — « Reprendre les réglages de
+    ce run » rechargeait donc des valeurs fausses. La traduction requête → surcharges est extraite
+    en fonction pure (`hmi::overridesFor`) et vérifiée champ par champ. L'écran ouvre par ailleurs
+    sur les défauts du moteur : trois champs en divergeaient, si bien que « Réinitialiser aux
+    défauts » les *changeait*.
+  - **Le Mode IA devient hybride : enveloppe d'identité, contenu d'outil.** Seul écran de la portée
+    identité à n'être pas un écran de joueur, il gardait la police bitmap et le facteur ×3 sur
+    vingt-six lignes de formulaire et une table à huit colonnes. Il conserve fond, titre, cadre et
+    bouton de retour ; son contenu passe à la densité d'un outil, aux couleurs du jeu.
+  - **Le graphique se lit.** Trois graduations avec leurs valeurs, les bornes de l'intervalle de
+    générations, et une quatrième courbe de **moyenne mobile** — que l'enregistreur calculait déjà
+    et écrivait au CSV, mais ne transmettait pas à l'écran. Il ne se fait plus écraser par la table
+    voisine (politique de taille déclarée), et les en-têtes des deux tables sont enfin dimensionnés.
+  - **Garde-fou de parité des traductions** : les deux catalogues doivent déclarer exactement les
+    mêmes clés, dans les deux sens. Une clé manquante d'un côté ne cassait rien de visible — le repli
+    affiche l'autre langue — et ne se voyait qu'en changeant de langue, écran par écran.
+
+  Non traité, consigné dans `LOT-73` TACHE-06 : la latence du **jeu** en configuration Debug (trace
+  émise à chaque frame dans le chemin de rendu, puits de journalisation synchrones, absence de
+  préréglage `RelWithDebInfo`) — famille de défauts distincte du gel d'interface corrigé ici.
+
+- **Mode IA — l'apprentissage par gradient était bloqué par son environnement, pas par son
+  algorithme.** Audit complet du solveur et de son écran. Cause racine, mesurée : sur
+  `demo-final.json`, **chaque épisode était coupé au bout de ~215 pas sur les 3 000 disponibles**,
+  et la politique se figeait — 10 000 épisodes archivés produisaient une trajectoire *bit à bit
+  identique* à partir du cinquantième.
+
+  - **Progression mesurée sur l'objectif immédiat, plus à vol d'oiseau vers la sortie.**
+    `HeadlessLevelEnvironment::updateProgress` comparait la distance euclidienne à la sortie à son
+    meilleur record. Sur un niveau dont la solution s'éloigne de la sortie — `demo-final.json`
+    place sa sortie à trois unités de l'entrée, derrière trois portes dont la clé est à l'opposé —
+    ce record était atteint dans les premières secondes et ne pouvait plus être battu : l'épisode
+    était déclaré bloqué 200 pas plus tard, quoi que fasse l'agent. La détection lit désormais le
+    **même champ de distances que la récompense** (`EX-IA-023`), et son record est réamorcé à
+    chaque changement d'objectif.
+  - **Budget de pas et seuil de blocage dérivés du niveau** (`AiSolver/Env/StepBudget.h`) : la
+    chaîne d'objectifs est mesurée case par case, mécanismes compris, et convertie en budget. Le
+    plafond fixe de `3 000` pas était inférieur aux ~`4 000` que demande le tracé de référence de
+    `demo-final.json` — une politique parfaite y aurait expiré. Deux tests d'intégration
+    (`test_budget_pas.cpp`) confrontent l'estimation aux tracés des niveaux livrés et **fixent** les
+    constantes : le budget couvre chaque tracé avec la moitié de marge, et aucun tracé résolvant
+    n'est jamais classé bloqué.
+  - **Un budget de mouvements nul rendait l'observation `NaN`, et sept niveaux livrés en déclarent
+    un.** `dashesRemaining / dashBudget()` valait `0 / 0` dès que le tableau interdit le dash — et
+    un seul `NaN` dans le vecteur d'observation contamine toute la propagation avant : `tanh(NaN)`,
+    puis un `softmax` entièrement `NaN`, dont le tirage d'action retombait invariablement sur la
+    dernière action de l'espace. L'agent rejouait alors le **même** épisode à chaque fois, quelle
+    que soit sa graine et quel que soit son entraînement. Mesure : **2 trajectoires distinctes sur
+    1 500 épisodes** sur chacun de ces sept niveaux, contre plusieurs centaines partout ailleurs —
+    et les deux qu'ils « réussissaient » ne prouvaient rien, cette action constante suffisant à les
+    terminer. Effet de la correction seule, sur `demo-wall-jump.json` : de `0 %` à **`98,5 %`** de
+    réussite. `decodeStochastic` refuse désormais bruyamment une distribution non finie, au lieu de
+    la subir en silence.
+  - **L'observation décrit enfin ce que la récompense mesure.** La fenêtre de tuiles lisait la carte
+    *statique* du fichier : un bloc poussé y restait à sa case d'origine et une plateforme mobile
+    n'était visible qu'à son point de départ. Elle lit maintenant la grille de collision courante,
+    gagne un canal « plateforme mobile », et un `ObjectiveEncoder` expose le **gradient local du
+    champ d'objectif** — sans quoi l'agent était payé pour se rapprocher d'un but dont rien ne lui
+    disait la direction, et deux passages opposés dans le même couloir restaient indiscernables.
+    Rayon de fenêtre porté de `2` à `3`. Conséquence assumée : les modèles entraînés avant ce
+    changement ne se rechargent plus (refus net de `nn::loadWeights`, jamais silencieux).
+  - **Le gradient ne s'effondre plus.** La perte de policy gradient gagne un **terme d'entropie**,
+    les retours sont **centrés-réduits**, la norme du gradient est **écrêtée**, et une part
+    d'uniforme est mélangée à l'échantillonnage (plancher d'exploration) — le terme d'entropie seul
+    ne suffisait pas, sa dérivée s'annulant précisément quand la distribution est déjà saturée. Une
+    action décidée est maintenue quatre images : tirer parmi 48 actions à 60 Hz produisait une
+    marche aléatoire dont le déplacement espéré est nul.
+  - **Défauts réaccordés, chacun sur une mesure** : optimiseur `adam` au lieu de `sgd`, taux
+    `0,003`, couche cachée `64` au lieu de `16`, `gamma` `0,995`, taux propre au critique (`0,5` :
+    sa sortie doit couvrir l'amplitude des retours, pas celle de logits). Croisement évolutionniste
+    **uniforme** et non plus moyenne systématique des deux parents — moyenner deux réseaux ne
+    combine pas ce qu'ils ont trouvé.
+  - **Garde-fous numériques** : tri topologique de `autodiff::backward` rendu itératif et perte
+    assemblée en arbre (une chaîne de profondeur égale au nombre de pas débordait la pile, à la
+    rétropropagation comme à la destruction du graphe) ; `logOp` planché (une probabilité de
+    `softmax` s'annule en flottant dès qu'une politique se spécialise, et `log(0)` contaminait tous
+    les poids) ; terme de progression neutralisé quand une case est inatteignable, au lieu d'un
+    écart de plusieurs centaines de points sur un seul pas.
+  - Tout cela est réglable : `--max-steps`, `--stuck-threshold`, `--batch-episodes`, `--entropy`,
+    `--exploration-floor`, `--grad-clip`, `--action-repeat`, `--crossover-rate`,
+    `--critic-learning-rate`, et les champs correspondants dans l'écran.
+
+  **Mesure** — REINFORCE, réglages par défaut, `1 500` épisodes par niveau, graine fixée. Taux de
+  réussite de la politique **déterministe** (`evaluate --decoding argmax`, 30 répétitions) :
+
+  | Résultat | Niveaux |
+  |---|---|
+  | **Terminé de façon fiable** (≥ 60 % sur les 100 derniers épisodes) | `demo-deplacement` 100 %, `demo-wall-jump` 100 %, `demo-interrupteur` 100 %, `demo-cle` 100 %, `demo-bloc-quart` 100 %, `demo-saut` 94 %, `demo-pente` 76 %, `demo-concave` 69 %, `demo-pente-gauche` 65 %, `demo-bloc` 64 % |
+  | **Terminé parfois** | `demo-dangers-directionnels` 43 %, `demo-plaque-pression` 2 %, `demo-dangers-avances` 1 % |
+  | **Jamais terminé** | `demo-double-saut`, `demo-dash`, `demo-mouvement`, `demo-bloc-reduit`, `demo-plafond`, `demo-plateforme`, `demo-budget`, `demo-synthese`, `demo-final` |
+
+  **Dix niveaux sur vingt-deux, là où l'apprentissage par gradient n'en terminait aucun de façon
+  reproductible** — les réussites précédentes sur `demo-pente` et `demo-plafond` n'étaient pas un
+  apprentissage mais l'action constante décrite plus haut, et `demo-plafond` retombe d'ailleurs à
+  `0 %` maintenant qu'il apprend réellement. `demo-final.json` reste hors de portée : quatre
+  mécanismes en séquence et un itinéraire de près de `4 000` pas, pour une politique sans mémoire
+  qui ne voit que sept cases autour d'elle. Ce qui est levé, c'est ce qui l'empêchait d'**essayer** ;
+  ce qui reste est un problème d'architecture d'agent, pas d'environnement.
+
+- **Mode IA — l'écran imposait sa taille à la fenêtre, qui débordait sous la barre des tâches.**
+  Sa colonne de réglages était posée à nu dans l'onglet : sa hauteur minimale — vingt-six lignes de
+  formulaire, multipliées par le facteur d'agrandissement des écrans du jeu, jusqu'à `3×`
+  (`hmi::pixelArtScale`) — remontait jusqu'à la fenêtre, qui réclamait alors plus de `2 400` pixels
+  de haut. Windows refusait la géométrie, la fenêtre débordait sous la barre des tâches et son
+  contenu était rogné, sans moyen de faire défiler. Les deux onglets denses vivent désormais dans
+  une zone défilante : **un écran s'adapte à la fenêtre, il ne lui dicte jamais sa taille.** Avec
+  ses 94 lignes de formulaire, cet écran est le seul du jeu assez dense pour poser le problème —
+  les autres en comptent au plus douze.
+
+- **Redimensionner la fenêtre figeait l'application.** Le facteur d'agrandissement des écrans est
+  dérivé de la hauteur de la fenêtre ; à chaque changement, la feuille de style de l'application
+  était rejouée — ce qui **repolit les 862 widgets** de l'application et leur recalcule métriques,
+  tailles et dispositions. Mesuré en Debug : **5 secondes par rejeu**. Or un glisser de bordure qui
+  longe un seuil le franchit des dizaines de fois, et chaque franchissement empilait un rejeu
+  complet : la fenêtre restait figée bien après que la souris ait été relâchée. Les rejeux sont
+  désormais **regroupés** — seul le dernier facteur, celui qu'on voit à l'arrivée, est joué. Mesure
+  sur vingt franchissements de seuil : **106,6 s de CPU avant, 10,3 s après**. L'aspect final est
+  identique ; seul le chemin pour y arriver a changé. (En Release, le même rejeu est imperceptible :
+  l'application y consomme 0 % au repos contre ~40 % en Debug pendant les vingt premières
+  secondes.)
+
+- **Crédits — trois sections sur six s'affichaient dans la mauvaise police.** Le thème ciblait les
+  intitulés et les lignes de crédit par **nom d'objet**, et la liste n'avait jamais été étendue aux
+  sections ajoutées après coup — polices, bibliothèques, licence. Leurs intitulés s'affichaient donc
+  dans la fonte du corps de page au milieu d'intitulés en accentué, et leurs lignes de crédit en
+  taille normale au milieu de lignes en légende. La sélection se fait désormais par **rôle**
+  (`creditsRole`, propriété posée sur le widget dans `CreditsScreen.ui`) : une section ajoutée
+  demain porte son rôle là où on l'écrit, au lieu d'attendre qu'on pense à l'inscrire ailleurs.
+
+- **Mode IA — défauts de l'écran.** Fermer la fenêtre pendant une **évaluation** détruisait un
+  `QThread` en cours d'exécution (le destructeur n'arrêtait que l'entraînement) ; un worker fuyait
+  à chaque run (`deleteLater()` posté sur une boucle d'évènements déjà terminée) ; fermer la fenêtre
+  pendant un entraînement figeait la fermeture sans rien dire, la confirmation n'étant câblée que
+  sur la sortie de l'écran. L'algorithme d'évaluation était lu dans la liste des runs et non dans le
+  modèle choisi — un modèle parcouru au disque était donc évalué avec la mauvaise topologie, ou
+  silencieusement supposé évolutionniste. Le dossier de runs choisi pilotait l'écriture sans piloter
+  la lecture. Le temps restant affichait « 0 min 00 s » pendant tout le run (division entière avant
+  multiplication). Charger un fichier de configuration absent remettait **tout** le formulaire aux
+  défauts, en silence. Le tableau de suivi n'avait aucun plafond de lignes. Six messages d'erreur et
+  le libellé du graphique étaient en français en dur, quelle que soit la langue. `ScopedLogLevel`
+  écrivait un journaliseur global non atomique depuis un fil de travail, et deux portées qui se
+  chevauchaient laissaient le journal muet pour le reste de la session : la comptabilité vit
+  désormais dans `Logger`, protégée et réentrante.
+
+- **LOT-ANNEXE-22** — Mode IA, IHM complète d'entraînement. L'écran expose désormais **tous** les
+  hyperparamètres lus par le moteur, et `aisolver-cli train` gagne les seize drapeaux qui lui
+  manquaient (`--hidden-size`, `--tournament-size`, `--mutation-strength`, `--max-generations`,
+  `--required-successes`, les huit `--dqn-*`) — plus `--max-steps`, `--seed` et `--decoding` sur
+  `evaluate`. Correction notable : le champ « Épisodes / générations max » **ne pilotait rien** pour
+  l'algorithme évolutionniste (`StoppingConfig` restait aux défauts, quel que soit l'affichage), et
+  la barre de progression était de ce fait indéterminée. Trois indicateurs présents dans l'écran
+  mais jamais alimentés — générations stables, epsilon courant, temps restant — sont branchés, et le
+  tableau de suivi affiche les huit colonnes du `stats.csv` au lieu de quatre. L'évaluation passe
+  sur son propre thread (fenêtre réactive, progression, annulation), accepte un niveau et un modèle
+  libres (évaluation croisée), exporte son rapport CSV, et « Exporter comme rejeu » refait réellement
+  jouer le modèle au lieu de copier un fichier. Quitter l'écran pendant un entraînement demande
+  enfin confirmation.
+
 - **LOT-72** — Mouvement avancé : **dash chargé** (bouton de dash et direction opposée maintenus,
   `EX-GP-056`), **poussée renforcée** d'un bloc par un dash boosté (`EX-GP-057`), **ground pound**
   (`EX-GP-058`, sans charge de dash disponible), et un **combo dash + saut** — jump-cancel d'un dash

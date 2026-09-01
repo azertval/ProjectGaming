@@ -25,7 +25,23 @@ namespace {
 // Chemin (source) du modele reel, pour verifier le fichier livre plutot qu'une chaine de test
 // isolee -- coherent avec PROJECTGAMING_ASSETS_DIR etc. (Test/CMakeLists.txt).
 [[nodiscard]] std::string readThemeTemplate() {
-    std::ifstream file(PROJECTGAMING_THEME_PATH);
+    // Les DEUX portees, concatenees (LOT-73, EX-IHM-082) : separer les feuilles ne doit pas
+    // retrecir ce que ces garde-fous couvrent. Une regle interdite le reste dans l'une comme dans
+    // l'autre.
+    std::ostringstream buffer;
+    for (const char* const path :
+         {PROJECTGAMING_THEME_IDENTITY_PATH, PROJECTGAMING_THEME_EDITOR_PATH}) {
+        std::ifstream file(path);
+        buffer << file.rdbuf();
+    }
+    return buffer.str();
+}
+
+// Une seule portee. Depuis le LOT-73 (EX-IHM-082) les deux portees sont deux FICHIERS distincts :
+// l'etancheite se verifie donc sur le fichier entier, sans avoir a reperer une frontiere de
+// section dans un texte concatene -- un reperage qu'un simple deplacement de commentaire cassait.
+[[nodiscard]] std::string readScopeTemplate(const char* path) {
+    std::ifstream file(path);
     std::ostringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
@@ -69,18 +85,19 @@ TEST(ApplicationThemeTest, MarqueurInconnuEstSignale) {
 }
 
 /**
- * @brief Le modèle réel livré (`Source/Elements/Themes/theme.qss`) ne contient aucune couleur
- *        écrite en dur : toutes passent par un marqueur `${...}`.
+ * @brief Les modèles réels livrés (`Source/Elements/Themes/theme-*.qss`) ne contiennent aucune
+ * couleur écrite en dur : toutes passent par un marqueur `${...}`.
  * \castest{<b>Le modele de theme livre ne contient aucune couleur litterale.</b><br/>
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire le fichier theme.qss livre.<br/>2. Chercher un motif de couleur
+ * \tetapes 1. Lire les feuilles de theme livrees.<br/>2. Chercher un motif de couleur
  * hexadecimale.<br/> \tattendu Aucune occurrence en dehors des commentaires n'est trouvee.
  * }
  */
 TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
     const std::string themeText = readThemeTemplate();
-    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+    ASSERT_FALSE(themeText.empty())
+        << "feuilles de theme introuvables (PROJECTGAMING_THEME_*_PATH)";
 
     // Retire les commentaires /* ... */ (l'en-tete documente l'historique en exemples de couleurs)
     // avant de chercher un motif de couleur hexadecimale dans les regles elles-memes.
@@ -107,8 +124,9 @@ TEST(ApplicationThemeTest, AucuneCouleurLitteraleDansLeModeleReel) {
  * }
  */
 TEST(ApplicationThemeTest, EtancheiteDesPortees) {
-    const std::string themeText = readThemeTemplate();
-    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+    const std::string themeText = readScopeTemplate(PROJECTGAMING_THEME_IDENTITY_PATH);
+    ASSERT_FALSE(themeText.empty())
+        << "feuille d'identite introuvable (PROJECTGAMING_THEME_IDENTITY_PATH)";
 
     // Les valeurs sont DERIVEES de buildStyleSheetValues, jamais recopiees : une liste ecrite a la
     // main ici devrait etre etendue a chaque marqueur ajoute au modele, et ne le serait pas -- le
@@ -139,15 +157,8 @@ TEST(ApplicationThemeTest, EtancheiteDesPortees) {
     ASSERT_TRUE(dark.ok) << dark.error;
     ASSERT_TRUE(light.ok) << light.error;
 
-    // Extrait la portion "identite" : de la premiere regle #MainMenu jusqu'a la premiere regle du
-    // chassis d'edition (marquee par le commentaire de section) -- stable tant que theme.qss garde
-    // ses deux sections dans cet ordre.
-    const std::string sectionMarker = "Chassis d'edition";
-    const std::size_t darkEnd = dark.text.find(sectionMarker);
-    const std::size_t lightEnd = light.text.find(sectionMarker);
-    ASSERT_NE(darkEnd, std::string::npos);
-    ASSERT_NE(lightEnd, std::string::npos);
-    EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
+    // La feuille d'identite ENTIERE, au caractere pres : elle ne contient plus que cette portee.
+    EXPECT_EQ(dark.text, light.text);
 }
 
 /**
@@ -261,23 +272,65 @@ TEST(ApplicationThemeTest, ResolutionDuThemeEffectifSuitLeReglageEtLeSysteme) {
  * }
  */
 TEST(ApplicationThemeTest, EtancheiteDesPorteesAvecLesVraisThemes) {
-    const std::string themeText = readThemeTemplate();
-    ASSERT_FALSE(themeText.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+    const std::string identityText = readScopeTemplate(PROJECTGAMING_THEME_IDENTITY_PATH);
+    const std::string editorText = readScopeTemplate(PROJECTGAMING_THEME_EDITOR_PATH);
+    ASSERT_FALSE(identityText.empty()) << "feuille d'identite introuvable";
+    ASSERT_FALSE(editorText.empty()) << "feuille du chassis introuvable";
 
-    const hmi::StyleSheetSubstitutionResult dark = hmi::substituteStyleSheetTemplate(
-        themeText, hmi::buildStyleSheetValues(hmi::editorDarkTokens()));
-    const hmi::StyleSheetSubstitutionResult light = hmi::substituteStyleSheetTemplate(
-        themeText, hmi::buildStyleSheetValues(hmi::editorLightTokens()));
-    ASSERT_TRUE(dark.ok) << dark.error;
-    ASSERT_TRUE(light.ok) << light.error;
+    const auto substituted = [](const std::string& text, const hmi::DesignTokens& tokens) {
+        return hmi::substituteStyleSheetTemplate(text, hmi::buildStyleSheetValues(tokens));
+    };
+    const hmi::StyleSheetSubstitutionResult identityDark =
+        substituted(identityText, hmi::editorDarkTokens());
+    const hmi::StyleSheetSubstitutionResult identityLight =
+        substituted(identityText, hmi::editorLightTokens());
+    const hmi::StyleSheetSubstitutionResult editorDark =
+        substituted(editorText, hmi::editorDarkTokens());
+    const hmi::StyleSheetSubstitutionResult editorLight =
+        substituted(editorText, hmi::editorLightTokens());
+    ASSERT_TRUE(identityDark.ok) << identityDark.error;
+    ASSERT_TRUE(identityLight.ok) << identityLight.error;
+    ASSERT_TRUE(editorDark.ok) << editorDark.error;
+    ASSERT_TRUE(editorLight.ok) << editorLight.error;
 
-    const std::string sectionMarker = "Chassis d'edition";
-    const std::size_t darkEnd = dark.text.find(sectionMarker);
-    const std::size_t lightEnd = light.text.find(sectionMarker);
-    ASSERT_NE(darkEnd, std::string::npos);
-    ASSERT_NE(lightEnd, std::string::npos);
-    EXPECT_EQ(dark.text.substr(0, darkEnd), light.text.substr(0, lightEnd));
-    // Les deux themes doivent en revanche produire des blocs "chassis d'edition" differents :
-    // sinon TACHE-06 n'aurait aucun effet visible.
-    EXPECT_NE(dark.text.substr(darkEnd), light.text.substr(lightEnd));
+    EXPECT_EQ(identityDark.text, identityLight.text);
+    // Le chassis, lui, doit bel et bien changer : sinon TACHE-06 n'aurait aucun effet visible.
+    EXPECT_NE(editorDark.text, editorLight.text);
+}
+
+/**
+ * @brief Les deux portées vivent dans deux fichiers **disjoints** : la feuille d'identité ne nomme
+ *        aucun jeton du châssis, et celle du châssis aucun jeton d'identité (`LOT-73`,
+ *        `EX-IHM-082`).
+ *
+ * C'est la condition qui rend la séparation utile plutôt que cosmétique. Les grandeurs
+ * `identity.size.*` sont multipliées par le facteur d'agrandissement, qui change avec la hauteur de
+ * la fenêtre ; tant qu'elles cohabitaient avec le châssis dans la feuille **applicative**, en
+ * changer repolissait les 862 widgets de l'application — cinq secondes par redimensionnement en
+ * Debug. Une seule règle d'identité qui reviendrait dans la feuille du châssis ramènerait ce coût.
+ * \castest{<b>Les deux portees de theme sont disjointes, marqueur par marqueur.</b><br/>
+ * \tcat Unitaire · Theme de l'IHM<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Lire les deux feuilles livrees, commentaires retires.<br/>2. Chercher un marqueur
+ * du prefixe de l'autre portee dans chacune.<br/>
+ * \tattendu Aucune feuille ne reference les jetons de l'autre portee.
+ * }
+ */
+TEST(ApplicationThemeTest, LesDeuxPorteesSontDansDeuxFichiersDisjoints) {
+    // Commentaires retires : chaque feuille EXPLIQUE en tete pourquoi elle ignore l'autre portee,
+    // et un test qui s'y declencherait interdirait d'en documenter la raison.
+    static const std::regex commentPattern(R"(/\*[\s\S]*?\*/)");
+    const auto ruleTextOf = [](const char* path) {
+        return std::regex_replace(readScopeTemplate(path), commentPattern, "");
+    };
+    const std::string identityRules = ruleTextOf(PROJECTGAMING_THEME_IDENTITY_PATH);
+    const std::string editorRules = ruleTextOf(PROJECTGAMING_THEME_EDITOR_PATH);
+    ASSERT_FALSE(identityRules.empty());
+    ASSERT_FALSE(editorRules.empty());
+
+    EXPECT_EQ(identityRules.find("editor.color."), std::string::npos)
+        << "la feuille d'identite reference un jeton du chassis d'edition";
+    EXPECT_EQ(editorRules.find("identity."), std::string::npos)
+        << "la feuille du chassis reference un jeton d'identite : un changement de facteur "
+           "d'agrandissement redeviendrait un rejeu applicatif complet";
 }

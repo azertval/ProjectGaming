@@ -58,13 +58,29 @@ namespace aisolver::autodiff {
 [[nodiscard]] NodePtr multiplyScalar(const NodePtr& a, float scalar);
 
 /// @brief Logarithme différentiable (nommé `logOp`, pas `log`, même raison que `tanhOp`).
+///
+/// L'entrée est **planchée** à une constante strictement positive, à l'aller comme au retour : son
+/// appelant réel est la perte de policy gradient, dont l'entrée est une probabilité de `softmax`
+/// qui s'annule en flottant dès qu'une politique se spécialise. Sans ce plancher, `log(0)` et sa
+/// dérivée `1/0` propagent `-inf`/`+inf` dans tous les poids au premier pas d'optimisation.
 /// @return Nœud résultat de `std::log(x)` élément par élément ; `PROJECTGAMING_ASSERT` que tous les
-/// éléments d'entrée sont strictement positifs.
+/// éléments d'entrée sont positifs ou nuls (un logarithme d'un nombre négatif reste une erreur de
+/// programmation, contrairement à un zéro numérique).
 [[nodiscard]] NodePtr logOp(const NodePtr& a);
 
 /// @return Nœud résultat de `std::exp(x)` élément par élément ; gradient vers `a` = gradient de
 /// sortie × valeur de sortie (`exp` est sa propre dérivée, valeur déjà calculée en avant).
 [[nodiscard]] NodePtr expOp(const NodePtr& a);
+
+/// @brief Somme de **tous** les elements, seule reduction differentiable du moteur.
+///
+/// Introduite pour le terme d entropie de la perte de policy gradient
+/// (`Training/PolicyGradientLoss.cpp`) : `H(pi) = -somme(p_i log p_i)` est une somme sur toute la
+/// distribution de sortie, que `selectIndex` ne sait pas exprimer sans construire un noeud `add`
+/// par action (`48` par pas, des dizaines de milliers par episode).
+/// @return Noeud de forme `[1]` ; le gradient de sortie est propage tel quel a chaque element
+/// d entree (la derivee d une somme par rapport a chacun de ses termes vaut `1`).
+[[nodiscard]] NodePtr sumAll(const NodePtr& a);
 
 /// @return Nœud de forme `[1]` contenant `a->value` à `index` (rang 1 ou forme `[n, 1]`).
 /// `PROJECTGAMING_ASSERT(index < a->value.size())`. Gradient vers `a` : nul partout sauf à `index`,

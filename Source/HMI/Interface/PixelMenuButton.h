@@ -15,7 +15,8 @@
  * D'où ce bouton, qui peint un curseur devant l'entrée active.
  *
  * **Promu dans les `.ui`** : la mise en page reste déclarative, le tracé seul est en C++. Tout le
- * reste de l'habillage (couleur, taille, graisse, marges) continue de venir de `theme.qss`.
+ * reste de l'habillage (couleur, taille, graisse, marges) continue de venir de
+ * `theme-identity.qss`.
  */
 
 namespace hmi {

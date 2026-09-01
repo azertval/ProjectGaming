@@ -17,7 +17,7 @@ LevelCompleteScreen::LevelCompleteScreen(QWidget* parent)
     _ui->setupUi(this);
 
     // Même fond translucide que PauseScreen (LOT-59 TACHE-02) : les deux recouvrements posent le
-    // même style, pas un jeton de theme.qss (éditeur).
+    // même style, pas un jeton de theme-editor.qss (châssis).
     setStyleSheet(
         QStringLiteral("#LevelCompleteScreen { background-color: rgba(0, 0, 0, 160); }"
                        "#menuCard { background-color: rgba(32, 32, 32, 230); "

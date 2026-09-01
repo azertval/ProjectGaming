@@ -14,6 +14,10 @@ distingue est la façon dont elles cherchent, pas ce qu'elles cherchent.
 | `Dqn/` | **DQN** : réseau de valeur d'action, tampon de rejeu, réseau cible, exploration ε-décroissante. |
 
 Pièces communes, à la racine du dossier :
+- `PolicyGradientTuning` — les réglages que `PolicyGradient/` et `ActorCritic/` partagent, parce
+  qu'ils partagent déjà la perte et le collecteur : taille de lot, coefficient d'entropie, écrêtage
+  de gradient, répétition d'action, plancher d'exploration. Chaque défaut y est justifié par une
+  mesure, pas par un usage.
 - `LevelTrainingSession` — boucle d'entraînement pour un unique niveau, avec critère d'arrêt.
 - `PolicyGradientLoss` — la formule de perte de *policy gradient*, **partagée** par
   `PolicyGradient/` (poids = retour brut) et `ActorCritic/` (poids = avantage). Elle vit ici, et non

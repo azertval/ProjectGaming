@@ -9,14 +9,6 @@ identifiants d'exigences `EX-…`.
 Contrairement aux spécifications, les lots **conservent** leur numéro (`LOT-XX`) :
 c'est un identifiant stable, jamais réordonné.
 
-> **Exception actée — programme d'habillage `LOT-40` → `LOT-55`.** La règle ci-dessus protège les
-> identifiants **livrés** : un lot terminé n'est jamais renuméroté, sous peine de rendre fausses
-> toutes les références du CHANGELOG, des commits et des spécifications. Les lots `LOT-40` à
-> `LOT-48`, **tous non commencés**, ont été renumérotés **une seule fois**, lors du recadrage du
-> programme d'habillage, afin que le numéro corresponde à l'ordre d'implémentation réel. Cette
-> exception ne se reproduira pas : à partir de ce recadrage, tout lot planifié conserve son numéro
-> même si son ordre d'exécution change.
-
 ## Lots
 
 - @subpage lot-01
@@ -89,8 +81,24 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-69
 - @subpage lot-70
 - @subpage lot-72
+- @subpage lot-73
 
 ## Apres le programme `0.1.0`
+
+Le [LOT-73](@ref lot-73) — **livre** — reprend l'interface la ou trois symptomes rapportes a l'usage
+la rendaient penible : une fenetre qui reclamait plus grand que l'ecran, un gel de plusieurs secondes
+a chaque changement d'ecran, un mode IA peu lisible et incomplet. Les trois remontaient a deux
+defauts de **portee**. D'abord, aucune regle ne disait *qui decide de la taille de la fenetre* : la
+reponse etait, de fait, le plus dense des ecrans, dont la taille minimale etait de surcroit
+multipliee par un facteur derive de la hauteur de cette meme fenetre — une boucle sans point fixe
+(`EX-IHM-080`/`EX-IHM-081`). Ensuite, le facteur d'agrandissement, qui ne concerne que les ecrans du
+jeu, vivait dans la feuille de style de l'**application** : en changer repolissait ses 862 widgets,
+cinq secondes durant en Debug (`EX-IHM-082`). Le lot les traite en **invariants** portes par le
+chemin d'ajout commun des ecrans et par deux feuilles de style disjointes, plutot qu'en correctifs
+ecran par ecran — le defaut de taille s'etait deja produit deux fois, et avait ete corrige deux fois
+localement. S'y ajoute la fermeture d'un ecart de perimetre du mode IA : neuf reglages y etaient lus
+puis jetes avant d'atteindre le moteur, pendant que le `config.json` du run affirmait le contraire
+(`EX-IHM-083`).
 
 Le [LOT-72](@ref lot-72) — **livré** — enrichit le nuancier de mouvement du personnage en faisant
 composer le dash (`LOT-10`, `EX-GP-017`) avec les autres systèmes plutôt que de le laisser isolé :

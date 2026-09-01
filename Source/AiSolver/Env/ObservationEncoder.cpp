@@ -26,7 +26,8 @@ std::size_t ObservationEncoder::inputSize() const noexcept {
     const std::size_t windowCells = windowSize * windowSize;
     const std::size_t channelCount = static_cast<std::size_t>(_tileEncoder.channelCount()) +
                                      static_cast<std::size_t>(_mechanismEncoder.channelCount());
-    return channelCount * windowCells + static_cast<std::size_t>(PlayerStateEncoder::size());
+    return channelCount * windowCells + static_cast<std::size_t>(PlayerStateEncoder::size()) +
+           static_cast<std::size_t>(ObjectiveEncoder::size());
 }
 
 Tensor<float> ObservationEncoder::encode(const HeadlessLevelEnvironment& environment,
@@ -34,11 +35,15 @@ Tensor<float> ObservationEncoder::encode(const HeadlessLevelEnvironment& environ
                                          const core::Player& playerState,
                                          const core::Velocity& playerVelocity) const {
     const core::GridPosition center = centerCell(playerBox);
-    const Tensor<float> tiles = _tileEncoder.encode(environment.level().tileMap(), center);
-    const Tensor<float> mechanisms = _mechanismEncoder.encode(
-        environment.mechanisms(), environment.dangers(), environment.level(), center, _radius);
+    // Grille composee du pas courant, pas la carte statique du fichier : elle porte l'etat reel des
+    // portes et la position reelle des blocs poussables.
+    const Tensor<float> tiles = _tileEncoder.encode(environment.collisionMap(), center);
+    const Tensor<float> mechanisms =
+        _mechanismEncoder.encode(environment.mechanisms(), environment.dangers(),
+                                 environment.platforms(), environment.level(), center, _radius);
     const Tensor<float> player =
         _playerEncoder.encode(playerState, playerVelocity, environment.level());
+    const Tensor<float> objective = _objectiveEncoder.encode(environment.objectiveField(), center);
 
     Tensor<float> flat({inputSize(), 1});
     float* out = flat.data();
@@ -54,6 +59,9 @@ Tensor<float> ObservationEncoder::encode(const HeadlessLevelEnvironment& environ
     }
     for (std::size_t i = 0; i < player.size(); ++i) {
         out[offset++] = player.data()[i];
+    }
+    for (std::size_t i = 0; i < objective.size(); ++i) {
+        out[offset++] = objective.data()[i];
     }
     return flat;
 }

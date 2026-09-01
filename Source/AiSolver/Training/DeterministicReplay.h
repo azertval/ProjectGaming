@@ -47,13 +47,10 @@ struct DeterministicReplayResult {
  * @param environment Environnement réinitialisé en tout premier (aucun état ne fuit d'un appel au
  *                    suivant).
  * @param levelPath   Niveau à charger (`HeadlessLevelEnvironment::reset`).
- * @param stuckThreshold Seuil de blocage transmis à `classifyEpisode` (`Episode.h`), même défaut
- *                    que `FitnessEvaluator` pour rester cohérent avec l'évaluation de fitness.
  * @return La séquence d'actions produite, son statut de fin et sa récompense cumulée.
  */
 [[nodiscard]] DeterministicReplayResult replayBestIndividual(
     evolutionary::Individual& individual, HeadlessLevelEnvironment& environment,
-    const std::filesystem::path& levelPath,
-    int stuckThreshold = evolutionary::DEFAULT_STUCK_THRESHOLD);
+    const std::filesystem::path& levelPath);
 
 }  // namespace aisolver::training

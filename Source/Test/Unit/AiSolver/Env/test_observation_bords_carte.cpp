@@ -57,6 +57,7 @@ TEST(ObservationBordsCarteTest, FormeExacteAChaqueCoinQuelQueSoitLeRayon) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
 
     const std::vector<core::GridPosition> corners = {
         core::GridPosition{0, 0},
@@ -75,7 +76,7 @@ TEST(ObservationBordsCarteTest, FormeExacteAChaqueCoinQuelQueSoitLeRayon) {
 
             const aisolver::MechanismStateEncoder mechanismEncoder;
             const aisolver::Tensor<float> mechanismTensor =
-                mechanismEncoder.encode(mechanisms, dangers, level, corner, radius);
+                mechanismEncoder.encode(mechanisms, dangers, platforms, level, corner, radius);
             EXPECT_EQ(mechanismTensor.shape(), expectedMechanismShape(radius))
                 << "coin (" << corner.column << ", " << corner.row << "), radius=" << radius;
         }

@@ -96,10 +96,31 @@ public:
      * veut suivre la progression (afficher un tableau, tracer une courbe) passe par ici plutôt que
      * d'ouvrir un second enregistreur sur le même fichier — deux flux en troncature sur un même
      * chemin se marcheraient dessus, et le rappel du second ne serait jamais appelé.
-     * @param onStatsRow Appelé après chaque génération journalisée, avec la ligne écrite.
+     * @param onStatsRow Appelé après chaque génération journalisée, avec la ligne écrite et les
+     *        grandeurs dérivées qui l'accompagnent (moyenne mobile, variation).
      */
-    void setOnStatsRow(std::function<void(const TrainingStatsRow&)> onStatsRow) {
+    void setOnStatsRow(
+        std::function<void(const TrainingStatsRow&, const TrainingStatsDerived&)> onStatsRow) {
         _recorder.setOnRecord(std::move(onStatsRow));
+    }
+
+    /**
+     * @brief Branche @p onStabilityChanged, appelé après chaque génération avec l'avancement du
+     * critère d'arrêt par stabilité.
+     *
+     * Le compteur de séries stables ne transparaît nulle part ailleurs : il vit dans une variable
+     * locale de `run()`, et `TrainingResult` ne rapporte à la fin que `solved`. Un appelant qui
+     * affiche l'entraînement en direct ne peut donc pas dire si la session est à une génération de
+     * s'arrêter ou si le compteur vient d'être remis à zéro — ce rappel est le seul moyen de le
+     * savoir sans réimplémenter le critère.
+     * @param onStabilityChanged Reçoit le compteur courant et le seuil exigé
+     *        (`StoppingConfig::requiredConsecutiveSuccesses`, constant sur toute la session, passé
+     *        pour que le rappel n'ait pas à connaître la configuration). Observation pure : la
+     *        décision d'arrêt reste celle de `run()`.
+     */
+    void setOnStabilityChanged(
+        std::function<void(int consecutive, int required)> onStabilityChanged) {
+        _onStabilityChanged = std::move(onStabilityChanged);
     }
 
     /**
@@ -135,6 +156,7 @@ private:
     HeadlessLevelEnvironment _environment;
     TrainingStatsRecorder _recorder;
     evolutionary::EvolutionaryTrainer _trainer;
+    std::function<void(int, int)> _onStabilityChanged;
 };
 
 }  // namespace aisolver::training

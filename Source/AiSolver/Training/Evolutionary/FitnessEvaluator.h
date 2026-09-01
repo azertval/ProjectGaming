@@ -17,13 +17,6 @@
 
 namespace aisolver::training::evolutionary {
 
-/// Nombre de pas consécutifs sans amélioration de la meilleure distance atteinte au-delà duquel un
-/// épisode est jugé bloqué (`EpisodeStatus::Stuck`) : nettement inférieur au budget dur de
-/// `HeadlessLevelEnvironment` (`EnvironmentConfig::maxSteps`, `3000` par défaut) pour que
-/// l'évaluation d'une politique aléatoire ou immobile reste rapide (des milliers d'évaluations par
-/// entraînement).
-inline constexpr int DEFAULT_STUCK_THRESHOLD = 200;
-
 /**
  * @brief Issue complète d'une évaluation : le fitness (déjà écrit dans `Individual::fitness`), plus
  * le nombre de pas et le statut de fin d'épisode — nécessaires à `EvolutionaryTrainer` pour
@@ -46,12 +39,10 @@ struct FitnessEvaluation {
  * @param environment Environnement réutilisé, réinitialisé en tout premier (aucun état ne fuit d'un
  *                    appel au suivant).
  * @param levelPath   Niveau à charger (`HeadlessLevelEnvironment::reset`).
- * @param stuckThreshold Seuil de blocage transmis à `classifyEpisode` (`Episode.h`).
  * @return Le fitness, le nombre de pas et le statut de fin de cet épisode.
  */
 [[nodiscard]] FitnessEvaluation evaluateFitness(Individual& individual,
                                                 HeadlessLevelEnvironment& environment,
-                                                const std::filesystem::path& levelPath,
-                                                int stuckThreshold = DEFAULT_STUCK_THRESHOLD);
+                                                const std::filesystem::path& levelPath);
 
 }  // namespace aisolver::training::evolutionary

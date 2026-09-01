@@ -188,7 +188,11 @@ TEST(ReinforceLossTest, RetourNulGradientNul) {
     for (const auto& parameter : parameters) {
         parameter->zeroGrad();
     }
-    const aisolver::autodiff::NodePtr loss = computeReinforceLoss(*policy, trajectory, returns);
+    // Terme d'entropie desactive : c'est la nullite du gradient du terme PONDERE qui est en jeu
+    // ici, et l'entropie ne depend pas des retours (elle a son propre test, test_policy_gradient_
+    // loss.cpp).
+    const aisolver::autodiff::NodePtr loss =
+        computeReinforceLoss(*policy, trajectory, returns, 0.0f);
     aisolver::autodiff::backward(loss);
 
     for (const auto& parameter : parameters) {

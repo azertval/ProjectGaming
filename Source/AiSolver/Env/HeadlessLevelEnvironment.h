@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "AiSolver/Env/Reward.h"
 #include "Core/Ecs/Components/Player.h"
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
@@ -46,19 +47,22 @@ struct StepObservation {
 };
 
 /**
- * @brief Configuration d'un `HeadlessLevelEnvironment` : budget de pas dur et seuil de progression.
+ * @brief Configuration d'un `HeadlessLevelEnvironment` : budget de pas et seuil de blocage, tous
+ *        deux **dérivés du niveau** par défaut.
  *
- * `maxSteps` est un budget de **sécurité** (empêcher un run pathologique de tourner indéfiniment),
- * pas un réglage d'entraînement — la politique de détection de blocage réelle, généralement bien
- * plus courte, appartient à l'algorithme consommateur (`LOT-ANNEXE-08`).
+ * Une constante globale ne peut convenir aux deux bouts du catalogue : `demo-wall-jump.json` se
+ * termine en quelques centaines de pas, `demo-final.json` en demande près de `4 000`. Les deux
+ * valeurs valent donc `0` = « dérive-la du niveau chargé » (`StepBudget.h`) ; une valeur explicite
+ * non nulle reste respectée telle quelle — c'est ce dont se servent le harnais de benchmark et les
+ * tests qui veulent un budget fixé.
  */
 struct EnvironmentConfig {
-    /// Nombre maximal de pas simulables entre deux `reset` (même valeur par défaut que
-    /// `playLevel()` dans `Source/Test/Systeme/test_parcours_complet.cpp`).
-    int maxSteps = 3000;
-    /// Distance (unités monde) en dessous de laquelle un rapprochement de la sortie n'est pas
-    /// considéré comme un progrès.
-    float progressEpsilon = 0.05f;
+    /// Nombre maximal de pas simulables entre deux `reset` ; `0` = dérivé du niveau
+    /// (`estimateStepBudget`).
+    int maxSteps = 0;
+    /// Nombre de pas consécutifs sans progression au-delà duquel l'épisode est jugé bloqué ;
+    /// `0` = dérivé du budget (`stuckThresholdForBudget`).
+    int stuckThreshold = 0;
 };
 
 /**
@@ -127,17 +131,52 @@ public:
     /// interroge l'état danger mobile/temporisé actif sans dupliquer la simulation).
     [[nodiscard]] const core::DangerController& dangers() const noexcept;
 
-    /// @return `true` une fois `EnvironmentConfig::maxSteps` pas simulés depuis le dernier `reset`.
+    /// @return Le contrôleur de blocs poussables du niveau chargé, en lecture seule (positions
+    /// **courantes** : celles du fichier ne valent qu'au premier pas, et une observation qui les
+    /// lirait décrirait un monde périmé dès la première poussée).
+    [[nodiscard]] const core::BlockController& blocks() const noexcept;
+
+    /// @return Le contrôleur de plateformes mobiles du niveau chargé, en lecture seule (position
+    /// continue courante, même raison que `blocks()`).
+    [[nodiscard]] const core::PlatformController& platforms() const noexcept;
+
+    /// @return La grille de collision **composée** du dernier pas (portes du `MechanismController`
+    /// **et** blocs poussables à leur position courante), celle-là même que la physique vient de
+    /// résoudre. Mémorisée plutôt que recomposée : `step()` la construit déjà.
+    [[nodiscard]] const core::TileMap& collisionMap() const noexcept;
+
+    /// @return Le champ de distances vers l'objectif immédiat pour l'état courant
+    /// (`buildObjectiveDistanceField`), reconstruit seulement quand il cesse d'être valide. Une
+    /// seule instance pour tous les consommateurs — récompense, détection de blocage et
+    /// observation lisent le **même** champ au lieu de le recalculer chacun.
+    [[nodiscard]] const GridDistanceField& objectiveField() const noexcept;
+
+    /// @return `true` une fois `stepBudget()` pas simulés depuis le dernier `reset`.
     [[nodiscard]] bool budgetExhausted() const noexcept;
 
-    /// @return Nombre de pas consécutifs sans amélioration significative de `bestDistanceToExit`
-    /// (`EnvironmentConfig::progressEpsilon`) — matière première pour la détection de blocage,
-    /// jamais interprétée ici (`LOT-ANNEXE-08`).
+    /// @return Le budget de pas **résolu** du niveau chargé (valeur explicite de
+    /// `EnvironmentConfig::maxSteps`, ou `estimateStepBudget(level())` si elle valait `0`).
+    [[nodiscard]] int stepBudget() const noexcept;
+
+    /// @return Le seuil de blocage **résolu** du niveau chargé, à passer à `classifyEpisode`.
+    [[nodiscard]] int stuckThreshold() const noexcept;
+
+    /// @return Nombre de pas consécutifs sans amélioration de `bestObjectiveDistance()` — matière
+    /// première pour la détection de blocage, jamais interprétée ici (`LOT-ANNEXE-08`).
     [[nodiscard]] int stepsSinceProgress() const noexcept;
 
-    /// @return Plus petite distance (unités monde) observée depuis le dernier `reset` entre le
-    /// centre de la boîte du personnage et le centre de la case de sortie.
-    [[nodiscard]] float bestDistanceToExit() const noexcept;
+    /// @return Plus petite distance de plus court chemin (en cases) observée depuis le dernier
+    /// `reset` entre la case du personnage et l'objectif immédiat.
+    ///
+    /// Mesurée sur le **même champ que la récompense** (`EX-IA-023`), et non à vol d'oiseau vers
+    /// la sortie : un niveau dont la solution s'éloigne de la sortie — clé à l'opposé, salle
+    /// annexe — verrait sinon son record atteint dès les premiers pas et jamais rebattu, et tout
+    /// épisode serait déclaré bloqué peu après.
+    ///
+    /// Remise à la distance courante à chaque changement de l'ensemble des objectifs : le nouvel
+    /// objectif est presque toujours plus loin que celui qui vient d'être atteint, et un record
+    /// conservé d'un objectif à l'autre ne pourrait plus jamais être battu.
+    [[nodiscard]] int bestObjectiveDistance() const noexcept;
 
 private:
     /// Boîtes des dangers actifs à cet instant (mobile/temporisé/commuté), même logique que
@@ -146,9 +185,15 @@ private:
     /// par l'appelant.
     [[nodiscard]] std::vector<core::Aabb> collectActiveDangerBoxes() const;
 
-    /// Met à jour `_bestDistanceToExit`/`_stepsSinceProgress` d'après la boîte du personnage à
+    /// Met à jour `_bestObjectiveDistance`/`_stepsSinceProgress` d'après la boîte du personnage à
     /// l'issue de ce pas (TACHE-03).
     void updateProgress(const core::Aabb& playerBox);
+
+    /// Recompose `_collision` (portes + blocs) et rafraîchit le champ d'objectif d'après l'état
+    /// courant ; appelée par `reset()` et à la fin de chaque `step()`.
+    /// @param playerBox Boîte du personnage à cet instant, pour ré-amorcer le record de
+    ///        progression si l'ensemble des objectifs vient de changer.
+    void refreshCollisionAndObjective(const core::Aabb& playerBox);
 
     EnvironmentConfig _config;
     core::World _world;
@@ -158,10 +203,16 @@ private:
     std::optional<core::MechanismController> _mechanisms;
     std::optional<core::DangerController> _dangers;
     std::optional<core::PlatformController> _platforms;
+    /// Grille de collision composée du dernier pas (portes + blocs), voir `collisionMap()`.
+    std::optional<core::TileMap> _collision;
+    ObjectiveDistanceFieldCache _objectiveCache;
     core::Entity _player{};
     std::string _loadError;
     int _stepIndex = 0;
-    float _bestDistanceToExit = 0.0f;
+    /// Budget et seuil résolus au chargement, jamais relus depuis `_config` ailleurs.
+    int _stepBudget = 0;
+    int _stuckThreshold = 0;
+    int _bestObjectiveDistance = 0;
     int _stepsSinceProgress = 0;
 };
 

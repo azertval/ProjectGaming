@@ -15,7 +15,7 @@ namespace hmi {
 
 CreditsScreen::CreditsScreen(QWidget* parent)
     : QWidget(parent), _ui(std::make_unique<Ui::CreditsScreen>()) {
-    setObjectName(QStringLiteral("CreditsScreen"));  // ciblé par le thème (theme.qss)
+    setObjectName(QStringLiteral("CreditsScreen"));  // ciblé par le thème (theme-identity.qss)
     setAttribute(Qt::WA_StyledBackground, true);
     _ui->setupUi(this);
 

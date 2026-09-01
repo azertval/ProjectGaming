@@ -56,21 +56,23 @@ ordre :
 
 1. \ref hmi::applyApplicationStyle "applyApplicationStyle" **choisit le style Fusion avant la
    création du moindre widget** (`EX-IHM-050`) — c'est ce choix, et lui seul, qui rend l'habillage
-   prévisible et permet enfin à `theme.qss` de couvrir toute l'application au lieu de deux écrans ;
+   prévisible et permet enfin au thème de couvrir toute l'application au lieu de deux écrans ;
 2. \ref hmi::buildApplicationPalette "buildApplicationPalette" **construit la `QPalette` complète**,
    dans ses trois groupes (actif, inactif, désactivé) : une palette partielle laisse Qt combler les
    trous avec les couleurs du système, ce qui produit des incohérences uniquement visibles sur une
    fenêtre inactive ou un contrôle grisé ;
-3. \ref hmi::applyStyleSheet "applyStyleSheet" **produit `theme.qss`** par substitution de
+3. \ref hmi::applyStyleSheet "applyStyleSheet" **produit `theme-editor.qss`** par substitution de
    marqueurs depuis les jetons, via
    \ref hmi::substituteStyleSheetTemplate "substituteStyleSheetTemplate" (fonction pure). Plus
-   aucune couleur littérale dans la feuille de style.
+   aucune couleur littérale dans la feuille de style. La portée **identité** est produite à part par
+   \ref hmi::identityStyleSheet "identityStyleSheet", et posée par `MainWindow` sur la **pile
+   d'écrans** — voir « Une feuille par portée » ci-dessous.
 
 Le focus clavier est rendu visible partout — condition de la navigation à la manette
 (`EX-IHM-040`), qui n'a pas de pointeur pour dire où elle en est.
 
 > **Invariant à ne pas casser.** Ne jamais poser `titlebar-close-icon` ou
-> `titlebar-normal-icon: none` sur un `QDockWidget` dans `theme.qss` : ces propriétés ont provoqué
+> `titlebar-normal-icon: none` sur un `QDockWidget` dans `theme-editor.qss` : ces propriétés ont provoqué
 > un plantage intermittent à la fermeture depuis l'éditeur pendant le `LOT-56`. Masquer un bouton
 > de barre de titre se fait par les `features` du dock, pas par la feuille de style.
 
@@ -176,6 +178,52 @@ l'ambiguïté se levant à l'écran plutôt que dans la documentation. Le `LOT-6
 avec le système de décors : un plan pictural n'est pas posé, et sa profondeur est un réglage de la
 liste, pas un mode de pose.
 
+## Une feuille par portée, et pourquoi (LOT-73)
+
+Les deux portées ci-dessus étaient deux **sections d'un même fichier**, appliqué à l'application
+entière. Rien ne l'interdisait tant que l'habillage ne changeait pas en cours d'exécution.
+
+Le `LOT-68` a changé cela : les grandeurs de la portée identité sont multipliées par un facteur qui
+suit la hauteur de la fenêtre. Or reposer la feuille de style de l'**application** repolit *tous*
+ses widgets — 862 sur celle-ci — et la re-polish leur recalcule métriques, tailles et dispositions.
+Mesure en configuration Debug : **cinq secondes par appel**, pour une préoccupation qui ne touche
+que les quelques dizaines de widgets des écrans du jeu.
+
+On avait d'abord **regroupé** ces rejeux derrière un minuteur. Le coût redevenait supportable, mais
+ne disparaissait pas — et il atterrissait désormais *après* que la fenêtre eut été placée et peinte,
+d'où un recalage visible au relâchement de la souris. Un regroupement traite la fréquence d'un coût,
+jamais son ampleur.
+
+La séparation la traite (`EX-IHM-082`) :
+
+| Feuille | Portée | Posée sur | Change quand |
+|---|---|---|---|
+| `theme-identity.qss` | Écrans du jeu (`objectName`) | La **pile d'écrans** | Le facteur d'agrandissement change |
+| `theme-editor.qss` | Châssis d'édition | L'**application** | Le thème clair/sombre change |
+
+Le coût d'un changement redevient proportionnel à ce qui change réellement, et il n'y a plus rien à
+différer : le facteur s'applique **dans** le redimensionnement, là où l'utilisateur l'attend.
+
+Les deux feuilles sont **disjointes**, et un test le vérifie
+(`ApplicationThemeTest.LesDeuxPorteesSontDansDeuxFichiersDisjoints`) : une seule règle d'identité
+replacée dans la feuille du châssis ramènerait le rejeu applicatif complet, sans que rien ne le
+signale.
+
+### Le Mode IA : enveloppe d'identité, contenu d'outil
+
+`#AiModeScreen` appartient à la portée identité, et c'est le seul de ses écrans à n'être pas un écran
+de **joueur** : vingt-six lignes de formulaire, une table à huit colonnes, un graphique. Habillé
+comme un menu, il héritait de la police bitmap et du facteur d'agrandissement — d'où une hauteur
+minimale de plus de deux mille pixels, et des données denses rendues dans une police conçue pour
+sept mots à l'écran.
+
+Il garde donc son **enveloppe** — fond, titre, cadre à bordure franche, bouton de retour — et son
+**contenu** passe à la densité d'un outil. Le mécanisme tient en une omission : la règle de l'écran
+ne déclare ni `font-family` ni `font-size`, ce qui laisse la police par défaut de l'application
+s'appliquer aux descendants ; et les rembourrages du contenu viennent de `tokens.spacing.*`, jamais
+multipliés. Les **couleurs**, elles, restent celles du jeu : les emprunter au châssis ferait basculer
+le contenu en clair au milieu d'un écran sombre.
+
 ## Deux identités, deux règles d'échelle (LOT-68)
 
 Le `LOT-56` avait donné aux deux portées la **même** échelle typographique. C'était cohérent tant
@@ -198,6 +246,14 @@ rien d'entier.
 
 > Piège évité : multiplier les jetons **partagés** paraissait plus simple. Ils valent déjà 32 pt pour
 > un titre — les doubler aurait donné 64 pt à 720p, soit l'excès inverse du problème de départ.
+
+**Et le facteur se borne à l'écran, pas à la fenêtre** (`EX-IHM-081`,
+\ref hmi::pixelArtScaleForDisplay "pixelArtScaleForDisplay"). Dériver le facteur de la seule
+hauteur de fenêtre en faisait une boucle sans point fixe : le facteur grossit les grandeurs
+d'habillage, qui grossissent la taille minimale des écrans, qui grossit la fenêtre — laquelle
+relance le calcul un cran plus haut, sans que rien ne redescende jamais, une fenêtre ne pouvant
+pas passer sous son propre minimum. La zone d'affichage disponible, elle, ne dépend d'aucune
+décision de l'application : c'est ce qui ferme la boucle.
 
 ### Ce qu'une feuille de style ne sait pas faire
 

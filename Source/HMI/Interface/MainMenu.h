@@ -25,7 +25,7 @@ class Localization;
  *
  * La **mise en page** est décrite dans `MainMenu.ui` (éditable dans Qt Designer, compilée par
  * `uic`) ; ce code ne porte que la **logique** (émission des intentions). Le **thème** vient de
- * `resources/theme.qss`. N'émet que des intentions (jouer, éditer, options, quitter) — la
+ * `resources/theme-identity.qss`. N'émet que des intentions (jouer, éditer, options, quitter) — la
  * navigation est appliquée par `MainWindow`.
  */
 class MainMenu : public QWidget {

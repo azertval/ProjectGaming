@@ -16,6 +16,7 @@
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/PolicyGradient/TrajectoryCollector.h"
+#include "AiSolver/Training/PolicyGradientTuning.h"
 
 /**
  * @file AiSolver/Training/ActorCritic/ActorCriticTrainer.h
@@ -29,8 +30,9 @@ namespace aisolver::training {
 /// Paramètres d'un run acteur-critique : mêmes défauts que `ReinforceConfig` (`LOT-ANNEXE-12`),
 /// pour rester le niveau de contrôle comparable prescrit par TACHE-04.
 struct ActorCriticConfig {
-    float gamma = 0.99f;
+    float gamma = DEFAULT_GAMMA;
     std::uint64_t seedBase = 0;
+    PolicyGradientTuning tuning{};
 };
 
 /**

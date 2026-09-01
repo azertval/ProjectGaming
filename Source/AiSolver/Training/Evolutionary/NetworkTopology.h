@@ -45,7 +45,13 @@ using NetworkTopology = std::vector<LayerTopology>;
 
 /// Taille de la couche cachée par défaut de `policyTopology` : compromis capacité/coût de
 /// propagation avant pour une politique évaluée des milliers de fois par entraînement.
-inline constexpr std::size_t DEFAULT_HIDDEN_SIZE = 16;
+///
+/// `16` unités pour un vecteur d'observation de plus de mille entrées formaient un goulet
+/// d'étranglement, pas un compromis. Mesure sur `demo-saut.json` (REINFORCE, Adam, `600`
+/// épisodes) : `388` victoires à `64` unités, contre quelques dizaines à `16`. Le coût de la
+/// propagation avant croît linéairement avec cette taille, et c'est le poste dominant d'un
+/// entraînement — la valeur reste donc réglable (`--hidden-size`).
+inline constexpr std::size_t DEFAULT_HIDDEN_SIZE = 64;
 
 /**
  * @brief Topologie standard « politique » du programme Lot-Annexe : une couche cachée `tanh`, une

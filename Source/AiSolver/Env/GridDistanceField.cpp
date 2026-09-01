@@ -68,7 +68,7 @@ GridDistanceField::GridDistanceField(const core::TileMap& tileMap,
 }
 
 int GridDistanceField::distance(const core::GridPosition& position) const noexcept {
-    const int sentinel = _width * _height;
+    const int sentinel = unreachableDistance();
     if (position.column < 0 || position.row < 0 || position.column >= _width ||
         position.row >= _height) {
         return sentinel;
@@ -78,6 +78,17 @@ int GridDistanceField::distance(const core::GridPosition& position) const noexce
         static_cast<std::size_t>(position.column);
     const int value = _distances[linearIndex];
     return value == UNREACHABLE ? sentinel : value;
+}
+
+bool GridDistanceField::isReachable(const core::GridPosition& position) const noexcept {
+    if (position.column < 0 || position.row < 0 || position.column >= _width ||
+        position.row >= _height) {
+        return false;
+    }
+    const std::size_t linearIndex =
+        static_cast<std::size_t>(position.row) * static_cast<std::size_t>(_width) +
+        static_cast<std::size_t>(position.column);
+    return _distances[linearIndex] != UNREACHABLE;
 }
 
 }  // namespace aisolver

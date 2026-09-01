@@ -50,7 +50,10 @@ void TrainingStatsRecorder::record(const TrainingStatsRow& row) {
     csvFile_.flush();
 
     if (onRecord_) {
-        onRecord_(row);
+        // Les grandeurs derivees sont TRANSMISES, jamais recalculees par l'observateur : elles
+        // dependent de l'historique du run, que seul l'enregistreur tient.
+        onRecord_(row, TrainingStatsDerived{.movingAverageReward = movingAverageReward,
+                                            .rewardDelta = rewardDelta});
     }
 }
 

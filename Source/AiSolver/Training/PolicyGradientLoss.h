@@ -18,8 +18,22 @@
 
 namespace aisolver::training {
 
+/// Coefficient d'entropie par défaut de la perte de policy gradient.
+///
+/// La perte nue `-log(pi) * poids` n'a aucun terme qui s'oppose à la spécialisation : une politique
+/// dont un logit prend l'avantage voit sa probabilité tendre vers `1`, l'échantillonnage devient
+/// déterministe, et plus aucun autre couple (état, action) n'est jamais visité — l'entraînement
+/// continue de tourner sans que rien ne puisse plus changer. La mesure faite avant correction :
+/// des trajectoires **bit à bit identiques** dès l'épisode ~50, sur les 9 950 épisodes suivants,
+/// malgré une graine différente à chaque épisode.
+///
+/// La valeur est un compromis usuel : assez pour maintenir une distribution vivante, assez peu
+/// pour ne pas dominer le signal de récompense une fois les retours centrés-réduits.
+inline constexpr float DEFAULT_ENTROPY_COEFFICIENT = 0.01f;
+
 /**
- * @brief Construit le graphe `mean_t(-log(pi(a_t|s_t)) * weights[t])` sur `trajectory`.
+ * @brief Construit, sur `trajectory`, le graphe de la moyenne par pas de la perte pondérée
+ *        moins le terme d'entropie : `-log(probabilite de l'action) x poids - beta x entropie`.
  *
  * Rejoue le passage avant de `policy` pas à pas (poids actuels) : jamais de dépendance à
  * `TrajectoryStep::logProbability`, valeur détachée sans historique de graphe. Utilisée telle
@@ -28,10 +42,13 @@ namespace aisolver::training {
  * @param policy     Réseau rejoué pas à pas (poids **non modifiés** par cet appel).
  * @param trajectory Trajectoire collectée (`TrajectoryCollector`).
  * @param weights    Poids par pas (retour ou avantage), même longueur que `trajectory.steps`.
+ * @param entropyCoefficient Poids du terme d'entropie (`beta`) ; `0` le désactive entièrement
+ *        (aucun nœud construit), ce qui restitue la formule d'origine.
  * @return Nœud scalaire (forme `[1]`) de la perte moyenne, prêt pour `autodiff::backward()`.
  * @pre `weights.size() == trajectory.steps.size()`, `!trajectory.steps.empty()`.
  */
 [[nodiscard]] autodiff::NodePtr computeWeightedPolicyGradientLoss(
-    nn::Network& policy, const Trajectory& trajectory, const std::vector<float>& weights);
+    nn::Network& policy, const Trajectory& trajectory, const std::vector<float>& weights,
+    float entropyCoefficient = DEFAULT_ENTROPY_COEFFICIENT);
 
 }  // namespace aisolver::training

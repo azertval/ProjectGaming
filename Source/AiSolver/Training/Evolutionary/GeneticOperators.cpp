@@ -27,7 +27,7 @@ const Individual& selectParent(const Population& population, const EvolutionaryC
 }
 
 Individual crossover(const Individual& parentA, const Individual& parentB,
-                     const NetworkTopology& topology, Rng& rng) {
+                     const NetworkTopology& topology, const EvolutionaryConfig& config, Rng& rng) {
     auto childNetwork = buildNetwork(topology, rng);
 
     const std::vector<autodiff::NodePtr> childParameters = childNetwork->parameters();
@@ -37,9 +37,24 @@ Individual crossover(const Individual& parentA, const Individual& parentB,
         childParameters.size() == parametersA.size() && parametersA.size() == parametersB.size(),
         "crossover : parents et enfant doivent partager la meme topologie");
 
+    // Tirage AVANT la boucle, jamais par poids : sans croisement, l'enfant est une copie fidele de
+    // parentA, ce qu'un tirage par poids ne produirait qu'avec une probabilite negligeable.
+    const bool combine = rng.nextFloat() < config.crossoverRate;
+
     for (std::size_t index = 0; index < childParameters.size(); ++index) {
-        childParameters[index]->value =
-            multiplyScalar(add(parametersA[index]->value, parametersB[index]->value), 0.5f);
+        Tensor<float>& childValue = childParameters[index]->value;
+        const Tensor<float>& valueA = parametersA[index]->value;
+        const Tensor<float>& valueB = parametersB[index]->value;
+        childValue = valueA.clone();
+        if (!combine) {
+            continue;
+        }
+        float* weights = childValue.data();
+        for (std::size_t weightIndex = 0; weightIndex < childValue.size(); ++weightIndex) {
+            if (rng.nextFloat() < 0.5f) {
+                weights[weightIndex] = valueB.data()[weightIndex];
+            }
+        }
     }
     return Individual(std::move(childNetwork));
 }

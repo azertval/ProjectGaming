@@ -62,3 +62,4 @@ concerné(s).
 - @subpage lot-annexe-19
 - @subpage lot-annexe-20
 - @subpage lot-annexe-21
+- @subpage lot-annexe-22

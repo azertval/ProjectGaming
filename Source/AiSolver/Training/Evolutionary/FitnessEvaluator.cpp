@@ -16,7 +16,7 @@
 namespace aisolver::training::evolutionary {
 
 FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironment& environment,
-                                  const std::filesystem::path& levelPath, int stuckThreshold) {
+                                  const std::filesystem::path& levelPath) {
     if (!environment.reset(levelPath)) {
         // Niveau illisible : l'assertion signale l'erreur de deploiement en Debug, mais elle ne
         // garde rien en Release. La pire fitness possible ecarte l'individu de toute selection,
@@ -41,8 +41,6 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
     EpisodeStatus status = EpisodeStatus::Ongoing;
     int stepCount = 0;
 
-    ObjectiveDistanceFieldCache distanceFieldCache;
-
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -52,11 +50,10 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
         const Action action = decodeArgmax(distribution);
 
         const StepObservation stepObservation = environment.step(toPlayerInput(action));
-        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
-        // le reconstruit alors, et le rend tel quel sinon.
-        const GridDistanceField& distanceField =
-            distanceFieldCache.field(environment.level(), environment.mechanisms());
-        cumulativeReward += computeReward(rewardConfig, distanceField, previousBox,
+        // Champ de l'environnement : une seule instance par episode, deja reconstruite par `step()`
+        // quand elle a cesse d'etre valide -- et celle-la meme dont la detection de blocage se
+        // sert.
+        cumulativeReward += computeReward(rewardConfig, environment.objectiveField(), previousBox,
                                           stepObservation.playerBox, stepObservation.outcome);
 
         previousBox = stepObservation.playerBox;
@@ -66,7 +63,7 @@ FitnessEvaluation evaluateFitness(Individual& individual, HeadlessLevelEnvironme
 
         status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
                                  environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                 stuckThreshold);
+                                 environment.stuckThreshold());
     }
     if (status == EpisodeStatus::Ongoing) {
         // Budget dur atteint sans que classifyEpisode() (hardStepBudget volontairement desactive

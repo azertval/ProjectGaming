@@ -79,4 +79,14 @@ core::PlayerInput toPlayerInput(const Action& action) {
     return input;
 }
 
+core::PlayerInput toPlayerInput(const Action& action, int frameWithinRepeat) {
+    core::PlayerInput input = toPlayerInput(action);
+    if (frameWithinRepeat > 0) {
+        input.jumpPressed = false;
+        input.dashPressed = false;
+        input.interactPressed = false;
+    }
+    return input;
+}
+
 }  // namespace aisolver

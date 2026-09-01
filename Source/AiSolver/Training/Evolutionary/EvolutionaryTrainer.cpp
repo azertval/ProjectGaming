@@ -99,7 +99,7 @@ void EvolutionaryTrainer::runGeneration() {
     for (std::size_t index = 1; index < _population.size(); ++index) {
         const Individual& parentA = evolutionary::selectParent(_population, _config, _rng);
         const Individual& parentB = evolutionary::selectParent(_population, _config, _rng);
-        Individual child = evolutionary::crossover(parentA, parentB, _topology, _rng);
+        Individual child = evolutionary::crossover(parentA, parentB, _topology, _config, _rng);
         evolutionary::mutate(child, _config, _rng);
         nextIndividuals.push_back(std::move(child));
     }

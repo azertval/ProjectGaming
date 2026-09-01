@@ -17,5 +17,7 @@ Assets **Qt déclaratifs** de l'IHM, éditables hors code (Qt Designer) et compi
 
 > Piège XML : `--` est **interdit à l'intérieur d'un commentaire**, et `uic` le refuse sans
 > indulgence. Employer le tiret cadratin.
-- `resources.qrc` — ressource Qt embarquée ; référence le thème `../Themes/theme.qss` (alias
-  `:/resources/theme.qss`, chargé par `HMI/Main.cpp`).
+- `resources.qrc` — ressource Qt embarquée ; référence les **deux** feuilles de style de
+  `../Themes/` (alias `:/resources/theme-identity.qss` et `:/resources/theme-editor.qss`), une par
+  portée depuis le `LOT-73` (`EX-IHM-082`). Voir `../Themes/README.md` pour ce qui distingue les
+  deux et pourquoi elles ne sont plus un seul fichier.

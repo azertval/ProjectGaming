@@ -19,8 +19,12 @@ struct BenchmarkConfig {
     int repetitions = 30;
     /// Graine de base ; la répétition `i` utilise `deriveSeed(rngSeedBase, i)`.
     std::uint64_t rngSeedBase = 0;
-    /// Budget de pas dur par épisode (timeout).
-    int maxStepsPerEpisode = 2000;
+    /// Budget de pas dur par épisode (timeout) ; `0` = dérivé du niveau (`Env/StepBudget.h`).
+    ///
+    /// Dérivé par défaut, comme à l'entraînement : mesurer un modèle sous un budget plus court que
+    /// celui qui l'a produit le déclare incapable de terminer un niveau qu'il termine. `2 000` pas
+    /// fixes étaient déjà inférieurs aux ~`4 000` que demande `demo-final.json`.
+    int maxStepsPerEpisode = 0;
     /// Mode de décodage utilisé pour toutes les répétitions de la campagne.
     ActionDecodingMode decodingMode = ActionDecodingMode::Stochastic;
 };

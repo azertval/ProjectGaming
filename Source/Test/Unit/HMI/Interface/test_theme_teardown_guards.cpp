@@ -26,9 +26,15 @@
 namespace {
 
 [[nodiscard]] std::string readThemeTemplate() {
-    std::ifstream file(PROJECTGAMING_THEME_PATH);
+    // Les DEUX portees, concatenees (LOT-73, EX-IHM-082) : separer les feuilles ne doit pas
+    // retrecir ce que ces garde-fous couvrent. Une regle interdite le reste dans l'une comme dans
+    // l'autre.
     std::ostringstream buffer;
-    buffer << file.rdbuf();
+    for (const char* const path :
+         {PROJECTGAMING_THEME_IDENTITY_PATH, PROJECTGAMING_THEME_EDITOR_PATH}) {
+        std::ifstream file(path);
+        buffer << file.rdbuf();
+    }
     return buffer.str();
 }
 
@@ -53,14 +59,14 @@ namespace {
  * \castest{<b>La feuille de style ne porte aucune propriete de barre de titre de dock.</b><br/>
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Lire theme.qss et en retirer les commentaires.<br/>2. Chercher les proprietes de
- * barre de titre de dock.<br/>
+ * \tetapes 1. Lire les feuilles de theme et en retirer les commentaires.<br/>2. Chercher les
+ * proprietes de barre de titre de dock.<br/>
  * \tattendu Aucune n'apparait hors commentaire.
  * }
  */
 TEST(ThemeTeardownGuardsTest, AucunePropieteDeBarreDeTitreDeDock) {
     const std::string theme = withoutComments(readThemeTemplate());
-    ASSERT_FALSE(theme.empty()) << "theme.qss introuvable a PROJECTGAMING_THEME_PATH";
+    ASSERT_FALSE(theme.empty()) << "feuilles de theme introuvables (PROJECTGAMING_THEME_*_PATH)";
 
     for (const char* forbidden : {"titlebar-close-icon", "titlebar-normal-icon"}) {
         EXPECT_EQ(theme.find(forbidden), std::string::npos)
@@ -78,7 +84,7 @@ TEST(ThemeTeardownGuardsTest, AucunePropieteDeBarreDeTitreDeDock) {
  * \castest{<b>La feuille de style ne reference aucun fichier externe.</b><br/>
  * \tcat Unitaire · Theme de l'IHM<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire theme.qss et en retirer les commentaires.<br/>2. Chercher un appel
+ * \tetapes 1. Lire les feuilles de theme et en retirer les commentaires.<br/>2. Chercher un appel
  * url(...).<br/>
  * \tattendu Aucun, ou uniquement vers une ressource embarquee (prefixe deux-points).
  * }

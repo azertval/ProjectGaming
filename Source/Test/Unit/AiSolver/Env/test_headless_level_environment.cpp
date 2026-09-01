@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
+#include "AiSolver/Env/StepBudget.h"
 #include "Core/Diagnostics/Assert.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/PlayerInput.h"
@@ -263,8 +264,8 @@ TEST(HeadlessLevelEnvironmentTest, AppelAuDelaDuBudgetDeclencheAssertion) {
 
 /**
  * @brief En avancant vers la sortie, `stepsSinceProgress` croit moins vite qu'a l'arret : la
- * distance a la sortie n'ameliore pas `bestDistanceToExit` de plus de `progressEpsilon` a CHAQUE
- * pas (mouvement lent face au seuil), mais bien plus souvent qu'immobile.
+ * distance de grille n'ameliore pas `bestObjectiveDistance` a CHAQUE pas (une case demande vingt
+ * pas de marche), mais bien plus souvent qu'immobile.
  * \castest{<b>En avancant vers la sortie, `stepsSinceProgress` croit moins vite qu'a
  * l'arret.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
@@ -316,15 +317,16 @@ TEST(HeadlessLevelEnvironmentTest, BlocageDetecteSansMouvement) {
 }
 
 /**
- * @brief `reset` remet `bestDistanceToExit`/`stepsSinceProgress` a leur etat initial, meme apres
+ * @brief `reset` remet `bestObjectiveDistance`/`stepsSinceProgress` a leur etat initial, meme apres
  *        un run precedent sur le meme niveau.
- * \castest{<b>`reset` remet `bestDistanceToExit`/`stepsSinceProgress` a leur etat initial.</b><br/>
+ * \castest{<b>`reset` remet `bestObjectiveDistance`/`stepsSinceProgress` a leur etat
+ * initial.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. `reset` puis 30 pas en marchant a droite, releve `bestDistanceToExit()`.<br/>2.
+ * \tetapes 1. `reset` puis 30 pas en marchant a droite, releve `bestObjectiveDistance()`.<br/>2.
  * `reset` a nouveau sur le meme niveau (sans pas), releve les compteurs.<br/>3. `reset` une
  * troisieme fois, compare a l'etat frais du second `reset`.<br/>
- * \tattendu `stepsSinceProgress()` revient a zero apres chaque `reset` ; `bestDistanceToExit()`
+ * \tattendu `stepsSinceProgress()` revient a zero apres chaque `reset` ; `bestObjectiveDistance()`
  * fraichement reinitialise est identique d'un `reset` a l'autre sur le meme niveau.}
  */
 TEST(HeadlessLevelEnvironmentTest, ResetRemetLesCompteursAZero) {
@@ -333,12 +335,86 @@ TEST(HeadlessLevelEnvironmentTest, ResetRemetLesCompteursAZero) {
     for (int step = 0; step < 30; ++step) {
         (void)env.step(rightOnly());
     }
-    EXPECT_GT(env.bestDistanceToExit(), 0.0f);
+    EXPECT_GT(env.bestObjectiveDistance(), 0);
 
     ASSERT_TRUE(env.reset(levelPath("demo-deplacement.json")));
     EXPECT_EQ(env.stepsSinceProgress(), 0);
-    const float freshDistance = env.bestDistanceToExit();
+    const int freshDistance = env.bestObjectiveDistance();
 
     ASSERT_TRUE(env.reset(levelPath("demo-deplacement.json")));
-    EXPECT_NEAR(env.bestDistanceToExit(), freshDistance, 1e-6f);
+    EXPECT_EQ(env.bestObjectiveDistance(), freshDistance);
+}
+
+/**
+ * @brief Sur un niveau dont la solution s'eloigne de la sortie, un joueur qui progresse vraiment
+ *        n'est jamais declare bloque -- la regression qui rendait `demo-final.json` inapprenable.
+ * \castest{<b>Progression mesuree sur l'objectif immediat, pas a vol d'oiseau vers la
+ * sortie.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. `reset("demo-final.json")` : l'entree (1,12) est a trois unites de la sortie (5,15),
+ * mais la sortie est scellee par trois portes verrouillees dont la cle est a l'oppose du
+ * niveau.<br/>2. Marcher a droite jusqu'a la cle `s1` (5,12), puis revenir vers l'entree et monter
+ * le puits -- un itineraire qui EL0IGNE de la sortie a vol d'oiseau tout en rapprochant de
+ * l'objectif immediat.<br/>
+ * \tattendu `stepsSinceProgress()` est remis a zero pendant la montee : la distance mesuree est
+ * celle du champ d'objectif, jamais la distance euclidienne a la sortie.}
+ */
+TEST(HeadlessLevelEnvironmentTest, ProgressionMesureeSurObjectifImmediatPasSurLaSortie) {
+    aisolver::HeadlessLevelEnvironment env;
+    ASSERT_TRUE(env.reset(levelPath("demo-final.json")));
+
+    // Marche vers la cle s1 (a droite de l'entree) : rapproche a la fois de la sortie et de
+    // l'objectif immediat, les deux mesures sont d'accord.
+    for (int step = 0; step < 120; ++step) {
+        core::PlayerInput input = rightOnly();
+        input.interactPressed = true;
+        (void)env.step(input);
+    }
+
+    // Retour vers la gauche puis montee : s'EL0IGNE de la sortie, se rapproche de l'objectif
+    // suivant. L'ancienne mesure euclidienne ne pouvait plus battre son record ici.
+    int resetsDuringClimb = 0;
+    int previousStepsSinceProgress = env.stepsSinceProgress();
+    for (int step = 0; step < 400 && !env.budgetExhausted(); ++step) {
+        core::PlayerInput input;
+        input.moveX = -1.0f;
+        input.jumpPressed = step % 20 == 0;
+        input.jumpHeld = true;
+        (void)env.step(input);
+        if (env.stepsSinceProgress() < previousStepsSinceProgress) {
+            ++resetsDuringClimb;
+        }
+        previousStepsSinceProgress = env.stepsSinceProgress();
+    }
+    EXPECT_GT(resetsDuringClimb, 0);
+}
+
+/**
+ * @brief Le budget de pas et le seuil de blocage sont derives du niveau, et une valeur explicite
+ *        les remplace.
+ * \castest{<b>Budget et seuil derives du niveau, surchargeables.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. `reset("demo-final.json")` avec une configuration par defaut, relever
+ * `stepBudget()`.<br/>2. `reset("demo-deplacement.json")` sur un environnement neuf, meme
+ * relevé.<br/>3. Construire un environnement a `maxSteps`/`stuckThreshold` explicites.<br/>
+ * \tattendu Le budget de `demo-final.json` depasse celui de `demo-deplacement.json` ; le seuil
+ * vaut `stuckThresholdForBudget(budget)` ; une valeur explicite est respectee telle quelle.}
+ */
+TEST(HeadlessLevelEnvironmentTest, BudgetEtSeuilDerivesDuNiveau) {
+    aisolver::HeadlessLevelEnvironment complexLevel;
+    ASSERT_TRUE(complexLevel.reset(levelPath("demo-final.json")));
+    aisolver::HeadlessLevelEnvironment simpleLevel;
+    ASSERT_TRUE(simpleLevel.reset(levelPath("demo-deplacement.json")));
+
+    EXPECT_GT(complexLevel.stepBudget(), simpleLevel.stepBudget());
+    EXPECT_EQ(complexLevel.stuckThreshold(),
+              aisolver::stuckThresholdForBudget(complexLevel.stepBudget()));
+
+    aisolver::HeadlessLevelEnvironment explicitBudget(
+        aisolver::EnvironmentConfig{.maxSteps = 1234, .stuckThreshold = 77});
+    ASSERT_TRUE(explicitBudget.reset(levelPath("demo-final.json")));
+    EXPECT_EQ(explicitBudget.stepBudget(), 1234);
+    EXPECT_EQ(explicitBudget.stuckThreshold(), 77);
 }

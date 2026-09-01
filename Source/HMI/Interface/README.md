@@ -2,7 +2,8 @@
 
 Widgets **Qt** de l'IHM hors-jeu : la fenêtre principale et les écrans qui ne relèvent pas de
 l'éditeur de niveau. Les mises en page sont décrites hors code dans `Elements/UI/*.ui` (Qt Designer)
-et le thème dans `Elements/Themes/theme.qss`.
+et le thème dans `Elements/Themes/` (une feuille par portée : `theme-identity.qss`,
+`theme-editor.qss`).
 
 - `MainWindow` — fenêtre principale : `QStackedWidget` (menu / options / éditeur) et panneaux
   dockables (`QDockWidget`) autour du viewport central. Depuis le `LOT-68`, ces panneaux sont

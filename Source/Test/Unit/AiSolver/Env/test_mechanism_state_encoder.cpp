@@ -49,6 +49,7 @@ TEST(MechanismStateEncoderTest, PorteFermeePuisOuverte) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     ASSERT_FALSE(level.mechanisms().empty());
     const core::GridPosition doorPosition = level.mechanisms()[0].doorPosition;
     const core::GridPosition switchPosition = level.mechanisms()[0].switchPosition;
@@ -57,7 +58,7 @@ TEST(MechanismStateEncoderTest, PorteFermeePuisOuverte) {
     const int radius = 6;
 
     const aisolver::Tensor<float> before =
-        encoder.encode(mechanisms, dangers, level, doorPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, doorPosition, radius);
     EXPECT_FLOAT_EQ(
         before.at({0, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 0.0f);
 
@@ -68,7 +69,7 @@ TEST(MechanismStateEncoderTest, PorteFermeePuisOuverte) {
     mechanisms.update(overSwitch, 1.0f, false, {});
 
     const aisolver::Tensor<float> after =
-        encoder.encode(mechanisms, dangers, level, doorPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, doorPosition, radius);
     EXPECT_FLOAT_EQ(
         after.at({0, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 1.0f);
 }
@@ -92,6 +93,7 @@ TEST(MechanismStateEncoderTest, PlaqueDePressionRevientAZeroApresDepart) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     ASSERT_FALSE(level.mechanisms().empty());
     const core::GridPosition doorPosition = level.mechanisms()[0].doorPosition;
     const core::GridPosition switchPosition = level.mechanisms()[0].switchPosition;
@@ -105,7 +107,7 @@ TEST(MechanismStateEncoderTest, PlaqueDePressionRevientAZeroApresDepart) {
                                     core::Vector2{1.0f, 1.0f});
     mechanisms.update(overPlate, 1.0f, false, {});
     const aisolver::Tensor<float> onPlate =
-        encoder.encode(mechanisms, dangers, level, doorPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, doorPosition, radius);
     EXPECT_FLOAT_EQ(
         onPlate.at({0, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 1.0f);
 
@@ -113,7 +115,7 @@ TEST(MechanismStateEncoderTest, PlaqueDePressionRevientAZeroApresDepart) {
         core::Aabb::fromTopLeftSize(core::Vector2{0.0f, 0.0f}, core::Vector2{1.0f, 1.0f});
     mechanisms.update(farAway, 1.0f, false, {});
     const aisolver::Tensor<float> offPlate =
-        encoder.encode(mechanisms, dangers, level, doorPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, doorPosition, radius);
     EXPECT_FLOAT_EQ(
         offPlate.at({0, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 0.0f);
 }
@@ -138,11 +140,12 @@ TEST(MechanismStateEncoderTest, DangerTemporiseAlterneSelonLeCycle) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     const aisolver::MechanismStateEncoder encoder;
     const int radius = 2;
 
     const aisolver::Tensor<float> active =
-        encoder.encode(mechanisms, dangers, level, dangerPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, dangerPosition, radius);
     EXPECT_FLOAT_EQ(
         active.at({1, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 1.0f);
 
@@ -150,7 +153,7 @@ TEST(MechanismStateEncoderTest, DangerTemporiseAlterneSelonLeCycle) {
         dangers.update();
     }
     const aisolver::Tensor<float> inactive =
-        encoder.encode(mechanisms, dangers, level, dangerPosition, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, dangerPosition, radius);
     EXPECT_FLOAT_EQ(
         inactive.at({1, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 0.0f);
 }
@@ -174,11 +177,12 @@ TEST(MechanismStateEncoderTest, DangerMobileRasteriseSurSaBoiteInitiale) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     const aisolver::MechanismStateEncoder encoder;
     const int radius = 2;
 
     const aisolver::Tensor<float> encoded =
-        encoder.encode(mechanisms, dangers, level, moverStart, radius);
+        encoder.encode(mechanisms, dangers, platforms, level, moverStart, radius);
     EXPECT_FLOAT_EQ(
         encoded.at({1, static_cast<std::size_t>(radius), static_cast<std::size_t>(radius)}), 1.0f);
 }
@@ -201,10 +205,11 @@ TEST(MechanismStateEncoderTest, FenetreSansMecanismeEstEntierementNulle) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     const aisolver::MechanismStateEncoder encoder;
 
     const aisolver::Tensor<float> encoded =
-        encoder.encode(mechanisms, dangers, level, level.entry(), 5);
+        encoder.encode(mechanisms, dangers, platforms, level, level.entry(), 5);
     EXPECT_FLOAT_EQ(sumAllChannels(encoded), 0.0f);
 }
 
@@ -224,12 +229,13 @@ TEST(MechanismStateEncoderTest, EncodageDeterministe) {
 
     core::MechanismController mechanisms(level);
     core::DangerController dangers(level);
+    core::PlatformController platforms(level);
     const aisolver::MechanismStateEncoder encoder;
 
     const aisolver::Tensor<float> first =
-        encoder.encode(mechanisms, dangers, level, level.entry(), 4);
+        encoder.encode(mechanisms, dangers, platforms, level, level.entry(), 4);
     const aisolver::Tensor<float> second =
-        encoder.encode(mechanisms, dangers, level, level.entry(), 4);
+        encoder.encode(mechanisms, dangers, platforms, level, level.entry(), 4);
 
     ASSERT_EQ(first.size(), second.size());
     for (std::size_t index = 0; index < first.size(); ++index) {

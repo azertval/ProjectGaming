@@ -8,6 +8,7 @@
 #include "AiSolver/Math/Autodiff/Node.h"
 #include "AiSolver/Nn/Network.h"
 #include "AiSolver/Training/PolicyGradient/Trajectory.h"
+#include "AiSolver/Training/PolicyGradientLoss.h"
 
 /**
  * @file AiSolver/Training/PolicyGradient/ReinforceLoss.h
@@ -29,12 +30,15 @@ namespace aisolver::training {
  * minimiser par un optimiseur de descente de gradient standard, `LOT-ANNEXE-04`).
  * @param policy     Réseau de politique, rejoué pas à pas (poids **non modifiés** par cet appel).
  * @param trajectory Trajectoire collectée (`TrajectoryCollector`).
- * @param returns    Retour par pas, même longueur que `trajectory.steps` (`computeReturns`).
+ * @param returns    Retour par pas, même longueur que `trajectory.steps` (`computeReturns`),
+ *        typiquement centré-réduit sur le lot (`normalizeWeights`).
+ * @param entropyCoefficient Poids du terme d'entropie, transmis tel quel
+ *        (`computeWeightedPolicyGradientLoss`).
  * @return Nœud scalaire (forme `[1]`) de la perte moyenne, prêt pour `autodiff::backward()`.
  * @pre `returns.size() == trajectory.steps.size()`, `!trajectory.steps.empty()`.
  */
-[[nodiscard]] autodiff::NodePtr computeReinforceLoss(nn::Network& policy,
-                                                     const Trajectory& trajectory,
-                                                     const std::vector<float>& returns);
+[[nodiscard]] autodiff::NodePtr computeReinforceLoss(
+    nn::Network& policy, const Trajectory& trajectory, const std::vector<float>& returns,
+    float entropyCoefficient = DEFAULT_ENTROPY_COEFFICIENT);
 
 }  // namespace aisolver::training

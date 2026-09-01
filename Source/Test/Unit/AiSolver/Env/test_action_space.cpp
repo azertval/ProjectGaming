@@ -106,3 +106,34 @@ TEST(ActionSpaceTest, TraductionBooleensFidele) {
     EXPECT_TRUE(input.dashPressed);
     EXPECT_TRUE(input.interactPressed);
 }
+
+/**
+ * @brief Une action répétée ne rejoue ses **fronts** que sur la première image.
+ * \castest{<b>Répétition d'action : fronts sur la première image seulement.</b><br/>
+ * \tcat Unitaire · AiSolver Env<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Traduire une action portant saut, dash et interaction pour l'image `0`.<br/>2.
+ * La traduire pour les images suivantes.<br/>
+ * \tattendu L'image `0` porte les trois fronts ; les suivantes n'en portent aucun, mais
+ * conservent `moveX` et `jumpHeld` -- répéter un front rallumerait un saut à chaque image et
+ * épuiserait le saut aérien dès la première montée.}
+ */
+TEST(ActionSpaceTest, RepetitionDActionNeRejouePasLesFronts) {
+    const aisolver::Action action{aisolver::Direction::Right, true, true, true, true};
+
+    const core::PlayerInput first = aisolver::toPlayerInput(action, 0);
+    EXPECT_TRUE(first.jumpPressed);
+    EXPECT_TRUE(first.dashPressed);
+    EXPECT_TRUE(first.interactPressed);
+    EXPECT_TRUE(first.jumpHeld);
+    EXPECT_FLOAT_EQ(first.moveX, 1.0f);
+
+    for (int frame = 1; frame < 4; ++frame) {
+        const core::PlayerInput repeated = aisolver::toPlayerInput(action, frame);
+        EXPECT_FALSE(repeated.jumpPressed) << "image " << frame;
+        EXPECT_FALSE(repeated.dashPressed) << "image " << frame;
+        EXPECT_FALSE(repeated.interactPressed) << "image " << frame;
+        EXPECT_TRUE(repeated.jumpHeld) << "image " << frame;
+        EXPECT_FLOAT_EQ(repeated.moveX, 1.0f) << "image " << frame;
+    }
+}

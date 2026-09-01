@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QPalette>
+#include <QString>
 #include <string>
 
 #include "HMI/Interface/DesignTokens.h"
@@ -32,11 +33,24 @@ void applyApplicationStyle();
 /// oublie le plus souvent, et celui qui trahit le plus vite un thème incomplet.
 [[nodiscard]] QPalette buildApplicationPalette(const DesignTokens& tokens);
 
-/// Charge le modèle de feuille de style embarqué (`:/resources/theme.qss`), le substitue avec
-/// @p editorTokens et l'applique à l'application. Repli explicite : fichier absent/illisible ou
-/// marqueur inconnu -> avertissement journalisé, l'application reste utilisable sans feuille de
-/// style (comportement historique de `main.cpp`, non régressé).
+/// Charge le modèle de feuille de style du **châssis d'édition** (`:/resources/theme-editor.qss`),
+/// le substitue avec @p editorTokens et l'applique à l'**application**. Repli explicite : fichier
+/// absent/illisible ou marqueur inconnu -> avertissement journalisé, l'application reste utilisable
+/// sans feuille de style (comportement historique de `main.cpp`, non régressé).
+///
+/// Ne porte **plus** la portée identité depuis le `LOT-73` (`EX-IHM-082`) : celle-ci se pose sur la
+/// pile d'écrans (`identityStyleSheet`). Les deux vivaient dans la même feuille applicative, si
+/// bien qu'un changement de facteur d'agrandissement — préoccupation des seuls écrans du jeu —
+/// repolissait les 862 widgets de l'application, cinq secondes durant en Debug.
 void applyStyleSheet(const DesignTokens& editorTokens);
+
+/// Feuille de style de la **portée identité** (`:/resources/theme-identity.qss`), substituée avec
+/// les jetons effectifs et le facteur d'agrandissement courant (`identityScale`).
+///
+/// Rendue plutôt qu'appliquée : c'est l'appelant qui sait **où** la poser — sur la pile d'écrans,
+/// et non sur l'application (`EX-IHM-082`). Chaîne vide si la feuille est absente ou invalide ;
+/// l'appelant laisse alors en place la précédente.
+[[nodiscard]] QString identityStyleSheet();
 
 /// Enregistre les polices embarquées auprès de Qt et applique la famille du **châssis
 /// d'édition** comme police par défaut de l'application (`Assets/Fonts/`) :

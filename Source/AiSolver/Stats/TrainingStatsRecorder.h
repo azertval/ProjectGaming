@@ -46,6 +46,22 @@ struct TrainingStatsRow {
 };
 
 /**
+ * @brief Grandeurs **dérivées** par l'enregistreur au fil des lignes, écrites dans le CSV.
+ *
+ * Distinctes de `TrainingStatsRow`, qui est ce que l'appelant *fournit* : celles-ci, l'enregistreur
+ * les calcule, parce qu'elles dépendent de l'historique du run et non de la seule génération
+ * courante. Elles étaient calculées, écrites, puis perdues — l'observateur ne recevait que la
+ * ligne brute, si bien qu'une IHM voulant tracer une courbe lissée devait relire le fichier que
+ * l'enregistreur venait d'écrire, ou refaire le calcul.
+ */
+struct TrainingStatsDerived {
+    /// Moyenne mobile de `bestReward` sur la fenêtre passée au constructeur.
+    float movingAverageReward = 0.0f;
+    /// Variation de cette moyenne depuis la ligne précédente ; `0` sur la première ligne.
+    float rewardDelta = 0.0f;
+};
+
+/**
  * @brief Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à `record`,
  * jamais rouvert en ajout (voir `makeTrainingRunPath`/`generateRunId`, `TrainingRunPath.h`, pour la
  * construction du chemin d'un nouveau run).
@@ -72,7 +88,9 @@ public:
      * Un `flush` après chaque ligne a un coût (une écriture disque par génération/épisode),
      * volontairement accepté : la fréquence d'appel reste très inférieure au temps de calcul d'une
      * génération/d'un épisode complet, et garantit qu'un arrêt prématuré du processus ne perde
-     * aucune ligne déjà journalisée (`EX-NFR-040`).
+     * aucune ligne déjà journalisée (`EX-NFR-040`). Ce coût ne dépend jamais de la taille de
+     * population : une seule ligne par génération, quel que soit le nombre d'individus évalués —
+     * la trace reste donc toujours écrite, quelle que soit la taille de la population.
      */
     void record(const TrainingStatsRow& row);
 
@@ -82,10 +100,12 @@ public:
      * quatre familles d'algorithmes (évolutionniste, REINFORCE, acteur-critique, DQN), pour ne
      * jamais dupliquer la boucle d'entraînement dans l'IHM — celle-ci n'a besoin que d'observer,
      * jamais de réimplémenter.
-     * @param callback Invoqué après l'écriture disque de chaque ligne ; `nullptr` (défaut) pour
-     *        ne rien observer, comportement inchangé.
+     * @param callback Invoqué après l'écriture disque de chaque ligne, avec la ligne **et** les
+     *        grandeurs dérivées qui l'accompagnent dans le CSV ; `nullptr` (défaut) pour ne rien
+     *        observer, comportement inchangé.
      */
-    void setOnRecord(std::function<void(const TrainingStatsRow&)> callback) {
+    void setOnRecord(
+        std::function<void(const TrainingStatsRow&, const TrainingStatsDerived&)> callback) {
         onRecord_ = std::move(callback);
     }
 
@@ -94,7 +114,7 @@ private:
     MovingAverageTracker movingAverage_;
     bool hasPreviousMovingAverage_ = false;
     float previousMovingAverage_ = 0.0f;
-    std::function<void(const TrainingStatsRow&)> onRecord_;
+    std::function<void(const TrainingStatsRow&, const TrainingStatsDerived&)> onRecord_;
 };
 
 }  // namespace aisolver

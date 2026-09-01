@@ -87,6 +87,10 @@ TrainingResult LevelTrainingSession::run(
             updateConsecutiveStableWins(consecutiveStableWins, sameFitnessAsBefore, resolvingNow);
         previousChampionFitness = champion.fitness;
 
+        if (_onStabilityChanged) {
+            _onStabilityChanged(consecutiveStableWins, _stopping.requiredConsecutiveSuccesses);
+        }
+
         if (consecutiveStableWins >= _stopping.requiredConsecutiveSuccesses) {
             return TrainingResult{true, static_cast<unsigned>(generation) + 1,
                                   cloneIndividual(champion, _topology)};

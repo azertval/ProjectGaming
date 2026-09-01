@@ -1,22 +1,23 @@
-/* Modele de feuille de style Qt (LOT-56 TACHE-02) : produit au chargement par substitution de
-   marqueurs (syntaxe dollar-accolade, cf. hmi::substituteStyleSheetTemplate -- non repetee ici en
-   toutes lettres pour ne pas etre lue comme un marqueur reel par le scanner, non conscient des
-   commentaires) avec les valeurs des jetons de design (HMI/Interface/DesignTokens.h). Aucune
-   couleur litterale : chaque couleur passe par un marqueur.
+/* Modele de feuille de style Qt de la portee IDENTITE DU JEU (LOT-56 TACHE-02, LOT-73).
+   Produit au chargement par substitution de marqueurs (syntaxe dollar-accolade, cf.
+   hmi::substituteStyleSheetTemplate -- non repetee ici en toutes lettres pour ne pas etre lue
+   comme un marqueur reel par le scanner, non conscient des commentaires) avec les valeurs des
+   jetons de design (HMI/Interface/DesignTokens.h). Aucune couleur litterale : chaque couleur
+   passe par un marqueur.
 
-   Deux portees, cf. epic.md :
-   - identite du jeu (prefixe identity.color.*) : menu principal et ecran Options, portee par
-     objectName (#MainMenu, #OptionsPage) -- INVARIANTE, jamais affectee par le theme de l'editeur.
-   - chassis d'edition (prefixe editor.color.*) : tout le reste (fenetre, panneaux dockables,
-     barres, arbres/tables/listes, controles, boites de dialogue) -- VARIABLE, second jeu de
-     valeurs en TACHE-06 (theme clair). Le style Qt Fusion (ApplicationTheme::
-     applyApplicationStyle) et la QPalette applicative (ApplicationTheme::buildApplicationPalette)
-     couvrent deja la plupart des couleurs de base des controles standards ; cette feuille complete
-     ce que la palette seule ne couvre pas (barres de titre de dock, onglets, en-tetes, infobulles,
-     focus visible, separateurs).
+   PORTEE : les ecrans du jeu, cadres par objectName. INVARIANTE -- jamais affectee par le theme
+   clair/sombre de l'editeur (EX-IHM-054).
 
-   Marqueurs de grandeur (prefixe tokens.spacing.*) partages entre les deux portees (memes
-   echelles). */
+   Cette feuille est posee sur la PILE D'ECRANS, jamais sur l'application (LOT-73, EX-IHM-082).
+   La raison est mesurable : les grandeurs identity.size.* / identity.space.* ci-dessous sont
+   multipliees par le facteur d'agrandissement entier de hmi::pixelArtScale, qui change avec la
+   hauteur de la fenetre. Reposer pour autant la feuille de style de l'APPLICATION repolissait ses
+   862 widgets -- cinq secondes par redimensionnement en Debug -- alors que le facteur ne concerne
+   que les quelques dizaines de widgets des ecrans du jeu. Une preoccupation d'ecran ne doit pas
+   coûter un rejeu applicatif.
+
+   En pixels et jamais en points : un point vaut une fraction variable de pixel selon l'ecran, et
+   le facteur entier n'aurait alors plus rien d'entier. */
 
 /* ===== Identite du jeu : les SIX ecrans joueur (INVARIANTE) =====
 
@@ -34,11 +35,27 @@
    facteur entier n'aurait alors plus rien d'entier. Aucun border-radius nulle part : un coin
    arrondi produit un degrade d'anticrenelage que le filtrage au plus proche voisin ne rend pas. */
 
-#MainMenu, #OptionsPage, #PauseScreen, #LevelSelectScreen, #LevelCompleteScreen, #CreditsScreen,
-#AiModeScreen {
+#MainMenu, #OptionsPage, #PauseScreen, #LevelSelectScreen, #LevelCompleteScreen, #CreditsScreen {
     background-color: ${identity.color.background};
     font-family: ${identity.font.body};
     font-size: ${identity.size.body}px;
+    color: ${identity.color.text};
+}
+
+/* ---- Mode IA : ENVELOPPE en identite, CONTENU en outil (LOT-73) ----
+
+   Cet ecran est le seul de la portee a n'etre pas un ecran de JOUEUR : c'est un poste de travail,
+   avec vingt-six lignes de formulaire, une table a huit colonnes et un graphique. Habille comme le
+   menu, il heritait de la police bitmap et des grandeurs multipliees par le facteur
+   d'agrandissement (jusqu'a 3x) -- d'ou une hauteur minimale de plus de deux mille pixels, et des
+   donnees denses rendues dans une police concue pour sept mots a l'ecran.
+
+   Il garde donc son ENVELOPPE (fond, titre, cadre a bordure franche, bouton de retour), qui le
+   rattache visiblement au jeu, et laisse son CONTENU suivre le chassis d'edition : police d'outil,
+   densite normale, themes clair/sombre (EX-IHM-054). Aucune font-family ici : ne pas en nommer,
+   c'est laisser la police PAR DEFAUT de l'application s'appliquer aux descendants. */
+#AiModeScreen {
+    background-color: ${identity.color.background};
     color: ${identity.color.text};
 }
 
@@ -134,31 +151,31 @@
     padding: ${identity.space.small}px 0;
 }
 
-/* ---- Credits : hierarchie en-tete / nom / licence ---- */
-#CreditsScreen QLabel#developmentLabel,
-#CreditsScreen QLabel#audioLabel,
-#CreditsScreen QLabel#graphicsLabel {
+/* ---- Credits : hierarchie en-tete / ligne de credit ----
+   Selection par ROLE (propriete dynamique `creditsRole` posee dans CreditsScreen.ui), jamais par
+   nom d'objet : trois sections ajoutees apres coup -- polices, bibliotheques, licence -- n'avaient
+   jamais ete ajoutees a la liste des noms, et s'affichaient donc dans la fonte du corps de page au
+   milieu de sections en accentue. Un role se pose sur le widget au moment ou on l'ecrit ; une liste
+   de noms se met a jour ailleurs, ou pas du tout. */
+#CreditsScreen QLabel[creditsRole="section"] {
     color: ${identity.color.accent};
     font-size: ${identity.size.body}px;
     font-weight: bold;
 }
-#CreditsScreen QLabel#audioCredit,
-#CreditsScreen QLabel#graphicsCredit {
+#CreditsScreen QLabel[creditsRole="entry"] {
     color: ${identity.color.textMuted};
     font-size: ${identity.size.caption}px;
 }
 
 /* ---- Onglets ---- */
 #OptionsPage QTabWidget::pane,
-#LevelSelectScreen QTabWidget::pane,
-#AiModeScreen QTabWidget::pane {
+#LevelSelectScreen QTabWidget::pane {
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
     background: ${identity.color.surface};
     border-radius: 0;
 }
 #OptionsPage QTabBar::tab,
-#LevelSelectScreen QTabBar::tab,
-#AiModeScreen QTabBar::tab {
+#LevelSelectScreen QTabBar::tab {
     background: ${identity.color.surfaceAlt};
     color: ${identity.color.textMuted};
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
@@ -169,38 +186,56 @@
     font-weight: bold;
 }
 #OptionsPage QTabBar::tab:selected,
-#LevelSelectScreen QTabBar::tab:selected,
-#AiModeScreen QTabBar::tab:selected {
+#LevelSelectScreen QTabBar::tab:selected {
     color: ${identity.color.background};
     background: ${identity.color.accent};
 }
 
-/* ---- Controles de l'ecran Options et de Mode IA (LOT-ANNEXE-21) ---- */
+/* ---- Controles de l'ecran Options ---- */
 #OptionsPage QLabel,
 #OptionsPage QCheckBox,
-#OptionsPage QComboBox,
-#AiModeScreen QLabel,
-#AiModeScreen QCheckBox,
-#AiModeScreen QComboBox,
-#AiModeScreen QRadioButton,
-#AiModeScreen QSpinBox,
-#AiModeScreen QDoubleSpinBox {
+#OptionsPage QComboBox {
     color: ${identity.color.text};
     font-size: ${identity.size.body}px;
 }
+/* ---- Mode IA : controles du CONTENU (LOT-73) ----
+
+   Couleurs du JEU, densite d'OUTIL. Les couleurs restent celles de l'identite pour que le contenu
+   ne jure pas avec le cadre qui l'entoure -- et parce qu'elles sont invariantes, la ou un contenu
+   habille par le chassis basculerait en clair au milieu d'un ecran sombre.
+
+   Ce qui change, c'est la DENSITE : aucune font-family (la police par defaut de l'application
+   s'applique), aucune font-size (la taille par defaut aussi), et des rembourrages pris dans
+   tokens.spacing.*, qui ne sont JAMAIS multiplies par le facteur d'agrandissement. Les grandeurs
+   identity.size.* / identity.space.*, elles, le sont : c'est par elles que vingt-six lignes de
+   formulaire reclamaient plus de deux mille pixels de hauteur. */
+#AiModeScreen QGroupBox {
+    color: ${identity.color.textMuted};
+    border: 1px solid ${identity.color.border};
+    border-radius: 0;
+    margin-top: ${tokens.spacing.medium}px;
+    padding-top: ${tokens.spacing.medium}px;
+}
+#AiModeScreen QGroupBox::title {
+    subcontrol-origin: margin;
+    left: ${tokens.spacing.small}px;
+    padding: 0 ${tokens.spacing.extraSmall}px;
+}
 #AiModeScreen QComboBox,
 #AiModeScreen QSpinBox,
-#AiModeScreen QDoubleSpinBox {
+#AiModeScreen QDoubleSpinBox,
+#AiModeScreen QLineEdit {
     background: ${identity.color.surfaceAlt};
-    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    color: ${identity.color.text};
+    border: 1px solid ${identity.color.outline};
     border-radius: 0;
-    padding: ${identity.space.small}px ${identity.space.medium}px;
+    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
 }
 #AiModeScreen QTableWidget {
     background: ${identity.color.surface};
     alternate-background-color: ${identity.color.surfaceAlt};
     color: ${identity.color.text};
-    border: ${identity.frame.thickness}px solid ${identity.color.outline};
+    border: 1px solid ${identity.color.outline};
     gridline-color: ${identity.color.border};
     selection-background-color: ${identity.color.accent};
     selection-color: ${identity.color.background};
@@ -209,10 +244,76 @@
     background: ${identity.color.surfaceAlt};
     color: ${identity.color.textMuted};
     border: none;
-    border-right: ${identity.frame.thickness}px solid ${identity.color.outline};
-    border-bottom: ${identity.frame.thickness}px solid ${identity.color.outline};
-    padding: ${identity.space.small}px;
+    border-right: 1px solid ${identity.color.outline};
+    border-bottom: 1px solid ${identity.color.outline};
+    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
 }
+#AiModeScreen QTabWidget::pane {
+    border: 1px solid ${identity.color.outline};
+    background: ${identity.color.surface};
+    border-radius: 0;
+}
+#AiModeScreen QTabBar::tab {
+    background: ${identity.color.surfaceAlt};
+    color: ${identity.color.textMuted};
+    border: 1px solid ${identity.color.outline};
+    border-bottom: none;
+    border-radius: 0;
+    padding: ${tokens.spacing.small}px ${tokens.spacing.large}px;
+}
+#AiModeScreen QTabBar::tab:selected {
+    color: ${identity.color.background};
+    background: ${identity.color.accent};
+}
+#AiModeScreen QPushButton {
+    color: ${identity.color.background};
+    background: ${identity.color.accent};
+    border: 1px solid ${identity.color.outline};
+    border-radius: 0;
+    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.large}px;
+}
+#AiModeScreen QPushButton:hover,
+#AiModeScreen QPushButton:focus {
+    background: ${identity.color.accentHover};
+}
+#AiModeScreen QPushButton:disabled {
+    background: ${identity.color.surfaceAlt};
+    color: ${identity.color.textMuted};
+    border-color: ${identity.color.border};
+}
+#AiModeScreen QProgressBar {
+    border: 1px solid ${identity.color.outline};
+    border-radius: 0;
+    background: ${identity.color.surfaceAlt};
+    color: ${identity.color.text};
+    text-align: center;
+}
+#AiModeScreen QProgressBar::chunk {
+    background: ${identity.color.accent};
+}
+#AiModeScreen QScrollBar:vertical,
+#AiModeScreen QScrollBar:horizontal {
+    background: ${identity.color.surfaceAlt};
+    border: 1px solid ${identity.color.outline};
+}
+#AiModeScreen QScrollBar::handle {
+    background: ${identity.color.border};
+    border-radius: 0;
+}
+#AiModeScreen QScrollBar::handle:hover {
+    background: ${identity.color.accent};
+}
+
+/* Zones defilantes du Mode IA : le cadre pixel doit rester visible AU TRAVERS.
+   Une QScrollArea peint par defaut un fond opaque de la palette systeme, qui poserait un
+   rectangle gris au milieu de la carte. Elle n'est la que pour empecher la colonne de reglages
+   d'imposer sa hauteur a la fenetre -- elle ne doit rien ajouter a l'image. */
+#AiModeScreen QScrollArea,
+#AiModeScreen QScrollArea > QWidget > QWidget {
+    background: transparent;
+    border: none;
+}
+
 #OptionsPage QCheckBox::indicator {
     width: ${identity.size.body}px;
     height: ${identity.size.body}px;
@@ -243,8 +344,7 @@
     width: ${identity.space.medium}px;
     margin: -${identity.space.small}px 0;
 }
-#OptionsPage QPushButton,
-#AiModeScreen QPushButton {
+#OptionsPage QPushButton {
     color: ${identity.color.background};
     background: ${identity.color.accent};
     border: ${identity.frame.thickness}px solid ${identity.color.outline};
@@ -254,13 +354,10 @@
     font-size: ${identity.size.body}px;
 }
 #OptionsPage QPushButton:hover,
-#OptionsPage QPushButton:focus,
-#AiModeScreen QPushButton:hover,
-#AiModeScreen QPushButton:focus {
+#OptionsPage QPushButton:focus {
     background: ${identity.color.accentHover};
 }
-#OptionsPage QPushButton:disabled,
-#AiModeScreen QPushButton:disabled {
+#OptionsPage QPushButton:disabled {
     background: ${identity.color.surfaceAlt};
     color: ${identity.color.textMuted};
     border-color: ${identity.color.border};
@@ -286,175 +383,4 @@
 #AiModeScreen hmi--PixelMenuButton:focus {
     color: ${identity.color.accent};
     background: transparent;
-}
-
-/* ===== Chassis d'edition : tout le reste (VARIABLE) ===== */
-
-/* Panneaux dockables : barre de titre et bordure -- QPalette ne porte pas ces roles. */
-QDockWidget {
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-}
-QDockWidget::title {
-    background: ${editor.color.surfaceAlt};
-    padding: ${tokens.spacing.small}px ${tokens.spacing.medium}px;
-    border-bottom: 1px solid ${editor.color.border};
-}
-
-/* Barre de menus et menus. */
-QMenuBar {
-    background: ${editor.color.surface};
-    color: ${editor.color.text};
-    border-bottom: 1px solid ${editor.color.border};
-}
-QMenuBar::item:selected {
-    background: ${editor.color.surfaceAlt};
-    color: ${editor.color.accent};
-}
-QMenu {
-    background: ${editor.color.surface};
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-}
-QMenu::item:selected {
-    background: ${editor.color.surfaceAlt};
-    color: ${editor.color.accent};
-}
-QMenu::separator {
-    height: 1px;
-    background: ${editor.color.border};
-    margin: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
-}
-
-/* Barre d'outils (TACHE-04) et barre d'etat. */
-QToolBar {
-    background: ${editor.color.surface};
-    border-bottom: 1px solid ${editor.color.border};
-    spacing: ${tokens.spacing.extraSmall}px;
-    padding: ${tokens.spacing.extraSmall}px;
-}
-QStatusBar {
-    background: ${editor.color.surface};
-    color: ${editor.color.textMuted};
-    border-top: 1px solid ${editor.color.border};
-}
-
-/* Onglets (panneau Textures). */
-QTabWidget::pane {
-    border: 1px solid ${editor.color.border};
-    background: ${editor.color.background};
-}
-QTabBar::tab {
-    background: ${editor.color.surfaceAlt};
-    color: ${editor.color.textMuted};
-    padding: ${tokens.spacing.small}px ${tokens.spacing.medium}px;
-    border: 1px solid ${editor.color.border};
-    border-bottom: none;
-}
-QTabBar::tab:selected {
-    background: ${editor.color.background};
-    color: ${editor.color.text};
-}
-QTabBar::tab:focus {
-    border-color: ${editor.color.accent};
-}
-
-/* Arbres, tables et listes : en-tetes, lignes alternees, survol, selection. */
-QTreeView, QTableView, QListView {
-    background: ${editor.color.background};
-    alternate-background-color: ${editor.color.surfaceAlt};
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-    selection-background-color: ${editor.color.accent};
-    selection-color: ${editor.color.background};
-}
-QTreeView::item:hover, QTableView::item:hover, QListView::item:hover {
-    background: ${editor.color.surfaceAlt};
-}
-QHeaderView::section {
-    background: ${editor.color.surface};
-    color: ${editor.color.textMuted};
-    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
-    border: none;
-    border-right: 1px solid ${editor.color.border};
-    border-bottom: 1px solid ${editor.color.border};
-}
-
-/* Champs de saisie, compteurs numeriques, listes deroulantes -- focus visible (EX-IHM-040). */
-QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox {
-    background: ${editor.color.surface};
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-    border-radius: 3px;
-    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
-}
-QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus {
-    border: 2px solid ${editor.color.accent};
-}
-QComboBox QAbstractItemView {
-    background: ${editor.color.surface};
-    color: ${editor.color.text};
-    selection-background-color: ${editor.color.accent};
-    selection-color: ${editor.color.background};
-    border: 1px solid ${editor.color.border};
-}
-
-/* Boutons, cases a cocher, boutons radio -- focus visible. */
-QPushButton {
-    background: ${editor.color.surface};
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-    border-radius: 3px;
-    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.large}px;
-}
-QPushButton:hover {
-    border-color: ${editor.color.accentHover};
-}
-QPushButton:pressed {
-    background: ${editor.color.surfaceAlt};
-}
-QPushButton:focus {
-    border: 2px solid ${editor.color.accent};
-}
-QPushButton:disabled {
-    color: ${editor.color.textMuted};
-}
-QCheckBox:focus, QRadioButton:focus {
-    border: 1px solid ${editor.color.accent};
-}
-
-/* Barres de defilement. */
-QScrollBar:vertical, QScrollBar:horizontal {
-    background: ${editor.color.background};
-    border: none;
-}
-QScrollBar::handle {
-    background: ${editor.color.surfaceAlt};
-    border-radius: 3px;
-}
-QScrollBar::handle:hover {
-    background: ${editor.color.border};
-}
-QScrollBar::add-line, QScrollBar::sub-line {
-    background: transparent;
-    border: none;
-}
-
-/* Infobulles et separateurs. */
-QToolTip {
-    background: ${editor.color.surfaceAlt};
-    color: ${editor.color.text};
-    border: 1px solid ${editor.color.border};
-    padding: ${tokens.spacing.extraSmall}px ${tokens.spacing.small}px;
-}
-QFrame[frameShape="4"], QFrame[frameShape="5"] {
-    color: ${editor.color.border};
-}
-
-/* Boites de dialogue standard (message, fichier, saisie) et dialogue de redimensionnement
-   (MainWindow::openResizeDialog) : QDialog n'a pas de role de palette dedie, sa QPalette::Window
-   couvre deja le fond -- seule la bordure des boutons/champs ci-dessus s'applique en plus. */
-QDialog {
-    background: ${editor.color.background};
-    color: ${editor.color.text};
 }

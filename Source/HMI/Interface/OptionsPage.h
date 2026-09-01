@@ -27,7 +27,7 @@ class AudioEngine;
 
 /**
  * @brief Page Options **unique**, affichée dans la fenêtre principale (pas en pop-up), au style du
- *        menu principal (thème `theme.qss`).
+ *        menu principal (thème `theme-identity.qss`).
  *
  * Mise en page dans `OptionsPage.ui` (éditable dans Qt Designer) : titre + `QTabWidget` avec les
  * onglets **Vidéo** et **Audio** (contenu statique). Les onglets **Commande clavier** et **Commande

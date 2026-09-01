@@ -119,7 +119,7 @@ dans `Documentation/Specification/niveaux.md`, Sec. 3.
 | 19 | `demo-plateforme.json` | Plateforme mobile (`EX-GP-026`), verticale, portant un bloc | Niveau entier | — |
 | 20 | `demo-budget.json` | Budget de mouvements (`EX-GP-024`) : le trajet consomme tout | Niveau entier | 4 sauts, 2 dashs |
 | 21 | `demo-synthese.json` | Mécanismes, terrain et dangers **entrelacés** | Niveau entier | 6 sauts, 1 dash |
-| 22 | `demo-final.json` | **Final multi-salles** : une énigme par salle, zones de caméra dessinées | **Par salle** | 30 sauts, 4 dashs |
+| 22 | `demo-final.json` | **Final multi-salles** : une énigme par salle, quatre mécanismes en séquence (clé, plaque, interrupteur, clé) | Suivi | — |
 
 `demo-arrondi.json` (fusionné dans `demo-pente`) et `demo-salles.json` (absorbé par le final, qui
 porte désormais le cadrage *par salle*) ont été supprimés au second temps.

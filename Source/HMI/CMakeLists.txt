@@ -199,8 +199,12 @@ add_executable(ProjectGaming
     Game/LevelRunStats.cpp
     # Mode IA (LOT-ANNEXE-21) : entrainement interactif depuis l'IHM, seul point de HMI autorise a
     # referencer AiSolver/Training/Nn/Optim/Eval (amendement documente de LOT-ANNEXE-18, epic.md).
+    # Traduction requete -> surcharges (LOT-73, EX-IHM-083) : logique PURE, compilee aussi
+    # dans UnitTests (cf. Source/Test/CMakeLists.txt) -- c'est la ou des reglages se perdaient.
+    Ai/TrainingOverrides.cpp
     Ai/TrainingWorker.cpp
     Ai/ModelEvaluation.cpp
+    Ai/EvaluationWorker.cpp
     # Localisation
     Localization/Localization.cpp
     # Audio (bruitages, LOT-60)
@@ -231,6 +235,9 @@ add_executable(ProjectGaming
     Interface/ActionCatalog.cpp
     Interface/EditorActions.cpp
     Interface/ScreenFlow.cpp
+    # Enveloppe defilante de toute page d ecran (LOT-73, EX-IHM-080) : aucun ecran ne
+    # contraint la taille de la fenetre.
+    Interface/ScreenPageHost.cpp
     Interface/EditorWorkspace.cpp
     Interface/MainWindow.cpp
     Interface/MainMenu.cpp
@@ -239,6 +246,7 @@ add_executable(ProjectGaming
     Interface/LevelSelectScreen.cpp
     Interface/CreditsScreen.cpp
     Interface/AiModeScreen.cpp
+    Interface/TrainingChartWidget.cpp
     Interface/OptionsPage.cpp
     Interface/KeybindingsWidget.cpp
     Interface/EditorKeybindingsWidget.cpp

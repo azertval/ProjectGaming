@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QByteArray>
+#include <QHash>
 #include <QMainWindow>
 #include <array>
 #include <filesystem>
@@ -97,10 +98,20 @@ protected:
     /// `LOT-59` TACHE-02/03) -- fenêtres de haut niveau positionnées à la main, jamais
     /// redimensionnées automatiquement par `_stack`.
     void resizeEvent(QResizeEvent* event) override;
-    /// Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et
-    /// rejoue le theme s'il a change (LOT-68, EX-IHM-070). Sans effet sur le chassis d'edition,
-    /// dont les grandeurs ne sont jamais multipliees.
-    void applyIdentityScale();
+    /// Recalcule le facteur d'agrandissement des écrans du jeu depuis la hauteur courante, **borné
+    /// par la zone d'affichage disponible** (`LOT-68`/`LOT-73`, `EX-IHM-070`, `EX-IHM-081`), et
+    /// rejoue le thème s'il a changé. Sans effet sur le châssis d'édition, dont les grandeurs ne
+    /// sont jamais multipliées.
+    /// @param beforeFirstShow `true` pendant la construction, alors que la fenêtre n'est pas encore
+    ///        montrée : lève la garde d'invisibilité (qui rendait sinon l'appel sans effet) et
+    ///        rejoue le thème **sans différer**, pour que la première image soit peinte au bon
+    ///        facteur.
+    void applyIdentityScale(bool beforeFirstShow = false);
+    /// Pose la feuille de style de la portée identité sur la **pile d'écrans** (`LOT-73`,
+    /// `EX-IHM-082`). Jamais sur l'application : les panneaux, barres et docks n'appartiennent pas
+    /// à cette portée, et les repolir à chaque changement de facteur coûtait cinq secondes en
+    /// Debug pour un résultat identique.
+    void applyIdentityStyleSheet();
 
 private:
     /// Applique l'espace de travail @p workspace (`LOT-68`, `EX-IHM-073`) : masque les panneaux de
@@ -286,6 +297,21 @@ private:
     /// barres, commandes d'édition, navigation manette, minuteur de statut.
     void applyScreenDressing(hmi::ScreenId screen);
 
+    // Invariant de taille des écrans (`LOT-73`, `EX-IHM-080`).
+    /// Enveloppe @p page dans un `hmi::ScreenPageHost` défilant, l'ajoute à la pile et retient
+    /// l'association. **Tout** écran passe par ici : c'est ce passage obligé, et non une convention
+    /// à réappliquer dans chaque `.ui`, qui garantit qu'aucun écran ne dicte sa taille à la
+    /// fenêtre. Le viewport en est exclu — c'est une surface de rendu, qui remplit sans défiler.
+    void addScreenPage(QWidget* page);
+    /// Affiche l'écran @p page en sélectionnant l'enveloppe qui l'héberge.
+    void showScreenPage(QWidget* page);
+    /// Vérifie que la taille minimale imposée par les écrans tient dans la zone d'affichage
+    /// disponible, et avertit dans le journal sinon (`EX-IHM-080`). Le dépassement est
+    /// silencieux côté Qt : Windows refuse la géométrie sans que rien ne le signale.
+    void warnIfScreensConstrainWindow() const;
+    /// Hauteur utile, en pixels logiques, de l'écran hébergeant la fenêtre ; `0` si inconnue.
+    [[nodiscard]] int availableLogicalHeight() const;
+
     // Écran de pause (LOT-59 TACHE-02).
     /// `Échap`/bouton manette B en jeu réel (`GameViewport::pauseRequested`) : ouvre la pause.
     void openPause();
@@ -343,6 +369,14 @@ private:
     void openAiMode();
     /// Retour au menu depuis l'écran Mode IA.
     void closeAiMode();
+    /// @brief Demande confirmation avant de quitter l'écran Mode IA pendant un entraînement, et
+    /// arrête proprement le run si l'utilisateur confirme.
+    ///
+    /// Le travailleur d'entraînement vit sur son propre thread et **survivrait** à la fermeture de
+    /// l'écran : sans cette confirmation, un run continuerait à tourner sans plus être visible ni
+    /// interruptible depuis le jeu.
+    /// @return `true` si la navigation peut se poursuivre (aucun run actif, ou arrêt confirmé).
+    [[nodiscard]] bool confirmLeavingActiveTraining();
     /// Un rejeu a été choisi dans `_aiMode` (aperçu en direct ou onglet Rejeu) : même chargement
     /// que l'ancien `watchAiPlay`, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran
     /// de jeu, jamais de plantage (`EX-NFR-040`).
@@ -372,8 +406,11 @@ private:
     /// de vérité sur la navigation, mise à jour uniquement par `transitionScreen`.
     hmi::ScreenState _screenState;
     QStackedWidget* _stack;  ///< Central : empile menu principal, options et viewport.
-    MainMenu* _menu;         ///< Menu principal (page d'accueil).
-    OptionsPage* _options;   ///< Page Options à onglets.
+    /// Écran → enveloppe défilante qui l'héberge dans la pile (`LOT-73`, `EX-IHM-080`). Le
+    /// viewport n'y figure pas : il est ajouté tel quel.
+    QHash<QWidget*, QWidget*> _screenHosts;
+    MainMenu* _menu;        ///< Menu principal (page d'accueil).
+    OptionsPage* _options;  ///< Page Options à onglets.
     /// Recouvrement de pause (`LOT-59` TACHE-02) : **widget enfant ordinaire** du viewport
     /// depuis le `LOT-69` TACHE-02. Il fut une fenêtre de haut niveau tant que le viewport était
     /// une fenêtre native embarquée (`QWidget::createWindowContainer`), qui peignait toujours

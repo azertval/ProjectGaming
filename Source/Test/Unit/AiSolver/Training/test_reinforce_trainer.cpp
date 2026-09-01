@@ -21,6 +21,7 @@
 #include "AiSolver/Env/HeadlessLevelEnvironment.h"
 #include "AiSolver/Env/ObservationEncoder.h"
 #include "AiSolver/Math/Autodiff/Node.h"
+#include "AiSolver/Optim/Adam.h"
 #include "AiSolver/Optim/Sgd.h"
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/Evolutionary/NetworkTopology.h"
@@ -32,6 +33,7 @@ using aisolver::HeadlessLevelEnvironment;
 using aisolver::ObservationEncoder;
 using aisolver::Rng;
 using aisolver::TrainingStatsRecorder;
+using aisolver::optim::Adam;
 using aisolver::optim::Sgd;
 using aisolver::training::ReinforceConfig;
 using aisolver::training::ReinforceTrainer;
@@ -45,6 +47,12 @@ namespace {
 // reste du budget ne sert qu'a borner le cout pire cas d'une politique encore peu entrainee.
 constexpr int REDUCED_MAX_STEPS = 40;
 constexpr std::size_t EPISODE_COUNT = 80;
+
+/// Budget de pas du corridor long : sept cases a franchir, vingt images par case a `moveSpeed = 3`
+/// -- moins de deux cents images ne laisseraient meme pas au trace parfait le temps d'arriver.
+constexpr int LONG_CORRIDOR_MAX_STEPS = 400;
+/// Episodes du test de progression : assez pour qu'une tendance emerge du bruit d'echantillonnage.
+constexpr std::size_t PROGRESSION_EPISODE_COUNT = 300;
 
 std::string readWholeFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
@@ -88,12 +96,16 @@ std::string stripTimestampColumn(const std::string& line) {
 
 /// Exécute un run complet de `ReinforceTrainer` sur le niveau trivial, avec une seed de base fixée.
 void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
-                  const std::filesystem::path& csvPath) {
+                  const std::filesystem::path& csvPath, std::size_t episodeCount = EPISODE_COUNT,
+                  int maxSteps = REDUCED_MAX_STEPS) {
     const ObservationEncoder encoder;
     Rng networkRng(seedBase);
     auto policy = buildNetwork(policyTopology(encoder.inputSize()), networkRng);
-    Sgd optimizer(0.05f);
-    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = REDUCED_MAX_STEPS});
+    // Meme optimiseur et meme taux que la configuration livree (`cli::TrainingConfig`) : ce test
+    // mesure la progression de l'entrainement tel qu'il est reellement execute, pas d'un reglage
+    // fige a l'ecriture du test.
+    Adam optimizer(0.003f);
+    HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = maxSteps});
     TrainingStatsRecorder recorder(csvPath);
 
     ReinforceConfig config;
@@ -102,7 +114,7 @@ void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
 
     ReinforceTrainer trainer(*policy, optimizer, environment, level.levelPath(), config, recorder,
                              "TrivialAI");
-    trainer.run(EPISODE_COUNT);
+    trainer.run(episodeCount);
 }
 
 }  // namespace
@@ -114,18 +126,21 @@ void runReinforce(const TrivialLevelDirectory& level, std::uint64_t seedBase,
  * \castest{<b>ReinforceTrainer : progression de la récompense sur le niveau de contrôle.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. `ReinforceTrainer` sur le niveau trivial, `80` épisodes.<br/>2. Comparer la
- * récompense moyenne des 10 premiers et des 10 derniers épisodes (colonne `bestReward` du CSV, un
+ * \tetapes 1. `ReinforceTrainer` sur le corridor long, `300` épisodes.<br/>2. Comparer la
+ * récompense moyenne du premier et du dernier cinquième du run (colonne `bestReward` du CSV, un
  * seul épisode par ligne).<br/>
- * \tattendu Moyenne des 10 derniers épisodes strictement supérieure à celle des 10 premiers.}
+ * \tattendu Moyenne du dernier cinquième strictement supérieure à celle du premier.}
  */
 TEST(ReinforceTrainerTest, ProgressionDeLaRecompenseSurLeNiveauDeControle) {
-    const TrivialLevelDirectory level("progression");
+    // Corridor long, pas le corridor a deux cases : ce dernier est deja termine quatre fois sur
+    // cinq par une politique tiree au hasard, et une progression ne s'y mesure pas -- il n'y a
+    // presque rien a gagner, et la variance de dix episodes depasse le gain possible.
+    const TrivialLevelDirectory level("progression", aisolver_test::LONG_CORRIDOR_LEVEL_JSON);
     const std::filesystem::path csvPath = level.file("stats.csv");
-    runReinforce(level, 12345, csvPath);
+    runReinforce(level, 12345, csvPath, PROGRESSION_EPISODE_COUNT, LONG_CORRIDOR_MAX_STEPS);
 
     const std::vector<std::string> lines = splitLines(readWholeFile(csvPath));
-    ASSERT_EQ(lines.size(), EPISODE_COUNT + 1);  // + 1 ligne d'en-tete.
+    ASSERT_EQ(lines.size(), PROGRESSION_EPISODE_COUNT + 1);  // + 1 ligne d'en-tete.
 
     // bestReward est la 2e colonne (index, bestReward, meanReward, ...) -- meme ordre que
     // TrainingStatsRow (Stats/TrainingStatsRecorder.h).
@@ -135,19 +150,23 @@ TEST(ReinforceTrainerTest, ProgressionDeLaRecompenseSurLeNiveauDeControle) {
         return std::stof(line.substr(firstComma + 1, secondComma - firstComma - 1));
     };
 
-    float firstTen = 0.0f;
-    for (std::size_t i = 1; i <= 10; ++i) {
-        firstTen += rewardOf(lines[i]);
-    }
-    firstTen /= 10.0f;
+    // Un cinquieme du run de chaque cote, pas dix episodes : l'echantillonnage est stochastique,
+    // et dix episodes varient plus que ce qu'un entrainement court peut gagner.
+    const std::size_t window = PROGRESSION_EPISODE_COUNT / 5;
 
-    float lastTen = 0.0f;
-    for (std::size_t i = lines.size() - 10; i < lines.size(); ++i) {
-        lastTen += rewardOf(lines[i]);
+    float firstWindow = 0.0f;
+    for (std::size_t i = 1; i <= window; ++i) {
+        firstWindow += rewardOf(lines[i]);
     }
-    lastTen /= 10.0f;
+    firstWindow /= static_cast<float>(window);
 
-    EXPECT_GT(lastTen, firstTen);
+    float lastWindow = 0.0f;
+    for (std::size_t i = lines.size() - window; i < lines.size(); ++i) {
+        lastWindow += rewardOf(lines[i]);
+    }
+    lastWindow /= static_cast<float>(window);
+
+    EXPECT_GT(lastWindow, firstWindow);
 }
 
 /**

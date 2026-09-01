@@ -31,7 +31,7 @@ void PixelMenuButton::leaveEvent(QEvent* event) {
 
 void PixelMenuButton::paintEvent(QPaintEvent* event) {
     // Le bouton se peint d'abord normalement : couleur, police, marges et etat desactive viennent
-    // tous de theme.qss. On n'ajoute que la marque, par-dessus.
+    // tous de theme-identity.qss. On n'ajoute que la marque, par-dessus.
     QPushButton::paintEvent(event);
 
     // Un bouton indisponible ne porte jamais le curseur, meme survole : il indiquerait une action
@@ -41,8 +41,9 @@ void PixelMenuButton::paintEvent(QPaintEvent* event) {
     }
 
     const int scale = identityScale();
-    // Gouttiere reservee au curseur : exactement la marge gauche que theme.qss donne a ces boutons
-    // (identity.space.medium), de sorte que la marque se loge devant le texte sans le decaler.
+    // Gouttiere reservee au curseur : exactement la marge gauche que theme-identity.qss donne a ces
+    // boutons (identity.space.medium), de sorte que la marque se loge devant le texte sans le
+    // decaler.
     const int gutter = identityBaseScale().spaceMedium * scale;
     const int caretSize = identityBaseScale().sectionTitle * scale;
     const std::vector<PixelFrameQuad> caret = pixelCaretQuads(caretSize);

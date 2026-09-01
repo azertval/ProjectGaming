@@ -17,6 +17,7 @@
 #include "AiSolver/Stats/TrainingStatsRecorder.h"
 #include "AiSolver/Training/Dqn/QNetwork.h"
 #include "AiSolver/Training/Dqn/ReplayBuffer.h"
+#include "AiSolver/Training/PolicyGradientTuning.h"
 
 /**
  * @file AiSolver/Training/Dqn/DqnTrainer.h
@@ -44,13 +45,24 @@ struct DqnConfig {
     std::size_t updatePeriodSteps = 1;
     /// Période, en pas de simulation, entre deux synchronisations du réseau cible.
     std::size_t targetSyncPeriodSteps = 200;
-    float gamma = 0.99f;
+    float gamma = DEFAULT_GAMMA;
     /// Borne haute d'exploration (probabilité d'action aléatoire) au tout début du run.
     float epsilonStart = 1.0f;
     /// Borne basse d'exploration, atteinte après `epsilonDecaySteps` pas puis conservée.
     float epsilonEnd = 0.05f;
     /// Nombre de pas sur lequel `epsilon` décroît linéairement de `epsilonStart` à `epsilonEnd`.
-    std::size_t epsilonDecaySteps = 2000;
+    ///
+    /// Compté en pas de simulation cumulés sur **tout** le run, frontières d'épisode traversées.
+    /// La valeur précédente, `2 000`, était de l'ordre d'un seul épisode : l'exploration
+    /// atteignait son plancher de `5 %` avant la dixième trajectoire d'un run qui en compte des
+    /// milliers, et le reste du run tournait sur une politique quasi gelée.
+    std::size_t epsilonDecaySteps = 200000;
+
+    /// Images pendant lesquelles une action décidée est maintenue (`DEFAULT_ACTION_REPEAT`).
+    ///
+    /// Même raison que pour REINFORCE/acteur-critique (`TrajectoryCollector`) : une exploration
+    /// `epsilon`-greedy qui retire une action à chaque image de `1/60 s` ne se déplace pas.
+    int actionRepeat = DEFAULT_ACTION_REPEAT;
     /// Graine explicite du générateur pseudo-aléatoire interne (exploration `epsilon`-greedy et
     /// échantillonnage du `ReplayBuffer`) : un flux **continu** pour tout le run, pas dérivé par
     /// épisode (décision de cadrage -- contrairement à `TrajectoryCollector`, DQN n'a pas de

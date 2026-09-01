@@ -17,8 +17,7 @@ namespace aisolver::training {
 
 DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individual,
                                                HeadlessLevelEnvironment& environment,
-                                               const std::filesystem::path& levelPath,
-                                               int stuckThreshold) {
+                                               const std::filesystem::path& levelPath) {
     if (!environment.reset(levelPath)) {
         // Voir `evaluateFitness` : l'assertion ne garde rien en Release. Un rejeu vide est refuse
         // par l'appelant, la ou un `step()` sur un monde vide serait indefini.
@@ -40,8 +39,6 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
     DeterministicReplayResult result;
     EpisodeStatus status = EpisodeStatus::Ongoing;
 
-    ObjectiveDistanceFieldCache distanceFieldCache;
-
     while (status == EpisodeStatus::Ongoing && !environment.budgetExhausted()) {
         const Tensor<float> observationVector =
             observationEncoder.encode(environment, previousBox, playerState, playerVelocity);
@@ -53,11 +50,10 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
         result.steps.push_back(input);
 
         const StepObservation stepObservation = environment.step(input);
-        // Le champ ne change qu'a l'ouverture ou la fermeture d'une porte : le cache
-        // le reconstruit alors, et le rend tel quel sinon.
-        const GridDistanceField& distanceField =
-            distanceFieldCache.field(environment.level(), environment.mechanisms());
-        result.finalReward += computeReward(rewardConfig, distanceField, previousBox,
+        // Champ de l'environnement : une seule instance par episode, deja reconstruite par
+        // `step()` quand elle a cesse d'etre valide -- et celle-la meme dont la detection de
+        // blocage se sert.
+        result.finalReward += computeReward(rewardConfig, environment.objectiveField(), previousBox,
                                             stepObservation.playerBox, stepObservation.outcome);
 
         previousBox = stepObservation.playerBox;
@@ -66,7 +62,7 @@ DeterministicReplayResult replayBestIndividual(evolutionary::Individual& individ
 
         status = classifyEpisode(stepObservation.outcome, stepObservation.stepIndex,
                                  environment.stepsSinceProgress(), std::numeric_limits<int>::max(),
-                                 stuckThreshold);
+                                 environment.stuckThreshold());
     }
     if (status == EpisodeStatus::Ongoing) {
         // Budget dur atteint sans que classifyEpisode() (hardStepBudget desactive ci-dessus) ne

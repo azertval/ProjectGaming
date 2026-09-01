@@ -8,11 +8,17 @@ tenseur, et noter ce que l'agent y fait.
   physique du personnage, dangers). Un test **système** permanent compare les deux trajectoires :
   l'agent ne peut pas apprendre une physique que le joueur n'aurait pas.
 
-**Observation** — trois encodeurs complémentaires, assemblés à plat :
-- `TileWindowEncoder` — fenêtre de tuiles centrée sur le personnage, encodage catégoriel.
+**Observation** — quatre encodeurs complémentaires, assemblés à plat :
+- `TileWindowEncoder` — fenêtre de tuiles centrée sur le personnage, encodage catégoriel, lue sur
+  la grille de collision **courante** (portes à leur état, blocs à leur position) et non sur la
+  carte statique du fichier.
 - `PlayerStateEncoder` — vecteur cinématique du personnage (vitesse, appuis, budgets restants).
-- `MechanismStateEncoder` — état dynamique des mécanismes visibles.
-- `ObservationEncoder` — assemble les trois en un unique vecteur d'entrée `[inputSize(), 1]`.
+- `MechanismStateEncoder` — état dynamique des mécanismes visibles : porte ouverte, danger actif,
+  plateforme mobile à sa position continue courante.
+- `ObjectiveEncoder` — **gradient local du champ d'objectif** : sans lui, la récompense mesure une
+  direction que l'observation ne contient pas, et deux passages opposés dans le même couloir sont
+  indiscernables pour une politique sans mémoire.
+- `ObservationEncoder` — assemble les quatre en un unique vecteur d'entrée `[inputSize(), 1]`.
 
 **Action** — `ActionSpace` (produit fini des directions, du saut, du maintien de saut, du dash et de
 l'interaction) et `ActionDecoding` (décodage au maximum, ou par tirage à température).
@@ -25,5 +31,10 @@ l'interaction) et `ActionDecoding` (décodage au maximum, ou par tirage à temp�
   l'**objectif immédiat** (tant qu'une porte est verrouillée, sa clé est un but à part entière), sans
   que rien n'ait à connaître l'ordre de résolution attendu.
 - `Episode` — classification explicite de fin d'épisode : gagné, mort, bloqué, budget épuisé.
+- `StepBudget` — budget de pas et seuil de blocage **dérivés du niveau**, en parcourant la même
+  chaîne d'objectifs que la récompense. Une constante globale ne peut convenir aux deux bouts du
+  catalogue : `demo-wall-jump.json` se termine en quelques centaines de pas, `demo-final.json` en
+  demande près de `4 000`. Les deux valeurs sont fixées par un test de calibration confronté aux
+  tracés de référence des niveaux livrés (`Source/Test/Integration/test_budget_pas.cpp`).
 
 Réf. specs : `EX-IA-007` à `EX-IA-009`, `EX-IA-023` ; lots [`LOT-ANNEXE-05`](Documentation/Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/epic.md) à [`LOT-ANNEXE-08`](Documentation/Lot-Annexe/LOT-ANNEXE-08-fonction-recompense-episodes/epic.md).

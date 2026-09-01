@@ -140,16 +140,16 @@ TEST(NoisyObservationTest, ReproductibleAGraineFixee) {
  * \castest{Le bruit ne touche jamais l'etat reel simule.<br/>
  * \tcat Unitaire · AiSolver Eval<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Relever stepIndex/bestDistanceToExit avant encode().<br/>2. Encoder avec bruit
+ * \tetapes 1. Relever stepIndex/bestObjectiveDistance avant encode().<br/>2. Encoder avec bruit
  * (amplitude=1.0).<br/>
- * \tattendu stepIndex et bestDistanceToExit inchanges apres l'appel.}
+ * \tattendu stepIndex et bestObjectiveDistance inchanges apres l'appel.}
  */
 TEST(NoisyObservationTest, NeModifieJamaisLEtatReelDeLEnvironnement) {
     const TrivialLevelDirectory level("noise_env_untouched");
     HeadlessLevelEnvironment environment(EnvironmentConfig{.maxSteps = 30});
     const StepObservation observation = firstStep(environment, level);
     const int stepIndexBefore = observation.stepIndex;
-    const float bestDistanceBefore = environment.bestDistanceToExit();
+    const int bestDistanceBefore = environment.bestObjectiveDistance();
 
     const ObservationEncoder encoder;
     const NoisyObservationWrapper wrapper(encoder, 1.0f);
@@ -162,5 +162,5 @@ TEST(NoisyObservationTest, NeModifieJamaisLEtatReelDeLEnvironnement) {
     // encode() est un decorateur pur : aucun step supplementaire n'a ete simule, aucune
     // progression enregistree par le bruit lui-meme.
     EXPECT_EQ(stepIndexBefore, observation.stepIndex);
-    EXPECT_FLOAT_EQ(bestDistanceBefore, environment.bestDistanceToExit());
+    EXPECT_EQ(bestDistanceBefore, environment.bestObjectiveDistance());
 }

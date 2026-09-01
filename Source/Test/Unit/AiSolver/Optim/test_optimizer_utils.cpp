@@ -69,3 +69,38 @@ TEST(OptimizerUtilsTest, SansEffetSurLesParametresNonFournis) {
     EXPECT_NEAR(a->grad.at({0}), 0.0f, TOLERANCE);
     EXPECT_NEAR(b->grad.at({0}), 9.0f, TOLERANCE);
 }
+
+/**
+ * @brief `clipGradientNorm` ramène la norme globale à la borne demandée **sans changer la
+ *        direction** de la mise à jour.
+ * \castest{<b>Écrêtage de gradient : norme bornée, direction préservée.</b><br/>
+ * \tcat Unitaire · AiSolver Optim<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Donner à deux paramètres des gradients de norme globale connue.<br/>2. Écrêter
+ * à une borne inférieure à cette norme.<br/>3. Écrêter à une borne supérieure.<br/>
+ * \tattendu Au premier appel la norme finale vaut la borne et chaque composante a été
+ * multipliée par le **même** facteur ; au second, aucun gradient n'est modifié.}
+ */
+TEST(OptimizerUtilsTest, EcretageBorneLaNormeSansChangerLaDirection) {
+    Tensor<float> firstValue({2});
+    Tensor<float> secondValue({2});
+    const aisolver::autodiff::NodePtr first = aisolver::autodiff::variable(firstValue);
+    const aisolver::autodiff::NodePtr second = aisolver::autodiff::variable(secondValue);
+    // Norme globale = sqrt(3^2 + 4^2 + 0 + 0) = 5.
+    first->grad.at({0}) = 3.0f;
+    first->grad.at({1}) = 0.0f;
+    second->grad.at({0}) = 4.0f;
+    second->grad.at({1}) = 0.0f;
+
+    const std::vector<aisolver::autodiff::NodePtr> parameters{first, second};
+    const float normBefore = aisolver::optim::clipGradientNorm(parameters, 1.0f);
+    EXPECT_FLOAT_EQ(normBefore, 5.0f);
+    EXPECT_FLOAT_EQ(first->grad.at({0}), 3.0f / 5.0f);
+    EXPECT_FLOAT_EQ(second->grad.at({0}), 4.0f / 5.0f);
+
+    // Deuxieme appel, borne largement au-dessus de la norme courante (qui vaut 1) : rien ne bouge.
+    const float untouched = aisolver::optim::clipGradientNorm(parameters, 100.0f);
+    EXPECT_FLOAT_EQ(untouched, 1.0f);
+    EXPECT_FLOAT_EQ(first->grad.at({0}), 3.0f / 5.0f);
+    EXPECT_FLOAT_EQ(second->grad.at({0}), 4.0f / 5.0f);
+}
