@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,13 +104,14 @@ $(function(){initNavTree('ReinforceTrainer_8h.html','',''); });
 <code>#include &quot;<a class="el" href="IOptimizer_8h_source.html">AiSolver/Optim/IOptimizer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingStatsRecorder_8h_source.html">AiSolver/Stats/TrainingStatsRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrajectoryCollector_8h_source.html">AiSolver/Training/PolicyGradient/TrajectoryCollector.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PolicyGradientTuning_8h_source.html">AiSolver/Training/PolicyGradientTuning.h</a>&quot;</code><br />
 </div>
 <p><a href="ReinforceTrainer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:aisolver_3A_3Atraining_3A_3AReinforceConfig" id="r_aisolver_3A_3Atraining_3A_3AReinforceConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html">aisolver::training::ReinforceConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run REINFORCE : <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac03edfeaf84232791b5f677be1102109">gamma</a></span> proche de <span class="tt">1</span> par défaut (voir décision de cadrage de l'épic), <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac90fb79dd840dbbdcb12a503bdda87be">seedBase</a></span> d'où dérive déterministiquement la graine de chaque épisode.  <a href="structaisolver_1_1training_1_1ReinforceConfig.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run REINFORCE : <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac03edfeaf84232791b5f677be1102109">gamma</a></span> proche de <span class="tt">1</span> par défaut (voir décision de cadrage de l'épic), <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac90fb79dd840dbbdcb12a503bdda87be">seedBase</a></span> d'où dérive déterministiquement la graine de chaque épisode, et les réglages partagés avec l'acteur-critique (<span class="tt"><a class="el" href="structaisolver_1_1training_1_1PolicyGradientTuning.html" title="Réglages partagés par ReinforceConfig et ActorCriticConfig.">PolicyGradientTuning</a></span>).  <a href="structaisolver_1_1training_1_1ReinforceConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:aisolver_3A_3Atraining_3A_3AReinforceTrainer" id="r_aisolver_3A_3Atraining_3A_3AReinforceTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html">aisolver::training::ReinforceTrainer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>), calcul de retour (<span class="tt">ReturnCalculator</span>), perte REINFORCE (<span class="tt">ReinforceLoss</span>) et un optimiseur (<span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>, <span class="tt">LOT-ANNEXE-04</span>) en une boucle exécutable épisode par épisode, journalisée (<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, <span class="tt">LOT-ANNEXE-09</span>).  <a href="classaisolver_1_1training_1_1ReinforceTrainer.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">

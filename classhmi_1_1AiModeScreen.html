@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -125,26 +125,61 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d18cf7cd21e2d526da12361f397aaaf" id="r_a5d18cf7cd21e2d526da12361f397aaaf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d18cf7cd21e2d526da12361f397aaaf">trainingActive</a> () const noexcept</td></tr>
 <tr class="memitem:a069f9b832b5ed10378ee99cd7c079b09" id="r_a069f9b832b5ed10378ee99cd7c079b09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a069f9b832b5ed10378ee99cd7c079b09">stopTrainingIfActive</a> ()</td></tr>
 <tr class="memdesc:a069f9b832b5ed10378ee99cd7c079b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande l'arrêt de l'entraînement en cours, sans attendre (voir <span class="tt"><a class="el" href="#a5d18cf7cd21e2d526da12361f397aaaf">trainingActive</a></span>) ; sans effet si aucun entraînement n'est actif.  <br /></td></tr>
+<tr class="memitem:afa0640688d97dfd6cf52cb760391caf8" id="r_afa0640688d97dfd6cf52cb760391caf8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afa0640688d97dfd6cf52cb760391caf8">evaluationActive</a> () const noexcept</td></tr>
+<tr class="memitem:ab8778ba1d7180b4e88a2bae860ba2a7f" id="r_ab8778ba1d7180b4e88a2bae860ba2a7f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab8778ba1d7180b4e88a2bae860ba2a7f">stopEvaluationIfActive</a> ()</td></tr>
+<tr class="memdesc:ab8778ba1d7180b4e88a2bae860ba2a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande l'arrêt de l'évaluation en cours, sans attendre ; sans effet si aucune n'est active.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
+<tr class="memitem:aac5d0a843caf66b0f0bdfdacb82c85ee" id="r_aac5d0a843caf66b0f0bdfdacb82c85ee"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac5d0a843caf66b0f0bdfdacb82c85ee">setPreviewAvailable</a> (bool available)</td></tr>
+<tr class="memdesc:aac5d0a843caf66b0f0bdfdacb82c85ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose l'état d'« aperçu disponible » <b>et</b> l'infobulle qui l'explique.  <br /></td></tr>
 <tr class="memitem:aa68e7f67ec80b65d38601b873b22c961" id="r_aa68e7f67ec80b65d38601b873b22c961"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa68e7f67ec80b65d38601b873b22c961">onLaunchTraining</a> ()</td></tr>
 <tr class="memitem:a40ee3e9a90317be505880597716adc3d" id="r_a40ee3e9a90317be505880597716adc3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40ee3e9a90317be505880597716adc3d">onStopTraining</a> ()</td></tr>
-<tr class="memitem:a6a1c0f296ce2d76b7a5305cd24ecead8" id="r_a6a1c0f296ce2d76b7a5305cd24ecead8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a1c0f296ce2d76b7a5305cd24ecead8">onTrainingProgress</a> (int index, double bestReward, double meanReward, double successRate)</td></tr>
+<tr class="memitem:a963fcbad7ba41dba0599ab952934dd34" id="r_a963fcbad7ba41dba0599ab952934dd34"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a963fcbad7ba41dba0599ab952934dd34">onTrainingProgress</a> (<a class="el" href="structhmi_1_1TrainingProgress.html">hmi::TrainingProgress</a> step)</td></tr>
 <tr class="memitem:abaf2df992614b0a2c4c10a37e2a53072" id="r_abaf2df992614b0a2c4c10a37e2a53072"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abaf2df992614b0a2c4c10a37e2a53072">onTrainingPreviewReady</a> (QString replayPath, QString algorithmId, QString levelPath, int generation)</td></tr>
-<tr class="memitem:a8dcdc695ba888136b84ef03576968307" id="r_a8dcdc695ba888136b84ef03576968307"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8dcdc695ba888136b84ef03576968307">onTrainingFinished</a> (bool solved, QString modelPath, QString statsPath, QString configPath, QString replayPath, bool replayExported)</td></tr>
-<tr class="memitem:ac1e43398a70354e4c85ca155a4934a7f" id="r_ac1e43398a70354e4c85ca155a4934a7f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac1e43398a70354e4c85ca155a4934a7f">onTrainingFailed</a> (QString message)</td></tr>
+<tr class="memitem:ac797c565003e7e7dc2ff0398d2d6002c" id="r_ac797c565003e7e7dc2ff0398d2d6002c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac797c565003e7e7dc2ff0398d2d6002c">onTrainingFinished</a> (bool solved, QString modelPath, QString statsPath, QString configPath, QString replayPath, bool replayExported, int generationsRun)</td></tr>
+<tr class="memitem:a1e28852635bbc04b2599a73a0c08910c" id="r_a1e28852635bbc04b2599a73a0c08910c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1e28852635bbc04b2599a73a0c08910c">onTrainingFailed</a> (QString messageKey, QString detail)</td></tr>
 <tr class="memitem:a6ac5188744743b8e158731f3b4d0da91" id="r_a6ac5188744743b8e158731f3b4d0da91"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ac5188744743b8e158731f3b4d0da91">onEvaluate</a> ()</td></tr>
+<tr class="memitem:ab2d9654604267e7c8d66ceb7dc587ee5" id="r_ab2d9654604267e7c8d66ceb7dc587ee5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab2d9654604267e7c8d66ceb7dc587ee5">onStopEvaluation</a> ()</td></tr>
+<tr class="memitem:a0676786d10b690218e294a87570d268e" id="r_a0676786d10b690218e294a87570d268e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0676786d10b690218e294a87570d268e">onEvaluationProgress</a> (int completed, int total)</td></tr>
+<tr class="memitem:a6fc7130fdbe4be1124f52b31fa7d2048" id="r_a6fc7130fdbe4be1124f52b31fa7d2048"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6fc7130fdbe4be1124f52b31fa7d2048">onEvaluationFinished</a> (<a class="el" href="structhmi_1_1EvaluationOutcome.html">hmi::EvaluationOutcome</a> outcome)</td></tr>
+<tr class="memitem:ada873baf951f25a7a01cabff15dddee1" id="r_ada873baf951f25a7a01cabff15dddee1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ada873baf951f25a7a01cabff15dddee1">onEvaluationFailed</a> ()</td></tr>
+<tr class="memitem:afdc5546ec23991c7808e8744c1beca93" id="r_afdc5546ec23991c7808e8744c1beca93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afdc5546ec23991c7808e8744c1beca93">onBrowseModel</a> ()</td></tr>
+<tr class="memitem:a9ba479d6c70c3e4b2af1f745cf4d40d2" id="r_a9ba479d6c70c3e4b2af1f745cf4d40d2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ba479d6c70c3e4b2af1f745cf4d40d2">onExportReport</a> ()</td></tr>
+<tr class="memitem:a99d7be9fdea0496dc9f2e19909110011" id="r_a99d7be9fdea0496dc9f2e19909110011"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a99d7be9fdea0496dc9f2e19909110011">onReuseRunSettings</a> ()</td></tr>
 <tr class="memitem:a1c03c4259d967ab9e203d28b0f01e3dc" id="r_a1c03c4259d967ab9e203d28b0f01e3dc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1c03c4259d967ab9e203d28b0f01e3dc">onSaveModel</a> ()</td></tr>
 <tr class="memitem:a16231435e5edc3165d901a5e5b94e0e8" id="r_a16231435e5edc3165d901a5e5b94e0e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a16231435e5edc3165d901a5e5b94e0e8">onExportReplay</a> ()</td></tr>
 <tr class="memitem:a14b053e6c1644e6083a7d04888043aea" id="r_a14b053e6c1644e6083a7d04888043aea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14b053e6c1644e6083a7d04888043aea">onLaunchReplay</a> ()</td></tr>
+<tr class="memitem:a9a804a534642ed84b38347d40aef975f" id="r_a9a804a534642ed84b38347d40aef975f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9a804a534642ed84b38347d40aef975f">onOpenRunFolder</a> ()</td></tr>
+<tr class="memitem:a7621fbfcef2dc906a32572a816662814" id="r_a7621fbfcef2dc906a32572a816662814"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7621fbfcef2dc906a32572a816662814">onBrowseRunsRoot</a> ()</td></tr>
+<tr class="memitem:aabe694890d11850a93a4c045efad4694" id="r_aabe694890d11850a93a4c045efad4694"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabe694890d11850a93a4c045efad4694">onLoadConfig</a> ()</td></tr>
+<tr class="memitem:acc0ff8111d4d31480228cb261dea4115" id="r_acc0ff8111d4d31480228cb261dea4115"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acc0ff8111d4d31480228cb261dea4115">onSaveConfig</a> ()</td></tr>
+<tr class="memitem:a2bcd063e7bc08ef78d26e129060c60ef" id="r_a2bcd063e7bc08ef78d26e129060c60ef"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2bcd063e7bc08ef78d26e129060c60ef">onResetDefaults</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a8a97b89e12b3093da9868d029ad52563" id="r_a8a97b89e12b3093da9868d029ad52563"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a8a97b89e12b3093da9868d029ad52563">selectedAlgo</a> () const</td></tr>
+<tr class="memitem:a8b30cc752e18ca7cc262dad15a9e6d36" id="r_a8b30cc752e18ca7cc262dad15a9e6d36"><td class="memItemLeft"><a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html">aisolver::cli::TrainingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8b30cc752e18ca7cc262dad15a9e6d36">configFromForm</a> () const</td></tr>
+<tr class="memdesc:a8b30cc752e18ca7cc262dad15a9e6d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recopie les champs du formulaire d'entraînement dans une configuration résolue, et l'inverse — un seul endroit qui connaît la correspondance champ ↔ hyperparamètre, partagé par le lancement d'un run, les presets et la reprise des réglages d'un run passé.  <br /></td></tr>
+<tr class="memitem:a83b780892ff79af7dbd286ad7fb96e25" id="r_a83b780892ff79af7dbd286ad7fb96e25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a83b780892ff79af7dbd286ad7fb96e25">applyConfigToForm</a> (const <a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html">aisolver::cli::TrainingConfig</a> &amp;config)</td></tr>
+<tr class="memitem:adb064649d89b7fa238bb05012175781c" id="r_adb064649d89b7fa238bb05012175781c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adb064649d89b7fa238bb05012175781c">loadConfigFile</a> (const QString &amp;path)</td></tr>
+<tr class="memitem:a79ac176e106ae0868d96a259d02e502c" id="r_a79ac176e106ae0868d96a259d02e502c"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a79ac176e106ae0868d96a259d02e502c">selectedRunsRoot</a> () const</td></tr>
+<tr class="memitem:ae3ee40f176d30cb240221dbbaeda614f" id="r_ae3ee40f176d30cb240221dbbaeda614f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae3ee40f176d30cb240221dbbaeda614f">updateEta</a> (int completedSteps)</td></tr>
+<tr class="memdesc:ae3ee40f176d30cb240221dbbaeda614f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour l'estimation de temps restant (<span class="tt">trainingEtaLabel</span>) à partir des instants des générations déjà reçues ; efface l'étiquette tant que la durée totale est inconnue.  <br /></td></tr>
+<tr class="memitem:ac53d8cf97685e0b090096c6837c2932c" id="r_ac53d8cf97685e0b090096c6837c2932c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac53d8cf97685e0b090096c6837c2932c">evaluationRequestFromForm</a> () const</td></tr>
+<tr class="memdesc:ac53d8cf97685e0b090096c6837c2932c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble la requête d'évaluation à partir de l'onglet Validation, ou <span class="tt">std::nullopt</span> si aucun modèle/niveau n'est sélectionné.  <br /></td></tr>
+<tr class="memitem:aaa5a9de7e88522b6be24680c8fd5d7aa" id="r_aaa5a9de7e88522b6be24680c8fd5d7aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaa5a9de7e88522b6be24680c8fd5d7aa">setEvaluationControlsEnabled</a> (bool enabled)</td></tr>
+<tr class="memitem:ad1575f2c22b5aa9267bb4f86d69228cc" id="r_ad1575f2c22b5aa9267bb4f86d69228cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad1575f2c22b5aa9267bb4f86d69228cc">teardownEvaluationWorker</a> ()</td></tr>
 <tr class="memitem:a3a74befb14d126ec1e2dcfe6cd9b2d50" id="r_a3a74befb14d126ec1e2dcfe6cd9b2d50"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3a74befb14d126ec1e2dcfe6cd9b2d50">text</a> (const char *key) const</td></tr>
 <tr class="memitem:a7bfe393a1659bd58c3a64ae5f22e7b61" id="r_a7bfe393a1659bd58c3a64ae5f22e7b61"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7bfe393a1659bd58c3a64ae5f22e7b61">setTrainingControlsEnabled</a> (bool enabled)</td></tr>
 <tr class="memitem:a0a5c381fc4b94c0d6ee807b7905e8220" id="r_a0a5c381fc4b94c0d6ee807b7905e8220"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a5c381fc4b94c0d6ee807b7905e8220">teardownWorker</a> ()</td></tr>
+<tr class="memitem:a8b32682de9e19f80b0f8cb07128ce728" id="r_a8b32682de9e19f80b0f8cb07128ce728"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8b32682de9e19f80b0f8cb07128ce728">updateFieldVisibility</a> ()</td></tr>
+<tr class="memdesc:a8b32682de9e19f80b0f8cb07128ce728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche uniquement les groupes de paramètres pertinents pour <span class="tt"><a class="el" href="#a8a97b89e12b3093da9868d029ad52563">selectedAlgo()</a></span> (menu évolutif de l'onglet Entraînement, <span class="tt">LOT-ANNEXE-21</span>) : Commun+Évolutionniste pour <span class="tt">evo</span>, Commun+Gradient pour <span class="tt">pg</span>/<span class="tt">ac</span>, Commun+Gradient+DQN avancé pour <span class="tt">avance</span>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:aa210e4555e78dbf1ef1ace14d8fb8bb0" id="r_aa210e4555e78dbf1ef1ace14d8fb8bb0"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#aa210e4555e78dbf1ef1ace14d8fb8bb0">algorithmOfModel</a> (const QString &amp;modelPath)</td></tr>
+<tr class="memdesc:aa210e4555e78dbf1ef1ace14d8fb8bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin du modèle et algorithme du run actuellement choisi dans <span class="tt">runCombo</span> — l'algorithme est relu dans le <span class="tt">config.json</span> du run, jamais déduit des boutons radio de l'onglet Entraînement (qui décrivent le PROCHAIN entraînement).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -156,6 +191,21 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a7fc1269ebbef2bb32d556ef3c3612162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possédé par <span class="tt"><a class="el" href="#a40bbe2c1385718b80055d2b02ac2c96e">_workerThread</a></span> (deleteLater), pas <span class="tt"><a class="el" href="#ab515848318bf4787853d85e5087364d5">_ui</a></span>.  <br /></td></tr>
 <tr class="memitem:aee172709b49e016d629345ec0e6f3506" id="r_aee172709b49e016d629345ec0e6f3506"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aee172709b49e016d629345ec0e6f3506">_loc</a> = nullptr</td></tr>
 <tr class="memdesc:aee172709b49e016d629345ec0e6f3506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue courant, mémorisé par <span class="tt"><a class="el" href="#ae20c96c4cb73629790018dbb32b76510" title="Applique la langue active aux libellés et infobulles.">retranslateUi</a></span> : les messages d'état produits pendant un entraînement doivent être traduits eux aussi, longtemps après la construction.  <br /></td></tr>
+<tr class="memitem:a42e5be5917a2ea0d5322523d9a24a938" id="r_a42e5be5917a2ea0d5322523d9a24a938"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a42e5be5917a2ea0d5322523d9a24a938">_lastRunDir</a></td></tr>
+<tr class="memdesc:a42e5be5917a2ea0d5322523d9a24a938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier du dernier run terminé (<span class="tt"><a class="el" href="#ac797c565003e7e7dc2ff0398d2d6002c">onTrainingFinished</a></span>), pour le bouton « Ouvrir le dossier du run » — vide tant qu'aucun run n'a terminé dans cette session de l'écran.  <br /></td></tr>
+<tr class="memitem:a3d6b3d19eb317f77ad9970016f090351" id="r_a3d6b3d19eb317f77ad9970016f090351"><td class="memItemLeft">QElapsedTimer&#160;</td><td class="memItemRight"><a class="el" href="#a3d6b3d19eb317f77ad9970016f090351">_trainingClock</a></td></tr>
+<tr class="memdesc:a3d6b3d19eb317f77ad9970016f090351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Début du run courant et nombre d'étapes déjà reçues : base de l'estimation de temps restant, calculée ici et non par le travailleur (une durée n'a de sens qu'affichée).  <br /></td></tr>
+<tr class="memitem:a0069f0e80ca20dd4f750d115ea98f136" id="r_a0069f0e80ca20dd4f750d115ea98f136"><td class="memItemLeft">std::unique_ptr&lt; QThread &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0069f0e80ca20dd4f750d115ea98f136">_evaluationThread</a></td></tr>
+<tr class="memitem:af4ce019f609ce8af2da3242d5a0620de" id="r_af4ce019f609ce8af2da3242d5a0620de"><td class="memItemLeft"><a class="el" href="classhmi_1_1EvaluationWorker.html">EvaluationWorker</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af4ce019f609ce8af2da3242d5a0620de">_evaluationWorker</a> = nullptr</td></tr>
+<tr class="memdesc:af4ce019f609ce8af2da3242d5a0620de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possédé par <span class="tt"><a class="el" href="#a0069f0e80ca20dd4f750d115ea98f136">_evaluationThread</a></span> (deleteLater), pas <span class="tt"><a class="el" href="#ab515848318bf4787853d85e5087364d5">_ui</a></span> ; nul hors évaluation.  <br /></td></tr>
+<tr class="memitem:a4193f149dd91aed00e9a19f461c85171" id="r_a4193f149dd91aed00e9a19f461c85171"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4193f149dd91aed00e9a19f461c85171">_lastEvaluation</a></td></tr>
+<tr class="memdesc:a4193f149dd91aed00e9a19f461c85171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernier résultat d'évaluation affiché, avec la requête qui l'a produit : le rapport CSV nomme l'algorithme et le niveau mesurés, que l'écran ne doit pas re-déduire au moment de l'export (l'utilisateur a pu changer la sélection entre-temps).  <br /></td></tr>
+<tr class="memitem:ae8fd4922630f145fc830958c9539acc2" id="r_ae8fd4922630f145fc830958c9539acc2"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae8fd4922630f145fc830958c9539acc2">_lastEvaluationRequest</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-attribs" class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a494fb3ad9d23da09446fae366a71481e" id="r_a494fb3ad9d23da09446fae366a71481e"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a494fb3ad9d23da09446fae366a71481e">MAX_STATS_ROWS</a> = 500</td></tr>
+<tr class="memdesc:a494fb3ad9d23da09446fae366a71481e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge dans le formulaire le <span class="tt">config.json</span> de <code class="param">runDir</code> (bouton « Reprendre les réglages », et chargement d'un preset) ; sans effet si le fichier est absent ou illisible.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Page du <span class="tt">QStackedWidget</span> (comme <span class="tt"><a class="el" href="classhmi_1_1MainMenu.html" title="Menu principal : point d&#39;entrée de l&#39;application Qt (EX-IHM-040).">MainMenu</a></span>/<span class="tt"><a class="el" href="classhmi_1_1CreditsScreen.html" title="Écran de crédits (développement, bruitages) atteint depuis le menu principal.">CreditsScreen</a></span>), pas un recouvrement. </p>
@@ -212,6 +262,59 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aa210e4555e78dbf1ef1ace14d8fb8bb0" name="aa210e4555e78dbf1ef1ace14d8fb8bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa210e4555e78dbf1ef1ace14d8fb8bb0">&#9670;&#160;</a></span>algorithmOfModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::AiModeScreen::algorithmOfModel </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Chemin du modèle et algorithme du run actuellement choisi dans <span class="tt">runCombo</span> — l'algorithme est relu dans le <span class="tt">config.json</span> du run, jamais déduit des boutons radio de l'onglet Entraînement (qui décrivent le PROCHAIN entraînement). </p>
+<dl class="section return"><dt>Returns</dt><dd>L'identifiant d'algorithme lu dans le <span class="tt">config.json</span> voisin de <code class="param">modelPath</code>, ou une chaîne vide si le chemin est vide. Statique : ne dépend d'aucun état de l'écran, seulement du modèle désigné. </dd></dl>
+
+</div>
+</div>
+<a id="a83b780892ff79af7dbd286ad7fb96e25" name="a83b780892ff79af7dbd286ad7fb96e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83b780892ff79af7dbd286ad7fb96e25">&#9670;&#160;</a></span>applyConfigToForm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::applyConfigToForm </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html">aisolver::cli::TrainingConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4a1116841e6e37914325a94daac70c2c" name="a4a1116841e6e37914325a94daac70c2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a1116841e6e37914325a94daac70c2c">&#9670;&#160;</a></span>backRequested</h2>
 
@@ -237,6 +340,87 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8b30cc752e18ca7cc262dad15a9e6d36" name="a8b30cc752e18ca7cc262dad15a9e6d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b30cc752e18ca7cc262dad15a9e6d36">&#9670;&#160;</a></span>configFromForm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html">aisolver::cli::TrainingConfig</a> hmi::AiModeScreen::configFromForm </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recopie les champs du formulaire d'entraînement dans une configuration résolue, et l'inverse — un seul endroit qui connaît la correspondance champ ↔ hyperparamètre, partagé par le lancement d'un run, les presets et la reprise des réglages d'un run passé. </p>
+
+</div>
+</div>
+<a id="afa0640688d97dfd6cf52cb760391caf8" name="afa0640688d97dfd6cf52cb760391caf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa0640688d97dfd6cf52cb760391caf8">&#9670;&#160;</a></span>evaluationActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AiModeScreen::evaluationActive </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si une évaluation est actuellement active.</dd></dl>
+<p>Même enjeu que <span class="tt"><a class="el" href="#a5d18cf7cd21e2d526da12361f397aaaf">trainingActive</a></span> : une campagne de trente répétitions dure aussi longtemps qu'un entraînement court, et fermer la fenêtre pendant joint son fil sans rien dire. </p>
+
+</div>
+</div>
+<a id="ac53d8cf97685e0b090096c6837c2932c" name="ac53d8cf97685e0b090096c6837c2932c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac53d8cf97685e0b090096c6837c2932c">&#9670;&#160;</a></span>evaluationRequestFromForm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &gt; hmi::AiModeScreen::evaluationRequestFromForm </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assemble la requête d'évaluation à partir de l'onglet Validation, ou <span class="tt">std::nullopt</span> si aucun modèle/niveau n'est sélectionné. </p>
+
+</div>
+</div>
 <a id="a0652f16e8de1f918d06136b3591f6869" name="a0652f16e8de1f918d06136b3591f6869"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0652f16e8de1f918d06136b3591f6869">&#9670;&#160;</a></span>focusDefaultAction()</h2>
 
@@ -253,6 +437,81 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Donne le focus clavier au bouton « Retour ». </p>
+
+</div>
+</div>
+<a id="adb064649d89b7fa238bb05012175781c" name="adb064649d89b7fa238bb05012175781c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb064649d89b7fa238bb05012175781c">&#9670;&#160;</a></span>loadConfigFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::loadConfigFile </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdc5546ec23991c7808e8744c1beca93" name="afdc5546ec23991c7808e8744c1beca93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc5546ec23991c7808e8744c1beca93">&#9670;&#160;</a></span>onBrowseModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onBrowseModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7621fbfcef2dc906a32572a816662814" name="a7621fbfcef2dc906a32572a816662814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7621fbfcef2dc906a32572a816662814">&#9670;&#160;</a></span>onBrowseRunsRoot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onBrowseRunsRoot </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -281,6 +540,85 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ada873baf951f25a7a01cabff15dddee1" name="ada873baf951f25a7a01cabff15dddee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada873baf951f25a7a01cabff15dddee1">&#9670;&#160;</a></span>onEvaluationFailed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onEvaluationFailed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6fc7130fdbe4be1124f52b31fa7d2048" name="a6fc7130fdbe4be1124f52b31fa7d2048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc7130fdbe4be1124f52b31fa7d2048">&#9670;&#160;</a></span>onEvaluationFinished</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onEvaluationFinished </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1EvaluationOutcome.html">hmi::EvaluationOutcome</a></td>          <td class="paramname"><span class="paramname"><em>outcome</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0676786d10b690218e294a87570d268e" name="a0676786d10b690218e294a87570d268e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0676786d10b690218e294a87570d268e">&#9670;&#160;</a></span>onEvaluationProgress</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onEvaluationProgress </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>completed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>total</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a16231435e5edc3165d901a5e5b94e0e8" name="a16231435e5edc3165d901a5e5b94e0e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16231435e5edc3165d901a5e5b94e0e8">&#9670;&#160;</a></span>onExportReplay</h2>
 
@@ -292,6 +630,31 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void hmi::AiModeScreen::onExportReplay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ba479d6c70c3e4b2af1f745cf4d40d2" name="a9ba479d6c70c3e4b2af1f745cf4d40d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ba479d6c70c3e4b2af1f745cf4d40d2">&#9670;&#160;</a></span>onExportReport</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onExportReport </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -356,6 +719,131 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aabe694890d11850a93a4c045efad4694" name="aabe694890d11850a93a4c045efad4694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe694890d11850a93a4c045efad4694">&#9670;&#160;</a></span>onLoadConfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onLoadConfig </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9a804a534642ed84b38347d40aef975f" name="a9a804a534642ed84b38347d40aef975f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a804a534642ed84b38347d40aef975f">&#9670;&#160;</a></span>onOpenRunFolder</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onOpenRunFolder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2bcd063e7bc08ef78d26e129060c60ef" name="a2bcd063e7bc08ef78d26e129060c60ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bcd063e7bc08ef78d26e129060c60ef">&#9670;&#160;</a></span>onResetDefaults</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onResetDefaults </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99d7be9fdea0496dc9f2e19909110011" name="a99d7be9fdea0496dc9f2e19909110011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99d7be9fdea0496dc9f2e19909110011">&#9670;&#160;</a></span>onReuseRunSettings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onReuseRunSettings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc0ff8111d4d31480228cb261dea4115" name="acc0ff8111d4d31480228cb261dea4115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc0ff8111d4d31480228cb261dea4115">&#9670;&#160;</a></span>onSaveConfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onSaveConfig </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1c03c4259d967ab9e203d28b0f01e3dc" name="a1c03c4259d967ab9e203d28b0f01e3dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c03c4259d967ab9e203d28b0f01e3dc">&#9670;&#160;</a></span>onSaveModel</h2>
 
@@ -367,6 +855,31 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void hmi::AiModeScreen::onSaveModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2d9654604267e7c8d66ceb7dc587ee5" name="ab2d9654604267e7c8d66ceb7dc587ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2d9654604267e7c8d66ceb7dc587ee5">&#9670;&#160;</a></span>onStopEvaluation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::onStopEvaluation </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -406,8 +919,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac1e43398a70354e4c85ca155a4934a7f" name="ac1e43398a70354e4c85ca155a4934a7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1e43398a70354e4c85ca155a4934a7f">&#9670;&#160;</a></span>onTrainingFailed</h2>
+<a id="a1e28852635bbc04b2599a73a0c08910c" name="a1e28852635bbc04b2599a73a0c08910c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e28852635bbc04b2599a73a0c08910c">&#9670;&#160;</a></span>onTrainingFailed</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,8 +931,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::AiModeScreen::onTrainingFailed </td>
           <td>(</td>
-          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>messageKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>detail</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -431,8 +948,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8dcdc695ba888136b84ef03576968307" name="a8dcdc695ba888136b84ef03576968307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dcdc695ba888136b84ef03576968307">&#9670;&#160;</a></span>onTrainingFinished</h2>
+<a id="ac797c565003e7e7dc2ff0398d2d6002c" name="ac797c565003e7e7dc2ff0398d2d6002c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac797c565003e7e7dc2ff0398d2d6002c">&#9670;&#160;</a></span>onTrainingFinished</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,7 +985,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>replayExported</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>replayExported</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>generationsRun</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -519,8 +1041,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6a1c0f296ce2d76b7a5305cd24ecead8" name="a6a1c0f296ce2d76b7a5305cd24ecead8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a1c0f296ce2d76b7a5305cd24ecead8">&#9670;&#160;</a></span>onTrainingProgress</h2>
+<a id="a963fcbad7ba41dba0599ab952934dd34" name="a963fcbad7ba41dba0599ab952934dd34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a963fcbad7ba41dba0599ab952934dd34">&#9670;&#160;</a></span>onTrainingProgress</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,22 +1053,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::AiModeScreen::onTrainingProgress </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1TrainingProgress.html">hmi::TrainingProgress</a></td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>bestReward</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>meanReward</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>successRate</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -667,6 +1175,85 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a79ac176e106ae0868d96a259d02e502c" name="a79ac176e106ae0868d96a259d02e502c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79ac176e106ae0868d96a259d02e502c">&#9670;&#160;</a></span>selectedRunsRoot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::AiModeScreen::selectedRunsRoot </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier de runs choisi dans le formulaire, ou celui à côté de l'exécutable si le champ est vide. Sert à l'écriture <b>et</b> à la lecture des runs. </dd></dl>
+
+</div>
+</div>
+<a id="aaa5a9de7e88522b6be24680c8fd5d7aa" name="aaa5a9de7e88522b6be24680c8fd5d7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa5a9de7e88522b6be24680c8fd5d7aa">&#9670;&#160;</a></span>setEvaluationControlsEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::setEvaluationControlsEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac5d0a843caf66b0f0bdfdacb82c85ee" name="aac5d0a843caf66b0f0bdfdacb82c85ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac5d0a843caf66b0f0bdfdacb82c85ee">&#9670;&#160;</a></span>setPreviewAvailable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::setPreviewAvailable </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>available</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose l'état d'« aperçu disponible » <b>et</b> l'infobulle qui l'explique. </p>
+<p>Les deux ensemble : un contrôle grisé dont rien ne dit pourquoi se lit comme une panne, alors que l'attente du premier aperçu est le déroulement normal d'un run. </p>
+
+</div>
+</div>
 <a id="a7bfe393a1659bd58c3a64ae5f22e7b61" name="a7bfe393a1659bd58c3a64ae5f22e7b61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7bfe393a1659bd58c3a64ae5f22e7b61">&#9670;&#160;</a></span>setTrainingControlsEnabled()</h2>
 
@@ -692,6 +1279,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab8778ba1d7180b4e88a2bae860ba2a7f" name="ab8778ba1d7180b4e88a2bae860ba2a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8778ba1d7180b4e88a2bae860ba2a7f">&#9670;&#160;</a></span>stopEvaluationIfActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::stopEvaluationIfActive </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Demande l'arrêt de l'évaluation en cours, sans attendre ; sans effet si aucune n'est active. </p>
+
+</div>
+</div>
 <a id="a069f9b832b5ed10378ee99cd7c079b09" name="a069f9b832b5ed10378ee99cd7c079b09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a069f9b832b5ed10378ee99cd7c079b09">&#9670;&#160;</a></span>stopTrainingIfActive()</h2>
 
@@ -708,6 +1314,31 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Demande l'arrêt de l'entraînement en cours, sans attendre (voir <span class="tt"><a class="el" href="#a5d18cf7cd21e2d526da12361f397aaaf">trainingActive</a></span>) ; sans effet si aucun entraînement n'est actif. </p>
+
+</div>
+</div>
+<a id="ad1575f2c22b5aa9267bb4f86d69228cc" name="ad1575f2c22b5aa9267bb4f86d69228cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1575f2c22b5aa9267bb4f86d69228cc">&#9670;&#160;</a></span>teardownEvaluationWorker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::teardownEvaluationWorker </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -788,7 +1419,107 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae3ee40f176d30cb240221dbbaeda614f" name="ae3ee40f176d30cb240221dbbaeda614f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3ee40f176d30cb240221dbbaeda614f">&#9670;&#160;</a></span>updateEta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::updateEta </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>completedSteps</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met à jour l'estimation de temps restant (<span class="tt">trainingEtaLabel</span>) à partir des instants des générations déjà reçues ; efface l'étiquette tant que la durée totale est inconnue. </p>
+
+</div>
+</div>
+<a id="a8b32682de9e19f80b0f8cb07128ce728" name="a8b32682de9e19f80b0f8cb07128ce728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b32682de9e19f80b0f8cb07128ce728">&#9670;&#160;</a></span>updateFieldVisibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AiModeScreen::updateFieldVisibility </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Affiche uniquement les groupes de paramètres pertinents pour <span class="tt"><a class="el" href="#a8a97b89e12b3093da9868d029ad52563">selectedAlgo()</a></span> (menu évolutif de l'onglet Entraînement, <span class="tt">LOT-ANNEXE-21</span>) : Commun+Évolutionniste pour <span class="tt">evo</span>, Commun+Gradient pour <span class="tt">pg</span>/<span class="tt">ac</span>, Commun+Gradient+DQN avancé pour <span class="tt">avance</span>. </p>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a0069f0e80ca20dd4f750d115ea98f136" name="a0069f0e80ca20dd4f750d115ea98f136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0069f0e80ca20dd4f750d115ea98f136">&#9670;&#160;</a></span>_evaluationThread</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QThread&gt; hmi::AiModeScreen::_evaluationThread</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4ce019f609ce8af2da3242d5a0620de" name="af4ce019f609ce8af2da3242d5a0620de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ce019f609ce8af2da3242d5a0620de">&#9670;&#160;</a></span>_evaluationWorker</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EvaluationWorker.html">EvaluationWorker</a>* hmi::AiModeScreen::_evaluationWorker = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Possédé par <span class="tt"><a class="el" href="#a0069f0e80ca20dd4f750d115ea98f136">_evaluationThread</a></span> (deleteLater), pas <span class="tt"><a class="el" href="#ab515848318bf4787853d85e5087364d5">_ui</a></span> ; nul hors évaluation. </p>
+
+</div>
+</div>
 <a id="a58a0ebc3fde5b41258ae6fb5c942a0c2" name="a58a0ebc3fde5b41258ae6fb5c942a0c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a58a0ebc3fde5b41258ae6fb5c942a0c2">&#9670;&#160;</a></span>_focusCaret</h2>
 
@@ -814,6 +1545,76 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4193f149dd91aed00e9a19f461c85171" name="a4193f149dd91aed00e9a19f461c85171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4193f149dd91aed00e9a19f461c85171">&#9670;&#160;</a></span>_lastEvaluation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a>&gt; hmi::AiModeScreen::_lastEvaluation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernier résultat d'évaluation affiché, avec la requête qui l'a produit : le rapport CSV nomme l'algorithme et le niveau mesurés, que l'écran ne doit pas re-déduire au moment de l'export (l'utilisateur a pu changer la sélection entre-temps). </p>
+
+</div>
+</div>
+<a id="ae8fd4922630f145fc830958c9539acc2" name="ae8fd4922630f145fc830958c9539acc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8fd4922630f145fc830958c9539acc2">&#9670;&#160;</a></span>_lastEvaluationRequest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a>&gt; hmi::AiModeScreen::_lastEvaluationRequest</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42e5be5917a2ea0d5322523d9a24a938" name="a42e5be5917a2ea0d5322523d9a24a938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e5be5917a2ea0d5322523d9a24a938">&#9670;&#160;</a></span>_lastRunDir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::AiModeScreen::_lastRunDir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dossier du dernier run terminé (<span class="tt"><a class="el" href="#ac797c565003e7e7dc2ff0398d2d6002c">onTrainingFinished</a></span>), pour le bouton « Ouvrir le dossier du run » — vide tant qu'aucun run n'a terminé dans cette session de l'écran. </p>
+
+</div>
+</div>
 <a id="aee172709b49e016d629345ec0e6f3506" name="aee172709b49e016d629345ec0e6f3506"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee172709b49e016d629345ec0e6f3506">&#9670;&#160;</a></span>_loc</h2>
 
@@ -835,6 +1636,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Catalogue courant, mémorisé par <span class="tt"><a class="el" href="#ae20c96c4cb73629790018dbb32b76510" title="Applique la langue active aux libellés et infobulles.">retranslateUi</a></span> : les messages d'état produits pendant un entraînement doivent être traduits eux aussi, longtemps après la construction. </p>
+
+</div>
+</div>
+<a id="a3d6b3d19eb317f77ad9970016f090351" name="a3d6b3d19eb317f77ad9970016f090351"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d6b3d19eb317f77ad9970016f090351">&#9670;&#160;</a></span>_trainingClock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QElapsedTimer hmi::AiModeScreen::_trainingClock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Début du run courant et nombre d'étapes déjà reçues : base de l'estimation de temps restant, calculée ici et non par le travailleur (une durée n'a de sens qu'affichée). </p>
 
 </div>
 </div>
@@ -903,6 +1728,32 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a494fb3ad9d23da09446fae366a71481e" name="a494fb3ad9d23da09446fae366a71481e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494fb3ad9d23da09446fae366a71481e">&#9670;&#160;</a></span>MAX_STATS_ROWS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AiModeScreen::MAX_STATS_ROWS = 500</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge dans le formulaire le <span class="tt">config.json</span> de <code class="param">runDir</code> (bouton « Reprendre les réglages », et chargement d'un preset) ; sans effet si le fichier est absent ou illisible. </p>
+<p>Nombre maximal de lignes conservées dans le tableau de statistiques.</p>
+<p>L'historique complet vit dans le <span class="tt">stats.csv</span> du run ; ce tableau montre ce qui vient de se passer. Sans plafond, un run de plusieurs milliers d'épisodes alloue autant de fois huit cellules que personne ne fera jamais défiler. </p>
 
 </div>
 </div>

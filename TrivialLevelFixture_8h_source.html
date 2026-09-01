@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -122,53 +122,76 @@ $(function(){initNavTree('TrivialLevelFixture_8h_source.html','',''); });
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="stringliteral">  ]</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="stringliteral">})&quot;;</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral"></span></div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html">   42</a></span><span class="keyword">class </span><a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a418207897c748d71b8e13a858af0d59d">TrivialLevelDirectory</a> {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a418207897c748d71b8e13a858af0d59d">   44</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a418207897c748d71b8e13a858af0d59d">TrivialLevelDirectory</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* suffix)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        : <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>(std::filesystem::temp_directory_path() /</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                (std::string(<span class="stringliteral">&quot;aisolver_test_trivial_level_&quot;</span>) + suffix)) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        std::error_code ignored;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::filesystem::remove_all(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>, ignored);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::filesystem::create_directories(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        std::ofstream <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a>(<a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a>(), std::ios::binary | std::ios::trunc);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a> &lt;&lt; <a class="code hl_variable" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">TRIVIAL_LEVEL_JSON</a>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespaceaisolver__test.html#aae052e80f08289a6e04dc267d1aa7089">   45</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="namespaceaisolver__test.html#aae052e80f08289a6e04dc267d1aa7089">LONG_CORRIDOR_LEVEL_JSON</a> = R<span class="stringliteral">&quot;({</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="stringliteral">  &quot;name&quot;: &quot;LongCorridorAI&quot;,</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="stringliteral">  &quot;width&quot;: 10,</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="stringliteral">  &quot;height&quot;: 3,</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="stringliteral">  &quot;tiles&quot;: [</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="stringliteral">    {&quot;x&quot;: 0, &quot;y&quot;: 1, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="stringliteral">    {&quot;x&quot;: 1, &quot;y&quot;: 1, &quot;type&quot;: &quot;entry&quot;},</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="stringliteral">    {&quot;x&quot;: 8, &quot;y&quot;: 1, &quot;type&quot;: &quot;exit&quot;},</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="stringliteral">    {&quot;x&quot;: 9, &quot;y&quot;: 1, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="stringliteral">    {&quot;x&quot;: 0, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="stringliteral">    {&quot;x&quot;: 1, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="stringliteral">    {&quot;x&quot;: 2, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="stringliteral">    {&quot;x&quot;: 3, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="stringliteral">    {&quot;x&quot;: 4, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">    {&quot;x&quot;: 5, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral">    {&quot;x&quot;: 6, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral">    {&quot;x&quot;: 7, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral">    {&quot;x&quot;: 8, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;},</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="stringliteral">    {&quot;x&quot;: 9, &quot;y&quot;: 2, &quot;type&quot;: &quot;solid&quot;}</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="stringliteral">  ]</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">})&quot;;</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral"></span></div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html">   70</a></span><span class="keyword">class </span><a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#af563da084061cfdfaecfe9cb04dbfca9">TrivialLevelDirectory</a> {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#af563da084061cfdfaecfe9cb04dbfca9">   75</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#af563da084061cfdfaecfe9cb04dbfca9">TrivialLevelDirectory</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* suffix, <span class="keyword">const</span> <span class="keywordtype">char</span>* levelJson = <a class="code hl_variable" href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">TRIVIAL_LEVEL_JSON</a>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        : <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>(std::filesystem::temp_directory_path() /</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                (std::string(<span class="stringliteral">&quot;aisolver_test_trivial_level_&quot;</span>) + suffix)) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        std::error_code ignored;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        std::filesystem::remove_all(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>, ignored);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        std::filesystem::create_directories(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        std::ofstream <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a>(<a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a>(), std::ios::binary | std::ios::trunc);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a> &lt;&lt; levelJson;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">   53</a></span>    <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">~TrivialLevelDirectory</a>() {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::error_code ignored;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::filesystem::remove_all(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>, ignored);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">   84</a></span>    <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">~TrivialLevelDirectory</a>() {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        std::error_code ignored;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        std::filesystem::remove_all(<a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>, ignored);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">   58</a></span>    [[nodiscard]] std::filesystem::path <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a> / <span class="stringliteral">&quot;trivial.json&quot;</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">   89</a></span>    [[nodiscard]] std::filesystem::path <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a> / <span class="stringliteral">&quot;trivial.json&quot;</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">   62</a></span>    [[nodiscard]] std::filesystem::path <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a> / name;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">   93</a></span>    [[nodiscard]] std::filesystem::path <a class="code hl_function" href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">file</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a> / name;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
 </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">   67</a></span>    std::filesystem::path <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">   98</a></span>    std::filesystem::path <a class="code hl_variable" href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">_path</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
 </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}  <span class="comment">// namespace aisolver_test</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}  <span class="comment">// namespace aisolver_test</span></div>
 </div>
-<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a23abe46ad60cc7ddccc2082e329ec0a4"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">aisolver_test::TrivialLevelDirectory::levelPath</a></div><div class="ttdeci">std::filesystem::path levelPath() const</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:58</div></div>
-<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a418207897c748d71b8e13a858af0d59d"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a418207897c748d71b8e13a858af0d59d">aisolver_test::TrivialLevelDirectory::TrivialLevelDirectory</a></div><div class="ttdeci">TrivialLevelDirectory(const char *suffix)</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:44</div></div>
-<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a5ae6a9fcc92790ec698cc3d89b07435c"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">aisolver_test::TrivialLevelDirectory::file</a></div><div class="ttdeci">std::filesystem::path file(const char *name) const</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:62</div></div>
-<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a7d8a20ac9b469d9459a472e1caab1386"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">aisolver_test::TrivialLevelDirectory::~TrivialLevelDirectory</a></div><div class="ttdeci">~TrivialLevelDirectory()</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:53</div></div>
-<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a89eca80494b6bdb0a2c90cc18c2d0d2b"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">aisolver_test::TrivialLevelDirectory::_path</a></div><div class="ttdeci">std::filesystem::path _path</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:67</div></div>
+<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a23abe46ad60cc7ddccc2082e329ec0a4"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a23abe46ad60cc7ddccc2082e329ec0a4">aisolver_test::TrivialLevelDirectory::levelPath</a></div><div class="ttdeci">std::filesystem::path levelPath() const</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:89</div></div>
+<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a5ae6a9fcc92790ec698cc3d89b07435c"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a5ae6a9fcc92790ec698cc3d89b07435c">aisolver_test::TrivialLevelDirectory::file</a></div><div class="ttdeci">std::filesystem::path file(const char *name) const</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:93</div></div>
+<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a7d8a20ac9b469d9459a472e1caab1386"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386">aisolver_test::TrivialLevelDirectory::~TrivialLevelDirectory</a></div><div class="ttdeci">~TrivialLevelDirectory()</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:84</div></div>
+<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_a89eca80494b6bdb0a2c90cc18c2d0d2b"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#a89eca80494b6bdb0a2c90cc18c2d0d2b">aisolver_test::TrivialLevelDirectory::_path</a></div><div class="ttdeci">std::filesystem::path _path</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:98</div></div>
+<div class="ttc" id="aclassaisolver__test_1_1TrivialLevelDirectory_html_af563da084061cfdfaecfe9cb04dbfca9"><div class="ttname"><a href="classaisolver__test_1_1TrivialLevelDirectory.html#af563da084061cfdfaecfe9cb04dbfca9">aisolver_test::TrivialLevelDirectory::TrivialLevelDirectory</a></div><div class="ttdeci">TrivialLevelDirectory(const char *suffix, const char *levelJson=TRIVIAL_LEVEL_JSON)</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:75</div></div>
 <div class="ttc" id="anamespaceaisolver__test_html"><div class="ttname"><a href="namespaceaisolver__test.html">aisolver_test</a></div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:19</div></div>
 <div class="ttc" id="anamespaceaisolver__test_html_a0178ed19a2e2d894ee174c22d9360a0f"><div class="ttname"><a href="namespaceaisolver__test.html#a0178ed19a2e2d894ee174c22d9360a0f">aisolver_test::TRIVIAL_LEVEL_JSON</a></div><div class="ttdeci">constexpr const char * TRIVIAL_LEVEL_JSON</div><div class="ttdoc">Corridor a deux cases, sol et murs lateraux : la seule action utile est un deplacement vers la droite...</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:23</div></div>
+<div class="ttc" id="anamespaceaisolver__test_html_aae052e80f08289a6e04dc267d1aa7089"><div class="ttname"><a href="namespaceaisolver__test.html#aae052e80f08289a6e04dc267d1aa7089">aisolver_test::LONG_CORRIDOR_LEVEL_JSON</a></div><div class="ttdeci">constexpr const char * LONG_CORRIDOR_LEVEL_JSON</div><div class="ttdoc">Corridor de six cases, même géométrie que TRIVIAL_LEVEL_JSON en plus long.</div><div class="ttdef"><b>Definition</b> TrivialLevelFixture.h:45</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

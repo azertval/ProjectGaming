@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,6 +93,8 @@ $(function(){initNavTree('ModelEvaluation_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ModelEvaluation_8h_source.html">HMI/Ai/ModelEvaluation.h</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
@@ -100,6 +102,7 @@ $(function(){initNavTree('ModelEvaluation_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="ActorCriticTrainedPolicy_8h_source.html">AiSolver/Eval/ActorCriticTrainedPolicy.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AdvancedAlgorithmTrainedPolicy_8h_source.html">AiSolver/Eval/AdvancedAlgorithmTrainedPolicy.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BenchmarkConfig_8h_source.html">AiSolver/Eval/BenchmarkConfig.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BenchmarkReport_8h_source.html">AiSolver/Eval/BenchmarkReport.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BenchmarkResult_8h_source.html">AiSolver/Eval/BenchmarkResult.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BenchmarkRunner_8h_source.html">AiSolver/Eval/BenchmarkRunner.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EvolutionaryTrainedPolicy_8h_source.html">AiSolver/Eval/EvolutionaryTrainedPolicy.h</a>&quot;</code><br />
@@ -107,8 +110,11 @@ $(function(){initNavTree('ModelEvaluation_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="Rng_8h_source.html">AiSolver/Math/Rng.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Network_8h_source.html">AiSolver/Nn/Network.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Serialization_8h_source.html">AiSolver/Nn/Serialization.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArgmaxRollout_8h_source.html">AiSolver/Training/ArgmaxRollout.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QNetwork_8h_source.html">AiSolver/Training/Dqn/QNetwork.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NetworkTopology_8h_source.html">AiSolver/Training/Evolutionary/NetworkTopology.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ReplayExport_8h_source.html">AiSolver/Training/ReplayExport.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScopedLogLevel_8h_source.html">Core/Diagnostics/ScopedLogLevel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -116,8 +122,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae0c56dcacd78f6eebfb767e631fabb3" id="r_aae0c56dcacd78f6eebfb767e631fabb3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae0c56dcacd78f6eebfb767e631fabb3">hmi::evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algorithmId, int repetitions)</td></tr>
-<tr class="memdesc:aae0c56dcacd78f6eebfb767e631fabb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
+<tr class="memitem:aae645d4a985dd96c749072e80121403f" id="r_aae645d4a985dd96c749072e80121403f"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae645d4a985dd96c749072e80121403f">hmi::evaluateModel</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const std::function&lt; bool(int completed, int total)&gt; &amp;onRepetition={})</td></tr>
+<tr class="memdesc:aae645d4a985dd96c749072e80121403f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle de <code class="param">request</code> sur son niveau, selon ses répétitions et son mode de décodage.  <br /></td></tr>
+<tr class="memitem:a5e074f6957dad14226a475687f0d2d43" id="r_a5e074f6957dad14226a475687f0d2d43"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5e074f6957dad14226a475687f0d2d43">hmi::writeEvaluationReport</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &amp;outcome, const QString &amp;csvPath)</td></tr>
+<tr class="memdesc:a5e074f6957dad14226a475687f0d2d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit le rapport CSV d'une évaluation dans <code class="param">csvPath</code>, au format de <span class="tt">aisolver-cli evaluate --report</span>.  <br /></td></tr>
+<tr class="memitem:a63b3f8f3e1432cfdcf11bf8528a755df" id="r_a63b3f8f3e1432cfdcf11bf8528a755df"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47">ReplayExportOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a63b3f8f3e1432cfdcf11bf8528a755df">hmi::exportModelReplay</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const QString &amp;outputPath)</td></tr>
+<tr class="memdesc:a63b3f8f3e1432cfdcf11bf8528a755df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">modelPath</code> en mode <span class="tt">Argmax</span> sur <code class="param">levelPath</code> et écrit le rejeu dans <code class="param">outputPath</code> — équivalent exact de <span class="tt">aisolver-cli export-replay</span>.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

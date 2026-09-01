@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,18 +95,21 @@ $(function(){initNavTree('TrainingWorker_8h.html','',''); });
 
 <p>Exécute un entraînement (<span class="tt">LOT-ANNEXE-21</span>, <span class="tt">EX-IA-022</span>) sur un <span class="tt">QThread</span> séparé, pour que l'onglet Entraînement du menu Mode IA reste réactif pendant un run potentiellement long.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QObject&gt;</code><br />
+<div class="textblock"><code>#include &lt;QMetaType&gt;</code><br />
+<code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrainingRequest_8h_source.html">HMI/Ai/TrainingRequest.h</a>&quot;</code><br />
 </div>
 <p><a href="TrainingWorker_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3ATrainingRequest" id="r_hmi_3A_3ATrainingRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TrainingRequest.html">hmi::TrainingRequest</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html" title="Arguments de train.">aisolver::cli::TrainArgs</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> (<span class="tt">LOT-ANNEXE-19</span>), en <span class="tt">QString</span>/valeurs simples pour rester utilisables sans dépendre de <span class="tt">AiSolver/Cli</span> depuis un en-tête Qt.  <a href="structhmi_1_1TrainingRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3ATrainingProgress" id="r_hmi_3A_3ATrainingProgress"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TrainingProgress.html">hmi::TrainingProgress</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantané d'une génération/d'un épisode, transporté par le signal <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#a7c0cc77c3e15ae0b9aa8f816d95e3fd5" title="Une génération (évolutionniste) ou un épisode (par gradient) vient d&#39;être journalisé (TrainingStatsRe...">TrainingWorker::progress</a></span>.  <a href="structhmi_1_1TrainingProgress.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ATrainingWorker" id="r_hmi_3A_3ATrainingWorker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TrainingWorker.html">hmi::TrainingWorker</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Travailleur <span class="tt">QObject</span>, déplacé sur un <span class="tt">QThread</span> par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1AiModeScreen.html" title="Page du QStackedWidget (comme MainMenu/CreditsScreen), pas un recouvrement.">AiModeScreen</a></span>) : <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> bloque jusqu'à la fin de l'entraînement ou une interruption via <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#a974884e1ba9314db828350f2196452ab" title="Demande l&#39;arrêt à la prochaine génération/épisode (EX-NFR-040 : jamais de terminaison brutale du thre...">requestStop()</a></span>.  <a href="classhmi_1_1TrainingWorker.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-03-tache-02-entites.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-02-entites"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md569"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
 Contexte</h1>
 <p>Le cœur de l'ECS est l'entité : un simple <b>identifiant</b>. Pour éviter les références pendantes (une entité détruite dont l'index est recyclé), on utilise un <b>handle générationnel</b> (index + génération).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md570"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Type <span class="tt">Entity</span> : structure légère <span class="tt">{ index, generation }</span> (copiable, comparable), avec une valeur <b>invalide</b> conventionnelle.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li>Recyclage des index libérés (liste libre) pour borner la mémoire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération).">Source/Core/Ecs/Entity.h</a></span> (nouveau).</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Test/Unit/test_entity_manager.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">create</span> renvoie des entités vivantes et distinctes.</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>Un index recyclé produit une <b>génération différente</b> : l'ancien handle reste invalide, le nouveau est valide.</li>
 <li>L'entité invalide conventionnelle n'est jamais vivante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
 Points d'attention</h1>
 <ul>
 <li>Aucune allocation par entité au-delà des tableaux internes ; opérations en temps constant amorti.</li>
 <li>Conventions : RAII (le manager possède ses tableaux), <span class="tt">_camelCase</span>, documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Cycle de vie correct, détection fiable des handles périmés, testé (<span class="tt">ctest</span> vert).</li>
 <li>Compile <span class="tt">/W4 /WX</span>, formaté, documenté Doxygen.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-010</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

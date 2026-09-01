@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,10 +95,16 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:EvaluationWorker" id="r_EvaluationWorker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EvaluationWorker.html">EvaluationWorker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Travailleur <span class="tt">QObject</span>, déplacé sur un <span class="tt">QThread</span> par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1AiModeScreen.html" title="Page du QStackedWidget (comme MainMenu/CreditsScreen), pas un recouvrement.">AiModeScreen</a></span>) : <span class="tt"><a class="el" href="classhmi_1_1EvaluationWorker.html#a1bdf1437854d72d331d05e9d5e7654aa" title="Lance l&#39;évaluation (bloquant) ; à connecter au signal QThread::started.">run()</a></span> bloque jusqu'à la fin de la campagne ou une interruption via <span class="tt"><a class="el" href="classhmi_1_1EvaluationWorker.html#a2f4e37db1939a18a5967b00982d8beb6" title="Demande l&#39;arrêt à la fin de la répétition en cours (EX-NFR-040 : jamais de terminaison brutale du thr...">requestStop()</a></span>.  <a href="classhmi_1_1EvaluationWorker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EvaluationOutcome" id="r_EvaluationOutcome"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">aisolver::eval::BenchmarkResult</a></span> en types simples (<span class="tt">HMI/Interface</span> n'a pas besoin de connaître le type <span class="tt">AiSolver</span> sous-jacent).  <a href="structhmi_1_1EvaluationOutcome.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EvaluationRequest" id="r_EvaluationRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkConfig.html">aisolver::eval::BenchmarkConfig</a></span> en types simples ; défauts identiques aux siens, pour qu'une évaluation lancée sans rien régler mesure exactement ce que mesure <span class="tt">aisolver-cli evaluate</span>.  <a href="structhmi_1_1EvaluationRequest.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainingRequest" id="r_TrainingRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TrainingRequest.html">TrainingRequest</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html" title="Arguments de train.">aisolver::cli::TrainArgs</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> (<span class="tt">LOT-ANNEXE-19</span>), en <span class="tt">QString</span>/valeurs simples pour rester utilisables sans dépendre de <span class="tt">AiSolver/Cli</span> depuis un en-tête Qt.  <a href="structhmi_1_1TrainingRequest.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run, saisis dans l'onglet Entraînement — mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainArgs.html" title="Arguments de train.">aisolver::cli::TrainArgs</a></span>/<span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> (<span class="tt">LOT-ANNEXE-19</span>), en types standard.  <a href="structhmi_1_1TrainingRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingProgress" id="r_TrainingProgress"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TrainingProgress.html">TrainingProgress</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantané d'une génération/d'un épisode, transporté par le signal <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#a7c0cc77c3e15ae0b9aa8f816d95e3fd5" title="Une génération (évolutionniste) ou un épisode (par gradient) vient d&#39;être journalisé (TrainingStatsRe...">TrainingWorker::progress</a></span>.  <a href="structhmi_1_1TrainingProgress.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainingWorker" id="r_TrainingWorker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TrainingWorker.html">TrainingWorker</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Travailleur <span class="tt">QObject</span>, déplacé sur un <span class="tt">QThread</span> par l'appelant (<span class="tt"><a class="el" href="classhmi_1_1AiModeScreen.html" title="Page du QStackedWidget (comme MainMenu/CreditsScreen), pas un recouvrement.">AiModeScreen</a></span>) : <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> bloque jusqu'à la fin de l'entraînement ou une interruption via <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html#a974884e1ba9314db828350f2196452ab" title="Demande l&#39;arrêt à la prochaine génération/épisode (EX-NFR-040 : jamais de terminaison brutale du thre...">requestStop()</a></span>.  <a href="classhmi_1_1TrainingWorker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
@@ -408,7 +414,7 @@ Classes</h2></td></tr>
 <tr class="memitem:BackdropQuad" id="r_BackdropQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1BackdropQuad.html">BackdropQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pavé plein, en pixels, relatif au coin haut-gauche de la surface décorée.  <a href="structhmi_1_1BackdropQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:OptionsPage" id="r_OptionsPage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1OptionsPage.html">OptionsPage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Options <b>unique</b>, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal (thème <span class="tt">theme.qss</span>).  <a href="classhmi_1_1OptionsPage.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Options <b>unique</b>, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal (thème <span class="tt">theme-identity.qss</span>).  <a href="classhmi_1_1OptionsPage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PauseScreen" id="r_PauseScreen"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PauseScreen.html">PauseScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recouvrement de pause affiché par-dessus la scène de jeu figée (<span class="tt">EX-GP-041</span>).  <a href="classhmi_1_1PauseScreen.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PixelFocusCaret" id="r_PixelFocusCaret"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PixelFocusCaret.html">PixelFocusCaret</a></td></tr>
@@ -421,8 +427,11 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Habillage de fenêtre associé à un écran : ce que chaque <span class="tt">showXxx()</span> répétait à la main (bascule du <span class="tt">QStackedWidget</span>, docks, barre de menu, barres d'outils, navigation manette).  <a href="structhmi_1_1ScreenDressing.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScreenState" id="r_ScreenState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ScreenState.html">ScreenState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État complet de la machine.  <a href="structhmi_1_1ScreenState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ScreenPageHost" id="r_ScreenPageHost"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ScreenPageHost.html">ScreenPageHost</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conteneur défilant par lequel passe <b>toute</b> page ajoutée à la pile d'écrans.  <a href="classhmi_1_1ScreenPageHost.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StyleSheetSubstitutionResult" id="r_StyleSheetSubstitutionResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StyleSheetSubstitutionResult.html">StyleSheetSubstitutionResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une substitution : succès et texte produit, ou échec et message d'erreur — jamais un résultat produit silencieusement avec un trou (marqueur inconnu non substitué).  <a href="structhmi_1_1StyleSheetSubstitutionResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingChartWidget" id="r_TrainingChartWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TrainingChartWidget.html">TrainingChartWidget</a></td></tr>
 <tr class="memitem:Localization" id="r_Localization"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Localization.html">Localization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  <a href="classhmi_1_1Localization.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -435,6 +444,11 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a3f9afcb11487e1516830d085f253ec47" id="r_a3f9afcb11487e1516830d085f253ec47"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a3f9afcb11487e1516830d085f253ec47">ReplayExportOutcome</a> { <a class="el" href="#a3f9afcb11487e1516830d085f253ec47a0001316ad0c7eb0f1a8e298fd6e5d070">Exported</a>
+, <a class="el" href="#a3f9afcb11487e1516830d085f253ec47a13c997c75f537317f9f17c882c9cab88">NotSolved</a>
+, <a class="el" href="#a3f9afcb11487e1516830d085f253ec47ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a>
+ }</td></tr>
+<tr class="memdesc:a3f9afcb11487e1516830d085f253ec47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue d'un export de rejeu, distinguant les deux échecs que l'écran doit savoir expliquer différemment.  <a href="#a3f9afcb11487e1516830d085f253ec47">More...</a><br /></td></tr>
 <tr class="memitem:a08b7877ee84a5db1b0da3837b70c3af7" id="r_a08b7877ee84a5db1b0da3837b70c3af7"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7">SoundCatalogError</a> { <br />
 &#160;&#160;<a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#a08b7877ee84a5db1b0da3837b70c3af7a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
@@ -905,8 +919,14 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae0c56dcacd78f6eebfb767e631fabb3" id="r_aae0c56dcacd78f6eebfb767e631fabb3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae0c56dcacd78f6eebfb767e631fabb3">evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algorithmId, int repetitions)</td></tr>
-<tr class="memdesc:aae0c56dcacd78f6eebfb767e631fabb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
+<tr class="memitem:aae645d4a985dd96c749072e80121403f" id="r_aae645d4a985dd96c749072e80121403f"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae645d4a985dd96c749072e80121403f">evaluateModel</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const std::function&lt; bool(int completed, int total)&gt; &amp;onRepetition={})</td></tr>
+<tr class="memdesc:aae645d4a985dd96c749072e80121403f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle de <code class="param">request</code> sur son niveau, selon ses répétitions et son mode de décodage.  <br /></td></tr>
+<tr class="memitem:a5e074f6957dad14226a475687f0d2d43" id="r_a5e074f6957dad14226a475687f0d2d43"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5e074f6957dad14226a475687f0d2d43">writeEvaluationReport</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &amp;outcome, const QString &amp;csvPath)</td></tr>
+<tr class="memdesc:a5e074f6957dad14226a475687f0d2d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit le rapport CSV d'une évaluation dans <code class="param">csvPath</code>, au format de <span class="tt">aisolver-cli evaluate --report</span>.  <br /></td></tr>
+<tr class="memitem:a63b3f8f3e1432cfdcf11bf8528a755df" id="r_a63b3f8f3e1432cfdcf11bf8528a755df"><td class="memItemLeft"><a class="el" href="#a3f9afcb11487e1516830d085f253ec47">ReplayExportOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a63b3f8f3e1432cfdcf11bf8528a755df">exportModelReplay</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const QString &amp;outputPath)</td></tr>
+<tr class="memdesc:a63b3f8f3e1432cfdcf11bf8528a755df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">modelPath</code> en mode <span class="tt">Argmax</span> sur <code class="param">levelPath</code> et écrit le rejeu dans <code class="param">outputPath</code> — équivalent exact de <span class="tt">aisolver-cli export-replay</span>.  <br /></td></tr>
+<tr class="memitem:aede392497f6dbbfcc78eece29a3d8cd4" id="r_aede392497f6dbbfcc78eece29a3d8cd4"><td class="memItemLeft"><a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html">aisolver::cli::CommandLineOverrides</a>&#160;</td><td class="memItemRight"><a class="el" href="#aede392497f6dbbfcc78eece29a3d8cd4">overridesFor</a> (const <a class="el" href="structhmi_1_1TrainingRequest.html">TrainingRequest</a> &amp;request)</td></tr>
+<tr class="memdesc:aede392497f6dbbfcc78eece29a3d8cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surcharges de ligne de commande équivalentes à <code class="param">request</code>.  <br /></td></tr>
 <tr class="memitem:a949e50cc6c6b8c2df661c6277ac59506" id="r_a949e50cc6c6b8c2df661c6277ac59506"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a949e50cc6c6b8c2df661c6277ac59506">soundForEvent</a> (<a class="el" href="#a3a61aed1c8e95c289c829398d48488de">GameEvent</a> event)</td></tr>
 <tr class="memdesc:a949e50cc6c6b8c2df661c6277ac59506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe un <span class="tt"><a class="el" href="#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> à un identifiant de <span class="tt"><a class="el" href="classhmi_1_1SoundCatalog.html" title="Catalogue des sons : nom d&#39;événement → fichier (relatif à Source/Elements/Audio/).">hmi::SoundCatalog</a></span>.  <br /></td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
@@ -1269,10 +1289,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aa12b108fb923da090df69e6ae9635498" id="r_aa12b108fb923da090df69e6ae9635498"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa12b108fb923da090df69e6ae9635498">resolvedIdentityTitleFamily</a> ()</td></tr>
 <tr class="memdesc:aa12b108fb923da090df69e6ae9635498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de famille des <b>titres d'écran</b> de la portée identité (<span class="tt">Press Start 2P</span>), ou une chaîne vide en cas d'échec.  <br /></td></tr>
 <tr class="memitem:a04dc2eb2c01a84c7b71c2489e8f230f5" id="r_a04dc2eb2c01a84c7b71c2489e8f230f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a04dc2eb2c01a84c7b71c2489e8f230f5">setIdentityScale</a> (int scale)</td></tr>
-<tr class="memdesc:a04dc2eb2c01a84c7b71c2489e8f230f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixe le facteur d'agrandissement <b>entier</b> des écrans du jeu (<span class="tt"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc" title="Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.">hmi::pixelArtScale</a></span>), relu par <span class="tt"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c" title="Charge le modèle de feuille de style embarqué (:/resources/theme.qss), le substitue avec editorTokens...">applyStyleSheet</a></span> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>).  <br /></td></tr>
+<tr class="memdesc:a04dc2eb2c01a84c7b71c2489e8f230f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixe le facteur d'agrandissement <b>entier</b> des écrans du jeu (<span class="tt"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc" title="Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.">hmi::pixelArtScale</a></span>), relu par <span class="tt"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c" title="Charge le modèle de feuille de style du châssis d&#39;édition (:/resources/theme-editor....">applyStyleSheet</a></span> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>).  <br /></td></tr>
 <tr class="memitem:a0bdbcbcbafff7ef8f3271c768963559c" id="r_a0bdbcbcbafff7ef8f3271c768963559c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0bdbcbcbafff7ef8f3271c768963559c">identityScale</a> ()</td></tr>
 <tr class="memitem:aee6f5ca213fc30772f1d5a7df740fe4c" id="r_aee6f5ca213fc30772f1d5a7df740fe4c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c">applyStyleSheet</a> (const <a class="el" href="structhmi_1_1DesignTokens.html">DesignTokens</a> &amp;editorTokens)</td></tr>
-<tr class="memdesc:aee6f5ca213fc30772f1d5a7df740fe4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le modèle de feuille de style embarqué (<span class="tt">:/resources/theme.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'application.  <br /></td></tr>
+<tr class="memdesc:aee6f5ca213fc30772f1d5a7df740fe4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le modèle de feuille de style du <b>châssis d'édition</b> (<span class="tt">:/resources/theme-editor.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'<b>application</b>.  <br /></td></tr>
+<tr class="memitem:ac3130b7d78eb3f92bca8ded4f7fa4e3d" id="r_ac3130b7d78eb3f92bca8ded4f7fa4e3d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac3130b7d78eb3f92bca8ded4f7fa4e3d">identityStyleSheet</a> ()</td></tr>
+<tr class="memdesc:ac3130b7d78eb3f92bca8ded4f7fa4e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feuille de style de la <b>portée identité</b> (<span class="tt">:/resources/theme-identity.qss</span>), substituée avec les jetons effectifs et le facteur d'agrandissement courant (<span class="tt"><a class="el" href="#a0bdbcbcbafff7ef8f3271c768963559c">identityScale</a></span>).  <br /></td></tr>
 <tr class="memitem:a2c008aaa4051cc949be754258753baa7" id="r_a2c008aaa4051cc949be754258753baa7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2c008aaa4051cc949be754258753baa7">applyFont</a> ()</td></tr>
 <tr class="memdesc:a2c008aaa4051cc949be754258753baa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre les polices embarquées auprès de Qt et applique la famille du <b>châssis d'édition</b> comme police par défaut de l'application (<span class="tt">Assets/Fonts/</span>) :  <br /></td></tr>
 <tr class="memitem:a9dc9509fbff97a3271f33b011e243ecb" id="r_a9dc9509fbff97a3271f33b011e243ecb"><td class="memItemLeft"><a class="el" href="#a796b5dfcf1d9de2fb2552d51af677646">EditorThemeSetting</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9dc9509fbff97a3271f33b011e243ecb">editorThemeSetting</a> ()</td></tr>
@@ -1322,6 +1344,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1ebed041b4b817775b645ae6d51ea778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pavés du décor, dans l'<b>ordre de dessin</b> (les derniers recouvrent les premiers).  <br /></td></tr>
 <tr class="memitem:ac2a8870c8e4b1ea370df1cb0735a6afc" id="r_ac2a8870c8e4b1ea370df1cb0735a6afc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc">pixelArtScale</a> (int windowLogicalHeight) noexcept</td></tr>
 <tr class="memdesc:ac2a8870c8e4b1ea370df1cb0735a6afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur d'agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.  <br /></td></tr>
+<tr class="memitem:afdfb0571ff0707ca3bd0731ffa4bdf73" id="r_afdfb0571ff0707ca3bd0731ffa4bdf73"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afdfb0571ff0707ca3bd0731ffa4bdf73">pixelArtScaleForDisplay</a> (int windowLogicalHeight, int availableLogicalHeight) noexcept</td></tr>
+<tr class="memdesc:afdfb0571ff0707ca3bd0731ffa4bdf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur d'agrandissement <b>borné par la zone d'affichage réellement disponible</b> (<span class="tt">EX-IHM-081</span>).  <br /></td></tr>
 <tr class="memitem:aabc1c25756cf14f6e4d6d29e8aa8a735" id="r_aabc1c25756cf14f6e4d6d29e8aa8a735"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PixelFrameQuad.html">PixelFrameQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aabc1c25756cf14f6e4d6d29e8aa8a735">pixelFrameQuads</a> (int width, int height, int scale)</td></tr>
 <tr class="memdesc:aabc1c25756cf14f6e4d6d29e8aa8a735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pavés composant un cadre, dans l'<b>ordre de dessin</b> (les derniers recouvrent les premiers).  <br /></td></tr>
 <tr class="memitem:a63f80c95e52207ae46ef8cbb49b7176b" id="r_a63f80c95e52207ae46ef8cbb49b7176b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PixelFrameQuad.html">PixelFrameQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a63f80c95e52207ae46ef8cbb49b7176b">pixelCaretQuads</a> (int size)</td></tr>
@@ -2829,6 +2853,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3f9afcb11487e1516830d085f253ec47" name="a3f9afcb11487e1516830d085f253ec47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9afcb11487e1516830d085f253ec47">&#9670;&#160;</a></span>ReplayExportOutcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a3f9afcb11487e1516830d085f253ec47">hmi::ReplayExportOutcome</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Issue d'un export de rejeu, distinguant les deux échecs que l'écran doit savoir expliquer différemment. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3f9afcb11487e1516830d085f253ec47a0001316ad0c7eb0f1a8e298fd6e5d070" name="a3f9afcb11487e1516830d085f253ec47a0001316ad0c7eb0f1a8e298fd6e5d070"></a>Exported&#160;</td><td class="fielddoc"><p>Rejeu écrit. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3f9afcb11487e1516830d085f253ec47a13c997c75f537317f9f17c882c9cab88" name="a3f9afcb11487e1516830d085f253ec47a13c997c75f537317f9f17c882c9cab88"></a>NotSolved&#160;</td><td class="fielddoc"><p>Le modèle ne résout pas ce niveau : rien n'est écrit (voir <span class="tt"><a class="el" href="#a63b3f8f3e1432cfdcf11bf8528a755df" title="Rejoue modelPath en mode Argmax sur levelPath et écrit le rejeu dans outputPath — équivalent exact de...">exportModelReplay</a></span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3f9afcb11487e1516830d085f253ec47ad7c8c85bf79bbe1b7188497c32c3b0ca" name="a3f9afcb11487e1516830d085f253ec47ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"><p>Modèle illisible, niveau introuvable, ou écriture impossible. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a964211f19cf43757eaaa80c3c29b0e90" name="a964211f19cf43757eaaa80c3c29b0e90"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a964211f19cf43757eaaa80c3c29b0e90">&#9670;&#160;</a></span>ScreenEvent</h2>
 
@@ -3650,8 +3706,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Charge le modèle de feuille de style embarqué (<span class="tt">:/resources/theme.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'application. </p>
-<p>Repli explicite : fichier absent/illisible ou marqueur inconnu -&gt; avertissement journalisé, l'application reste utilisable sans feuille de style (comportement historique de <span class="tt">main.cpp</span>, non régressé). </p>
+<p>Charge le modèle de feuille de style du <b>châssis d'édition</b> (<span class="tt">:/resources/theme-editor.qss</span>), le substitue avec <code class="param">editorTokens</code> et l'applique à l'<b>application</b>. </p>
+<p>Repli explicite : fichier absent/illisible ou marqueur inconnu -&gt; avertissement journalisé, l'application reste utilisable sans feuille de style (comportement historique de <span class="tt">main.cpp</span>, non régressé).</p>
+<p>Ne porte <b>plus</b> la portée identité depuis le <span class="tt">LOT-73</span> (<span class="tt">EX-IHM-082</span>) : celle-ci se pose sur la pile d'écrans (<span class="tt"><a class="el" href="#ac3130b7d78eb3f92bca8ded4f7fa4e3d" title="Feuille de style de la portée identité (:/resources/theme-identity.qss), substituée avec les jetons e...">identityStyleSheet</a></span>). Les deux vivaient dans la même feuille applicative, si bien qu'un changement de facteur d'agrandissement — préoccupation des seuls écrans du jeu — repolissait les 862 widgets de l'application, cinq secondes durant en Debug. </p>
 
 </div>
 </div>
@@ -6089,8 +6146,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aae0c56dcacd78f6eebfb767e631fabb3" name="aae0c56dcacd78f6eebfb767e631fabb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae0c56dcacd78f6eebfb767e631fabb3">&#9670;&#160;</a></span>evaluateModel()</h2>
+<a id="aae645d4a985dd96c749072e80121403f" name="aae645d4a985dd96c749072e80121403f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae645d4a985dd96c749072e80121403f">&#9670;&#160;</a></span>evaluateModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6101,22 +6158,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt; hmi::evaluateModel </td>
           <td>(</td>
-          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>request</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>algorithmId</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>repetitions</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; bool(int completed, int total)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>onRepetition</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -6126,13 +6173,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax. </p>
+<p>Évalue le modèle de <code class="param">request</code> sur son niveau, selon ses répétitions et son mode de décodage. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">modelPath</td><td>Chemin des poids sauvegardés (<span class="tt">nn::saveWeights</span>, format <span class="tt">LOT-ANNEXE-03</span>). </td></tr>
-    <tr><td class="paramname">levelPath</td><td>Niveau sur lequel évaluer. </td></tr>
-    <tr><td class="paramname">algorithmId</td><td><span class="tt">"evo"</span>, <span class="tt">"pg"</span>, <span class="tt">"ac"</span> ou <span class="tt">"avance"</span> — choisit l'adaptateur <span class="tt">eval::TrainedPolicy</span> et la topologie réseau adaptée. </td></tr>
-    <tr><td class="paramname">repetitions</td><td>Nombre d'épisodes rejoués pour la mesure. </td></tr>
+    <tr><td class="paramname">request</td><td>Modèle, niveau et paramètres de campagne (voir <span class="tt"><a class="el" href="structhmi_1_1EvaluationRequest.html" title="Paramètres d&#39;une évaluation, mêmes champs que aisolver::eval::BenchmarkConfig en types simples ; défa...">EvaluationRequest</a></span>). </td></tr>
+    <tr><td class="paramname">onRepetition</td><td>Observateur optionnel de progression/interruption, transmis tel quel à <span class="tt">eval::BenchmarkRunner::run</span> — renvoyer <span class="tt">false</span> interrompt la campagne. </td></tr>
   </table>
   </dd>
 </dl>
@@ -6165,6 +6210,45 @@ Variables</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="a63b3f8f3e1432cfdcf11bf8528a755df" name="a63b3f8f3e1432cfdcf11bf8528a755df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b3f8f3e1432cfdcf11bf8528a755df">&#9670;&#160;</a></span>exportModelReplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3f9afcb11487e1516830d085f253ec47">ReplayExportOutcome</a> hmi::exportModelReplay </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>outputPath</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rejoue <code class="param">modelPath</code> en mode <span class="tt">Argmax</span> sur <code class="param">levelPath</code> et écrit le rejeu dans <code class="param">outputPath</code> — équivalent exact de <span class="tt">aisolver-cli export-replay</span>. </p>
+<p>Remplace la simple copie du <span class="tt">replay.json</span> d'un run : celle-ci ne pouvait rien produire pour un niveau autre que celui du run, ni pour un run dont le fichier manque, alors que le modèle sauvegardé, lui, est toujours rejouable.</p>
+<p>Un rejeu <b>publié</b> ne peut être qu'une réussite validée (décision de cadrage de <span class="tt">LOT-ANNEXE-11</span>, appliquée aussi par <span class="tt">aisolver-cli</span>) : un modèle qui ne termine pas le niveau produit <span class="tt">NotSolved</span> et <b>aucun</b> fichier. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>Modèle, niveau, algorithme et graine ; <span class="tt">repetitions</span>/<span class="tt">maxStepsPerEpisode</span> et le mode de décodage sont ignorés (un rejeu est un unique épisode déterministe). </td></tr>
+    <tr><td class="paramname">outputPath</td><td>Fichier de rejeu à écrire. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -6855,6 +6939,34 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le facteur d'agrandissement courant des écrans du jeu (1 tant qu'aucune fenêtre ne l'a fixé). </dd></dl>
+
+</div>
+</div>
+<a id="ac3130b7d78eb3f92bca8ded4f7fa4e3d" name="ac3130b7d78eb3f92bca8ded4f7fa4e3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3130b7d78eb3f92bca8ded4f7fa4e3d">&#9670;&#160;</a></span>identityStyleSheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::identityStyleSheet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Feuille de style de la <b>portée identité</b> (<span class="tt">:/resources/theme-identity.qss</span>), substituée avec les jetons effectifs et le facteur d'agrandissement courant (<span class="tt"><a class="el" href="#a0bdbcbcbafff7ef8f3271c768963559c">identityScale</a></span>). </p>
+<p>Rendue plutôt qu'appliquée : c'est l'appelant qui sait <b>où</b> la poser — sur la pile d'écrans, et non sur l'application (<span class="tt">EX-IHM-082</span>). Chaîne vide si la feuille est absente ou invalide ; l'appelant laisse alors en place la précédente. </p>
 
 </div>
 </div>
@@ -8168,6 +8280,41 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aede392497f6dbbfcc78eece29a3d8cd4" name="aede392497f6dbbfcc78eece29a3d8cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede392497f6dbbfcc78eece29a3d8cd4">&#9670;&#160;</a></span>overridesFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html">aisolver::cli::CommandLineOverrides</a> hmi::overridesFor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1TrainingRequest.html">TrainingRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>request</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Surcharges de ligne de commande équivalentes à <code class="param">request</code>. </p>
+<p><span class="tt">optimizer</span> reste <span class="tt">std::nullopt</span> : l'écran le fournit en <span class="tt">QString</span>, et l'appelant l'applique après coup sur la configuration résolue — un <span class="tt">std::string</span> vide n'y serait pas distinguable d'un choix explicite.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>Requête saisie dans l'onglet Entraînement. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les surcharges correspondantes, champ pour champ. </dd></dl>
+
+</div>
+</div>
 <a id="aa391954b311db21fd63162e8ec40fcc5" name="aa391954b311db21fd63162e8ec40fcc5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa391954b311db21fd63162e8ec40fcc5">&#9670;&#160;</a></span>paletteThumbnail()</h2>
 
@@ -8591,6 +8738,47 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le facteur entier, dans <span class="tt">[1, <a class="el" href="#aa1499337391ec9642e497257d860a248" title="Plus grand facteur admis.">PIXEL_ART_MAX_SCALE</a>]</span>. </dd></dl>
+
+</div>
+</div>
+<a id="afdfb0571ff0707ca3bd0731ffa4bdf73" name="afdfb0571ff0707ca3bd0731ffa4bdf73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdfb0571ff0707ca3bd0731ffa4bdf73">&#9670;&#160;</a></span>pixelArtScaleForDisplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::pixelArtScaleForDisplay </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>windowLogicalHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>availableLogicalHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur d'agrandissement <b>borné par la zone d'affichage réellement disponible</b> (<span class="tt">EX-IHM-081</span>). </p>
+<p><span class="tt"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc" title="Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.">pixelArtScale</a></span> seule ne connaît que la fenêtre, et c'est insuffisant : le facteur grossit les grandeurs d'habillage, qui grossissent la taille minimale des écrans, qui grossit celle de la fenêtre — laquelle relance le calcul un cran plus haut. Rien ne redescend jamais, la fenêtre ne pouvant pas passer sous son propre minimum : c'est un <b>cliquet</b>, et il n'a d'issue que si le facteur cesse de dépendre d'une hauteur que lui-même fait croître.</p>
+<p>La zone disponible, elle, ne dépend de rien que l'application décide. La borner ferme la boucle : une fenêtre que Qt a été contraint d'agrandir au-delà de l'écran ne gagne plus de facteur pour autant.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">windowLogicalHeight</td><td>Hauteur de la fenêtre, en pixels logiques. </td></tr>
+    <tr><td class="paramname">availableLogicalHeight</td><td>Hauteur utile de l'écran hébergeant la fenêtre (hors barre des tâches), en pixels logiques. Une valeur nulle ou négative signifie « écran inconnu » et laisse la seule hauteur de fenêtre décider. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le facteur entier, dans <span class="tt">[1, <a class="el" href="#aa1499337391ec9642e497257d860a248" title="Plus grand facteur admis.">PIXEL_ART_MAX_SCALE</a>]</span>, jamais supérieur à celui que la zone disponible admet. </dd></dl>
 
 </div>
 </div>
@@ -10571,7 +10759,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fixe le facteur d'agrandissement <b>entier</b> des écrans du jeu (<span class="tt"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc" title="Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.">hmi::pixelArtScale</a></span>), relu par <span class="tt"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c" title="Charge le modèle de feuille de style embarqué (:/resources/theme.qss), le substitue avec editorTokens...">applyStyleSheet</a></span> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>). </p>
+<p>Fixe le facteur d'agrandissement <b>entier</b> des écrans du jeu (<span class="tt"><a class="el" href="#ac2a8870c8e4b1ea370df1cb0735a6afc" title="Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.">hmi::pixelArtScale</a></span>), relu par <span class="tt"><a class="el" href="#aee6f5ca213fc30772f1d5a7df740fe4c" title="Charge le modèle de feuille de style du châssis d&#39;édition (:/resources/theme-editor....">applyStyleSheet</a></span> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-070</span>). </p>
 <p>Un réglage, pas un calcul : c'est la fenêtre qui connaît sa hauteur, et elle seule. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si la valeur a changé — l'appelant sait alors qu'il doit rejouer le thème. </dd></dl>
 
 </div>
@@ -11907,6 +12095,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le masque des espaces qui l'affichent ; jamais vide. </dd></dl>
+
+</div>
+</div>
+<a id="a5e074f6957dad14226a475687f0d2d43" name="a5e074f6957dad14226a475687f0d2d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e074f6957dad14226a475687f0d2d43">&#9670;&#160;</a></span>writeEvaluationReport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::writeEvaluationReport </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>request</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>outcome</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>csvPath</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écrit le rapport CSV d'une évaluation dans <code class="param">csvPath</code>, au format de <span class="tt">aisolver-cli evaluate --report</span>. </p>
+<p>Vit ici plutôt que dans l'écran parce que le format appartient à <span class="tt">eval::BenchmarkReport</span>, que <span class="tt">HMI/Interface</span> ne référence pas (amendement de <span class="tt">LOT-ANNEXE-18</span>, limité à <span class="tt">HMI/Ai</span>) — et parce qu'un CSV formaté à la main dans l'écran divergerait du rapport de la ligne de commande. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>Requête ayant produit <code class="param">outcome</code> : nomme l'algorithme et le niveau mesurés. </td></tr>
+    <tr><td class="paramname">outcome</td><td>Résultat affiché à l'écran. </td></tr>
+    <tr><td class="paramname">csvPath</td><td>Fichier à (re)créer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si le fichier ne peut pas être écrit. </dd></dl>
 
 </div>
 </div>

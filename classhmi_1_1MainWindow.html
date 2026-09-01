@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -115,8 +115,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a6dab05769a6e7f213d8e55d9a6b2d446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde la disposition avant fermeture.  <br /></td></tr>
 <tr class="memitem:a0c75214acd44c6e1bef12db335abd37f" id="r_a0c75214acd44c6e1bef12db335abd37f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c75214acd44c6e1bef12db335abd37f">resizeEvent</a> (QResizeEvent *event) override</td></tr>
 <tr class="memdesc:a0c75214acd44c6e1bef12db335abd37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la géométrie des recouvrements d'écran (<span class="tt"><a class="el" href="#ac65d1b4ea7fccdd8969abcdf83254cd8" title="Recouvrement de pause (LOT-59 TACHE-02) : widget enfant ordinaire du viewport depuis le LOT-69 TACHE-...">_pauseScreen</a></span>/<span class="tt"><a class="el" href="#a7afaff28276c2b437ddf7323c924ed23" title="Recouvrement de fin de niveau/séquence (LOT-59 TACHE-03) : même patron que _pauseScreen ci-dessus (fe...">_levelCompleteScreen</a></span>, <span class="tt">LOT-59</span> TACHE-02/03) &ndash; fenêtres de haut niveau positionnées à la main, jamais redimensionnées automatiquement par <span class="tt"><a class="el" href="#a408483202779acb367aee2733d8b28c7" title="Central : empile menu principal, options et viewport.">_stack</a></span>.  <br /></td></tr>
-<tr class="memitem:a0b2365c292ecebf9df8e3feb8083c24e" id="r_a0b2365c292ecebf9df8e3feb8083c24e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b2365c292ecebf9df8e3feb8083c24e">applyIdentityScale</a> ()</td></tr>
-<tr class="memdesc:a0b2365c292ecebf9df8e3feb8083c24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et rejoue le theme s'il a change (LOT-68, EX-IHM-070).  <br /></td></tr>
+<tr class="memitem:af3defdc7ff75aacc8de0b7b9beb7cb92" id="r_af3defdc7ff75aacc8de0b7b9beb7cb92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af3defdc7ff75aacc8de0b7b9beb7cb92">applyIdentityScale</a> (bool beforeFirstShow=false)</td></tr>
+<tr class="memdesc:af3defdc7ff75aacc8de0b7b9beb7cb92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule le facteur d'agrandissement des écrans du jeu depuis la hauteur courante, <b>borné par la zone d'affichage disponible</b> (<span class="tt">LOT-68</span>/<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-070</span>, <span class="tt">EX-IHM-081</span>), et rejoue le thème s'il a changé.  <br /></td></tr>
+<tr class="memitem:a660a7efd703ab6d0df79f76af1b2c6ed" id="r_a660a7efd703ab6d0df79f76af1b2c6ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a660a7efd703ab6d0df79f76af1b2c6ed">applyIdentityStyleSheet</a> ()</td></tr>
+<tr class="memdesc:a660a7efd703ab6d0df79f76af1b2c6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose la feuille de style de la portée identité sur la <b>pile d'écrans</b> (<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-082</span>).  <br /></td></tr>
 <tr class="memitem:a8f4ec20153d8d14d3ab9a602f56a466b" id="r_a8f4ec20153d8d14d3ab9a602f56a466b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f4ec20153d8d14d3ab9a602f56a466b">moveEvent</a> (QMoveEvent *event) override</td></tr>
 <tr class="memitem:a2d1f33de682c39a3c520bfc344b5ab59" id="r_a2d1f33de682c39a3c520bfc344b5ab59"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2d1f33de682c39a3c520bfc344b5ab59">eventFilter</a> (QObject *watched, QEvent *event) override</td></tr>
 <tr class="memdesc:a2d1f33de682c39a3c520bfc344b5ab59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suit la taille du viewport pour les recouvrements qui s'y superposent (pause, fin de niveau) : enfants ordinaires depuis le <span class="tt">LOT-69</span> TACHE-02, ils se redimensionnent avec leur parent plutôt que d'être repositionnés en coordonnées écran.  <br /></td></tr>
@@ -208,6 +210,14 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:acbfa0913afbb2f6cb95d431ac6631123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout <code class="param">event</code> via <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">hmi::resolveTransition</a></span> depuis l'écran courant (<span class="tt"><a class="el" href="#a97fd2eec1f36f4a73a87a1b659573c99" title="Écran courant et écran de retour d&#39;Options (LOT-59 TACHE-01, EX-GP-041) : seule source de vérité sur ...">_screenState</a></span>) et applique l'habillage du nouvel écran (<span class="tt"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db" title="Bascule la page du QStackedWidget (seule part propre à Qt, hors de portée d&#39;une table pure) puis appl...">applyScreenDressing</a></span>) &ndash;.  <br /></td></tr>
 <tr class="memitem:a69da7b7ed0aefd517ac564bd227ad5db" id="r_a69da7b7ed0aefd517ac564bd227ad5db"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a69da7b7ed0aefd517ac564bd227ad5db">applyScreenDressing</a> (<a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">hmi::ScreenId</a> screen)</td></tr>
 <tr class="memdesc:a69da7b7ed0aefd517ac564bd227ad5db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bascule la page du <span class="tt">QStackedWidget</span> (seule part propre à Qt, hors de portée d'une table pure) puis applique l'habillage générique de <code class="param">screen</code> (<span class="tt"><a class="el" href="namespacehmi.html#a7e42ffeba1ac86e0a292c24dc3b99f94">hmi::dressingFor</a></span>) : docks, barres, commandes d'édition, navigation manette, minuteur de statut.  <br /></td></tr>
+<tr class="memitem:abd7e19903ad18b62ec53654893b52268" id="r_abd7e19903ad18b62ec53654893b52268"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abd7e19903ad18b62ec53654893b52268">addScreenPage</a> (QWidget *page)</td></tr>
+<tr class="memdesc:abd7e19903ad18b62ec53654893b52268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enveloppe <code class="param">page</code> dans un <span class="tt"><a class="el" href="classhmi_1_1ScreenPageHost.html" title="Conteneur défilant par lequel passe toute page ajoutée à la pile d&#39;écrans.">hmi::ScreenPageHost</a></span> défilant, l'ajoute à la pile et retient l'association.  <br /></td></tr>
+<tr class="memitem:aafc11397bb9bd1817f2333d35fd78433" id="r_aafc11397bb9bd1817f2333d35fd78433"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aafc11397bb9bd1817f2333d35fd78433">showScreenPage</a> (QWidget *page)</td></tr>
+<tr class="memdesc:aafc11397bb9bd1817f2333d35fd78433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche l'écran <code class="param">page</code> en sélectionnant l'enveloppe qui l'héberge.  <br /></td></tr>
+<tr class="memitem:ac962f008f34b3704833850ac4199706b" id="r_ac962f008f34b3704833850ac4199706b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac962f008f34b3704833850ac4199706b">warnIfScreensConstrainWindow</a> () const</td></tr>
+<tr class="memdesc:ac962f008f34b3704833850ac4199706b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie que la taille minimale imposée par les écrans tient dans la zone d'affichage disponible, et avertit dans le journal sinon (<span class="tt">EX-IHM-080</span>).  <br /></td></tr>
+<tr class="memitem:a8d56fa865e8ddaff3c3032684c3b0763" id="r_a8d56fa865e8ddaff3c3032684c3b0763"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8d56fa865e8ddaff3c3032684c3b0763">availableLogicalHeight</a> () const</td></tr>
+<tr class="memdesc:a8d56fa865e8ddaff3c3032684c3b0763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur utile, en pixels logiques, de l'écran hébergeant la fenêtre ; <span class="tt">0</span> si inconnue.  <br /></td></tr>
 <tr class="memitem:a248bb07772661a43ec5d61884a90ffa3" id="r_a248bb07772661a43ec5d61884a90ffa3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a248bb07772661a43ec5d61884a90ffa3">openPause</a> ()</td></tr>
 <tr class="memdesc:a248bb07772661a43ec5d61884a90ffa3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Échap</span>/bouton manette B en jeu réel (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a1e8798e90caf3cfb3c033f29b4bd55e6" title="Échap (ou le bouton B manette) en mode jeu réel, hors pause : demande l&#39;ouverture de l&#39;écran de pause...">GameViewport::pauseRequested</a></span>) : ouvre la pause.  <br /></td></tr>
 <tr class="memitem:ab94899e24af6068fa65b14f017637d24" id="r_ab94899e24af6068fa65b14f017637d24"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab94899e24af6068fa65b14f017637d24">resumeFromPause</a> ()</td></tr>
@@ -240,6 +250,8 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 <tr class="memdesc:a61bcffba710ceb0cd40285ead5e29ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Mode IA » (menu, <span class="tt">LOT-ANNEXE-21</span>) : ouvre <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (entraînement, validation/sauvegarde, rejeu) — remplace l'ancien <span class="tt">watchAiPlay</span> (<span class="tt">LOT-ANNEXE-18</span>), dont l'onglet Rejeu de <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> reprend le rôle.  <br /></td></tr>
 <tr class="memitem:ae393d9302186566e0ec890b1ba0f0dab" id="r_ae393d9302186566e0ec890b1ba0f0dab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae393d9302186566e0ec890b1ba0f0dab">closeAiMode</a> ()</td></tr>
 <tr class="memdesc:ae393d9302186566e0ec890b1ba0f0dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour au menu depuis l'écran Mode IA.  <br /></td></tr>
+<tr class="memitem:ad322e3973018658d9e95db59018ed2f5" id="r_ad322e3973018658d9e95db59018ed2f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad322e3973018658d9e95db59018ed2f5">confirmLeavingActiveTraining</a> ()</td></tr>
+<tr class="memdesc:ad322e3973018658d9e95db59018ed2f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande confirmation avant de quitter l'écran Mode IA pendant un entraînement, et arrête proprement le run si l'utilisateur confirme.  <br /></td></tr>
 <tr class="memitem:a0efb1655ef693bf903ab2b91ac6b062f" id="r_a0efb1655ef693bf903ab2b91ac6b062f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0efb1655ef693bf903ab2b91ac6b062f">playAiReplay</a> (const QString &amp;replayPath)</td></tr>
 <tr class="memdesc:a0efb1655ef693bf903ab2b91ac6b062f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un rejeu a été choisi dans <span class="tt"><a class="el" href="#a26997856ec120b026c632b75b99fa8fb" title="Écran Mode IA (LOT-ANNEXE-21) : même patron que _levelSelectScreen, page normale de _stack.">_aiMode</a></span> (aperçu en direct ou onglet Rejeu) : même chargement que l'ancien <span class="tt">watchAiPlay</span>, signale une boîte d'erreur (rejeu invalide) sans ouvrir l'écran de jeu, jamais de plantage (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
 <tr class="memitem:ad55a250e14a07d8fe97ce263e78b6e5a" id="r_ad55a250e14a07d8fe97ce263e78b6e5a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad55a250e14a07d8fe97ce263e78b6e5a">closeLevelSelect</a> ()</td></tr>
@@ -271,6 +283,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a97fd2eec1f36f4a73a87a1b659573c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran courant et écran de retour d'Options (<span class="tt">LOT-59</span> TACHE-01, <span class="tt">EX-GP-041</span>) : seule source de vérité sur la navigation, mise à jour uniquement par <span class="tt"><a class="el" href="#acbfa0913afbb2f6cb95d431ac6631123" title="Résout event via hmi::resolveTransition depuis l&#39;écran courant (_screenState) et applique l&#39;habillage...">transitionScreen</a></span>.  <br /></td></tr>
 <tr class="memitem:a408483202779acb367aee2733d8b28c7" id="r_a408483202779acb367aee2733d8b28c7"><td class="memItemLeft">QStackedWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a408483202779acb367aee2733d8b28c7">_stack</a></td></tr>
 <tr class="memdesc:a408483202779acb367aee2733d8b28c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Central : empile menu principal, options et viewport.  <br /></td></tr>
+<tr class="memitem:af157ea12f5ce284911d9b598b9564c73" id="r_af157ea12f5ce284911d9b598b9564c73"><td class="memItemLeft">QHash&lt; QWidget *, QWidget * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af157ea12f5ce284911d9b598b9564c73">_screenHosts</a></td></tr>
+<tr class="memdesc:af157ea12f5ce284911d9b598b9564c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran → enveloppe défilante qui l'héberge dans la pile (<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-080</span>).  <br /></td></tr>
 <tr class="memitem:aa3e0f10b22dd266b5e55a4ab1843e98a" id="r_aa3e0f10b22dd266b5e55a4ab1843e98a"><td class="memItemLeft"><a class="el" href="classhmi_1_1MainMenu.html">MainMenu</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa3e0f10b22dd266b5e55a4ab1843e98a">_menu</a></td></tr>
 <tr class="memdesc:aa3e0f10b22dd266b5e55a4ab1843e98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu principal (page d'accueil).  <br /></td></tr>
 <tr class="memitem:a8e52b387114f4dc268ea8f00c67c73da" id="r_a8e52b387114f4dc268ea8f00c67c73da"><td class="memItemLeft"><a class="el" href="classhmi_1_1OptionsPage.html">OptionsPage</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8e52b387114f4dc268ea8f00c67c73da">_options</a></td></tr>
@@ -432,8 +446,36 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a0b2365c292ecebf9df8e3feb8083c24e" name="a0b2365c292ecebf9df8e3feb8083c24e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b2365c292ecebf9df8e3feb8083c24e">&#9670;&#160;</a></span>applyIdentityScale()</h2>
+<a id="abd7e19903ad18b62ec53654893b52268" name="abd7e19903ad18b62ec53654893b52268"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd7e19903ad18b62ec53654893b52268">&#9670;&#160;</a></span>addScreenPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::addScreenPage </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>page</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enveloppe <code class="param">page</code> dans un <span class="tt"><a class="el" href="classhmi_1_1ScreenPageHost.html" title="Conteneur défilant par lequel passe toute page ajoutée à la pile d&#39;écrans.">hmi::ScreenPageHost</a></span> défilant, l'ajoute à la pile et retient l'association. </p>
+<p><b>Tout</b> écran passe par ici : c'est ce passage obligé, et non une convention à réappliquer dans chaque <span class="tt">.ui</span>, qui garantit qu'aucun écran ne dicte sa taille à la fenêtre. Le viewport en est exclu — c'est une surface de rendu, qui remplit sans défiler. </p>
+
+</div>
+</div>
+<a id="af3defdc7ff75aacc8de0b7b9beb7cb92" name="af3defdc7ff75aacc8de0b7b9beb7cb92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3defdc7ff75aacc8de0b7b9beb7cb92">&#9670;&#160;</a></span>applyIdentityScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -443,6 +485,39 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void hmi::MainWindow::applyIdentityScale </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>beforeFirstShow</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recalcule le facteur d'agrandissement des écrans du jeu depuis la hauteur courante, <b>borné par la zone d'affichage disponible</b> (<span class="tt">LOT-68</span>/<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-070</span>, <span class="tt">EX-IHM-081</span>), et rejoue le thème s'il a changé. </p>
+<p>Sans effet sur le châssis d'édition, dont les grandeurs ne sont jamais multipliées. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">beforeFirstShow</td><td><span class="tt">true</span> pendant la construction, alors que la fenêtre n'est pas encore montrée : lève la garde d'invisibilité (qui rendait sinon l'appel sans effet) et rejoue le thème <b>sans différer</b>, pour que la première image soit peinte au bon facteur. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a660a7efd703ab6d0df79f76af1b2c6ed" name="a660a7efd703ab6d0df79f76af1b2c6ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a660a7efd703ab6d0df79f76af1b2c6ed">&#9670;&#160;</a></span>applyIdentityStyleSheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyIdentityStyleSheet </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -455,8 +530,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Recalcule le facteur d'agrandissement des ecrans du jeu depuis la hauteur courante et rejoue le theme s'il a change (LOT-68, EX-IHM-070). </p>
-<p>Sans effet sur le chassis d'edition, dont les grandeurs ne sont jamais multipliees. </p>
+<p>Pose la feuille de style de la portée identité sur la <b>pile d'écrans</b> (<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-082</span>). </p>
+<p>Jamais sur l'application : les panneaux, barres et docks n'appartiennent pas à cette portée, et les repolir à chaque changement de facteur coûtait cinq secondes en Debug pour un résultat identique. </p>
 
 </div>
 </div>
@@ -566,6 +641,33 @@ Private Attributes</h2></td></tr>
 
 <p>Applique l'espace de travail <code class="param">workspace</code> (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-073</span>) : masque les panneaux de l'autre espace, bascule barre d'outils et menu, restaure la disposition propre à cet espace. </p>
 <p>N'enregistre <b>pas</b> la disposition qu'on quitte — c'est <span class="tt"><a class="el" href="#a59c679aa42691272befe551088c8b4e3" title="Bascule sur workspace s&#39;il n&#39;est pas déjà actif, en synchronisant le sélecteur du menu sans réémettre...">switchToWorkspace</a></span> qui sait qu'on quitte vraiment un espace, et l'initialisation n'a rien à enregistrer. </p>
+
+</div>
+</div>
+<a id="a8d56fa865e8ddaff3c3032684c3b0763" name="a8d56fa865e8ddaff3c3032684c3b0763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d56fa865e8ddaff3c3032684c3b0763">&#9670;&#160;</a></span>availableLogicalHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MainWindow::availableLogicalHeight </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hauteur utile, en pixels logiques, de l'écran hébergeant la fenêtre ; <span class="tt">0</span> si inconnue. </p>
 
 </div>
 </div>
@@ -893,6 +995,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'on peut poursuivre : rien à perdre dans le canevas, ou perte confirmée. Même garde que <span class="tt"><a class="el" href="#aab330acfe884d7b8fef9583592f41a03">confirmDiscardPixelChanges</a></span>, message propre au plan — un plan perdu est un dessin perdu, pas un asset qu'on retrouve dans la bibliothèque. </dd></dl>
+
+</div>
+</div>
+<a id="ad322e3973018658d9e95db59018ed2f5" name="ad322e3973018658d9e95db59018ed2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad322e3973018658d9e95db59018ed2f5">&#9670;&#160;</a></span>confirmLeavingActiveTraining()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::confirmLeavingActiveTraining </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Demande confirmation avant de quitter l'écran Mode IA pendant un entraînement, et arrête proprement le run si l'utilisateur confirme. </p>
+<p>Le travailleur d'entraînement vit sur son propre thread et <b>survivrait</b> à la fermeture de l'écran : sans cette confirmation, un run continuerait à tourner sans plus être visible ni interruptible depuis le jeu. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si la navigation peut se poursuivre (aucun run actif, ou arrêt confirmé). </dd></dl>
 
 </div>
 </div>
@@ -2195,6 +2325,33 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 
 </div>
 </div>
+<a id="aafc11397bb9bd1817f2333d35fd78433" name="aafc11397bb9bd1817f2333d35fd78433"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafc11397bb9bd1817f2333d35fd78433">&#9670;&#160;</a></span>showScreenPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::showScreenPage </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>page</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Affiche l'écran <code class="param">page</code> en sélectionnant l'enveloppe qui l'héberge. </p>
+
+</div>
+</div>
 <a id="a77025d20fbce06f8f0fd55455cc6eca8" name="a77025d20fbce06f8f0fd55455cc6eca8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77025d20fbce06f8f0fd55455cc6eca8">&#9670;&#160;</a></span>showTransientStatusMessage()</h2>
 
@@ -2446,6 +2603,34 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Met à jour le témoin de couleur de la barre d'outils du canevas (pastille de <span class="tt"><a class="el" href="#ab3583f6b0d511a1a585c4ae6621942fd" title="Témoin + sélecteur de couleur courante (canevas).">_pixelColorButton</a></span>). </p>
+
+</div>
+</div>
+<a id="ac962f008f34b3704833850ac4199706b" name="ac962f008f34b3704833850ac4199706b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac962f008f34b3704833850ac4199706b">&#9670;&#160;</a></span>warnIfScreensConstrainWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::warnIfScreensConstrainWindow </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vérifie que la taille minimale imposée par les écrans tient dans la zone d'affichage disponible, et avertit dans le journal sinon (<span class="tt">EX-IHM-080</span>). </p>
+<p>Le dépassement est silencieux côté Qt : Windows refuse la géométrie sans que rien ne le signale. </p>
 
 </div>
 </div>
@@ -3393,6 +3578,31 @@ optionsReturnTo</span>) &ndash; remplace l'ancien retour direct et systématique
 </div><div class="memdoc">
 
 <p>Réglages de gameplay de l'élément sélectionné et du tableau (dock Propriétés, <span class="tt">LOT-67</span>). </p>
+
+</div>
+</div>
+<a id="af157ea12f5ce284911d9b598b9564c73" name="af157ea12f5ce284911d9b598b9564c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af157ea12f5ce284911d9b598b9564c73">&#9670;&#160;</a></span>_screenHosts</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QHash&lt;QWidget*, QWidget*&gt; hmi::MainWindow::_screenHosts</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Écran → enveloppe défilante qui l'héberge dans la pile (<span class="tt">LOT-73</span>, <span class="tt">EX-IHM-080</span>). </p>
+<p>Le viewport n'y figure pas : il est ajouté tel quel. </p>
 
 </div>
 </div>

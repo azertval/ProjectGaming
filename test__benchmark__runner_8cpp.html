@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -98,6 +98,8 @@ $(function(){initNavTree('test__benchmark__runner_8cpp.html','',''); });
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="TrivialLevelFixture_8h_source.html">../Training/TrivialLevelFixture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ActionSpace_8h_source.html">AiSolver/Env/ActionSpace.h</a>&quot;</code><br />
@@ -156,6 +158,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a32619ab5f5cc144ba88aaf11944b8bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Cas de test :</b> Distinction meanStepsAll / meanStepsOnSuccess.  <br /></td></tr>
 <tr class="memitem:ae30c207ddf75e0ab4294e3666994b8d8" id="r_ae30c207ddf75e0ab4294e3666994b8d8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae30c207ddf75e0ab4294e3666994b8d8">TEST</a> (BenchmarkResultTest, ConvergenceTauxDeReussiteVersProbabiliteTheorique)</td></tr>
 <tr class="memdesc:ae30c207ddf75e0ab4294e3666994b8d8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Cas de test :</b> Convergence du taux de reussite vers la probabilite theorique.  <br /></td></tr>
+<tr class="memitem:ad40244e4dc1bf61a740b46043f1c240d" id="r_ad40244e4dc1bf61a740b46043f1c240d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad40244e4dc1bf61a740b46043f1c240d">TEST</a> (BenchmarkRunnerTest, ObservateurDeRepetitionInterromptLaCampagne)</td></tr>
+<tr class="memdesc:ad40244e4dc1bf61a740b46043f1c240d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Cas de test :</b> Observateur de repetition : progression puis interruption.  <br /></td></tr>
+<tr class="memitem:aa081a14553a3f2c9905fec2e9c8dede8" id="r_aa081a14553a3f2c9905fec2e9c8dede8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa081a14553a3f2c9905fec2e9c8dede8">TEST</a> (BenchmarkRunnerTest, SansObservateurLaCampagneVaJusquAuBout)</td></tr>
+<tr class="memdesc:aa081a14553a3f2c9905fec2e9c8dede8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Cas de test :</b> Absence d'observateur : comportement inchange.  <br /></td></tr>
 <tr class="memitem:a4f3464dafad270e2884fb0ba7d1d0034" id="r_a4f3464dafad270e2884fb0ba7d1d0034"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount</a> () noexcept</td></tr>
 <tr class="memitem:a08e0bc710addf53ab9170d92a336018f" id="r_a08e0bc710addf53ab9170d92a336018f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memitem:af17ffe9cc9a0273b81e7687f17018760" id="r_af17ffe9cc9a0273b81e7687f17018760"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#af17ffe9cc9a0273b81e7687f17018760">deriveSeed</a> (std::uint64_t base, int repetitionIndex)</td></tr>
@@ -379,7 +385,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae30c207ddf75e0ab4294e3666994b8d8" name="ae30c207ddf75e0ab4294e3666994b8d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae30c207ddf75e0ab4294e3666994b8d8">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae30c207ddf75e0ab4294e3666994b8d8">&#9670;&#160;</a></span>TEST() <span class="overload">[1/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +415,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a32619ab5f5cc144ba88aaf11944b8bf5" name="a32619ab5f5cc144ba88aaf11944b8bf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32619ab5f5cc144ba88aaf11944b8bf5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a32619ab5f5cc144ba88aaf11944b8bf5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,7 +444,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af3c6a80bd03e4f007c77aae8b6f9de6c" name="af3c6a80bd03e4f007c77aae8b6f9de6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3c6a80bd03e4f007c77aae8b6f9de6c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c6a80bd03e4f007c77aae8b6f9de6c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -462,13 +468,13 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Politique constante "aller a droite" sur le niveau trivial reel (fichier JSON sur disque).<br  />
-2. <a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a>, 5 repetitions.<br  />
+2. <a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a>, 5 repetitions.<br  />
  <b>Resultat attendu :</b> successRate() == 1.0. </p>
 
 </div>
 </div>
 <a id="a6d5584534ff4acc44b54549585913680" name="a6d5584534ff4acc44b54549585913680"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d5584534ff4acc44b54549585913680">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d5584534ff4acc44b54549585913680">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,8 +504,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad40244e4dc1bf61a740b46043f1c240d" name="ad40244e4dc1bf61a740b46043f1c240d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad40244e4dc1bf61a740b46043f1c240d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BenchmarkRunnerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ObservateurDeRepetitionInterromptLaCampagne</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Cas de test :</b> Observateur de repetition : progression puis interruption. </p>
+<p><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Eval<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Politique scriptee sur le niveau trivial, 10 repetitions demandees.<br  />
+2. <span class="tt">onRepetition</span> enregistre chaque appel et renvoie <span class="tt">false</span> apres la troisieme.<br  />
+ <b>Resultat attendu :</b> Exactement 3 notifications, numerotees 1 a 3 et portant le total demande, et un resultat ne comptant que les 3 repetitions jouees &ndash; sans quoi une IHM ne pourrait ni afficher l'avancement d'une campagne, ni l'annuler. </p>
+
+</div>
+</div>
 <a id="adb772709e64ae32e58e37d90a26e2c5b" name="adb772709e64ae32e58e37d90a26e2c5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb772709e64ae32e58e37d90a26e2c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adb772709e64ae32e58e37d90a26e2c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +564,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2ecad2b5af1af40ee97e838d668382c7" name="a2ecad2b5af1af40ee97e838d668382c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ecad2b5af1af40ee97e838d668382c7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ecad2b5af1af40ee97e838d668382c7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -557,7 +593,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a13708bad908d3eba6883feb0b217249b" name="a13708bad908d3eba6883feb0b217249b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13708bad908d3eba6883feb0b217249b">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13708bad908d3eba6883feb0b217249b">&#9670;&#160;</a></span>TEST() <span class="overload">[8/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -580,13 +616,42 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · AiSolver Eval<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. <a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a> deux fois, meme config, meme politique.<br  />
+ 1. <a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a> deux fois, meme config, meme politique.<br  />
  <b>Resultat attendu :</b> Issues et nombres de pas identiques, repetition par repetition. </p>
 
 </div>
 </div>
+<a id="aa081a14553a3f2c9905fec2e9c8dede8" name="aa081a14553a3f2c9905fec2e9c8dede8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa081a14553a3f2c9905fec2e9c8dede8">&#9670;&#160;</a></span>TEST() <span class="overload">[9/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BenchmarkRunnerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansObservateurLaCampagneVaJusquAuBout</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Cas de test :</b> Absence d'observateur : comportement inchange. </p>
+<p><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Eval<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Meme campagne, sans passer d'observateur.<br  />
+ <b>Resultat attendu :</b> Les 10 repetitions demandees sont jouees : le parametre ajoute est bien optionnel. </p>
+
+</div>
+</div>
 <a id="aa9e951bbf7d89ffa5b456c05615c94be" name="aa9e951bbf7d89ffa5b456c05615c94be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9e951bbf7d89ffa5b456c05615c94be">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e951bbf7d89ffa5b456c05615c94be">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -616,7 +681,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aecb51869c443262db99a2fc789b328bc" name="aecb51869c443262db99a2fc789b328bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecb51869c443262db99a2fc789b328bc">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aecb51869c443262db99a2fc789b328bc">&#9670;&#160;</a></span>TEST() <span class="overload">[11/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

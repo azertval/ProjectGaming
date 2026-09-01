@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,6 +111,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1ac9ce6e7b43b7fcb004dc0d55c24b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une trajectoire d'un seul pas produit un retour égal à sa récompense, sans récursion à tort.  <br /></td></tr>
 <tr class="memitem:a1bcea881650356f639965f12ebea9c9b" id="r_a1bcea881650356f639965f12ebea9c9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1bcea881650356f639965f12ebea9c9b">TEST</a> (ReturnCalculatorTest, MonotonieDeLaLongueur)</td></tr>
 <tr class="memdesc:a1bcea881650356f639965f12ebea9c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le vecteur renvoyé a exactement la même taille que <span class="tt">trajectory.steps</span>, quelle que soit la longueur de l'épisode.  <br /></td></tr>
+<tr class="memitem:a99208210cd87aa6e8591a21866c62b7e" id="r_a99208210cd87aa6e8591a21866c62b7e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a99208210cd87aa6e8591a21866c62b7e">TEST</a> (ReturnCalculatorTest, NormalisationRendUnLotNegatifExploitable)</td></tr>
+<tr class="memdesc:a99208210cd87aa6e8591a21866c62b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centrer-réduire un lot dont <b>tous</b> les retours sont négatifs produit des poids des deux signes : c'est la moitié manquante du signal d'apprentissage.  <br /></td></tr>
+<tr class="memitem:a98cba43506cd8c7a1b12e12e0823df87" id="r_a98cba43506cd8c7a1b12e12e0823df87"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a98cba43506cd8c7a1b12e12e0823df87">TEST</a> (ReturnCalculatorTest, LotDegenereNestPasAmplifie)</td></tr>
+<tr class="memdesc:a98cba43506cd8c7a1b12e12e0823df87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lot dont tous les poids sont égaux n'est pas amplifié : l'écart-type nul ne divise jamais.  <br /></td></tr>
 <tr class="memitem:ab4eecaaa8132cd4c0592e3176185a4aa" id="r_ab4eecaaa8132cd4c0592e3176185a4aa"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa">computeReturns</a> (const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, float gamma)</td></tr>
 <tr class="memdesc:ab4eecaaa8132cd4c0592e3176185a4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour actualisé <span class="tt">G_t = reward_t + gamma * G_{t+1}</span> (<span class="tt">G_T = reward_T</span> au dernier pas), par parcours arrière linéaire de <span class="tt">trajectory</span> — fonction pure, ne dépend d'aucun état d'environnement ni de réseau.  <br /></td></tr>
 </table>
@@ -157,7 +161,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a686dedf6903cb6676d231fa26ec07347" name="a686dedf6903cb6676d231fa26ec07347"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a686dedf6903cb6676d231fa26ec07347">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a686dedf6903cb6676d231fa26ec07347">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +191,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5cd4d35f65dbcd065de2d6e395aafc27" name="a5cd4d35f65dbcd065de2d6e395aafc27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cd4d35f65dbcd065de2d6e395aafc27">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd4d35f65dbcd065de2d6e395aafc27">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +220,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a98cba43506cd8c7a1b12e12e0823df87" name="a98cba43506cd8c7a1b12e12e0823df87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98cba43506cd8c7a1b12e12e0823df87">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ReturnCalculatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LotDegenereNestPasAmplifie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un lot dont tous les poids sont égaux n'est pas amplifié : l'écart-type nul ne divise jamais. </p>
+<p><b>Cas de test :</b> <b>Lot dégénéré : centrage sans division par un écart-type nul.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un lot dont tous les poids valent la même valeur.<br  />
+2. Normaliser.<br  />
+ <b>Resultat attendu :</b> Tous les poids valent exactement zéro (centrés), aucun n'est infini ni <span class="tt">NaN</span>. </p>
+
+</div>
+</div>
 <a id="a1bcea881650356f639965f12ebea9c9b" name="a1bcea881650356f639965f12ebea9c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bcea881650356f639965f12ebea9c9b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bcea881650356f639965f12ebea9c9b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,8 +280,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a99208210cd87aa6e8591a21866c62b7e" name="a99208210cd87aa6e8591a21866c62b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99208210cd87aa6e8591a21866c62b7e">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ReturnCalculatorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NormalisationRendUnLotNegatifExploitable</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centrer-réduire un lot dont <b>tous</b> les retours sont négatifs produit des poids des deux signes : c'est la moitié manquante du signal d'apprentissage. </p>
+<p><b>Cas de test :</b> <b>Un lot entièrement négatif produit des poids centrés des deux signes.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un lot de retours tous strictement négatifs.<br  />
+2. Calculer ses statistiques puis normaliser chaque épisode.<br  />
+ <b>Resultat attendu :</b> Après normalisation le lot contient au moins un poids strictement positif et un strictement négatif ; sans cela la mise à jour ne pourrait que <b>décourager</b> toute action échantillonnée, quelle qu'elle soit. </p>
+
+</div>
+</div>
 <a id="ad94ba712ff60e16b55250b4f0f248804" name="ad94ba712ff60e16b55250b4f0f248804"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad94ba712ff60e16b55250b4f0f248804">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad94ba712ff60e16b55250b4f0f248804">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +341,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1ac9ce6e7b43b7fcb004dc0d55c24b4b" name="a1ac9ce6e7b43b7fcb004dc0d55c24b4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ac9ce6e7b43b7fcb004dc0d55c24b4b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ac9ce6e7b43b7fcb004dc0d55c24b4b">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,12 +111,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab55aaab4053055b6b81bb69a7c63cc48"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">toPlayerInput</span> traduit chaque <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span> en <span class="tt">moveX</span> attendu, <span class="tt">moveY</span> toujours 0.  <br /></td></tr>
 <tr class="memitem:a80f6598688fe768d4659b3079559b444" id="r_a80f6598688fe768d4659b3079559b444"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80f6598688fe768d4659b3079559b444">TEST</a> (ActionSpaceTest, TraductionBooleensFidele)</td></tr>
 <tr class="memdesc:a80f6598688fe768d4659b3079559b444"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">toPlayerInput</span> reporte fidelement <span class="tt">jumpPressed</span>/<span class="tt">jumpHeld</span>/<span class="tt">dashPressed</span>/ <span class="tt">interactPressed</span>.  <br /></td></tr>
+<tr class="memitem:a91b36677a14b9a2b64fc9e2d884432d4" id="r_a91b36677a14b9a2b64fc9e2d884432d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a91b36677a14b9a2b64fc9e2d884432d4">TEST</a> (ActionSpaceTest, RepetitionDActionNeRejouePasLesFronts)</td></tr>
+<tr class="memdesc:a91b36677a14b9a2b64fc9e2d884432d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action répétée ne rejoue ses <b>fronts</b> que sur la première image.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de aisolver::ActionSpace (LOT-ANNEXE-07, TACHE-01). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="abd35d3fa55a0a802cefcecd1655c40cc" name="abd35d3fa55a0a802cefcecd1655c40cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd35d3fa55a0a802cefcecd1655c40cc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abd35d3fa55a0a802cefcecd1655c40cc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +148,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5770f187363305e3c3c77112b11b9475" name="a5770f187363305e3c3c77112b11b9475"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5770f187363305e3c3c77112b11b9475">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5770f187363305e3c3c77112b11b9475">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +177,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a589cb9d124e35a9444cc0368baebb358" name="a589cb9d124e35a9444cc0368baebb358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a589cb9d124e35a9444cc0368baebb358">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a589cb9d124e35a9444cc0368baebb358">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,8 +205,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a91b36677a14b9a2b64fc9e2d884432d4" name="a91b36677a14b9a2b64fc9e2d884432d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b36677a14b9a2b64fc9e2d884432d4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ActionSpaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RepetitionDActionNeRejouePasLesFronts</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une action répétée ne rejoue ses <b>fronts</b> que sur la première image. </p>
+<p><b>Cas de test :</b> <b>Répétition d'action : fronts sur la première image seulement.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Traduire une action portant saut, dash et interaction pour l'image <span class="tt">0</span>.<br  />
+2. La traduire pour les images suivantes.<br  />
+ <b>Resultat attendu :</b> L'image <span class="tt">0</span> porte les trois fronts ; les suivantes n'en portent aucun, mais conservent <span class="tt">moveX</span> et <span class="tt">jumpHeld</span> &ndash; répéter un front rallumerait un saut à chaque image et épuiserait le saut aérien dès la première montée. </p>
+
+</div>
+</div>
 <a id="a80f6598688fe768d4659b3079559b444" name="a80f6598688fe768d4659b3079559b444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80f6598688fe768d4659b3079559b444">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f6598688fe768d4659b3079559b444">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +266,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab55aaab4053055b6b81bb69a7c63cc48" name="ab55aaab4053055b6b81bb69a7c63cc48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab55aaab4053055b6b81bb69a7c63cc48">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab55aaab4053055b6b81bb69a7c63cc48">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

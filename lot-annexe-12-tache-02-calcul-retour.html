@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,24 +94,24 @@ $(function(){initNavTree('lot-annexe-12-tache-02-calcul-retour.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2tache-02-calcul-retour"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-12.html#md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2epic" title="Lot-Annexe/LOT-ANNEXE-12-policy-gradient-reinforce/epic.md">LOT-ANNEXE-12</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/PolicyGradient</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3989"></a>
 Contexte</h1>
 <p>Une <span class="tt"><a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a></span> collectée (TACHE-01) ne porte, pour chaque pas, que la récompense <b>immédiate</b>. REINFORCE a besoin, pour chaque pas <span class="tt">t</span>, du <b>retour</b> <span class="tt">G_t</span> — la somme actualisée des récompenses <b>à partir de</b> <span class="tt">t</span> jusqu'à la fin de l'épisode — puisque c'est ce signal qui pondère le gradient de log-probabilité de l'action prise à <span class="tt">t</span>. Le calcul est un simple parcours <b>arrière</b> de la trajectoire, rendu possible par le fait qu'un épisode se termine toujours (LOT-ANNEXE-08 garantit un critère de fin, y compris le timeout).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3953"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3990"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">aisolver::training::computeReturns</a></span></b> (<span class="tt"><a class="el" href="ReturnCalculator_8h.html" title="Calcul du retour actualisé par pas d&#39;une trajectoire (LOT-ANNEXE-12, TACHE-02, EX-IA-013).">Source/AiSolver/Training/PolicyGradient/ReturnCalculator.h</a>/.cpp</span>) : fonction pure <span class="tt">std::vector&lt;float&gt; <a class="el" href="test__return__calculator_8cpp.html#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a>(const <a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a>&amp; trajectory, float gamma)</span> — parcourt les pas de la trajectoire <b>de la fin vers le début</b>, accumule <span class="tt">G_t = reward_t + gamma × G_{t+1}</span> (avec <span class="tt">G_T = reward_T</span> au dernier pas), renvoie un vecteur de même longueur que <span class="tt">trajectory.steps</span>, indexé dans le même ordre (chronologique, pas inversé).</li>
 <li><span class="tt">gamma</span> est un paramètre explicite de la fonction (pas une constante globale) : la boucle d'entraînement (TACHE-04) le lit depuis sa configuration et le transmet à chaque appel.</li>
 <li>Validation légère en entrée : <span class="tt">gamma</span> attendu dans <span class="tt">[0, 1]</span> — assertion de développement (<span class="tt">assert</span>), pas de lancer d'exception (donnée de configuration, cf. gestion d'erreurs des conventions du projet).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3954"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3991"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ReturnCalculator_8h.html" title="Calcul du retour actualisé par pas d&#39;une trajectoire (LOT-ANNEXE-12, TACHE-02, EX-IA-013).">Source/AiSolver/Training/PolicyGradient/ReturnCalculator.h</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="ReturnCalculator_8cpp.html">Source/AiSolver/Training/PolicyGradient/ReturnCalculator.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3955"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3992"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">gamma = 1</span></b> (pas d'actualisation) : le retour au premier pas égale la somme brute de toutes les récompenses de l'épisode ; le retour au dernier pas égale sa propre récompense.</li>
@@ -120,22 +120,22 @@ Tests (obligatoires)</h1>
 <li><b>Trajectoire d'un seul pas</b> : <span class="tt">G_0 = reward_0</span>, aucune récursion à tort.</li>
 <li><b>Monotonie de la longueur</b> : le vecteur renvoyé a exactement la même taille que <span class="tt">trajectory.steps</span>, quelle que soit la longueur de l'épisode (victoire rapide, timeout).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3956"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3993"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Parcours arrière obligatoire</b> : calculer <span class="tt">G_t</span> par une somme directe des récompenses futures à chaque pas (double boucle) serait correct mais quadratique en longueur d'épisode ; la récurrence arrière est linéaire et doit être l'implémentation retenue, pas une optimisation ultérieure.</li>
 <li><b>Aucune normalisation ici</b> (centrage/réduction) : décision de cadrage de l'épic — ce lot met à jour la politique épisode par épisode, sans population de retours sur laquelle normaliser.</li>
 <li>Le retour est une <b>fonction pure</b> sur des données déjà collectées : ne dépend d'aucun état de l'environnement ni du réseau — testable entièrement en isolation, sans <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3957"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3994"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__return__calculator_8cpp.html#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span> disponible et testée (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3958"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3995"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reinforce.html" title="Policy gradient et REINFORCE">Policy gradient et REINFORCE</a> — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3959"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3996"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-013</span> (nouvelle, couverte par le lot). </p>
 </div></div><!-- contents -->

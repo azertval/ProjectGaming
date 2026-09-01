@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-50-tache-04-section-decors.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-50-decors-edition_2tache-04-section-decors"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-50.html#md_Lot_2LOT-50-decors-edition_2epic" title="Lot/LOT-50-decors-edition/epic.md">LOT-50</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2428"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2434"></a>
 Contexte</h1>
 <p>Manipuler des décors uniquement au canevas devient vite impraticable : un décor caché derrière un autre, ou situé hors du cadrage courant, n'est pas atteignable à la souris. Il faut une <b>vue en liste</b> qui donne accès à tout ce que contient le niveau.</p>
 <p>C'est la cinquième et dernière section du panneau « Textures » ouvert en LOT-42, et le dernier test de son extensibilité.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2429"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2435"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Section « Décors »</b> : liste des décors du niveau courant, <b>groupés par couche</b> et affichés dans leur <b>ordre de superposition</b> — c'est ce qui rend le réordonnancement compréhensible.</li>
@@ -108,33 +108,33 @@ Travail à réaliser</h1>
 <li><b>Signalement des assets manquants</b> : un décor dont l'asset est introuvable est mis en évidence dans la liste. Le damier magenta le signale déjà dans le canevas, mais la liste permet de tous les repérer d'un coup d'œil.</li>
 <li>Chaînes traduites.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2430"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2436"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TexturePanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/TexturePanel.ui</span>.</li>
 <li><span class="tt">Source/HMI/Editor/DecorGesture.{h,cpp}</span> (sélection partagée).</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2431"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2437"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Construction du modèle de liste</b> : groupement par couche, ordre de superposition, marquage des assets manquants — fonction pure, testée sans Qt.</li>
 <li>La sélection est <b>unique</b> : sélectionner dans la liste puis dans le canevas ne laisse jamais deux décors sélectionnés.</li>
 <li>Les actions de la liste passent par les mêmes mutateurs que le canevas (TACHE-01) et sont annulables.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2432"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2438"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer l'état de sélection.</b> Une sélection stockée à la fois dans le panneau et dans le geste divergera ; une seule source, les deux vues l'observent.</li>
 <li>Un niveau peut contenir beaucoup de décors : prévoir le filtrage et éviter de reconstruire toute la liste à chaque modification (un déplacement au glisser émet de nombreuses mises à jour).</li>
 <li>La liste doit refléter l'<b>annulation</b> : annuler un ajout doit retirer l'entrée correspondante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2433"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2439"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La section liste les décors par couche et dans l'ordre de superposition, permet de les sélectionner, réordonner, déplacer de couche, supprimer et centrer, signale les assets manquants, partage une sélection unique avec le canevas, et suit l'annulation ; modèle testé sans Qt ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2434"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2440"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (superposer, supprimer), <span class="tt">EX-EDIT-040</span> (édition de décors) ; réutilise <span class="tt">EX-DEC-002</span> (couches), <span class="tt">EX-EDIT-026</span> (bibliothèque d'assets), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-IHM-010</span> (fenêtre à panneaux), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (asset manquant signalé). </p>
 </div></div><!-- contents -->

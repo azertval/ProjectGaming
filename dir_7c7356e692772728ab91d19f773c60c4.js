@@ -69,5 +69,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-67-trajectoires-editables", "dir_9e3885adf0d87e528b8a41ca7d746d7f.html", null ],
     [ "LOT-69-plans-picturaux", "dir_ccd021c28de4c79e32cc826c4e6dbc30.html", null ],
     [ "LOT-70-parallaxe-demo", "dir_ca3a6e29e3000ec80a9162d874d526f1.html", null ],
-    [ "LOT-72-mouvement-avance", "dir_1ed7337797231a853d98ae0829f5d5d8.html", null ]
+    [ "LOT-72-mouvement-avance", "dir_1ed7337797231a853d98ae0829f5d5d8.html", null ],
+    [ "LOT-73-refonte-ihm", "dir_97d354ed998f795956973be245bce403.html", null ]
 ];

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,14 +94,14 @@ $(function(){initNavTree('lot-annexe-16-resultats-transfert.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-16-evaluation-hors-niveau_2resultats-transfert"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-16.html#md_Lot-Annexe_2LOT-ANNEXE-16-evaluation-hors-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-16-evaluation-hors-niveau/epic.md">LOT-ANNEXE-16</a> · Mesures produites par <span class="tt"><a class="el" href="test__cross__level__benchmark_8cpp.html" title="Tests unitaires de runCrossLevelCampaign/writeCrossLevelCsv (LOT-ANNEXE-16, TACHE-01,...">Source/Test/Unit/AiSolver/Eval/test_cross_level_benchmark.cpp</a></span>, <span class="tt">CrossLevelTransferTest.CampagneReelleDeuxPairesDeNiveaux</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4112"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4149"></a>
 Attentes déclarées avant mesure</h1>
 <p>L'entraînement du programme Lot-Annexe reste strictement <b>niveau par niveau</b> (décision transverse, réaffirmée par chaque génération concernée) : aucun algorithme entraîné par ce programme n'a jamais reçu de pression d'entraînement à généraliser au-delà du niveau qui l'a produit. Avant toute mesure, l'attente déclarée est donc un <b>transfert faible, voire nul</b> — un résultat faible ci-dessous n'est pas un échec du programme, c'est la confirmation attendue de son régime d'entraînement assumé. Ce document rapporte des chiffres, il n'en tire aucune conclusion sur la qualité d'un algorithme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4113"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4150"></a>
 Protocole</h1>
 <ul>
 <li>Modèle : réseau évolutionniste (<span class="tt">LOT-ANNEXE-10</span>/<span class="tt">11</span>) entraîné <b>uniquement</b> sur le niveau trivial (<span class="tt"><a class="el" href="classTrivialLevelDirectory.html" title="Répertoire temporaire du test courant contenant TRIVIAL_LEVEL_JSON sur disque (requis par HeadlessLev...">TrivialLevelDirectory</a></span>, corridor à deux cases, un seul pas vers la droite), jusqu'à résolution stable (3 générations consécutives invaincues et résolvantes).</li>
-<li>Exécution croisée : <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>, inchangé), décodage <span class="tt">Argmax</span>, 20 répétitions par paire, budget de 100 pas par épisode.</li>
+<li>Exécution croisée : <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>, inchangé), décodage <span class="tt">Argmax</span>, 20 répétitions par paire, budget de 100 pas par épisode.</li>
 <li>Paires exécutées, choisies pour leur lisibilité pédagogique (décision de cadrage de l'épic) :</li>
 </ul>
 <table class="markdownTable">
@@ -112,7 +112,7 @@ Protocole</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">2  </td><td class="markdownTableBodyNone"><span class="tt">Trivial</span> (corridor 1 pas)  </td><td class="markdownTableBodyNone"><span class="tt">Gap</span> (brèche à sauter)  </td><td class="markdownTableBodyNone">Déplacement latéral initial  </td><td class="markdownTableBodyNone">Saut requis pour franchir la brèche  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4114"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4151"></a>
 Résultats mesurés</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -126,7 +126,7 @@ Résultats mesurés</h1>
 <p><b>Remesuré lors de l'audit de release v0.1.2.</b> La conclusion — transfert <b>nul</b> dans les deux cas — est inchangée. Seul le nombre moyen de pas de la paire <span class="tt">Gap</span> a bougé : il valait le plafond de 100 pas lors de la campagne d'origine, il vaut 47 aujourd'hui. Les épisodes ne vont plus au bout du budget, ils se closent plus tôt sur un état <b>bloqué</b> — l'agent s'immobilise devant la brèche au lieu de s'agiter jusqu'à l'épuisement du budget. Un test rendu falsifiable a révélé l'écart ; il ne fige plus cette valeur, seulement le taux de réussite nul et la borne du budget, pour que la mesure reste vérifiable sans être fragile. </p>
 </blockquote>
 <p>À titre de repère (mesure non croisée, même modèle, niveau d'origine, <span class="tt">LOT-ANNEXE-15</span>) : ce même modèle résout systématiquement <span class="tt">Trivial</span> par construction (critère d'arrêt de l'entraînement, <span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4115"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4152"></a>
 Lecture des résultats</h1>
 <p>Le transfert mesuré est <b>nul dans les deux cas</b> — y compris sur la paire de mécanique partagée (<span class="tt">TrivialLong</span>), ce qui n'était pas garanti a priori : on aurait pu s'attendre à un transfert au moins partiel pour une géométrie ne demandant que la même mécanique de déplacement, sur un corridor simplement plus long. Ce n'est pas ce qui est observé ici. Une explication plausible, non vérifiée par ce lot (hors périmètre — ce lot mesure, il n'investigue pas la cause) : <span class="tt"><a class="el" href="classObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span> (<span class="tt">LOT-ANNEXE-06</span>) encode une fenêtre/des repères propres à la géométrie du niveau d'entraînement, et la politique, sans pression de généralisation, a pu s'ancrer sur des repères spécifiques à cette géométrie précise plutôt que sur une règle de déplacement transférable — cohérent avec l'attente déclarée d'un transfert faible, ici confirmée de façon particulièrement nette (nul plutôt que partiel). Aucune conclusion n'est tirée sur la qualité de l'algorithme évolutionniste en particulier : la génération 4 ne mesure qu'un modèle par cette campagne, pas l'ensemble des algorithmes de générations 2/3 sur ce point précis. </p>
 </div></div><!-- contents -->

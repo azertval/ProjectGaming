@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-15-tache-01-execution-automatisee.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-15-benchmark-multi-algorithmes_2tache-01-execution-automatisee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-15.html#md_Lot-Annexe_2LOT-ANNEXE-15-benchmark-multi-algorithmes_2epic" title="Lot-Annexe/LOT-ANNEXE-15-benchmark-multi-algorithmes/epic.md">LOT-ANNEXE-15</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Eval</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4076"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4113"></a>
 Contexte</h1>
 <p>L'entraînement niveau par niveau (<span class="tt">LOT-ANNEXE-10</span>/<span class="tt">11</span>, <span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>/<span class="tt">14</span>) ne mesure jamais qu'<b>une</b> chose de façon fiable : la capacité d'un modèle à produire, une fois, une trajectoire exportable en rejeu déterministe (<span class="tt">LOT-ANNEXE-07</span>). Rien, jusqu'ici, ne mesure la <b>fiabilité</b> statistique de la politique sous-jacente — à quelle fréquence termine-t-elle le niveau si on la laisse choisir ses actions selon sa propre distribution (comme à l'entraînement), plutôt que selon le chemin unique figé dans le rejeu. Cette tâche introduit l'exécution répétée qui répond à cette question, brique de base du harnais de <span class="tt">LOT-ANNEXE-15</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4077"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4114"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">aisolver::eval::TrainedPolicy</a></span></b> (<span class="tt"><a class="el" href="TrainedPolicy_8h.html" title="Adaptateur fin uniforme vers un modèle déjà entraîné (LOT-ANNEXE-15, TACHE-01, EX-IA-016).">Source/AiSolver/Eval/TrainedPolicy.h</a></span>) : interface abstraite minimale, un adaptateur fin vers un modèle déjà entraîné — <span class="tt">selectAction(const
@@ -114,11 +114,11 @@ Travail à réaliser</h1>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1eval_1_1EpisodeOutcome.html" title="Issue d&#39;une seule répétition : core::LevelOutcome::Playing en fin de budget de pas = timeout.">aisolver::eval::EpisodeOutcome</a></span></b> (struct) : <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a> outcome;</span> (<span class="tt">Playing</span> en fin de budget de pas = timeout), <span class="tt">int stepCount;</span>.</li>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">aisolver::eval::BenchmarkResult</a></span></b> (struct + méthodes) : <span class="tt">std::vector&lt;<a class="el" href="structEpisodeOutcome.html" title="Issue d&#39;une seule répétition : core::LevelOutcome::Playing en fin de budget de pas = timeout.">EpisodeOutcome</a>&gt;
   episodes;</span>, <span class="tt">double successRate() const;</span> (fraction d'épisodes en <span class="tt">LevelOutcome::Won</span>), <span class="tt">double meanStepsAll() const;</span> (moyenne sur tous les épisodes, échecs/timeouts inclus), <span class="tt">double meanStepsOnSuccess() const;</span> (moyenne sur les seuls épisodes réussis), <span class="tt">double stepVariance() const;</span> (sur <span class="tt">meanStepsAll</span>, documentée comme telle).</li>
-<li><b><span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span></b> (<span class="tt"><a class="el" href="BenchmarkRunner_8h.html" title="Exécution automatisée répétée d&#39;une politique entraînée sur son niveau d&#39;origine (LOT-ANNEXE-15,...">Source/AiSolver/Eval/BenchmarkRunner.h</a>/.cpp</span>) : <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a> run(<a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a>&amp; policy, const std::filesystem::path&amp; levelPath, const
+<li><b><span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span></b> (<span class="tt"><a class="el" href="BenchmarkRunner_8h.html" title="Exécution automatisée répétée d&#39;une politique entraînée sur son niveau d&#39;origine (LOT-ANNEXE-15,...">Source/AiSolver/Eval/BenchmarkRunner.h</a>/.cpp</span>) : <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a> run(<a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a>&amp; policy, const std::filesystem::path&amp; levelPath, const
   <a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a>&amp; config)</span>. Pour chaque répétition <span class="tt">i</span> dans <span class="tt">[0, config.repetitions)</span> : graine dérivée <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#af17ffe9cc9a0273b81e7687f17018760" title="Dérive une graine déterministe et distincte pour la répétition repetitionIndex à partir d&#39;une graine ...">deriveSeed</a>(config.rngSeedBase, i)</span>, <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> fraîchement réinitialisé (<span class="tt">reset(levelPath)</span>), boucle <span class="tt">step</span> jusqu'à <span class="tt">LevelOutcome::Won</span>/<span class="tt">Lost</span> ou <span class="tt">config.maxStepsPerEpisode</span> atteint (timeout), action à chaque pas obtenue via <span class="tt">policy.selectAction(...)</span>.</li>
 <li><b><span class="tt">EX-IA-016</span></b> : nouvelle exigence, déclarée dans ce fichier (section Exigences ci-dessous) — écrite ici plutôt que dans les spécifications (<span class="tt">Documentation/Specification</span>) car ce lot ne touche qu'à <span class="tt">Documentation/Lot-Annexe</span> à ce stade de rédaction ; à recopier dans <span class="tt"><a class="el" href="ia_8md.html">Documentation/Specification/ia.md</a></span> (ou équivalent) au moment de l'implémentation si ce fichier de spécifications existe alors.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4078"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4115"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TrainedPolicy_8h.html" title="Adaptateur fin uniforme vers un modèle déjà entraîné (LOT-ANNEXE-15, TACHE-01, EX-IA-016).">Source/AiSolver/Eval/TrainedPolicy.h</a></span>.</li>
@@ -133,10 +133,10 @@ Fichiers impactés</h1>
 <li>Tests : <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html" title="Tests unitaires de BenchmarkRunner/deriveSeed/BenchmarkResult (LOT-ANNEXE-15, TACHE-01/TACHE-03,...">Source/Test/Unit/AiSolver/Eval/test_benchmark_runner.cpp</a></span>.</li>
 <li>Test d'intégration (niveau JSON réel) : <span class="tt">Source/Test/Integration/test_benchmark_multi_algorithmes.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4079"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4116"></a>
 Tests (obligatoires)</h1>
 <ul>
-<li><b>Reproductibilité stricte</b> : deux appels à <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> avec la même <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span> (même <span class="tt">rngSeedBase</span>) produisent des <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> identiques (mêmes issues, mêmes nombres de pas, répétition par répétition).</li>
+<li><b>Reproductibilité stricte</b> : deux appels à <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> avec la même <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span> (même <span class="tt">rngSeedBase</span>) produisent des <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> identiques (mêmes issues, mêmes nombres de pas, répétition par répétition).</li>
 <li><b>Graines dérivées distinctes</b> : <span class="tt">deriveSeed(base, i) != deriveSeed(base, j)</span> pour <span class="tt">i != j</span>, sur un échantillon de valeurs (test direct de la fonction de dérivation).</li>
 <li><b>Modèle évolutionniste : variance nulle</b> : sur <span class="tt"><a class="el" href="classEvolutionaryTrainedPolicy.html" title="N&#39;accepte que ActionDecodingMode::Argmax : seul mode que la génération 2 (évolutionniste) a jamais co...">EvolutionaryTrainedPolicy</a></span> (<span class="tt">ActionDecodingMode::Argmax</span> uniquement), les <span class="tt">N</span> répétitions d'un même modèle sur un même niveau sont <b>strictement identiques</b> (même issue, même nombre de pas) — sert de garde de cohérence croisée avec la décision de cadrage de <span class="tt">LOT-ANNEXE-10</span>.</li>
 <li><b>Politique stochastique simulée</b> : sur un <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> factice à comportement aléatoire connu (ex. une « pièce » biaisée simulée pour le choix d'action), le <span class="tt">successRate()</span> mesuré sur un grand nombre de répétitions converge vers la probabilité théorique, à une tolérance documentée (graine fixée pour un test déterministe malgré la stochasticité simulée).</li>
@@ -145,7 +145,7 @@ Tests (obligatoires)</h1>
 <li><b>Refus explicite du mode <span class="tt">Stochastic</span> pour l'évolutionniste</b> : <span class="tt">EvolutionaryTrainedPolicy::selectAction(..., ActionDecodingMode::Stochastic, ...)</span> signale une erreur récupérable (<span class="tt">EX-NFR-040</span>), ne plante pas.</li>
 <li><b>Intégration (niveau réel)</b> : sur un petit niveau JSON de test avec une politique scriptée triviale connue pour réussir à tous les coups, <span class="tt"><a class="el" href="structBenchmarkResult.html#a8040e310a28e396cfb7104b028fa5fd4">BenchmarkResult::successRate()</a> == 1.0</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4080"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4117"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais mélanger <span class="tt">meanStepsAll</span> et <span class="tt">meanStepsOnSuccess</span> sans le dire</b> : un échec plafonné à <span class="tt">maxStepsPerEpisode</span> gonfle artificiellement une moyenne « tous épisodes » non distinguée — les deux méthodes existent précisément pour éviter cette confusion dans les rapports (<span class="tt">TACHE-02</span>).</li>
@@ -154,15 +154,15 @@ Points d'attention</h1>
 <li><b>Le critique d'un modèle acteur-critique n'est jamais chargé en évaluation</b> — seul l'acteur produit les actions ; un chargement du critique serait un couplage inutile avec un composant qui n'a de sens qu'à l'entraînement (<span class="tt">LOT-ANNEXE-13</span>).</li>
 <li><b>Coût CPU non négligeable</b> : <span class="tt">N</span> répétitions par (algorithme, niveau) pour plusieurs algorithmes peut devenir long à exécuter séquentiellement — accepté comme compromis de ce lot (voir Exclus de l'épic), pas un défaut à corriger ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4081"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4118"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> (et ses quatre adaptateurs), <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span>, <span class="tt"><a class="el" href="structBenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> et <span class="tt"><a class="el" href="classBenchmarkRunner.html">BenchmarkRunner</a></span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-016</span> déclarée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4082"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4119"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a> — variance entre exécutions, graines multiples, mesure honnête d'un agent entraîné.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4083"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4120"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-016</span> (nouvelle, déclarée dans <span class="tt">epic.md</span> — partagée avec TACHE-02/03 du même lot). </p>
 </div></div><!-- contents -->

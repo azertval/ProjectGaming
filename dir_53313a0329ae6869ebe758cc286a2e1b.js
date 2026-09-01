@@ -12,6 +12,7 @@ var dir_53313a0329ae6869ebe758cc286a2e1b =
     [ "LevelTrainingSession.h", "LevelTrainingSession_8h.html", "LevelTrainingSession_8h" ],
     [ "PolicyGradientLoss.cpp", "PolicyGradientLoss_8cpp.html", "PolicyGradientLoss_8cpp" ],
     [ "PolicyGradientLoss.h", "PolicyGradientLoss_8h.html", "PolicyGradientLoss_8h" ],
+    [ "PolicyGradientTuning.h", "PolicyGradientTuning_8h.html", "PolicyGradientTuning_8h" ],
     [ "ReplayExport.cpp", "ReplayExport_8cpp.html", "ReplayExport_8cpp" ],
     [ "ReplayExport.h", "ReplayExport_8h.html", "ReplayExport_8h" ],
     [ "TrainingResult.h", "TrainingResult_8h.html", "TrainingResult_8h" ]

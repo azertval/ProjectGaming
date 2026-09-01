@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,11 +105,14 @@ $(function(){initNavTree('OptimizerUtils_8h_source.html','',''); });
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceaisolver_1_1optim.html">aisolver::optim</a> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceaisolver_1_1optim.html#ac19f0b689465a27a1b9f86f196fbacb9">zeroGrad</a>(<span class="keyword">const</span> std::vector&lt;autodiff::NodePtr&gt;&amp; parameters);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}  <span class="comment">// namespace aisolver::optim</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">float</span> <a class="code hl_function" href="namespaceaisolver_1_1optim.html#a1fc75196774220e2a7c8a7d5740a66e3">clipGradientNorm</a>(<span class="keyword">const</span> std::vector&lt;autodiff::NodePtr&gt;&amp; parameters, <span class="keywordtype">float</span> maxNorm);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}  <span class="comment">// namespace aisolver::optim</span></div>
 <div class="ttc" id="aNode_8h_html"><div class="ttname"><a href="Node_8h.html">Node.h</a></div><div class="ttdoc">Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).</div></div>
 <div class="ttc" id="anamespaceaisolver_1_1optim_html"><div class="ttname"><a href="namespaceaisolver_1_1optim.html">aisolver::optim</a></div><div class="ttdef"><b>Definition</b> Adam.cpp:11</div></div>
-<div class="ttc" id="anamespaceaisolver_1_1optim_html_ac19f0b689465a27a1b9f86f196fbacb9"><div class="ttname"><a href="namespaceaisolver_1_1optim.html#ac19f0b689465a27a1b9f86f196fbacb9">aisolver::optim::zeroGrad</a></div><div class="ttdeci">void zeroGrad(const std::vector&lt; autodiff::NodePtr &gt; &amp;parameters)</div><div class="ttdoc">Remet à zéro le gradient de chaque paramètre fourni (Node::zeroGrad()).</div><div class="ttdef"><b>Definition</b> OptimizerUtils.cpp:8</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1optim_html_a1fc75196774220e2a7c8a7d5740a66e3"><div class="ttname"><a href="namespaceaisolver_1_1optim.html#a1fc75196774220e2a7c8a7d5740a66e3">aisolver::optim::clipGradientNorm</a></div><div class="ttdeci">float clipGradientNorm(const std::vector&lt; autodiff::NodePtr &gt; &amp;parameters, float maxNorm)</div><div class="ttdoc">Écrête les gradients de parameters à une norme globale de maxNorm.</div><div class="ttdef"><b>Definition</b> OptimizerUtils.cpp:11</div></div>
+<div class="ttc" id="anamespaceaisolver_1_1optim_html_ac19f0b689465a27a1b9f86f196fbacb9"><div class="ttname"><a href="namespaceaisolver_1_1optim.html#ac19f0b689465a27a1b9f86f196fbacb9">aisolver::optim::zeroGrad</a></div><div class="ttdeci">void zeroGrad(const std::vector&lt; autodiff::NodePtr &gt; &amp;parameters)</div><div class="ttdoc">Remet à zéro le gradient de chaque paramètre fourni (Node::zeroGrad()).</div><div class="ttdef"><b>Definition</b> OptimizerUtils.cpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

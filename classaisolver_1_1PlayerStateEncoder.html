@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -127,7 +127,7 @@ Static Public Attributes</h2></td></tr>
 <li><span class="tt">player.wallJumpLockTimer / <a class="el" href="#a2550a616e7574336b2307c9f42378dc0">NOMINAL_WALL_JUMP_LOCK_TIME</a></span>.</li>
 <li><span class="tt">player.dashTimer / <a class="el" href="#a01dbbfc1cb1339b6296598d4aa09d594">NOMINAL_DASH_DURATION</a></span>.</li>
 <li>Dash disponible (<span class="tt">dashChargesRemaining &gt; 0 &amp;&amp; dashTimer &lt;= 0</span>) ? <span class="tt">1.0f</span> : <span class="tt">0.0f</span> — même condition de déclenchement que <span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></span> (dash en cours <b>ou</b> charges épuisées rendent tous deux un nouveau dash impossible).</li>
-<li>Budget de saut normalisé (<span class="tt">1.0f</span> si illimité, <span class="tt">jumpsRemaining / jumpBudget()</span> sinon).</li>
+<li>Budget de saut normalisé : <span class="tt">1.0f</span> si illimité (<span class="tt">jumpBudget() &lt; 0</span>), <span class="tt">0.0f</span> si le tableau n'en autorise aucun (<span class="tt">jumpBudget() == 0</span> — sinon la division rendrait <span class="tt">NaN</span>, qui contamine toute la propagation avant), <span class="tt">jumpsRemaining / jumpBudget()</span> sinon.</li>
 <li>Budget de dash normalisé, même formule.</li>
 </ol>
 <p>L'épic (<span class="tt"><a class="el" href="Lot-Annexe_2LOT-ANNEXE-06-encodage-observation_2epic_8md.html">Documentation/Lot-Annexe/LOT-ANNEXE-06-encodage-observation/epic.md</a></span>) annonce une taille de <span class="tt">10</span> en toutes lettres, mais sa propre liste de composantes (reprise ci-dessus) en énumère <span class="tt">11</span> — erreur d'arithmétique dans le texte, pas dans la formule : <span class="tt"><a class="el" href="#aa94e28b1b4aa67bd3c44b37423cef329">size()</a></span> reflète la liste, pas le nombre annoncé en prose. </p>

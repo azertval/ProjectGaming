@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,19 +111,38 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5a8adef10462b42f5a8bbf5769f5bb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Période, en pas de simulation, entre deux mises à jour de poids (<span class="tt">1</span> = une mise à jour par pas, une fois le tampon suffisamment rempli).  <br /></td></tr>
 <tr class="memitem:aba754a17ec4fdd8d9b2ab7fb9413b110" id="r_aba754a17ec4fdd8d9b2ab7fb9413b110"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aba754a17ec4fdd8d9b2ab7fb9413b110">targetSyncPeriodSteps</a> = 200</td></tr>
 <tr class="memdesc:aba754a17ec4fdd8d9b2ab7fb9413b110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Période, en pas de simulation, entre deux synchronisations du réseau cible.  <br /></td></tr>
-<tr class="memitem:a33e6cc37333b6356da15aa37085a451c" id="r_a33e6cc37333b6356da15aa37085a451c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a33e6cc37333b6356da15aa37085a451c">gamma</a> = 0.99f</td></tr>
+<tr class="memitem:a33e6cc37333b6356da15aa37085a451c" id="r_a33e6cc37333b6356da15aa37085a451c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a33e6cc37333b6356da15aa37085a451c">gamma</a> = <a class="el" href="namespaceaisolver_1_1training.html#a933c4de6c7fc4197f6e91e5078f8904f">DEFAULT_GAMMA</a></td></tr>
 <tr class="memitem:a10c7ab40aed09ca289dd9a22d26c82db" id="r_a10c7ab40aed09ca289dd9a22d26c82db"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a10c7ab40aed09ca289dd9a22d26c82db">epsilonStart</a> = 1.0f</td></tr>
 <tr class="memdesc:a10c7ab40aed09ca289dd9a22d26c82db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borne haute d'exploration (probabilité d'action aléatoire) au tout début du run.  <br /></td></tr>
 <tr class="memitem:a3bec1d9471a821dea5acedac78368e90" id="r_a3bec1d9471a821dea5acedac78368e90"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a3bec1d9471a821dea5acedac78368e90">epsilonEnd</a> = 0.05f</td></tr>
 <tr class="memdesc:a3bec1d9471a821dea5acedac78368e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borne basse d'exploration, atteinte après <span class="tt"><a class="el" href="#ac3413ded43565b1be7570161552c4f9f" title="Nombre de pas sur lequel epsilon décroît linéairement de epsilonStart à epsilonEnd.">epsilonDecaySteps</a></span> pas puis conservée.  <br /></td></tr>
-<tr class="memitem:ac3413ded43565b1be7570161552c4f9f" id="r_ac3413ded43565b1be7570161552c4f9f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac3413ded43565b1be7570161552c4f9f">epsilonDecaySteps</a> = 2000</td></tr>
+<tr class="memitem:ac3413ded43565b1be7570161552c4f9f" id="r_ac3413ded43565b1be7570161552c4f9f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac3413ded43565b1be7570161552c4f9f">epsilonDecaySteps</a> = 200000</td></tr>
 <tr class="memdesc:ac3413ded43565b1be7570161552c4f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas sur lequel <span class="tt">epsilon</span> décroît linéairement de <span class="tt"><a class="el" href="#a10c7ab40aed09ca289dd9a22d26c82db" title="Borne haute d&#39;exploration (probabilité d&#39;action aléatoire) au tout début du run.">epsilonStart</a></span> à <span class="tt"><a class="el" href="#a3bec1d9471a821dea5acedac78368e90" title="Borne basse d&#39;exploration, atteinte après epsilonDecaySteps pas puis conservée.">epsilonEnd</a></span>.  <br /></td></tr>
+<tr class="memitem:ac6c6fe1d9a2a053c678c0f3742751846" id="r_ac6c6fe1d9a2a053c678c0f3742751846"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac6c6fe1d9a2a053c678c0f3742751846">actionRepeat</a> = <a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833">DEFAULT_ACTION_REPEAT</a></td></tr>
+<tr class="memdesc:ac6c6fe1d9a2a053c678c0f3742751846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Images pendant lesquelles une action décidée est maintenue (<span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833" title="Nombre d&#39;images fixes pendant lesquelles une action décidée est maintenue.">DEFAULT_ACTION_REPEAT</a></span>).  <br /></td></tr>
 <tr class="memitem:a2a7cd4a71b448845ffb3a5f04e2ce240" id="r_a2a7cd4a71b448845ffb3a5f04e2ce240"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a2a7cd4a71b448845ffb3a5f04e2ce240">seedBase</a> = 0</td></tr>
 <tr class="memdesc:a2a7cd4a71b448845ffb3a5f04e2ce240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Graine explicite du générateur pseudo-aléatoire interne (exploration <span class="tt">epsilon</span>-greedy et échantillonnage du <span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>) : un flux <b>continu</b> pour tout le run, pas dérivé par épisode (décision de cadrage &ndash; contrairement à <span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, DQN n'a pas de frontière d'épisode pertinente pour l'aléatoire : l'exploration et l'échantillonnage du tampon de rejeu traversent librement les limites d'épisode).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres d'un run DQN &ndash; structure explicite dédiée (pas de constante codée en dur dans le trainer), même esprit que <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span>/<span class="tt"><a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html" title="Paramètres d&#39;un run acteur-critique : mêmes défauts que ReinforceConfig (LOT-ANNEXE-12),...">ActorCriticConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ac6c6fe1d9a2a053c678c0f3742751846" name="ac6c6fe1d9a2a053c678c0f3742751846"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6c6fe1d9a2a053c678c0f3742751846">&#9670;&#160;</a></span>actionRepeat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::training::DqnConfig::actionRepeat = <a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833">DEFAULT_ACTION_REPEAT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Images pendant lesquelles une action décidée est maintenue (<span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833" title="Nombre d&#39;images fixes pendant lesquelles une action décidée est maintenue.">DEFAULT_ACTION_REPEAT</a></span>). </p>
+<p>Même raison que pour REINFORCE/acteur-critique (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>) : une exploration <span class="tt">epsilon</span>-greedy qui retire une action à chaque image de <span class="tt">1/60 s</span> ne se déplace pas. </p>
+
+</div>
+</div>
 <a id="af050ec4ff6b2d880e3e9b89343d8a898" name="af050ec4ff6b2d880e3e9b89343d8a898"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af050ec4ff6b2d880e3e9b89343d8a898">&#9670;&#160;</a></span>batchSize</h2>
 
@@ -147,12 +166,13 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t aisolver::training::DqnConfig::epsilonDecaySteps = 2000</td>
+          <td class="memname">std::size_t aisolver::training::DqnConfig::epsilonDecaySteps = 200000</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Nombre de pas sur lequel <span class="tt">epsilon</span> décroît linéairement de <span class="tt"><a class="el" href="#a10c7ab40aed09ca289dd9a22d26c82db" title="Borne haute d&#39;exploration (probabilité d&#39;action aléatoire) au tout début du run.">epsilonStart</a></span> à <span class="tt"><a class="el" href="#a3bec1d9471a821dea5acedac78368e90" title="Borne basse d&#39;exploration, atteinte après epsilonDecaySteps pas puis conservée.">epsilonEnd</a></span>. </p>
+<p>Compté en pas de simulation cumulés sur <b>tout</b> le run, frontières d'épisode traversées. La valeur précédente, <span class="tt">2 000</span>, était de l'ordre d'un seul épisode : l'exploration atteignait son plancher de <span class="tt">5 %</span> avant la dixième trajectoire d'un run qui en compte des milliers, et le reste du run tournait sur une politique quasi gelée. </p>
 
 </div>
 </div>
@@ -195,7 +215,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float aisolver::training::DqnConfig::gamma = 0.99f</td>
+          <td class="memname">float aisolver::training::DqnConfig::gamma = <a class="el" href="namespaceaisolver_1_1training.html#a933c4de6c7fc4197f6e91e5078f8904f">DEFAULT_GAMMA</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

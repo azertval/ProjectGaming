@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-49-tache-03-parallaxe.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-49-decors-libres_2tache-03-parallaxe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-49.html#md_Lot_2LOT-49-decors-libres_2epic" title="Lot/LOT-49-decors-libres/epic.md">LOT-49</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2387"></a>
 Contexte</h1>
 <p>Un facteur de défilement par couche (<span class="tt">EX-DEC-006</span>) donne la profondeur : l'arrière-plan défile moins vite que le niveau, le premier plan plus vite. C'est un multiplicateur appliqué au décalage de caméra — presque gratuit, une fois les décors en place.</p>
 <p>Presque, parce qu'il y a un conflit à résoudre : la caméra de ce jeu ne défile <b>pas</b>. Elle cadre une salle et bascule <b>nettement</b> sur la suivante quand le personnage franchit la frontière (<span class="tt">EX-REN-015</span>, <span class="tt">LOT-32</span>, parti pris assumé de style <em>Celeste</em>). Une parallaxe conçue pour un défilement continu n'a, telle quelle, aucun sens dans ce cadre.</p>
 <p>C'est le point que le cadrage du lot demande de <b>trancher et documenter</b>, pas de découvrir à l'exécution.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2382"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2388"></a>
 Travail à réaliser</h1>
 <ul>
 <li><p class="startli"><b>Comportement retenu : décalage relatif au centre de la salle courante.</b> Le décalage de parallaxe est calculé à partir de la position <b>dans la salle</b>, pas de la position dans le niveau. Conséquence assumée : le décor se <b>replace</b> à chaque salle, et la parallaxe n'agit qu'à l'intérieur d'une salle.</p>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Culling</b> : le rectangle de test de visibilité doit être calculé <b>après</b> application du décalage (piège signalé en LOT-40, TACHE-05) — une couche parallaxée n'occupe pas le même rectangle monde que le niveau.</li>
 <li><b>Facteur par couche</b> : constantes nommées, pas de valeurs magiques. Le facteur de la couche <span class="tt">Decor</span> vaut 1 (elle est solidaire du niveau) ; c'est la valeur de référence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2383"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2389"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/Parallax.{h,cpp}</span> (nouveau).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="decors_8md.html">Documentation/Specification/decors.md</a></span>, <span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>.</li>
 <li><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du décalage de parallaxe, de son bornage et de sa table d&#39;activation (LOT-49 TACHE-03...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2384"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2390"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Facteur 1 → position inchangée (la couche <span class="tt">Decor</span> est un cas de référence à asserter).</li>
@@ -127,19 +127,19 @@ Tests (obligatoires)</h1>
 <li>Culling : un décor parallaxé visible n'est pas écarté ; un décor parallaxé hors cadre l'est.</li>
 <li>Fonction pure, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2385"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2391"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La parallaxe est purement visuelle</b> (<span class="tt">EX-ARCH-012</span>) : la position simulée du décor ne change pas, seule sa position de rendu. Une future manipulation en jeu (<span class="tt">EX-DEC-020</span>, hors programme) devrait donc convertir entre les deux — le noter.</li>
 <li>Le zoom de la caméra est <b>entier</b> quand c'est possible (<span class="tt">EX-ARCH-022</span>) pour la netteté du pixel art. Un décalage de parallaxe fractionnaire produirait un décor flou ou tremblant : arrondir le décalage à un pixel écran entier.</li>
 <li>Ne pas appliquer la parallaxe au fond de niveau (LOT-44) : c'est une image unique étirée sur le niveau, pas une couche de décor.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2386"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2392"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les couches défilent à des vitesses différenciées ; le comportement au changement de salle est celui documenté et testé ; le culling tient compte du décalage ; le rendu reste net ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2387"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2393"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-006</span> (facteur de défilement par couche) ; réutilise <span class="tt">EX-DEC-002</span> (couches), <span class="tt">EX-REN-015</span> (caméra par salle), <span class="tt">EX-ARCH-022</span> (pixel art net), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-NFR-005</span> (culling). </p>
 </div></div><!-- contents -->

@@ -52,10 +52,14 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "PixelMenuButton.h", "PixelMenuButton_8h.html", "PixelMenuButton_8h" ],
     [ "ScreenFlow.cpp", "ScreenFlow_8cpp.html", "ScreenFlow_8cpp" ],
     [ "ScreenFlow.h", "ScreenFlow_8h.html", "ScreenFlow_8h" ],
+    [ "ScreenPageHost.cpp", "ScreenPageHost_8cpp.html", null ],
+    [ "ScreenPageHost.h", "ScreenPageHost_8h.html", "ScreenPageHost_8h" ],
     [ "StyleSheetTemplate.cpp", "StyleSheetTemplate_8cpp.html", "StyleSheetTemplate_8cpp" ],
     [ "StyleSheetTemplate.h", "StyleSheetTemplate_8h.html", "StyleSheetTemplate_8h" ],
     [ "ThemeIcons.cpp", "ThemeIcons_8cpp.html", "ThemeIcons_8cpp" ],
     [ "ThemeIcons.h", "ThemeIcons_8h.html", "ThemeIcons_8h" ],
     [ "ThemeResolution.cpp", "ThemeResolution_8cpp.html", "ThemeResolution_8cpp" ],
-    [ "ThemeResolution.h", "ThemeResolution_8h.html", "ThemeResolution_8h" ]
+    [ "ThemeResolution.h", "ThemeResolution_8h.html", "ThemeResolution_8h" ],
+    [ "TrainingChartWidget.cpp", "TrainingChartWidget_8cpp.html", null ],
+    [ "TrainingChartWidget.h", "TrainingChartWidget_8h.html", "TrainingChartWidget_8h" ]
 ];

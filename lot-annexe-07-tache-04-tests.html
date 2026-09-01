@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-annexe-07-tache-04-tests.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2tache-04-tests"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-07.html#md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2epic" title="Lot-Annexe/LOT-ANNEXE-07-espace-action-format-rejeu/epic.md">LOT-ANNEXE-07</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3780"></a>
 Contexte</h1>
 <p>TACHE-01/02/03 introduisent chacune leurs propres cas de test unitaires locaux ; cette tâche consolide les vérifications transversales entre l'espace d'action, son décodage et le format de rejeu — en particulier le lien de bout en bout entre une distribution de sortie de réseau et une séquence exportée rejouable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3781"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__action__space_8cpp.html" title="Tests unitaires de aisolver::ActionSpace (LOT-ANNEXE-07, TACHE-01).">Source/Test/Unit/AiSolver/Env/test_action_space.cpp</a></span></b> : couverture exhaustive des 24 combinaisons de <span class="tt">ActionSpace</span> (TACHE-01), bijection indice ↔ action.</li>
 <li><b><span class="tt"><a class="el" href="test__action__decoding_8cpp.html" title="Tests unitaires de aisolver::decodeArgmax/decodeStochastic (LOT-ANNEXE-07, TACHE-02).">Source/Test/Unit/AiSolver/Env/test_action_decoding.cpp</a></span></b> : tests statistiques de <span class="tt">decodeStochastic</span>, tests de <span class="tt">decodeArgmax</span> (TACHE-02).</li>
 <li><b><span class="tt"><a class="el" href="test__replay__file_8cpp.html" title="Tests unitaires de aisolver::ReplayFile / writeReplay / readReplay (LOT-ANNEXE-07,...">Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp</a></span></b> : round-trip du format de rejeu (TACHE-03), y compris un test <b>de bout en bout</b> : une séquence d'<span class="tt"><a class="el" href="structAction.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a></span> décodées par <span class="tt">decodeArgmax</span> à partir de distributions synthétiques est convertie en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> (TACHE-01), assemblée en <span class="tt">ReplayFile</span>, écrite puis relue — la séquence relue doit produire, rejouée sur <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt">LOT-ANNEXE-05</span>), exactement la même trajectoire que la séquence d'origine (déterminisme de bout en bout, pas seulement égalité structurelle des données).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3745"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3782"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__action__space_8cpp.html" title="Tests unitaires de aisolver::ActionSpace (LOT-ANNEXE-07, TACHE-01).">Source/Test/Unit/AiSolver/Env/test_action_space.cpp</a></span> — nouveau.</li>
@@ -112,28 +112,28 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__replay__file_8cpp.html" title="Tests unitaires de aisolver::ReplayFile / writeReplay / readReplay (LOT-ANNEXE-07,...">Source/Test/Unit/AiSolver/Replay/test_replay_file.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout des nouveaux fichiers à la cible <span class="tt">UnitTests</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3746"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3783"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Voir TACHE-01/02/03 pour le détail des cas unitaires ; cette tâche ajoute spécifiquement :</li>
 <li><b>Test de bout en bout déterministe</b> : une séquence d'actions décodées, exportée puis rejouée sur un niveau simple de <span class="tt">Source/Elements/Levels</span>, produit la même issue (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) et la même trajectoire finale que lors de sa production initiale.</li>
 <li><b>Stabilité de la bijection indice ↔ action à travers une sérialisation</b> : un <span class="tt">ReplayFile</span> contenant des <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> issus de <span class="tt">toPlayerInput(actionAt(i))</span> pour tout <span class="tt">i</span> valide, une fois relu, reproduit exactement les mêmes <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> (pas de perte de précision flottante introduite par la sérialisation JSON, à la tolérance documentée en TACHE-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3784"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le test de bout en bout est le seul endroit du lot qui exerce réellement <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span></b> (TACHE-01/02/03 restent unitaires, sans dépendance à un niveau réel) — volontairement placé ici, en dernier, une fois les trois briques individuellement vérifiées.</li>
 <li><b>Niveau de test choisi simple et court</b> (ex. <span class="tt">demo-deplacement.json</span>) pour que ce test reste rapide malgré son caractère bout-en-bout — pas un niveau représentatif de la difficulté visée par la génération 2/3, seulement de la fidélité du pipeline décodage → export → rejeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3785"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois suites de tests vertes (<span class="tt">ctest</span>), y compris le test de bout en bout ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3749"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3786"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — action, espace d'action, politique déterministe ou stochastique, exploration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3750"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3787"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-007</span>, <span class="tt">EX-IA-008</span> (nouvelles, du même lot). </p>
 </div></div><!-- contents -->

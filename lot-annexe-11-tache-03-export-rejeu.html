@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,25 +94,25 @@ $(function(){initNavTree('lot-annexe-11-tache-03-export-rejeu.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2tache-03-export-rejeu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-11.html#md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/epic.md">LOT-ANNEXE-11</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3916"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3953"></a>
 Contexte</h1>
 <p>TACHE-02 produit une séquence d'actions en mémoire. Cette tâche l'écrit sur disque au format de rejeu v1 défini par LOT-ANNEXE-07 (<span class="tt">Source/AiSolver/Replay</span>) — le seul format qu'un futur lot d'intégration jeu (génération 5) saura consommer pour rejouer une IA sans inférence live. Cette tâche est aussi celle qui assemble TACHE-01 et TACHE-02 en un point d'entrée exécutable unique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3917"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3954"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">aisolver::training::exportReplay</a>(const ActionSequence&amp;, const std::filesystem::path&amp;
   levelPath, const std::filesystem::path&amp; outputPath)</span></b> : sérialise la séquence au format v1 en s'appuyant sur l'API d'écriture fournie par LOT-ANNEXE-07 (noms exacts dépendants de cette API — cette tâche <b>consomme</b> le format, ne le redéfinit ni ne le duplique). Associe la séquence au niveau d'origine par référence (chemin/nom), sans copier le contenu du niveau dans le fichier de rejeu.</li>
 <li><b>Refus d'export si <span class="tt"><a class="el" href="structTrainingResult.html#a2582fc33e1c37f4ee67c6cefbc1a7628" title="true si le meilleur individu a résolu le niveau et est resté invaincu comme champion pendant le nombr...">TrainingResult::solved</a> == false</span></b> : la fonction (ou l'appelant) retourne une erreur explicite plutôt que d'écrire un fichier de rejeu partiel ou trompeur — un fichier de rejeu exporté doit toujours correspondre à un niveau réellement terminé.</li>
-<li><b>Point d'entrée minimal</b> enchaînant <span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> (TACHE-01) → <span class="tt"><a class="el" href="test__deterministic__replay_8cpp.html#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (TACHE-02) → <span class="tt"><a class="el" href="test__replay__export_8cpp.html#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (cette tâche) pour un chemin de niveau donné en argument — nécessaire à un usage manuel réel de ce lot (sans point d'entrée, TACHE-01/02/03 restent des bibliothèques sans utilisateur), mais reste volontairement minimal : l'outillage ergonomique (CLI, options, reprise) est hors périmètre (génération 5).</li>
+<li><b>Point d'entrée minimal</b> enchaînant <span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> (TACHE-01) → <span class="tt"><a class="el" href="test__deterministic__replay_8cpp.html#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (TACHE-02) → <span class="tt"><a class="el" href="test__replay__export_8cpp.html#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span> (cette tâche) pour un chemin de niveau donné en argument — nécessaire à un usage manuel réel de ce lot (sans point d'entrée, TACHE-01/02/03 restent des bibliothèques sans utilisateur), mais reste volontairement minimal : l'outillage ergonomique (CLI, options, reprise) est hors périmètre (génération 5).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3918"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3955"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">Source/AiSolver/Training/ReplayExport.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li>Point d'entrée minimal (fichier exact — <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span> dédié ou fonction appelée par un exécutable du module <span class="tt">AiSolver</span> — à confirmer selon la structure retenue par le <span class="tt">CMakeLists.txt</span> initial du module, posé en amont de la génération 2).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__replay__export_8cpp.html" title="Export au format de rejeu v1 et point d&#39;entrée minimal (LOT-ANNEXE-11, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_replay_export.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3919"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3956"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Export réussi et round-trip</b> : l'export d'une séquence résolue produit un fichier conforme au format v1 ; relu par le lecteur de LOT-ANNEXE-07, il reproduit exactement la même séquence d'actions.</li>
@@ -120,22 +120,22 @@ Tests (obligatoires)</h1>
 <li><b>Référence au bon niveau</b> : le fichier exporté référence le chemin/nom du niveau source utilisé pour l'entraînement.</li>
 <li><b>Bout en bout</b> : sur un niveau trivial et un budget de générations réduit, un appel unique au point d'entrée minimal produit un fichier de rejeu valide sur disque, sans étape manuelle intermédiaire.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3920"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3957"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le format lui-même appartient entièrement à LOT-ANNEXE-07</b> : cette tâche ne le modifie ni ne le duplique, elle l'utilise en tant que client.</li>
 <li><b>Refuser l'export d'un résultat non résolu est un choix délibéré</b> : produire quand même un fichier « au cas où » créerait un risque d'utilisation par erreur pour une démonstration en jeu — sans inférence live pour vérifier a posteriori qu'il fonctionne, un tel fichier ne peut être corrigé qu'en relançant un entraînement.</li>
 <li><b>Le test bout en bout doit rester rapide</b> (niveau trivial, plafonds réduits) : ce n'est pas le lieu de mesurer la performance réelle de l'algorithme sur des niveaux complexes — ce sera le rôle de la génération 4 (évaluation et robustesse).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3921"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3958"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Export disponible et testé (<span class="tt">ctest</span> vert, round-trip vérifié), point d'entrée minimal fonctionnel bout en bout ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-012</span> déclarée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3922"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3959"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — boucle générationnelle, élitisme, reproductibilité d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3923"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3960"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-012</span> (nouvelle). </p>
 </div></div><!-- contents -->

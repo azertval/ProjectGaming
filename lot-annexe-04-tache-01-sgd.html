@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-04-tache-01-sgd.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2tache-01-sgd"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-04.html#md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2epic" title="Lot-Annexe/LOT-ANNEXE-04-optimiseurs/epic.md">LOT-ANNEXE-04</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Optim</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3590"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3627"></a>
 Contexte</h1>
 <p><span class="tt">LOT-ANNEXE-02</span> accumule un gradient sur chaque <span class="tt">autodiff::Node</span> utilisé comme paramètre (<span class="tt">Node::grad()</span>) ; rien n'existe encore pour transformer ce gradient en mise à jour de poids. SGD (descente de gradient stochastique) est la règle la plus simple : elle sert de référence de calibration pour tout optimiseur suivant (<span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span>, TACHE-02) et de premier consommateur réel des paramètres exposés par <span class="tt">nn::Network</span> (<span class="tt">LOT-ANNEXE-03</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3591"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3628"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">aisolver::optim::IOptimizer</a></span></b> (<span class="tt"><a class="el" href="IOptimizer_8h.html" title="Interface commune des optimiseurs de descente de gradient (LOT-ANNEXE-04).">Source/AiSolver/Optim/IOptimizer.h</a></span>) : interface abstraite, <span class="tt">virtual void step(const std::vector&lt;autodiff::NodePtr&gt;&amp; parameters) = 0;</span>, <span class="tt">virtual void
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
   learningRate * grad ; value += velocity</span>.</li>
 <li><b><span class="tt">zeroGrad</span></b> (fonction libre partagée, <span class="tt"><a class="el" href="OptimizerUtils_8h.html" title="Utilitaires partagés entre optimiseurs (LOT-ANNEXE-04) : remise à zéro des gradients.">Source/AiSolver/Optim/OptimizerUtils.h</a>/.cpp</span>) : parcourt les paramètres, remet chaque <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> de gradient à zéro (réutilisée telle quelle par <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span>, TACHE-02, pas dupliquée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3592"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3629"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="IOptimizer_8h.html" title="Interface commune des optimiseurs de descente de gradient (LOT-ANNEXE-04).">Source/AiSolver/Optim/IOptimizer.h</a></span> — nouveau.</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="OptimizerUtils_8h.html" title="Utilitaires partagés entre optimiseurs (LOT-ANNEXE-04) : remise à zéro des gradients.">Source/AiSolver/Optim/OptimizerUtils.h</a>/.cpp</span> — nouveau (<span class="tt">zeroGrad</span> partagé).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers à la cible <span class="tt">AiSolver</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3593"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3630"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Mise à jour sans inertie</b> : un paramètre scalaire de gradient connu, après un <span class="tt">step</span>, a la valeur attendue exactement (<span class="tt">value - learningRate * grad</span>).</li>
@@ -123,21 +123,21 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">zeroGrad</span></b> : après appel, <span class="tt">Node::grad()</span> est le tenseur nul pour tous les paramètres fournis, sans effet sur <span class="tt">Node::value()</span>.</li>
 <li><b>Non-effet sur les paramètres non fournis</b> : <span class="tt">step</span>/<span class="tt">zeroGrad</span> appelés sur un sous-ensemble de paramètres d'un réseau ne modifient pas les paramètres exclus de l'appel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3594"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3631"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'identité de paramètre utilisée pour indexer la table de vitesse doit rester stable sur toute la durée de l'entraînement.</b> Un réseau (<span class="tt">LOT-ANNEXE-03</span>) crée ses paramètres une fois à la construction et ne les recrée jamais : l'adresse du tampon de données convient, à condition que <span class="tt">nn::Dense</span> ne réalloue jamais ses <span class="tt">_weights</span>/<span class="tt">_bias</span> après construction (vérifié par lecture du code de <span class="tt">LOT-ANNEXE-03</span>, pas reconstruit ici).</li>
 <li><b><span class="tt">momentum == 0.0f</span> emprunte un chemin sans table de vitesse</b>, pour que le cas le plus simple (SGD pur) n'accumule aucun état inutile — pas une optimisation prématurée, mais une simplicité de raisonnement pour le cas de référence utilisé en calibration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3595"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3632"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> (avec et sans inertie) et <span class="tt">zeroGrad</span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3596"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3633"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-optimisation.html" title="Descente de gradient et optimiseurs">Descente de gradient et optimiseurs</a> — descente de gradient, taux d'apprentissage, inertie, <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3597"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3634"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-004</span> (nouvelle, partagée avec TACHE-02/03 du même lot). </p>
 </div></div><!-- contents -->

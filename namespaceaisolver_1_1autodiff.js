@@ -17,6 +17,7 @@ var namespaceaisolver_1_1autodiff =
     [ "relu", "namespaceaisolver_1_1autodiff.html#af0fbb836f86844e00f1ef66f3d81dd53", null ],
     [ "selectIndex", "namespaceaisolver_1_1autodiff.html#a25ff26681f28ff46c2b5705387ba2b6c", null ],
     [ "subtract", "namespaceaisolver_1_1autodiff.html#ae1fb7520596de7d456272a843d1fad98", null ],
+    [ "sumAll", "namespaceaisolver_1_1autodiff.html#a2e4c349fa5a4246f9cb2e3ffd3a69ead", null ],
     [ "tanhOp", "namespaceaisolver_1_1autodiff.html#a8f655daae75892c8e3d759a46bdb7b2d", null ],
     [ "unaryOp", "namespaceaisolver_1_1autodiff.html#a341e2a32fe6f9983d07cc808dad2b33d", null ],
     [ "variable", "namespaceaisolver_1_1autodiff.html#a37e8e0528957d1ff05a956a1c1b8869b", null ]

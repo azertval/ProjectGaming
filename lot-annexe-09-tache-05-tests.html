@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,43 +94,43 @@ $(function(){initNavTree('lot-annexe-09-tache-05-tests.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2tache-05-tests"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-09.html#md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2epic" title="Lot-Annexe/LOT-ANNEXE-09-journalisation-statistiques/epic.md">LOT-ANNEXE-09</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Stats</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3830"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3867"></a>
 Contexte</h1>
 <p>TACHE-01 à 04 introduisent chacune leurs cas de test locaux (interface, format de colonnes, moyenne mobile, chemin de fichier) ; cette tâche consolide un test de bout en bout du recorder complet, qui vérifie que l'ensemble produit un fichier CSV réellement exploitable une fois toutes les briques assemblées.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3831"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3868"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span></b> : construit un <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> sur un fichier temporaire, y enregistre une séquence de <span class="tt">TrainingStatsRow</span> synthétiques (y compris un scénario de progression puis de plateau), relit le fichier produit avec un analyseur CSV minimal dédié au test, et vérifie : nombre de lignes exact, en-tête conforme, valeurs de chaque colonne cohérentes avec ce qui a été enregistré, colonnes de moyenne mobile/delta cohérentes avec <span class="tt">MovingAverageTracker</span> appliqué indépendamment à la même séquence.</li>
 <li><b><span class="tt"><a class="el" href="test__training__run__path_8cpp.html" title="Tests unitaires de aisolver::makeTrainingRunPath / aisolver::generateRunId (LOT-ANNEXE-09,...">Source/Test/Unit/AiSolver/Stats/test_training_run_path.cpp</a></span></b> : cas de TACHE-04 (construction de chemin, génération d'identifiant de run).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3832"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3869"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="test__training__run__path_8cpp.html" title="Tests unitaires de aisolver::makeTrainingRunPath / aisolver::generateRunId (LOT-ANNEXE-09,...">Source/Test/Unit/AiSolver/Stats/test_training_run_path.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout des nouveaux fichiers à la cible <span class="tt">UnitTests</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3833"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3870"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Bout en bout</b> : la séquence enregistrée puis relue correspond exactement à ce qui a été fourni à <span class="tt">record</span>, colonnes calculées incluses.</li>
 <li><b>Fichier interrompu simulé</b> : un recorder détruit après <span class="tt">k</span> appels sur une séquence de <span class="tt">k+m</span> valeurs prévues laisse un fichier valide de <span class="tt">k</span> lignes (pas de ligne partielle, pas de corruption).</li>
 <li>Voir aussi TACHE-04 pour les cas de construction de chemin.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3834"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3871"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'analyseur CSV utilisé pour relire dans les tests est un utilitaire de test, jamais promu en code de production</b> : un analyseur complet (gestion générale de l'échappement, types multiples) n'est pas nécessaire côté écriture (TACHE-02, un seul champ textuel à risque) ni côté lecture pour ce lot — un futur lot consommateur (génération 4, <span class="tt">LOT-ANNEXE-15</span>) définira sa propre lecture si et quand il en a besoin, sans qu'un couplage prématuré ne soit introduit ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3835"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3872"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux suites de tests vertes (<span class="tt">ctest</span>) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-010</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3836"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3873"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — récompense cumulée (retour), plafond de performance d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3837"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3874"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-010</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

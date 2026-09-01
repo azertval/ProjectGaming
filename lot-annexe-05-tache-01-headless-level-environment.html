@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-05-tache-01-headless-level-environment.html
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2tache-01-headless-level-environment"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-05.html#md_Lot-Annexe_2LOT-ANNEXE-05-environnement-simulation-headless_2epic" title="Lot-Annexe/LOT-ANNEXE-05-environnement-simulation-headless/epic.md">LOT-ANNEXE-05</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3662"></a>
 Contexte</h1>
 <p>Aucun code n'existe encore dans <span class="tt">Source/AiSolver</span>. Cette tâche pose la classe <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">aisolver::HeadlessLevelEnvironment</a></span> : son état, son constructeur, <span class="tt">reset(chemin)</span> (chargement de niveau et apparition du personnage) et les types de retour de <span class="tt">step</span> — le corps de <span class="tt">step</span> lui-même (l'ordre exact de composition par pas) est TACHE-02. Le patron de spawn est celui déjà établi par <span class="tt">spawn()</span> dans <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> : mêmes composants, mêmes valeurs.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3663"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">aisolver::HeadlessLevelEnvironment</a></span></b> (<span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span>), namespace <span class="tt"><a class="el" href="namespaceaisolver.html">aisolver</a></span> (sibling de <span class="tt"><a class="el" href="namespacecore.html" title="Espace de noms du moteur et de la logique de jeu.">core</a></span>/<span class="tt"><a class="el" href="namespacehmi.html">hmi</a></span>) :<ul>
@@ -113,14 +113,14 @@ Travail à réaliser</h1>
 <li><b>Squelette de <span class="tt">step</span></b> : signature <span class="tt">[[nodiscard]] <a class="el" href="structStepObservation.html" title="Retour d&#39;un appel à HeadlessLevelEnvironment::step : issue, boîte et état complet du personnage à l&#39;i...">StepObservation</a> step(const <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>&amp;
   input);</span> déclarée, avec une garde <span class="tt"><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT(loaded(), ...)</a></span> (appeler <span class="tt">step</span> sans <span class="tt">reset</span> réussi au préalable est une erreur de programmation, pas un cas récupérable) ; le corps est implémenté en TACHE-02.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3664"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8h.html" title="Environnement de simulation headless : jouer un niveau sans fenêtre ni GPU (LOT-ANNEXE-05).">Source/AiSolver/Env/HeadlessLevelEnvironment.h</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="HeadlessLevelEnvironment_8cpp.html">Source/AiSolver/Env/HeadlessLevelEnvironment.cpp</a></span> (nouveau, <span class="tt">reset</span>/accesseurs seulement à ce stade).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__headless__level__environment_8cpp.html" title="Tests unitaires de aisolver::HeadlessLevelEnvironment (LOT-ANNEXE-05).">Source/Test/Unit/AiSolver/Env/test_headless_level_environment.cpp</a></span> (nouveau) — ajouté à <span class="tt">UnitTests</span> (TACHE-04 pour le câblage CMake).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3665"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">reset</span> réussi</b> : sur un niveau valide (<span class="tt">demo-deplacement.json</span>, via <span class="tt">PROJECTGAMING_LEVELS_DIR</span>), <span class="tt">loaded()</span> devient vrai, <span class="tt">loadError()</span> est vide, la boîte du personnage est centrée sur la case d'entrée du niveau.</li>
@@ -128,22 +128,22 @@ Tests (obligatoires)</h1>
 <li><b>Budgets initiaux</b> : <span class="tt">level.jumpBudget() == -1</span>/<span class="tt">dashBudget() == -1</span> (illimité) se retrouvent identiques sur <span class="tt"><a class="el" href="structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8" title="Sauts restants dans le tableau (budget, EX-GP-024) ; -1 = illimité.">core::Player::jumpsRemaining</a></span>/<span class="tt">dashesRemaining</span> après <span class="tt">reset</span> ; idem pour un niveau à budget fini (<span class="tt">demo-budget.json</span>).</li>
 <li><b><span class="tt">reset</span> répété</b> : appeler <span class="tt">reset</span> deux fois sur le même chemin produit un état strictement identique (position, vitesse nulle, <span class="tt">stepIndex</span> remis à zéro) — déterminisme (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3629"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3666"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas ajouter <span class="tt">Sprite</span>/<span class="tt">Animation</span></b> à l'entité joueur : <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> ne rend jamais rien, et ces composants n'ont aucun rôle dans la simulation — les ajouter gonflerait inutilement chaque <span class="tt">reset</span> (des dizaines de milliers par run d'entraînement).</li>
 <li><b><span class="tt">reset</span> doit être appelable plusieurs fois sur la même instance</b> (rejouer un niveau, ou en charger un autre) — pas de ressource acquise en constructeur qui empêcherait un second chargement (RAII sans <span class="tt">init()</span>/<span class="tt">cleanup()</span> séparés, mais <span class="tt">reset()</span> n'est pas un <span class="tt">init()</span> : c'est l'opération normale de (re)démarrage d'un épisode, au même titre que <span class="tt">GameSession::reload()</span>).</li>
 <li><b><span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> est reconstruit intégralement à chaque <span class="tt">reset</span></b> (<span class="tt">_world = <a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a>{};</span>, comme <span class="tt">GameSession::loadLevel</span>), pas réutilisé : plus simple à garantir correct qu'une purge sélective des entités du niveau précédent.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3630"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3667"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span> et ses accesseurs compilent et sont testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour. <span class="tt">step</span> est déclaré mais son corps est laissé à TACHE-02 (pas de DoD sur le comportement de simulation ici).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3631"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3668"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — agent, environnement, boucle <span class="tt">reset</span>/<span class="tt">step</span>, épisode, propriété de Markov.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3632"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3669"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-005</span> (nouvelle, partagée avec TACHE-02 à TACHE-05 de ce lot). </p>
 </div></div><!-- contents -->

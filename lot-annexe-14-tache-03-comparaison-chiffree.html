@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-14-tache-03-comparaison-chiffree.html','','
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2tache-03-comparaison-chiffree"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-14.html#md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2epic" title="Lot-Annexe/LOT-ANNEXE-14-algorithme-avance/epic.md">LOT-ANNEXE-14</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Advanced</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4057"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4094"></a>
 Contexte</h1>
 <p>C'est la tâche de clôture de la génération 3, et du même coup de l'exigence ferme de l'utilisateur : démontrer, chiffres à l'appui, qu'un apprentissage dirigé par gradient (REINFORCE, acteur-critique, et maintenant l'algorithme avancé retenu en TACHE-01) dépasse la recherche aveugle par population de la génération 2 (LOT-ANNEXE-10). Le comparateur de convergence introduit par LOT-ANNEXE-13 (TACHE-04) est directement réutilisable et étendu ici à quatre séries au lieu de deux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4058"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4095"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Protocole de comparaison</b> : sur un <b>même jeu de niveaux de contrôle</b> (au minimum celui déjà utilisé par LOT-ANNEXE-12/13 ; idéalement 2-3 niveaux de difficulté croissante pour une conclusion plus robuste), exécuter des runs répétés (plusieurs graines) pour chacune des quatre approches : évolutionniste (LOT-ANNEXE-10), REINFORCE (LOT-ANNEXE-12), acteur-critique (LOT-ANNEXE-13), algorithme avancé (TACHE-01/TACHE-02 de ce lot).</li>
@@ -105,7 +105,7 @@ Travail à réaliser</h1>
 <li><b>Budget d'évaluation équitable</b> : même budget total d'épisodes (ou, pour l'évolutionniste, une conversion cohérente entre nombre de générations/individus évalués et nombre d'épisodes de jeu joués, pour que la comparaison porte sur une quantité d'expérience de jeu comparable, pas sur un nombre d'itérations d'API différent d'un algorithme à l'autre).</li>
 <li><b>Consignation du résultat</b> dans <span class="tt">epic.md</span> de ce lot (section Critères d'acceptation ou complément), avec le jeu de niveaux utilisé, le budget retenu, et un résumé chiffré des quatre séries — le point final et vérifiable de l'exigence ferme du programme.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4059"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4096"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/AiSolver/Training/Advanced/GenerationComparator.h</span> (nouveau, ou extension documentée de <span class="tt">ConvergenceComparator</span> de LOT-ANNEXE-13).</li>
@@ -113,7 +113,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers le cas échéant).</li>
 <li><span class="tt"><a class="el" href="Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2epic_8md.html">Documentation/Lot-Annexe/LOT-ANNEXE-14-algorithme-avance/epic.md</a></span> (résultat chiffré consigné une fois la comparaison exécutée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4060"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4097"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Lecture uniforme de CSV hétérogènes</b> : le comparateur généralisé lit correctement des CSV aux colonnes spécifiques différentes (évolutionniste, REINFORCE, acteur-critique, algorithme avancé), sans supposer un schéma unique au-delà des colonnes communes déjà standardisées.</li>
@@ -121,22 +121,22 @@ Tests (obligatoires)</h1>
 <li><b>Conversion de budget équitable</b> : sur des données synthétiques, la conversion générations/individus → épisodes de jeu pour l'évolutionniste produit un total d'épisodes cohérent avec le budget déclaré pour les autres approches.</li>
 <li><b>Robustesse à une série manquante ou vide</b> : le comparateur signale explicitement une série absente ou inexploitable plutôt que de produire un résultat silencieusement faussé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4061"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4098"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Comparaison honnête, pas orientée</b> : si l'algorithme avancé ne surpasse pas nettement l'acteur-critique sur le jeu de niveaux retenu, documenter ce résultat tel quel — la valeur du lot est la mesure elle-même, pas une conclusion prédéterminée. Ceci répond directement à l'exigence ferme de l'utilisateur par une démonstration mesurée, pas affirmée.</li>
 <li><b>Même jeu de niveaux et même budget pour les quatre approches</b> : toute différence de protocole (niveaux différents, budget différent) invaliderait la comparaison et la conclusion du programme.</li>
 <li>Ce résultat clôt la génération 3 mais <b>n'est pas un jugement définitif</b> sur la supériorité générale d'une approche : il porte sur les niveaux de contrôle retenus, pas sur une généralisation (qui est explicitement le rôle mesuré, séparément, par la génération 4).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4062"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4099"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Comparateur généralisé disponible et testé (<span class="tt">ctest</span> vert) ; comparaison à quatre séries exécutée au moins une fois et son résultat consigné dans <span class="tt">epic.md</span> du lot ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-015</span> déclarée comme couverte, mesure comparative à l'appui — clôture de l'exigence ferme d'apprentissage par gradient de la génération 3.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4063"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4100"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-ppo-dqn.html" title="PPO et DQN">PPO et DQN</a> — PPO (limitation du pas par <em>clipping</em>) et DQN (valeur d'action, rejeu d'expérience, réseau cible).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4064"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4101"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-015</span> (nouvelle, mesurée par ce lot de comparaison). </p>
 </div></div><!-- contents -->

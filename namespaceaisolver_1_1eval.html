@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -118,7 +118,7 @@ Classes</h2></td></tr>
 <tr class="memitem:ConvergenceReport" id="r_ConvergenceReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rapport de convergence agrégé sur plusieurs essais (graines) d'un même algorithme.  <a href="structaisolver_1_1eval_1_1ConvergenceReport.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelBenchmarkResult" id="r_CrossLevelBenchmarkResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une exécution croisée : le <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> (<span class="tt">LOT-ANNEXE-15</span>) déjà produit par <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, assemblé avec les deux identifiants de niveau distincts.  <a href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une exécution croisée : le <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">BenchmarkResult</a></span> (<span class="tt">LOT-ANNEXE-15</span>) déjà produit par <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, assemblé avec les deux identifiants de niveau distincts.  <a href="structaisolver_1_1eval_1_1CrossLevelBenchmarkResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CrossLevelPair" id="r_CrossLevelPair"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html">CrossLevelPair</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une paire à exécuter : une politique déjà entraînée sur <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#ad447269e4ce4af382f145ce0e746fe80">trainedOnLevel</a></span>, exécutée sur <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#a976e2728b8975fb82f5a4af6fac4d9a0">executedOnLevelPath</a></span> (<span class="tt"><a class="el" href="structaisolver_1_1eval_1_1CrossLevelPair.html#a87c7430ae16a03f2bcc768ee449c47ab">executedOnLevel</a></span> en est le nom lisible).  <a href="structaisolver_1_1eval_1_1CrossLevelPair.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EvolutionaryTrainedPolicy" id="r_EvolutionaryTrainedPolicy"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1EvolutionaryTrainedPolicy.html">EvolutionaryTrainedPolicy</a></td></tr>
@@ -133,6 +133,11 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge uniquement le réseau de politique ; les deux modes de décodage sont valides (même distribution <span class="tt">softmax</span> qu'à l'entraînement).  <a href="classaisolver_1_1eval_1_1ReinforceTrainedPolicy.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainedPolicy" id="r_TrainedPolicy"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html">TrainedPolicy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface minimale permettant à <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html">BenchmarkRunner</a></span> de traiter n'importe quel modèle entraîné (évolutionniste, REINFORCE, acteur-critique, algorithme avancé) de façon uniforme, sans connaître les détails internes de l'algorithme qui l'a produit.  <a href="classaisolver_1_1eval_1_1TrainedPolicy.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a5be27363361d82788dda9b4a85b72041" id="r_a5be27363361d82788dda9b4a85b72041"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a5be27363361d82788dda9b4a85b72041">RepetitionObserver</a> = std::function&lt;bool(int completed, int total)&gt;</td></tr>
+<tr class="memdesc:a5be27363361d82788dda9b4a85b72041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observateur appelé après chaque répétition d'une campagne.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -150,7 +155,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a6cd298aafd54f7b991dc89580f50dec2" id="r_a6cd298aafd54f7b991dc89580f50dec2"><td class="memItemLeft"><a class="el" href="structaisolver_1_1eval_1_1ConvergenceReport.html">ConvergenceReport</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6cd298aafd54f7b991dc89580f50dec2">compareConvergence</a> (const std::vector&lt; std::filesystem::path &gt; &amp;csvPaths, float rewardThreshold, int finalWindowSize=10)</td></tr>
 <tr class="memdesc:a6cd298aafd54f7b991dc89580f50dec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrège les métriques de convergence de plusieurs runs (essais répétés d'un même algorithme, graines différentes).  <br /></td></tr>
 <tr class="memitem:aaf26f64fe2ef9185674cbe32910b01c5" id="r_aaf26f64fe2ef9185674cbe32910b01c5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structCrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf26f64fe2ef9185674cbe32910b01c5">runCrossLevelCampaign</a> (const std::vector&lt; <a class="el" href="structCrossLevelPair.html">CrossLevelPair</a> &gt; &amp;pairs, const <a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a> &amp;config)</td></tr>
-<tr class="memdesc:aaf26f64fe2ef9185674cbe32910b01c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (sans modification) pour chaque paire, dans l'ordre fourni.  <br /></td></tr>
+<tr class="memdesc:aaf26f64fe2ef9185674cbe32910b01c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (sans modification) pour chaque paire, dans l'ordre fourni.  <br /></td></tr>
 <tr class="memitem:acbb0ca76677dedea89d4ce4bde5993c2" id="r_acbb0ca76677dedea89d4ce4bde5993c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acbb0ca76677dedea89d4ce4bde5993c2">writeCrossLevelCsv</a> (const std::vector&lt; <a class="el" href="structCrossLevelBenchmarkResult.html">CrossLevelBenchmarkResult</a> &gt; &amp;results, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:acbb0ca76677dedea89d4ce4bde5993c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un rapport CSV distinguant explicitement, colonne par colonne, le niveau d'entraînement du niveau d'exécution (jamais fusionnés) — même échappement que <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>/<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (<span class="tt"><a class="el" href="CsvFormat_8h.html" title="Format exact des colonnes CSV écrites par TrainingStatsRecorder, réutilisé sans changement par le har...">AiSolver/Stats/CsvFormat.h</a></span>).  <br /></td></tr>
 <tr class="memitem:a03ed0a9b92ba524110076d38715fa25a" id="r_a03ed0a9b92ba524110076d38715fa25a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structGenerationComparisonResult.html">GenerationComparisonResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03ed0a9b92ba524110076d38715fa25a">compareGenerations</a> (const std::vector&lt; <a class="el" href="structNamedSeries.html">NamedSeries</a> &gt; &amp;series, float rewardThreshold, int finalWindowSize=10)</td></tr>
@@ -158,6 +163,31 @@ Functions</h2></td></tr>
 <tr class="memitem:ad3b982ce5423c714f5a7d8b9e132d103" id="r_ad3b982ce5423c714f5a7d8b9e132d103"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ad3b982ce5423c714f5a7d8b9e132d103">evolutionaryEpisodeBudget</a> (std::size_t generationCount, std::size_t populationSize)</td></tr>
 <tr class="memdesc:ad3b982ce5423c714f5a7d8b9e132d103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un budget évolutionniste (générations × population) en nombre équivalent d'épisodes de jeu (<span class="tt">LOT-ANNEXE-10</span> : chaque individu évalué joue un épisode complet), pour que la comparaison porte sur une quantité d'expérience de jeu comparable entre familles d'algorithmes (décision de cadrage de l'épic, TACHE-03) plutôt que sur un nombre d'itérations d'API différent.  <br /></td></tr>
 </table>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a5be27363361d82788dda9b4a85b72041" name="a5be27363361d82788dda9b4a85b72041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5be27363361d82788dda9b4a85b72041">&#9670;&#160;</a></span>RepetitionObserver</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a5be27363361d82788dda9b4a85b72041">aisolver::eval::RepetitionObserver</a> = std::function&lt;bool(int completed, int total)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Observateur appelé après chaque répétition d'une campagne. </p>
+<p>Une campagne est une suite de rejeux complets : sur un budget de pas élevé et un grand nombre de répétitions, elle dure assez longtemps pour qu'une interface doive pouvoir en montrer l'avancement et l'annuler. La granularité est la répétition — jamais le pas de simulation, qui ferait payer un appel indirect à chaque image simulée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">completed</td><td>Nombre de répétitions terminées (1 après la première). </td></tr>
+    <tr><td class="paramname">total</td><td><span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkConfig.html#aa5535455d81f2d9171e4c565b46128bf" title="Nombre de répétitions de la politique sur le niveau.">BenchmarkConfig::repetitions</a></span>, rappelé pour que l'observateur n'ait pas à connaître la configuration. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> pour interrompre la campagne : le résultat ne porte alors que les répétitions déjà jouées (résultat partiel, jamais une exception). </dd></dl>
+
+</div>
+</div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a6e8e78cba916b1686b3779c394faa10f" name="a6e8e78cba916b1686b3779c394faa10f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e8e78cba916b1686b3779c394faa10f">&#9670;&#160;</a></span>ActionDecodingMode</h2>
@@ -420,7 +450,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Exécute <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (sans modification) pour chaque paire, dans l'ordre fourni. </p>
+<p>Exécute <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (sans modification) pour chaque paire, dans l'ordre fourni. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pairs</td><td>Paires (politique, niveau d'entraînement, niveau d'exécution) à exécuter. </td></tr>

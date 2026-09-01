@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,24 +94,24 @@ $(function(){initNavTree('lot-annexe-10-tache-02-evaluation-fitness.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2tache-02-evaluation-fitness"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-10.html#md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2epic" title="Lot-Annexe/LOT-ANNEXE-10-algorithme-evolutionniste/epic.md">LOT-ANNEXE-10</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Evolutionary</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3857"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3894"></a>
 Contexte</h1>
 <p>TACHE-01 fournit une population d'individus aux poids indépendants, mais sans aucun moyen de les comparer. Cette tâche transforme chaque individu en un score : le faire jouer une fois, en entier, sur <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (LOT-ANNEXE-05), et cumuler la récompense telle que définie par LOT-ANNEXE-08.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3858"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3895"></a>
 Travail à réaliser</h1>
 <ul>
-<li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">aisolver::training::evolutionary::evaluateFitness</a>(<a class="el" href="classIndividual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">Individual</a>&amp;, <a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;)</span></b> : réinitialise l'environnement (<span class="tt">reset()</span>), boucle jusqu'à fin d'épisode (succès, échec ou dépassement du nombre maximal de pas, tel que défini par LOT-ANNEXE-08) ; à chaque pas, encode l'observation courante (LOT-ANNEXE-06), effectue la propagation avant du réseau de l'individu (LOT-ANNEXE-03), <b>décode l'action en <span class="tt">argmax</span></b> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action à l'environnement et cumule la récompense retournée. Écrit le total dans <span class="tt"><a class="el" href="classIndividual.html#af01df87d8a9ed2dd541e87548e62c7a8" title="Récompense cumulée du dernier run complet, ou UNEVALUATED_FITNESS tant qu&#39;aucun run n&#39;a eu lieu (Fitn...">Individual::fitness</a></span> à la fin de l'épisode.</li>
-<li><b><span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a>(<a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;)</span></b> : appelle <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span> pour chaque individu de la population, séquentiellement, sur la <b>même</b> instance d'environnement réutilisée d'un individu à l'autre (pas de parallélisation, décision de cadrage de l'épic) — chaque appel commence par un <span class="tt">reset()</span>, aucun état ne fuit d'un individu au suivant.</li>
+<li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">aisolver::training::evolutionary::evaluateFitness</a>(<a class="el" href="classIndividual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">Individual</a>&amp;, <a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;)</span></b> : réinitialise l'environnement (<span class="tt">reset()</span>), boucle jusqu'à fin d'épisode (succès, échec ou dépassement du nombre maximal de pas, tel que défini par LOT-ANNEXE-08) ; à chaque pas, encode l'observation courante (LOT-ANNEXE-06), effectue la propagation avant du réseau de l'individu (LOT-ANNEXE-03), <b>décode l'action en <span class="tt">argmax</span></b> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action à l'environnement et cumule la récompense retournée. Écrit le total dans <span class="tt"><a class="el" href="classIndividual.html#af01df87d8a9ed2dd541e87548e62c7a8" title="Récompense cumulée du dernier run complet, ou UNEVALUATED_FITNESS tant qu&#39;aucun run n&#39;a eu lieu (Fitn...">Individual::fitness</a></span> à la fin de l'épisode.</li>
+<li><b><span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a>(<a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;)</span></b> : appelle <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span> pour chaque individu de la population, séquentiellement, sur la <b>même</b> instance d'environnement réutilisée d'un individu à l'autre (pas de parallélisation, décision de cadrage de l'épic) — chaque appel commence par un <span class="tt">reset()</span>, aucun état ne fuit d'un individu au suivant.</li>
 <li>Le fitness reste <b>exactement</b> la récompense cumulée telle que produite par LOT-ANNEXE-08 : aucune repondération, normalisation ou troncature locale à cette tâche — une seule source de vérité pour la sémantique de la récompense.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3859"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3896"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="FitnessEvaluator_8h.html" title="Transforme un individu en un score : un run complet sur HeadlessLevelEnvironment (LOT-ANNEXE-10,...">Source/AiSolver/Training/Evolutionary/FitnessEvaluator.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt"><a class="el" href="Population_8h.html" title="Conteneur de taille fixe d&#39;individus (LOT-ANNEXE-10, EX-IA-011).">Source/AiSolver/Training/Evolutionary/Population.h</a></span>/<span class="tt">.cpp</span> (ajout de <span class="tt">evaluateAll</span>).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html" title="Tests unitaires de evaluateFitness/Population::evaluateAll (LOT-ANNEXE-10, TACHE-02).">Source/Test/Unit/AiSolver/Training/test_fitness_evaluator.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3860"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3897"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Déterminisme d'une évaluation</b> : deux évaluations successives du même individu (poids inchangés) sur le même niveau produisent un fitness strictement identique (conséquence du décodage <span class="tt">argmax</span> et du déterminisme de <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>).</li>
@@ -119,22 +119,22 @@ Tests (obligatoires)</h1>
 <li><b>Terminaison garantie</b> : l'évaluation d'un individu produisant en boucle une action « ne rien faire » se termine bien avant le plafond de pas défini par LOT-ANNEXE-08 (pas de boucle infinie).</li>
 <li><b>Aucune fuite d'état entre individus</b> : <span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a></span> sur deux individus différents utilisant la même instance d'environnement produit pour chacun le même fitness que si chacun était évalué isolément sur une instance fraîche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3861"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3898"></a>
 Points d'attention</h1>
 <ul>
-<li><b>Une seule instance d'environnement réutilisée</b> (pas N instances) : cohérent avec l'évaluation séquentielle décidée dans l'épic ; chaque <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span> doit donc commencer par un <span class="tt">reset()</span> explicite, jamais supposer un état initial implicite.</li>
+<li><b>Une seule instance d'environnement réutilisée</b> (pas N instances) : cohérent avec l'évaluation séquentielle décidée dans l'épic ; chaque <span class="tt"><a class="el" href="test__fitness__evaluator_8cpp.html#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span> doit donc commencer par un <span class="tt">reset()</span> explicite, jamais supposer un état initial implicite.</li>
 <li><b>Le fitness n'est pas réinterprété ici</b> : le signe, l'échelle et les composantes de la récompense appartiennent entièrement à LOT-ANNEXE-08 ; cette tâche se contente de les cumuler sur un épisode.</li>
 <li><b>Hypothèse héritée de LOT-ANNEXE-05</b> : <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> ne comporte aucune source d'aléa propre (les dangers mobiles/temporisés du jeu sont déterministes par construction, cf. <span class="tt">Source/Elements/Levels/README.md</span>) — si ce n'était pas le cas, deux évaluations du même individu pourraient diverger et casseraient la reproductibilité exigée par TACHE-05 ; à vérifier au moment de l'intégration avec LOT-ANNEXE-05, pas re-décidé ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3862"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3899"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Évaluation de fitness disponible, déterministe et testée (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3863"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3900"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — population, fitness, sélection, croisement, mutation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3864"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3901"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-011</span> (déclarée en TACHE-04). </p>
 </div></div><!-- contents -->

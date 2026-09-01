@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-69-tache-07-reference-canevas.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-07-reference-canevas"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3303"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3309"></a>
 Contexte</h1>
 <p>Peindre un plan « à 1:1 sur le niveau complet » demande deux choses que l'atelier du <span class="tt">LOT-54</span> n'a pas : voir <b>le niveau</b> sous le pinceau, et pouvoir <b>dézoomer sous 1:1</b> pour l'embrasser en entier.</p>
 <p>Le choix du support a été pesé au cadrage. Le viewport (chemin GPU) n'apporterait qu'une chose — la fidélité de la référence — contre la réécriture du pinceau, du remplissage, de la sélection, de l'historique et du presse-papiers, c'est-à-dire une seconde implémentation divergente de <span class="tt">EX-EDIT-045</span>. <span class="tt"><a class="el" href="classhmi_1_1PixelCanvas.html" title="Widget affichant l&#39;image en cours d&#39;édition et transformant les gestes de souris en appels aux opérat...">hmi::PixelCanvas</a></span> apporte tout le reste et ne manque que la référence. C'est donc lui qu'on étend.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3310"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">PlaneReference.{h,cpp}</span> (nouveau), <b>sans Qt ni GPU</b> (<span class="tt">EX-NFR-010</span>) :<ul>
@@ -110,24 +110,24 @@ Travail à réaliser</h1>
 <li><span class="tt">PixelCanvas</span> : trois entrées <b>optionnelles et additives</b> — <span class="tt">setUnderlay(image, opacity)</span>, <span class="tt">setOverlay(image, opacity)</span>, <span class="tt">setReferenceGridStep(px)</span> (grille de tuiles, distincte de la grille de pixels existante). Elles sont dessinées avec la même géométrie que le contenu et <b>jamais</b> incluses dans le tampon édité, ni dans l'historique, ni dans le copier.</li>
 <li><b>Zoom rationnel</b> : <span class="tt">PixelCanvasView::zoom</span> passe d'un entier <span class="tt">≥ 1</span> à un couple <span class="tt">{numérateur, dénominateur}</span>, dénominateurs limités à 1/2/4/8 — les pixels restent <b>carrés</b> (<span class="tt">EX-ARCH-022</span>). Adapter les conversions vue ↔ image, et masquer la grille de pixels sous 1:1.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3311"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Editor/PlaneReference.{h,cpp}</span> (nouveau), <span class="tt">PixelCanvas.{h,cpp}</span>, <span class="tt">PixelCanvasGeometry.{h,cpp}</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3312"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__plane__reference_8cpp.html" title="Tests unitaires des repères du mode création : pelure d&#39;oignon, aplatissement et rééchantillonnage (E...">test_plane_reference.cpp</a></span> (nouveau) : pelure d'oignon <b>déterministe</b> ; aplatissement ignorant un plan masqué ; rééchantillonnage 16 → 8 exact ; alpha-over associatif.</li>
 <li><span class="tt"><a class="el" href="test__pixel__canvas__geometry_8cpp.html" title="Tests unitaires des conversions pures vue ↔ image du canevas pixel art (LOT-54 TACHE-03,...">test_pixel_canvas_geometry.cpp</a></span> <b>étendu</b> : aller-retour vue ↔ image aux dénominateurs 2 et 4 ; pixels carrés à tout zoom ; et surtout <b>les cas existants (dénominateur 1) passent sans retouche</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3313"></a>
 Points d'attention</h1>
 <p>C'est <b>la seule modification d'un module déjà livré et testé</b>, donc le principal risque de régression du lot. Le zoom rationnel doit être une <b>extension compatible</b> : <span class="tt">zoom</span> conservé comme numérateur, dénominateur 1 par défaut, pour que l'atelier pixel art ne bouge pas d'un pixel. Le critère n'est pas « les tests passent » mais « les tests passent <b>sans être modifiés</b> ».</p>
 <p>La référence n'est <b>pas</b> un aperçu : ni raccords automatiques, ni skins, ni objets animés. C'est un repère géométrique. Le dire dans la documentation utilisateur, sinon l'attente sera déçue.</p>
 <p>Le 1:1 est exact <b>par construction</b> : l'image du plan <em>est</em> le niveau à sa densité, donc zoom 1 = un pixel image = un pixel écran = un pixel du jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3308"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3314"></a>
 Definition de fait (DoD)</h1>
 <p>Le canevas affiche une référence réglable, descend sous 1:1 en gardant des pixels carrés, et les tests hérités du <span class="tt">LOT-54</span> passent inchangés. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3309"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3315"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-046</span>, <span class="tt">EX-EDIT-045</span>, <span class="tt">EX-DEC-045</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-ARCH-022</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

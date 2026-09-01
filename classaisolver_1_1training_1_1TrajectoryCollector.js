@@ -1,6 +1,7 @@
 var classaisolver_1_1training_1_1TrajectoryCollector =
 [
-    [ "TrajectoryCollector", "classaisolver_1_1training_1_1TrajectoryCollector.html#a22b4c48c47c2ad25308cc5715f550b7d", null ],
+    [ "TrajectoryCollector", "classaisolver_1_1training_1_1TrajectoryCollector.html#a5114d360d0e2655c7f79835bf490b284", null ],
     [ "collectEpisode", "classaisolver_1_1training_1_1TrajectoryCollector.html#a6333c72b9d62ab2a705f853e30f539bf", null ],
-    [ "_stuckThreshold", "classaisolver_1_1training_1_1TrajectoryCollector.html#a64969c8eda18887849ebd0f31f67471f", null ]
+    [ "_actionRepeat", "classaisolver_1_1training_1_1TrajectoryCollector.html#a5f860528514449871141d534736e34f1", null ],
+    [ "_explorationFloor", "classaisolver_1_1training_1_1TrajectoryCollector.html#abf1fc3b55c9163eca227d5f6e831c93e", null ]
 ];

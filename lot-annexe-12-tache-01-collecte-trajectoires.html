@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-12-tache-01-collecte-trajectoires.html','',
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2tache-01-collecte-trajectoires"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-12.html#md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2epic" title="Lot-Annexe/LOT-ANNEXE-12-policy-gradient-reinforce/epic.md">LOT-ANNEXE-12</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/PolicyGradient</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3944"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3981"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (LOT-ANNEXE-05) expose déjà un cycle observation → action → pas de simulation → récompense/fin d'épisode, sur un niveau chargé sans fenêtre ni GPU. La bibliothèque de réseaux (LOT-ANNEXE-03) permet de construire un réseau de politique qui transforme une observation encodée (LOT-ANNEXE-06) en distribution sur l'espace d'action (LOT-ANNEXE-07). Ce qui manque encore : la boucle qui, à partir de ces briques, <b>rejoue un épisode complet</b> et <b>conserve</b> tout ce dont REINFORCE aura besoin ensuite (TACHE-02 et TACHE-03) — pas seulement la récompense, mais aussi la log-probabilité de l'action effectivement choisie, indispensable à la perte.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3945"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3982"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1training_1_1TrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">aisolver::training::TrajectoryStep</a></span></b> (<span class="tt"><a class="el" href="Trajectory_8h.html" title="Données pures d&#39;un épisode collecté pour REINFORCE (LOT-ANNEXE-12, EX-IA-013).">Source/AiSolver/Training/PolicyGradient/Trajectory.h</a></span>) : agrégat simple — observation encodée au pas (référence ou copie légère selon le format de LOT-ANNEXE-06), indice de l'action échantillonnée, <span class="tt">float logProbability</span> (log-probabilité de cette action sous la distribution produite par la politique <b>au moment</b> de l'échantillonnage), <span class="tt">float reward</span> (récompense immédiate renvoyée par l'environnement pour ce pas).</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">aisolver::training::TrajectoryCollector</a></span></b> (<span class="tt"><a class="el" href="TrajectoryCollector_8h.html" title="Rejoue un épisode complet en échantillonnant les actions selon la politique (LOT-ANNEXE-12,...">Source/AiSolver/Training/PolicyGradient/TrajectoryCollector.h</a>/.cpp</span>) : méthode <span class="tt"><a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a> collectEpisode(<a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp; env, nn::Network&amp; policy, <a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">aisolver::Rng</a>&amp; rng)</span> — boucle jusqu'à fin d'épisode : encode l'observation courante, passe <b>avant</b> (forward) dans le réseau de politique pour obtenir la distribution sur l'espace d'action, <b>échantillonne</b> une action selon cette distribution avec le générateur pseudo-aléatoire de LOT-ANNEXE-01 (jamais argmax pendant la collecte, cf. décision de cadrage de l'épic), conserve la log-probabilité de l'action tirée, applique l'action sur l'environnement, ajoute un <span class="tt"><a class="el" href="structTrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">TrajectoryStep</a></span>.</li>
 <li>Le passage avant qui produit la distribution reste un graphe du moteur d'autodiff (LOT-ANNEXE-02) : <span class="tt">logProbability</span> stocké dans <span class="tt"><a class="el" href="structTrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">TrajectoryStep</a></span> est la <b>valeur</b> de ce nœud à l'instant du tirage, mais le graphe lui-même (pour la rétropropagation ultérieure) est reconstruit à l'identique en TACHE-03 à partir des observations et actions enregistrées — la trajectoire ne retient que des données simples (valeurs), pas des nœuds de graphe vivants, pour rester un objet trivialement copiable/sérialisable.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3946"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3983"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Trajectory_8h.html" title="Données pures d&#39;un épisode collecté pour REINFORCE (LOT-ANNEXE-12, EX-IA-013).">Source/AiSolver/Training/PolicyGradient/Trajectory.h</a></span> (nouveau).</li>
@@ -114,7 +114,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="TrajectoryCollector_8cpp.html">Source/AiSolver/Training/PolicyGradient/TrajectoryCollector.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers dans la cible du module).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3947"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3984"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Longueur de trajectoire cohérente avec l'issue</b> : un épisode se terminant par timeout produit une trajectoire de longueur égale au nombre maximal de pas de LOT-ANNEXE-08 ; un épisode gagné ou perdu avant le timeout produit une trajectoire plus courte, terminée au pas exact de fin.</li>
@@ -122,22 +122,22 @@ Tests (obligatoires)</h1>
 <li><b>Déterminisme à graine fixée</b> : deux collectes avec le même <span class="tt"><a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">aisolver::Rng</a></span> initialisé à la même graine et le même réseau de politique produisent des trajectoires <b>identiques</b> pas à pas.</li>
 <li><b>Couverture de l'espace d'action</b> : sur un grand nombre d'épisodes avec une politique proche de l'uniforme (poids initiaux), toutes les actions de l'espace (LOT-ANNEXE-07) sont échantillonnées au moins une fois — vérifie que l'échantillonnage n'est pas dégénéré (toujours la même action).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3948"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3985"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais échantillonner par argmax pendant la collecte d'entraînement</b> : REINFORCE a besoin d'exploration, et un argmax donnerait un gradient de log-probabilité nul en pratique dès que la politique devient un peu confiante — piège documenté dans la décision de cadrage de l'épic.</li>
 <li>La <b>graine du générateur</b> doit être injectée depuis l'appelant (jamais générée en interne par <span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>), pour que la boucle d'entraînement (TACHE-04) contrôle la reproductibilité d'un run complet, pas seulement d'un épisode isolé.</li>
 <li><span class="tt"><a class="el" href="structTrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">TrajectoryStep</a></span> reste des <b>données pures</b> (<span class="tt">EX-ARCH-011</span>) : aucune logique de calcul de retour ou de perte ne doit s'y glisser, c'est le rôle de TACHE-02/TACHE-03.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3949"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3986"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a></span>, <span class="tt"><a class="el" href="structTrajectoryStep.html" title="Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (ReturnCal...">TrajectoryStep</a></span> et <span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3987"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reinforce.html" title="Policy gradient et REINFORCE">Policy gradient et REINFORCE</a> — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3951"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3988"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-013</span> (nouvelle, couverte par le lot). </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-60-tache-03-declencheurs.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-60-audio-bruitages_2tache-03-declencheurs"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-60.html#md_Lot_2LOT-60-audio-bruitages_2epic" title="Lot/LOT-60-audio-bruitages/epic.md">LOT-60</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2868"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2874"></a>
 Contexte</h1>
 <p>C'est ici que se joue le respect de <span class="tt">EX-ARCH-012</span> : la présentation ne modifie jamais la simulation. La tentation naturelle est d'appeler la lecture d'un son <b>depuis</b> le code de gameplay, à l'endroit exact où le saut est décidé — c'est une ligne, et elle marche. Elle mettrait une dépendance périphérique dans <span class="tt">Core</span>, briserait la testabilité sans matériel (<span class="tt">EX-NFR-010</span>) et ferait dépendre la simulation de l'ordre d'exécution de la présentation.</p>
 <p>Le projet a déjà résolu ce problème pour le rendu : <span class="tt">Core</span> <b>expose un état</b>, <span class="tt">HMI</span> l'observe et en déduit ce qu'il dessine. <span class="tt">hmi::MechanismVisuals</span> (<span class="tt">LOT-47</span>) fait exactement cela — état logique d'un mécanisme → clip d'animation, fonction pure. Les sons suivent la même route.</p>
 <p>Ces déclencheurs sont par ailleurs <b>partagés avec <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a></b> : les particules réagissent aux mêmes transitions. Ils sont donc écrits ici sous une forme réutilisable, une fois.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2869"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2875"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Détection de transitions</b> : à partir de l'état de <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span> et des contrôleurs de mécanismes au pas courant et au pas précédent, produire la liste des <b>événements</b> survenus (a sauté, a atterri, a dashé, a touché un mur, est mort, a terminé). Fonction <b>pure</b>, sans Qt ni périphérique, dans <span class="tt">HMI</span>.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b>Événements d'interface</b> : déplacement dans un menu, validation, retour, ouverture de la pause, fin de tableau, fin de séquence — ces derniers sur les écrans livrés par <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a>.</li>
 <li><b>Un son par événement et par pas</b> : une transition détectée deux fois (rendu plus rapide que la simulation) ne doit pas jouer deux fois. Les événements se lisent <b>par pas de simulation</b>, comme les fronts d'entrée depuis le <span class="tt">LOT-33</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2876"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Game/GameEvents.{h,cpp}</span> (nouveau) — détection pure des transitions.</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></span> — sons d'interface.</li>
 <li><span class="tt"><a class="el" href="test__game__events_8cpp.html" title="Tests unitaires de la détection d&#39;événements de jeu (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Game/test_game_events.cpp</a></span>, <span class="tt"><a class="el" href="test__sound__triggers_8cpp.html" title="Tests unitaires de la table événement → son (LOT-60, EX-REN-047).">Source/Test/Unit/HMI/Audio/test_sound_triggers.cpp</a></span> (nouveaux), <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2871"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2877"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque transition produit <b>exactement un</b> événement : un saut donne un événement « a sauté », ni zéro ni deux.</li>
@@ -127,7 +127,7 @@ Tests (obligatoires)</h1>
 <li><b>Aucun effet sur la simulation</b> : les tests de gameplay et de franchissabilité passent inchangés, et la détection ne prend l'état qu'en lecture.</li>
 <li>Tests purs, sans périphérique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2872"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2878"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La détection doit être <span class="tt">const</span></b> vis-à-vis de l'état de jeu. Si elle a besoin d'écrire quelque part, c'est dans sa propre mémoire du pas précédent, jamais dans <span class="tt">Core</span>.</li>
@@ -136,7 +136,7 @@ Points d'attention</h1>
 <li>Un dash au contact d'un mur peut produire trois transitions dans le même pas ; décider et documenter la priorité plutôt que de jouer trois sons superposés.</li>
 <li>Ne pas dupliquer cette détection dans <span class="tt">LOT-53</span> : elle est écrite ici pour être réutilisée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2873"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2879"></a>
 État</h1>
 <p><span class="tt"><a class="el" href="namespacehmi.html#a3a61aed1c8e95c289c829398d48488de" title="Événement discret survenu sur un pas de simulation ou une action d&#39;interface.">hmi::GameEvent</a></span> (<span class="tt"><a class="el" href="GameEvents_8h.html" title="Détection pure des transitions d&#39;état du jeu et de l&#39;IHM (EX-REN-047, LOT-60).">HMI/Game/GameEvents.h</a></span>) unifie transitions de jeu et d'interface. Trois fonctions pures détectent les transitions de jeu : <span class="tt">detectPlayerEvents</span> (saut, atterrissage, dash, contact mural), <span class="tt">detectMechanismEvents</span> (interrupteur/plaque, un seul événement par mécanisme — la porte partage le booléen du déclencheur mais n'émet jamais un second son) et <span class="tt">detectOutcomeEvent</span> (mort/victoire, depuis <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>). <span class="tt">hmi::SoundTriggers::
 soundForEvent</span> associe chaque valeur à un identifiant de <span class="tt">sounds.json</span>, table exhaustive (switch sans <span class="tt">default</span>).</p>
@@ -151,12 +151,12 @@ soundForEvent</span> associe chaque valeur à un identifiant de <span class="tt"
 <li><span class="tt">WallContactEnter</span>, <span class="tt">BlockPushed</span>, <span class="tt">PauseOpened</span> résolvent vers <span class="tt">std::nullopt</span> (silence documenté) : aucun bruitage dédié dans le catalogue de ce lot.</li>
 <li>La navigation/validation au <b>clavier et à la souris</b> (focus Qt natif, clic de bouton) ne joue aucun son dans ce lot — seule la manette, via <span class="tt">pollMenuGamepad</span>, produit un front explicite à détecter. Étendre aux autres méthodes de saisie demanderait d'instrumenter chaque bouton/dialogue de l'IHM, hors périmètre de cette tâche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2874"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2880"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les événements de jeu et d'interface sont détectés par une fonction pure et testée, associés aux sons par une table exhaustive, sans aucun doublon ni aucun effet sur la simulation ; la structure est directement réutilisable par <span class="tt">LOT-53</span> ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2875"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2881"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-047</span> (déclenchement par les transitions d'état) ; lève <span class="tt">EX-REN-040</span> pour sa partie déclenchement ; réutilise <span class="tt">EX-ARCH-012</span> (présentation sans effet sur la simulation), <span class="tt">EX-NFR-010</span> (testable sans périphérique), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-GP-020</span> à <span class="tt">EX-GP-025</span> (mécanismes), <span class="tt">EX-GP-030</span>/<span class="tt">EX-GP-031</span> (fin de niveau). </p>
 </div></div><!-- contents -->

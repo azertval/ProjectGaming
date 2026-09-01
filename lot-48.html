@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-48.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (moteur d'animation), <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque d'assets). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2325"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2331"></a>
 Objectif</h1>
 <p>Habiller le sprite <b>le plus regardé du jeu</b>, resté hors du cadrage initial du programme.</p>
 <p>Le personnage est aujourd'hui dessiné par <em>hmi::playerPixel</em> : une silhouette humanoïde composée de rectangles, générée en C++ dans <span class="tt"><a class="el" href="ProceduralAtlas_8cpp.html">ProceduralAtlas.cpp</a></span>, avec sept images réparties sur trois clips. Modifier son apparence suppose de recompiler. Et surtout, le gameplay a acquis depuis longtemps des états que le visuel n'a jamais suivis : double saut, glissade murale, saut mural (<span class="tt">LOT-10</span>), chute rapide et suspension à l'apex (<span class="tt">LOT-11</span>), dash directionnel — tous rendus par la même image de saut.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2326"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2332"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2327"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2333"></a>
 Inclus</h2>
 <ul>
 <li><b>Spritesheet externe</b> (<span class="tt">Assets/Player/</span>), chargée par le <em>TextureCache</em> et décrite par un <span class="tt">nom-asset.anim.json</span> (LOT-46), avec <b>repli sur l'atlas procédural</b> si le fichier est absent (<span class="tt">EX-REN-042</span>, patron déjà établi par LOT-39).</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Orientation gauche/droite</b> à partir de <span class="tt"><a class="el" href="structcore_1_1Player.html#a485438ac4030c8edf6f84c214a1a1e69" title="Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.">core::Player::facing</a></span>, par retournement horizontal des coordonnées de texture — l'artiste ne dessine qu'un sens.</li>
 <li><b>Découplage taille d'image / boîte de collision</b> : la contrainte historique « la région du personnage doit être carrée » (régression corrigée en <span class="tt">LOT-17</span>) tombe. La spritesheet déclare sa taille d'image ; <span class="tt"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></span> (0,4 × 0,8 unité, <span class="tt"><a class="el" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn.">Source/Core/Physics/PlayerSpawn.h</a></span>) reste <b>la seule</b> source de vérité de la hitbox, et un point d'ancrage explicite relie les deux. Une image plus grande que la hitbox (cape, cheveux, effet de dash) devient possible sans toucher au gameplay.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2328"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2334"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Toute modification de la physique ou de la boîte de collision : le changement d'apparence ne doit <b>rien</b> changer au ressenti ni aux niveaux existants.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Plusieurs personnages ou skins de personnage sélectionnables : un seul, remplaçable par son fichier.</li>
 <li>Retrait de l'atlas procédural : il reste le repli et la référence de LOT-39.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2329"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2335"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>La hitbox ne bouge pas.</b> C'est l'invariant du lot. Le point d'ancrage image ↔ hitbox est une donnée de la spritesheet, jamais l'inverse : aucun fichier d'asset ne doit pouvoir modifier la physique (<span class="tt">EX-ARCH-012</span>), et les cent quatre-vingts tests de gameplay existants doivent passer sans modification.</li>
@@ -126,13 +126,13 @@ Décisions de cadrage</h1>
 <li><b>Repli procédural conservé</b> : le jeu doit rester jouable et lisible sans aucun asset, exigence déjà tenue depuis LOT-39.</li>
 <li><b>Un seul sens dessiné</b> : le retournement horizontal évite de doubler le travail de l'auteur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2336"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-009</span> (personnage habillé depuis une spritesheet externe, clips couvrant les états de gameplay, taille d'image indépendante de la hitbox).</li>
 <li>Réutilisées : <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-REN-011</span>/<span class="tt">EX-REN-012</span> (sprites et animations), <span class="tt">EX-REN-042</span> (assets externalisés avec repli), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-GP-015</span>/<span class="tt">EX-GP-016</span>/<span class="tt">EX-GP-017</span> (états aériens à représenter), <span class="tt">EX-NFR-040</span> (repli).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2337"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -147,7 +147,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-48-tache-03-orientation-non-regression.html#md_Lot_2LOT-48-personnage-texture_2tache-03-orientation-non-regression" title="Lot/LOT-48-personnage-texture/tache-03-orientation-non-regression.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Orientation par retournement horizontal + non-régression du gameplay  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2338"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Remplacer le fichier de spritesheet change l'apparence du personnage sans recompiler.</li>
@@ -157,10 +157,10 @@ Critères d'acceptation du lot</h1>
 <li>La boîte de collision est <b>inchangée</b> : tous les tests de gameplay et de franchissabilité passent sans modification.</li>
 <li>La projection état → clip est testée sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2333"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2339"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (clips par données) et <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (import d'assets). Remplace l'habillage procédural de <a class="el" href="lot-17.html" title="LOT-17 — Sprite du personnage (statique)">LOT-17</a> et <a class="el" href="lot-18.html" title="LOT-18 — Animation du personnage (repos, course, saut)">LOT-18</a>. Lit l'état de <a class="el" href="lot-10.html" title="LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash">LOT-10</a> et <a class="el" href="lot-11.html" title="LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions">LOT-11</a> sans le modifier. Prépare <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2334"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2340"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-48-tache-01-spritesheet-externe.html" title="TACHE-01 — Spritesheet externe et ancrage image/hitbox">TACHE-01 — Spritesheet externe et ancrage image/hitbox</a></li>

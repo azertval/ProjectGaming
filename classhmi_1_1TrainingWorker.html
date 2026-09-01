@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -113,14 +113,14 @@ Public Slots</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
-<tr class="memitem:a63fbbdb32036ebd9c7b53990ee55ea5f" id="r_a63fbbdb32036ebd9c7b53990ee55ea5f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a63fbbdb32036ebd9c7b53990ee55ea5f">progress</a> (int index, double bestReward, double meanReward, double successRate)</td></tr>
-<tr class="memdesc:a63fbbdb32036ebd9c7b53990ee55ea5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une génération (évolutionniste) ou un épisode (par gradient) vient d'être journalisé (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a144852827f07cadb0739b3aefef07be0" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span>, <span class="tt">LOT-ANNEXE-09</span>/<span class="tt">21</span>).  <br /></td></tr>
+<tr class="memitem:a7c0cc77c3e15ae0b9aa8f816d95e3fd5" id="r_a7c0cc77c3e15ae0b9aa8f816d95e3fd5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7c0cc77c3e15ae0b9aa8f816d95e3fd5">progress</a> (<a class="el" href="structhmi_1_1TrainingProgress.html">hmi::TrainingProgress</a> step)</td></tr>
+<tr class="memdesc:a7c0cc77c3e15ae0b9aa8f816d95e3fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une génération (évolutionniste) ou un épisode (par gradient) vient d'être journalisé (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html#ad2a7d87e8bbe6028149d30b76a176930" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span>, <span class="tt">LOT-ANNEXE-09</span>/<span class="tt">21</span>).  <br /></td></tr>
 <tr class="memitem:a78b82ee9851115145f5d1a87a3b48130" id="r_a78b82ee9851115145f5d1a87a3b48130"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a78b82ee9851115145f5d1a87a3b48130">previewReady</a> (QString replayPath, QString algorithmId, QString levelPath, int generation)</td></tr>
 <tr class="memdesc:a78b82ee9851115145f5d1a87a3b48130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un aperçu du champion courant a été écrit sur disque (<span class="tt">LOT-ANNEXE-21</span>), sous un fichier propre à <span class="tt">generation</span> (jamais écrasé par l'aperçu suivant) : <span class="tt">replayPath</span> se charge directement via <span class="tt"><a class="el" href="namespaceaisolver.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">aisolver::readReplay</a></span>, <span class="tt">generation</span> est le numéro de génération (évolutif) ou d'épisode (par gradient) auquel il correspond, permettant à l'IHM de proposer un choix parmi les aperçus déjà reçus plutôt que le seul plus récent.  <br /></td></tr>
-<tr class="memitem:a50114d29714876ce6e4171b747a376f6" id="r_a50114d29714876ce6e4171b747a376f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50114d29714876ce6e4171b747a376f6">finished</a> (bool solved, QString modelPath, QString statsPath, QString configPath, QString replayPath, bool replayExported)</td></tr>
-<tr class="memdesc:a50114d29714876ce6e4171b747a376f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable.  <br /></td></tr>
-<tr class="memitem:abdcd3e21c7df1634dfd643a433496f48" id="r_abdcd3e21c7df1634dfd643a433496f48"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abdcd3e21c7df1634dfd643a433496f48">failed</a> (QString message)</td></tr>
-<tr class="memdesc:abdcd3e21c7df1634dfd643a433496f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreur récupérable (niveau introuvable, échec d'écriture...) — jamais d'exception traversant <span class="tt"><a class="el" href="#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
+<tr class="memitem:a9edb53b7baf43e5712a637c3c04cea5b" id="r_a9edb53b7baf43e5712a637c3c04cea5b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9edb53b7baf43e5712a637c3c04cea5b">finished</a> (bool solved, QString modelPath, QString statsPath, QString configPath, QString replayPath, bool replayExported, int generationsRun)</td></tr>
+<tr class="memdesc:a9edb53b7baf43e5712a637c3c04cea5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable.  <br /></td></tr>
+<tr class="memitem:a69fea1a85847eb48a878a8f7bca3b92b" id="r_a69fea1a85847eb48a878a8f7bca3b92b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a69fea1a85847eb48a878a8f7bca3b92b">failed</a> (QString messageKey, QString detail)</td></tr>
+<tr class="memdesc:a69fea1a85847eb48a878a8f7bca3b92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreur récupérable (niveau introuvable, échec d'écriture...) — jamais d'exception traversant <span class="tt"><a class="el" href="#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> (<span class="tt">EX-NFR-040</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -164,8 +164,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="abdcd3e21c7df1634dfd643a433496f48" name="abdcd3e21c7df1634dfd643a433496f48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdcd3e21c7df1634dfd643a433496f48">&#9670;&#160;</a></span>failed</h2>
+<a id="a69fea1a85847eb48a878a8f7bca3b92b" name="a69fea1a85847eb48a878a8f7bca3b92b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69fea1a85847eb48a878a8f7bca3b92b">&#9670;&#160;</a></span>failed</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,8 +176,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::TrainingWorker::failed </td>
           <td>(</td>
-          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>messageKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>detail</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -188,11 +192,18 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Erreur récupérable (niveau introuvable, échec d'écriture...) — jamais d'exception traversant <span class="tt"><a class="el" href="#ab89d6d66bc03a4d7c1edbea7ed422381" title="Lance l&#39;entraînement (bloquant) ; à connecter au signal QThread::started.">run()</a></span> (<span class="tt">EX-NFR-040</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">messageKey</td><td>Clé du catalogue de traduction décrivant l'échec (<span class="tt">ai_mode.error_*</span>), jamais un libellé : le worker n'a pas accès au catalogue, et un libellé écrit ici s'afficherait en français quelle que soit la langue choisie. </td></tr>
+    <tr><td class="paramname">detail</td><td>Détail substitué à <span class="tt">%1</span> dans le libellé traduit (chemin fautif, le plus souvent). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="a50114d29714876ce6e4171b747a376f6" name="a50114d29714876ce6e4171b747a376f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50114d29714876ce6e4171b747a376f6">&#9670;&#160;</a></span>finished</h2>
+<a id="a9edb53b7baf43e5712a637c3c04cea5b" name="a9edb53b7baf43e5712a637c3c04cea5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9edb53b7baf43e5712a637c3c04cea5b">&#9670;&#160;</a></span>finished</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +239,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>replayExported</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>replayExported</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>generationsRun</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -239,6 +255,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Run terminé (résolu, interrompu, ou plafond atteint) sans erreur récupérable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">generationsRun</td><td>Générations (évolutionniste) ou épisodes (par gradient) réellement exécutés — distinct du plafond demandé dès qu'un run s'arrête par résolution ou par interruption. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -283,8 +305,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a63fbbdb32036ebd9c7b53990ee55ea5f" name="a63fbbdb32036ebd9c7b53990ee55ea5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63fbbdb32036ebd9c7b53990ee55ea5f">&#9670;&#160;</a></span>progress</h2>
+<a id="a7c0cc77c3e15ae0b9aa8f816d95e3fd5" name="a7c0cc77c3e15ae0b9aa8f816d95e3fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0cc77c3e15ae0b9aa8f816d95e3fd5">&#9670;&#160;</a></span>progress</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,22 +317,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::TrainingWorker::progress </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1TrainingProgress.html">hmi::TrainingProgress</a></td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>bestReward</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>meanReward</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>successRate</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -320,7 +328,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Une génération (évolutionniste) ou un épisode (par gradient) vient d'être journalisé (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a144852827f07cadb0739b3aefef07be0" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span>, <span class="tt">LOT-ANNEXE-09</span>/<span class="tt">21</span>). </p>
+<p>Une génération (évolutionniste) ou un épisode (par gradient) vient d'être journalisé (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html#ad2a7d87e8bbe6028149d30b76a176930" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span>, <span class="tt">LOT-ANNEXE-09</span>/<span class="tt">21</span>). </p>
 
 </div>
 </div>

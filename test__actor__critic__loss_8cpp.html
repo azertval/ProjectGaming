@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){initNavTree('test__actor__critic__loss_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Gradient checking de <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (LOT-ANNEXE-13, TACHE-02), par rapport aux poids de la politique uniquement &ndash; même méthodologie que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html" title="Tests unitaires de computeReinforceLoss (LOT-ANNEXE-12, TACHE-03) : gradient checking (le test le plu...">test_reinforce_loss.cpp</a></span> (LOT-ANNEXE-12).  
+<p>Gradient checking de <span class="tt"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (LOT-ANNEXE-13, TACHE-02), par rapport aux poids de la politique uniquement &ndash; même méthodologie que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html" title="Tests unitaires de computeReinforceLoss (LOT-ANNEXE-12, TACHE-03) : gradient checking (le test le plu...">test_reinforce_loss.cpp</a></span> (LOT-ANNEXE-12).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -116,16 +116,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a923e135af8a65c5ca661d1ab8497921f" id="r_a923e135af8a65c5ca661d1ab8497921f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a923e135af8a65c5ca661d1ab8497921f">TEST</a> (ActorCriticLossTest, GradientCheckingParRapportALaPolitique)</td></tr>
 <tr class="memdesc:a923e135af8a65c5ca661d1ab8497921f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur une trajectoire de 3 pas à avantages de signes mélangés, le gradient de <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> correspond au gradient par différences finies.  <br /></td></tr>
 <tr class="memitem:a7e15596fd65624328a4124e6d2a8e599" id="r_a7e15596fd65624328a4124e6d2a8e599"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7e15596fd65624328a4124e6d2a8e599">TEST</a> (ActorCriticLossTest, AvantageNulGradientNul)</td></tr>
-<tr class="memdesc:a7e15596fd65624328a4124e6d2a8e599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un avantage nul en entrée produit un gradient rigoureusement nul, tout comme pour <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> avec un retour nul (même formule factorisée).  <br /></td></tr>
-<tr class="memitem:a6267d02ff25e0644b4e1c68c985f7aee" id="r_a6267d02ff25e0644b4e1c68c985f7aee"><td class="memItemLeft"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee">computeActorCriticLoss</a> (nn::Network &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages)</td></tr>
-<tr class="memdesc:a6267d02ff25e0644b4e1c68c985f7aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
+<tr class="memdesc:a7e15596fd65624328a4124e6d2a8e599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un avantage nul en entrée produit un gradient rigoureusement nul, tout comme pour <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> avec un retour nul (même formule factorisée).  <br /></td></tr>
+<tr class="memitem:a7c018bcd482518cdc3b7eb83459c1e69" id="r_a7c018bcd482518cdc3b7eb83459c1e69"><td class="memItemLeft"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69">computeActorCriticLoss</a> (nn::Network &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages, float entropyCoefficient=DEFAULT_ENTROPY_COEFFICIENT)</td></tr>
+<tr class="memdesc:a7c018bcd482518cdc3b7eb83459c1e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
 <tr class="memitem:ac04a455df7a8844fe27f78b4da9d4515" id="r_ac04a455df7a8844fe27f78b4da9d4515"><td class="memItemLeft">std::unique_ptr&lt; nn::Network &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac04a455df7a8844fe27f78b4da9d4515">buildNetwork</a> (const <a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:ac04a455df7a8844fe27f78b4da9d4515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un <span class="tt">nn::Network</span> neuf conforme à <code class="param">topology</code>.  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
 <tr class="memdesc:aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie standard « politique » du programme Lot-Annexe : une couche cachée <span class="tt">tanh</span>, une couche de sortie <span class="tt">softmax</span> de taille <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> (<span class="tt"><a class="el" href="ActionSpace_8h.html" title="Espace d&#39;action discret et fini de l&#39;agent (LOT-ANNEXE-07, EX-IA-007).">AiSolver/Env/ActionSpace.h</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Gradient checking de <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (LOT-ANNEXE-13, TACHE-02), par rapport aux poids de la politique uniquement &ndash; même méthodologie que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html" title="Tests unitaires de computeReinforceLoss (LOT-ANNEXE-12, TACHE-03) : gradient checking (le test le plu...">test_reinforce_loss.cpp</a></span> (LOT-ANNEXE-12). </p>
+<div class="textblock"><p>Gradient checking de <span class="tt"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (LOT-ANNEXE-13, TACHE-02), par rapport aux poids de la politique uniquement &ndash; même méthodologie que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html" title="Tests unitaires de computeReinforceLoss (LOT-ANNEXE-12, TACHE-03) : gradient checking (le test le plu...">test_reinforce_loss.cpp</a></span> (LOT-ANNEXE-12). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac04a455df7a8844fe27f78b4da9d4515" name="ac04a455df7a8844fe27f78b4da9d4515"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac04a455df7a8844fe27f78b4da9d4515">&#9670;&#160;</a></span>buildNetwork()</h2>
@@ -165,8 +165,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6267d02ff25e0644b4e1c68c985f7aee" name="a6267d02ff25e0644b4e1c68c985f7aee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6267d02ff25e0644b4e1c68c985f7aee">&#9670;&#160;</a></span>computeActorCriticLoss()</h2>
+<a id="a7c018bcd482518cdc3b7eb83459c1e69" name="a7c018bcd482518cdc3b7eb83459c1e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c018bcd482518cdc3b7eb83459c1e69">&#9670;&#160;</a></span>computeActorCriticLoss()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +175,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a> <a class="el" href="namespaceaisolver_1_1training.html#a6267d02ff25e0644b4e1c68c985f7aee">aisolver::training::computeActorCriticLoss</a> </td>
+          <td class="memname"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a> <a class="el" href="namespaceaisolver_1_1training.html#a7c018bcd482518cdc3b7eb83459c1e69">aisolver::training::computeActorCriticLoss</a> </td>
           <td>(</td>
           <td class="paramtype">nn::Network &amp;</td>          <td class="paramname"><span class="paramname"><em>policy</em></span>, </td>
         </tr>
@@ -187,7 +187,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>advantages</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>advantages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>entropyCoefficient</em></span><span class="paramdefsep"> = </span><span class="paramdefval">DEFAULT_ENTROPY_COEFFICIENT</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -198,11 +203,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>. </p>
-<p>Délègue à <span class="tt"><a class="el" href="test__policy__gradient__loss_8cpp.html#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt">nn::Network</span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Délègue à <span class="tt"><a class="el" href="test__policy__gradient__loss_8cpp.html#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt">nn::Network</span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
     <tr><td class="paramname">trajectory</td><td>Trajectoire collectée (<span class="tt"><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>). </td></tr>
-    <tr><td class="paramname">advantages</td><td>Avantage par pas (<span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), même longueur que <span class="tt">trajectory.steps</span>. </td></tr>
+    <tr><td class="paramname">advantages</td><td>Avantage par pas (<span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), même longueur que <span class="tt">trajectory.steps</span>, typiquement centré-réduit sur le lot (<span class="tt">normalizeWeights</span>). </td></tr>
+    <tr><td class="paramname">entropyCoefficient</td><td>Poids du terme d'entropie, transmis tel quel (<span class="tt"><a class="el" href="test__policy__gradient__loss_8cpp.html#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -268,7 +274,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un avantage nul en entrée produit un gradient rigoureusement nul, tout comme pour <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> avec un retour nul (même formule factorisée). </p>
+<p>Un avantage nul en entrée produit un gradient rigoureusement nul, tout comme pour <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> avec un retour nul (même formule factorisée). </p>
 <p><b>Cas de test :</b> <b>computeActorCriticLoss : avantage nul, gradient nul.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Critique<br  />

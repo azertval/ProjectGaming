@@ -5,6 +5,7 @@ var namespaceaisolver_1_1cli =
     [ "ExportReplayArgs", "structaisolver_1_1cli_1_1ExportReplayArgs.html", "structaisolver_1_1cli_1_1ExportReplayArgs" ],
     [ "TrainingConfig", "structaisolver_1_1cli_1_1TrainingConfig.html", "structaisolver_1_1cli_1_1TrainingConfig" ],
     [ "CommandLineOverrides", "structaisolver_1_1cli_1_1CommandLineOverrides.html", "structaisolver_1_1cli_1_1CommandLineOverrides" ],
+    [ "environmentConfigForModel", "namespaceaisolver_1_1cli.html#a36660f4118a03742a48c850b5a71e013", null ],
     [ "findOption", "namespaceaisolver_1_1cli.html#ade8fa1868816e9e0eb448cd9e642e7ae", null ],
     [ "hasFlag", "namespaceaisolver_1_1cli.html#abdcffd0275a6e91a2b6f3efa9bd7f0e6", null ],
     [ "hiddenSizeForModel", "namespaceaisolver_1_1cli.html#a98a4851fff34724311010336fa9094a3", null ],

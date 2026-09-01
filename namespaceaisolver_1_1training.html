@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,7 +102,7 @@ Classes</h2></td></tr>
 <tr class="memitem:ActorCriticConfig" id="r_ActorCriticConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html">ActorCriticConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run acteur-critique : mêmes défauts que <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>), pour rester le niveau de contrôle comparable prescrit par TACHE-04.  <a href="structaisolver_1_1training_1_1ActorCriticConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ActorCriticTrainer" id="r_ActorCriticTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1ActorCriticTrainer.html">ActorCriticTrainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangée), calcul de retour (<span class="tt"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangé), avantage (<span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), perte de politique (<span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>) et perte du critique (<span class="tt"><a class="el" href="#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span>) en une boucle par épisode optimisant les <b>deux</b> réseaux, chacun via son propre <span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>.  <a href="classaisolver_1_1training_1_1ActorCriticTrainer.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangée), calcul de retour (<span class="tt"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>, <span class="tt">LOT-ANNEXE-12</span>, inchangé), avantage (<span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), perte de politique (<span class="tt"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>) et perte du critique (<span class="tt"><a class="el" href="#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span>) en une boucle par épisode optimisant les <b>deux</b> réseaux, chacun via son propre <span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>.  <a href="classaisolver_1_1training_1_1ActorCriticTrainer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CriticNetwork" id="r_CriticNetwork"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1CriticNetwork.html">CriticNetwork</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réseau distinct de la politique (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span>, <span class="tt">LOT-ANNEXE-03</span>), même bibliothèque de couches, une seule sortie scalaire non bornée (aucune activation finale).  <a href="classaisolver_1_1training_1_1CriticNetwork.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DeterministicReplayResult" id="r_DeterministicReplayResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1DeterministicReplayResult.html">DeterministicReplayResult</a></td></tr>
@@ -123,15 +123,19 @@ d'épisode)</span> — donnée pure, aucune logique de calcul (même décision d
 <tr class="memitem:LevelTrainingSession" id="r_LevelTrainingSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html">LevelTrainingSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entraîne un algorithme évolutionniste (<span class="tt">LOT-ANNEXE-10</span>) sur <b>un seul</b> fichier de niveau, jusqu'à résolution stable ou plafond de générations.  <a href="classaisolver_1_1training_1_1LevelTrainingSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReinforceConfig" id="r_ReinforceConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html">ReinforceConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run REINFORCE : <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac03edfeaf84232791b5f677be1102109">gamma</a></span> proche de <span class="tt">1</span> par défaut (voir décision de cadrage de l'épic), <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac90fb79dd840dbbdcb12a503bdda87be">seedBase</a></span> d'où dérive déterministiquement la graine de chaque épisode.  <a href="structaisolver_1_1training_1_1ReinforceConfig.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un run REINFORCE : <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac03edfeaf84232791b5f677be1102109">gamma</a></span> proche de <span class="tt">1</span> par défaut (voir décision de cadrage de l'épic), <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html#ac90fb79dd840dbbdcb12a503bdda87be">seedBase</a></span> d'où dérive déterministiquement la graine de chaque épisode, et les réglages partagés avec l'acteur-critique (<span class="tt"><a class="el" href="structaisolver_1_1training_1_1PolicyGradientTuning.html" title="Réglages partagés par ReinforceConfig et ActorCriticConfig.">PolicyGradientTuning</a></span>).  <a href="structaisolver_1_1training_1_1ReinforceConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReinforceTrainer" id="r_ReinforceTrainer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html">ReinforceTrainer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble collecte de trajectoire (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>), calcul de retour (<span class="tt">ReturnCalculator</span>), perte REINFORCE (<span class="tt">ReinforceLoss</span>) et un optimiseur (<span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">optim::IOptimizer</a></span>, <span class="tt">LOT-ANNEXE-04</span>) en une boucle exécutable épisode par épisode, journalisée (<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, <span class="tt">LOT-ANNEXE-09</span>).  <a href="classaisolver_1_1training_1_1ReinforceTrainer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WeightStatistics" id="r_WeightStatistics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne et écart-type d'un lot de poids de policy gradient (retours ou avantages).  <a href="structaisolver_1_1training_1_1WeightStatistics.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrajectoryStep" id="r_TrajectoryStep"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1TrajectoryStep.html">TrajectoryStep</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pas de trajectoire : ce que REINFORCE doit connaître après coup pour calculer le retour (<span class="tt"><a class="el" href="ReturnCalculator_8h.html" title="Calcul du retour actualisé par pas d&#39;une trajectoire (LOT-ANNEXE-12, TACHE-02, EX-IA-013).">ReturnCalculator.h</a></span>) et la perte (<span class="tt"><a class="el" href="ReinforceLoss_8h.html" title="Perte REINFORCE construite comme un graphe d&#39;autodiff (LOT-ANNEXE-12, TACHE-03, EX-IA-013) — la tâche...">ReinforceLoss.h</a></span>) — aucune logique de calcul ici (<span class="tt">EX-ARCH-011</span>).  <a href="structaisolver_1_1training_1_1TrajectoryStep.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Trajectory" id="r_Trajectory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1Trajectory.html">Trajectory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajectoire complète d'un épisode : un pas par appel à <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span>, plus l'issue de fin d'épisode (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>, <span class="tt">LOT-ANNEXE-08</span>).  <a href="structaisolver_1_1training_1_1Trajectory.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrajectoryCollector" id="r_TrajectoryCollector"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html">TrajectoryCollector</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.  <a href="classaisolver_1_1training_1_1TrajectoryCollector.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PolicyGradientTuning" id="r_PolicyGradientTuning"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1PolicyGradientTuning.html">PolicyGradientTuning</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglages partagés par <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span> et <span class="tt"><a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html" title="Paramètres d&#39;un run acteur-critique : mêmes défauts que ReinforceConfig (LOT-ANNEXE-12),...">ActorCriticConfig</a></span>.  <a href="structaisolver_1_1training_1_1PolicyGradientTuning.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ReplayExportResult" id="r_ReplayExportResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1ReplayExportResult.html">ReplayExportResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue d'un export : succès, ou échec explicite documenté par <span class="tt"><a class="el" href="#a750a5150a1ab0d3cdf7673ad12ba4946" title="Raison d&#39;un échec d&#39;export — jamais d&#39;exception (EX-NFR-040).">ReplayExportError</a></span>.  <a href="structaisolver_1_1training_1_1ReplayExportResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainAndExportOutcome" id="r_TrainAndExportOutcome"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1TrainAndExportOutcome.html">TrainAndExportOutcome</a></td></tr>
@@ -154,30 +158,49 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6267d02ff25e0644b4e1c68c985f7aee" id="r_a6267d02ff25e0644b4e1c68c985f7aee"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee">computeActorCriticLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages)</td></tr>
-<tr class="memdesc:a6267d02ff25e0644b4e1c68c985f7aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
+<tr class="memitem:a7c018bcd482518cdc3b7eb83459c1e69" id="r_a7c018bcd482518cdc3b7eb83459c1e69"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69">computeActorCriticLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages, float entropyCoefficient=<a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a>)</td></tr>
+<tr class="memdesc:a7c018bcd482518cdc3b7eb83459c1e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
 <tr class="memitem:a9c627d75f8bb215c30409e37bbcfbe06" id="r_a9c627d75f8bb215c30409e37bbcfbe06"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06">computeAdvantages</a> (const std::vector&lt; float &gt; &amp;returns, <a class="el" href="classCriticNetwork.html">CriticNetwork</a> &amp;critic, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory)</td></tr>
 <tr class="memdesc:a9c627d75f8bb215c30409e37bbcfbe06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule <span class="tt">advantage_t = returns[t] − critic.forward(observation_t)</span>, pour chaque pas.  <br /></td></tr>
 <tr class="memitem:a9e34ec7fba384cf00159367fb67ebea2" id="r_a9e34ec7fba384cf00159367fb67ebea2"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e34ec7fba384cf00159367fb67ebea2">computeCriticLoss</a> (<a class="el" href="classCriticNetwork.html">CriticNetwork</a> &amp;critic, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;returns)</td></tr>
 <tr class="memdesc:a9e34ec7fba384cf00159367fb67ebea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t((valeur_t − returns[t])^2)</span>.  <br /></td></tr>
 <tr class="memitem:adb8a3c669b3b89e1c99290bf67963d46" id="r_adb8a3c669b3b89e1c99290bf67963d46"><td class="memItemLeft">std::optional&lt; <a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb8a3c669b3b89e1c99290bf67963d46">argmaxRollout</a> (<a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html">eval::TrainedPolicy</a> &amp;policy, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
-<tr class="memdesc:adb8a3c669b3b89e1c99290bf67963d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme.  <br /></td></tr>
-<tr class="memitem:adc74180e04ea7aa0e7a7ba6f05afdd02" id="r_adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02">replayBestIndividual</a> (<a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1Individual.html">evolutionary::Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=<a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee">evolutionary::DEFAULT_STUCK_THRESHOLD</a>)</td></tr>
-<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
+<tr class="memdesc:adb8a3c669b3b89e1c99290bf67963d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme.  <br /></td></tr>
+<tr class="memitem:a91d6787088b7c461e08748234f34ca3b" id="r_a91d6787088b7c461e08748234f34ca3b"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b">replayBestIndividual</a> (<a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1Individual.html">evolutionary::Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
+<tr class="memdesc:a91d6787088b7c461e08748234f34ca3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
 <tr class="memitem:a182940e411c5c7c01ec3f01bca030580" id="r_a182940e411c5c7c01ec3f01bca030580"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a182940e411c5c7c01ec3f01bca030580">computeDqnLoss</a> (<a class="el" href="classQNetwork.html">QNetwork</a> &amp;mainNetwork, <a class="el" href="classQNetwork.html">QNetwork</a> &amp;targetNetwork, const std::vector&lt; <a class="el" href="structTransition.html">Transition</a> &gt; &amp;batch, float gamma)</td></tr>
 <tr class="memdesc:a182940e411c5c7c01ec3f01bca030580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erreur quadratique moyenne, sur un mini-lot, entre <span class="tt">Q(s_t, a_t)</span> (réseau principal, nœud de graphe d'autodiff) et la cible de Bellman <span class="tt">reward_t + gamma * max_a Q_cible(s_{t+1}, a)</span> (réseau cible, valeur détachée du graphe &ndash; jamais rétropropagée, même convention que <span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>/<span class="tt">CriticLoss</span>, <span class="tt">LOT-ANNEXE-13</span>).  <br /></td></tr>
 <tr class="memitem:aa8e28f430662fd6d2a2e1580306d1d01" id="r_aa8e28f430662fd6d2a2e1580306d1d01"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8e28f430662fd6d2a2e1580306d1d01">updateConsecutiveStableWins</a> (int previousCount, bool sameFitnessAsBefore, bool resolvingNow) noexcept</td></tr>
 <tr class="memdesc:aa8e28f430662fd6d2a2e1580306d1d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
-<tr class="memitem:a313ce7ace0a798aef9a2041d24a50efb" id="r_a313ce7ace0a798aef9a2041d24a50efb"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a313ce7ace0a798aef9a2041d24a50efb">computeReinforceLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;returns)</td></tr>
-<tr class="memdesc:a313ce7ace0a798aef9a2041d24a50efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>.  <br /></td></tr>
+<tr class="memitem:a327febb8ee5cee2fca3aaf869ac8af95" id="r_a327febb8ee5cee2fca3aaf869ac8af95"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a327febb8ee5cee2fca3aaf869ac8af95">computeReinforceLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;returns, float entropyCoefficient=<a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a>)</td></tr>
+<tr class="memdesc:a327febb8ee5cee2fca3aaf869ac8af95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>.  <br /></td></tr>
 <tr class="memitem:ab4eecaaa8132cd4c0592e3176185a4aa" id="r_ab4eecaaa8132cd4c0592e3176185a4aa"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa">computeReturns</a> (const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, float gamma)</td></tr>
 <tr class="memdesc:ab4eecaaa8132cd4c0592e3176185a4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour actualisé <span class="tt">G_t = reward_t + gamma * G_{t+1}</span> (<span class="tt">G_T = reward_T</span> au dernier pas), par parcours arrière linéaire de <span class="tt">trajectory</span> — fonction pure, ne dépend d'aucun état d'environnement ni de réseau.  <br /></td></tr>
-<tr class="memitem:a36fa9e5fa28fc2058be1367395544c55" id="r_a36fa9e5fa28fc2058be1367395544c55"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55">computeWeightedPolicyGradientLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;weights)</td></tr>
-<tr class="memdesc:a36fa9e5fa28fc2058be1367395544c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * weights[t])</span> sur <span class="tt">trajectory</span>.  <br /></td></tr>
+<tr class="memitem:abfcfde10f4887788c0b872c47d594696" id="r_abfcfde10f4887788c0b872c47d594696"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#abfcfde10f4887788c0b872c47d594696">weightStatistics</a> (const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;batch)</td></tr>
+<tr class="memdesc:abfcfde10f4887788c0b872c47d594696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne et écart-type de <b>tous</b> les poids d'un lot d'épisodes.  <br /></td></tr>
+<tr class="memitem:ab9f354097faa13fb5b683c4fa3d46301" id="r_ab9f354097faa13fb5b683c4fa3d46301"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab9f354097faa13fb5b683c4fa3d46301">normalizeWeights</a> (std::vector&lt; float &gt; &amp;weights, <a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a> statistics)</td></tr>
+<tr class="memdesc:ab9f354097faa13fb5b683c4fa3d46301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre et réduit <code class="param">weights</code> d'après <code class="param">statistics</code>, en place.  <br /></td></tr>
+<tr class="memitem:aeec15993c929f0bffb62de42d1c656dd" id="r_aeec15993c929f0bffb62de42d1c656dd"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeec15993c929f0bffb62de42d1c656dd">computeWeightedPolicyGradientLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;weights, float entropyCoefficient=<a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a>)</td></tr>
+<tr class="memdesc:aeec15993c929f0bffb62de42d1c656dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit, sur <span class="tt">trajectory</span>, le graphe de la moyenne par pas de la perte pondérée moins le terme d'entropie : <span class="tt">-log(probabilite de l'action) x poids - beta x entropie</span>.  <br /></td></tr>
 <tr class="memitem:a17e8060b88edb8fbbf0d755f5a7d6f16" id="r_a17e8060b88edb8fbbf0d755f5a7d6f16"><td class="memItemLeft"><a class="el" href="structReplayExportResult.html">ReplayExportResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16">exportReplay</a> (const <a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> &amp;replay, bool solved, const std::filesystem::path &amp;levelPath, const std::filesystem::path &amp;outputPath, const std::string &amp;algorithmName, std::uint64_t seed, const std::string &amp;algorithmId={})</td></tr>
 <tr class="memdesc:a17e8060b88edb8fbbf0d755f5a7d6f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <span class="tt">replay</span> au format de rejeu v2 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle).  <br /></td></tr>
 <tr class="memitem:aca3e53f83fe5be541d81e5f6464a9cd5" id="r_aca3e53f83fe5be541d81e5f6464a9cd5"><td class="memItemLeft"><a class="el" href="structTrainAndExportOutcome.html">TrainAndExportOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#aca3e53f83fe5be541d81e5f6464a9cd5">trainLevelAndExportReplay</a> (const std::filesystem::path &amp;levelPath, const <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aff53901ca4ce748a056cddca71b02c6c">evolutionary::NetworkTopology</a> &amp;topology, const <a class="el" href="structaisolver_1_1training_1_1evolutionary_1_1EvolutionaryConfig.html">evolutionary::EvolutionaryConfig</a> &amp;config, const <a class="el" href="structStoppingConfig.html">StoppingConfig</a> &amp;stopping, std::uint64_t seed, const std::filesystem::path &amp;statsCsvPath, const std::filesystem::path &amp;replayOutputPath, <a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a> environmentConfig={})</td></tr>
-<tr class="memdesc:aca3e53f83fe5be541d81e5f6464a9cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>).  <br /></td></tr>
+<tr class="memdesc:aca3e53f83fe5be541d81e5f6464a9cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa6d101f6960c808ac6c354fa6ea477ea" id="r_aa6d101f6960c808ac6c354fa6ea477ea"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a> = 0.01f</td></tr>
+<tr class="memdesc:aa6d101f6960c808ac6c354fa6ea477ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficient d'entropie par défaut de la perte de policy gradient.  <br /></td></tr>
+<tr class="memitem:a933c4de6c7fc4197f6e91e5078f8904f" id="r_a933c4de6c7fc4197f6e91e5078f8904f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a933c4de6c7fc4197f6e91e5078f8904f">DEFAULT_GAMMA</a> = 0.995f</td></tr>
+<tr class="memdesc:a933c4de6c7fc4197f6e91e5078f8904f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur d'actualisation par défaut des deux familles de policy gradient.  <br /></td></tr>
+<tr class="memitem:a50e94f63f863ce1e01c7ace94a63018e" id="r_a50e94f63f863ce1e01c7ace94a63018e"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a50e94f63f863ce1e01c7ace94a63018e">DEFAULT_BATCH_EPISODES</a> = 1</td></tr>
+<tr class="memdesc:a50e94f63f863ce1e01c7ace94a63018e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'épisodes collectés avant chaque mise à jour de poids.  <br /></td></tr>
+<tr class="memitem:ad9d44553c84e11721a3f6ac251601e02" id="r_ad9d44553c84e11721a3f6ac251601e02"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ad9d44553c84e11721a3f6ac251601e02">DEFAULT_GRADIENT_CLIP_NORM</a> = 1.0f</td></tr>
+<tr class="memdesc:ad9d44553c84e11721a3f6ac251601e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Norme globale maximale du gradient accumulé sur un lot (<span class="tt"><a class="el" href="namespaceaisolver_1_1optim.html#a1fc75196774220e2a7c8a7d5740a66e3" title="Écrête les gradients de parameters à une norme globale de maxNorm.">optim::clipGradientNorm</a></span>).  <br /></td></tr>
+<tr class="memitem:a5d987cb3ff3bb394139b9200d46aa833" id="r_a5d987cb3ff3bb394139b9200d46aa833"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a5d987cb3ff3bb394139b9200d46aa833">DEFAULT_ACTION_REPEAT</a> = 4</td></tr>
+<tr class="memdesc:a5d987cb3ff3bb394139b9200d46aa833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images fixes pendant lesquelles une action décidée est maintenue.  <br /></td></tr>
+<tr class="memitem:a80818638d24c39c3f6c3b863f04a4fb6" id="r_a80818638d24c39c3f6c3b863f04a4fb6"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a80818638d24c39c3f6c3b863f04a4fb6">DEFAULT_EXPLORATION_FLOOR</a> = 0.05f</td></tr>
+<tr class="memdesc:a80818638d24c39c3f6c3b863f04a4fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Part de tirage uniforme mélangée à la politique <b>à l'échantillonnage</b> (entraînement seul).  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="ad2fe21d4ed50eaaf580365b4eb83c05c" name="ad2fe21d4ed50eaaf580365b4eb83c05c"></a>
@@ -261,13 +284,13 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme. </p>
+<p>Rejoue <code class="param">policy</code> en mode <span class="tt">Argmax</span> sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, jusqu'à fin d'épisode ou budget de pas — même structure que <span class="tt"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (<span class="tt">LOT-ANNEXE-11</span>), généralisée à n'importe quel <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1TrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">eval::TrainedPolicy</a></span> (<span class="tt">LOT-ANNEXE-15</span>) plutôt que dupliquée pour chaque famille d'algorithme : c'est précisément le rôle de cette abstraction uniforme. </p>
 <p>Utilisée par <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">aisolver::cli::runEvaluate</a></span>/<span class="tt">runExportReplay</span> (<span class="tt">LOT-ANNEXE-19</span>) et par <span class="tt"><a class="el" href="classhmi_1_1TrainingWorker.html" title="Travailleur QObject, déplacé sur un QThread par l&#39;appelant (AiModeScreen) : run() bloque jusqu&#39;à la f...">hmi::TrainingWorker</a></span> (<span class="tt">LOT-ANNEXE-21</span>) — un seul rejeu déterministe générique, jamais réimplémenté par appelant. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">std::nullopt</span> si <span class="tt">levelPath</span> ne se charge pas ou si <span class="tt">policy</span> refuse <span class="tt">Argmax</span> (erreur récupérable, jamais de plantage). </dd></dl>
 
 </div>
 </div>
-<a id="a6267d02ff25e0644b4e1c68c985f7aee" name="a6267d02ff25e0644b4e1c68c985f7aee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6267d02ff25e0644b4e1c68c985f7aee">&#9670;&#160;</a></span>computeActorCriticLoss()</h2>
+<a id="a7c018bcd482518cdc3b7eb83459c1e69" name="a7c018bcd482518cdc3b7eb83459c1e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c018bcd482518cdc3b7eb83459c1e69">&#9670;&#160;</a></span>computeActorCriticLoss()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +311,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>advantages</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>advantages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>entropyCoefficient</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -299,11 +327,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>. </p>
-<p>Délègue à <span class="tt"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Délègue à <span class="tt"><a class="el" href="#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>) — même graphe que <span class="tt"><a class="el" href="#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span>, seul le vecteur de poids par pas change (avantage au lieu du retour brut). Réutilise la politique (<span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span>, <span class="tt">LOT-ANNEXE-03</span>) sans modification. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
     <tr><td class="paramname">trajectory</td><td>Trajectoire collectée (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>, <span class="tt">LOT-ANNEXE-12</span>). </td></tr>
-    <tr><td class="paramname">advantages</td><td>Avantage par pas (<span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), même longueur que <span class="tt">trajectory.steps</span>. </td></tr>
+    <tr><td class="paramname">advantages</td><td>Avantage par pas (<span class="tt"><a class="el" href="#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>), même longueur que <span class="tt">trajectory.steps</span>, typiquement centré-réduit sur le lot (<span class="tt"><a class="el" href="#ab9f354097faa13fb5b683c4fa3d46301" title="Centre et réduit weights d&#39;après statistics, en place.">normalizeWeights</a></span>). </td></tr>
+    <tr><td class="paramname">entropyCoefficient</td><td>Poids du terme d'entropie, transmis tel quel (<span class="tt"><a class="el" href="#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -456,8 +485,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a313ce7ace0a798aef9a2041d24a50efb" name="a313ce7ace0a798aef9a2041d24a50efb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a313ce7ace0a798aef9a2041d24a50efb">&#9670;&#160;</a></span>computeReinforceLoss()</h2>
+<a id="a327febb8ee5cee2fca3aaf869ac8af95" name="a327febb8ee5cee2fca3aaf869ac8af95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327febb8ee5cee2fca3aaf869ac8af95">&#9670;&#160;</a></span>computeReinforceLoss()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -478,7 +507,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>returns</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>returns</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>entropyCoefficient</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -489,12 +523,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construit le graphe de la perte REINFORCE moyenne sur l'épisode : <span class="tt">mean_t(-log(pi(a_t|s_t)) * G_t)</span>. </p>
-<p>Délègue à <span class="tt"><a class="el" href="#a36fa9e5fa28fc2058be1367395544c55" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * weights[t]) sur trajectory.">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>), formule commune à REINFORCE et à l'acteur-critique : seul le poids change, le <b>retour brut</b> ici, l'avantage pour <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>.</p>
+<p>Délègue à <span class="tt"><a class="el" href="#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span> (<span class="tt"><a class="el" href="PolicyGradientLoss_8h.html" title="Formule de perte de policy gradient commune (LOT-ANNEXE-13, TACHE-02), partagée entre Training/Policy...">Training/PolicyGradientLoss.h</a></span>), formule commune à REINFORCE et à l'acteur-critique : seul le poids change, le <b>retour brut</b> ici, l'avantage pour <span class="tt"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>.</p>
 <p>Convention de signe : la perte est déjà le <b>négatif</b> de l'objectif de policy gradient (à minimiser par un optimiseur de descente de gradient standard, <span class="tt">LOT-ANNEXE-04</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau de politique, rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
     <tr><td class="paramname">trajectory</td><td>Trajectoire collectée (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>). </td></tr>
-    <tr><td class="paramname">returns</td><td>Retour par pas, même longueur que <span class="tt">trajectory.steps</span> (<span class="tt"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>). </td></tr>
+    <tr><td class="paramname">returns</td><td>Retour par pas, même longueur que <span class="tt">trajectory.steps</span> (<span class="tt"><a class="el" href="#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>), typiquement centré-réduit sur le lot (<span class="tt"><a class="el" href="#ab9f354097faa13fb5b683c4fa3d46301" title="Centre et réduit weights d&#39;après statistics, en place.">normalizeWeights</a></span>). </td></tr>
+    <tr><td class="paramname">entropyCoefficient</td><td>Poids du terme d'entropie, transmis tel quel (<span class="tt"><a class="el" href="#aeec15993c929f0bffb62de42d1c656dd" title="Construit, sur trajectory, le graphe de la moyenne par pas de la perte pondérée moins le terme d&#39;entr...">computeWeightedPolicyGradientLoss</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -542,8 +577,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a36fa9e5fa28fc2058be1367395544c55" name="a36fa9e5fa28fc2058be1367395544c55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36fa9e5fa28fc2058be1367395544c55">&#9670;&#160;</a></span>computeWeightedPolicyGradientLoss()</h2>
+<a id="aeec15993c929f0bffb62de42d1c656dd" name="aeec15993c929f0bffb62de42d1c656dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeec15993c929f0bffb62de42d1c656dd">&#9670;&#160;</a></span>computeWeightedPolicyGradientLoss()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -564,7 +599,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>entropyCoefficient</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -574,12 +614,13 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * weights[t])</span> sur <span class="tt">trajectory</span>. </p>
-<p>Rejoue le passage avant de <span class="tt">policy</span> pas à pas (poids actuels) : jamais de dépendance à <span class="tt"><a class="el" href="structaisolver_1_1training_1_1TrajectoryStep.html#ad79047f1fd60fdd361abbdc8384ff1c2" title="Log-probabilité de actionIndex sous la distribution de la politique à ce pas ; toujours &lt;= 0.">TrajectoryStep::logProbability</a></span>, valeur détachée sans historique de graphe. Utilisée telle quelle par <span class="tt"><a class="el" href="#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">weights</span> = retours) et <span class="tt"><a class="el" href="#a6267d02ff25e0644b4e1c68c985f7aee" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (<span class="tt">weights</span> = avantages) — seule la nature du poids par pas change, jamais la formule. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construit, sur <span class="tt">trajectory</span>, le graphe de la moyenne par pas de la perte pondérée moins le terme d'entropie : <span class="tt">-log(probabilite de l'action) x poids - beta x entropie</span>. </p>
+<p>Rejoue le passage avant de <span class="tt">policy</span> pas à pas (poids actuels) : jamais de dépendance à <span class="tt"><a class="el" href="structaisolver_1_1training_1_1TrajectoryStep.html#ad79047f1fd60fdd361abbdc8384ff1c2" title="Log-probabilité de actionIndex sous la distribution de la politique à ce pas ; toujours &lt;= 0.">TrajectoryStep::logProbability</a></span>, valeur détachée sans historique de graphe. Utilisée telle quelle par <span class="tt"><a class="el" href="#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">weights</span> = retours) et <span class="tt"><a class="el" href="#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span> (<span class="tt">weights</span> = avantages) — seule la nature du poids par pas change, jamais la formule. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">policy</td><td>Réseau rejoué pas à pas (poids <b>non modifiés</b> par cet appel). </td></tr>
     <tr><td class="paramname">trajectory</td><td>Trajectoire collectée (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1TrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a></span>). </td></tr>
     <tr><td class="paramname">weights</td><td>Poids par pas (retour ou avantage), même longueur que <span class="tt">trajectory.steps</span>. </td></tr>
+    <tr><td class="paramname">entropyCoefficient</td><td>Poids du terme d'entropie (<span class="tt">beta</span>) ; <span class="tt">0</span> le désactive entièrement (aucun nœud construit), ce qui restitue la formule d'origine. </td></tr>
   </table>
   </dd>
 </dl>
@@ -643,7 +684,7 @@ Functions</h2></td></tr>
 <p>Écrit <span class="tt">replay</span> au format de rejeu v2 (<span class="tt">LOT-ANNEXE-07</span>, <span class="tt">Source/AiSolver/Replay</span>), sauf si <span class="tt">solved</span> est faux (aucun fichier écrit dans ce cas — refus explicite, pas une écriture partielle). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">replay</td><td>Rejeu produit par <span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (séquence, statut, récompense). </td></tr>
+    <tr><td class="paramname">replay</td><td>Rejeu produit par <span class="tt"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span> (séquence, statut, récompense). </td></tr>
     <tr><td class="paramname">solved</td><td><span class="tt"><a class="el" href="structaisolver_1_1training_1_1TrainingResult.html#a2582fc33e1c37f4ee67c6cefbc1a7628" title="true si le meilleur individu a résolu le niveau et est resté invaincu comme champion pendant le nombr...">TrainingResult::solved</a></span> de l'entraînement ayant produit <span class="tt">replay</span>. </td></tr>
     <tr><td class="paramname">levelPath</td><td>Chemin du niveau source ; seul le nom de fichier est conservé dans le rejeu exporté (<span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html#a94de81921b39db40d91de06054a68790" title="Chemin relatif (à Source/Elements/Levels) du niveau d&#39;origine — jamais un chemin absolu,...">ReplayFile::levelPath</a></span>, chemin relatif et portable). </td></tr>
     <tr><td class="paramname">outputPath</td><td>Chemin du fichier de rejeu à (re)créer. </td></tr>
@@ -657,8 +698,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adc74180e04ea7aa0e7a7ba6f05afdd02" name="adc74180e04ea7aa0e7a7ba6f05afdd02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc74180e04ea7aa0e7a7ba6f05afdd02">&#9670;&#160;</a></span>replayBestIndividual()</h2>
+<a id="ab9f354097faa13fb5b683c4fa3d46301" name="ab9f354097faa13fb5b683c4fa3d46301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9f354097faa13fb5b683c4fa3d46301">&#9670;&#160;</a></span>normalizeWeights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aisolver::training::normalizeWeights </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a></td>          <td class="paramname"><span class="paramname"><em>statistics</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centre et réduit <code class="param">weights</code> d'après <code class="param">statistics</code>, en place. </p>
+<p>Sans cette normalisation, un lot dont <b>tous</b> les retours sont négatifs — le cas ordinaire d'un niveau que l'agent ne finit pas — ne produit que des mises à jour qui <em>découragent</em> les actions tirées, jamais aucune qui en encourage une. La probabilité se déplace alors vers les actions que le hasard n'a pas échantillonnées, l'entropie s'effondre en quelques dizaines d'épisodes, et la politique se fige sur une trajectoire unique quel que soit le nombre d'épisodes restants. Centrer les retours rétablit la moitié manquante du signal : ce qui compte est d'avoir fait <em>mieux que la moyenne du lot</em>, pas d'avoir obtenu un retour positif. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">weights</td><td>Poids d'un épisode, modifiés en place. </td></tr>
+    <tr><td class="paramname">statistics</td><td>Statistiques du lot (<span class="tt"><a class="el" href="#abfcfde10f4887788c0b872c47d594696" title="Moyenne et écart-type de tous les poids d&#39;un lot d&#39;épisodes.">weightStatistics</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a91d6787088b7c461e08748234f34ca3b" name="a91d6787088b7c461e08748234f34ca3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d6787088b7c461e08748234f34ca3b">&#9670;&#160;</a></span>replayBestIndividual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,12 +750,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee">evolutionary::DEFAULT_STUCK_THRESHOLD</a></span>&#160;)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -700,7 +766,6 @@ Functions</h2></td></tr>
     <tr><td class="paramname">individual</td><td>Individu à rejouer (poids figés, lecture seule au sens fonctionnel). </td></tr>
     <tr><td class="paramname">environment</td><td>Environnement réinitialisé en tout premier (aucun état ne fuit d'un appel au suivant). </td></tr>
     <tr><td class="paramname">levelPath</td><td>Niveau à charger (<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>). </td></tr>
-    <tr><td class="paramname">stuckThreshold</td><td>Seuil de blocage transmis à <span class="tt"><a class="el" href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971" title="Classe la fin d&#39;épisode à partir de l&#39;issue du jeu et des compteurs de pas/progression.">classifyEpisode</a></span> (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>), même défaut que <span class="tt">FitnessEvaluator</span> pour rester cohérent avec l'évaluation de fitness. </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,7 +830,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>). </p>
+<p>Point d'entrée minimal : entraîne <span class="tt">levelPath</span> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>), rejoue le meilleur individu final (<span class="tt"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">replayBestIndividual</a></span>), puis exporte la séquence obtenue (<span class="tt"><a class="el" href="#a17e8060b88edb8fbbf0d755f5a7d6f16" title="Écrit replay au format de rejeu v2 (LOT-ANNEXE-07, Source/AiSolver/Replay), sauf si solved est faux (...">exportReplay</a></span>). </p>
 <p>Volontairement minimal : ni options ni reprise. C'est la brique que <span class="tt">aisolver-cli</span> enveloppe (<span class="tt"><a class="el" href="Commands_8cpp.html">Cli/Commands.cpp</a></span>), pas l'interface d'usage. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">levelPath</td><td>Chemin du fichier de niveau <b>unique</b> à entraîner. </td></tr>
@@ -824,6 +889,194 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le nouveau compteur. </dd></dl>
+
+</div>
+</div>
+<a id="abfcfde10f4887788c0b872c47d594696" name="abfcfde10f4887788c0b872c47d594696"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfcfde10f4887788c0b872c47d594696">&#9670;&#160;</a></span>weightStatistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a> aisolver::training::weightStatistics </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>batch</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moyenne et écart-type de <b>tous</b> les poids d'un lot d'épisodes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">batch</td><td>Poids par épisode ; les épisodes vides sont ignorés. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les statistiques du lot ; <span class="tt">{0, 0}</span> si le lot ne contient aucun poids. </dd></dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a5d987cb3ff3bb394139b9200d46aa833" name="a5d987cb3ff3bb394139b9200d46aa833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d987cb3ff3bb394139b9200d46aa833">&#9670;&#160;</a></span>DEFAULT_ACTION_REPEAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::training::DEFAULT_ACTION_REPEAT = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images fixes pendant lesquelles une action décidée est maintenue. </p>
+<p>À <span class="tt">1</span>, la politique retire parmi les <span class="tt">48</span> actions à chaque image de <span class="tt">1/60 s</span> : les directions tirées se compensent, le déplacement espéré est nul, et l'exploration ne quitte jamais le voisinage du point de départ — quel que soit le nombre d'épisodes. Traverser une case demande <span class="tt">20</span> images de direction constante (<span class="tt">moveSpeed = 3</span>), en tirer <span class="tt">20</span> de suite au hasard parmi trois directions a une probabilité de <span class="tt">3^-20</span>.</p>
+<p><span class="tt">4</span> images (<span class="tt">67 ms</span>) est le compromis usuel : assez pour que l'exploration soit directionnelle, assez court pour ne pas rendre inatteignables les enchaînements précis (un dash dure <span class="tt">0,15 s</span>, soit <span class="tt">9</span> images). </p>
+
+</div>
+</div>
+<a id="a50e94f63f863ce1e01c7ace94a63018e" name="a50e94f63f863ce1e01c7ace94a63018e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e94f63f863ce1e01c7ace94a63018e">&#9670;&#160;</a></span>DEFAULT_BATCH_EPISODES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aisolver::training::DEFAULT_BATCH_EPISODES = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'épisodes collectés avant chaque mise à jour de poids. </p>
+<p>Un lot réduit la variance de la direction estimée, mais il divise d'autant le nombre de mises à jour obtenues pour un même coût de simulation — et une trajectoire coûte des milliers de pas de physique. Mesure faite sur <span class="tt">demo-saut.json</span>, <span class="tt">400</span> épisodes, graine fixée : <span class="tt">75</span> victoires à <span class="tt">batchEpisodes = 1</span> contre <span class="tt">31</span> à <span class="tt">8</span>, pour exactement le même budget d'épisodes.</p>
+<p>La valeur retenue est donc <span class="tt">1</span>, et le centrage-réduction porte alors sur les retours <b>d'un même épisode</b> — la forme classique du <em>reward-to-go</em> centré, qui suffit à supprimer la pathologie « tous les retours négatifs, donc on ne fait que décourager ». Le réglage reste exposé : c'est par lui qu'on rejoue la comparaison ci-dessus, et un lot plus large redevient intéressant si le taux d'apprentissage est augmenté en conséquence (non mesuré ici). </p>
+
+</div>
+</div>
+<a id="aa6d101f6960c808ac6c354fa6ea477ea" name="aa6d101f6960c808ac6c354fa6ea477ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6d101f6960c808ac6c354fa6ea477ea">&#9670;&#160;</a></span>DEFAULT_ENTROPY_COEFFICIENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::DEFAULT_ENTROPY_COEFFICIENT = 0.01f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Coefficient d'entropie par défaut de la perte de policy gradient. </p>
+<p>La perte nue <span class="tt">-log(pi) * poids</span> n'a aucun terme qui s'oppose à la spécialisation : une politique dont un logit prend l'avantage voit sa probabilité tendre vers <span class="tt">1</span>, l'échantillonnage devient déterministe, et plus aucun autre couple (état, action) n'est jamais visité — l'entraînement continue de tourner sans que rien ne puisse plus changer. La mesure faite avant correction : des trajectoires <b>bit à bit identiques</b> dès l'épisode ~50, sur les 9 950 épisodes suivants, malgré une graine différente à chaque épisode.</p>
+<p>La valeur est un compromis usuel : assez pour maintenir une distribution vivante, assez peu pour ne pas dominer le signal de récompense une fois les retours centrés-réduits. </p>
+
+</div>
+</div>
+<a id="a80818638d24c39c3f6c3b863f04a4fb6" name="a80818638d24c39c3f6c3b863f04a4fb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80818638d24c39c3f6c3b863f04a4fb6">&#9670;&#160;</a></span>DEFAULT_EXPLORATION_FLOOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::DEFAULT_EXPLORATION_FLOOR = 0.05f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Part de tirage uniforme mélangée à la politique <b>à l'échantillonnage</b> (entraînement seul). </p>
+<p>Le terme d'entropie ne suffit pas à empêcher une politique de se figer : sa dérivée s'annule justement quand la distribution est déjà saturée, c'est-à-dire quand on en aurait le plus besoin. Mesure faite avant correction, <span class="tt">1 500</span> épisodes sur <span class="tt">demo-double-saut.json</span> et <span class="tt">demo-wall-jump.json</span> : <b>1 499 épisodes bit à bit identiques</b>, malgré une graine différente à chacun — l'entraînement tournait sans qu'aucune autre action ne soit plus jamais essayée.</p>
+<p>Mélanger <span class="tt">epsilon</span> d'uniforme à la distribution échantillonnée garantit à chaque action une probabilité minimale de <span class="tt">epsilon / 48</span>, quelle que soit la saturation du <span class="tt">softmax</span>. Le gradient, lui, reste calculé sur la politique elle-même — le décalage est celui d'un <span class="tt">epsilon</span>-greedy, et il disparaît du rejeu final, décodé en <span class="tt">argmax</span>. </p>
+
+</div>
+</div>
+<a id="a933c4de6c7fc4197f6e91e5078f8904f" name="a933c4de6c7fc4197f6e91e5078f8904f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933c4de6c7fc4197f6e91e5078f8904f">&#9670;&#160;</a></span>DEFAULT_GAMMA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::DEFAULT_GAMMA = 0.995f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur d'actualisation par défaut des deux familles de policy gradient. </p>
+<p><span class="tt">0,99</span> donne un horizon effectif de <span class="tt">1 / (1 - gamma) = 100</span> pas, soit <span class="tt">1,7 s</span> de jeu : le bonus de complétion versé au bout d'un épisode de plusieurs milliers de pas y était escompté à <span class="tt">0,99^4000 ~ 1e-18</span>, donc rigoureusement invisible depuis le départ. <span class="tt">0,995</span> porte cet horizon à <span class="tt">200</span> pas sans rendre les retours ingérables ; c'est la récompense de progression, dense, qui relaie le bonus sur les distances plus longues. </p>
+
+</div>
+</div>
+<a id="ad9d44553c84e11721a3f6ac251601e02" name="ad9d44553c84e11721a3f6ac251601e02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9d44553c84e11721a3f6ac251601e02">&#9670;&#160;</a></span>DEFAULT_GRADIENT_CLIP_NORM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::DEFAULT_GRADIENT_CLIP_NORM = 1.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Norme globale maximale du gradient accumulé sur un lot (<span class="tt"><a class="el" href="namespaceaisolver_1_1optim.html#a1fc75196774220e2a7c8a7d5740a66e3" title="Écrête les gradients de parameters à une norme globale de maxNorm.">optim::clipGradientNorm</a></span>). </p>
 
 </div>
 </div>

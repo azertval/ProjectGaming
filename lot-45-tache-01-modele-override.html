@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-45-tache-01-modele-override.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-45-textures-objets-interactifs_2tache-01-modele-override"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-45.html#md_Lot_2LOT-45-textures-objets-interactifs_2epic" title="Lot/LOT-45-textures-objets-interactifs/epic.md">LOT-45</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2221"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2227"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> est une grille <b>dense</b> d'une <span class="tt">TileType</span> par case, sans métadonnée numérique par case — limite actée en <span class="tt">LOT-19</span> et documentée dans <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>. Toutes les données par position (mécanismes, liens de danger, configurations de mouvement et de clignotement) vivent donc dans des <b>vecteurs annexes</b> de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>, keyés par position.</p>
 <p>Cette tâche ajoute le énième membre de cette famille. L'intérêt est qu'il n'y a <b>rien à inventer</b> : le patron, son nettoyage et son historique existent et sont testés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2228"></a>
 Travail à réaliser</h1>
 <ul>
 <li><em><b><a class="el" href="structcore_1_1TileTextureOverride.html" title="Texture assignée explicitement à une case précise, prioritaire sur le skin de son type (EX-EDIT-043,...">core::TileTextureOverride</a></b></em> : une position de grille et un nom d'asset. Vecteur annexe sur <span class="tt">Level</span> et <span class="tt">LevelDraft</span>, accesseur de lecture, mutateurs d'assignation et de retrait.</li>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 <li><b>Copier-coller</b> : <span class="tt">paintRegion</span> utilisé pour le collage n'importe <b>pas</b> les overrides de la source. Décision explicite : un override reste attaché à sa case d'origine.</li>
 <li><b>Historique</b> : gratuit via <span class="tt">LevelDraft::State</span>, à condition que le champ y soit ajouté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2229"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
 <li><span class="tt"><a class="el" href="test__tile__texture__override_8cpp.html" title="Tests unitaires de la texture assignée par instance (LOT-45, EX-EDIT-043).">Source/Test/Unit/Core/Levels/test_tile_texture_override.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2224"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2230"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip JSON : assignation présente, absente, plusieurs overrides, niveau existant sans le champ (rétrocompatibilité).</li>
@@ -123,7 +123,7 @@ Tests (obligatoires)</h1>
 <li>Annulation/rétablissement d'une assignation et d'un retrait.</li>
 <li>Tout dans <span class="tt">Core</span>, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2231"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un seul point de nettoyage.</b> Ne pas ajouter de chemin parallèle : <span class="tt">removeLinkedDataAt</span> est le funnel, tout le reste en découle. Un second mécanisme divergerait au premier cas particulier.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li>Le nom d'asset est une <b>chaîne</b> : <span class="tt">Core</span> ne vérifie pas son existence (il n'a pas accès au dossier d'assets), et un override pointant un fichier absent reste un niveau <b>valide</b>.</li>
 <li>Aucune liste blanche de types éligibles : tout type non vide peut recevoir un override, car l'usage est purement visuel — contrairement aux liens de mécanismes qui, eux, ont une sémantique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2232"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le modèle existe, transite par le JSON de façon rétrocompatible, est nettoyé par le funnel unique, tronqué au redimensionnement, absent du copier-coller, et couvert par l'annulation ; tests <span class="tt">Core</span> verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2233"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-043</span> (texture par instance) ; réutilise <span class="tt">EX-LVL-003</span> (format JSON), <span class="tt">EX-LVL-005</span> (version), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-EDIT-010</span> (réutilisation du modèle <span class="tt">Core</span>), <span class="tt">EX-NFR-011</span> (pas de dépendance <span class="tt">Core → HMI</span>). </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,6 +93,7 @@ $(function(){initNavTree('Ops_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="Ops_8h_source.html">AiSolver/Math/Autodiff/Ops.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &quot;<a class="el" href="Matmul_8h_source.html">AiSolver/Math/Matmul.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TensorOps_8h_source.html">AiSolver/Math/TensorOps.h</a>&quot;</code><br />
@@ -117,6 +118,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b42531407188a773b242f36fdd2fe4f" id="r_a9b42531407188a773b242f36fdd2fe4f"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a9b42531407188a773b242f36fdd2fe4f">aisolver::autodiff::multiplyScalar</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a, float scalar)</td></tr>
 <tr class="memitem:a39771f564bdaeff402130da6b9b506d1" id="r_a39771f564bdaeff402130da6b9b506d1"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a39771f564bdaeff402130da6b9b506d1">aisolver::autodiff::logOp</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a)</td></tr>
 <tr class="memdesc:a39771f564bdaeff402130da6b9b506d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logarithme différentiable (nommé <span class="tt"><a class="el" href="namespaceaisolver_1_1autodiff.html#a39771f564bdaeff402130da6b9b506d1" title="Logarithme différentiable (nommé logOp, pas log, même raison que tanhOp).">logOp</a></span>, pas <span class="tt">log</span>, même raison que <span class="tt"><a class="el" href="namespaceaisolver_1_1autodiff.html#a8f655daae75892c8e3d759a46bdb7b2d" title="Tangente hyperbolique différentiable (nommée tanhOp, pas tanh, pour ne pas ombrer std::tanh).">tanhOp</a></span>).  <br /></td></tr>
+<tr class="memitem:a2e4c349fa5a4246f9cb2e3ffd3a69ead" id="r_a2e4c349fa5a4246f9cb2e3ffd3a69ead"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a2e4c349fa5a4246f9cb2e3ffd3a69ead">aisolver::autodiff::sumAll</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a)</td></tr>
+<tr class="memdesc:a2e4c349fa5a4246f9cb2e3ffd3a69ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Somme de <b>tous</b> les elements, seule reduction differentiable du moteur.  <br /></td></tr>
 <tr class="memitem:a193d658d2a748f97b766ef185807fcca" id="r_a193d658d2a748f97b766ef185807fcca"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a193d658d2a748f97b766ef185807fcca">aisolver::autodiff::expOp</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a)</td></tr>
 <tr class="memitem:a25ff26681f28ff46c2b5705387ba2b6c" id="r_a25ff26681f28ff46c2b5705387ba2b6c"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a25ff26681f28ff46c2b5705387ba2b6c">aisolver::autodiff::selectIndex</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a, std::size_t index)</td></tr>
 <tr class="memitem:a496b0b55fb3ad641407f4b538f4b0a68" id="r_a496b0b55fb3ad641407f4b538f4b0a68"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1autodiff.html#a496b0b55fb3ad641407f4b538f4b0a68">aisolver::autodiff::minimum</a> (const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;a, const <a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a> &amp;b)</td></tr>

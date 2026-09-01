@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-02-tache-02-operations-differentiables.html
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2tache-02-operations-differentiables"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-02.html#md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2epic" title="Lot-Annexe/LOT-ANNEXE-02-moteur-autodiff/epic.md">LOT-ANNEXE-02</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math/Autodiff</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3496"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3533"></a>
 Contexte</h1>
 <p><span class="tt">Node</span>, <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span> et <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span> (TACHE-01) posent la mécanique générique mais ne fournissent encore aucune opération concrète. Cette tâche ajoute les cinq opérations différentiables nécessaires à une couche dense avec activation (<span class="tt">LOT-ANNEXE-03</span>) : addition, multiplication élément par élément, produit matriciel, <span class="tt">relu</span>, <span class="tt">tanh</span> — chacune construite <b>au-dessus</b> de <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span>, sans toucher à <span class="tt"><a class="el" href="Node_8h.html" title="Graphe de calcul dynamique de l&#39;autodiff maison (aisolver::autodiff::Node).">Node.h</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3497"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3534"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Ops_8h.html" title="Opérations différentiables de base (LOT-ANNEXE-02, TACHE-02) et complémentaires (LOT-ANNEXE-03,...">Source/AiSolver/Math/Autodiff/Ops.h</a></span></b> : fonctions libres dans <span class="tt">namespace <a class="el" href="namespaceaisolver_1_1autodiff.html">aisolver::autodiff</a></span>, chacune implémentée via <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span> (TACHE-01) plutôt qu'en manipulant <span class="tt">Node</span> directement.<ul>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3498"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3535"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Ops_8h.html" title="Opérations différentiables de base (LOT-ANNEXE-02, TACHE-02) et complémentaires (LOT-ANNEXE-03,...">Source/AiSolver/Math/Autodiff/Ops.h</a></span> (nouveau).</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__autodiff__ops_8cpp.html" title="Tests unitaires des opérations différentiables de base aisolver::autodiff (LOT-ANNEXE-02,...">Unit/AiSolver/Math/test_autodiff_ops.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__autodiff__ops_8cpp.html" title="Tests unitaires des opérations différentiables de base aisolver::autodiff (LOT-ANNEXE-02,...">Source/Test/Unit/AiSolver/Math/test_autodiff_ops.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3499"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3536"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Passe avant correcte</b> pour chacune des cinq opérations : sur des <span class="tt">Node</span> construits depuis des valeurs connues, <span class="tt">value</span> du résultat correspond au calcul de référence (fait à la main dans le test).</li>
@@ -130,7 +130,7 @@ Tests (obligatoires)</h1>
 <li><b>Composition d'opérations</b> : un petit graphe combinant <span class="tt">matmul</span> puis <span class="tt">add</span> (biais) puis <span class="tt">relu</span> (motif d'une couche dense complète, anticipant <span class="tt">LOT-ANNEXE-03</span>) calcule la bonne valeur en avant, sans qu'aucun appel à <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> ne soit nécessaire pour ce test (couvert par TACHE-03/04).</li>
 <li>Note : la <b>correction du gradient</b> de chacune des cinq opérations est vérifiée en TACHE-04 (gradient checking), pas ici — cette tâche ne teste que la passe avant et l'enregistrement correct des parents.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3500"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3537"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">tanhOp</span> (pas <span class="tt">tanh</span>)</b> : évite tout risque de masquage (<em>shadowing</em>) de <span class="tt">std::tanh</span> par <em>argument-dependent lookup</em> dans le code appelant qui utiliserait <span class="tt">using namespace
@@ -138,15 +138,15 @@ Points d'attention</h1>
 <li><b>Chaque opération construite via <span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a341e2a32fe6f9983d07cc808dad2b33d" title="Fabrique générique d&#39;opération différentiable à un seul parent.">unaryOp</a></span>/<span class="tt"><a class="el" href="test__autodiff__node_8cpp.html#a8800e5a0f9f06b709f57048733d6c5b6" title="Fabrique générique d&#39;opération différentiable à deux parents.">binaryOp</a></span>, jamais en instanciant <span class="tt">Node</span> directement</b> : vérifie concrètement la décision de cadrage de l'épic (fabrique générique) — une revue de code doit pouvoir constater qu'<span class="tt"><a class="el" href="Ops_8cpp.html">Ops.cpp</a></span> n'inclut aucune connaissance des détails internes de <span class="tt">Node</span> au-delà de l'interface publique de TACHE-01.</li>
 <li><b><span class="tt">relu</span>/<span class="tt">tanhOp</span> recalculent <span class="tt">outputValue</span> une seule fois</b> (dans <span class="tt">forward</span>), réutilisé tel quel dans la règle de dérivation (capturé par la fermeture) — ne pas recalculer <span class="tt">tanh(x)</span> une seconde fois dans la passe arrière, coût inutile et risque de léger écart numérique entre les deux calculs.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3501"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3538"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">add</span>, <span class="tt">multiply</span>, <span class="tt">matmul</span>, <span class="tt">relu</span>, <span class="tt">tanhOp</span> disponibles, testés (<span class="tt">ctest</span> vert) sur la passe avant et la composition ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3502"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3539"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-autodiff.html" title="Différentiation automatique et rétropropagation">Différentiation automatique et rétropropagation</a> (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode inverse), en particulier ses sections 2 (règle de la chaîne) et 9 (fabrique générique d'opérations).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3503"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3540"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-002</span> (déclarée dans <a class="el" href="lot-annexe-02.html#md_Lot-Annexe_2LOT-ANNEXE-02-moteur-autodiff_2epic" title="Lot-Annexe/LOT-ANNEXE-02-moteur-autodiff/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,9 +102,11 @@ $(function(){initNavTree('test__actor__critic__trainer_8cpp.html','',''); });
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Node_8h_source.html">AiSolver/Math/Autodiff/Node.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Adam_8h_source.html">AiSolver/Optim/Adam.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Sgd_8h_source.html">AiSolver/Optim/Sgd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingStatsRecorder_8h_source.html">AiSolver/Stats/TrainingStatsRecorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ActorCriticTrainer_8h_source.html">AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>&quot;</code><br />
@@ -114,8 +116,8 @@ $(function(){initNavTree('test__actor__critic__trainer_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac4af555388f3d4db12dc138a773c558c" id="r_ac4af555388f3d4db12dc138a773c558c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac4af555388f3d4db12dc138a773c558c">TEST</a> (ActorCriticTrainerTest, ConvergenceDuCritique)</td></tr>
-<tr class="memdesc:ac4af555388f3d4db12dc138a773c558c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur le niveau de contrôle trivial, l'erreur quadratique moyenne du critique (moyenne des <span class="tt">(valeur_t - retour_t)^2</span> sur l'épisode) diminue entre le début et la fin d'un run d'entraînement.  <br /></td></tr>
+<tr class="memitem:a272ea2100b23ce148e0b2bfedf3e8acf" id="r_a272ea2100b23ce148e0b2bfedf3e8acf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a272ea2100b23ce148e0b2bfedf3e8acf">TEST</a> (ActorCriticTrainerTest, ConvergenceDuCritiqueAPolitiqueFigee)</td></tr>
+<tr class="memdesc:a272ea2100b23ce148e0b2bfedf3e8acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">À <b>politique figée</b>, l'erreur quadratique du critique diminue au fil du run : il apprend bien à prédire le retour observé.  <br /></td></tr>
 <tr class="memitem:a799f3bb0d43e90a043302c8874ae0ce5" id="r_a799f3bb0d43e90a043302c8874ae0ce5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a799f3bb0d43e90a043302c8874ae0ce5">TEST</a> (ActorCriticTrainerTest, IndependanceDesDeuxOptimisations)</td></tr>
 <tr class="memdesc:a799f3bb0d43e90a043302c8874ae0ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une exécution où l'optimiseur du critique est volontairement figé (<span class="tt">updateCritic =
 false</span>) laisse néanmoins l'optimiseur de la politique continuer à produire des mises à jour normales : les deux réseaux/graphes sont bien séparés.  <br /></td></tr>
@@ -210,8 +212,8 @@ false</span>) laisse néanmoins l'optimiseur de la politique continuer à produi
 
 </div>
 </div>
-<a id="ac4af555388f3d4db12dc138a773c558c" name="ac4af555388f3d4db12dc138a773c558c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4af555388f3d4db12dc138a773c558c">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<a id="a272ea2100b23ce148e0b2bfedf3e8acf" name="a272ea2100b23ce148e0b2bfedf3e8acf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272ea2100b23ce148e0b2bfedf3e8acf">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,19 +226,19 @@ false</span>) laisse néanmoins l'optimiseur de la politique continuer à produi
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ConvergenceDuCritique</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">ConvergenceDuCritiqueAPolitiqueFigee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sur le niveau de contrôle trivial, l'erreur quadratique moyenne du critique (moyenne des <span class="tt">(valeur_t - retour_t)^2</span> sur l'épisode) diminue entre le début et la fin d'un run d'entraînement. </p>
-<p><b>Cas de test :</b> <b><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : convergence du critique.</b><br  />
+<p>À <b>politique figée</b>, l'erreur quadratique du critique diminue au fil du run : il apprend bien à prédire le retour observé. </p>
+<p>La politique est gelée (taux d'apprentissage nul) pour que la <b>cible</b> du critique le soit aussi. Mesurée sur un run ordinaire, l'erreur du critique peut croître alors même qu'il s'améliore : sa cible est le retour observé, dont l'amplitude augmente à mesure que la politique gagne plus souvent — l'erreur mesurerait alors le progrès de la politique, pas celui du critique. <b>Cas de test :</b> <b><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : à politique figée, le critique converge.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> sur le niveau trivial, <span class="tt">80</span> épisodes.<br  />
+ 1. Run de <span class="tt">80</span> épisodes, optimiseur de la politique à taux nul (politique inchangée).<br  />
 2. Comparer l'erreur quadratique moyenne du critique des 10 premiers et des 10 derniers épisodes.<br  />
- <b>Resultat attendu :</b> Erreur moyenne des 10 derniers épisodes strictement inférieure à celle des 10 premiers. </p>
+ <b>Resultat attendu :</b> Erreur moyenne des 10 derniers épisodes strictement inférieure à celle des 10 premiers ; les poids de la politique sont restés identiques. </p>
 
 </div>
 </div>

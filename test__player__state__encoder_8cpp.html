@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,7 +95,8 @@ $(function(){initNavTree('test__player__state__encoder_8cpp.html','',''); });
 
 <p>Tests unitaires de <a class="el" href="classaisolver_1_1PlayerStateEncoder.html" title="Encode la cinématique propre du personnage (vitesse, contact, minuteries, budgets) en un vecteur de t...">aisolver::PlayerStateEncoder</a> (LOT-ANNEXE-06, TACHE-02).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="PlayerStateEncoder_8h_source.html">AiSolver/Env/PlayerStateEncoder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -111,12 +112,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a187711165c5a7f6e81a6f163406af9fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les minuteries fraichement apparues (toutes a <span class="tt">0.0f</span>, comme apres <span class="tt">reset</span>) encodent des composants de timer tous a <span class="tt">0.0f</span>.  <br /></td></tr>
 <tr class="memitem:a2ab3a3b15009ee508ad7895264826ef2" id="r_a2ab3a3b15009ee508ad7895264826ef2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2ab3a3b15009ee508ad7895264826ef2">TEST</a> (PlayerStateEncoderTest, EncodageDeterministe)</td></tr>
 <tr class="memdesc:a2ab3a3b15009ee508ad7895264826ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux appels <span class="tt">encode</span> sur le meme <span class="tt">Player</span>/<span class="tt">Velocity</span> produisent des vecteurs identiques.  <br /></td></tr>
+<tr class="memitem:a11da9c45c1af3861af2abd0c0bd6508f" id="r_a11da9c45c1af3861af2abd0c0bd6508f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a11da9c45c1af3861af2abd0c0bd6508f">TEST</a> (PlayerStateEncoderTest, BudgetNulProduitZeroPasNaN)</td></tr>
+<tr class="memdesc:a11da9c45c1af3861af2abd0c0bd6508f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un budget <b>nul</b> produit <span class="tt">0</span>, jamais <span class="tt">NaN</span> — sept niveaux livrés en déclarent un.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <a class="el" href="classaisolver_1_1PlayerStateEncoder.html" title="Encode la cinématique propre du personnage (vitesse, contact, minuteries, budgets) en un vecteur de t...">aisolver::PlayerStateEncoder</a> (LOT-ANNEXE-06, TACHE-02). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a6c8af154c1d73590e8f42a4b2bec6500" name="a6c8af154c1d73590e8f42a4b2bec6500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c8af154c1d73590e8f42a4b2bec6500">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8af154c1d73590e8f42a4b2bec6500">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +149,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a388d262d41a0f91771f59a6955a6a7ec" name="a388d262d41a0f91771f59a6955a6a7ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a388d262d41a0f91771f59a6955a6a7ec">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a388d262d41a0f91771f59a6955a6a7ec">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,8 +178,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a11da9c45c1af3861af2abd0c0bd6508f" name="a11da9c45c1af3861af2abd0c0bd6508f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11da9c45c1af3861af2abd0c0bd6508f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerStateEncoderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BudgetNulProduitZeroPasNaN</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un budget <b>nul</b> produit <span class="tt">0</span>, jamais <span class="tt">NaN</span> — sept niveaux livrés en déclarent un. </p>
+<p><span class="tt">0 / 0</span> vaut <span class="tt">NaN</span>, et un seul <span class="tt">NaN</span> dans le vecteur d'observation contamine toute la propagation avant : <span class="tt">tanh(NaN)</span>, puis un <span class="tt">softmax</span> entièrement <span class="tt">NaN</span>, dont le tirage d'action retombe invariablement sur la dernière action de l'espace. L'agent rejouait alors le même épisode à chaque fois — mesure avant correction : <b>2 trajectoires distinctes sur 1 500 épisodes</b> sur chacun des niveaux concernés, contre plusieurs centaines partout ailleurs. <b>Cas de test :</b> <b>Budget nul : composante à zéro, jamais <span class="tt">NaN</span>.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Encoder l'état joueur sur un niveau dont le budget de dash vaut <span class="tt">0</span>.<br  />
+2. Encoder sur un niveau dont le budget de saut vaut <span class="tt">0</span>.<br  />
+ <b>Resultat attendu :</b> Les deux composantes de budget sont finies et valent <span class="tt">0</span>. </p>
+
+</div>
+</div>
 <a id="a2ab3a3b15009ee508ad7895264826ef2" name="a2ab3a3b15009ee508ad7895264826ef2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab3a3b15009ee508ad7895264826ef2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab3a3b15009ee508ad7895264826ef2">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,7 +238,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4b9b41ae76b09cadb63be8af731e4f31" name="a4b9b41ae76b09cadb63be8af731e4f31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b9b41ae76b09cadb63be8af731e4f31">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b9b41ae76b09cadb63be8af731e4f31">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +269,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a187711165c5a7f6e81a6f163406af9fc" name="a187711165c5a7f6e81a6f163406af9fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a187711165c5a7f6e81a6f163406af9fc">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a187711165c5a7f6e81a6f163406af9fc">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

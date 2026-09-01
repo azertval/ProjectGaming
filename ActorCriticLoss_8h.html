@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,12 +93,13 @@ $(function(){initNavTree('ActorCriticLoss_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Perte de politique acteur-critique : <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">LOT-ANNEXE-12</span>) où le poids par pas est l'avantage plutôt que le retour brut (<span class="tt">LOT-ANNEXE-13</span>, TACHE-02, <span class="tt">EX-IA-014</span>).  
+<p>Perte de politique acteur-critique : <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">LOT-ANNEXE-12</span>) où le poids par pas est l'avantage plutôt que le retour brut (<span class="tt">LOT-ANNEXE-13</span>, TACHE-02, <span class="tt">EX-IA-014</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="Node_8h_source.html">AiSolver/Math/Autodiff/Node.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Network_8h_source.html">AiSolver/Nn/Network.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Trajectory_8h_source.html">AiSolver/Training/PolicyGradient/Trajectory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PolicyGradientLoss_8h_source.html">AiSolver/Training/PolicyGradientLoss.h</a>&quot;</code><br />
 </div>
 <p><a href="ActorCriticLoss_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -109,11 +110,11 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6267d02ff25e0644b4e1c68c985f7aee" id="r_a6267d02ff25e0644b4e1c68c985f7aee"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#a6267d02ff25e0644b4e1c68c985f7aee">aisolver::training::computeActorCriticLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages)</td></tr>
-<tr class="memdesc:a6267d02ff25e0644b4e1c68c985f7aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
+<tr class="memitem:a7c018bcd482518cdc3b7eb83459c1e69" id="r_a7c018bcd482518cdc3b7eb83459c1e69"><td class="memItemLeft"><a class="el" href="namespaceaisolver_1_1autodiff.html#a15b58de0bd40ab5a4ca686df4f5edfec">autodiff::NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#a7c018bcd482518cdc3b7eb83459c1e69">aisolver::training::computeActorCriticLoss</a> (<a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, const std::vector&lt; float &gt; &amp;advantages, float entropyCoefficient=<a class="el" href="namespaceaisolver_1_1training.html#aa6d101f6960c808ac6c354fa6ea477ea">DEFAULT_ENTROPY_COEFFICIENT</a>)</td></tr>
+<tr class="memdesc:a7c018bcd482518cdc3b7eb83459c1e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le graphe <span class="tt">mean_t(-log(pi(a_t|s_t)) * advantage_t)</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Perte de politique acteur-critique : <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a313ce7ace0a798aef9a2041d24a50efb" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">LOT-ANNEXE-12</span>) où le poids par pas est l'avantage plutôt que le retour brut (<span class="tt">LOT-ANNEXE-13</span>, TACHE-02, <span class="tt">EX-IA-014</span>). </p>
+<div class="textblock"><p>Perte de politique acteur-critique : <span class="tt"><a class="el" href="test__reinforce__loss_8cpp.html#a327febb8ee5cee2fca3aaf869ac8af95" title="Construit le graphe de la perte REINFORCE moyenne sur l&#39;épisode : mean_t(-log(pi(a_t|s_t)) * G_t).">computeReinforceLoss</a></span> (<span class="tt">LOT-ANNEXE-12</span>) où le poids par pas est l'avantage plutôt que le retour brut (<span class="tt">LOT-ANNEXE-13</span>, TACHE-02, <span class="tt">EX-IA-014</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

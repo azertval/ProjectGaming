@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -113,7 +113,9 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acbe895ec9eb38173c402a0b7d0e14f2b" id="r_acbe895ec9eb38173c402a0b7d0e14f2b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acbe895ec9eb38173c402a0b7d0e14f2b">TEST</a> (TrajectoryCollectorTest, LongueurCoherenteAvecTimeout)</td></tr>
-<tr class="memdesc:acbe895ec9eb38173c402a0b7d0e14f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un épisode qui n'atteint jamais l'issue (<span class="tt">TimedOut</span>) produit une trajectoire de longueur exactement égale au budget de pas dur configuré.  <br /></td></tr>
+<tr class="memdesc:acbe895ec9eb38173c402a0b7d0e14f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un épisode qui n'atteint jamais l'issue (<span class="tt">TimedOut</span>) produit une trajectoire de longueur exactement égale au budget de pas dur, quand chaque décision couvre une seule image.  <br /></td></tr>
+<tr class="memitem:a79de8f61e072760e1263170267bd1a7d" id="r_a79de8f61e072760e1263170267bd1a7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a79de8f61e072760e1263170267bd1a7d">TEST</a> (TrajectoryCollectorTest, RepetitionDActionDiviseLeNombreDeDecisions)</td></tr>
+<tr class="memdesc:a79de8f61e072760e1263170267bd1a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action répétée <span class="tt">K</span> images produit <span class="tt">K</span> fois moins de pas de trajectoire, sans changer le nombre d'images simulées.  <br /></td></tr>
 <tr class="memitem:a0b724d1a823ae8719bfefb40005a1695" id="r_a0b724d1a823ae8719bfefb40005a1695"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0b724d1a823ae8719bfefb40005a1695">TEST</a> (TrajectoryCollectorTest, LongueurCoherenteAvecVictoireRapide)</td></tr>
 <tr class="memdesc:a0b724d1a823ae8719bfefb40005a1695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un épisode qui se résout avant le plafond produit une trajectoire strictement plus courte que le budget de pas dur.  <br /></td></tr>
 <tr class="memitem:a05f1cbeb5e3291b5ec20837fd6df5318" id="r_a05f1cbeb5e3291b5ec20837fd6df5318"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05f1cbeb5e3291b5ec20837fd6df5318">TEST</a> (TrajectoryCollectorTest, LogProbabilitesValides)</td></tr>
@@ -194,7 +196,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a081b42d6d1a1d0078b046fae78299a11" name="a081b42d6d1a1d0078b046fae78299a11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a081b42d6d1a1d0078b046fae78299a11">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a081b42d6d1a1d0078b046fae78299a11">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +226,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aec5488a3bdb3fa2bb01f5f8bf69d1ffd" name="aec5488a3bdb3fa2bb01f5f8bf69d1ffd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec5488a3bdb3fa2bb01f5f8bf69d1ffd">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5488a3bdb3fa2bb01f5f8bf69d1ffd">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +256,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a05f1cbeb5e3291b5ec20837fd6df5318" name="a05f1cbeb5e3291b5ec20837fd6df5318"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05f1cbeb5e3291b5ec20837fd6df5318">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05f1cbeb5e3291b5ec20837fd6df5318">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +286,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acbe895ec9eb38173c402a0b7d0e14f2b" name="acbe895ec9eb38173c402a0b7d0e14f2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbe895ec9eb38173c402a0b7d0e14f2b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbe895ec9eb38173c402a0b7d0e14f2b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,19 +304,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un épisode qui n'atteint jamais l'issue (<span class="tt">TimedOut</span>) produit une trajectoire de longueur exactement égale au budget de pas dur configuré. </p>
+<p>Un épisode qui n'atteint jamais l'issue (<span class="tt">TimedOut</span>) produit une trajectoire de longueur exactement égale au budget de pas dur, quand chaque décision couvre une seule image. </p>
 <p><b>Cas de test :</b> <b><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a> : longueur cohérente avec un timeout.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Politique à action constante « ne rien faire ».<br  />
-2. Collecter un épisode sur le niveau trivial, budget de pas réduit.<br  />
+2. Collecter un épisode sur le niveau trivial, budget de pas réduit, <b>une image par décision</b>.<br  />
  <b>Resultat attendu :</b> <span class="tt">trajectory.status == TimedOut</span>, <span class="tt">trajectory.steps.size() == maxSteps</span>. </p>
 
 </div>
 </div>
 <a id="a0b724d1a823ae8719bfefb40005a1695" name="a0b724d1a823ae8719bfefb40005a1695"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b724d1a823ae8719bfefb40005a1695">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b724d1a823ae8719bfefb40005a1695">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,6 +342,36 @@ Functions</h2></td></tr>
  1. Politique à action constante « avancer à droite ».<br  />
 2. Collecter un épisode sur le niveau trivial (résoluble en 1 pas).<br  />
  <b>Resultat attendu :</b> <span class="tt">trajectory.status == Won</span>, <span class="tt">trajectory.steps.size() &lt; maxSteps</span>. </p>
+
+</div>
+</div>
+<a id="a79de8f61e072760e1263170267bd1a7d" name="a79de8f61e072760e1263170267bd1a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79de8f61e072760e1263170267bd1a7d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TrajectoryCollectorTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RepetitionDActionDiviseLeNombreDeDecisions</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une action répétée <span class="tt">K</span> images produit <span class="tt">K</span> fois moins de pas de trajectoire, sans changer le nombre d'images simulées. </p>
+<p>Un pas de trajectoire est une <b>décision</b>, pas une image : c'est sur la décision que porte le gradient, et sa récompense est la somme de celles des images qu'elle recouvre. Sans cette distinction, répéter une action multiplierait le poids de chaque décision par <span class="tt">K</span> dans la perte. <b>Cas de test :</b> <b><a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a> : la répétition d'action divise le nombre de décisions.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Collecter un épisode à une image par décision.<br  />
+2. Collecter le même épisode à quatre images par décision.<br  />
+ <b>Resultat attendu :</b> Le second compte le quart des pas du premier (arrondi au supérieur), et l'épisode couvre le même budget d'images. </p>
 
 </div>
 </div>

@@ -1,5 +1,6 @@
 var structEvolutionaryConfig =
 [
+    [ "crossoverRate", "structEvolutionaryConfig.html#acdff02801f95633dd454ed518e4a9659", null ],
     [ "mutationRate", "structEvolutionaryConfig.html#ab7abb3010a084219fec175b854943dab", null ],
     [ "mutationStrength", "structEvolutionaryConfig.html#a0b02bbab1cc796c976da9e782573a8b5", null ],
     [ "populationSize", "structEvolutionaryConfig.html#a40b020cf25b9e6dff08a4ce07a9e5153", null ],

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,6 +96,8 @@ $(function(){initNavTree('ModelEvaluation_8h.html','',''); });
 <p>Évaluation d'un modèle entraîné depuis l'onglet Validation &amp; sauvegarde (<span class="tt">LOT-ANNEXE-21</span>, <span class="tt">EX-IA-022</span>) : seule fonction libre de <span class="tt">HMI/Ai</span> en dehors de <span class="tt">TrainingWorker</span> — même portée d'amendement documentée dans l'epic du lot (<span class="tt">HMI/Ai</span> uniquement, jamais <span class="tt">HMI/Interface</span> directement).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 </div>
 <p><a href="ModelEvaluation_8h_source.html">Go to the source code of this file.</a></p>
@@ -104,19 +106,33 @@ $(function(){initNavTree('ModelEvaluation_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AEvaluationOutcome" id="r_hmi_3A_3AEvaluationOutcome"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EvaluationOutcome.html">hmi::EvaluationOutcome</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">aisolver::eval::BenchmarkResult</a></span> en types simples (<span class="tt">HMI/Interface</span> n'a pas besoin de connaître le type <span class="tt">AiSolver</span> sous-jacent).  <a href="structhmi_1_1EvaluationOutcome.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AEvaluationRequest" id="r_hmi_3A_3AEvaluationRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EvaluationRequest.html">hmi::EvaluationRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkConfig.html">aisolver::eval::BenchmarkConfig</a></span> en types simples ; défauts identiques aux siens, pour qu'une évaluation lancée sans rien régler mesure exactement ce que mesure <span class="tt">aisolver-cli evaluate</span>.  <a href="structhmi_1_1EvaluationRequest.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a3f9afcb11487e1516830d085f253ec47" id="r_a3f9afcb11487e1516830d085f253ec47"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47">hmi::ReplayExportOutcome</a> { <a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47a0001316ad0c7eb0f1a8e298fd6e5d070">hmi::Exported</a>
+, <a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47a13c997c75f537317f9f17c882c9cab88">hmi::NotSolved</a>
+, <a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47ad7c8c85bf79bbe1b7188497c32c3b0ca">hmi::Failed</a>
+ }</td></tr>
+<tr class="memdesc:a3f9afcb11487e1516830d085f253ec47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue d'un export de rejeu, distinguant les deux échecs que l'écran doit savoir expliquer différemment.  <a href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae0c56dcacd78f6eebfb767e631fabb3" id="r_aae0c56dcacd78f6eebfb767e631fabb3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae0c56dcacd78f6eebfb767e631fabb3">hmi::evaluateModel</a> (const QString &amp;modelPath, const QString &amp;levelPath, const QString &amp;algorithmId, int repetitions)</td></tr>
-<tr class="memdesc:aae0c56dcacd78f6eebfb767e631fabb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle <span class="tt">modelPath</span> (topologie de <span class="tt">algorithmId</span>) sur <span class="tt">levelPath</span>, <span class="tt">repetitions</span> fois, en mode Argmax.  <br /></td></tr>
+<tr class="memitem:aae645d4a985dd96c749072e80121403f" id="r_aae645d4a985dd96c749072e80121403f"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae645d4a985dd96c749072e80121403f">hmi::evaluateModel</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const std::function&lt; bool(int completed, int total)&gt; &amp;onRepetition={})</td></tr>
+<tr class="memdesc:aae645d4a985dd96c749072e80121403f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évalue le modèle de <code class="param">request</code> sur son niveau, selon ses répétitions et son mode de décodage.  <br /></td></tr>
+<tr class="memitem:a5e074f6957dad14226a475687f0d2d43" id="r_a5e074f6957dad14226a475687f0d2d43"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5e074f6957dad14226a475687f0d2d43">hmi::writeEvaluationReport</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const <a class="el" href="structhmi_1_1EvaluationOutcome.html">EvaluationOutcome</a> &amp;outcome, const QString &amp;csvPath)</td></tr>
+<tr class="memdesc:a5e074f6957dad14226a475687f0d2d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit le rapport CSV d'une évaluation dans <code class="param">csvPath</code>, au format de <span class="tt">aisolver-cli evaluate --report</span>.  <br /></td></tr>
+<tr class="memitem:a63b3f8f3e1432cfdcf11bf8528a755df" id="r_a63b3f8f3e1432cfdcf11bf8528a755df"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a3f9afcb11487e1516830d085f253ec47">ReplayExportOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a63b3f8f3e1432cfdcf11bf8528a755df">hmi::exportModelReplay</a> (const <a class="el" href="structhmi_1_1EvaluationRequest.html">EvaluationRequest</a> &amp;request, const QString &amp;outputPath)</td></tr>
+<tr class="memdesc:a63b3f8f3e1432cfdcf11bf8528a755df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <code class="param">modelPath</code> en mode <span class="tt">Argmax</span> sur <code class="param">levelPath</code> et écrit le rejeu dans <code class="param">outputPath</code> — équivalent exact de <span class="tt">aisolver-cli export-replay</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Évaluation d'un modèle entraîné depuis l'onglet Validation &amp; sauvegarde (<span class="tt">LOT-ANNEXE-21</span>, <span class="tt">EX-IA-022</span>) : seule fonction libre de <span class="tt">HMI/Ai</span> en dehors de <span class="tt">TrainingWorker</span> — même portée d'amendement documentée dans l'epic du lot (<span class="tt">HMI/Ai</span> uniquement, jamais <span class="tt">HMI/Interface</span> directement). </p>
-<p>Délègue à <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>) — même résultat qu'un appel direct dans les mêmes conditions (répétitions, décodage Argmax), critère hérité de <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">aisolver::cli::runEvaluate</a></span> (<span class="tt">LOT-ANNEXE-19</span>). </p>
+<p>Délègue à <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>) — même résultat qu'un appel direct dans les mêmes conditions (répétitions, décodage Argmax), critère hérité de <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">aisolver::cli::runEvaluate</a></span> (<span class="tt">LOT-ANNEXE-19</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

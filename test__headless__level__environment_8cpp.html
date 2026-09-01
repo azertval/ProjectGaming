@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -99,6 +99,7 @@ $(function(){initNavTree('test__headless__level__environment_8cpp.html','',''); 
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="StepBudget_8h_source.html">AiSolver/Env/StepBudget.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Assert_8h_source.html">Core/Diagnostics/Assert.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelOutcome_8h_source.html">Core/Levels/LevelOutcome.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerInput_8h_source.html">Core/Physics/PlayerInput.h</a>&quot;</code><br />
@@ -126,17 +127,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a07a2655cf13c5ef8ebcd4f8d3163da9d" id="r_a07a2655cf13c5ef8ebcd4f8d3163da9d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a07a2655cf13c5ef8ebcd4f8d3163da9d">TEST</a> (HeadlessLevelEnvironmentTest, AppelAuDelaDuBudgetDeclencheAssertion)</td></tr>
 <tr class="memdesc:a07a2655cf13c5ef8ebcd4f8d3163da9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appeler <span class="tt">step</span> au-dela du budget de pas declenche l'assertion de programmation.  <br /></td></tr>
 <tr class="memitem:a87f177667dc90609c1e036d7318e4570" id="r_a87f177667dc90609c1e036d7318e4570"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a87f177667dc90609c1e036d7318e4570">TEST</a> (HeadlessLevelEnvironmentTest, ProgressionDetecteeEnAvancant)</td></tr>
-<tr class="memdesc:a87f177667dc90609c1e036d7318e4570"><td class="mdescLeft">&#160;</td><td class="mdescRight">En avancant vers la sortie, <span class="tt">stepsSinceProgress</span> croit moins vite qu'a l'arret : la distance a la sortie n'ameliore pas <span class="tt">bestDistanceToExit</span> de plus de <span class="tt">progressEpsilon</span> a CHAQUE pas (mouvement lent face au seuil), mais bien plus souvent qu'immobile.  <br /></td></tr>
+<tr class="memdesc:a87f177667dc90609c1e036d7318e4570"><td class="mdescLeft">&#160;</td><td class="mdescRight">En avancant vers la sortie, <span class="tt">stepsSinceProgress</span> croit moins vite qu'a l'arret : la distance de grille n'ameliore pas <span class="tt">bestObjectiveDistance</span> a CHAQUE pas (une case demande vingt pas de marche), mais bien plus souvent qu'immobile.  <br /></td></tr>
 <tr class="memitem:abe95ceeaab360972ace31a0f5b9351f1" id="r_abe95ceeaab360972ace31a0f5b9351f1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abe95ceeaab360972ace31a0f5b9351f1">TEST</a> (HeadlessLevelEnvironmentTest, BlocageDetecteSansMouvement)</td></tr>
 <tr class="memdesc:abe95ceeaab360972ace31a0f5b9351f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans deplacement, <span class="tt">stepsSinceProgress</span> croit de facon monotone, sans se reinitialiser.  <br /></td></tr>
 <tr class="memitem:abed3145f9d5131403fc215322781ff35" id="r_abed3145f9d5131403fc215322781ff35"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abed3145f9d5131403fc215322781ff35">TEST</a> (HeadlessLevelEnvironmentTest, ResetRemetLesCompteursAZero)</td></tr>
-<tr class="memdesc:abed3145f9d5131403fc215322781ff35"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">reset</span> remet <span class="tt">bestDistanceToExit</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial, meme apres un run precedent sur le meme niveau.  <br /></td></tr>
+<tr class="memdesc:abed3145f9d5131403fc215322781ff35"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">reset</span> remet <span class="tt">bestObjectiveDistance</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial, meme apres un run precedent sur le meme niveau.  <br /></td></tr>
+<tr class="memitem:ae3d2f52be097b28979a6f4ecae305b4f" id="r_ae3d2f52be097b28979a6f4ecae305b4f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae3d2f52be097b28979a6f4ecae305b4f">TEST</a> (HeadlessLevelEnvironmentTest, ProgressionMesureeSurObjectifImmediatPasSurLaSortie)</td></tr>
+<tr class="memdesc:ae3d2f52be097b28979a6f4ecae305b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur un niveau dont la solution s'eloigne de la sortie, un joueur qui progresse vraiment n'est jamais declare bloque &ndash; la regression qui rendait <span class="tt">demo-final.json</span> inapprenable.  <br /></td></tr>
+<tr class="memitem:ac1d407fc37d59cfd4782ea18afd579a5" id="r_ac1d407fc37d59cfd4782ea18afd579a5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac1d407fc37d59cfd4782ea18afd579a5">TEST</a> (HeadlessLevelEnvironmentTest, BudgetEtSeuilDerivesDuNiveau)</td></tr>
+<tr class="memdesc:ac1d407fc37d59cfd4782ea18afd579a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget de pas et le seuil de blocage sont derives du niveau, et une valeur explicite les remplace.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">aisolver::HeadlessLevelEnvironment</a> (LOT-ANNEXE-05). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a07a2655cf13c5ef8ebcd4f8d3163da9d" name="a07a2655cf13c5ef8ebcd4f8d3163da9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07a2655cf13c5ef8ebcd4f8d3163da9d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a2655cf13c5ef8ebcd4f8d3163da9d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +171,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe95ceeaab360972ace31a0f5b9351f1" name="abe95ceeaab360972ace31a0f5b9351f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe95ceeaab360972ace31a0f5b9351f1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe95ceeaab360972ace31a0f5b9351f1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +201,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af77a3f6038720386c1898b7a89d0f470" name="af77a3f6038720386c1898b7a89d0f470"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af77a3f6038720386c1898b7a89d0f470">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af77a3f6038720386c1898b7a89d0f470">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,8 +230,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac1d407fc37d59cfd4782ea18afd579a5" name="ac1d407fc37d59cfd4782ea18afd579a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1d407fc37d59cfd4782ea18afd579a5">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">HeadlessLevelEnvironmentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BudgetEtSeuilDerivesDuNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le budget de pas et le seuil de blocage sont derives du niveau, et une valeur explicite les remplace. </p>
+<p><b>Cas de test :</b> <b>Budget et seuil derives du niveau, surchargeables.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. <span class="tt">reset("demo-final.json")</span> avec une configuration par defaut, relever <span class="tt">stepBudget()</span>.<br  />
+2. <span class="tt">reset("demo-deplacement.json")</span> sur un environnement neuf, meme relevé.<br  />
+3. Construire un environnement a <span class="tt">maxSteps</span>/<span class="tt">stuckThreshold</span> explicites.<br  />
+ <b>Resultat attendu :</b> Le budget de <span class="tt">demo-final.json</span> depasse celui de <span class="tt">demo-deplacement.json</span> ; le seuil vaut <span class="tt">stuckThresholdForBudget(budget)</span> ; une valeur explicite est respectee telle quelle. </p>
+
+</div>
+</div>
 <a id="ab0a62e1083bc6731a841f1ec7ccdcc0b" name="ab0a62e1083bc6731a841f1ec7ccdcc0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0a62e1083bc6731a841f1ec7ccdcc0b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a62e1083bc6731a841f1ec7ccdcc0b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +292,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9248297f72b07f85f24de566009b1d30" name="a9248297f72b07f85f24de566009b1d30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9248297f72b07f85f24de566009b1d30">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9248297f72b07f85f24de566009b1d30">&#9670;&#160;</a></span>TEST() <span class="overload">[6/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +322,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa309c860257f0dcd34ba48f0d0e7fef7" name="aa309c860257f0dcd34ba48f0d0e7fef7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa309c860257f0dcd34ba48f0d0e7fef7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa309c860257f0dcd34ba48f0d0e7fef7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +352,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac8ea210e12e66b18c7485ee78969158e" name="ac8ea210e12e66b18c7485ee78969158e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8ea210e12e66b18c7485ee78969158e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ea210e12e66b18c7485ee78969158e">&#9670;&#160;</a></span>TEST() <span class="overload">[8/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +383,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a87f177667dc90609c1e036d7318e4570" name="a87f177667dc90609c1e036d7318e4570"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87f177667dc90609c1e036d7318e4570">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a87f177667dc90609c1e036d7318e4570">&#9670;&#160;</a></span>TEST() <span class="overload">[9/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,7 +401,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>En avancant vers la sortie, <span class="tt">stepsSinceProgress</span> croit moins vite qu'a l'arret : la distance a la sortie n'ameliore pas <span class="tt">bestDistanceToExit</span> de plus de <span class="tt">progressEpsilon</span> a CHAQUE pas (mouvement lent face au seuil), mais bien plus souvent qu'immobile. </p>
+<p>En avancant vers la sortie, <span class="tt">stepsSinceProgress</span> croit moins vite qu'a l'arret : la distance de grille n'ameliore pas <span class="tt">bestObjectiveDistance</span> a CHAQUE pas (une case demande vingt pas de marche), mais bien plus souvent qu'immobile. </p>
 <p><b>Cas de test :</b> <b>En avancant vers la sortie, <span class="tt">stepsSinceProgress</span> croit moins vite qu'a l'arret.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Majeur<br  />
@@ -376,8 +412,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae3d2f52be097b28979a6f4ecae305b4f" name="ae3d2f52be097b28979a6f4ecae305b4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d2f52be097b28979a6f4ecae305b4f">&#9670;&#160;</a></span>TEST() <span class="overload">[10/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">HeadlessLevelEnvironmentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ProgressionMesureeSurObjectifImmediatPasSurLaSortie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sur un niveau dont la solution s'eloigne de la sortie, un joueur qui progresse vraiment n'est jamais declare bloque &ndash; la regression qui rendait <span class="tt">demo-final.json</span> inapprenable. </p>
+<p><b>Cas de test :</b> <b>Progression mesuree sur l'objectif immediat, pas a vol d'oiseau vers la sortie.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Env<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. <span class="tt">reset("demo-final.json")</span> : l'entree (1,12) est a trois unites de la sortie (5,15), mais la sortie est scellee par trois portes verrouillees dont la cle est a l'oppose du niveau.<br  />
+2. Marcher a droite jusqu'a la cle <span class="tt">s1</span> (5,12), puis revenir vers l'entree et monter le puits &ndash; un itineraire qui EL0IGNE de la sortie a vol d'oiseau tout en rapprochant de l'objectif immediat.<br  />
+ <b>Resultat attendu :</b> <span class="tt">stepsSinceProgress()</span> est remis a zero pendant la montee : la distance mesuree est celle du champ d'objectif, jamais la distance euclidienne a la sortie. </p>
+
+</div>
+</div>
 <a id="a098cd399717c021e0515121dd717f903" name="a098cd399717c021e0515121dd717f903"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a098cd399717c021e0515121dd717f903">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a098cd399717c021e0515121dd717f903">&#9670;&#160;</a></span>TEST() <span class="overload">[11/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +472,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abed3145f9d5131403fc215322781ff35" name="abed3145f9d5131403fc215322781ff35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abed3145f9d5131403fc215322781ff35">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abed3145f9d5131403fc215322781ff35">&#9670;&#160;</a></span>TEST() <span class="overload">[12/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,20 +490,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">reset</span> remet <span class="tt">bestDistanceToExit</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial, meme apres un run precedent sur le meme niveau. </p>
-<p><b>Cas de test :</b> <b><span class="tt">reset</span> remet <span class="tt">bestDistanceToExit</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial.</b><br  />
+<p><span class="tt">reset</span> remet <span class="tt">bestObjectiveDistance</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial, meme apres un run precedent sur le meme niveau. </p>
+<p><b>Cas de test :</b> <b><span class="tt">reset</span> remet <span class="tt">bestObjectiveDistance</span>/<span class="tt">stepsSinceProgress</span> a leur etat initial.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. <span class="tt">reset</span> puis 30 pas en marchant a droite, releve <span class="tt">bestDistanceToExit()</span>.<br  />
+ 1. <span class="tt">reset</span> puis 30 pas en marchant a droite, releve <span class="tt">bestObjectiveDistance()</span>.<br  />
 2. <span class="tt">reset</span> a nouveau sur le meme niveau (sans pas), releve les compteurs.<br  />
 3. <span class="tt">reset</span> une troisieme fois, compare a l'etat frais du second <span class="tt">reset</span>.<br  />
- <b>Resultat attendu :</b> <span class="tt">stepsSinceProgress()</span> revient a zero apres chaque <span class="tt">reset</span> ; <span class="tt">bestDistanceToExit()</span> fraichement reinitialise est identique d'un <span class="tt">reset</span> a l'autre sur le meme niveau. </p>
+ <b>Resultat attendu :</b> <span class="tt">stepsSinceProgress()</span> revient a zero apres chaque <span class="tt">reset</span> ; <span class="tt">bestObjectiveDistance()</span> fraichement reinitialise est identique d'un <span class="tt">reset</span> a l'autre sur le meme niveau. </p>
 
 </div>
 </div>
 <a id="ad1eddf3ccd23f6473dc568b30bc6e89b" name="ad1eddf3ccd23f6473dc568b30bc6e89b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1eddf3ccd23f6473dc568b30bc6e89b">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1eddf3ccd23f6473dc568b30bc6e89b">&#9670;&#160;</a></span>TEST() <span class="overload">[13/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,7 +533,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6397ba1961041f8f2c6f13b05bba76d7" name="a6397ba1961041f8f2c6f13b05bba76d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6397ba1961041f8f2c6f13b05bba76d7">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6397ba1961041f8f2c6f13b05bba76d7">&#9670;&#160;</a></span>TEST() <span class="overload">[14/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,7 +563,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8a0f2642ac4f002e3ce9ce72d1471bb" name="aa8a0f2642ac4f002e3ce9ce72d1471bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8a0f2642ac4f002e3ce9ce72d1471bb">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a0f2642ac4f002e3ce9ce72d1471bb">&#9670;&#160;</a></span>TEST() <span class="overload">[15/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

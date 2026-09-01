@@ -70,9 +70,8 @@ var searchData=
   ['previousactive_67',['previousActive',['../structhmi_1_1MechanismVisualState.html#a638ee6429d408f4770bf09dcc712611c',1,'hmi::MechanismVisualState']]],
   ['previousbox_68',['previousBox',['../structcore_1_1PlatformSample.html#aa6d34204468e0cc66de508969788fc03',1,'core::PlatformSample']]],
   ['previousmovingaverage_5f_69',['previousMovingAverage_',['../classaisolver_1_1TrainingStatsRecorder.html#a5f79399dd6ebd4f1c631e7f81203b454',1,'aisolver::TrainingStatsRecorder::previousMovingAverage_'],['../classTrainingStatsRecorder.html#a5f79399dd6ebd4f1c631e7f81203b454',1,'TrainingStatsRecorder::previousMovingAverage_']]],
-  ['progressepsilon_70',['progressEpsilon',['../structaisolver_1_1EnvironmentConfig.html#ab55bd465d71dd5e2ce8780d83990626d',1,'aisolver::EnvironmentConfig::progressEpsilon'],['../structEnvironmentConfig.html#ab55bd465d71dd5e2ce8780d83990626d',1,'EnvironmentConfig::progressEpsilon']]],
-  ['progressscale_71',['progressScale',['../structaisolver_1_1RewardConfig.html#aa50ac87afac5b151832f9457e59c233b',1,'aisolver::RewardConfig']]],
-  ['pushmomentumvelocityx_72',['pushMomentumVelocityX',['../structcore_1_1Player.html#a14d968f4c041f1671557db26a08a425c',1,'core::Player']]],
-  ['pushmomentumwindowtime_73',['pushMomentumWindowTime',['../structcore_1_1PhysicsConfig.html#a8bce708b0e3cf525d14827731eea05ba',1,'core::PhysicsConfig']]],
-  ['pushmomentumwindowtimer_74',['pushMomentumWindowTimer',['../structcore_1_1Player.html#a9c10c5fffe679f41e3b266f9668ce37d',1,'core::Player']]]
+  ['progressscale_70',['progressScale',['../structaisolver_1_1RewardConfig.html#aa50ac87afac5b151832f9457e59c233b',1,'aisolver::RewardConfig']]],
+  ['pushmomentumvelocityx_71',['pushMomentumVelocityX',['../structcore_1_1Player.html#a14d968f4c041f1671557db26a08a425c',1,'core::Player']]],
+  ['pushmomentumwindowtime_72',['pushMomentumWindowTime',['../structcore_1_1PhysicsConfig.html#a8bce708b0e3cf525d14827731eea05ba',1,'core::PhysicsConfig']]],
+  ['pushmomentumwindowtimer_73',['pushMomentumWindowTimer',['../structcore_1_1Player.html#a9c10c5fffe679f41e3b266f9668ce37d',1,'core::Player']]]
 ];

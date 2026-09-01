@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,8 +100,9 @@ $(function(){initNavTree('structActorCriticConfig.html','','structActorCriticCon
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a605aafcdcfaa64d800ae9e364e13e59b" id="r_a605aafcdcfaa64d800ae9e364e13e59b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a605aafcdcfaa64d800ae9e364e13e59b">gamma</a> = 0.99f</td></tr>
+<tr class="memitem:a605aafcdcfaa64d800ae9e364e13e59b" id="r_a605aafcdcfaa64d800ae9e364e13e59b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a605aafcdcfaa64d800ae9e364e13e59b">gamma</a> = DEFAULT_GAMMA</td></tr>
 <tr class="memitem:ae84051a21bd88ce8bbcc967bd5192b89" id="r_ae84051a21bd88ce8bbcc967bd5192b89"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#ae84051a21bd88ce8bbcc967bd5192b89">seedBase</a> = 0</td></tr>
+<tr class="memitem:a994def742713bd16e33ddf3211a88742" id="r_a994def742713bd16e33ddf3211a88742"><td class="memItemLeft">PolicyGradientTuning&#160;</td><td class="memItemRight"><a class="el" href="#a994def742713bd16e33ddf3211a88742">tuning</a> {}</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres d'un run acteur-critique : mêmes défauts que <span class="tt"><a class="el" href="structReinforceConfig.html" title="Paramètres d&#39;un run REINFORCE : gamma proche de 1 par défaut (voir décision de cadrage de l&#39;épic),...">ReinforceConfig</a></span> (<span class="tt">LOT-ANNEXE-12</span>), pour rester le niveau de contrôle comparable prescrit par TACHE-04. </p>
@@ -113,7 +114,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html#a605aafcdcfaa64d800ae9e364e13e59b">aisolver::training::ActorCriticConfig::gamma</a> = 0.99f</td>
+          <td class="memname">float <a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html#a605aafcdcfaa64d800ae9e364e13e59b">aisolver::training::ActorCriticConfig::gamma</a> = DEFAULT_GAMMA</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -128,6 +129,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::uint64_t <a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html#ae84051a21bd88ce8bbcc967bd5192b89">aisolver::training::ActorCriticConfig::seedBase</a> = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a994def742713bd16e33ddf3211a88742" name="a994def742713bd16e33ddf3211a88742"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a994def742713bd16e33ddf3211a88742">&#9670;&#160;</a></span>tuning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PolicyGradientTuning <a class="el" href="structaisolver_1_1training_1_1ActorCriticConfig.html#a994def742713bd16e33ddf3211a88742">aisolver::training::ActorCriticConfig::tuning</a> {}</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-69-tache-09-budget-memoire.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-09-budget-memoire"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> livré</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3317"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3323"></a>
 Contexte</h1>
 <p>Le budget de rendu du <span class="tt">LOT-62</span> est un plafond de <b>primitives par niveau livré</b> (<span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">test_render_budget.cpp</a></span>, compteurs <em>considérées</em> et <em>soumises</em>). Les plans picturaux le prennent à contre-pied : ils ajoutent <b>un seul quad</b> chacun, mais occupent une texture à l'échelle du niveau.</p>
 <p>Chiffré sur le plus grand niveau du dépôt (50 × 26 tuiles) :</p>
@@ -109,7 +109,7 @@ Contexte</h1>
 <td class="markdownTableBodyNone">4 px/unité  </td><td class="markdownTableBodyNone">200 × 104  </td><td class="markdownTableBodyRight">0,08 Mo  </td><td class="markdownTableBodyRight">0,7 Mo  </td></tr>
 </table>
 <p>Négligeable <b>ici</b>. Mais un niveau 200 × 100 à densité native coûterait <b>20,5 Mo par plan</b> — et seize plans, plus de 300 Mo. C'est là que ça casse, et c'est pourquoi la densité est réglable par plan. Un plafond exprimé en primitives laisserait passer exactement cette régression.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3318"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3324"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Exposer la <b>mémoire de texture</b> d'un niveau à côté des compteurs de primitives existants, dans la même structure de statistiques.</li>
@@ -117,24 +117,24 @@ Travail à réaliser</h1>
 <li>Ajouter le cas de coût des plans : <span class="tt">N</span> plans → <span class="tt">+N</span> primitives soumises, <span class="tt">+N</span> passes, <b>0</b> écartée par le culling, et surtout <b>invariant en taille de niveau</b> — propriété qui distingue les plans des tuiles et mérite d'être figée.</li>
 <li>Alimenter l'affichage du poids en barre d'état (<span class="tt">TACHE-08</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3319"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3325"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Graphics/{PlaneVisuals,ComposedScene}.{h,cpp}</span>, <span class="tt"><a class="el" href="test__render__budget_8cpp.html" title="Test de non-régression du volume de primitives et de l&#39;efficacité du culling (LOT-62 TACHE-01,...">Source/Test/Unit/HMI/Graphics/test_render_budget.cpp</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3320"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3326"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Plafond de mémoire de texture respecté par <b>chaque</b> niveau livré.</li>
 <li><b>Un plan supplémentaire à densité native sur un niveau au plafond fait échouer le test.</b> C'est le sens qui compte : un garde-fou qu'on n'a jamais vu refuser quoi que ce soit ne prouve rien.</li>
 <li>Coût des plans constant quand la taille du niveau double.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3321"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3327"></a>
 Points d'attention</h1>
 <p>La tâche vient <b>après</b> tous ses consommateurs, comme le <span class="tt">LOT-62</span> venait après les émetteurs d'effets dans le programme <span class="tt">0.1.0</span> : mesurer un budget avant que le contenu n'existe fige un chiffre faux.</p>
 <p>Le coût dominant n'est pas la mémoire mais le <b>batch</b> — chaque plan est une texture distincte, donc une passe de plus par image, jamais écartée par le culling. Les deux axes méritent d'être suivis ; ne pas se laisser rassurer par le tableau ci-dessus, calculé sur un petit niveau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3322"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3328"></a>
 Definition de fait (DoD)</h1>
 <p>Deux axes de budget testés par niveau livré, garde-fou vérifié dans le sens du refus, poids visible dans l'éditeur. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3323"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3329"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-043</span>, <span class="tt">EX-NFR-005</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-044</span>. </p>
 </div></div><!-- contents -->

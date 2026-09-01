@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-07-tache-04-validation.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-07-niveaux_2tache-04-validation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">LOT-07</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md822"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md828"></a>
 Contexte</h1>
 <p>Un fichier de niveau syntaxiquement correct peut rester <b>incohérent</b> (tuile hors de la grille, sans sortie, mécanisme mal lié). Le chargement doit <b>valider</b> les données et signaler une erreur <b>exploitable</b> (<span class="tt">EX-LVL-004</span>), sans planter (<span class="tt">EX-NFR-040</span>) — un level designer doit comprendre ce qui ne va pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md823"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md829"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Valider, après parsing (TACHE-03) et avant de rendre le <span class="tt">Level</span> :<ul>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 </li>
 <li>Renvoyer un <b>message d'erreur descriptif</b> (quel contrôle a échoué, où) via le résultat du chargeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md824"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md830"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></span> (ou <span class="tt">LevelValidator.h</span>/<span class="tt">.cpp</span> dédié), tests.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md825"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md831"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Tuile hors bornes</b> (<span class="tt">x ≥ width</span> ou <span class="tt">y ≥ height</span>) → rejet avec message.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><b>Liaison de mécanisme invalide</b> (<span class="tt">door.opensWith</span> sans interrupteur correspondant) → rejet.</li>
 <li>Un <b>niveau valide</b> est accepté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md826"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md832"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer clairement <b>erreur de format</b> (TACHE-03 : JSON/caractère) et <b>erreur de validité</b> (cette tâche : cohérence métier) ; les deux sont récupérables et remontées de la même façon.</li>
 <li>Messages <b>compréhensibles par un non-codeur</b> (l'éditeur, plus tard, réutilisera cette validation — <span class="tt">EX-EDIT-007</span>/<span class="tt">EX-EDIT-010</span>, hors périmètre de livraison ici).</li>
 <li>Validation <b>pure</b> (aucune dépendance rendu) : testable sans fenêtre ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md827"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md833"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Règles de validation implémentées, chaque échec testé avec un message exploitable (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>, documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md828"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md834"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-004</span>, <span class="tt">EX-NFR-040</span>, <span class="tt">EX-NFR-010</span>. </p>
 </div></div><!-- contents -->

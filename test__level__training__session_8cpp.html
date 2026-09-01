@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,6 +96,8 @@ $(function(){initNavTree('test__level__training__session_8cpp.html','',''); });
 <p>Boucle d'entraînement pour un niveau et critère d'arrêt (LOT-ANNEXE-11, TACHE-01).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">AiSolver/Env/HeadlessLevelEnvironment.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ObservationEncoder_8h_source.html">AiSolver/Env/ObservationEncoder.h</a>&quot;</code><br />
@@ -118,6 +120,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2bfb26577a4b5494e191c0ac7fd80d06"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">shouldStop</span> renvoyant <span class="tt">true</span> dès le premier appel interrompt la session après une seule génération, bien avant le plafond (<span class="tt">LOT-ANNEXE-21</span>).  <br /></td></tr>
 <tr class="memitem:a9559918c65f7ecccfc0b4ec0460f23d7" id="r_a9559918c65f7ecccfc0b4ec0460f23d7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9559918c65f7ecccfc0b4ec0460f23d7">TEST</a> (LevelTrainingSessionTest, OnGenerationChampionRecoitLeVraiChampion)</td></tr>
 <tr class="memdesc:a9559918c65f7ecccfc0b4ec0460f23d7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">onGenerationChampion</span> reçoit, à chaque génération, le champion réellement retenu par le trainer interne (<span class="tt">LOT-ANNEXE-21</span>) : seul point d'accès externe à son réseau pendant la session.  <br /></td></tr>
+<tr class="memitem:a8407f36aa86b0a361258aae3558c72ea" id="r_a8407f36aa86b0a361258aae3558c72ea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8407f36aa86b0a361258aae3558c72ea">TEST</a> (LevelTrainingSessionTest, ObservateurDeStabilitePublieChaqueGeneration)</td></tr>
+<tr class="memdesc:a8407f36aa86b0a361258aae3558c72ea"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">setOnStabilityChanged</span> publie, génération après génération, l'avancement du critère d'arrêt par stabilité — la seule grandeur du critère qui ne transparaissait nulle part.  <br /></td></tr>
 <tr class="memitem:aa8e28f430662fd6d2a2e1580306d1d01" id="r_aa8e28f430662fd6d2a2e1580306d1d01"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8e28f430662fd6d2a2e1580306d1d01">updateConsecutiveStableWins</a> (int previousCount, bool sameFitnessAsBefore, bool resolvingNow) noexcept</td></tr>
 <tr class="memdesc:aa8e28f430662fd6d2a2e1580306d1d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant, fonction pure isolée de toute simulation pour rester testable indépendamment de la dynamique réelle de l'algorithme évolutionniste (<span class="tt"><a class="el" href="classLevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>).  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
@@ -165,7 +169,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae1a7a1065efadb134d94bcded7aeb9f4" name="ae1a7a1065efadb134d94bcded7aeb9f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1a7a1065efadb134d94bcded7aeb9f4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a7a1065efadb134d94bcded7aeb9f4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +199,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af603a59ce14fc4aba4fed4c848fa13da" name="af603a59ce14fc4aba4fed4c848fa13da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af603a59ce14fc4aba4fed4c848fa13da">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af603a59ce14fc4aba4fed4c848fa13da">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,8 +230,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8407f36aa86b0a361258aae3558c72ea" name="a8407f36aa86b0a361258aae3558c72ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8407f36aa86b0a361258aae3558c72ea">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelTrainingSessionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ObservateurDeStabilitePublieChaqueGeneration</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">setOnStabilityChanged</span> publie, génération après génération, l'avancement du critère d'arrêt par stabilité — la seule grandeur du critère qui ne transparaissait nulle part. </p>
+<p><b>Cas de test :</b> <b><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a> : observateur de stabilité.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Training<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Brancher <span class="tt">setOnStabilityChanged</span> sur une session au plafond volontairement bas.<br  />
+</p><ol type="1">
+<li>Exécuter la session.<br  />
+ <b>Resultat attendu :</b> Une notification par génération exécutée, chacune portant le seuil configuré et un compteur dans <span class="tt">[0, seuil]</span> ; sans elle, une IHM ne peut pas dire si la session est à une génération de s'arrêter ou si le compteur vient d'être remis à zéro. </li>
+</ol>
+
+</div>
+</div>
 <a id="a9559918c65f7ecccfc0b4ec0460f23d7" name="a9559918c65f7ecccfc0b4ec0460f23d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9559918c65f7ecccfc0b4ec0460f23d7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9559918c65f7ecccfc0b4ec0460f23d7">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,7 +293,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4e5f508cec126a4c58e0a4a528670eca" name="a4e5f508cec126a4c58e0a4a528670eca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e5f508cec126a4c58e0a4a528670eca">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5f508cec126a4c58e0a4a528670eca">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +322,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2bfb26577a4b5494e191c0ac7fd80d06" name="a2bfb26577a4b5494e191c0ac7fd80d06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bfb26577a4b5494e191c0ac7fd80d06">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bfb26577a4b5494e191c0ac7fd80d06">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +352,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab55a3f36c64c2eb6911fde60515556b8" name="ab55a3f36c64c2eb6911fde60515556b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab55a3f36c64c2eb6911fde60515556b8">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab55a3f36c64c2eb6911fde60515556b8">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

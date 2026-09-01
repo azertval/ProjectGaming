@@ -51,12 +51,13 @@ var searchData=
   ['playerspritequad_48',['PlayerSpriteQuad',['../structhmi_1_1PlayerSpriteQuad.html',1,'hmi']]],
   ['playerspritetag_49',['PlayerSpriteTag',['../structhmi_1_1PlayerSpriteTag.html',1,'hmi']]],
   ['playerstateencoder_50',['PlayerStateEncoder',['../classaisolver_1_1PlayerStateEncoder.html',1,'aisolver']]],
-  ['polynomialtoyproblem_51',['PolynomialToyProblem',['../structaisolver_1_1PolynomialToyProblem.html',1,'aisolver::PolynomialToyProblem'],['../structPolynomialToyProblem.html',1,'PolynomialToyProblem']]],
-  ['population_52',['Population',['../classaisolver_1_1training_1_1evolutionary_1_1Population.html',1,'aisolver::training::evolutionary::Population'],['../classPopulation.html',1,'Population']]],
-  ['previousposition_53',['PreviousPosition',['../structhmi_1_1PreviousPosition.html',1,'hmi']]],
-  ['proceduralatlasimage_54',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
-  ['proceduralfont_55',['ProceduralFont',['../structhmi_1_1ProceduralFont.html',1,'hmi']]],
-  ['proceduralfontimage_56',['ProceduralFontImage',['../structhmi_1_1ProceduralFontImage.html',1,'hmi']]],
-  ['progression_57',['Progression',['../classhmi_1_1Progression.html',1,'hmi']]],
-  ['propertiespanel_58',['PropertiesPanel',['../classhmi_1_1PropertiesPanel.html',1,'hmi']]]
+  ['policygradienttuning_51',['PolicyGradientTuning',['../structaisolver_1_1training_1_1PolicyGradientTuning.html',1,'aisolver::training']]],
+  ['polynomialtoyproblem_52',['PolynomialToyProblem',['../structaisolver_1_1PolynomialToyProblem.html',1,'aisolver::PolynomialToyProblem'],['../structPolynomialToyProblem.html',1,'PolynomialToyProblem']]],
+  ['population_53',['Population',['../classaisolver_1_1training_1_1evolutionary_1_1Population.html',1,'aisolver::training::evolutionary::Population'],['../classPopulation.html',1,'Population']]],
+  ['previousposition_54',['PreviousPosition',['../structhmi_1_1PreviousPosition.html',1,'hmi']]],
+  ['proceduralatlasimage_55',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
+  ['proceduralfont_56',['ProceduralFont',['../structhmi_1_1ProceduralFont.html',1,'hmi']]],
+  ['proceduralfontimage_57',['ProceduralFontImage',['../structhmi_1_1ProceduralFontImage.html',1,'hmi']]],
+  ['progression_58',['Progression',['../classhmi_1_1Progression.html',1,'hmi']]],
+  ['propertiespanel_59',['PropertiesPanel',['../classhmi_1_1PropertiesPanel.html',1,'hmi']]]
 ];

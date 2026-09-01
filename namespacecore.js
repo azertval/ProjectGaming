@@ -6,6 +6,7 @@ var namespacecore =
     [ "ILogSink", "classcore_1_1ILogSink.html", "classcore_1_1ILogSink" ],
     [ "Logger", "classcore_1_1Logger.html", "classcore_1_1Logger" ],
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
+    [ "ScopedLogLevel", "classcore_1_1ScopedLogLevel.html", "classcore_1_1ScopedLogLevel" ],
     [ "AnimationClip", "structcore_1_1AnimationClip.html", "structcore_1_1AnimationClip" ],
     [ "ClipSet", "classcore_1_1ClipSet.html", "classcore_1_1ClipSet" ],
     [ "IComponentPool", "classcore_1_1IComponentPool.html", "classcore_1_1IComponentPool" ],

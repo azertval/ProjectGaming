@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,18 +94,18 @@ $(function(){initNavTree('lot-72-tache-02-poussee-renforcee.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-72-mouvement-avance_2tache-02-poussee-renforcee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-72.html#md_Lot_2LOT-72-mouvement-avance_2epic" title="Lot/LOT-72-mouvement-avance/epic.md">LOT-72</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Gameplay/BlockController.*</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3379"></a>
 Contexte</h1>
 <p><span class="tt">BlockController</span> (<span class="tt">EX-GP-022</span>) pousse un bloc d'<b>une case</b> par contact, que le personnage marche ou dashe contre lui. <span class="tt">EX-GP-057</span> distingue le second cas : un bloc percuté <b>pendant un dash boosté</b> (<span class="tt">EX-GP-056</span>) doit être repoussé de <b>plusieurs cases en un seul pas fixe</b>, jusqu'au premier obstacle ou une distance maximale, pour un ressenti d'impact cohérent avec la vitesse du dash.</p>
 <p><b>Restreint au dash boosté, pas à tout dash</b> : un premier essai généralisant la poussée renforcée à n'importe quel dash a été écarté après coup (voir TACHE-06) — un dash <b>normal</b> contre un bloc doit continuer à le pousser d'une seule case, <b>exactement comme avant ce lot</b>, pour ne prendre aucun risque sur du contenu existant qui dasherait contre un bloc sans intention de le repousser loin.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3374"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3380"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">BlockController::update</span>/<span class="tt">pushBlocks</span> : nouveau paramètre indiquant que le personnage est en dash (et sa direction), par exemple <span class="tt">bool isDashing</span> en plus de <span class="tt">moveIntentX</span> — ou dérivé directement de la vitesse du personnage transmise par l'appelant.</li>
 <li>Quand <span class="tt">isDashing</span> est vrai côté personnage poussant, au lieu de déplacer le bloc d'une case, avancer case par case (réutilisant <span class="tt">isFree</span>) tant que la case suivante est libre, jusqu'à un maximum configurable (<span class="tt">PhysicsConfig::dashPushMaxCells</span> ou équivalent) ou jusqu'au premier obstacle.</li>
 <li>Vérifier le point d'appel (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> ou équivalent) pour transmettre l'état de dash du personnage (<span class="tt">Player::dashTimer &gt; 0</span>) à <span class="tt">BlockController::update</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3375"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3381"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="BlockController_8h.html" title="Comportement des blocs poussables : position, poussée et chute (EX-GP-022).">Source/Core/Gameplay/BlockController.h</a></span>/<span class="tt">.cpp</span>.</li>
@@ -113,7 +113,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></span> (distance maximale de poussée renforcée).</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3376"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3382"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Poussée renforcée</b> : un dash (normal ou boosté, TACHE-01) contre un bloc le déplace de plusieurs cases en un seul pas fixe.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><b>Blocs réduits</b> (<span class="tt">BlockHalf</span>/<span class="tt">BlockQuarter</span>, <span class="tt">EX-GP-005</span>) : même comportement de poussée renforcée que les blocs pleins.</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3377"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3383"></a>
 Points d'attention</h1>
 <ul>
 <li>Réutiliser <span class="tt">isFree</span> de <span class="tt">BlockController</span> sans dupliquer sa logique de case libre (pentes/arrondis, autres blocs, mécanismes).</li>
 <li>Ne pas modifier le comportement de chute (<span class="tt">dropBlocks</span>) ni de portage sur plateforme mobile (<span class="tt">carryBlocksOnPlatforms</span>), hors de portée de cette tâche.</li>
 <li>Le bloc reste toujours <b>aligné sur la grille</b> (jamais de position infra-case), comme le reste de <span class="tt">BlockController</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3378"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3384"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Poussée renforcée fonctionnelle et <b>testée</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3379"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3385"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-057</span>, <span class="tt">EX-GP-022</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

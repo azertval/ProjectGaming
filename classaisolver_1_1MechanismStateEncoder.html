@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,20 +100,21 @@ $(function(){initNavTree('classaisolver_1_1MechanismStateEncoder.html','','class
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a13155b63a3333c2007945cefc00a8940" id="r_a13155b63a3333c2007945cefc00a8940"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13155b63a3333c2007945cefc00a8940">encode</a> (const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms, const <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &amp;dangers, const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> center, int radius) const</td></tr>
-<tr class="memdesc:a13155b63a3333c2007945cefc00a8940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode l'état des mécanismes dans une fenêtre centrée sur <code class="param">center</code>.  <br /></td></tr>
+<tr class="memitem:a70d6b330576323ac82b6432913363a3f" id="r_a70d6b330576323ac82b6432913363a3f"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a70d6b330576323ac82b6432913363a3f">encode</a> (const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms, const <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &amp;dangers, const <a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a> &amp;platforms, const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> center, int radius) const</td></tr>
+<tr class="memdesc:a70d6b330576323ac82b6432913363a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode l'état des mécanismes dans une fenêtre centrée sur <code class="param">center</code>.  <br /></td></tr>
 <tr class="memitem:a499f4914babdbb7fd964b822696453e3" id="r_a499f4914babdbb7fd964b822696453e3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a499f4914babdbb7fd964b822696453e3">channelCount</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ac2f8c3aeacf73a7c270d2488b6eaec90" id="r_ac2f8c3aeacf73a7c270d2488b6eaec90"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ac2f8c3aeacf73a7c270d2488b6eaec90">CHANNEL_COUNT</a> = 2</td></tr>
+<tr class="memitem:ac2f8c3aeacf73a7c270d2488b6eaec90" id="r_ac2f8c3aeacf73a7c270d2488b6eaec90"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ac2f8c3aeacf73a7c270d2488b6eaec90">CHANNEL_COUNT</a> = 3</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encode l'état <b>dynamique</b> des mécanismes de la fenêtre (porte ouverte/fermée, danger actif), complémentaire au type <b>statique</b> encodé par <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>. </p>
 <p>Une porte fermée et une porte ouverte partagent le même <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></span> dans <span class="tt">TileMap</span> : seule la grille de collision recomposée à chaque pas par <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> en distingue l'état. Ce canal rend cette distinction visible dans l'observation, sans quoi l'agent ne pourrait jamais reconnaître une porte franchissable d'un mur (<span class="tt">EX-IA-006</span>).</p>
-<p>Produit un tenseur <span class="tt">(2, 2·radius + 1, 2·radius + 1)</span>, même fenêtre géométrique que <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span> (à concaténer par l'appelant, <span class="tt">radius</span> identique de part et d'autre) :</p><ul>
+<p>Produit un tenseur <span class="tt">(3, 2·radius + 1, 2·radius + 1)</span>, même fenêtre géométrique que <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span> (à concaténer par l'appelant, <span class="tt">radius</span> identique de part et d'autre) :</p><ul>
 <li><b>Canal 0</b> (« porte ouverte ») : <span class="tt">1.0f</span> sur la case <span class="tt">doorPosition</span> de chaque <span class="tt"><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></span> dont <span class="tt">mechanisms.isDoorOpen</span> est vrai, <span class="tt">0.0f</span> ailleurs (y compris sur une porte fermée).</li>
-<li><b>Canal 1</b> (« danger actif ») : <span class="tt">1.0f</span> sur toute case recouverte par un danger mobile (<span class="tt">dangers.moverBox</span>, rastérisé sur les cases qu'il chevauche), une case <span class="tt">DangerBlink</span> active (<span class="tt">dangers.isBlinkActive</span>) ou une case <span class="tt">DangerSwitched</span> active (<span class="tt">mechanisms.isDangerActive</span>). Un danger <b>statique</b> (<span class="tt">Danger</span>/<span class="tt">DangerUp</span>/…) n'active jamais ce canal : il est déjà identifiable sans ambiguïté par son canal catégoriel, invariant, dans <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>. </li>
+<li><b>Canal 1</b> (« danger actif ») : <span class="tt">1.0f</span> sur toute case recouverte par un danger mobile (<span class="tt">dangers.moverBox</span>, rastérisé sur les cases qu'il chevauche), une case <span class="tt">DangerBlink</span> active (<span class="tt">dangers.isBlinkActive</span>) ou une case <span class="tt">DangerSwitched</span> active (<span class="tt">mechanisms.isDangerActive</span>). Un danger <b>statique</b> (<span class="tt">Danger</span>/<span class="tt">DangerUp</span>/…) n'active jamais ce canal : il est déjà identifiable sans ambiguïté par son canal catégoriel, invariant, dans <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>.</li>
+<li><b>Canal 2</b> (« plateforme mobile ») : <span class="tt">1.0f</span> sur toute case recouverte par la boîte <b>courante</b> d'une plateforme mobile (<span class="tt">platforms.boxAt</span>, rastérisée comme un danger mobile). Sa position est continue et fonction du numéro de pas : la case du fichier, seule connue de <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>, ne dit que d'où elle est partie. Sans ce canal, un agent voit une plateforme là où elle n'est plus, et n'en voit aucune là où il pourrait monter. </li>
 </ul>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a499f4914babdbb7fd964b822696453e3" name="a499f4914babdbb7fd964b822696453e3"></a>
@@ -138,12 +139,12 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le nombre de canaux produits (<span class="tt">2</span> : porte ouverte, danger actif). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de canaux produits (<span class="tt">3</span> : porte ouverte, danger actif, plateforme mobile). </dd></dl>
 
 </div>
 </div>
-<a id="a13155b63a3333c2007945cefc00a8940" name="a13155b63a3333c2007945cefc00a8940"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13155b63a3333c2007945cefc00a8940">&#9670;&#160;</a></span>encode()</h2>
+<a id="a70d6b330576323ac82b6432913363a3f" name="a70d6b330576323ac82b6432913363a3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70d6b330576323ac82b6432913363a3f">&#9670;&#160;</a></span>encode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,6 +161,11 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dangers</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>platforms</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -189,13 +195,14 @@ Static Public Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du niveau chargé. </td></tr>
     <tr><td class="paramname">dangers</td><td>Contrôleur de dangers du niveau chargé. </td></tr>
+    <tr><td class="paramname">platforms</td><td>Contrôleur de plateformes mobiles du niveau chargé (boîtes courantes). </td></tr>
     <tr><td class="paramname">level</td><td>Niveau chargé (dangers temporisés/commutés, positions). </td></tr>
     <tr><td class="paramname">center</td><td>Case de grille où se trouve le personnage. </td></tr>
     <tr><td class="paramname">radius</td><td>Rayon de fenêtre, <b>identique</b> à celui de <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span> (à la charge de l'appelant, pas garanti par le type). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Tenseur <span class="tt">(2, 2·radius + 1, 2·radius + 1)</span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Tenseur <span class="tt">(3, 2·radius + 1, 2·radius + 1)</span>. </dd></dl>
 
 </div>
 </div>
@@ -210,7 +217,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int aisolver::MechanismStateEncoder::CHANNEL_COUNT = 2</td>
+          <td class="memname">int aisolver::MechanismStateEncoder::CHANNEL_COUNT = 3</td>
         </tr>
       </table>
   </td>

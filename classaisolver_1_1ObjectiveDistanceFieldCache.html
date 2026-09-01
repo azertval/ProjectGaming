@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,14 +100,21 @@ $(function(){initNavTree('classaisolver_1_1ObjectiveDistanceFieldCache.html','',
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:abda53cdbba988f7e33b798780813b280" id="r_abda53cdbba988f7e33b798780813b280"><td class="memItemLeft">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abda53cdbba988f7e33b798780813b280">field</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms, const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;collision, const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &amp;blockPositions)</td></tr>
+<tr class="memdesc:abda53cdbba988f7e33b798780813b280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Champ valide pour l'état courant, reconstruit s'il a cessé de l'être depuis l'appel précédent.  <br /></td></tr>
 <tr class="memitem:aa4c0672d6feba11d963e74c7b10e52ff" id="r_aa4c0672d6feba11d963e74c7b10e52ff"><td class="memItemLeft">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aa4c0672d6feba11d963e74c7b10e52ff">field</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms)</td></tr>
-<tr class="memdesc:aa4c0672d6feba11d963e74c7b10e52ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Champ valide pour l'état courant de <code class="param">mechanisms</code>, reconstruit si une porte a changé d'état depuis l'appel précédent.  <br /></td></tr>
+<tr class="memdesc:aa4c0672d6feba11d963e74c7b10e52ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surcharge « portes seules », sur <span class="tt">mechanisms.collisionMap()</span> et sans bloc poussable.  <br /></td></tr>
+<tr class="memitem:a9e7dd175db6f76f48442b6e2cee71fb4" id="r_a9e7dd175db6f76f48442b6e2cee71fb4"><td class="memItemLeft">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9e7dd175db6f76f48442b6e2cee71fb4">lastField</a> () const</td></tr>
+<tr class="memitem:a2aa7dd7425499e6b503cced08215f9ca" id="r_a2aa7dd7425499e6b503cced08215f9ca"><td class="memItemLeft">unsigned long long&#160;</td><td class="memItemRight"><a class="el" href="#a2aa7dd7425499e6b503cced08215f9ca">revision</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ac4ac0dd35c60e7104c0d28b9bd8f25e4" id="r_ac4ac0dd35c60e7104c0d28b9bd8f25e4"><td class="memItemLeft">std::optional&lt; <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac4ac0dd35c60e7104c0d28b9bd8f25e4">_field</a></td></tr>
 <tr class="memitem:a6a696da889ffb6ee830f22494657f4ef" id="r_a6a696da889ffb6ee830f22494657f4ef"><td class="memItemLeft">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6a696da889ffb6ee830f22494657f4ef">_doorsOpen</a></td></tr>
 <tr class="memdesc:a6a696da889ffb6ee830f22494657f4ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">État ouvert/fermé de chaque porte au moment où <span class="tt"><a class="el" href="#ac4ac0dd35c60e7104c0d28b9bd8f25e4">_field</a></span> a été construit.  <br /></td></tr>
+<tr class="memitem:ae87f4f2d87d03b7fa4712b03b02bb0ff" id="r_ae87f4f2d87d03b7fa4712b03b02bb0ff"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae87f4f2d87d03b7fa4712b03b02bb0ff">_blockPositions</a></td></tr>
+<tr class="memdesc:ae87f4f2d87d03b7fa4712b03b02bb0ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positions des blocs poussables au moment où <span class="tt"><a class="el" href="#ac4ac0dd35c60e7104c0d28b9bd8f25e4">_field</a></span> a été construit.  <br /></td></tr>
+<tr class="memitem:acc378f4e85e59260534a53947de7fd55" id="r_acc378f4e85e59260534a53947de7fd55"><td class="memItemLeft">unsigned long long&#160;</td><td class="memItemRight"><a class="el" href="#acc378f4e85e59260534a53947de7fd55">_revision</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Champ de distances vers l'objectif immédiat, reconstruit seulement lorsqu'il cesse d'être valide. </p>
@@ -116,7 +123,7 @@ Private Attributes</h2></td></tr>
 <p>Une instance par boucle d'épisode, déclarée <b>hors</b> de la boucle des pas. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="aa4c0672d6feba11d963e74c7b10e52ff" name="aa4c0672d6feba11d963e74c7b10e52ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4c0672d6feba11d963e74c7b10e52ff">&#9670;&#160;</a></span>field()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4c0672d6feba11d963e74c7b10e52ff">&#9670;&#160;</a></span>field() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,11 +149,61 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Champ valide pour l'état courant de <code class="param">mechanisms</code>, reconstruit si une porte a changé d'état depuis l'appel précédent. </p>
+<p>Surcharge « portes seules », sur <span class="tt">mechanisms.collisionMap()</span> et sans bloc poussable. </p>
+<p>Pendant du constructeur à deux arguments de <span class="tt"><a class="el" href="namespaceaisolver.html#a72b8d383d7626ce3d84aa8a7b5e6ea97" title="Construit le champ de distances de l&#39;objectif immédiat courant (LOT-ANNEXE-21).">buildObjectiveDistanceField</a></span> : pour un appelant qui n'a pas de <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> sous la main (un niveau sans bloc, un test). Un appelant qui en a un doit passer par la surcharge complète, sinon un bloc déplacé reste invisible du champ. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau chargé (sortie, liaisons de mécanismes). </td></tr>
+    <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du pas courant. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abda53cdbba988f7e33b798780813b280" name="abda53cdbba988f7e33b798780813b280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda53cdbba988f7e33b798780813b280">&#9670;&#160;</a></span>field() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp; aisolver::ObjectiveDistanceFieldCache::field </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mechanisms</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>blockPositions</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Champ valide pour l'état courant, reconstruit s'il a cessé de l'être depuis l'appel précédent. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>Niveau chargé (sortie, liaisons de mécanismes). </td></tr>
     <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du pas courant. </td></tr>
+    <tr><td class="paramname">collision</td><td>Grille de collision composée du pas courant (portes <b>et</b> blocs). </td></tr>
+    <tr><td class="paramname">blockPositions</td><td>Positions courantes des blocs poussables : elles font partie de la signature au même titre que l'état des portes, un bloc déplacé changeant la grille sur laquelle le BFS se propage. </td></tr>
   </table>
   </dd>
 </dl>
@@ -154,7 +211,84 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9e7dd175db6f76f48442b6e2cee71fb4" name="a9e7dd175db6f76f48442b6e2cee71fb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e7dd175db6f76f48442b6e2cee71fb4">&#9670;&#160;</a></span>lastField()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> &amp; aisolver::ObjectiveDistanceFieldCache::lastField </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le champ mémorisé, sans le revalider (<span class="tt"><a class="el" href="#abda53cdbba988f7e33b798780813b280" title="Champ valide pour l&#39;état courant, reconstruit s&#39;il a cessé de l&#39;être depuis l&#39;appel précédent.">field()</a></span> doit avoir été appelé au moins une fois depuis la construction). </dd></dl>
+
+</div>
+</div>
+<a id="a2aa7dd7425499e6b503cced08215f9ca" name="a2aa7dd7425499e6b503cced08215f9ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa7dd7425499e6b503cced08215f9ca">&#9670;&#160;</a></span>revision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long long aisolver::ObjectiveDistanceFieldCache::revision </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le numéro de version du champ, incrémenté à <b>chaque reconstruction</b>.</dd></dl>
+<p>C'est le seul moyen pour un appelant de savoir que l'ensemble des objectifs a changé — donc que les distances mesurées avant et après ne sont plus comparables, et qu'un record de progression accumulé sur l'objectif précédent doit être abandonné. </p>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ae87f4f2d87d03b7fa4712b03b02bb0ff" name="ae87f4f2d87d03b7fa4712b03b02bb0ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87f4f2d87d03b7fa4712b03b02bb0ff">&#9670;&#160;</a></span>_blockPositions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; aisolver::ObjectiveDistanceFieldCache::_blockPositions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Positions des blocs poussables au moment où <span class="tt"><a class="el" href="#ac4ac0dd35c60e7104c0d28b9bd8f25e4">_field</a></span> a été construit. </p>
+
+</div>
+</div>
 <a id="a6a696da889ffb6ee830f22494657f4ef" name="a6a696da889ffb6ee830f22494657f4ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a696da889ffb6ee830f22494657f4ef">&#9670;&#160;</a></span>_doorsOpen</h2>
 
@@ -190,6 +324,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;<a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a>&gt; aisolver::ObjectiveDistanceFieldCache::_field</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc378f4e85e59260534a53947de7fd55" name="acc378f4e85e59260534a53947de7fd55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc378f4e85e59260534a53947de7fd55">&#9670;&#160;</a></span>_revision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long long aisolver::ObjectiveDistanceFieldCache::_revision = 0</td>
         </tr>
       </table>
   </td>

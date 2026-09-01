@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,10 +95,14 @@ $(function(){initNavTree('AiModeScreen_8h.html','',''); });
 
 <p>Écran « Mode IA » du menu principal (<span class="tt">LOT-ANNEXE-21</span>, <span class="tt">EX-IA-022</span>) : trois onglets (Entraînement, Validation &amp; sauvegarde, Rejeu), équivalent IHM de <span class="tt">aisolver-cli</span> (<span class="tt">LOT-ANNEXE-19</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QString&gt;</code><br />
+<div class="textblock"><code>#include &lt;QElapsedTimer&gt;</code><br />
+<code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;QThread&gt;</code><br />
 <code>#include &lt;QWidget&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &quot;<a class="el" href="TrainingConfig_8h_source.html">AiSolver/Cli/TrainingConfig.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EvaluationWorker_8h_source.html">HMI/Ai/EvaluationWorker.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TrainingWorker_8h_source.html">HMI/Ai/TrainingWorker.h</a>&quot;</code><br />
 </div>
 <p><a href="AiModeScreen_8h_source.html">Go to the source code of this file.</a></p>
@@ -115,7 +119,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Écran « Mode IA » du menu principal (<span class="tt">LOT-ANNEXE-21</span>, <span class="tt">EX-IA-022</span>) : trois onglets (Entraînement, Validation &amp; sauvegarde, Rejeu), équivalent IHM de <span class="tt">aisolver-cli</span> (<span class="tt">LOT-ANNEXE-19</span>). </p>
-<p>Écran <b>du jeu</b> : il relève donc de l'identité pixel art (<span class="tt">EX-IHM-070</span>) — police bitmap, couleurs et facteur d'agrandissement entier reçus de <span class="tt">theme.qss</span>, cadre à bordure franche (<span class="tt">PixelFrameWidget</span>, posé dans le <span class="tt">.ui</span>) — et de la marque explicite de focus (<span class="tt">EX-IHM-071</span>), peinte par <span class="tt">PixelFocusCaret</span> pour les contrôles Qt ordinaires et par <span class="tt">PixelMenuButton</span> pour l'entrée « Retour ». </p>
+<p>Écran <b>du jeu</b> : il relève donc de l'identité pixel art (<span class="tt">EX-IHM-070</span>) — police bitmap, couleurs et facteur d'agrandissement entier reçus de <span class="tt">theme-identity.qss</span>, cadre à bordure franche (<span class="tt">PixelFrameWidget</span>, posé dans le <span class="tt">.ui</span>) — et de la marque explicite de focus (<span class="tt">EX-IHM-071</span>), peinte par <span class="tt">PixelFocusCaret</span> pour les contrôles Qt ordinaires et par <span class="tt">PixelMenuButton</span> pour l'entrée « Retour ». </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

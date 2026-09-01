@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -109,12 +109,52 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acba8db8e12a81f84248a8e972a13cfd3" id="r_acba8db8e12a81f84248a8e972a13cfd3"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acba8db8e12a81f84248a8e972a13cfd3">mutationRate</a></td></tr>
 <tr class="memitem:a7419217efee9279e886bc57d3bc57afc" id="r_a7419217efee9279e886bc57d3bc57afc"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7419217efee9279e886bc57d3bc57afc">episodes</a></td></tr>
 <tr class="memitem:aeb0442493f904ae79456f05ba380595e" id="r_aeb0442493f904ae79456f05ba380595e"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aeb0442493f904ae79456f05ba380595e">learningRate</a></td></tr>
+<tr class="memitem:a78174eecbe1186f124f229431b47d34a" id="r_a78174eecbe1186f124f229431b47d34a"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a78174eecbe1186f124f229431b47d34a">criticLearningRate</a></td></tr>
 <tr class="memitem:a8732bf2f3938db391a0b41d525cc914d" id="r_a8732bf2f3938db391a0b41d525cc914d"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8732bf2f3938db391a0b41d525cc914d">gamma</a></td></tr>
 <tr class="memitem:a03a705646df9475878cbdb6e71bc7078" id="r_a03a705646df9475878cbdb6e71bc7078"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03a705646df9475878cbdb6e71bc7078">optimizer</a></td></tr>
+<tr class="memitem:aa0025b03aaccbc4b7e12cffaefcba20b" id="r_aa0025b03aaccbc4b7e12cffaefcba20b"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa0025b03aaccbc4b7e12cffaefcba20b">hiddenSize</a></td></tr>
+<tr class="memitem:aa478b3bed3289823b6a507d9988e5812" id="r_aa478b3bed3289823b6a507d9988e5812"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa478b3bed3289823b6a507d9988e5812">tournamentSize</a></td></tr>
+<tr class="memitem:a4361e76b148870f4c06761945e5d70f5" id="r_a4361e76b148870f4c06761945e5d70f5"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4361e76b148870f4c06761945e5d70f5">mutationStrength</a></td></tr>
+<tr class="memitem:aae746058d66b5d8bd9552df382c38ef4" id="r_aae746058d66b5d8bd9552df382c38ef4"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aae746058d66b5d8bd9552df382c38ef4">maxGenerations</a></td></tr>
+<tr class="memitem:a02fa5101b01d49262b8dc1557f81b5a7" id="r_a02fa5101b01d49262b8dc1557f81b5a7"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a02fa5101b01d49262b8dc1557f81b5a7">requiredConsecutiveSuccesses</a></td></tr>
+<tr class="memitem:ad9ea87e9c7ea68814c18a9d0f3fcf1ea" id="r_ad9ea87e9c7ea68814c18a9d0f3fcf1ea"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9ea87e9c7ea68814c18a9d0f3fcf1ea">dqnReplayCapacity</a></td></tr>
+<tr class="memdesc:ad9ea87e9c7ea68814c18a9d0f3fcf1ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyperparamètres DQN, pertinents pour <span class="tt">--algo avance</span> seulement (voir <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>).  <br /></td></tr>
+<tr class="memitem:a662287e4631da3e37c939154142cb3bd" id="r_a662287e4631da3e37c939154142cb3bd"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a662287e4631da3e37c939154142cb3bd">dqnBatchSize</a></td></tr>
+<tr class="memitem:a42464150fa1b2ea30f7dffc2dea13027" id="r_a42464150fa1b2ea30f7dffc2dea13027"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a42464150fa1b2ea30f7dffc2dea13027">dqnWarmupSize</a></td></tr>
+<tr class="memitem:a0669d406edd1629686c7bf8593fbe0eb" id="r_a0669d406edd1629686c7bf8593fbe0eb"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0669d406edd1629686c7bf8593fbe0eb">dqnUpdatePeriodSteps</a></td></tr>
+<tr class="memitem:abf602b7c37f1e949fb8d33bf72e1252d" id="r_abf602b7c37f1e949fb8d33bf72e1252d"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abf602b7c37f1e949fb8d33bf72e1252d">dqnTargetSyncPeriodSteps</a></td></tr>
+<tr class="memitem:a4443c61a7ebb7073cbea7dee1b17163e" id="r_a4443c61a7ebb7073cbea7dee1b17163e"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4443c61a7ebb7073cbea7dee1b17163e">dqnEpsilonStart</a></td></tr>
+<tr class="memitem:af19009305ceed360db321c35523786b8" id="r_af19009305ceed360db321c35523786b8"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af19009305ceed360db321c35523786b8">dqnEpsilonEnd</a></td></tr>
+<tr class="memitem:aa415836ef438435aec5b650ec637134b" id="r_aa415836ef438435aec5b650ec637134b"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa415836ef438435aec5b650ec637134b">dqnEpsilonDecaySteps</a></td></tr>
+<tr class="memitem:a7e2748f32eece3fb3fdbf71f04fe5465" id="r_a7e2748f32eece3fb3fdbf71f04fe5465"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e2748f32eece3fb3fdbf71f04fe5465">batchEpisodes</a></td></tr>
+<tr class="memdesc:a7e2748f32eece3fb3fdbf71f04fe5465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglages de policy gradient, pertinents pour <span class="tt">--algo pg</span>/<span class="tt">ac</span> (<span class="tt">--action-repeat</span> vaut aussi pour <span class="tt">--algo avance</span>) — voir <span class="tt"><a class="el" href="structaisolver_1_1training_1_1PolicyGradientTuning.html" title="Réglages partagés par ReinforceConfig et ActorCriticConfig.">training::PolicyGradientTuning</a></span>.  <br /></td></tr>
+<tr class="memitem:a094508e44a6308674a7348ab355c4a92" id="r_a094508e44a6308674a7348ab355c4a92"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a094508e44a6308674a7348ab355c4a92">entropyCoefficient</a></td></tr>
+<tr class="memitem:a4aaa35d0483bbae0600e5329c6c3a294" id="r_a4aaa35d0483bbae0600e5329c6c3a294"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4aaa35d0483bbae0600e5329c6c3a294">gradientClipNorm</a></td></tr>
+<tr class="memitem:a1f8a2d9967534301fe4d9432260e2540" id="r_a1f8a2d9967534301fe4d9432260e2540"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1f8a2d9967534301fe4d9432260e2540">actionRepeat</a></td></tr>
+<tr class="memitem:a7f5796418a51bb74b178956db81d3c5a" id="r_a7f5796418a51bb74b178956db81d3c5a"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7f5796418a51bb74b178956db81d3c5a">explorationFloor</a></td></tr>
+<tr class="memitem:a067a273b21a20b210a8865504e070c22" id="r_a067a273b21a20b210a8865504e070c22"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a067a273b21a20b210a8865504e070c22">crossoverRate</a></td></tr>
+<tr class="memdesc:a067a273b21a20b210a8865504e070c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilité de croisement, pertinente pour <span class="tt">--algo evo</span>.  <br /></td></tr>
+<tr class="memitem:a7785bbecbbafd387868a047336122f5c" id="r_a7785bbecbbafd387868a047336122f5c"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7785bbecbbafd387868a047336122f5c">maxSteps</a></td></tr>
+<tr class="memdesc:a7785bbecbbafd387868a047336122f5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget de pas et seuil de blocage d'un épisode ; absents (ou <span class="tt">0</span>) = dérivés du niveau.  <br /></td></tr>
+<tr class="memitem:ab898695c22a81dc0cbaf474cbe15b8ae" id="r_ab898695c22a81dc0cbaf474cbe15b8ae"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab898695c22a81dc0cbaf474cbe15b8ae">stuckThreshold</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Arguments de <span class="tt">train</span>. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a1f8a2d9967534301fe4d9432260e2540" name="a1f8a2d9967534301fe4d9432260e2540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f8a2d9967534301fe4d9432260e2540">&#9670;&#160;</a></span>actionRepeat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::actionRepeat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aae19c48a2d44d724d7889eca6375952a" name="aae19c48a2d44d724d7889eca6375952a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae19c48a2d44d724d7889eca6375952a">&#9670;&#160;</a></span>algorithmId</h2>
 
@@ -129,6 +169,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7e2748f32eece3fb3fdbf71f04fe5465" name="a7e2748f32eece3fb3fdbf71f04fe5465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e2748f32eece3fb3fdbf71f04fe5465">&#9670;&#160;</a></span>batchEpisodes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::batchEpisodes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Réglages de policy gradient, pertinents pour <span class="tt">--algo pg</span>/<span class="tt">ac</span> (<span class="tt">--action-repeat</span> vaut aussi pour <span class="tt">--algo avance</span>) — voir <span class="tt"><a class="el" href="structaisolver_1_1training_1_1PolicyGradientTuning.html" title="Réglages partagés par ReinforceConfig et ActorCriticConfig.">training::PolicyGradientTuning</a></span>. </p>
+
+</div>
+</div>
 <a id="aef82871dfe6bc1d75ad1c9c045c5c3d1" name="aef82871dfe6bc1d75ad1c9c045c5c3d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef82871dfe6bc1d75ad1c9c045c5c3d1">&#9670;&#160;</a></span>configFile</h2>
 
@@ -137,6 +193,164 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;std::filesystem::path&gt; aisolver::cli::TrainArgs::configFile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a78174eecbe1186f124f229431b47d34a" name="a78174eecbe1186f124f229431b47d34a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78174eecbe1186f124f229431b47d34a">&#9670;&#160;</a></span>criticLearningRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::criticLearningRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a067a273b21a20b210a8865504e070c22" name="a067a273b21a20b210a8865504e070c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a067a273b21a20b210a8865504e070c22">&#9670;&#160;</a></span>crossoverRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::crossoverRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Probabilité de croisement, pertinente pour <span class="tt">--algo evo</span>. </p>
+
+</div>
+</div>
+<a id="a662287e4631da3e37c939154142cb3bd" name="a662287e4631da3e37c939154142cb3bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a662287e4631da3e37c939154142cb3bd">&#9670;&#160;</a></span>dqnBatchSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnBatchSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa415836ef438435aec5b650ec637134b" name="aa415836ef438435aec5b650ec637134b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa415836ef438435aec5b650ec637134b">&#9670;&#160;</a></span>dqnEpsilonDecaySteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnEpsilonDecaySteps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af19009305ceed360db321c35523786b8" name="af19009305ceed360db321c35523786b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af19009305ceed360db321c35523786b8">&#9670;&#160;</a></span>dqnEpsilonEnd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::dqnEpsilonEnd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4443c61a7ebb7073cbea7dee1b17163e" name="a4443c61a7ebb7073cbea7dee1b17163e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4443c61a7ebb7073cbea7dee1b17163e">&#9670;&#160;</a></span>dqnEpsilonStart</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::dqnEpsilonStart</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9ea87e9c7ea68814c18a9d0f3fcf1ea" name="ad9ea87e9c7ea68814c18a9d0f3fcf1ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ea87e9c7ea68814c18a9d0f3fcf1ea">&#9670;&#160;</a></span>dqnReplayCapacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnReplayCapacity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hyperparamètres DQN, pertinents pour <span class="tt">--algo avance</span> seulement (voir <span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>). </p>
+
+</div>
+</div>
+<a id="abf602b7c37f1e949fb8d33bf72e1252d" name="abf602b7c37f1e949fb8d33bf72e1252d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf602b7c37f1e949fb8d33bf72e1252d">&#9670;&#160;</a></span>dqnTargetSyncPeriodSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnTargetSyncPeriodSteps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0669d406edd1629686c7bf8593fbe0eb" name="a0669d406edd1629686c7bf8593fbe0eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0669d406edd1629686c7bf8593fbe0eb">&#9670;&#160;</a></span>dqnUpdatePeriodSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnUpdatePeriodSteps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42464150fa1b2ea30f7dffc2dea13027" name="a42464150fa1b2ea30f7dffc2dea13027"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42464150fa1b2ea30f7dffc2dea13027">&#9670;&#160;</a></span>dqnWarmupSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::dqnWarmupSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a094508e44a6308674a7348ab355c4a92" name="a094508e44a6308674a7348ab355c4a92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a094508e44a6308674a7348ab355c4a92">&#9670;&#160;</a></span>entropyCoefficient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::entropyCoefficient</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,6 +371,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7f5796418a51bb74b178956db81d3c5a" name="a7f5796418a51bb74b178956db81d3c5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f5796418a51bb74b178956db81d3c5a">&#9670;&#160;</a></span>explorationFloor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::explorationFloor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8732bf2f3938db391a0b41d525cc914d" name="a8732bf2f3938db391a0b41d525cc914d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8732bf2f3938db391a0b41d525cc914d">&#9670;&#160;</a></span>gamma</h2>
 
@@ -165,6 +393,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::gamma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4aaa35d0483bbae0600e5329c6c3a294" name="a4aaa35d0483bbae0600e5329c6c3a294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aaa35d0483bbae0600e5329c6c3a294">&#9670;&#160;</a></span>gradientClipNorm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::gradientClipNorm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0025b03aaccbc4b7e12cffaefcba20b" name="aa0025b03aaccbc4b7e12cffaefcba20b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0025b03aaccbc4b7e12cffaefcba20b">&#9670;&#160;</a></span>hiddenSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; aisolver::cli::TrainArgs::hiddenSize</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -199,6 +455,36 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aae746058d66b5d8bd9552df382c38ef4" name="aae746058d66b5d8bd9552df382c38ef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae746058d66b5d8bd9552df382c38ef4">&#9670;&#160;</a></span>maxGenerations</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::maxGenerations</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7785bbecbbafd387868a047336122f5c" name="a7785bbecbbafd387868a047336122f5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7785bbecbbafd387868a047336122f5c">&#9670;&#160;</a></span>maxSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::maxSteps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Budget de pas et seuil de blocage d'un épisode ; absents (ou <span class="tt">0</span>) = dérivés du niveau. </p>
+
+</div>
+</div>
 <a id="acba8db8e12a81f84248a8e972a13cfd3" name="acba8db8e12a81f84248a8e972a13cfd3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acba8db8e12a81f84248a8e972a13cfd3">&#9670;&#160;</a></span>mutationRate</h2>
 
@@ -207,6 +493,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::mutationRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4361e76b148870f4c06761945e5d70f5" name="a4361e76b148870f4c06761945e5d70f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4361e76b148870f4c06761945e5d70f5">&#9670;&#160;</a></span>mutationStrength</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; aisolver::cli::TrainArgs::mutationStrength</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -241,6 +541,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a02fa5101b01d49262b8dc1557f81b5a7" name="a02fa5101b01d49262b8dc1557f81b5a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fa5101b01d49262b8dc1557f81b5a7">&#9670;&#160;</a></span>requiredConsecutiveSuccesses</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::requiredConsecutiveSuccesses</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a69dacb39cfffb406c50c1ffe6bb995cc" name="a69dacb39cfffb406c50c1ffe6bb995cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69dacb39cfffb406c50c1ffe6bb995cc">&#9670;&#160;</a></span>runsRoot</h2>
 
@@ -263,6 +577,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::uint64_t aisolver::cli::TrainArgs::seed = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab898695c22a81dc0cbaf474cbe15b8ae" name="ab898695c22a81dc0cbaf474cbe15b8ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab898695c22a81dc0cbaf474cbe15b8ae">&#9670;&#160;</a></span>stuckThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::stuckThreshold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa478b3bed3289823b6a507d9988e5812" name="aa478b3bed3289823b6a507d9988e5812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa478b3bed3289823b6a507d9988e5812">&#9670;&#160;</a></span>tournamentSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; aisolver::cli::TrainArgs::tournamentSize</td>
         </tr>
       </table>
 </div><div class="memdoc">

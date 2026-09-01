@@ -21,6 +21,7 @@ var namespaceaisolver_1_1eval =
     [ "NoisyObservationWrapper", "classaisolver_1_1eval_1_1NoisyObservationWrapper.html", "classaisolver_1_1eval_1_1NoisyObservationWrapper" ],
     [ "ReinforceTrainedPolicy", "classaisolver_1_1eval_1_1ReinforceTrainedPolicy.html", "classaisolver_1_1eval_1_1ReinforceTrainedPolicy" ],
     [ "TrainedPolicy", "classaisolver_1_1eval_1_1TrainedPolicy.html", "classaisolver_1_1eval_1_1TrainedPolicy" ],
+    [ "RepetitionObserver", "namespaceaisolver_1_1eval.html#a5be27363361d82788dda9b4a85b72041", null ],
     [ "ActionDecodingMode", "namespaceaisolver_1_1eval.html#a6e8e78cba916b1686b3779c394faa10f", [
       [ "Argmax", "namespaceaisolver_1_1eval.html#a6e8e78cba916b1686b3779c394faa10fa2c978c1dc4d52877220803916c037c34", null ],
       [ "Stochastic", "namespaceaisolver_1_1eval.html#a6e8e78cba916b1686b3779c394faa10fa7034d72178527959767784e9faadfca7", null ]

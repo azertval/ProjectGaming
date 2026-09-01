@@ -13,5 +13,6 @@ var Ops_8cpp =
     [ "aisolver::autodiff::relu", "namespaceaisolver_1_1autodiff.html#af0fbb836f86844e00f1ef66f3d81dd53", null ],
     [ "aisolver::autodiff::selectIndex", "namespaceaisolver_1_1autodiff.html#a25ff26681f28ff46c2b5705387ba2b6c", null ],
     [ "aisolver::autodiff::subtract", "namespaceaisolver_1_1autodiff.html#ae1fb7520596de7d456272a843d1fad98", null ],
+    [ "aisolver::autodiff::sumAll", "namespaceaisolver_1_1autodiff.html#a2e4c349fa5a4246f9cb2e3ffd3a69ead", null ],
     [ "aisolver::autodiff::tanhOp", "namespaceaisolver_1_1autodiff.html#a8f655daae75892c8e3d759a46bdb7b2d", null ]
 ];

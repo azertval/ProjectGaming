@@ -231,6 +231,9 @@ var NAVTREEINDEX0 =
 "Episode_8cpp.html":[14,0,5,0,1,4],
 "Episode_8h.html":[14,0,5,0,1,5],
 "Episode_8h_source.html":[14,0,5,0,1,5],
+"EvaluationWorker_8cpp.html":[14,0,5,3,0,0],
+"EvaluationWorker_8h.html":[14,0,5,3,0,1],
+"EvaluationWorker_8h_source.html":[14,0,5,3,0,1],
 "EvolutionaryConfig_8h.html":[14,0,5,0,8,2,0],
 "EvolutionaryConfig_8h_source.html":[14,0,5,0,8,2,0],
 "EvolutionaryTrainedPolicy_8cpp.html":[14,0,5,0,2,16],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "FileLogSink_8h.html":[14,0,5,1,0,5],
 "FileLogSink_8h_source.html":[14,0,5,1,0,5],
 "FileOperationResult_8h.html":[14,0,5,3,3,12],
-"FileOperationResult_8h_source.html":[14,0,5,3,3,12],
-"FitnessEvaluator_8cpp.html":[14,0,5,0,8,2,3],
-"FitnessEvaluator_8h.html":[14,0,5,0,8,2,4],
-"FitnessEvaluator_8h_source.html":[14,0,5,0,8,2,4]
+"FileOperationResult_8h_source.html":[14,0,5,3,3,12]
 };

@@ -20,9 +20,11 @@ var test__benchmark__runner_8cpp =
     [ "TEST", "test__benchmark__runner_8cpp.html#a32619ab5f5cc144ba88aaf11944b8bf5", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#af3c6a80bd03e4f007c77aae8b6f9de6c", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#a6d5584534ff4acc44b54549585913680", null ],
+    [ "TEST", "test__benchmark__runner_8cpp.html#ad40244e4dc1bf61a740b46043f1c240d", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#adb772709e64ae32e58e37d90a26e2c5b", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#a2ecad2b5af1af40ee97e838d668382c7", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#a13708bad908d3eba6883feb0b217249b", null ],
+    [ "TEST", "test__benchmark__runner_8cpp.html#aa081a14553a3f2c9905fec2e9c8dede8", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#aa9e951bbf7d89ffa5b456c05615c94be", null ],
     [ "TEST", "test__benchmark__runner_8cpp.html#aecb51869c443262db99a2fc789b328bc", null ]
 ];

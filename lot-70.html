@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-70.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : <span class="tt">ctest</span> à 100 % (1161 tests), build ninja, les quatre linters — exigences, cahier de test, séquence démo, régénération des plans — verts). La vérification visuelle du rendu réel (Direct3D 11/QRhi) reste manuelle, l'exécutable éditeur n'ayant pas pu être construit dans cet environnement (modules Qt <span class="tt">GuiPrivate</span>/<span class="tt">ShaderTools</span> absents, indépendant de ce lot). Prérequis : <a class="el" href="lot-69.html" title="LOT-69 — Plans picturaux, parallaxe réglable et mode création">LOT-69</a> (plans picturaux, parallaxe portée par le plan). Ne fait partie d'aucun programme cadré : répond au manque explicitement consigné par le <span class="tt">LOT-69</span> TACHE-10 (« un fond peint qui reporte fidèlement l'ancien habillage n'est pas une fresque qui exploiterait vraiment la profondeur — dessiner un tel tableau est un acte de level design, hors de ce lot d'outillage »). Même situation que <a class="el" href="lot-67.html" title="LOT-67 — Trajectoires et règles de tableau éditables">LOT-67</a>/<span class="tt">LOT-68</span> : un dossier dédié, faute d'un programme qui l'aurait déjà prévu. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3337"></a>
 Objectif</h1>
 <p>Faire dire à la parallaxe portée par <span class="tt"><a class="el" href="structcore_1_1Plane.html" title="Plan pictural : image couvrant tout le niveau, avec sa densité, sa parallaxe et sa profondeur (EX-DEC...">core::Plane</a></span> (<span class="tt">EX-DEC-043</span>) ce qu'elle promet, dans les tableaux où elle s'applique réellement.</p>
 <p>Le constat qui déclenche ce lot : <span class="tt"><a class="el" href="namespacehmi.html#a814f6eb5e5627ebadda4080537d8b4cd" title="Décide si la parallaxe des plans s&#39;applique, selon le mode de cadrage et le drapeau du niveau (EX-DEC...">hmi::planeParallaxActive</a></span> (<span class="tt"><a class="el" href="Parallax_8h.html" title="Décalage de parallaxe, bornage d&#39;un plan et décision d&#39;activation (EX-DEC-043, LOT-69).">Source/HMI/Graphics/Parallax.h</a></span>) n'active le décalage qu'en cadrage <span class="tt">Follow</span> ou <span class="tt">PerRoom</span> — deux tableaux du dépôt seulement, <span class="tt">demo-mouvement</span> (suivi continu) et <span class="tt">demo-final</span> (caméra par salle). Les vingt PNG restants sont tous à densité fixe et invisibles à l'usage puisque le cadrage <span class="tt">WholeLevel</span> neutralise le décalage (comportement voulu, documenté dans <span class="tt"><a class="el" href="Parallax_8h.html" title="Décalage de parallaxe, bornage d&#39;un plan et décision d&#39;activation (EX-DEC-043, LOT-69).">Parallax.h</a></span>). Sur les deux tableaux où ça compte, la migration du <span class="tt">LOT-69</span> n'a livré que <b>deux</b> plans (un fond, un devant) : une seule paire de profondeurs qui bouge, quand une parallaxe lisible en montre au moins trois — un fond lointain qui bouge à peine, un fond proche qui suit la caméra à mi-vitesse, un premier plan qui la dépasse.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3338"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3333"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3339"></a>
 Inclus</h2>
 <ul>
 <li>Un <b>troisième plan</b>, « lointain », densité <b>4</b> px/unité (la plus basse acceptée, <span class="tt">EX-DEC-041</span>), sur les <b>deux seuls</b> tableaux à parallaxe active : <span class="tt">demo-mouvement</span> et <span class="tt">demo-final</span>. Facteur de défilement <b>inférieur</b> à celui du plan « fond » existant, pour distinguer visiblement les trois profondeurs (lointain &lt; fond &lt; 1.0 &lt; devant).</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li>Un motif procédural nouveau, <span class="tt">star()</span>, pour semer le ciel du thème nocturne (<span class="tt">demo-mouvement</span>) — seul thème du dépôt qui en a l'usage.</li>
 <li>Un garde-fou système (<span class="tt"><a class="el" href="test__plans__livres_8cpp.html" title="Tests système du contenu livré côté plans picturaux : plus aucun décor dans les niveaux,...">test_plans_livres.cpp</a></span>) : les tableaux à parallaxe active livrent <b>au moins trois</b> plans dont les facteurs de parallaxe sont strictement croissants — pour qu'une régression future (plan lointain oublié en migrant un niveau, facteur mal réglé) échoue plutôt que de se découvrir à l'écran.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3334"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3340"></a>
 Exclus</h2>
 <ul>
 <li><b>Les vingt tableaux en cadrage <span class="tt">WholeLevel</span></b> : leur parallaxe est neutralisée par construction (<span class="tt"><a class="el" href="namespacehmi.html#a814f6eb5e5627ebadda4080537d8b4cd" title="Décide si la parallaxe des plans s&#39;applique, selon le mode de cadrage et le drapeau du niveau (EX-DEC...">hmi::planeParallaxActive</a></span>), un plan lointain n'y serait jamais visible — livrer une texture pour rien y répéterait exactement l'erreur que <span class="tt">LOT-69</span> TACHE-10 a nommée et évitée.</li>
@@ -118,7 +118,7 @@ Exclus</h2>
 <li><b>Repeindre les plans « fond »/« devant » existants.</b> Leurs facteurs et leur contenu restent ceux du <span class="tt">LOT-69</span> ; seul un nouveau plan s'ajoute devant eux dans la pile.</li>
 <li><b>Rebasculer un tableau <span class="tt">WholeLevel</span> en <span class="tt">PerRoom</span>/<span class="tt">Follow</span></b> pour lui donner accès à la parallaxe : changerait le gameplay (cadrage choisi, <span class="tt">EX-REN-016</span>) pour un motif purement visuel, hors de propos ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3335"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3341"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Densité 4, pas 8.</b> Un plan lointain est vu de loin, immobile ou presque (facteur bas) et presque entièrement masqué par le plan « fond » opaque sous l'horizon (seule sa bande de ciel reste visible, au travers du voile semi-transparent de <span class="tt">paint_backdrop</span>) : la moitié de définition déjà perdue par le fond n'a pas de raison de valoir mieux ici (même raisonnement que <span class="tt">BACKDROP_PIXELS_PER_UNIT</span>, <span class="tt">LOT-69</span> TACHE-10).</li>
@@ -127,10 +127,10 @@ Décisions de cadrage</h1>
 <li><b>La boucle de crête déchiquetée de <span class="tt">paint_backdrop</span> est factorisée</b> en une fonction partagée, plutôt que dupliquée pour le plan lointain : c'est exactement la même géométrie (bandes de largeur aléatoire, sommet jitteré), à un jeu de paramètres près.</li>
 <li><b>Deux tableaux, pas vingt-deux.</b> Peindre un lointain sur les niveaux <span class="tt">WholeLevel</span> coûterait une texture et une passe de rendu (<span class="tt">TACHE-09</span> du <span class="tt">LOT-69</span>) pour un plan que la parallaxe neutralisée rendrait indiscernable d'un fond fixe mal aligné — le lot applique la même règle que <span class="tt">LOT-69</span> a déjà posée pour les plans de devant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3336"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3342"></a>
 Exigences couvertes</h1>
 <p>Aucune nouvelle : ce lot <b>consomme</b> <span class="tt">EX-DEC-040</span> (liste ordonnée de plans), <span class="tt">EX-DEC-041</span> (densité par plan), <span class="tt">EX-DEC-043</span> (facteur de parallaxe par plan), <span class="tt">EX-DEC-044</span> (garde-fous de coût) et <span class="tt">EX-REN-049</span> (composition/rendu des plans) — tous livrés et inchangés par <span class="tt">LOT-69</span>. Réutilise aussi <span class="tt">EX-LVL-009</span> (format <span class="tt">planes</span>/<span class="tt">parallax</span>) et <span class="tt">EX-VIS-007</span> (mention de la parallaxe 2D comme objectif produit, <span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3337"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3343"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -143,7 +143,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-70-tache-02-garde-fou-documentation.html#md_Lot_2LOT-70-parallaxe-demo_2tache-02-garde-fou-documentation" title="Lot/LOT-70-parallaxe-demo/tache-02-garde-fou-documentation.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Garde-fou de non-régression, documentation et référentiel  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3344"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt">demo-mouvement</span> et <span class="tt">demo-final</span> déclarent chacun <b>trois</b> plans, aux facteurs de parallaxe strictement croissants (lointain &lt; fond &lt; devant), et se chargent/se jouent sans changement de géométrie de collision (<span class="tt">EX-ARCH-012</span>).</li>
@@ -152,10 +152,10 @@ Critères d'acceptation du lot</h1>
 <li>Un tableau à parallaxe active qui perdrait son plan lointain, ou dont les facteurs cesseraient d'être croissants, fait échouer un test — démontré par un cas négatif.</li>
 <li><span class="tt">ctest</span> à 100 %, build <span class="tt">/W4 /WX</span>, les quatre linters (exigences, cahier de test, séquence démo, Doxygen) verts, cahier de test régénéré.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3345"></a>
 Dépendances</h1>
 <p>Consomme entièrement <a class="el" href="lot-69.html" title="LOT-69 — Plans picturaux, parallaxe réglable et mode création">LOT-69</a> (modèle <span class="tt"><a class="el" href="structcore_1_1Plane.html" title="Plan pictural : image couvrant tout le niveau, avec sa densité, sa parallaxe et sa profondeur (EX-DEC...">core::Plane</a></span>, rendu, parallaxe, générateur de plans démo). Aucun lot ne dépend de celui-ci.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3346"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-70-tache-01-plan-lointain.html" title="TACHE-01 — Plan « lointain » : générateur, contenu, format des deux niveaux">TACHE-01 — Plan « lointain » : générateur, contenu, format des deux niveaux</a></li>

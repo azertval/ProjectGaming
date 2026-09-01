@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-16-tache-02-boite-dialogue-redimensionnement.html'
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-16-niveaux-plus-grands_2tache-02-boite-dialogue-redimensionnement"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-16.html#md_Lot_2LOT-16-niveaux-plus-grands_2epic" title="Lot/LOT-16-niveaux-plus-grands/epic.md">LOT-16</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1228"></a>
 Contexte</h1>
 <p><span class="tt">EditorScreen</span> porte déjà un champ de saisie de texte (<span class="tt">_nameInput</span>, LOT-15 TACHE-03) pour nommer et renommer un niveau, avec un drapeau <span class="tt">_nameInputIsCreation</span> distinguant les deux usages. Ajouter un troisième usage (redimensionner) par un booléen supplémentaire ne passerait pas à l'échelle ; cette tâche généralise le mécanisme plutôt que d'en construire un second en parallèle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1229"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Généraliser le slot de saisie</b> : remplacer <span class="tt">bool _nameInputIsCreation</span> par un <span class="tt">enum class
@@ -106,30 +106,30 @@ Travail à réaliser</h1>
 <li><b>Confirmation</b> (<span class="tt">TextPromptPurpose::ResizeGrid</span>) : <span class="tt">parseLevelSize(text)</span> (déjà garanti parsable, le champ n'aurait pas confirmé sinon) puis <span class="tt">requestResize(largeur, hauteur)</span> — <b>même</b> chemin que les flèches, donc même confirmation destructrice si la nouvelle taille perdrait l'entrée/la sortie/une liaison (<span class="tt">EX-EDIT-012</span>, aucune duplication).</li>
 <li><b>Annulation</b> (<span class="tt">Échap</span>) : aucun effet, la grille reste inchangée — cohérent avec le renommage (LOT-15), à la différence de la création où annuler revient au sélecteur (aucun changement de ce comportement-là).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1224"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1230"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (généralisation du slot de saisie, raccourci <span class="tt">Ctrl+R</span>, branchement de la confirmation vers <span class="tt">requestResize</span>).</li>
 <li><span class="tt"><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></span> (nouvel énumérateur <span class="tt">Key::R</span>, <span class="tt">0x52</span> — purement additif, même principe que les ajouts de LOT-15).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1231"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement au-delà de <span class="tt">LevelSizeValidation</span> (TACHE-01) et <span class="tt">LevelDraft::resize</span>/<span class="tt">requestResize</span> (existants) : <span class="tt">EditorScreen</span> n'est pas compilé dans <span class="tt">UnitTests</span> (dépendance au rendu D3D11, comme le reste de la classe depuis LOT-14/15) — vérifié par relecture et par essai manuel (voir DoD).</li>
 <li>Non-régression : les tests existants de nommage/renommage (<span class="tt">TextInputField</span>, <span class="tt">LevelNameValidation</span>) restent valides après la généralisation du slot (le renommage du champ interne ne change aucun comportement observable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1232"></a>
 Points d'attention</h1>
 <ul>
 <li>Le format pré-rempli (<span class="tt">largeur x hauteur</span>) doit être celui que <span class="tt">parseLevelSize</span> accepte en entrée sans modification — valider <span class="tt">Ctrl+R</span> puis <span class="tt">Entrée</span> immédiatement (sans rien taper) doit être un no-op valide, pas un refus.</li>
 <li><span class="tt">Ctrl+R</span> ne doit rien faire si <span class="tt">_textPrompt</span>, <span class="tt">_pendingConfirmation</span>, <span class="tt">_playtest</span> ou <span class="tt">_picker</span> sont déjà actifs (même garde que <span class="tt">F2</span>, cf. l'ordre des blocs dans <span class="tt">update()</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1233"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Boîte de dialogue opérationnelle ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour ; vérifiée manuellement (ouverture pré-remplie, saisie valide redimensionne, saisie invalide refusée avec message, <span class="tt">Échap</span> sans effet, confirmation destructrice déclenchée si applicable).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1228"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1234"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-017</span> (partie « saisie directe »). </p>
 </div></div><!-- contents -->

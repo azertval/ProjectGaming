@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,6 +105,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b94a49154efabb17a720d59cb0b241e" id="r_a6b94a49154efabb17a720d59cb0b241e"><td class="memItemLeft"><a class="el" href="#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6b94a49154efabb17a720d59cb0b241e">operator=</a> (const <a class="el" href="#a9fcf9b06e1d98a1be5e3a8d423ad0327">Logger</a> &amp;)=delete</td></tr>
 <tr class="memitem:a6ba9df5830242dec4625286d6c045683" id="r_a6ba9df5830242dec4625286d6c045683"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ba9df5830242dec4625286d6c045683">setMinimumLevel</a> (<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level)</td></tr>
 <tr class="memdesc:a6ba9df5830242dec4625286d6c045683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le niveau minimal ; les messages moins graves sont ignorés.  <br /></td></tr>
+<tr class="memitem:af0c56db8ce83892c856e908c26c46f29" id="r_af0c56db8ce83892c856e908c26c46f29"><td class="memItemLeft"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a>&#160;</td><td class="memItemRight"><a class="el" href="#af0c56db8ce83892c856e908c26c46f29">minimumLevel</a> () const noexcept</td></tr>
+<tr class="memitem:a3f0cbd4596e47500c6da1463ca6fda6f" id="r_a3f0cbd4596e47500c6da1463ca6fda6f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3f0cbd4596e47500c6da1463ca6fda6f">beginLevelElevation</a> (<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> floor)</td></tr>
+<tr class="memdesc:a3f0cbd4596e47500c6da1463ca6fda6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une <b>élévation temporaire</b> du niveau minimal à au moins <code class="param">floor</code>.  <br /></td></tr>
+<tr class="memitem:ac9d9ee77c141647ab1c002550019438e" id="r_ac9d9ee77c141647ab1c002550019438e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac9d9ee77c141647ab1c002550019438e">endLevelElevation</a> ()</td></tr>
+<tr class="memdesc:ac9d9ee77c141647ab1c002550019438e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ferme une élévation ouverte par <span class="tt"><a class="el" href="#a3f0cbd4596e47500c6da1463ca6fda6f" title="Ouvre une élévation temporaire du niveau minimal à au moins floor.">beginLevelElevation</a></span> ; restaure le niveau d'origine lorsque la dernière élévation en cours se ferme.  <br /></td></tr>
 <tr class="memitem:a42b5979c9d78e520e0e6d684e329ba26" id="r_a42b5979c9d78e520e0e6d684e329ba26"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a42b5979c9d78e520e0e6d684e329ba26">isEnabled</a> (<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level) const</td></tr>
 <tr class="memdesc:a42b5979c9d78e520e0e6d684e329ba26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un niveau passe le filtre courant.  <br /></td></tr>
 <tr class="memitem:a2dd1f2eba4895d6077958a9e7295ec62" id="r_a2dd1f2eba4895d6077958a9e7295ec62"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2dd1f2eba4895d6077958a9e7295ec62">addSink</a> (std::unique_ptr&lt; <a class="el" href="classcore_1_1ILogSink.html">ILogSink</a> &gt; sink)</td></tr>
@@ -116,7 +121,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ad079b7c6d07ef88f5dc8789416b30052" id="r_ad079b7c6d07ef88f5dc8789416b30052"><td class="memItemLeft"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad079b7c6d07ef88f5dc8789416b30052">_minimumLevel</a> = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td></tr>
+<tr class="memitem:a76791beb2136fabbd72d691cf11af2c9" id="r_a76791beb2136fabbd72d691cf11af2c9"><td class="memItemLeft">std::atomic&lt; <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a76791beb2136fabbd72d691cf11af2c9">_minimumLevel</a> = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td></tr>
+<tr class="memdesc:a76791beb2136fabbd72d691cf11af2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lu à chaque message depuis n'importe quel fil, écrit par les élévations temporaires : le type atomique n'est pas cosmétique, un <span class="tt"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3" title="Niveau d&#39;un message de journalisation (ordre croissant de gravité).">LogLevel</a></span> nu était une course de données.  <br /></td></tr>
+<tr class="memitem:a7d91b33d8157b35aa9be6842b792bcad" id="r_a7d91b33d8157b35aa9be6842b792bcad"><td class="memItemLeft">std::mutex&#160;</td><td class="memItemRight"><a class="el" href="#a7d91b33d8157b35aa9be6842b792bcad">_elevationMutex</a></td></tr>
+<tr class="memdesc:a7d91b33d8157b35aa9be6842b792bcad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protège le compteur d'élévations et le niveau mémorisé (voir <span class="tt"><a class="el" href="#a3f0cbd4596e47500c6da1463ca6fda6f" title="Ouvre une élévation temporaire du niveau minimal à au moins floor.">beginLevelElevation</a></span>).  <br /></td></tr>
+<tr class="memitem:a8bee6555bde13a76d7c1083ea503232f" id="r_a8bee6555bde13a76d7c1083ea503232f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8bee6555bde13a76d7c1083ea503232f">_elevationDepth</a> = 0</td></tr>
+<tr class="memitem:af2c50f8b7488ee353dab6c98cc836b05" id="r_af2c50f8b7488ee353dab6c98cc836b05"><td class="memItemLeft"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2c50f8b7488ee353dab6c98cc836b05">_levelBeforeElevation</a> = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td></tr>
 <tr class="memitem:a4e5846a9e46e15964cfbf3ae7282f813" id="r_a4e5846a9e46e15964cfbf3ae7282f813"><td class="memItemLeft">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classcore_1_1ILogSink.html">ILogSink</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4e5846a9e46e15964cfbf3ae7282f813">_sinks</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -193,6 +203,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3f0cbd4596e47500c6da1463ca6fda6f" name="a3f0cbd4596e47500c6da1463ca6fda6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f0cbd4596e47500c6da1463ca6fda6f">&#9670;&#160;</a></span>beginLevelElevation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::Logger::beginLevelElevation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a></td>          <td class="paramname"><span class="paramname"><em>floor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ouvre une <b>élévation temporaire</b> du niveau minimal à au moins <code class="param">floor</code>. </p>
+<p>Compte les élévations au lieu de mémoriser un niveau par appelant : l'écran Mode IA peut faire tourner un entraînement et une évaluation <b>en même temps</b>, chacun sur son fil, et deux portées qui se chevauchent restauraient alors le niveau que la première avait relevé — laissant le journal muet pour le reste de la session. Le niveau d'origine n'est mémorisé qu'à la première élévation, et restauré à la dernière sortie. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">floor</td><td>Niveau minimal souhaité ; un niveau déjà plus strict n'est jamais assoupli. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a14d080b7aea34be62b6bd98897378e97" name="a14d080b7aea34be62b6bd98897378e97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14d080b7aea34be62b6bd98897378e97">&#9670;&#160;</a></span>clearSinks()</h2>
 
@@ -209,6 +244,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retire tous les sinks. </p>
+
+</div>
+</div>
+<a id="ac9d9ee77c141647ab1c002550019438e" name="ac9d9ee77c141647ab1c002550019438e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d9ee77c141647ab1c002550019438e">&#9670;&#160;</a></span>endLevelElevation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::Logger::endLevelElevation </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ferme une élévation ouverte par <span class="tt"><a class="el" href="#a3f0cbd4596e47500c6da1463ca6fda6f" title="Ouvre une élévation temporaire du niveau minimal à au moins floor.">beginLevelElevation</a></span> ; restaure le niveau d'origine lorsque la dernière élévation en cours se ferme. </p>
 
 </div>
 </div>
@@ -276,6 +330,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af0c56db8ce83892c856e908c26c46f29" name="af0c56db8ce83892c856e908c26c46f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c56db8ce83892c856e908c26c46f29">&#9670;&#160;</a></span>minimumLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> core::Logger::minimumLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le niveau minimal courant. </dd></dl>
+
+</div>
+</div>
 <a id="a6b94a49154efabb17a720d59cb0b241e" name="a6b94a49154efabb17a720d59cb0b241e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b94a49154efabb17a720d59cb0b241e">&#9670;&#160;</a></span>operator=()</h2>
 
@@ -321,8 +401,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="ad079b7c6d07ef88f5dc8789416b30052" name="ad079b7c6d07ef88f5dc8789416b30052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad079b7c6d07ef88f5dc8789416b30052">&#9670;&#160;</a></span>_minimumLevel</h2>
+<a id="a8bee6555bde13a76d7c1083ea503232f" name="a8bee6555bde13a76d7c1083ea503232f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bee6555bde13a76d7c1083ea503232f">&#9670;&#160;</a></span>_elevationDepth</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +411,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> core::Logger::_minimumLevel = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td>
+          <td class="memname">int core::Logger::_elevationDepth = 0</td>
         </tr>
       </table>
   </td>
@@ -340,6 +420,76 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d91b33d8157b35aa9be6842b792bcad" name="a7d91b33d8157b35aa9be6842b792bcad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d91b33d8157b35aa9be6842b792bcad">&#9670;&#160;</a></span>_elevationMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex core::Logger::_elevationMutex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Protège le compteur d'élévations et le niveau mémorisé (voir <span class="tt"><a class="el" href="#a3f0cbd4596e47500c6da1463ca6fda6f" title="Ouvre une élévation temporaire du niveau minimal à au moins floor.">beginLevelElevation</a></span>). </p>
+
+</div>
+</div>
+<a id="af2c50f8b7488ee353dab6c98cc836b05" name="af2c50f8b7488ee353dab6c98cc836b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2c50f8b7488ee353dab6c98cc836b05">&#9670;&#160;</a></span>_levelBeforeElevation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> core::Logger::_levelBeforeElevation = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76791beb2136fabbd72d691cf11af2c9" name="a76791beb2136fabbd72d691cf11af2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76791beb2136fabbd72d691cf11af2c9">&#9670;&#160;</a></span>_minimumLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a>&gt; core::Logger::_minimumLevel = <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1">LogLevel::Trace</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lu à chaque message depuis n'importe quel fil, écrit par les élévations temporaires : le type atomique n'est pas cosmétique, un <span class="tt"><a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3" title="Niveau d&#39;un message de journalisation (ordre croissant de gravité).">LogLevel</a></span> nu était une course de données. </p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-43.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em> et son invalidation), <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (panneau « Textures »). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2149"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2155"></a>
 Objectif</h1>
 <p>Rendre le travail d'habillage <b>supportable</b> avant qu'il ne commence vraiment. Tant que ce lot n'est pas livré, chaque retouche d'une texture impose de passer par l'explorateur de fichiers puis de <b>relancer l'application</b> — c'est-à-dire à chaque itération de LOT-44, LOT-45, LOT-47, LOT-48, LOT-49 et LOT-54.</p>
 <p>C'est la raison pour laquelle ce lot est placé <b>avant</b> les couches visuelles restantes, et non après comme le prévoyait le cadrage initial : c'est un multiplicateur de vitesse sur tout ce qui suit, pas un confort de fin de programme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2150"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2156"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2151"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2157"></a>
 Inclus</h2>
 <ul>
 <li><b>Widget de vignettes partagé</b>, utilisé par les sections du panneau « Textures » (Skins pour l'instant, puis Fond, Objets, Animations, Décors) <b>en place</b>, sans changer l'identité ni le câblage du panneau ni son modèle de données : <span class="tt"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">hmi::decodeImageFile</a></span> → <span class="tt">QPixmap</span>, indépendant du <em>TextureCache</em> D3D11 — deux consommateurs du même décodeur CPU, pas de nouveau décodeur.</li>
@@ -114,14 +114,14 @@ Inclus</h2>
 </li>
 <li><b>Rechargement à chaud</b> : action « Recharger les textures » (ou surveillance de dossier) qui invalide le <em>TextureCache</em> via <span class="tt">invalidate</span>/<span class="tt">invalidateAll</span> (API prévue en LOT-40) et régénère les vignettes, sans redémarrer l'application.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2152"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2158"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Aucun nouveau modèle de données, aucune nouvelle donnée <span class="tt">Level</span>/<span class="tt">skins.json</span> — pure consolidation d'UI et d'outillage sur les données introduites par LOT-42.</li>
 <li>Édition du contenu d'une image : c'est l'atelier pixel art (LOT-54), qui se branchera sur ce widget comme point d'entrée.</li>
 <li>Réécriture automatique des références lors d'un renommage : on <b>avertit</b>, on ne migre pas. Migrer supposerait de rouvrir et réécrire tous les niveaux, ce qui est une opération à part entière, non justifiée à ce stade.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2153"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2159"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Placé tôt, délibérément</b> : le cadrage initial plaçait ce lot en avant-dernière position. Le rechargement à chaud conditionne la vitesse d'itération de six lots ; le livrer après eux reviendrait à payer l'intégralité du coût qu'il évite.</li>
@@ -129,13 +129,13 @@ Décisions de cadrage</h1>
 <li><b>Avertir plutôt que migrer</b> (cf. Exclus) : décision explicite, pour que le comportement ne soit pas pris pour un oubli.</li>
 <li><b>Décodage CPU et cache GPU restent séparés</b> : les vignettes passent par <span class="tt">QPixmap</span>, jamais par une texture D3D11 — pas de dépendance de l'UI au device graphique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2154"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2160"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets et rechargement à chaud).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-042</span>/<span class="tt">EX-EDIT-024</span> (sections concernées), <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (repli).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2155"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2161"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-43-tache-03-rechargement-chaud.html#md_Lot_2LOT-43-bibliotheque-assets_2tache-03-rechargement-chaud" title="Lot/LOT-43-bibliotheque-assets/tache-03-rechargement-chaud.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Rechargement à chaud (invalidation <em>TextureCache</em> + régénération des vignettes)  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2156"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2162"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Les sections du panneau « Textures » affichent des vignettes au lieu d'une liste texte, sans changement de comportement fonctionnel.</li>
@@ -160,10 +160,10 @@ Critères d'acceptation du lot</h1>
 <li>La détection des références est testée sans GPU.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2157"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2163"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a> (<em>TextureCache</em>, <span class="tt">invalidate</span>) et <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (panneau « Textures », <span class="tt">skins.json</span>). Réutilise <em>TextureLoader</em>/<span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> (LOT-39). Accélère <a class="el" href="lot-44.html" title="LOT-44 — Fond de niveau et versionnement du format">LOT-44</a> à <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> ; prépare <a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> (point d'entrée « ouvrir dans l'atelier »).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2158"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2164"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-43-tache-01-widget-vignettes.html" title="TACHE-01 — Widget de vignettes partagé">TACHE-01 — Widget de vignettes partagé</a></li>

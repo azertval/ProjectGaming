@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-63-tache-03-plateforme-mobile.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-63-mecanismes-manquants_2tache-03-plateforme-mobile"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-63.html#md_Lot_2LOT-63-mecanismes-manquants_2epic" title="Lot/LOT-63-mecanismes-manquants/epic.md">LOT-63</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Gameplay</span>, <span class="tt">Source/Core/Physics</span> · <b>Statut :</b> fait (moteur Core ; câblage <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>/rendu reporté à la TACHE-04/TACHE-05, qui ont besoin d'y poser une entité et un habillage de toute façon)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2978"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2984"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> range les plateformes mobiles dans la boîte à outils du genre, « (plus tard) ». C'est la tâche à <b>risque</b> du lot, et la seule qui touche à la physique.</p>
 <p>Toutes les collisions du jeu opposent jusqu'ici un personnage <b>mobile</b> à un décor <b>immobile</b> : <span class="tt">core::sweptAabbVsTileMap</span> balaie une boîte contre une grille fixe. Une plateforme qui bouge inverse le problème — le sol se déplace sous le personnage — et fait apparaître d'un coup toute la famille de défauts classiques : le personnage qui ne suit pas la plateforme horizontale, qui est écrasé par une plateforme montante, qui décolle d'une plateforme descendante, qui tremble à l'affichage parce que sa position est interpolée et celle de la plateforme non.</p>
 <p><span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> (<span class="tt">LOT-21</span>) est le précédent le plus proche : une entité solide qui se déplace dans la grille. Il faut s'en inspirer et en reprendre les invariants.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2985"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Type de tuile <span class="tt">MovingPlatform</span></b> et sa description : deux points de parcours, vitesse, et éventuellement un déphasage pour désynchroniser plusieurs plateformes — sur le modèle du danger temporisé (<span class="tt">EX-GP-053</span>), qui a déjà résolu ce besoin.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b>Cas d'écrasement</b> : une plateforme montante contre un plafond, avec le personnage entre les deux. Décider — refus d'avancer, ou mort — et le documenter ; le cas ne doit pas être laissé au hasard de l'ordre de résolution.</li>
 <li><b>Interpolation d'affichage</b> : la plateforme doit utiliser <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>, comme les blocs poussables, sans quoi le personnage tremble par rapport à son support.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2986"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>, <span class="tt">TileTypeName.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="test__platform__controller_8cpp.html" title="Tests unitaires de la plateforme mobile (core::PlatformController, EX-GP-026).">Source/Test/Unit/Core/Gameplay/test_platform_controller.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></span> (étendu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2981"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2987"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Déterminisme</b> : deux exécutions de la même séquence d'entrées donnent exactement les mêmes positions de plateforme et de personnage, à chaque pas. Test central.</li>
@@ -131,7 +131,7 @@ Tests (obligatoires)</h1>
 <li>Les niveaux livrés existants restent franchissables (test système inchangé).</li>
 <li>Tests <span class="tt">Core</span> purs, sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2982"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2988"></a>
 Points d'attention</h1>
 <ul>
 <li><b>L'ordre de résolution dans le pas est la décision structurante</b> : déplacer les plateformes, puis porter les entités posées dessus, puis appliquer la physique du personnage. Un autre ordre produit des défauts subtils et intermittents, très coûteux à diagnostiquer ensuite. Le fixer, le documenter, et le tester. <b>Retenu</b> : <span class="tt"><a class="el" href="classcore_1_1PlatformController.html#a8e9b72250f15eb2c6fb8694d404ab874" title="Avance d&#39;un pas fixe : fait progresser le compteur de pas consommé par boxAt.">core::PlatformController::update()</a></span> (position déterministe du pas) d'abord ; ensuite <span class="tt">core::CharacterPhysicsSystem::update(..., platforms)</span> — portage (translation directe si <span class="tt">Player::grounded</span>), <em>puis</em> résolution normale (grille), <em>puis</em> collision continue contre chaque plateforme (<span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>, même patron que les blocs réduits) — et <span class="tt">core::BlockController::update(..., platforms)</span>, qui porte de même les blocs reposant dessus (accumulateur infra-case converti en poussée d'une case entière). <b>Écrasement</b> : décidé <b>mortel</b> (<span class="tt">Player::squished</span>, plutôt que de mettre la plateforme en pause, ce qui casserait sa position purement fonction du numéro de pas). Câblage dans la boucle de jeu vivante (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>, entité de rendu, interpolation d'affichage) volontairement laissé à la TACHE-04/TACHE-05, qui posent de toute façon une entité et un habillage pour les trois nouveaux mécanismes.</li>
@@ -140,12 +140,12 @@ Points d'attention</h1>
 <li>L'interpolation d'affichage est déjà résolue pour les blocs poussables : reprendre le même mécanisme, ne pas en écrire un second.</li>
 <li>Si cette tâche déborde, <b>elle est celle qu'on retire du lot</b> : la clé et l'action « Interagir » se livrent sans elle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2983"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2989"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une plateforme mobile se déplace de façon déterministe entre deux points, porte le personnage et les blocs sans traversée, glissement ni tremblement, traite explicitement le cas d'écrasement, respecte un ordre de résolution documenté et testé, et laisse les niveaux existants franchissables ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2984"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2990"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-026</span> (plateforme mobile) ; réutilise <span class="tt">EX-GP-014</span> (collisions sans traversée), <span class="tt">EX-GP-022</span> (blocs poussables), <span class="tt">EX-GP-053</span> (déphasage, patron repris), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-REN-021</span> (pas fixe), <span class="tt">EX-LVL-002</span>/<span class="tt">EX-LVL-004</span> (format et validation), <span class="tt">EX-NFR-020</span> (tests). </p>
 </div></div><!-- contents -->

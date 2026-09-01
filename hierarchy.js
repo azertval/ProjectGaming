@@ -95,6 +95,7 @@ var hierarchy =
     [ "aisolver::cli::EvaluateArgs", "structaisolver_1_1cli_1_1EvaluateArgs.html", null ],
     [ "EvaluateArgs", "structEvaluateArgs.html", null ],
     [ "hmi::EvaluationOutcome", "structhmi_1_1EvaluationOutcome.html", null ],
+    [ "hmi::EvaluationRequest", "structhmi_1_1EvaluationRequest.html", null ],
     [ "aisolver::training::evolutionary::EvolutionaryConfig", "structaisolver_1_1training_1_1evolutionary_1_1EvolutionaryConfig.html", null ],
     [ "EvolutionaryConfig", "structEvolutionaryConfig.html", null ],
     [ "aisolver::training::evolutionary::EvolutionaryTrainer", "classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html", null ],
@@ -192,6 +193,7 @@ var hierarchy =
     [ "aisolver::eval::NoisyObservationWrapper", "classaisolver_1_1eval_1_1NoisyObservationWrapper.html", null ],
     [ "NoisyObservationWrapper", "classNoisyObservationWrapper.html", null ],
     [ "aisolver::ObjectiveDistanceFieldCache", "classaisolver_1_1ObjectiveDistanceFieldCache.html", null ],
+    [ "aisolver::ObjectiveEncoder", "classaisolver_1_1ObjectiveEncoder.html", null ],
     [ "aisolver::ObservationEncoder", "classaisolver_1_1ObservationEncoder.html", null ],
     [ "ObservationEncoder", "classObservationEncoder.html", null ],
     [ "hmi::PaletteThumbnail", "structhmi_1_1PaletteThumbnail.html", null ],
@@ -236,6 +238,7 @@ var hierarchy =
     [ "hmi::PlayerSpriteQuad", "structhmi_1_1PlayerSpriteQuad.html", null ],
     [ "hmi::PlayerSpriteTag", "structhmi_1_1PlayerSpriteTag.html", null ],
     [ "aisolver::PlayerStateEncoder", "classaisolver_1_1PlayerStateEncoder.html", null ],
+    [ "aisolver::training::PolicyGradientTuning", "structaisolver_1_1training_1_1PolicyGradientTuning.html", null ],
     [ "aisolver::PolynomialToyProblem", "structaisolver_1_1PolynomialToyProblem.html", null ],
     [ "PolynomialToyProblem", "structPolynomialToyProblem.html", null ],
     [ "aisolver::training::evolutionary::Population", "classaisolver_1_1training_1_1evolutionary_1_1Population.html", null ],
@@ -252,6 +255,7 @@ var hierarchy =
     [ "QNetwork", "classQNetwork.html", null ],
     [ "QObject", null, [
       [ "hmi::EditorActions", "classhmi_1_1EditorActions.html", null ],
+      [ "hmi::EvaluationWorker", "classhmi_1_1EvaluationWorker.html", null ],
       [ "hmi::TrainingWorker", "classhmi_1_1TrainingWorker.html", null ]
     ] ],
     [ "QPushButton", null, [
@@ -259,6 +263,9 @@ var hierarchy =
     ] ],
     [ "QRhiWidget", null, [
       [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
+    ] ],
+    [ "QScrollArea", null, [
+      [ "hmi::ScreenPageHost", "classhmi_1_1ScreenPageHost.html", null ]
     ] ],
     [ "aisolver::QuadraticToyProblem", "structaisolver_1_1QuadraticToyProblem.html", null ],
     [ "QuadraticToyProblem", "structQuadraticToyProblem.html", null ],
@@ -285,7 +292,8 @@ var hierarchy =
       [ "hmi::PixelPalettePanel", "classhmi_1_1PixelPalettePanel.html", null ],
       [ "hmi::PlanesPanel", "classhmi_1_1PlanesPanel.html", null ],
       [ "hmi::PropertiesPanel", "classhmi_1_1PropertiesPanel.html", null ],
-      [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ]
+      [ "hmi::TexturePanel", "classhmi_1_1TexturePanel.html", null ],
+      [ "hmi::TrainingChartWidget", "classhmi_1_1TrainingChartWidget.html", null ]
     ] ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "aisolver::training::ReinforceConfig", "structaisolver_1_1training_1_1ReinforceConfig.html", null ],
@@ -314,6 +322,7 @@ var hierarchy =
     [ "PolynomialToyProblem::Sample", "structPolynomialToyProblem_1_1Sample.html", null ],
     [ "hmi::SceneStatistics", "structhmi_1_1SceneStatistics.html", null ],
     [ "hmi::SceneTextures", "structhmi_1_1SceneTextures.html", null ],
+    [ "core::ScopedLogLevel", "classcore_1_1ScopedLogLevel.html", null ],
     [ "hmi::ScreenDressing", "structhmi_1_1ScreenDressing.html", null ],
     [ "hmi::ScreenShakeState", "structhmi_1_1ScreenShakeState.html", null ],
     [ "hmi::ScreenState", "structhmi_1_1ScreenState.html", null ],
@@ -372,9 +381,11 @@ var hierarchy =
     ] ],
     [ "aisolver::cli::TrainingConfig", "structaisolver_1_1cli_1_1TrainingConfig.html", null ],
     [ "TrainingConfig", "structTrainingConfig.html", null ],
+    [ "hmi::TrainingProgress", "structhmi_1_1TrainingProgress.html", null ],
     [ "hmi::TrainingRequest", "structhmi_1_1TrainingRequest.html", null ],
     [ "aisolver::training::TrainingResult", "structaisolver_1_1training_1_1TrainingResult.html", null ],
     [ "TrainingResult", "structTrainingResult.html", null ],
+    [ "aisolver::TrainingStatsDerived", "structaisolver_1_1TrainingStatsDerived.html", null ],
     [ "aisolver::TrainingStatsRecorder", "classaisolver_1_1TrainingStatsRecorder.html", null ],
     [ "TrainingStatsRecorder", "classTrainingStatsRecorder.html", null ],
     [ "aisolver::TrainingStatsRow", "structaisolver_1_1TrainingStatsRow.html", null ],
@@ -396,6 +407,7 @@ var hierarchy =
     [ "core::Velocity", "structcore_1_1Velocity.html", null ],
     [ "hmi::SpriteBatch::Vertex", "structhmi_1_1SpriteBatch_1_1Vertex.html", null ],
     [ "core::View&lt; Components &gt;", "classcore_1_1View.html", null ],
+    [ "aisolver::training::WeightStatistics", "structaisolver_1_1training_1_1WeightStatistics.html", null ],
     [ "hmi::WorkspaceDressing", "structhmi_1_1WorkspaceDressing.html", null ],
     [ "core::World", "classcore_1_1World.html", null ]
 ];

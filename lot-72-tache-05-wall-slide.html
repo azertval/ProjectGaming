@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,37 +94,37 @@ $(function(){initNavTree('lot-72-tache-05-wall-slide.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-72-mouvement-avance_2tache-05-wall-slide"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-72.html#md_Lot_2LOT-72-mouvement-avance_2epic" title="Lot/LOT-72-mouvement-avance/epic.md">LOT-72</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> (tests) · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3400"></a>
 Contexte</h1>
 <p>Le cadrage initial de ce lot proposait un « wall slide contrôlé » comme nouvelle mécanique. Relecture du code avant implémentation (<span class="tt"><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a>::resolveVelocity</span>, section « 2b. Wall slide ») : <b>la mécanique existe déjà</b>, livrée en <span class="tt">LOT-10</span> sous <span class="tt">EX-GP-016</span> — « Au contact d'un mur en l'air, le personnage doit <b>glisser</b> le long de celui-ci (wall slide) ». <span class="tt">PhysicsConfig::wallSlideSpeed</span> clampe déjà <span class="tt">velocity.value.y</span> quand <span class="tt">wallDirection != 0 &amp;&amp; !grounded &amp;&amp; velocity.value.y &gt; 0</span>.</p>
 <p><b>Décision</b> : aucune exigence dupliquée n'est créée pour le wall slide. Cette tâche ne modifie aucun code ; elle ajoute uniquement les tests croisés qui manquaient entre le wall slide existant et les <b>nouvelles</b> mécaniques du lot (dash chargé, combo dash + saut).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3401"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Aucune modification de <span class="tt">CharacterPhysicsSystem</span>/<span class="tt">PhysicsConfig</span> pour le wall slide lui-même.</li>
 <li>Ajouter les tests de non-interférence avec les nouvelles mécaniques (repris dans TACHE-07, validation croisée) : un wall slide en cours n'est pas perturbé par une charge de dash, et un jump-cancel (TACHE-06) au contact d'un mur juste après un wall slide déclenche bien un wall-jump.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3402"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Aucun fichier de production. Tests croisés couverts par TACHE-07.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3403"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Voir TACHE-07 : wall slide + jump-cancel en sortie de dash contre un mur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3404"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas réintroduire de code dupliquant <span class="tt">EX-GP-016</span> : toute future retouche du ressenti du wall slide passe par <span class="tt">PhysicsConfig::wallSlideSpeed</span>, déjà existant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3399"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3405"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Aucune régression sur le wall slide existant (tests LOT-10 inchangés).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3400"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3406"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-016</span> (réutilisée, non modifiée). </p>
 </div></div><!-- contents -->

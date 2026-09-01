@@ -20,5 +20,6 @@ var dir_4b64aa2d0988f5c3b2bdd729b0be8728 =
     [ "LOT-ANNEXE-18-mode-regarder-ia-jouer", "dir_e8af1f5f9fd63933ace78e1d6ef5cd8a.html", null ],
     [ "LOT-ANNEXE-19-outillage-cli", "dir_31901861cd842a72a8ecd7844ea0555c.html", null ],
     [ "LOT-ANNEXE-20-garde-fou-ci", "dir_b8463e2859b7280fe6e7675842468617.html", null ],
-    [ "LOT-ANNEXE-21-mode-ia-ihm", "dir_54b22e11389ead0671a7f583ae7b1ac0.html", null ]
+    [ "LOT-ANNEXE-21-mode-ia-ihm", "dir_54b22e11389ead0671a7f583ae7b1ac0.html", null ],
+    [ "LOT-ANNEXE-22-mode-ia-ihm-complete", "dir_59ffa72eae32feeeb7a6827cec357adf.html", null ]
 ];

@@ -1,11 +1,11 @@
 var lots_annexe =
 [
-    [ "Génération 0 — Fondations numériques", "lots-annexe.html#autotoc_md4283", null ],
-    [ "Génération 1 — Pont avec le jeu et observabilité", "lots-annexe.html#autotoc_md4284", null ],
-    [ "Génération 2 — Premier agent fonctionnel (évolutionniste)", "lots-annexe.html#autotoc_md4285", null ],
-    [ "Génération 3 — Apprentissage par gradient", "lots-annexe.html#autotoc_md4286", null ],
-    [ "Génération 4 — Évaluation et robustesse", "lots-annexe.html#autotoc_md4287", null ],
-    [ "Génération 5 — Intégration jeu et outillage", "lots-annexe.html#autotoc_md4288", null ],
+    [ "Génération 0 — Fondations numériques", "lots-annexe.html#autotoc_md4343", null ],
+    [ "Génération 1 — Pont avec le jeu et observabilité", "lots-annexe.html#autotoc_md4344", null ],
+    [ "Génération 2 — Premier agent fonctionnel (évolutionniste)", "lots-annexe.html#autotoc_md4345", null ],
+    [ "Génération 3 — Apprentissage par gradient", "lots-annexe.html#autotoc_md4346", null ],
+    [ "Génération 4 — Évaluation et robustesse", "lots-annexe.html#autotoc_md4347", null ],
+    [ "Génération 5 — Intégration jeu et outillage", "lots-annexe.html#autotoc_md4348", null ],
     [ "LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison", "lot-annexe-01.html", "lot-annexe-01" ],
     [ "LOT-ANNEXE-02 — Moteur d'autodiff maison", "lot-annexe-02.html", "lot-annexe-02" ],
     [ "LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison", "lot-annexe-03.html", "lot-annexe-03" ],
@@ -26,5 +26,6 @@ var lots_annexe =
     [ "LOT-ANNEXE-18 — Mode « regarder l'IA jouer » (intégration HMI)", "lot-annexe-18.html", "lot-annexe-18" ],
     [ "LOT-ANNEXE-19 — Outillage CLI", "lot-annexe-19.html", "lot-annexe-19" ],
     [ "LOT-ANNEXE-20 — Garde-fou CI", "lot-annexe-20.html", "lot-annexe-20" ],
-    [ "LOT-ANNEXE-21 — Mode IA (IHM)", "lot-annexe-21.html", "lot-annexe-21" ]
+    [ "LOT-ANNEXE-21 — Mode IA (IHM)", "lot-annexe-21.html", "lot-annexe-21" ],
+    [ "LOT-ANNEXE-22 — Mode IA : IHM complète d'entraînement", "lot-annexe-22.html", "lot-annexe-22" ]
 ];

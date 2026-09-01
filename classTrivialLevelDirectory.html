@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,7 +100,7 @@ $(function(){initNavTree('classTrivialLevelDirectory.html','','classTrivialLevel
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a418207897c748d71b8e13a858af0d59d" id="r_a418207897c748d71b8e13a858af0d59d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a418207897c748d71b8e13a858af0d59d">TrivialLevelDirectory</a> (const char *suffix)</td></tr>
+<tr class="memitem:af563da084061cfdfaecfe9cb04dbfca9" id="r_af563da084061cfdfaecfe9cb04dbfca9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af563da084061cfdfaecfe9cb04dbfca9">TrivialLevelDirectory</a> (const char *suffix, const char *levelJson=TRIVIAL_LEVEL_JSON)</td></tr>
 <tr class="memitem:a7d8a20ac9b469d9459a472e1caab1386" id="r_a7d8a20ac9b469d9459a472e1caab1386"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7d8a20ac9b469d9459a472e1caab1386">~TrivialLevelDirectory</a> ()</td></tr>
 <tr class="memitem:a23abe46ad60cc7ddccc2082e329ec0a4" id="r_a23abe46ad60cc7ddccc2082e329ec0a4"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a23abe46ad60cc7ddccc2082e329ec0a4">levelPath</a> () const</td></tr>
 <tr class="memitem:a5ae6a9fcc92790ec698cc3d89b07435c" id="r_a5ae6a9fcc92790ec698cc3d89b07435c"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a5ae6a9fcc92790ec698cc3d89b07435c">file</a> (const char *name) const</td></tr>
@@ -112,8 +112,8 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Répertoire temporaire du test courant contenant <span class="tt">TRIVIAL_LEVEL_JSON</span> sur disque (requis par <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>, qui charge par chemin de fichier), nettoyé à la destruction (RAII) — même patron que <span class="tt"><a class="el" href="test__training__stats__recorder_8cpp.html" title="Tests unitaires de aisolver::TrainingStatsRecorder, bout en bout (LOT-ANNEXE-09, TACHE-01/05).">Source/Test/Unit/AiSolver/Stats/test_training_stats_recorder.cpp</a></span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a418207897c748d71b8e13a858af0d59d" name="a418207897c748d71b8e13a858af0d59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a418207897c748d71b8e13a858af0d59d">&#9670;&#160;</a></span>TrivialLevelDirectory()</h2>
+<a id="af563da084061cfdfaecfe9cb04dbfca9" name="af563da084061cfdfaecfe9cb04dbfca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af563da084061cfdfaecfe9cb04dbfca9">&#9670;&#160;</a></span>TrivialLevelDirectory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,10 +122,14 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classaisolver__test_1_1TrivialLevelDirectory.html#a418207897c748d71b8e13a858af0d59d">aisolver_test::TrivialLevelDirectory::TrivialLevelDirectory</a> </td>
+          <td class="memname"><a class="el" href="classaisolver__test_1_1TrivialLevelDirectory.html#af563da084061cfdfaecfe9cb04dbfca9">aisolver_test::TrivialLevelDirectory::TrivialLevelDirectory</a> </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>suffix</em></span></td><td>)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>suffix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>levelJson</em></span><span class="paramdefsep"> = </span><span class="paramdefval">TRIVIAL_LEVEL_JSON</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -134,6 +138,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">suffix</td><td>Suffixe du dossier temporaire, propre au test appelant. </td></tr>
+    <tr><td class="paramname">levelJson</td><td>Contenu du niveau écrit sur disque (<span class="tt">TRIVIAL_LEVEL_JSON</span> par défaut, <span class="tt">LONG_CORRIDOR_LEVEL_JSON</span> pour un test de progression). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

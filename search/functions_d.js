@@ -18,5 +18,6 @@ var searchData=
   ['node_15',['Node',['../classaisolver_1_1autodiff_1_1Node.html#abf74263e59d1008a927975ee1b834c9a',1,'aisolver::autodiff::Node::Node(Tensor&lt; float &gt; value)'],['../classaisolver_1_1autodiff_1_1Node.html#a005a9446892e30e4a70c7b348914f1ca',1,'aisolver::autodiff::Node::Node(const Node &amp;)=delete']]],
   ['noiseamplitude_16',['noiseAmplitude',['../classaisolver_1_1eval_1_1NoisyObservationWrapper.html#a71600eccd8851933b8b814e215b747cf',1,'aisolver::eval::NoisyObservationWrapper::noiseAmplitude()'],['../classNoisyObservationWrapper.html#a71600eccd8851933b8b814e215b747cf',1,'NoisyObservationWrapper::noiseAmplitude()']]],
   ['noisyobservationwrapper_17',['NoisyObservationWrapper',['../classaisolver_1_1eval_1_1NoisyObservationWrapper.html#a8749941f842bf9336e153ff4ed8a4e6e',1,'aisolver::eval::NoisyObservationWrapper::NoisyObservationWrapper()'],['../classNoisyObservationWrapper.html#a8749941f842bf9336e153ff4ed8a4e6e',1,'NoisyObservationWrapper::NoisyObservationWrapper()']]],
-  ['normalized_18',['normalized',['../structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60',1,'core::Vector2']]]
+  ['normalized_18',['normalized',['../structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60',1,'core::Vector2']]],
+  ['normalizeweights_19',['normalizeWeights',['../namespaceaisolver_1_1training.html#ab9f354097faa13fb5b683c4fa3d46301',1,'aisolver::training']]]
 ];

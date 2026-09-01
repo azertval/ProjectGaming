@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-10-tache-01-population-reseaux.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2tache-01-population-reseaux"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-10.html#md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2epic" title="Lot-Annexe/LOT-ANNEXE-10-algorithme-evolutionniste/epic.md">LOT-ANNEXE-10</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Evolutionary</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3849"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3886"></a>
 Contexte</h1>
 <p>LOT-ANNEXE-03 fournit une bibliothèque de réseaux de neurones maison (couches, propagation avant, sans autodiff) et LOT-ANNEXE-01 un <span class="tt"><a class="el" href="classTensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> et un <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> déterministe à seed explicite. Aucun de ces deux lots ne sait ce qu'est une « génération » ou un « individu » : cette tâche introduit ces notions et le conteneur de population qui portera tout l'algorithme évolutionniste.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3850"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3887"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1Individual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">aisolver::training::evolutionary::Individual</a></span></b> : porte une instance du réseau de LOT-ANNEXE-03 (poids propres, pas de partage) et un champ <span class="tt">float fitness</span> (valeur par défaut représentant « non évalué », ex. <span class="tt">-std::numeric_limits&lt;float&gt;::infinity()</span>). Un individu est une politique <b>pure</b> : il ne référence jamais un environnement ni un état d'exécution — seuls les poids et le dernier fitness connu.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li>Constante <span class="tt">DEFAULT_POPULATION_SIZE</span> (valeur documentée par un commentaire justifiant le choix, ex. compromis diversité/coût d'évaluation par génération) dans le namespace anonyme du <span class="tt">.cpp</span>.</li>
 <li>Mise à jour du <span class="tt">CMakeLists.txt</span> du module <span class="tt">AiSolver</span> : nouveaux fichiers <span class="tt"><a class="el" href="Individual_8h.html" title="Un individu de population : un réseau de neurones et son dernier fitness connu (LOT-ANNEXE-10,...">Individual.h</a></span>, <span class="tt"><a class="el" href="Population_8h.html" title="Conteneur de taille fixe d&#39;individus (LOT-ANNEXE-10, EX-IA-011).">Population.h</a></span>/<span class="tt">.cpp</span> ajoutés à la cible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3851"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3888"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Individual_8h.html" title="Un individu de population : un réseau de neurones et son dernier fitness connu (LOT-ANNEXE-10,...">Source/AiSolver/Training/Evolutionary/Individual.h</a></span> (nouveau).</li>
@@ -114,7 +114,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span>.</li>
 <li>Tests : <span class="tt"><a class="el" href="test__population_8cpp.html" title="Tests unitaires de aisolver::training::evolutionary::Population/Individual (LOT-ANNEXE-10,...">Source/Test/Unit/AiSolver/Training/test_population.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3852"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3889"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Taille de population correcte</b> : une <span class="tt"><a class="el" href="classPopulation.html" title="Ensemble de taille fixe N d&#39;individus de même topologie, poids indépendants.">Population</a></span> construite avec <span class="tt">N</span> individus en contient exactement <span class="tt">N</span>, chacun avec un réseau de la topologie attendue.</li>
@@ -123,22 +123,22 @@ Tests (obligatoires)</h1>
 <li><b>Topologie identique</b> : tous les individus d'une population exposent la même structure de réseau (nombre de couches, tailles) — seuls les poids varient.</li>
 <li><b>Fitness initial</b> : chaque individu est créé avec un fitness marqué « non évalué » (pas de valeur arbitraire pouvant être confondue avec un vrai score).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3853"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3890"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Copie profonde obligatoire</b> : partager les poids entre individus (ex. par erreur de conception avec des pointeurs partagés) contaminerait un individu par la mutation d'un autre — invariant central de tout algorithme évolutionniste, à vérifier explicitement par test.</li>
 <li><b>Taille de population fixée à la construction</b> : simplifie la boucle de génération (TACHE-04), qui peut réutiliser le même buffer d'une génération à l'autre sans réallocation.</li>
 <li><b><span class="tt"><a class="el" href="classIndividual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">Individual</a></span> ne connaît pas l'environnement</b> : l'évaluation (TACHE-02) est un aller simple (réseau + niveau → fitness), jamais l'inverse — un individu reste utilisable sur n'importe quel niveau, seule l'évaluation en dépend.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3854"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3891"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classIndividual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">Individual</a></span>/<span class="tt"><a class="el" href="classPopulation.html" title="Ensemble de taille fixe N d&#39;individus de même topologie, poids indépendants.">Population</a></span> disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3855"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3892"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — population, fitness, sélection, croisement, mutation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3856"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3893"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-011</span> (déclarée en TACHE-04). </p>
 </div></div><!-- contents -->

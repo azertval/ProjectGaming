@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-72-tache-07-validation-croisee.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-72-mouvement-avance_2tache-07-validation-croisee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-72.html#md_Lot_2LOT-72-mouvement-avance_2epic" title="Lot/LOT-72-mouvement-avance/epic.md">LOT-72</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> (tests) · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3408"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3414"></a>
 Contexte</h1>
 <p>Les six mécaniques du lot (TACHE-01 à TACHE-06) composent entre elles et avec l'existant (dash diagonal, wall-jump, budgets/charges LOT-67). Cette tâche referme le lot par les tests <b>croisés</b> qui ne relèvent d'aucune tâche individuelle, et garantit la non-régression de tout ce qui existait avant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3409"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3415"></a>
 Travail à réaliser</h1>
 <p>Ajouter aux suites d'intégration existantes (sur le modèle des tests du LOT-10/LOT-67) :</p><ul>
 <li><b>Dash diagonal boosté</b> : charge + dash en diagonale → direction et vitesse boostée correctes (normalisation préservée).</li>
@@ -108,26 +108,26 @@ Travail à réaliser</h1>
 <li><b>Ground pound et wall slide indépendants</b> : aucune interférence entre eux et le dash/combo (ex. un wall slide — déjà livré, <span class="tt">EX-GP-016</span> — juste avant un wall-jump en sortie de dash).</li>
 <li><b>Non-régression complète</b> : dash normal (sans charge), poussée simple en marche, saut simple, wall-jump simple, budgets/charges de dash (LOT-67) — tous identiques aux tests déjà existants, aucune valeur attendue retouchée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3410"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3416"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Tests d'intégration existants de <span class="tt">CharacterPhysicsSystem</span>/<span class="tt">BlockController</span> (dossier de tests du dépôt, même emplacement que les tests LOT-10/LOT-67).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3411"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3417"></a>
 Tests (obligatoires)</h1>
 <p>Voir la liste ci-dessus — chaque scénario croisé est un test à part entière, en plus des tests déjà listés dans TACHE-01 à TACHE-06.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3412"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3418"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas dupliquer les tests unitaires déjà écrits dans chaque tâche : cette tâche couvre spécifiquement les <b>combinaisons</b> entre mécaniques, pas chaque mécanique isolément.</li>
 <li>Vérifier explicitement qu'aucun test préexistant (LOT-08 à LOT-67) n'a dû être retouché en valeur attendue — un tel retouché signalerait une régression, pas une évolution voulue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3413"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3419"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">ctest</span> à 100 % sur l'ensemble de la suite (existante + nouvelle) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3414"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3420"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-056</span>, <span class="tt">EX-GP-057</span>, <span class="tt">EX-GP-058</span>, <span class="tt">EX-GP-060</span>, <span class="tt">EX-GP-061</span>, <span class="tt">EX-GP-016</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-NFR-002</span>. </p>
 </div></div><!-- contents -->

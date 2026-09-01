@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,10 +104,30 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a87fb22fc941d643d463e56579d086ac6" id="r_a87fb22fc941d643d463e56579d086ac6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a87fb22fc941d643d463e56579d086ac6">tournamentSize</a> = <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a0718fea91b9e98b2e70bf3fc25652ed0">DEFAULT_TOURNAMENT_SIZE</a></td></tr>
 <tr class="memitem:ab7abb3010a084219fec175b854943dab" id="r_ab7abb3010a084219fec175b854943dab"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab7abb3010a084219fec175b854943dab">mutationRate</a> = <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#afcda4bda9b780b3c847f0dd9ec94252d">DEFAULT_MUTATION_RATE</a></td></tr>
 <tr class="memitem:a0b02bbab1cc796c976da9e782573a8b5" id="r_a0b02bbab1cc796c976da9e782573a8b5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a0b02bbab1cc796c976da9e782573a8b5">mutationStrength</a> = <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a14231825c2265c9bd488192d8c3b3b2a">DEFAULT_MUTATION_STRENGTH</a></td></tr>
+<tr class="memitem:acdff02801f95633dd454ed518e4a9659" id="r_acdff02801f95633dd454ed518e4a9659"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acdff02801f95633dd454ed518e4a9659">crossoverRate</a> = <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a6985d89754fa89b5f47fb7e36907276f">DEFAULT_CROSSOVER_RATE</a></td></tr>
+<tr class="memdesc:acdff02801f95633dd454ed518e4a9659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilité de croiser les deux parents ; sinon l'enfant copie le premier (<span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a6985d89754fa89b5f47fb7e36907276f" title="Probabilité qu&#39;un enfant soit issu d&#39;un croisement plutôt que d&#39;une copie du premier parent.">DEFAULT_CROSSOVER_RATE</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Regroupe les paramètres de l'algorithme évolutionniste, valeurs par défaut documentées ci-dessus (constantes nommées, jamais de littéral magique répété). </p>
+<p>L'élitisme conserve <b>exactement un</b> individu (le meilleur) d'une génération à l'autre, jamais un pourcentage &ndash; voir <span class="tt"><a class="el" href="classaisolver_1_1training_1_1evolutionary_1_1EvolutionaryTrainer.html#a5dfa25a6eac22f7eb6b5fa0f038cac15" title="Exécute exactement une génération : (1) évalue tous les individus, (2) journalise la génération coura...">EvolutionaryTrainer::runGeneration</a></span>. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="acdff02801f95633dd454ed518e4a9659" name="acdff02801f95633dd454ed518e4a9659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdff02801f95633dd454ed518e4a9659">&#9670;&#160;</a></span>crossoverRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::evolutionary::EvolutionaryConfig::crossoverRate = <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a6985d89754fa89b5f47fb7e36907276f">DEFAULT_CROSSOVER_RATE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Probabilité de croiser les deux parents ; sinon l'enfant copie le premier (<span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a6985d89754fa89b5f47fb7e36907276f" title="Probabilité qu&#39;un enfant soit issu d&#39;un croisement plutôt que d&#39;une copie du premier parent.">DEFAULT_CROSSOVER_RATE</a></span>). </p>
+<p><span class="tt">1</span> restitue le comportement d'origine. </p>
+
+</div>
+</div>
 <a id="ab7abb3010a084219fec175b854943dab" name="ab7abb3010a084219fec175b854943dab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7abb3010a084219fec175b854943dab">&#9670;&#160;</a></span>mutationRate</h2>
 

@@ -16,5 +16,6 @@ var test__autodiff__gradient__checking_8cpp =
     [ "TEST", "test__autodiff__gradient__checking_8cpp.html#a1dd9793c2990b9e39132f8cd906b5ce2", null ],
     [ "TEST", "test__autodiff__gradient__checking_8cpp.html#a2ff6eb66b619e953f9c9534700c1a2eb", null ],
     [ "TEST", "test__autodiff__gradient__checking_8cpp.html#a5c8fd3ae4000de528498255513e8e265", null ],
+    [ "TEST", "test__autodiff__gradient__checking_8cpp.html#a40055b0596f3e61e1823bee81cb94bf2", null ],
     [ "TEST", "test__autodiff__gradient__checking_8cpp.html#afe34e39b35056bda9518f0fa8608085b", null ]
 ];

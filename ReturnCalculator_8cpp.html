@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,6 +93,8 @@ $(function(){initNavTree('ReturnCalculator_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ReturnCalculator_8h_source.html">AiSolver/Training/PolicyGradient/ReturnCalculator.h</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 <code>#include &quot;<a class="el" href="Assert_8h_source.html">Core/Diagnostics/Assert.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -104,6 +106,10 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ab4eecaaa8132cd4c0592e3176185a4aa" id="r_ab4eecaaa8132cd4c0592e3176185a4aa"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#ab4eecaaa8132cd4c0592e3176185a4aa">aisolver::training::computeReturns</a> (const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, float gamma)</td></tr>
 <tr class="memdesc:ab4eecaaa8132cd4c0592e3176185a4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour actualisé <span class="tt">G_t = reward_t + gamma * G_{t+1}</span> (<span class="tt">G_T = reward_T</span> au dernier pas), par parcours arrière linéaire de <span class="tt">trajectory</span> — fonction pure, ne dépend d'aucun état d'environnement ni de réseau.  <br /></td></tr>
+<tr class="memitem:abfcfde10f4887788c0b872c47d594696" id="r_abfcfde10f4887788c0b872c47d594696"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#abfcfde10f4887788c0b872c47d594696">aisolver::training::weightStatistics</a> (const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;batch)</td></tr>
+<tr class="memdesc:abfcfde10f4887788c0b872c47d594696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne et écart-type de <b>tous</b> les poids d'un lot d'épisodes.  <br /></td></tr>
+<tr class="memitem:ab9f354097faa13fb5b683c4fa3d46301" id="r_ab9f354097faa13fb5b683c4fa3d46301"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#ab9f354097faa13fb5b683c4fa3d46301">aisolver::training::normalizeWeights</a> (std::vector&lt; float &gt; &amp;weights, <a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a> statistics)</td></tr>
+<tr class="memdesc:ab9f354097faa13fb5b683c4fa3d46301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre et réduit <code class="param">weights</code> d'après <code class="param">statistics</code>, en place.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -121,9 +121,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abf8ec9ae862a731533de1854d896287c" id="r_abf8ec9ae862a731533de1854d896287c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abf8ec9ae862a731533de1854d896287c">TEST</a> (DeterministicReplayTest, BorneDeLongueur)</td></tr>
 <tr class="memdesc:abf8ec9ae862a731533de1854d896287c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La séquence produite ne dépasse jamais le budget de pas configuré de l'environnement.  <br /></td></tr>
 <tr class="memitem:a519604150ee87b2b981aecae604343d3" id="r_a519604150ee87b2b981aecae604343d3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a519604150ee87b2b981aecae604343d3">TEST</a> (DeterministicReplayTest, RejeuDUnIndividuNonResolvant)</td></tr>
-<tr class="memdesc:a519604150ee87b2b981aecae604343d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rejeu d'un individu qui ne peut pas progresser (budget de pas nul) produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue.  <br /></td></tr>
-<tr class="memitem:adc74180e04ea7aa0e7a7ba6f05afdd02" id="r_adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#adc74180e04ea7aa0e7a7ba6f05afdd02">replayBestIndividual</a> (evolutionary::Individual &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=evolutionary::DEFAULT_STUCK_THRESHOLD)</td></tr>
-<tr class="memdesc:adc74180e04ea7aa0e7a7ba6f05afdd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
+<tr class="memdesc:a519604150ee87b2b981aecae604343d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rejeu d'un individu privé du budget nécessaire produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue.  <br /></td></tr>
+<tr class="memitem:a91d6787088b7c461e08748234f34ca3b" id="r_a91d6787088b7c461e08748234f34ca3b"><td class="memItemLeft"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a91d6787088b7c461e08748234f34ca3b">replayBestIndividual</a> (evolutionary::Individual &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
+<tr class="memdesc:a91d6787088b7c461e08748234f34ca3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">individual</span> de façon strictement déterministe sur <span class="tt">environment</span>/<span class="tt">levelPath</span>, produisant la séquence d'actions destinée à l'export (<span class="tt"><a class="el" href="ReplayExport_8h.html" title="Export d&#39;un rejeu déterministe au format v2 (LOT-ANNEXE-11, EX-IA-012), et point d&#39;entrée minimal ass...">ReplayExport.h</a></span>).  <br /></td></tr>
 <tr class="memitem:aeaf47d1d255cef866aa8de90bdf3bcd2" id="r_aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="memItemLeft"><a class="el" href="test__fitness__evaluator_8cpp.html#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2">policyTopology</a> (std::size_t inputSize, std::size_t hiddenSize=DEFAULT_HIDDEN_SIZE)</td></tr>
 <tr class="memdesc:aeaf47d1d255cef866aa8de90bdf3bcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie standard « politique » du programme Lot-Annexe : une couche cachée <span class="tt">tanh</span>, une couche de sortie <span class="tt">softmax</span> de taille <span class="tt"><a class="el" href="test__benchmark__runner_8cpp.html#a4f3464dafad270e2884fb0ba7d1d0034">actionCount()</a></span> (<span class="tt"><a class="el" href="ActionSpace_8h.html" title="Espace d&#39;action discret et fini de l&#39;agent (LOT-ANNEXE-07, EX-IA-007).">AiSolver/Env/ActionSpace.h</a></span>).  <br /></td></tr>
 </table>
@@ -193,8 +193,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adc74180e04ea7aa0e7a7ba6f05afdd02" name="adc74180e04ea7aa0e7a7ba6f05afdd02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc74180e04ea7aa0e7a7ba6f05afdd02">&#9670;&#160;</a></span>replayBestIndividual()</h2>
+<a id="a91d6787088b7c461e08748234f34ca3b" name="a91d6787088b7c461e08748234f34ca3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d6787088b7c461e08748234f34ca3b">&#9670;&#160;</a></span>replayBestIndividual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +203,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> <a class="el" href="namespaceaisolver_1_1training.html#adc74180e04ea7aa0e7a7ba6f05afdd02">aisolver::training::replayBestIndividual</a> </td>
+          <td class="memname"><a class="el" href="structDeterministicReplayResult.html">DeterministicReplayResult</a> <a class="el" href="namespaceaisolver_1_1training.html#a91d6787088b7c461e08748234f34ca3b">aisolver::training::replayBestIndividual</a> </td>
           <td>(</td>
           <td class="paramtype">evolutionary::Individual &amp;</td>          <td class="paramname"><span class="paramname"><em>individual</em></span>, </td>
         </tr>
@@ -215,12 +215,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span><span class="paramdefsep"> = </span><span class="paramdefval">evolutionary::DEFAULT_STUCK_THRESHOLD</span>&#160;)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -236,7 +231,6 @@ Functions</h2></td></tr>
     <tr><td class="paramname">individual</td><td>Individu à rejouer (poids figés, lecture seule au sens fonctionnel). </td></tr>
     <tr><td class="paramname">environment</td><td>Environnement réinitialisé en tout premier (aucun état ne fuit d'un appel au suivant). </td></tr>
     <tr><td class="paramname">levelPath</td><td>Niveau à charger (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>). </td></tr>
-    <tr><td class="paramname">stuckThreshold</td><td>Seuil de blocage transmis à <span class="tt">classifyEpisode</span> (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>), même défaut que <span class="tt">FitnessEvaluator</span> pour rester cohérent avec l'évaluation de fitness. </td></tr>
   </table>
   </dd>
 </dl>
@@ -323,14 +317,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le rejeu d'un individu qui ne peut pas progresser (budget de pas nul) produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue. </p>
-<p><b>Cas de test :</b> <b>replayBestIndividual : rejeu d'un individu non résolvant.</b><br  />
+<p>Le rejeu d'un individu privé du budget nécessaire produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue. </p>
+<p>Le budget est exprimé en pas, pas en « zéro » : <span class="tt"><a class="el" href="structEnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset ; 0 = dérivé du niveau (estimateStepBudget).">EnvironmentConfig::maxSteps</a> == 0</span> signifie désormais <b>dérive-le du niveau</b> (<span class="tt"><a class="el" href="StepBudget_8h.html" title="Budget de pas et seuil de blocage dérivés du niveau, jamais d&#39;une constante globale.">StepBudget.h</a></span>), la seule valeur qui puisse convenir à la fois à un corridor de deux cases et à <span class="tt">demo-final.json</span>. Un budget d'un seul pas exprime ce que ce test veut vraiment : un individu qui n'a pas le temps d'atteindre la sortie. <b>Cas de test :</b> <b>replayBestIndividual : rejeu d'un individu non résolvant.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Training<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Entraîner un individu.<br  />
-2. Le rejouer sur un environnement au budget de pas nul.<br  />
- <b>Resultat attendu :</b> Aucune exception ; <span class="tt">status != Won</span> ; la séquence produite est vide (aucun pas simulable). </p>
+2. Le rejouer sur un environnement au budget d'un seul pas.<br  />
+ <b>Resultat attendu :</b> Aucune exception ; <span class="tt">status != Won</span> ; la séquence produite ne dépasse pas le budget. </p>
 
 </div>
 </div>

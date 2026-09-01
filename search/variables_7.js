@@ -11,9 +11,10 @@ var searchData=
   ['generationsrun_8',['generationsRun',['../structaisolver_1_1training_1_1TrainingResult.html#aee3881e3031c3da9c13de723b89a3522',1,'aisolver::training::TrainingResult::generationsRun'],['../structTrainingResult.html#aee3881e3031c3da9c13de723b89a3522',1,'TrainingResult::generationsRun']]],
   ['glyphs_9',['glyphs',['../structhmi_1_1FontMetrics.html#af8edf913ecf02975f75b9d41f9acff65',1,'hmi::FontMetrics']]],
   ['grad_10',['grad',['../classaisolver_1_1autodiff_1_1Node.html#a39969f5872dd6eaab81d6b9b78e7a527',1,'aisolver::autodiff::Node']]],
-  ['gravity_11',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
-  ['grounded_12',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded'],['../structhmi_1_1PlayerEventState.html#a24d35fb1fb2f51edb821b6f85c0d58a8',1,'hmi::PlayerEventState::grounded']]],
-  ['groundpounding_13',['groundPounding',['../structcore_1_1Player.html#a9ad575c740d81840018c28043f046073',1,'core::Player']]],
-  ['groundpoundspeed_14',['groundPoundSpeed',['../structcore_1_1PhysicsConfig.html#a2072e171d44c396a1d3fc28e738224d0',1,'core::PhysicsConfig']]],
-  ['group_15',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
+  ['gradientclipnorm_11',['gradientClipNorm',['../structaisolver_1_1cli_1_1TrainArgs.html#a4aaa35d0483bbae0600e5329c6c3a294',1,'aisolver::cli::TrainArgs::gradientClipNorm'],['../structaisolver_1_1cli_1_1CommandLineOverrides.html#a8abea97311cef7568069d928835d3e0f',1,'aisolver::cli::CommandLineOverrides::gradientClipNorm'],['../structaisolver_1_1training_1_1PolicyGradientTuning.html#abefaca448129026c2ca5673c349c2395',1,'aisolver::training::PolicyGradientTuning::gradientClipNorm'],['../structhmi_1_1TrainingRequest.html#ac552078eb43ed98a92e1a9fd505b76b7',1,'hmi::TrainingRequest::gradientClipNorm'],['../structTrainArgs.html#a4aaa35d0483bbae0600e5329c6c3a294',1,'TrainArgs::gradientClipNorm'],['../structCommandLineOverrides.html#a8abea97311cef7568069d928835d3e0f',1,'CommandLineOverrides::gradientClipNorm']]],
+  ['gravity_12',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
+  ['grounded_13',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded'],['../structhmi_1_1PlayerEventState.html#a24d35fb1fb2f51edb821b6f85c0d58a8',1,'hmi::PlayerEventState::grounded']]],
+  ['groundpounding_14',['groundPounding',['../structcore_1_1Player.html#a9ad575c740d81840018c28043f046073',1,'core::Player']]],
+  ['groundpoundspeed_15',['groundPoundSpeed',['../structcore_1_1PhysicsConfig.html#a2072e171d44c396a1d3fc28e738224d0',1,'core::PhysicsConfig']]],
+  ['group_16',['group',['../structhmi_1_1EditorActionSpec.html#a8a67cad23c73abe7095578e00c818b81',1,'hmi::EditorActionSpec']]]
 ];

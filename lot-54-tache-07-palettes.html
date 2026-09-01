@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-54-tache-07-palettes.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-07-palettes"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/Elements</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2586"></a>
 Contexte</h1>
 <p>Une palette de couleurs choisie à la main dans un sélecteur, perdue à la fermeture de la fenêtre, ne sert à rien au-delà d'une séance : la cohérence chromatique d'un jeu de tuiles se construit sur des semaines, entre plusieurs assets. C'est la raison pour laquelle la palette du cadrage initial — une simple liste de couleurs courantes dans le canevas — était le maillon faible du périmètre.</p>
 <p>Une palette <b>persistée</b> répond au problème réel : les tuiles d'un même jeu de skins doivent partager leurs couleurs, faute de quoi l'assemblage se voit. Et une fois la palette écrite quelque part, la contrainte devient possible : interdire de poser une couleur qui n'y figure pas est la discipline habituelle du pixel art, et c'est bien plus efficace que de la respecter à l'œil.</p>
 <p>Le projet a déjà tout ce qu'il faut pour la partie fichier : les assets sont décrits par des fichiers JSON à côté d'eux (<span class="tt">skins.json</span>, <span class="tt">*.anim.json</span>), lus avec la même bibliothèque et la même politique d'erreurs récupérables.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2587"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Palette de projet</b> : un fichier JSON dans le dossier d'assets, listant des couleurs nommées. Lecture et écriture selon la politique du module — <b>aucune exception</b>, résultat porteur d'un code exploitable (<span class="tt">EX-NFR-040</span>), fichier absent traité comme une palette vide et non comme une erreur.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li><b>Couleurs de l'interface de palette issues des jetons</b> ; seules les pastilles montrent les couleurs de la palette elle-même.</li>
 <li><b>Traduction</b> de tous les libellés dans les deux catalogues.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2582"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2588"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelPalette.{h,cpp}</span> (nouveau) — modèle de palette, extraction, plus proche couleur, chargement et enregistrement.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__pixel__palette_8cpp.html" title="Tests unitaires de la palette de projet, de l&#39;extraction et de la contrainte de couleur (LOT-54 TACHE...">Source/Test/Unit/HMI/Editor/test_pixel_palette.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2583"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2589"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aller-retour JSON</b> : écrire puis relire une palette restitue les mêmes couleurs, les mêmes noms et le même ordre, alpha compris.</li>
@@ -130,7 +130,7 @@ Tests (obligatoires)</h1>
 <li><b>Alpha préservé</b> : la contrainte ne transforme jamais un pixel transparent en pixel opaque.</li>
 <li>Logique <b>pure</b>, testée sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2584"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2590"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le départage doit être stable</b>, sinon deux exécutions du même geste sur la même image donnent des résultats différents et l'aller-retour d'un asset devient non reproductible.</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Ne pas confondre cette palette avec les <b>jetons</b> de <a class="el" href="lot-56.html" title="LOT-56 — Système de design de l&#39;IHM Qt">LOT-56</a> : les jetons habillent l'application, cette palette habille le contenu du jeu. Les deux ne se mélangent jamais, et c'est la même frontière que celle entre l'identité du jeu et le châssis d'édition.</li>
 <li>Le mode contraint doit rester <b>désactivable à tout moment</b> : imposé de force, il empêcherait d'introduire délibérément une couleur nouvelle, qui est le début de toute palette.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2585"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2591"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une palette de projet est lue, éditée et enregistrée sans exception ; l'extraction depuis un asset est déterministe ; le mode contraint ramène toute couleur posée à la plus proche entrée de façon stable et préserve la transparence ; la couleur courante et le mode figurent dans la barre d'état ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2586"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2592"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-REN-042</span> (assets externalisés), <span class="tt">EX-IHM-060</span> (état de travail affiché en permanence), <span class="tt">EX-IHM-051</span> (source unique des grandeurs), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU). </p>
 </div></div><!-- contents -->

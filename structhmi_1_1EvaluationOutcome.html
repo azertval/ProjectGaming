@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -102,11 +102,31 @@ $(function(){initNavTree('structhmi_1_1EvaluationOutcome.html','','structhmi_1_1
 Public Attributes</h2></td></tr>
 <tr class="memitem:ac7dbbfaed02bb4ff872fa7176ccc0d8e" id="r_ac7dbbfaed02bb4ff872fa7176ccc0d8e"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ac7dbbfaed02bb4ff872fa7176ccc0d8e">successRate</a> = 0.0</td></tr>
 <tr class="memitem:a55872e4524ac9ced8560bbcf1f51877b" id="r_a55872e4524ac9ced8560bbcf1f51877b"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a55872e4524ac9ced8560bbcf1f51877b">meanStepsOnSuccess</a> = 0.0</td></tr>
+<tr class="memitem:aad6d1a9d58a22652d3c57bea7572d5fe" id="r_aad6d1a9d58a22652d3c57bea7572d5fe"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aad6d1a9d58a22652d3c57bea7572d5fe">meanStepsAll</a> = 0.0</td></tr>
+<tr class="memdesc:aad6d1a9d58a22652d3c57bea7572d5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas moyen sur <b>toutes</b> les répétitions, réussites et échecs confondus : un modèle qui échoue vite et un modèle qui échoue au bout du budget se distinguent ici, jamais dans <span class="tt"><a class="el" href="#a55872e4524ac9ced8560bbcf1f51877b">meanStepsOnSuccess</a></span>.  <br /></td></tr>
 <tr class="memitem:a0df62948ddc5f20d3f20a5906ebbae20" id="r_a0df62948ddc5f20d3f20a5906ebbae20"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a0df62948ddc5f20d3f20a5906ebbae20">stepVariance</a> = 0.0</td></tr>
+<tr class="memitem:a6a82a7952d4148ee34a57417dde88881" id="r_a6a82a7952d4148ee34a57417dde88881"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6a82a7952d4148ee34a57417dde88881">repetitionsRun</a> = 0</td></tr>
+<tr class="memdesc:a6a82a7952d4148ee34a57417dde88881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Répétitions réellement jouées — inférieur au nombre demandé si l'évaluation a été annulée.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Résultat d'une évaluation, mêmes champs que <span class="tt"><a class="el" href="structaisolver_1_1eval_1_1BenchmarkResult.html" title="Accumule les issues de N répétitions et expose les métriques agrégées de fiabilité.">aisolver::eval::BenchmarkResult</a></span> en types simples (<span class="tt">HMI/Interface</span> n'a pas besoin de connaître le type <span class="tt">AiSolver</span> sous-jacent). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aad6d1a9d58a22652d3c57bea7572d5fe" name="aad6d1a9d58a22652d3c57bea7572d5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad6d1a9d58a22652d3c57bea7572d5fe">&#9670;&#160;</a></span>meanStepsAll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::EvaluationOutcome::meanStepsAll = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pas moyen sur <b>toutes</b> les répétitions, réussites et échecs confondus : un modèle qui échoue vite et un modèle qui échoue au bout du budget se distinguent ici, jamais dans <span class="tt"><a class="el" href="#a55872e4524ac9ced8560bbcf1f51877b">meanStepsOnSuccess</a></span>. </p>
+
+</div>
+</div>
 <a id="a55872e4524ac9ced8560bbcf1f51877b" name="a55872e4524ac9ced8560bbcf1f51877b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55872e4524ac9ced8560bbcf1f51877b">&#9670;&#160;</a></span>meanStepsOnSuccess</h2>
 
@@ -118,6 +138,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6a82a7952d4148ee34a57417dde88881" name="a6a82a7952d4148ee34a57417dde88881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a82a7952d4148ee34a57417dde88881">&#9670;&#160;</a></span>repetitionsRun</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::EvaluationOutcome::repetitionsRun = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Répétitions réellement jouées — inférieur au nombre demandé si l'évaluation a été annulée. </p>
 
 </div>
 </div>

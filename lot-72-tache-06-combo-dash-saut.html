@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-72-tache-06-combo-dash-saut.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-72-mouvement-avance_2tache-06-combo-dash-saut"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-72.html#md_Lot_2LOT-72-mouvement-avance_2epic" title="Lot/LOT-72-mouvement-avance/epic.md">LOT-72</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3401"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3407"></a>
 Contexte</h1>
 <p><span class="tt">EX-GP-061</span> est le lot le plus riche des enchaînements demandés : faire composer le dash (TACHE-01), la poussée renforcée (TACHE-02), le saut et le wall-jump existants (<span class="tt">EX-GP-013</span>/<span class="tt">EX-GP-016</span>) sans nouvelle touche, avec un plafond explicite pour ne pas casser l'équilibrage des niveaux.</p>
 <p><b>Décision de cadrage prise en cours d'implémentation</b> : le jump-cancel (et, par cohérence, la poussée renforcée du bloc, TACHE-02) est restreint au dash <b>boosté</b> (<span class="tt">Player::dashIsBoosted</span>, armé par la charge de TACHE-01) — jamais à un dash normal. Un premier essai sans cette restriction a <b>cassé la séquence <span class="tt">demo-final</span></b> (<span class="tt">ParcoursCompletSysteme.FranchitTouteLaSequence</span>, <span class="tt">RecompenseDemoNiveauxTest</span>) : un saut pressé pendant un dash normal était auparavant simplement <b>bufferisé</b> (honoré à l'expiration naturelle du dash) ; le jump-cancel le remplaçait par une interruption immédiate, modifiant la trajectoire de tout contenu existant qui enchaîne dash puis saut sans intention particulière de « hyper-dash ». Restreindre au dash boosté élimine ce risque <b>par construction</b> : aucun contenu antérieur à ce lot ne peut produire de dash boosté (la charge n'existait pas), donc <span class="tt">dashTimer &gt; 0 &amp;&amp; dashIsBoosted</span> ne peut jamais être vrai pour lui. Un dash <b>normal</b> se comporte donc exactement comme avant ce lot, y compris avec un saut pressé pendant sa durée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3402"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3408"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Player.h</a></span> :<ul>
@@ -117,7 +117,7 @@ Travail à réaliser</h1>
 </li>
 <li>Ne créer <b>aucune</b> charge de dash ni budget supplémentaire : le nombre d'enchaînements possibles reste borné par <span class="tt">dashChargesRemaining</span>/<span class="tt">dashesRemaining</span> (LOT-67) déjà existants.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3403"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3409"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></span>.</li>
@@ -125,7 +125,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></span>/<span class="tt">.cpp</span>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3404"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3410"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Jump-cancel</b> : sauter pendant un dash coupe immédiatement le dash et conserve sa vitesse horizontale (mesurable, supérieure à un saut depuis l'arrêt).</li>
@@ -136,19 +136,19 @@ Tests (obligatoires)</h1>
 <li><b>Borne par les charges existantes</b> : le nombre de dashs enchaînables reste limité par <span class="tt">dashChargesRemaining</span>/<span class="tt">dashesRemaining</span>, inchangés par cette tâche.</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3405"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3411"></a>
 Points d'attention</h1>
 <ul>
 <li>Le jump-cancel doit interagir proprement avec le <b>coyote time</b>/**jump buffering** existants : un saut bufferisé juste avant l'atterrissage ne doit pas être traité deux fois.</li>
 <li>Le plafond <span class="tt">comboSpeedCap</span> est une valeur de conception à ajuster par playtest ; documenter la valeur de départ choisie dans <span class="tt"><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">PhysicsConfig.h</a></span>.</li>
 <li>Réutiliser la logique de wall-jump existante telle quelle (pas de duplication de son calcul de vitesse d'éjection).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3406"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3412"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Combo dash + saut fonctionnel et <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3407"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3413"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-061</span>, <span class="tt">EX-GP-013</span>, <span class="tt">EX-GP-016</span>, <span class="tt">EX-GP-017</span>, <span class="tt">EX-GP-055</span>, <span class="tt">EX-GP-057</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

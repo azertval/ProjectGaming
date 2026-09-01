@@ -12,13 +12,18 @@ var test__argument__parsing_8cpp =
     [ "TEST", "test__argument__parsing_8cpp.html#ac181d357e507278c478453037d767bc4", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a61e64e9645f2f6d0b837156326d0d159", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a6c76752443507d4739914ded5b81e973", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a04a48f3076eda0c955ae3552b2f9e70a", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a2193174387507d555f4b867b5e5249a3", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#af69221f6e7033bd64bb038560cc94cd9", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a5f3cbe24d667d8ad645b90107efd0471", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#af349dad9819b6113a7d477941970a272", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a42c9c25e449f94a190c495bd09b5171f", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a78c97fe1ce46b187675a2a3af3300a94", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a728959f76a44a1f3ef9ac662959635ac", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a4faf722b0af23a0b0748e5d531d9378b", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#ad47d37f7048ec21b5547c3d5b35a9d68", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a5cae28f35748750378487ff301e52980", null ],
+    [ "TEST", "test__argument__parsing_8cpp.html#a24671894688d8f57be9ea0dd59aaf80d", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a71c3a37914f91d555ede3b3b89928c5b", null ],
     [ "TEST", "test__argument__parsing_8cpp.html#a5e8e4cddba91c477180411669aafb71d", null ]
 ];

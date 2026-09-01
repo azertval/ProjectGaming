@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,16 +96,16 @@ $(function(){initNavTree('lot-annexe-14.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a> (acteur-critique, dont les résultats chiffrés orientent le choix d'algorithme de ce lot). Bénéficie de <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (environnement headless), <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (espace d'action) et <a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09</a> (statistiques). Troisième et dernier lot de la génération 3 (apprentissage par gradient). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4028"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4065"></a>
 Objectif</h1>
 <p>LOT-ANNEXE-12 a établi qu'un gradient de récompense calculé par autodiff maison peut orienter l'apprentissage (REINFORCE) ; LOT-ANNEXE-13 a réduit la variance de ce gradient (acteur-critique) et produit une <b>mesure chiffrée</b> de gain de stabilité/vitesse de convergence par rapport à REINFORCE brut. Ce lot est la dernière marche de sophistication de la génération 3 : un algorithme plus avancé que l'acteur-critique simple, choisi <b>sur la base de ces mesures</b> plutôt que par préférence a priori.</p>
 <p>Deux familles répondent à la même limitation générale de l'acteur-critique — des mises à jour encore potentiellement trop grandes ou trop bruitées d'un épisode à l'autre — par des mécanismes différents :</p><ul>
 <li><b>PPO</b> (Proximal Policy Optimization) borne explicitement l'amplitude de chaque mise à jour de politique (clipping du ratio de probabilité entre ancienne et nouvelle politique), ce qui cible directement un problème d'<b>instabilité</b> de la mise à jour elle-même.</li>
 <li><b>DQN</b> (Deep Q-learning) change de paradigme : plutôt qu'une politique qui produit une distribution d'action, un réseau estime la valeur de chaque action possible (<span class="tt">Q(s, a)</span>), avec une <b>mémoire de rejeu</b> (<span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>) qui réutilise des transitions passées pour stabiliser l'apprentissage et une exploration <span class="tt">ε</span>-greedy — ce qui cible plutôt un problème d'<b>efficacité d'échantillonnage</b> (chaque transition vécue sert plusieurs fois) et convient particulièrement bien à un espace d'action <b>discret</b> comme celui déjà retenu en LOT-ANNEXE-07.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4029"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4066"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4030"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4067"></a>
 Inclus</h2>
 <ul>
 <li><b>Décision de cadrage propre à ce lot, tranchée à son ouverture</b> (voir TACHE-01) : lecture des résultats chiffrés de LOT-ANNEXE-13 (TACHE-04) pour choisir entre PPO et DQN, avec les critères de décision explicités ci-dessous. Ce choix n'est <b>volontairement pas fait</b> dans cet épic.</li>
@@ -114,7 +114,7 @@ Inclus</h2>
 <li><b>Intégration au harnais d'entraînement existant</b> : <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (LOT-ANNEXE-05), journalisation via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09), quel que soit l'algorithme retenu.</li>
 <li><b>Comparaison chiffrée finale</b> de la génération 3 : l'algorithme avancé retenu contre la génération 2 (évolutionniste, LOT-ANNEXE-10) et contre le reste de la génération 3 (REINFORCE LOT-ANNEXE-12, acteur-critique LOT-ANNEXE-13), sur un même jeu de niveaux de contrôle, via les CSV de LOT-ANNEXE-09 — clôture de la démonstration que l'apprentissage par gradient dépasse la recherche aveugle, exigence ferme du programme.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4031"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4068"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>L'algorithme non retenu</b> : ce lot implémente <b>un seul</b> des deux (PPO ou DQN), pas les deux — documenter les deux options dans ce périmètre sert à informer la décision de TACHE-01, pas à les développer en parallèle.</li>
@@ -123,7 +123,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Généralisation multi-niveaux</b> : reste hors régime niveau-par-niveau, mesurée en génération 4.</li>
 <li><b>Export en séquence de rejeu déterministe</b> : inchangé par rapport à LOT-ANNEXE-11, quel que soit l'algorithme retenu ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4032"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4069"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le choix entre PPO et DQN est explicitement différé à l'ouverture de ce lot</b>, tranché sur la base des résultats mesurés (CSV) de LOT-ANNEXE-13 : c'est une décision de cadrage assumée de ce lot, pas une lacune de rédaction. Deux critères guident le choix au moment de l'ouvrir :<ul>
@@ -135,16 +135,16 @@ Décisions de cadrage</h1>
 <li><b>Le harnais d'entraînement (environnement, statistiques) est commun aux deux options</b> : quel que soit le choix, <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> et <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> sont réutilisés sans modification de leur contrat — seule la boucle d'entraînement et la perte diffèrent, pas l'infrastructure amont.</li>
 <li><b>La comparaison finale de génération inclut systématiquement l'évolutionniste</b> (LOT-ANNEXE-10), pas seulement les algorithmes de gradient entre eux : c'est le point de clôture de l'exigence ferme de l'utilisateur — démontrer, chiffres à l'appui, qu'un apprentissage dirigé par gradient dépasse la recherche aveugle par population.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4033"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4070"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-ppo-dqn.html" title="PPO et DQN">PPO et DQN</a> (les deux options complètes : clipping du ratio pour PPO ; équation de Bellman, mémoire de rejeu, réseau cible, <span class="tt">ε</span>-greedy pour DQN). Sources directes : PPO — Schulman et al. (2017) ; DQN — Mnih et al. (2013, 2015) et Watkins (1989, Q-learning d'origine) — bibliographie complète dans le chapitre, à relire avant de trancher entre les deux options à l'ouverture de ce lot.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4034"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4071"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-015" title="EX-IA-015"><span class="tt">EX-IA-015</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-IA-013</span> (perte de policy gradient, base commune), <span class="tt">EX-IA-014</span> (avantage, si PPO est retenu) et les exigences des lots amont — environnement headless (LOT-ANNEXE-05), espace d'action et format de rejeu v1 (LOT-ANNEXE-07), <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09), évolutionniste (LOT-ANNEXE-10) — non renumérotées ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4035"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4072"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -159,7 +159,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-14-tache-03-comparaison-chiffree.html#md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2tache-03-comparaison-chiffree" title="Lot-Annexe/LOT-ANNEXE-14-algorithme-avance/tache-03-comparaison-chiffree.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Comparaison chiffrée contre la génération 2 et le reste de la génération 3  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Training/Advanced</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4036"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4073"></a>
 Décision retenue et résultat de la comparaison</h1>
 <p><b>Décision (TACHE-01) : DQN</b>, plutôt que PPO. LOT-ANNEXE-13 (acteur-critique) a produit un résultat non concluant sur l'instabilité : sur le niveau de contrôle trivial (résolu en moins d'un épisode), REINFORCE montrait déjà une variance de fin de run plus faible que l'acteur-critique — le niveau était trop simple pour révéler un bénéfice de clipping PPO, qui cible précisément une instabilité non démontrée ici. L'espace d'action discret à 48 actions (LOT-ANNEXE-07) se prête en revanche bien à une approche par valeur d'action : DQN cible l'efficacité d'échantillonnage (réutilisation des transitions via <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>), un facteur pertinent indépendamment du constat de stabilité.</p>
 <p><b>Comparaison chiffrée (TACHE-03)</b> — même niveau de contrôle (trivial, utilisé par LOT-ANNEXE-12/13), même budget équivalent de 120 épisodes de jeu pour les quatre approches (conversion générations × individus → épisodes pour l'évolutionniste), 3 essais par approche, seuil de récompense = 5.0 :</p>
@@ -176,7 +176,7 @@ Décision retenue et résultat de la comparaison</h1>
 <td class="markdownTableBodyNone"><b>DQN (LOT-ANNEXE-14)</b>  </td><td class="markdownTableBodyNone">3/3  </td><td class="markdownTableBodyNone">0.333  </td><td class="markdownTableBodyNone"><b>0.02409</b>  </td></tr>
 </table>
 <p>Les quatre approches atteignent systématiquement le seuil sur ce niveau trivial. DQN produit la variance de fin de run la plus faible des quatre — y compris plus faible que l'acteur-critique, dont la variance élevée ici confirme, a posteriori, que ce niveau de contrôle ne sollicite pas fortement la stabilité de politique (cohérent avec le constat déjà fait en LOT-ANNEXE-13). Mesure honnête et non orientée : ce résultat porte sur les niveaux de contrôle retenus par les générations 2 et 3, pas sur une généralisation — celle-ci est explicitement le rôle mesuré séparément par la génération 4 (LOT-ANNEXE-15/16). <span class="tt">EX-IA-015</span> est couverte par cette mesure comparative.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4037"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4074"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>La décision PPO vs DQN est <b>documentée explicitement</b> (dans TACHE-01, une fois tranchée), avec les résultats de LOT-ANNEXE-13 cités à l'appui du choix.</li>
@@ -186,10 +186,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucune nouvelle dépendance tierce n'a été ajoutée (<span class="tt">External/CMakeLists.txt</span> inchangé).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4038"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4075"></a>
 Dépendances</h1>
 <p>S'appuie directement sur les résultats mesurés de <a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a> pour trancher son choix d'algorithme. Bâtit sur <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (environnement headless), <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (espace d'action discret, en particulier si DQN est retenu) et <a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09</a> (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>). Compare ses résultats à ceux de <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> (évolutionniste), <a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a> (REINFORCE) et <a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a> (acteur-critique). Dernier lot de la génération 3 ; la génération 4 (<a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a>/<a class="el" href="lot-annexe-16.html" title="LOT-ANNEXE-16 — Évaluation hors-niveau (transfert)">LOT-ANNEXE-16</a>) évalue la robustesse des modèles produits par l'ensemble de la génération, y compris celui-ci.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4039"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4076"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-14-tache-01-decision-ppo-dqn.html" title="TACHE-01 — Décision de cadrage PPO vs DQN et implémentation de l&#39;algorithme retenu">TACHE-01 — Décision de cadrage PPO vs DQN et implémentation de l'algorithme retenu</a></li>

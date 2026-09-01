@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,16 +94,16 @@ $(function(){initNavTree('guide-annexe-autodiff.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide-Annexe_2guide-annexe-autodiff"></a></p>
 <p><b>Lot concerné :</b> <a class="el" href="lot-annexe-02.html" title="LOT-ANNEXE-02 — Moteur d&#39;autodiff maison">LOT-ANNEXE-02</a> (moteur d'autodiff maison). <b>Prérequis :</b> <a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md314"></a>
 Pourquoi ce chapitre</h1>
 <p>Un réseau de neurones apprend en ajustant ses poids pour réduire une erreur (une <b>perte</b>). Pour savoir <em>dans quel sens</em> et <em>de combien</em> ajuster chaque poids, il faut calculer, pour chaque poids, « si j'augmente ce poids d'une toute petite quantité, la perte augmente-t-elle ou diminue-t-elle, et de combien ? » — c'est exactement la définition d'une <b>dérivée</b>. Ce chapitre explique ce qu'est une dérivée, pourquoi la « règle de la chaîne » permet de la calculer pour un calcul composé de plusieurs étapes, et comment automatiser ce calcul pour un réseau entier — c'est la <b>rétropropagation</b> (<em>backpropagation</em>), littéralement le mécanisme qui a rendu l'apprentissage profond praticable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md310"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md315"></a>
 1. La dérivée, intuitivement</h1>
 <p>La dérivée d'une fonction <span class="tt">f</span> en un point <span class="tt">x</span>, notée <span class="tt">f'(x)</span> ou <span class="tt">df/dx</span>, mesure la <b>vitesse de variation</b> de <span class="tt">f</span> autour de <span class="tt">x</span> : si on augmente <span class="tt">x</span> d'une petite quantité <span class="tt">ε</span>, <span class="tt">f(x)</span> varie d'environ <span class="tt">f'(x) × ε</span>.</p>
 <p>Exemple : <span class="tt">f(x) = x²</span>. Sa dérivée est <span class="tt">f'(x) = 2x</span> (résultat classique, obtenu par la règle de dérivation des puissances : la dérivée de <span class="tt">xⁿ</span> est <span class="tt">n·xⁿ⁻¹</span>). En <span class="tt">x = 3</span> : <span class="tt">f'(3) = 6</span> — si on augmente <span class="tt">x</span> de <span class="tt">0.01</span>, <span class="tt">f(x)</span> doit augmenter d'environ <span class="tt">6 × 0.01 = 0.06</span>. Vérification : <span class="tt">f(3) = 9</span>, <span class="tt">f(3.01) = 9.0601</span>, différence <span class="tt">≈ 0.0601</span> — proche de <span class="tt">0.06</span> (l'écart vient du terme d'ordre 2, négligeable pour un <span class="tt">ε</span> petit).</p>
 <p><b>Dérivée partielle</b> : quand <span class="tt">f</span> dépend de <b>plusieurs</b> variables, <span class="tt">∂f/∂x</span> (« dérivée partielle de <span class="tt">f</span> par rapport à <span class="tt">x</span> ») est la dérivée de <span class="tt">f</span> par rapport à <span class="tt">x</span> <b>en gardant toutes les autres variables constantes</b>. Exemple : <span class="tt">f(x, y) = x² + xy</span>. <span class="tt">∂f/∂x = 2x + y</span> (on traite <span class="tt">y</span> comme une constante), <span class="tt">∂f/∂y = x</span> (on traite <span class="tt">x</span> comme une constante, et la dérivée de <span class="tt">xy</span> par rapport à <span class="tt">y</span> est <span class="tt">x</span>).</p>
 <p><b>Gradient</b> : le gradient de <span class="tt">f</span> est simplement le vecteur de toutes ses dérivées partielles, <span class="tt">∇f = (∂f/∂x, ∂f/∂y, ...)</span>. Pour un réseau à des milliers de poids, le gradient de la perte est un vecteur d'autant de nombres — un par poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md311"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md316"></a>
 2. La règle de la chaîne</h1>
 <p>Si <span class="tt">f</span> dépend de <span class="tt">g</span>, qui dépend elle-même de <span class="tt">x</span> (on note <span class="tt">f(g(x))</span>, une <b>composition</b>), alors :</p>
 <div class="fragment"><div class="line">df/dx = (df/dg) × (dg/dx)</div>
@@ -115,12 +115,12 @@ Pourquoi ce chapitre</h1>
 </ul>
 <p>En <span class="tt">x = 1</span> : <span class="tt">g = 4</span>, <span class="tt">df/dx = 6 × 4 = 24</span>. Vérification directe : <span class="tt">f(x) = 9x² + 6x + 1</span>, donc <span class="tt">f'(x) = 18x + 6</span>, et <span class="tt">f'(1) = 24</span>. Les deux méthodes concordent.</p>
 <p><b>Pourquoi c'est essentiel ici</b> : un réseau de neurones est une <b>très longue composition</b> de fonctions simples (produits matriciels, additions, activations) empilées en couches. La règle de la chaîne permet de calculer la dérivée de la perte par rapport à <b>n'importe quel</b> poids, aussi profondément enfoui soit-il dans le réseau, en enchaînant des dérivées locales simples — sans jamais avoir à écrire à la main l'énorme formule composée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md312"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
 3. Le graphe de calcul</h1>
 <p>Un calcul composé de plusieurs étapes peut se représenter comme un <b>graphe</b> : chaque nœud est une valeur (une entrée, ou le résultat d'une opération), chaque arête relie une opération à ses opérandes. Exemple pour <span class="tt">f(x) = (3x + 1)²</span>, avec <span class="tt">x = 1</span> :</p>
 <div class="fragment"><div class="line">x=1 --(×3)--&gt; a=3 --(+1)--&gt; b=4 --(²)--&gt; f=16</div>
 </div><!-- fragment --><p>Ce graphe est construit <b>à l'exécution</b> (<em>define-by-run</em>, ou graphe dynamique) : chaque fois qu'on effectue une opération sur des nœuds, on crée un nouveau nœud qui se souvient de ses parents (<span class="tt">a</span> et <span class="tt">b</span> ci-dessus) et de la règle de dérivation locale de l'opération qui l'a produit — c'est l'approche retenue par <span class="tt"><a class="el" href="classaisolver_1_1autodiff_1_1Node.html" title="Nœud d&#39;un graphe de calcul dynamique (mode reverse, construit à l&#39;exécution).">aisolver::autodiff::Node</a></span> (LOT-ANNEXE-02).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md313"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
 4. Mode direct vs mode inverse</h1>
 <p>Il existe deux façons de propager des dérivées à travers un graphe :</p>
 <ul>
@@ -128,7 +128,7 @@ Pourquoi ce chapitre</h1>
 <li><b>Mode inverse</b> (<em>reverse mode</em>, la rétropropagation) : on calcule d'abord tout le graphe (passe avant), puis on repart de la <b>sortie</b> (la perte, un scalaire unique) et on propage <span class="tt">∂(perte)/∂(chaque nœud)</span> en remontant vers les entrées. Efficace quand il y a <b>beaucoup d'entrées</b> (tous les poids d'un réseau — potentiellement des millions) et <b>une seule sortie</b> (la perte).</li>
 </ul>
 <p>Un réseau de neurones a exactement ce profil (des milliers/millions de poids, une seule perte scalaire) — c'est pourquoi le mode inverse est la méthode utilisée en apprentissage profond, et celle que <span class="tt">LOT-ANNEXE-02</span> implémente (<span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>, condition : le nœud racine doit être un scalaire — un tenseur à un seul élément).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md314"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
 5. Rétropropagation, pas à pas</h1>
 <p>Reprenons <span class="tt">f(x) = (3x + 1)²</span> avec le graphe <span class="tt">x → a=3x → b=a+1 → f=b²</span>. La rétropropagation part de <span class="tt">f</span> (<span class="tt">∂f/∂f = 1</span>, trivialement) et remonte :</p>
 <ol type="1">
@@ -138,19 +138,19 @@ Pourquoi ce chapitre</h1>
 </ol>
 <p>Avec <span class="tt">x = 1</span> : <span class="tt">a = 3</span>, <span class="tt">b = 4</span>, gradient final de <span class="tt">x</span> = <span class="tt">6 × 4 = 24</span> — exactement le résultat obtenu à la main au §2 avec la règle de la chaîne. La rétropropagation <b>n'est rien d'autre</b> que l'application mécanique et systématique de la règle de la chaîne, nœud par nœud, en remontant le graphe.</p>
 <p><b>Règle générale à chaque nœud</b> : <span class="tt">gradientDuParent += règleDeDérivationLocale × gradientDéjàAccumuléSurCeNœud</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md315"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md320"></a>
 6. Pourquoi les gradients s'accumulent (<span class="tt">+=</span>, jamais <span class="tt">=</span>)</h1>
 <p>Si un même nœud est utilisé <b>plusieurs fois</b> dans le graphe (par exemple un biais partagé par plusieurs calculs), il reçoit une contribution de <b>chaque</b> chemin qui le traverse — ces contributions doivent s'<b>additionner</b>, pas s'écraser. Exemple : <span class="tt">f(x) = x + x</span> (donc <span class="tt">f = 2x</span>, <span class="tt">df/dx = 2</span>). Si le graphe a deux arêtes distinctes partant de <span class="tt">x</span> (une vers chaque <span class="tt">+</span>), chacune contribue <span class="tt">1</span> au gradient de <span class="tt">x</span> (dérivée de l'addition) ; la somme des deux contributions donne bien <span class="tt">2</span>, le résultat correct. C'est pourquoi <span class="tt">LOT-ANNEXE-02</span> accumule toujours par <span class="tt">+=</span> — écraser romprait silencieusement tout graphe où un nœud est réutilisé, ce qui arrive <b>tout le temps</b> dans un réseau réel (un même poids intervient dans le calcul de chaque exemple d'un lot, par exemple).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md316"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md321"></a>
 7. Parcours topologique inverse</h1>
 <p>Pour que chaque nœud reçoive <b>toutes</b> ses contributions avant que son propre gradient ne soit propagé à ses parents (sinon on propagerait un gradient incomplet), <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> visite les nœuds dans un ordre précis : l'ordre <b>topologique inverse</b> du graphe — un nœud n'est traité qu'une fois que tous les nœuds qui l'utilisent comme opérande ont déjà été traités. En pratique, pour un graphe construit par une passe avant classique (chaque nœud créé après tous ses parents), l'ordre inverse de création est déjà un ordre topologique inverse valide — ce qui simplifie l'implémentation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md317"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md322"></a>
 8. Vérifier qu'un gradient calculé est correct : les différences finies</h1>
 <p>Comment être sûr que la dérivation implémentée pour une opération est correcte ? On revient à la <b>définition</b> de la dérivée : <span class="tt">f'(x) ≈ (f(x + ε) - f(x - ε)) / (2ε)</span> pour un <span class="tt">ε</span> petit (ex. <span class="tt">0.0001</span>) — c'est la méthode des <b>différences finies centrées</b>. Elle est lente (il faut recalculer <span class="tt">f</span> deux fois par paramètre) mais ne dépend d'aucune formule de dérivation — un bon étalon indépendant. <span class="tt">LOT-ANNEXE-02</span> (TACHE-04) compare systématiquement le gradient obtenu par <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> à celui obtenu par différences finies, pour <b>toute nouvelle opération</b>, avant de lui faire confiance — condition bloquante avant tout usage en aval.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md318"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md323"></a>
 9. Pourquoi une fabrique générique d'opérations (<span class="tt">unaryOp</span>/<span class="tt">binaryOp</span>)</h1>
 <p>Plutôt que de coder en dur, dans <span class="tt">Node</span>, la liste fermée des opérations possibles (addition, multiplication, etc.), <span class="tt">LOT-ANNEXE-02</span> expose une fabrique générique : une fonction qui prend en argument le calcul de la valeur <b>et</b> sa règle de dérivation locale, et produit un nœud capable de faire les deux. Ajouter une nouvelle opération différentiable (par exemple <span class="tt">sigmoid</span>, introduite plus tard par <span class="tt">LOT-ANNEXE-03</span>) devient alors un <b>ajout</b>, jamais une modification du moteur lui-même — un principe de conception qui revient souvent en génie logiciel sous le nom de « principe ouvert/fermé » (ouvert à l'extension, fermé à la modification).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md319"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md324"></a>
 Sources</h1>
 <ul>
 <li>Rumelhart, D.E., Hinton, G.E., Williams, R.J. (1986). <em>Learning representations by back-propagating errors</em>. Nature 323, 533–536. — l'article qui a popularisé la rétropropagation pour l'entraînement des réseaux de neurones multicouches.</li>

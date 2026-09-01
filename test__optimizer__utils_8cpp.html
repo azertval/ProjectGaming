@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -111,6 +111,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:acd9f88ab6e5a8ce1a406e7a6b57d3e61"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">zeroGrad</span> remet le gradient de chaque paramètre fourni à zéro, sans affecter sa valeur.  <br /></td></tr>
 <tr class="memitem:a07122f57890d224ebb4a284a7e4e9b5e" id="r_a07122f57890d224ebb4a284a7e4e9b5e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a07122f57890d224ebb4a284a7e4e9b5e">TEST</a> (OptimizerUtilsTest, SansEffetSurLesParametresNonFournis)</td></tr>
 <tr class="memdesc:a07122f57890d224ebb4a284a7e4e9b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">zeroGrad</span> n'affecte pas les paramètres exclus de l'appel.  <br /></td></tr>
+<tr class="memitem:a2fbd58a8203c1dde45c76161fa9c3ef7" id="r_a2fbd58a8203c1dde45c76161fa9c3ef7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2fbd58a8203c1dde45c76161fa9c3ef7">TEST</a> (OptimizerUtilsTest, EcretageBorneLaNormeSansChangerLaDirection)</td></tr>
+<tr class="memdesc:a2fbd58a8203c1dde45c76161fa9c3ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">clipGradientNorm</span> ramène la norme globale à la borne demandée <b>sans changer la direction</b> de la mise à jour.  <br /></td></tr>
 <tr class="memitem:a37e8e0528957d1ff05a956a1c1b8869b" id="r_a37e8e0528957d1ff05a956a1c1b8869b"><td class="memItemLeft"><a class="el" href="test__autodiff__backward_8cpp.html#a15b58de0bd40ab5a4ca686df4f5edfec">NodePtr</a>&#160;</td><td class="memItemRight"><a class="el" href="#a37e8e0528957d1ff05a956a1c1b8869b">variable</a> (<a class="el" href="classTensor.html">Tensor</a>&lt; float &gt; value)</td></tr>
 <tr class="memdesc:a37e8e0528957d1ff05a956a1c1b8869b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une feuille du graphe (paramètre ou entrée), sans parent.  <br /></td></tr>
 </table>
@@ -134,8 +136,39 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a2fbd58a8203c1dde45c76161fa9c3ef7" name="a2fbd58a8203c1dde45c76161fa9c3ef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fbd58a8203c1dde45c76161fa9c3ef7">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">OptimizerUtilsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EcretageBorneLaNormeSansChangerLaDirection</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">clipGradientNorm</span> ramène la norme globale à la borne demandée <b>sans changer la direction</b> de la mise à jour. </p>
+<p><b>Cas de test :</b> <b>Écrêtage de gradient : norme bornée, direction préservée.</b><br  />
+ <b>Categorie :</b> Unitaire · AiSolver Optim<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner à deux paramètres des gradients de norme globale connue.<br  />
+2. Écrêter à une borne inférieure à cette norme.<br  />
+3. Écrêter à une borne supérieure.<br  />
+ <b>Resultat attendu :</b> Au premier appel la norme finale vaut la borne et chaque composante a été multipliée par le <b>même</b> facteur ; au second, aucun gradient n'est modifié. </p>
+
+</div>
+</div>
 <a id="a07122f57890d224ebb4a284a7e4e9b5e" name="a07122f57890d224ebb4a284a7e4e9b5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07122f57890d224ebb4a284a7e4e9b5e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a07122f57890d224ebb4a284a7e4e9b5e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +198,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acd9f88ab6e5a8ce1a406e7a6b57d3e61" name="acd9f88ab6e5a8ce1a406e7a6b57d3e61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd9f88ab6e5a8ce1a406e7a6b57d3e61">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acd9f88ab6e5a8ce1a406e7a6b57d3e61">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

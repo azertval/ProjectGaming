@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,8 +101,10 @@ $(function(){initNavTree('classLevelTrainingSession.html','','classLevelTraining
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0cccb14183c31ef6c7232b09448a7805" id="r_a0cccb14183c31ef6c7232b09448a7805"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0cccb14183c31ef6c7232b09448a7805">LevelTrainingSession</a> (std::filesystem::path levelPath, evolutionary::NetworkTopology topology, evolutionary::EvolutionaryConfig config, <a class="el" href="structStoppingConfig.html">StoppingConfig</a> stopping, std::uint64_t seed, const std::filesystem::path &amp;statsCsvPath, <a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a> environmentConfig={})</td></tr>
-<tr class="memitem:a77ee5308d33d4aac3f217c5190df29b3" id="r_a77ee5308d33d4aac3f217c5190df29b3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77ee5308d33d4aac3f217c5190df29b3">setOnStatsRow</a> (std::function&lt; void(const TrainingStatsRow &amp;)&gt; onStatsRow)</td></tr>
-<tr class="memdesc:a77ee5308d33d4aac3f217c5190df29b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche <code class="param">onStatsRow</code> sur l'enregistreur de statistiques de la session.  <br /></td></tr>
+<tr class="memitem:af28372feb25a5de8616deb1af1468269" id="r_af28372feb25a5de8616deb1af1468269"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af28372feb25a5de8616deb1af1468269">setOnStatsRow</a> (std::function&lt; void(const TrainingStatsRow &amp;, const TrainingStatsDerived &amp;)&gt; onStatsRow)</td></tr>
+<tr class="memdesc:af28372feb25a5de8616deb1af1468269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche <code class="param">onStatsRow</code> sur l'enregistreur de statistiques de la session.  <br /></td></tr>
+<tr class="memitem:a6ef4943d7abb3151c7fad0e159f551cd" id="r_a6ef4943d7abb3151c7fad0e159f551cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ef4943d7abb3151c7fad0e159f551cd">setOnStabilityChanged</a> (std::function&lt; void(int consecutive, int required)&gt; onStabilityChanged)</td></tr>
+<tr class="memdesc:a6ef4943d7abb3151c7fad0e159f551cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche <code class="param">onStabilityChanged</code>, appelé après chaque génération avec l'avancement du critère d'arrêt par stabilité.  <br /></td></tr>
 <tr class="memitem:ac96998249bc57117e8eb0dedc15632ff" id="r_ac96998249bc57117e8eb0dedc15632ff"><td class="memItemLeft"><a class="el" href="structTrainingResult.html">TrainingResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac96998249bc57117e8eb0dedc15632ff">run</a> (const std::function&lt; bool()&gt; &amp;shouldStop={}, const std::function&lt; void(const evolutionary::Individual &amp;)&gt; &amp;onGenerationChampion={})</td></tr>
 <tr class="memdesc:ac96998249bc57117e8eb0dedc15632ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute des générations jusqu'à ce que le champion reste invaincu et résolvant pendant <span class="tt"><a class="el" href="structStoppingConfig.html#a157e25fd725f7aed91399c1bdff6b51d" title="Nombre de générations consécutives où le champion doit rester invaincu et résolvant pour que la sessi...">StoppingConfig::requiredConsecutiveSuccesses</a></span> générations consécutives, ou jusqu'à <span class="tt"><a class="el" href="structStoppingConfig.html#a1ec353c82c421069411be8b63df03fea" title="Plafond dur de générations : borne le coût d&#39;un entraînement qui ne convergerait jamais.">StoppingConfig::maxGenerations</a></span>, selon ce qui survient en premier.  <br /></td></tr>
 <tr class="memitem:a1ef82820d03331d716dcc002dfaae63b" id="r_a1ef82820d03331d716dcc002dfaae63b"><td class="memItemLeft">const <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1ef82820d03331d716dcc002dfaae63b">environment</a> () const noexcept</td></tr>
@@ -115,6 +117,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8ee15c0d7f2e6bf2866a598f405ef9ae" id="r_a8ee15c0d7f2e6bf2866a598f405ef9ae"><td class="memItemLeft"><a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8ee15c0d7f2e6bf2866a598f405ef9ae">_environment</a></td></tr>
 <tr class="memitem:a2fec9a30cc4fad2117b22b7216aaa71c" id="r_a2fec9a30cc4fad2117b22b7216aaa71c"><td class="memItemLeft"><a class="el" href="classTrainingStatsRecorder.html">TrainingStatsRecorder</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2fec9a30cc4fad2117b22b7216aaa71c">_recorder</a></td></tr>
 <tr class="memitem:a0bbd6dabed92036cf5aec677363dd0e3" id="r_a0bbd6dabed92036cf5aec677363dd0e3"><td class="memItemLeft">evolutionary::EvolutionaryTrainer&#160;</td><td class="memItemRight"><a class="el" href="#a0bbd6dabed92036cf5aec677363dd0e3">_trainer</a></td></tr>
+<tr class="memitem:a1e955766c16bd4e79eec743e24a0d501" id="r_a1e955766c16bd4e79eec743e24a0d501"><td class="memItemLeft">std::function&lt; void(int, int)&gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1e955766c16bd4e79eec743e24a0d501">_onStabilityChanged</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Entraîne un algorithme évolutionniste (<span class="tt">LOT-ANNEXE-10</span>) sur <b>un seul</b> fichier de niveau, jusqu'à résolution stable ou plafond de générations. </p>
@@ -243,8 +246,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a77ee5308d33d4aac3f217c5190df29b3" name="a77ee5308d33d4aac3f217c5190df29b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77ee5308d33d4aac3f217c5190df29b3">&#9670;&#160;</a></span>setOnStatsRow()</h2>
+<a id="a6ef4943d7abb3151c7fad0e159f551cd" name="a6ef4943d7abb3151c7fad0e159f551cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ef4943d7abb3151c7fad0e159f551cd">&#9670;&#160;</a></span>setOnStabilityChanged()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,9 +256,42 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#a77ee5308d33d4aac3f217c5190df29b3">aisolver::training::LevelTrainingSession::setOnStatsRow</a> </td>
+          <td class="memname">void <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#a6ef4943d7abb3151c7fad0e159f551cd">aisolver::training::LevelTrainingSession::setOnStabilityChanged</a> </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(const TrainingStatsRow &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>onStatsRow</em></span></td><td>)</td>
+          <td class="paramtype">std::function&lt; void(int consecutive, int required)&gt;</td>          <td class="paramname"><span class="paramname"><em>onStabilityChanged</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Branche <code class="param">onStabilityChanged</code>, appelé après chaque génération avec l'avancement du critère d'arrêt par stabilité. </p>
+<p>Le compteur de séries stables ne transparaît nulle part ailleurs : il vit dans une variable locale de <span class="tt"><a class="el" href="#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">run()</a></span>, et <span class="tt"><a class="el" href="structTrainingResult.html" title="Distingue un arrêt par résolution d&#39;un arrêt par plafond de générations, et donne accès au meilleur i...">TrainingResult</a></span> ne rapporte à la fin que <span class="tt">solved</span>. Un appelant qui affiche l'entraînement en direct ne peut donc pas dire si la session est à une génération de s'arrêter ou si le compteur vient d'être remis à zéro — ce rappel est le seul moyen de le savoir sans réimplémenter le critère. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onStabilityChanged</td><td>Reçoit le compteur courant et le seuil exigé (<span class="tt"><a class="el" href="structStoppingConfig.html#a157e25fd725f7aed91399c1bdff6b51d" title="Nombre de générations consécutives où le champion doit rester invaincu et résolvant pour que la sessi...">StoppingConfig::requiredConsecutiveSuccesses</a></span>, constant sur toute la session, passé pour que le rappel n'ait pas à connaître la configuration). Observation pure : la décision d'arrêt reste celle de <span class="tt"><a class="el" href="#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">run()</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af28372feb25a5de8616deb1af1468269" name="af28372feb25a5de8616deb1af1468269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af28372feb25a5de8616deb1af1468269">&#9670;&#160;</a></span>setOnStatsRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#af28372feb25a5de8616deb1af1468269">aisolver::training::LevelTrainingSession::setOnStatsRow</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(const TrainingStatsRow &amp;, const TrainingStatsDerived &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>onStatsRow</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -269,7 +305,7 @@ Private Attributes</h2></td></tr>
 <p>Branche <code class="param">onStatsRow</code> sur l'enregistreur de statistiques de la session. </p>
 <p>La session <b>possède</b> son enregistreur : elle seule écrit le CSV du run. Un appelant qui veut suivre la progression (afficher un tableau, tracer une courbe) passe par ici plutôt que d'ouvrir un second enregistreur sur le même fichier — deux flux en troncature sur un même chemin se marcheraient dessus, et le rappel du second ne serait jamais appelé. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">onStatsRow</td><td>Appelé après chaque génération journalisée, avec la ligne écrite. </td></tr>
+    <tr><td class="paramname">onStatsRow</td><td>Appelé après chaque génération journalisée, avec la ligne écrite et les grandeurs dérivées qui l'accompagnent (moyenne mobile, variation). </td></tr>
   </table>
   </dd>
 </dl>
@@ -310,6 +346,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::filesystem::path <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#a08048047557b3aff35a1f26264617aca">aisolver::training::LevelTrainingSession::_levelPath</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e955766c16bd4e79eec743e24a0d501" name="a1e955766c16bd4e79eec743e24a0d501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e955766c16bd4e79eec743e24a0d501">&#9670;&#160;</a></span>_onStabilityChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(int, int)&gt; <a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html#a1e955766c16bd4e79eec743e24a0d501">aisolver::training::LevelTrainingSession::_onStabilityChanged</a></td>
         </tr>
       </table>
   </td>

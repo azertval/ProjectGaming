@@ -1,6 +1,7 @@
 var structaisolver_1_1cli_1_1TrainingConfig =
 [
     [ "algorithmId", "structaisolver_1_1cli_1_1TrainingConfig.html#a2776829cd5530117e29b3f089b96251a", null ],
+    [ "criticLearningRate", "structaisolver_1_1cli_1_1TrainingConfig.html#a1042dbf124da740ac74b5ab5b3b8a17a", null ],
     [ "dqnBatchSize", "structaisolver_1_1cli_1_1TrainingConfig.html#a5c5549b2122731206dc7beebae17abbb", null ],
     [ "dqnEpsilonDecaySteps", "structaisolver_1_1cli_1_1TrainingConfig.html#aacd3abb373bd59a63fd83df335da4066", null ],
     [ "dqnEpsilonEnd", "structaisolver_1_1cli_1_1TrainingConfig.html#a2d99c705212b0e2377595719548396d5", null ],
@@ -14,6 +15,9 @@ var structaisolver_1_1cli_1_1TrainingConfig =
     [ "gamma", "structaisolver_1_1cli_1_1TrainingConfig.html#a81faef45eabe2e91f2769f400570d948", null ],
     [ "hiddenSize", "structaisolver_1_1cli_1_1TrainingConfig.html#a58c5e7f3b2bd7750ab504427e77ef956", null ],
     [ "learningRate", "structaisolver_1_1cli_1_1TrainingConfig.html#a0fab9416515f88190d4d56ed0bbdc32d", null ],
+    [ "maxSteps", "structaisolver_1_1cli_1_1TrainingConfig.html#a6b97b0e1449001bb12e22e2bc79bc9ab", null ],
     [ "optimizer", "structaisolver_1_1cli_1_1TrainingConfig.html#a1950fcfdfd4174ff61795fbf9f410b99", null ],
-    [ "stopping", "structaisolver_1_1cli_1_1TrainingConfig.html#a94cfbde0b3cb7a6419e8afd178b7a014", null ]
+    [ "stopping", "structaisolver_1_1cli_1_1TrainingConfig.html#a94cfbde0b3cb7a6419e8afd178b7a014", null ],
+    [ "stuckThreshold", "structaisolver_1_1cli_1_1TrainingConfig.html#a908dfad1115ad859e23c449ffe44949e", null ],
+    [ "tuning", "structaisolver_1_1cli_1_1TrainingConfig.html#ac6a3e12649fce18ee3005bb4f19fcf89", null ]
 ];

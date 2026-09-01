@@ -18,5 +18,5 @@ var searchData=
   ['windowsize_5f_15',['windowSize_',['../classaisolver_1_1MovingAverageTracker.html#ac9665bcbad5c0bd8be28e7781c4ee950',1,'aisolver::MovingAverageTracker']]],
   ['workshopmenuvisible_16',['workshopMenuVisible',['../structhmi_1_1WorkspaceDressing.html#a0bfb05faaece7e8a545decaebbef48b5',1,'hmi::WorkspaceDressing']]],
   ['worldunitsperscreenpixel_17',['worldUnitsPerScreenPixel',['../structhmi_1_1PathOverlayState.html#a65d3ea89b36d8c3e5380055e22ee8452',1,'hmi::PathOverlayState']]],
-  ['worstreward_18',['worstReward',['../structaisolver_1_1TrainingStatsRow.html#a32ebed1210995edcf7cd57ce0a4371be',1,'aisolver::TrainingStatsRow']]]
+  ['worstreward_18',['worstReward',['../structaisolver_1_1TrainingStatsRow.html#a32ebed1210995edcf7cd57ce0a4371be',1,'aisolver::TrainingStatsRow::worstReward'],['../structhmi_1_1TrainingProgress.html#ad29b32b6d3464ffdb3e7f40551aed09e',1,'hmi::TrainingProgress::worstReward']]]
 ];

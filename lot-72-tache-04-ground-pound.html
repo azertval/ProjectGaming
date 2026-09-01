@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-72-tache-04-ground-pound.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-72-mouvement-avance_2tache-04-ground-pound"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-72.html#md_Lot_2LOT-72-mouvement-avance_2epic" title="Lot/LOT-72-mouvement-avance/epic.md">LOT-72</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/{Components,Systems}</span>, <span class="tt">Source/HMI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3387"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3393"></a>
 Contexte</h1>
 <p><span class="tt">EX-GP-058</span> ajoute un <b>ground pound</b> : en l'air uniquement, une chute accélérée dirigée verticalement, qui se termine au contact du sol.</p>
 <p><b>Déclenchement retenu</b> : le bouton de dash visé <b>purement vers le bas</b> (<span class="tt">moveX == 0</span>, <span class="tt">moveY &gt; 0</span>), en l'air, <b>et seulement si le personnage n'a plus aucune charge de dash</b> (<span class="tt">dashChargesRemaining &lt;= 0</span>). Cette dernière condition n'est pas une limitation arbitraire : un premier essai sans elle a <b>cassé la séquence <span class="tt">demo-final</span></b> (nombreuses cases hors de portée du tracé, <span class="tt">Won</span> jamais atteint) parce que cette combinaison d'entrée est déjà utilisée pour un <b>dash vertical intentionnel</b> dans du contenu existant. Tant qu'une charge de dash existe, appuyer sur dash + bas reste un dash vertical normal, <b>exactement comme avant ce lot</b> ; le ground pound n'est donc atteignable que là où, avant ce lot, la même combinaison ne faisait <b>strictement rien</b> (dash pressé sans charge disponible) — une pure addition, jamais une réinterprétation d'un geste déjà significatif.</p>
 <p><b>Effet à l'atterrissage</b> : aucun front dédié n'a été ajouté. <span class="tt"><a class="el" href="GameSession_8cpp.html">Source/HMI/Game/GameSession.cpp</a></span> déclenche déjà une secousse caméra sur tout atterrissage dont la vitesse d'impact dépasse <span class="tt"><a class="el" href="namespacecore.html#a2f9bf6d59b037b9aa946013451473361" title="Vitesse d&#39;impact au-delà de laquelle l&#39;intensité de la poussière plafonne (LANDING_DUST_MAX_ COUNT) :...">core::LANDING_MAX_IMPACT_SPEED</a></span> (14 unités/s) — <span class="tt">PhysicsConfig::groundPoundSpeed</span> (30 unités/s) dépasse largement ce seuil, donc l'atterrissage d'un ground pound déclenche déjà cette secousse sans code supplémentaire (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span>, section « Particules du personnage »).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3388"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3394"></a>
 Travail réalisé</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Player.h</a></span> : <span class="tt">groundPounding</span> (état actif) ; pas de front dédié (voir plus haut).</li>
@@ -110,7 +110,7 @@ Travail réalisé</h1>
 <li>Fin du pound : <span class="tt">groundPounding = false</span> dans le bloc « minuteries » de <span class="tt">resolveVelocity</span>, quand <span class="tt">player.grounded</span> est vrai (même endroit que la recharge de <span class="tt">dashChargesRemaining</span>).</li>
 <li>Pas de règle spéciale pour les plaques de pression (<span class="tt">EX-GP-025</span>) : elles réagissent déjà à tout contact suffisamment massif.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3389"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3395"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></span>.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></span>.</li>
 <li>Tests d'intégration (<span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3390"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3396"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Déclenchement en l'air seulement</b> : au sol, l'appui « bas » ne déclenche pas de ground pound.</li>
@@ -128,18 +128,18 @@ Tests (obligatoires)</h1>
 <li><b>Non-conflit avec le dash</b> : un dash en cours ne peut pas être interrompu par un ground pound (et réciproquement).</li>
 <li><b>Déterminisme</b> (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3391"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3397"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas dupliquer le patron <span class="tt">justJumped</span>/<span class="tt">squished</span> : même mécanique de front à usage externe, sans effet sur la simulation elle-même.</li>
 <li>La casse de blocs fragiles à l'impact est <b>explicitement exclue</b> du lot (aucun <span class="tt">TileType</span> fragile n'existe) : l'effet à l'atterrissage se limite au front consommé par l'IHM et à l'interaction normale, déjà existante, avec les mécanismes sensibles au poids.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3392"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3398"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Ground pound fonctionnel et <b>testé</b> (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3399"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-058</span>, <span class="tt">EX-GP-025</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

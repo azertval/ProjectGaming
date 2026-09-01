@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-18-tache-01-lecture-rejeu-alimentation-game
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2tache-01-lecture-rejeu-alimentation-gamesession"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-18.html#md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2epic" title="Lot-Annexe/LOT-ANNEXE-18-mode-regarder-ia-jouer/epic.md">LOT-ANNEXE-18</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4170"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4207"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a>(const InputState&amp;, float fixedDelta)</span> traduit aujourd'hui l'entrée réelle (<span class="tt"><a class="el" href="namespacehmi.html#a2c3341857c60f0bef0a01a6cd10ce5f7" title="Traduit l&#39;état d&#39;entrée en core::PlayerInput, dissocié des touches/boutons physiques (EX-CTRL-010,...">hmi::toPlayerInput</a></span>, <span class="tt"><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></span>) en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> avant de piloter la simulation. Pour rejouer un fichier de rejeu, il faut pouvoir fournir directement ce <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> déjà enregistré, sans passer par la traduction d'entrée réelle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4171"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4208"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a>(const <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>&amp;, float fixedDelta) -&gt; <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span></b> (nouvelle surcharge publique, <span class="tt"><a class="el" href="GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran.">Source/HMI/Game/GameSession.h</a>/.cpp</span>) : contient la logique aujourd'hui interne à <span class="tt">update(const InputState&amp;, float)</span> (snapshot de position précédente, <span class="tt">BlockController::update</span>, <span class="tt">CharacterPhysicsSystem::update</span>, sweep des blocs réduits, <span class="tt">AnimationSystem</span>, caméra de salle, <span class="tt">MechanismController::update</span>, <span class="tt">DangerController::update</span>, <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>) — inchangée pas à pas.</li>
@@ -106,14 +106,14 @@ Travail à réaliser</h1>
   levelsDir)</span> — charge le rejeu via <span class="tt"><a class="el" href="namespaceaisolver.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">aisolver::readReplay</a></span>, le valide immédiatement via <span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span> (échoue tôt, avant toute lecture de pas, si le rejeu est invalide) ; méthode <span class="tt">std::optional&lt;<a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>&gt; nextInput()</span> — renvoie le prochain <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> de la séquence, <span class="tt">std::nullopt</span> une fois la séquence épuisée (signal de fin de rejeu, distinct d'une fin de partie par victoire/défaite).</li>
 <li>Point d'intégration côté <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> (utilisé par TACHE-02) : en mode rejeu, chaque itération de la boucle de pas fixe appelle <span class="tt"><a class="el" href="classReplayPlayback.html#a66b63484e3ff4dbd0939fbf27d465c0f" title="Renvoie le prochain core::PlayerInput de la séquence enregistrée.">ReplayPlayback::nextInput()</a></span> plutôt que <span class="tt">InputState</span>/<span class="tt">toPlayerInput</span>, puis <span class="tt">GameSession::update(core::PlayerInput, fixedDelta)</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4172"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4209"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran.">Source/HMI/Game/GameSession.h</a>/.cpp</span> — modifié (nouvelle surcharge, refactor minimal de l'existant en son terme).</li>
 <li><span class="tt"><a class="el" href="ReplayPlayback_8h.html" title="Lecture d&#39;un fichier de rejeu produit par le programme Lot-Annexe, comme source de core::PlayerInput ...">Source/HMI/Game/ReplayPlayback.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> — ajout des nouveaux fichiers, lien vers <span class="tt">AiSolver</span> (module <span class="tt">Replay</span> uniquement, en pratique la bibliothèque <span class="tt">AiSolver</span> entière puisque CMake ne découpe pas en sous-cibles internes — documenté comme dépendance de bibliothèque complète mais d'usage limité au sous-espace <span class="tt"><a class="el" href="namespaceaisolver.html">aisolver</a>::</span> de lecture de rejeu, pas une violation du principe de dépendance minimale, seulement une contrainte de granularité de <span class="tt">add_library</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4173"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4210"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression stricte</b> : tous les tests existants sur <span class="tt">GameSession::update(const InputState&amp;,
@@ -122,21 +122,21 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> sur un rejeu valide</b> : <span class="tt">nextInput()</span> renvoie la séquence enregistrée dans l'ordre exact, <span class="tt">std::nullopt</span> après le dernier élément.</li>
 <li><b><span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> sur un rejeu invalide</b> (niveau modifié) : le constructeur signale l'échec de validation de façon récupérable (exception capturée à la construction, ou statut interrogeable avant tout appel à <span class="tt">nextInput</span> — à trancher à l'implémentation, mais jamais un plantage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4174"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4211"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le refactor de <span class="tt">GameSession::update</span> doit être un déplacement de code, pas une réécriture</b> : le risque principal de cette tâche est d'introduire une divergence de comportement en réorganisant la méthode — la non-régression stricte (premier test ci-dessus) est la garde-fou direct contre ce risque.</li>
 <li><b><span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> ne connaît jamais <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></span> ni les bindings clavier/manette</b> : elle produit directement des <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, cohérent avec le fait qu'un rejeu n'a jamais besoin de traduire une intention physique — elle <b>est</b> déjà l'intention enregistrée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4175"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4212"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Nouvelle surcharge de <span class="tt">GameSession::update</span>, <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> disponibles et testés (<span class="tt">ctest</span> vert), aucune régression sur les tests existants ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4176"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4213"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4177"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4214"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-019</span> (nouvelle, partagée avec TACHE-02/03 du même lot). </p>
 </div></div><!-- contents -->

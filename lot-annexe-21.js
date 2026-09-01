@@ -1,45 +1,45 @@
 var lot_annexe_21 =
 [
-    [ "Objectif", "lot-annexe-21.html#autotoc_md4248", null ],
-    [ "Amendement à une décision de cadrage antérieure", "lot-annexe-21.html#autotoc_md4249", null ],
-    [ "Périmètre", "lot-annexe-21.html#autotoc_md4250", [
-      [ "Inclus", "lot-annexe-21.html#autotoc_md4251", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-annexe-21.html#autotoc_md4252", null ]
+    [ "Objectif", "lot-annexe-21.html#autotoc_md4285", null ],
+    [ "Amendement à une décision de cadrage antérieure", "lot-annexe-21.html#autotoc_md4286", null ],
+    [ "Périmètre", "lot-annexe-21.html#autotoc_md4287", [
+      [ "Inclus", "lot-annexe-21.html#autotoc_md4288", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-annexe-21.html#autotoc_md4289", null ]
     ] ],
-    [ "Notions abordées", "lot-annexe-21.html#autotoc_md4253", null ],
-    [ "Exigences couvertes", "lot-annexe-21.html#autotoc_md4254", null ],
-    [ "Découpage", "lot-annexe-21.html#autotoc_md4255", null ],
-    [ "Critères d'acceptation du lot", "lot-annexe-21.html#autotoc_md4256", null ],
-    [ "Dépendances", "lot-annexe-21.html#autotoc_md4257", null ],
-    [ "Navigation des tâches", "lot-annexe-21.html#autotoc_md4258", null ],
+    [ "Notions abordées", "lot-annexe-21.html#autotoc_md4290", null ],
+    [ "Exigences couvertes", "lot-annexe-21.html#autotoc_md4291", null ],
+    [ "Découpage", "lot-annexe-21.html#autotoc_md4292", null ],
+    [ "Critères d'acceptation du lot", "lot-annexe-21.html#autotoc_md4293", null ],
+    [ "Dépendances", "lot-annexe-21.html#autotoc_md4294", null ],
+    [ "Navigation des tâches", "lot-annexe-21.html#autotoc_md4295", null ],
     [ "TACHE-01 — Hooks AiSolver + TrainingWorker", "lot-annexe-21-tache-01-training-worker.html", [
-      [ "Contexte", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4259", null ],
-      [ "Travail à réaliser", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4260", null ],
-      [ "Fichiers impactés", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4261", null ],
-      [ "Tests (obligatoires)", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4262", null ],
-      [ "Points d'attention", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4263", null ],
-      [ "Définition de fait (DoD)", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4264", null ],
-      [ "Notions abordées", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4265", null ],
-      [ "Exigences", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4266", null ]
+      [ "Contexte", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4296", null ],
+      [ "Travail à réaliser", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4297", null ],
+      [ "Fichiers impactés", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4298", null ],
+      [ "Tests (obligatoires)", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4299", null ],
+      [ "Points d'attention", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4300", null ],
+      [ "Définition de fait (DoD)", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4301", null ],
+      [ "Notions abordées", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4302", null ],
+      [ "Exigences", "lot-annexe-21-tache-01-training-worker.html#autotoc_md4303", null ]
     ] ],
     [ "TACHE-02 — Écran AiModeScreen (trois onglets)", "lot-annexe-21-tache-02-ai-mode-screen.html", [
-      [ "Contexte", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4267", null ],
-      [ "Travail à réaliser", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4268", null ],
-      [ "Fichiers impactés", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4269", null ],
-      [ "Tests (obligatoires)", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4270", null ],
-      [ "Points d'attention", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4271", null ],
-      [ "Définition de fait (DoD)", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4272", null ],
-      [ "Notions abordées", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4273", null ],
-      [ "Exigences", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4274", null ]
+      [ "Contexte", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4304", null ],
+      [ "Travail à réaliser", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4305", null ],
+      [ "Fichiers impactés", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4306", null ],
+      [ "Tests (obligatoires)", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4307", null ],
+      [ "Points d'attention", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4308", null ],
+      [ "Définition de fait (DoD)", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4309", null ],
+      [ "Notions abordées", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4310", null ],
+      [ "Exigences", "lot-annexe-21-tache-02-ai-mode-screen.html#autotoc_md4311", null ]
     ] ],
     [ "TACHE-03 — Intégration au menu principal", "lot-annexe-21-tache-03-integration-menu.html", [
-      [ "Contexte", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4275", null ],
-      [ "Travail à réaliser", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4276", null ],
-      [ "Fichiers impactés", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4277", null ],
-      [ "Tests (obligatoires)", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4278", null ],
-      [ "Points d'attention", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4279", null ],
-      [ "Définition de fait (DoD)", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4280", null ],
-      [ "Notions abordées", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4281", null ],
-      [ "Exigences", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4282", null ]
+      [ "Contexte", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4312", null ],
+      [ "Travail à réaliser", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4313", null ],
+      [ "Fichiers impactés", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4314", null ],
+      [ "Tests (obligatoires)", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4315", null ],
+      [ "Points d'attention", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4316", null ],
+      [ "Définition de fait (DoD)", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4317", null ],
+      [ "Notions abordées", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4318", null ],
+      [ "Exigences", "lot-annexe-21-tache-03-integration-menu.html#autotoc_md4319", null ]
     ] ]
 ];

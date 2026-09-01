@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -125,6 +125,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:acdfb01b5297c9acbd658281a449ec807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur du mauvais type dans le fichier laisse le defaut en place, sans lever.  <br /></td></tr>
 <tr class="memitem:a7bde9ba9d48f81a9b900175db46bde45" id="r_a7bde9ba9d48f81a9b900175db46bde45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7bde9ba9d48f81a9b900175db46bde45">TEST</a> (HiddenSizeForModelTest, ResolueDepuisLeConfigDuRunSinonDefaut)</td></tr>
 <tr class="memdesc:a7bde9ba9d48f81a9b900175db46bde45"><td class="mdescLeft">&#160;</td><td class="mdescRight">La taille de couche cachee d'un modele est relue dans le <span class="tt">config.json</span> de son run.  <br /></td></tr>
+<tr class="memitem:a2478dc17958a422a7b2bc87516ddaa8f" id="r_a2478dc17958a422a7b2bc87516ddaa8f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2478dc17958a422a7b2bc87516ddaa8f">TEST</a> (LoadTrainingConfigTest, PrioriteDefautPuisFichierPuisOptionSurLesNouveauxChamps)</td></tr>
+<tr class="memdesc:a2478dc17958a422a7b2bc87516ddaa8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chaine de priorite complete vaut aussi pour les hyperparametres ajoutes par LOT-ANNEXE-22 : defaut, puis fichier <span class="tt">--config</span>, puis option individuelle.  <br /></td></tr>
 <tr class="memitem:af3ff45c03f528343fcd566389265aaee" id="r_af3ff45c03f528343fcd566389265aaee"><td class="memItemLeft"><a class="el" href="structTrainingConfig.html">TrainingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#af3ff45c03f528343fcd566389265aaee">loadTrainingConfig</a> (const std::optional&lt; std::filesystem::path &gt; &amp;configFile, const <a class="el" href="structCommandLineOverrides.html">CommandLineOverrides</a> &amp;overrides)</td></tr>
 <tr class="memdesc:af3ff45c03f528343fcd566389265aaee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la configuration effective d'un run : défauts documentés → fichier <span class="tt">--config</span> (s'il est fourni) → arguments individuels (<code class="param">overrides</code>, priorité la plus haute).  <br /></td></tr>
 <tr class="memitem:a5a2ddbb91586b43f38bc7d36f165f4f5" id="r_a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5a2ddbb91586b43f38bc7d36f165f4f5">writeTrainingConfigJson</a> (const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;config, const std::filesystem::path &amp;path)</td></tr>
@@ -173,7 +175,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7bde9ba9d48f81a9b900175db46bde45" name="a7bde9ba9d48f81a9b900175db46bde45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bde9ba9d48f81a9b900175db46bde45">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bde9ba9d48f81a9b900175db46bde45">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +206,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa1eb7a9cc83a5b14ee14dbd7a4cd5dac" name="aa1eb7a9cc83a5b14ee14dbd7a4cd5dac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1eb7a9cc83a5b14ee14dbd7a4cd5dac">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1eb7a9cc83a5b14ee14dbd7a4cd5dac">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,7 +237,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a113726c3af0af36346e369d984dc4311" name="a113726c3af0af36346e369d984dc4311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a113726c3af0af36346e369d984dc4311">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a113726c3af0af36346e369d984dc4311">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,8 +266,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2478dc17958a422a7b2bc87516ddaa8f" name="a2478dc17958a422a7b2bc87516ddaa8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2478dc17958a422a7b2bc87516ddaa8f">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LoadTrainingConfigTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PrioriteDefautPuisFichierPuisOptionSurLesNouveauxChamps</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La chaine de priorite complete vaut aussi pour les hyperparametres ajoutes par LOT-ANNEXE-22 : defaut, puis fichier <span class="tt">--config</span>, puis option individuelle. </p>
+<p><b>Cas de test :</b> Priorite defaut &lt; fichier &lt; option, sur les nouvelles surcharges.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un <span class="tt">config.json</span> fixant <span class="tt">hiddenSize</span>, <span class="tt">tournamentSize</span>, <span class="tt">mutationStrength</span>, <span class="tt">maxGenerations</span> et <span class="tt">requiredConsecutiveSuccesses</span>.<br  />
+2. <span class="tt"><a class="el" href="#af3ff45c03f528343fcd566389265aaee" title="Résout la configuration effective d&#39;un run : défauts documentés → fichier --config (s&#39;il est fourni) ...">loadTrainingConfig</a></span> avec ce fichier seul.<br  />
+3. Recommencer en surchargeant <span class="tt">hiddenSize</span> et <span class="tt">maxGenerations</span> par options.<br  />
+ <b>Resultat attendu :</b> Le fichier prime sur les defauts, et les options priment sur le fichier — <span class="tt">hiddenSize</span> en particulier, dont un ecart rend un modele definitivement illisible. </p>
+
+</div>
+</div>
 <a id="a4dc5fe90003d5a29feeda83b798c9de2" name="a4dc5fe90003d5a29feeda83b798c9de2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dc5fe90003d5a29feeda83b798c9de2">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc5fe90003d5a29feeda83b798c9de2">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,7 +327,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a85e34348dbfe88839ae38521bafc52cf" name="a85e34348dbfe88839ae38521bafc52cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e34348dbfe88839ae38521bafc52cf">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85e34348dbfe88839ae38521bafc52cf">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,7 +356,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acdfb01b5297c9acbd658281a449ec807" name="acdfb01b5297c9acbd658281a449ec807"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdfb01b5297c9acbd658281a449ec807">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acdfb01b5297c9acbd658281a449ec807">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -353,7 +386,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ade08d631cf6d334d7b0c3af0a90be053" name="ade08d631cf6d334d7b0c3af0a90be053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade08d631cf6d334d7b0c3af0a90be053">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade08d631cf6d334d7b0c3af0a90be053">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

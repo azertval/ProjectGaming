@@ -1,6 +1,7 @@
 var classTrajectoryCollector =
 [
-    [ "TrajectoryCollector", "classTrajectoryCollector.html#a22b4c48c47c2ad25308cc5715f550b7d", null ],
+    [ "TrajectoryCollector", "classTrajectoryCollector.html#a5114d360d0e2655c7f79835bf490b284", null ],
     [ "collectEpisode", "classTrajectoryCollector.html#a6333c72b9d62ab2a705f853e30f539bf", null ],
-    [ "_stuckThreshold", "classTrajectoryCollector.html#a64969c8eda18887849ebd0f31f67471f", null ]
+    [ "_actionRepeat", "classTrajectoryCollector.html#a5f860528514449871141d534736e34f1", null ],
+    [ "_explorationFloor", "classTrajectoryCollector.html#abf1fc3b55c9163eca227d5f6e831c93e", null ]
 ];

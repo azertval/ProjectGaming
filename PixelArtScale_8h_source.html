@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -105,12 +105,16 @@ $(function(){initNavTree('PixelArtScale_8h_source.html','',''); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacehmi.html#aa1499337391ec9642e497257d860a248">   28</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacehmi.html#aa1499337391ec9642e497257d860a248">PIXEL_ART_MAX_SCALE</a> = 3;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacehmi.html#ac2a8870c8e4b1ea370df1cb0735a6afc">pixelArtScale</a>(<span class="keywordtype">int</span> windowLogicalHeight) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}  <span class="comment">// namespace hmi</span></div>
-<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> ModelEvaluation.cpp:24</div></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>[[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="namespacehmi.html#afdfb0571ff0707ca3bd0731ffa4bdf73">pixelArtScaleForDisplay</a>(<span class="keywordtype">int</span> windowLogicalHeight,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                          <span class="keywordtype">int</span> availableLogicalHeight) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> EvaluationWorker.cpp:15</div></div>
 <div class="ttc" id="anamespacehmi_html_a3fc085e80745ef4e446b9d64361e0edc"><div class="ttname"><a href="namespacehmi.html#a3fc085e80745ef4e446b9d64361e0edc">hmi::PIXEL_ART_BASE_HEIGHT</a></div><div class="ttdeci">constexpr int PIXEL_ART_BASE_HEIGHT</div><div class="ttdoc">Hauteur, en pixels logiques, de la maquette à l&#39;échelle 1.</div><div class="ttdef"><b>Definition</b> PixelArtScale.h:24</div></div>
 <div class="ttc" id="anamespacehmi_html_aa1499337391ec9642e497257d860a248"><div class="ttname"><a href="namespacehmi.html#aa1499337391ec9642e497257d860a248">hmi::PIXEL_ART_MAX_SCALE</a></div><div class="ttdeci">constexpr int PIXEL_ART_MAX_SCALE</div><div class="ttdoc">Plus grand facteur admis.</div><div class="ttdef"><b>Definition</b> PixelArtScale.h:28</div></div>
 <div class="ttc" id="anamespacehmi_html_ac2a8870c8e4b1ea370df1cb0735a6afc"><div class="ttname"><a href="namespacehmi.html#ac2a8870c8e4b1ea370df1cb0735a6afc">hmi::pixelArtScale</a></div><div class="ttdeci">int pixelArtScale(int windowLogicalHeight) noexcept</div><div class="ttdoc">Facteur d&#39;agrandissement des écrans du jeu pour une hauteur de fenêtre donnée.</div><div class="ttdef"><b>Definition</b> PixelArtScale.cpp:10</div></div>
+<div class="ttc" id="anamespacehmi_html_afdfb0571ff0707ca3bd0731ffa4bdf73"><div class="ttname"><a href="namespacehmi.html#afdfb0571ff0707ca3bd0731ffa4bdf73">hmi::pixelArtScaleForDisplay</a></div><div class="ttdeci">int pixelArtScaleForDisplay(int windowLogicalHeight, int availableLogicalHeight) noexcept</div><div class="ttdoc">Facteur d&#39;agrandissement borné par la zone d&#39;affichage réellement disponible (EX-IHM-081).</div><div class="ttdef"><b>Definition</b> PixelArtScale.cpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

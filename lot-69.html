@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-69.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>livré</b>. Prérequis : <a class="el" href="lot-49.html" title="LOT-49 — Décors libres : modèle, rendu et parallaxe">LOT-49</a> et <a class="el" href="lot-50.html" title="LOT-50 — Décors : placement et manipulation dans l&#39;éditeur">LOT-50</a> (le système qu'il remplace), <a class="el" href="lot-54.html" title="LOT-54 — Atelier pixel art intégré">LOT-54</a> (atelier pixel art, réutilisé tel quel), <a class="el" href="lot-51.html" title="LOT-51 — Mode « définition des textures » : visibilité par calque">LOT-51</a> (visibilité par calque), <a class="el" href="lot-64.html" title="LOT-64 — Cadrage de caméra choisi par le level designer">LOT-64</a> (modes de cadrage), <span class="tt">LOT-68</span> (espaces de travail de l'éditeur — documenté par ses exigences, sans dossier dédié). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3248"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3254"></a>
 Objectif</h1>
 <p>Rendre le décor <b>peignable</b> plutôt que composé, et lui donner enfin de la profondeur.</p>
 <p>Le système livré en <span class="tt">LOT-49</span>/<span class="tt">LOT-50</span> habille un niveau en <b>posant des sprites</b> : un décor est un PNG placé à une position, avec échelle et rotation. Trois limites le rendent impropre à ce que le level designer attend :</p>
@@ -106,9 +106,9 @@ Objectif</h1>
 <li><b>Composer n'est pas dessiner.</b> Poser sept PNG ne permet pas de peindre une fresque. La demande — « le niveau complet en mode édition de texture » — est un changement de nature : le décor devient une <b>surface peinte à l'échelle du niveau</b>.</li>
 </ul>
 <p>Le lot lève au passage une dette qui n'est pas celle des décors, mais qui retomberait entièrement sur son mode création : <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> est une <b>fenêtre native</b> embarquée (<span class="tt">QWidget::createWindowContainer</span>). Le projet a <b>déjà payé deux défauts réels</b> pour ce choix en <span class="tt">LOT-59</span> — un écran de pause qui ne s'affichait pas, puis <span class="tt">Qt::Tool</span> volant le focus — contournés par une fenêtre de haut niveau à géométrie synchronisée en coordonnées écran. Un mode création a besoin de poignées, de règles et de repères <b>au-dessus</b> du canevas : les bâtir sur une fenêtre native, ce serait reproduire délibérément une classe de défauts déjà constatée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3249"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3255"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3250"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3256"></a>
 Inclus</h2>
 <ul>
 <li><b>Plans picturaux</b> (<span class="tt">EX-DEC-040</span> à <span class="tt">EX-DEC-045</span>) : nombre libre, ordre significatif, un PNG par plan à côté du niveau, densité réglable (16/8/4 px par unité), opacité, profondeur.</li>
@@ -120,7 +120,7 @@ Inclus</h2>
 <li><b>Budget de mémoire de texture</b> (<span class="tt">EX-NFR-043</span>), testé par niveau livré.</li>
 <li><b>Retrait complet</b> du système de décors-sprites : format, modèle, gestes, panneau, tests, assets.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3251"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3257"></a>
 Exclus</h2>
 <ul>
 <li><b>Le pipeline photo → pixel art</b> (<span class="tt">EX-DEC-030</span>/<span class="tt">031</span>) reste post-MVP. Le lot rend les plans peignables ; il n'ajoute pas de conversion d'image.</li>
@@ -128,7 +128,7 @@ Exclus</h2>
 <li><b>Le refactor du constructeur de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span></b> (19 paramètres après ce lot) n'est pas fait. La surface du lot est déjà maximale ; la dette est signalée, pas traitée.</li>
 <li><b>Aucun objet décoratif ponctuel réutilisable</b> ne subsiste — voir la perte assumée ci-dessous.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3252"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3258"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Remplacement net, pas cohabitation.</b> Maintenir décors et plans en parallèle doublerait le format, le rendu et l'éditeur pour un système destiné à disparaître. Le prix est explicite : il n'existe plus de motif décoratif <b>ponctuel réutilisable</b> — un tonneau présent dans dix niveaux doit être peint (ou collé) dans chaque plan.</li>
@@ -141,11 +141,11 @@ Décisions de cadrage</h1>
 <li><b>Les garde-fous de coût sont dans le format</b>, vérifiés au chargement, pas laissés à l'usage.</li>
 <li><b>Qt 6.11 est un plancher, pas un confort.</b> C'est la première version fournissant Canvas Painter. Quitter Qt 6.8 LTS est assumé : au-delà de 6.8.3, cette branche n'est plus publiée qu'en licence commerciale — le support long terme ne bénéficiait pas à ce projet.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3253"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3259"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-DEC-040</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-042</span>, <span class="tt">EX-DEC-043</span>, <span class="tt">EX-DEC-044</span>, <span class="tt">EX-DEC-045</span>, <span class="tt">EX-LVL-009</span>, <span class="tt">EX-EDIT-046</span>, <span class="tt">EX-EDIT-047</span>, <span class="tt">EX-REN-049</span>, <span class="tt">EX-REN-050</span>, <span class="tt">EX-NFR-043</span> (nouvelles). Amendées : <span class="tt">EX-REN-002</span> (Direct3D 11 via QRhi), <span class="tt">EX-BUILD-010</span> (l'outil de provisionnement est lui-même épinglé). Réutilisées : <span class="tt">EX-DEC-003</span>, <span class="tt">EX-DEC-032</span>, <span class="tt">EX-REN-014</span>, <span class="tt">EX-REN-015</span>, <span class="tt">EX-REN-046</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-ARCH-022</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-LVL-005</span>, <span class="tt">EX-EDIT-045</span>, <span class="tt">EX-NFR-004</span>, <span class="tt">EX-NFR-005</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-011</span>, <span class="tt">EX-NFR-031</span>, <span class="tt">EX-NFR-040</span>.</p>
 <p><b>Retirées</b> (ancres conservées dans <a class="el" href="spec-decors.html" title="Plans picturaux &amp; pipeline pixel art"><span class="tt">decors.md</span></a>, section « Exigences retirées ») : <span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-002</span>, <span class="tt">EX-DEC-004</span>, <span class="tt">EX-DEC-005</span>, <span class="tt">EX-DEC-006</span>, <span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-020</span>, <span class="tt">EX-DEC-021</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3254"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3260"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -174,10 +174,10 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">TACHE-10  </td><td class="markdownTableBodyNone">Contenu, documentation et référentiel  </td><td class="markdownTableBodyNone"><span class="tt">Source/Elements/Levels</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3255"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3261"></a>
 Séquencement</h2>
 <p><span class="tt">TACHE-01</span> puis <span class="tt">TACHE-02</span> d'abord : ce sont des prérequis d'infrastructure, sans fonctionnalité visible, mais validables <b>isolément</b> en CI avant qu'on bâtisse dessus. Puis <span class="tt">TACHE-03</span> et <span class="tt">TACHE-04</span> ensemble — retirer les décors avant d'avoir les plans laisserait l'éditeur sans habillage. Puis <span class="tt">TACHE-05</span>/<span class="tt">TACHE-06</span> (rendu et parallaxe), <span class="tt">TACHE-07</span>/<span class="tt">TACHE-08</span> (interface), <span class="tt">TACHE-09</span> une fois tous les consommateurs livrés (même logique que le <span class="tt">LOT-62</span> dans le programme <span class="tt">0.1.0</span>), et <span class="tt">TACHE-10</span> en clôture : les statuts ne se figent qu'à la fin, patron du <span class="tt">LOT-66</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3256"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3262"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un niveau sans plan déclaré se charge et se joue <b>exactement</b> comme avant le lot.</li>
@@ -191,10 +191,10 @@ Critères d'acceptation du lot</h1>
 <li>L'écran de pause s'affiche et reçoit le focus une fois redevenu un widget enfant ordinaire — non-régression des deux défauts du <span class="tt">LOT-59</span>.</li>
 <li><span class="tt">ctest</span> à 100 %, lint d'exigences vert, cahier de test régénéré.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3257"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3263"></a>
 Dépendances</h1>
 <p>Aucun lot ne dépend de celui-ci. Il retire les acquis du <span class="tt">LOT-49</span>/<span class="tt">LOT-50</span>, réutilise intégralement l'atelier du <span class="tt">LOT-54</span>, s'appuie sur les espaces de travail du <span class="tt">LOT-68</span> et sur les modes de cadrage du <span class="tt">LOT-64</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3258"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3264"></a>
 Risques</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -212,7 +212,7 @@ Risques</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">aqtinstall</span> publié ne sait pas installer Qt ≥ 6.11  </td><td class="markdownTableBodyNone">Levé  </td><td class="markdownTableBodyNone"><span class="tt">aqtsource</span> sur commit épinglé (TACHE-01)  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3259"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3265"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-69-tache-01-qt-6-11.html" title="TACHE-01 — Passage à Qt 6.11 et provisionnement reproductible">TACHE-01 — Passage à Qt 6.11 et provisionnement reproductible</a></li>

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-72.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b> (vérification automatisée : build Debug, <span class="tt">ctest</span> à 1585/1585, lint d'exigences vert ; la vérification IHM manuelle du ressenti en jeu — boost, poussée, ground pound, combo — reste à faire par l'utilisateur, comme pour tout lot touchant à la physique du personnage). Prérequis : <a class="el" href="lot-10.html" title="LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash">LOT-10</a> (mécaniques avancées : dash, wall jump), <a class="el" href="lot-67.html" title="LOT-67 — Trajectoires et règles de tableau éditables">LOT-67</a> (charges de dash et budgets par tableau). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3355"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3361"></a>
 Objectif</h1>
 <p>Enrichir le nuancier de mouvement du personnage en complexifiant le <b>dash</b> existant et en le faisant composer avec les autres mécaniques (poussée de bloc, saut, mur), sans ajouter de nouvelle touche.</p>
 <p>Le dash (<span class="tt">EX-GP-017</span>, LOT-10) est déjà en 8 directions et dispose de charges par saut et d'un budget par tableau (<span class="tt">EX-GP-055</span>/<span class="tt">EX-GP-024</span>, LOT-67). Mais deux trous subsistaient : la poussée de bloc (<span class="tt">EX-GP-022</span>) ne déplace qu'une case par contact, identique en marche ou en dash ; et sauter pendant un dash, ou juste après une poussée, ne conservait aucune vitesse (retour immédiat à la physique normale). Ce lot les comble en réutilisant l'existant (directions du dash, <span class="tt">wallDirection</span>, charges/ budget de dash) plutôt que d'en dupliquer l'infrastructure — et corrige au passage deux hypothèses de cadrage erronées, découvertes en relisant le code avant d'écrire quoi que ce soit (voir « Déjà couvert » ci-dessous).</p>
 <p><b>Un premier essai a cassé <span class="tt">demo-final</span></b> (voir TACHE-01/TACHE-06) : la charge de dash, telle que cadrée initialement (maintenir la direction opposée à <span class="tt">facing</span>), pouvait s'armer sur une simple inversion de direction en cours de déplacement normal, sans aucune intention de dasher — <span class="tt">ScriptedLevelSequence</span> (démo) et l'espace d'action de l'IA en contiennent forcément. La charge exige donc <b>aussi</b> de maintenir le bouton de dash (<span class="tt">PlayerInput::dashHeld</span>, nouveau champ dérivé de la touche déjà existante, même patron que <span class="tt">jumpHeld</span>) ; et le jump-cancel/la poussée renforcée sont restreints au dash <b>boosté</b> (<span class="tt">Player::dashIsBoosted</span>), jamais à un dash normal — garantie de non-régression par construction, puisqu'aucun contenu antérieur à ce lot ne peut produire de dash boosté.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3356"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3362"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3357"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3363"></a>
 Inclus</h2>
 <ul>
 <li><b>Dash chargé</b> (<span class="tt">EX-GP-056</span>) : maintenir le bouton de dash <b>et</b> la direction opposée avant de dasher charge un boost de vitesse/durée.</li>
@@ -112,13 +112,13 @@ Inclus</h2>
 <li><b>Combo dash + saut</b> (<span class="tt">EX-GP-061</span>) : jump-cancel d'un dash <b>boosté</b> (conservation de vitesse), wall-jump en sortie de dash, momentum hérité après poussée renforcée, bonus cumulatif plafonné.</li>
 <li>Validation explicite du <b>dash diagonal</b> (déjà livré en LOT-10) avec chacune des nouvelles mécaniques (non-régression).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3358"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3364"></a>
 Déjà couvert avant ce lot (relecture de code, pas de nouveau travail)</h2>
 <ul>
 <li><b>Wall slide</b> (<span class="tt">EX-GP-060</span> initialement envisagée) : <span class="tt">EX-GP-016</span> (LOT-10) couvre déjà le clamp de chute au contact d'un mur en l'air. Aucune exigence supplémentaire créée ; seule la non-régression avec les nouvelles mécaniques est testée (TACHE-05).</li>
 <li><b>Dash et pentes</b> (<span class="tt">EX-GP-060</span>) : la passe de suivi de pente/plafond (<span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span>/<span class="tt">resolveCeilingSlopeFollow</span>) s'applique déjà à <b>chaque</b> pas de simulation, dash ou non (<span class="tt">CharacterPhysicsSystem::resolveCollisionAndState</span>, appelée inconditionnellement) — un dash suit donc déjà les pentes sans code supplémentaire. La « glissade de sortie » initialement envisagée n'a pas de sens séparé : le contrôle normal reprend après le dash et le suivi de pente s'y applique comme à tout déplacement. <span class="tt">EX-GP-060</span> documente et <b>teste</b> ce comportement plutôt que d'en ajouter un (TACHE-03).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3359"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3365"></a>
 Exclus</h2>
 <ul>
 <li><b>Casse de blocs fragiles</b> au ground pound : nécessiterait un nouveau <span class="tt">TileType</span> (aucun bloc fragile n'existe dans <span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>), avec support éditeur/rendu — hors périmètre d'un lot de mouvement. L'atterrissage d'un ground pound déclenche la secousse caméra déjà existante pour tout impact lourd (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>), sans code dédié.</li>
@@ -126,7 +126,7 @@ Exclus</h2>
 <li>Poussée/knockback sur des ennemis ou dangers : seuls les blocs poussables sont concernés.</li>
 <li>Réimplémentation du dash diagonal lui-même : déjà livré, seule sa non-régression est garantie.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3360"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3366"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Charge de dash</b> = maintenir <b>le bouton de dash</b> (<span class="tt">PlayerInput::dashHeld</span>) <b>et</b> la direction opposée à une référence figée au début de la charge (<span class="tt">Player::dashChargeReferenceFacing</span>, copie de <span class="tt">facing</span> — jamais <span class="tt">facing</span> lui-même, qui continue de se mettre à jour à l'identique d'avant ce lot). La garde <span class="tt">dashHeld</span> est délibérée : sans elle, une inversion de direction anodine suffirait à armer un boost sans rapport avec une intention de dasher (voir Objectif).</li>
@@ -143,10 +143,10 @@ Décisions de cadrage</h1>
 </li>
 <li><b>Déterminisme</b> : tout nouvel état/minuterie est décompté au pas fixe comme <span class="tt">coyoteTimer</span>/ <span class="tt">dashTimer</span>, conforme à <span class="tt">EX-NFR-002</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3361"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3367"></a>
 Exigences couvertes</h1>
 <p><span class="tt">EX-GP-056</span>, <span class="tt">EX-GP-057</span>, <span class="tt">EX-GP-058</span>, <span class="tt">EX-GP-060</span>, <span class="tt">EX-GP-061</span> (nouvelles). Réutilisées : <span class="tt">EX-GP-003</span>, <span class="tt">EX-GP-004</span>, <span class="tt">EX-GP-006</span>, <span class="tt">EX-GP-007</span> (pentes/arrondis et suivi), <span class="tt">EX-GP-016</span> (<span class="tt">wallDirection</span>, wall jump/slide), <span class="tt">EX-GP-017</span> (dash), <span class="tt">EX-GP-022</span> (blocs poussables), <span class="tt">EX-GP-024</span>, <span class="tt">EX-GP-025</span> (plaques de pression), <span class="tt">EX-GP-055</span> (charges de dash par tableau), <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-002</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3362"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3368"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -171,7 +171,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">TACHE-08  </td><td class="markdownTableBodyNone">Documentation, exigences, CHANGELOG  </td><td class="markdownTableBodyNone"><span class="tt">Documentation/Specification</span>, <span class="tt">CHANGELOG.md</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3363"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3369"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Sans déclencher aucune des nouvelles mécaniques, le personnage se comporte <b>exactement</b> comme avant le lot (build <span class="tt">ctest</span> 1585/1585, y compris <span class="tt">demo-final</span>, <span class="tt">RecompenseDemoNiveauxTest</span>, <span class="tt">RejeuIaSysteme</span>, inchangés).</li>
@@ -182,10 +182,10 @@ Critères d'acceptation du lot</h1>
 <li>Combo dash + saut : un saut pendant un dash <b>boosté</b> le coupe et conserve sa vitesse horizontale (jump-cancel) ; s'il a lieu contre un mur, c'est un wall-jump qui se déclenche ; un saut dans la fenêtre suivant une poussée renforcée hérite du ratio de vitesse configuré ; un enchaînement de jump-cancels rapprochés cumule un bonus de vitesse plafonné.</li>
 <li><span class="tt">ctest</span> à 100 %, lint d'exigences vert, build <span class="tt">/W4 /WX</span>, déterminisme conservé (<span class="tt">EX-NFR-002</span>).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3364"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3370"></a>
 Dépendances</h1>
 <p>Aucun lot ne dépend de celui-ci. Il s'appuie sur le dash et le wall jump du <span class="tt">LOT-10</span>, sur les charges de dash par tableau du <span class="tt">LOT-67</span>, et sur le suivi de pente introduit au <span class="tt">LOT-08</span>/<span class="tt">LOT-19</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3365"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3371"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-72-tache-01-dash-charge.html" title="TACHE-01 — Charge de dash et dash boosté">TACHE-01 — Charge de dash et dash boosté</a></li>

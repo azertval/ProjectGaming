@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -136,8 +136,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9786e92c74d02d2bd99dbbddb452a7f9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">addScalar()</span>/<span class="tt">multiplyScalar()</span> appliquent le scalaire à chaque élément en passe avant.  <br /></td></tr>
 <tr class="memitem:ab96a6bec02f5c77e7c37abfb0ada5488" id="r_ab96a6bec02f5c77e7c37abfb0ada5488"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab96a6bec02f5c77e7c37abfb0ada5488">TEST</a> (AutodiffOpsTest, LogExpReciproquesEnAvant)</td></tr>
 <tr class="memdesc:ab96a6bec02f5c77e7c37abfb0ada5488"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">logOp(expOp(a))</span> reproduit <span class="tt">a</span> à <span class="tt">1e-5</span> près en avant (composition de fonctions réciproques).  <br /></td></tr>
-<tr class="memitem:a14ad9b4e9567dbfa6377a7889c67813c" id="r_a14ad9b4e9567dbfa6377a7889c67813c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a14ad9b4e9567dbfa6377a7889c67813c">TEST</a> (AutodiffOpsTest, LogOpRefuseEntreeNonPositive)</td></tr>
-<tr class="memdesc:a14ad9b4e9567dbfa6377a7889c67813c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">logOp</span> déclenche l'assertion sur un élément d'entrée non strictement positif.  <br /></td></tr>
+<tr class="memitem:a4cc433e74d1163c3a8a9348f569c7ae3" id="r_a4cc433e74d1163c3a8a9348f569c7ae3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4cc433e74d1163c3a8a9348f569c7ae3">TEST</a> (AutodiffOpsTest, LogOpPlancheLeZeroEtRefuseUneEntreeNegative)</td></tr>
+<tr class="memdesc:a4cc433e74d1163c3a8a9348f569c7ae3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">logOp</span> refuse une entrée <b>négative</b> (erreur de programmation), mais accepte un zéro numérique, qu'elle planche.  <br /></td></tr>
 <tr class="memitem:aff14ac7e3fbf1b931841b35a1b553868" id="r_aff14ac7e3fbf1b931841b35a1b553868"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aff14ac7e3fbf1b931841b35a1b553868">TEST</a> (AutodiffOpsTest, SelectIndexPasseAvant)</td></tr>
 <tr class="memdesc:aff14ac7e3fbf1b931841b35a1b553868"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">selectIndex()</span> extrait l'élément demandé dans un nœud de forme <span class="tt">[1]</span>.  <br /></td></tr>
 <tr class="memitem:ae593b76d855c81901451d07e78c50a7d" id="r_ae593b76d855c81901451d07e78c50a7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae593b76d855c81901451d07e78c50a7d">TEST</a> (AutodiffOpsTest, SelectIndexGradientLocalise)</td></tr>
@@ -478,8 +478,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a14ad9b4e9567dbfa6377a7889c67813c" name="a14ad9b4e9567dbfa6377a7889c67813c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14ad9b4e9567dbfa6377a7889c67813c">&#9670;&#160;</a></span>TEST() <span class="overload">[11/20]</span></h2>
+<a id="a4cc433e74d1163c3a8a9348f569c7ae3" name="a4cc433e74d1163c3a8a9348f569c7ae3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc433e74d1163c3a8a9348f569c7ae3">&#9670;&#160;</a></span>TEST() <span class="overload">[11/20]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -492,19 +492,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LogOpRefuseEntreeNonPositive</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LogOpPlancheLeZeroEtRefuseUneEntreeNegative</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">logOp</span> déclenche l'assertion sur un élément d'entrée non strictement positif. </p>
-<p><b>Cas de test :</b> <b>Ops : <span class="tt">logOp</span> refuse une entrée non positive.</b><br  />
+<p><span class="tt">logOp</span> refuse une entrée <b>négative</b> (erreur de programmation), mais accepte un zéro numérique, qu'elle planche. </p>
+<p>La distinction n'est pas cosmétique : l'appelant réel est la perte de policy gradient, dont l'entrée est une probabilité de <span class="tt">softmax</span>. Une politique qui se spécialise produit des probabilités qui <b>s'annulent en flottant</b> — ce n'est pas un bug de l'appelant, c'est l'arithmétique. Assertionner sur ce zéro faisait échouer l'entraînement en Debug et propageait <span class="tt">-inf</span> en Release ; un logarithme d'un nombre négatif, lui, reste une erreur de programmation. <b>Cas de test :</b> <b>Ops : <span class="tt">logOp</span> planche un zéro et refuse une entrée négative.</b><br  />
  <b>Categorie :</b> Unitaire · Autodiff<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Construire une feuille contenant <span class="tt">0.0f</span>.<br  />
-2. Appeler <span class="tt">logOp()</span>.<br  />
- <b>Resultat attendu :</b> Le gestionnaire d'assertion est invoqué avant tout calcul. </p>
+ 1. Appeler <span class="tt">logOp()</span> sur une feuille contenant <span class="tt">0.0f</span>.<br  />
+2. Appeler <span class="tt">logOp()</span> sur une feuille contenant une valeur négative.<br  />
+ <b>Resultat attendu :</b> Le zéro produit une valeur <b>finie</b> sans déclencher d'assertion ; la valeur négative déclenche le gestionnaire d'assertion. </p>
 
 </div>
 </div>

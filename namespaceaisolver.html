@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -112,11 +112,13 @@ Classes</h2></td></tr>
 <tr class="memitem:StepObservation" id="r_StepObservation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1StepObservation.html">StepObservation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour d'un appel à <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> : issue, boîte et état complet du personnage à l'instant de ce pas.  <a href="structaisolver_1_1StepObservation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EnvironmentConfig" id="r_EnvironmentConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1EnvironmentConfig.html">EnvironmentConfig</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'un <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression.  <a href="structaisolver_1_1EnvironmentConfig.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'un <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas et seuil de blocage, tous deux <b>dérivés du niveau</b> par défaut.  <a href="structaisolver_1_1EnvironmentConfig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:HeadlessLevelEnvironment" id="r_HeadlessLevelEnvironment"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue <b>un seul niveau</b>, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une API <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset</a></span>/<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step</a></span> (<span class="tt">EX-IA-005</span>).  <a href="classaisolver_1_1HeadlessLevelEnvironment.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MechanismStateEncoder" id="r_MechanismStateEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1MechanismStateEncoder.html">MechanismStateEncoder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode l'état <b>dynamique</b> des mécanismes de la fenêtre (porte ouverte/fermée, danger actif), complémentaire au type <b>statique</b> encodé par <span class="tt"><a class="el" href="classaisolver_1_1TileWindowEncoder.html" title="Encode une fenêtre carrée de core::TileMap, centrée sur une case, en tenseur one-hot.">TileWindowEncoder</a></span>.  <a href="classaisolver_1_1MechanismStateEncoder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ObjectiveEncoder" id="r_ObjectiveEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1ObjectiveEncoder.html">ObjectiveEncoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode, autour de la case du personnage, le <b>champ de distances vers l'objectif immédiat</b> sur lequel la récompense est déjà construite.  <a href="classaisolver_1_1ObjectiveEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ObservationEncoder" id="r_ObservationEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1ObservationEncoder.html">ObservationEncoder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatène, dans un ordre fixe et documenté, les trois encodeurs d'observation en un seul vecteur d'entrée de réseau.  <a href="classaisolver_1_1ObservationEncoder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlayerStateEncoder" id="r_PlayerStateEncoder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1PlayerStateEncoder.html">PlayerStateEncoder</a></td></tr>
@@ -139,6 +141,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne mobile sur les <span class="tt">windowSize</span> dernières valeurs poussées.  <a href="classaisolver_1_1MovingAverageTracker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainingStatsRow" id="r_TrainingStatsRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1TrainingStatsRow.html">TrainingStatsRow</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne de statistiques : une génération (évolutionniste) ou un épisode/lot d'épisodes (par gradient).  <a href="structaisolver_1_1TrainingStatsRow.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TrainingStatsDerived" id="r_TrainingStatsDerived"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1TrainingStatsDerived.html">TrainingStatsDerived</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grandeurs <b>dérivées</b> par l'enregistreur au fil des lignes, écrites dans le CSV.  <a href="structaisolver_1_1TrainingStatsDerived.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrainingStatsRecorder" id="r_TrainingStatsRecorder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html">TrainingStatsRecorder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à <span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">record</a></span>, jamais rouvert en ajout (voir <span class="tt"><a class="el" href="#aa17e50f126f244b7559548162fc9e134" title="Construit le chemin trainingRunsRoot / levelName / runId / &quot;stats.csv&quot; et crée les dossiers intermédi...">makeTrainingRunPath</a></span>/<span class="tt"><a class="el" href="#a94f49d6b0ed3a6c1d11c7e81ed110d52" title="Génère un identifiant de run par horodatage ISO 8601 compact (ex.">generateRunId</a></span>, <span class="tt"><a class="el" href="TrainingRunPath_8h.html" title="Construction du chemin de fichier CSV d&#39;un run d&#39;entraînement, sous /TrainingRuns/ (LOT-ANNEXE-09,...">TrainingRunPath.h</a></span>, pour la construction du chemin d'un nouveau run).  <a href="classaisolver_1_1TrainingStatsRecorder.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GradientCheckResult" id="r_GradientCheckResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1GradientCheckResult.html">GradientCheckResult</a></td></tr>
@@ -186,6 +190,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a08e0bc710addf53ab9170d92a336018f" id="r_a08e0bc710addf53ab9170d92a336018f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memitem:a45874eecdbf9a34fd9448a5ab97d8162" id="r_a45874eecdbf9a34fd9448a5ab97d8162"><td class="memItemLeft"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight"><a class="el" href="#a45874eecdbf9a34fd9448a5ab97d8162">toPlayerInput</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memdesc:a45874eecdbf9a34fd9448a5ab97d8162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>).  <br /></td></tr>
+<tr class="memitem:ae2fe5edc667a20766236d6b3ddced15b" id="r_ae2fe5edc667a20766236d6b3ddced15b"><td class="memItemLeft"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae2fe5edc667a20766236d6b3ddced15b">toPlayerInput</a> (const <a class="el" href="structAction.html">Action</a> &amp;action, int frameWithinRepeat)</td></tr>
+<tr class="memdesc:ae2fe5edc667a20766236d6b3ddced15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrées de la <code class="param">frameWithinRepeat-ième</code> image d'une action <b>répétée</b>.  <br /></td></tr>
 <tr class="memitem:a4f3464dafad270e2884fb0ba7d1d0034" id="r_a4f3464dafad270e2884fb0ba7d1d0034"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a4f3464dafad270e2884fb0ba7d1d0034">actionCount</a> () noexcept</td></tr>
 <tr class="memitem:a59583736f24a97702e07be216ee2c971" id="r_a59583736f24a97702e07be216ee2c971"><td class="memItemLeft"><a class="el" href="#adda23dcaaf73b2335b5a52701af05d68">EpisodeStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#a59583736f24a97702e07be216ee2c971">classifyEpisode</a> (<a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a> outcome, int stepIndex, int stepsSinceProgress, int hardStepBudget, int stuckThreshold)</td></tr>
 <tr class="memdesc:a59583736f24a97702e07be216ee2c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classe la fin d'épisode à partir de l'issue du jeu et des compteurs de pas/progression.  <br /></td></tr>
@@ -193,6 +199,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:acfa113b8f54b1f1c80752e87fdcee984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la récompense d'un pas unique, fonction pure sans état interne ni effet de bord.  <br /></td></tr>
 <tr class="memitem:a72b8d383d7626ce3d84aa8a7b5e6ea97" id="r_a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="memItemLeft"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a>&#160;</td><td class="memItemRight"><a class="el" href="#a72b8d383d7626ce3d84aa8a7b5e6ea97">buildObjectiveDistanceField</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms)</td></tr>
 <tr class="memdesc:a72b8d383d7626ce3d84aa8a7b5e6ea97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le champ de distances de l'<b>objectif immédiat</b> courant (<span class="tt">LOT-ANNEXE-21</span>).  <br /></td></tr>
+<tr class="memitem:aa6810659812d193d5eb7307c1d0301ec" id="r_aa6810659812d193d5eb7307c1d0301ec"><td class="memItemLeft"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa6810659812d193d5eb7307c1d0301ec">buildObjectiveDistanceField</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;mechanisms, const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;collision)</td></tr>
+<tr class="memdesc:aa6810659812d193d5eb7307c1d0301ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Même champ, sur une grille de collision fournie par l'appelant.  <br /></td></tr>
+<tr class="memitem:ac68ca32a04bcf4fa10b414bf880a1306" id="r_ac68ca32a04bcf4fa10b414bf880a1306"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac68ca32a04bcf4fa10b414bf880a1306">objectiveChainLength</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level)</td></tr>
+<tr class="memdesc:ac68ca32a04bcf4fa10b414bf880a1306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Longueur, en cases de grille, de la <b>chaîne d'objectifs</b> du niveau.  <br /></td></tr>
+<tr class="memitem:aa6572d726c398beb51533a9154563f8f" id="r_aa6572d726c398beb51533a9154563f8f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa6572d726c398beb51533a9154563f8f">estimateStepBudget</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level)</td></tr>
+<tr class="memdesc:aa6572d726c398beb51533a9154563f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget de pas fixes d'un épisode sur <code class="param">level</code>.  <br /></td></tr>
+<tr class="memitem:a5a5b09eb2a788b66e94b11ed55339284" id="r_a5a5b09eb2a788b66e94b11ed55339284"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5a5b09eb2a788b66e94b11ed55339284">stuckThresholdForBudget</a> (int stepBudget)</td></tr>
+<tr class="memdesc:a5a5b09eb2a788b66e94b11ed55339284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil de blocage associé à <code class="param">stepBudget</code> : <span class="tt"><a class="el" href="#a5c6ea6bfe2a503720332899798f6ca22">max</a>(<a class="el" href="#a3d0b8fe9cff0bd7e663070b37fcef620" title="Plancher du seuil de blocage.">MIN_STUCK_THRESHOLD</a>, budget / 8)</span>.  <br /></td></tr>
 <tr class="memitem:a98e499722c1bf9e864602845e1154f06" id="r_a98e499722c1bf9e864602845e1154f06"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a98e499722c1bf9e864602845e1154f06 template"><td class="memItemLeft"><a class="el" href="classTensor.html">Tensor</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98e499722c1bf9e864602845e1154f06">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;a, const <a class="el" href="classTensor.html">Tensor</a>&lt; T &gt; &amp;b)</td></tr>
 <tr class="memdesc:a98e499722c1bf9e864602845e1154f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produit matriciel standard entre deux matrices (rang 2) <span class="tt">[m,k] * [k,n] -&gt; [m,n]</span>.  <br /></td></tr>
@@ -260,6 +274,18 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:abe523b87f4dfeb1bcf01bfa438975ba1" id="r_abe523b87f4dfeb1bcf01bfa438975ba1"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#abe523b87f4dfeb1bcf01bfa438975ba1">STEPS_PER_OBJECTIVE_CELL</a> = 30</td></tr>
+<tr class="memdesc:abe523b87f4dfeb1bcf01bfa438975ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coût nominal, en pas fixes, d'une case de la chaîne d'objectifs.  <br /></td></tr>
+<tr class="memitem:a79cf908c52485a5256d4ae883c0bbb01" id="r_a79cf908c52485a5256d4ae883c0bbb01"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a79cf908c52485a5256d4ae883c0bbb01">STEP_BUDGET_MARGIN_PERCENT</a> = 60</td></tr>
+<tr class="memdesc:a79cf908c52485a5256d4ae883c0bbb01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marge appliquée au coût nominal, en pourcentage.  <br /></td></tr>
+<tr class="memitem:a8d4613e499e3dcb40244ea325d1ba052" id="r_a8d4613e499e3dcb40244ea325d1ba052"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a8d4613e499e3dcb40244ea325d1ba052">MIN_STEP_BUDGET</a> = 1200</td></tr>
+<tr class="memdesc:a8d4613e499e3dcb40244ea325d1ba052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plancher du budget : en deçà, un niveau trivial n'offrirait pas de quoi corriger une erreur.  <br /></td></tr>
+<tr class="memitem:a72110b725fe5eaa95ab18246a506d098" id="r_a72110b725fe5eaa95ab18246a506d098"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a72110b725fe5eaa95ab18246a506d098">MAX_STEP_BUDGET</a> = 15000</td></tr>
+<tr class="memdesc:a72110b725fe5eaa95ab18246a506d098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est inatteignable, où la chaîne n'a pas de longueur.  <br /></td></tr>
+<tr class="memitem:a3d0b8fe9cff0bd7e663070b37fcef620" id="r_a3d0b8fe9cff0bd7e663070b37fcef620"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a3d0b8fe9cff0bd7e663070b37fcef620">MIN_STUCK_THRESHOLD</a> = 400</td></tr>
+<tr class="memdesc:a3d0b8fe9cff0bd7e663070b37fcef620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plancher du seuil de blocage.  <br /></td></tr>
+<tr class="memitem:ab28a9a80cd377ca6a1dacf582e2eedfe" id="r_ab28a9a80cd377ca6a1dacf582e2eedfe"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab28a9a80cd377ca6a1dacf582e2eedfe">STUCK_THRESHOLD_BUDGET_DIVISOR</a> = 4</td></tr>
+<tr class="memdesc:ab28a9a80cd377ca6a1dacf582e2eedfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fraction du budget accordée à une stagnation avant de déclarer l'épisode bloqué.  <br /></td></tr>
 <tr class="memitem:a1442f909369c172e067dd62fe6afa24b" id="r_a1442f909369c172e067dd62fe6afa24b"><td class="memItemLeft">constexpr std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1442f909369c172e067dd62fe6afa24b">REPLAY_FORMAT_VERSION</a> = 2</td></tr>
 <tr class="memdesc:a1442f909369c172e067dd62fe6afa24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e" title="Version courante du format de niveau JSON (EX-LVL-005).">core::LEVEL_FORMAT_VERSION</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur.  <br /></td></tr>
 <tr class="memitem:a8f19efd09b31184b6b1a209f25dc593d" id="r_a8f19efd09b31184b6b1a209f25dc593d"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8f19efd09b31184b6b1a209f25dc593d">DEFAULT_TRAINING_RUNS_ROOT</a> = &quot;TrainingRuns&quot;</td></tr>
@@ -499,7 +525,7 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <a id="a72b8d383d7626ce3d84aa8a7b5e6ea97" name="a72b8d383d7626ce3d84aa8a7b5e6ea97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72b8d383d7626ce3d84aa8a7b5e6ea97">&#9670;&#160;</a></span>buildObjectiveDistanceField()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a72b8d383d7626ce3d84aa8a7b5e6ea97">&#9670;&#160;</a></span>buildObjectiveDistanceField() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -530,6 +556,50 @@ template&lt;typename T&gt; </div>
   <table class="params">
     <tr><td class="paramname">level</td><td>Niveau chargé (sortie, liaisons de mécanismes). </td></tr>
     <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du pas courant (état ouvert/fermé, grille de collision à jour). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa6810659812d193d5eb7307c1d0301ec" name="aa6810659812d193d5eb7307c1d0301ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6810659812d193d5eb7307c1d0301ec">&#9670;&#160;</a></span>buildObjectiveDistanceField() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classaisolver_1_1GridDistanceField.html">GridDistanceField</a> aisolver::buildObjectiveDistanceField </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mechanisms</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Même champ, sur une grille de collision fournie par l'appelant. </p>
+<p><span class="tt">mechanisms.collisionMap()</span> ne connaît que les portes. Un <b>bloc poussable</b> déplacé depuis le début du niveau y reste à sa case d'origine : le champ mesurerait alors la progression le long d'un chemin que le bloc obstrue, ou refuserait celui qu'il vient de dégager. L'environnement passe donc la grille composée qu'il vient de résoudre (<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a99144ec8d144e28f4e30f4018e290057">HeadlessLevelEnvironment::collisionMap</a></span>, portes <b>et</b> blocs), et <span class="tt">mechanisms</span> ne sert plus qu'à savoir quelles portes restent fermées. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau chargé (sortie, liaisons de mécanismes). </td></tr>
+    <tr><td class="paramname">mechanisms</td><td>Contrôleur de mécanismes du pas courant (état ouvert/fermé). </td></tr>
+    <tr><td class="paramname">collision</td><td>Grille sur laquelle propager le BFS. </td></tr>
   </table>
   </dd>
 </dl>
@@ -636,7 +706,7 @@ template&lt;typename T&gt; </div>
     <tr><td class="paramname">outcome</td><td>Issue du niveau (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) à ce pas. </td></tr>
     <tr><td class="paramname">stepIndex</td><td>Nombre de pas simulés depuis le dernier <span class="tt">reset</span>. </td></tr>
     <tr><td class="paramname">stepsSinceProgress</td><td>Nombre de pas consécutifs sans amélioration de la meilleure distance atteinte (<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37fcd4f51e12da89d4ca5f13735ab43a">HeadlessLevelEnvironment::stepsSinceProgress</a></span>). </td></tr>
-    <tr><td class="paramname">hardStepBudget</td><td>Plafond dur de pas (<span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset (même valeur par défaut que playLevel() dans Source...">EnvironmentConfig::maxSteps</a></span>). </td></tr>
+    <tr><td class="paramname">hardStepBudget</td><td>Plafond dur de pas (<span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset ; 0 = dérivé du niveau (estimateStepBudget).">EnvironmentConfig::maxSteps</a></span>). </td></tr>
     <tr><td class="paramname">stuckThreshold</td><td>Seuil de pas sans progression au-delà duquel l'épisode est jugé bloqué. </td></tr>
   </table>
   </dd>
@@ -988,6 +1058,39 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
+<a id="aa6572d726c398beb51533a9154563f8f" name="aa6572d726c398beb51533a9154563f8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6572d726c398beb51533a9154563f8f">&#9670;&#160;</a></span>estimateStepBudget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::estimateStepBudget </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Budget de pas fixes d'un épisode sur <code class="param">level</code>. </p>
+<p><span class="tt">chaîne × <a class="el" href="#abe523b87f4dfeb1bcf01bfa438975ba1" title="Coût nominal, en pas fixes, d&#39;une case de la chaîne d&#39;objectifs.">STEPS_PER_OBJECTIVE_CELL</a></span>, majoré de <span class="tt"><a class="el" href="#a79cf908c52485a5256d4ae883c0bbb01" title="Marge appliquée au coût nominal, en pourcentage.">STEP_BUDGET_MARGIN_PERCENT</a></span>, borné à <span class="tt">[<a class="el" href="#a8d4613e499e3dcb40244ea325d1ba052" title="Plancher du budget : en deçà, un niveau trivial n&#39;offrirait pas de quoi corriger une erreur.">MIN_STEP_BUDGET</a>, <a class="el" href="#a72110b725fe5eaa95ab18246a506d098" title="Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est in...">MAX_STEP_BUDGET</a>]</span>. Une chaîne sans solution rend <span class="tt"><a class="el" href="#a72110b725fe5eaa95ab18246a506d098" title="Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est in...">MAX_STEP_BUDGET</a></span> : c'est à l'issue de l'épisode de dire qu'un niveau est infaisable, pas à son budget. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau chargé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a94f49d6b0ed3a6c1d11c7e81ed110d52" name="a94f49d6b0ed3a6c1d11c7e81ed110d52"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94f49d6b0ed3a6c1d11c7e81ed110d52">&#9670;&#160;</a></span>generateRunId()</h2>
 
@@ -1240,6 +1343,41 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Chaque élément de <span class="tt">a</span> multiplié par le même scalaire (diffusion scalaire). </dd></dl>
+
+</div>
+</div>
+<a id="ac68ca32a04bcf4fa10b414bf880a1306" name="ac68ca32a04bcf4fa10b414bf880a1306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac68ca32a04bcf4fa10b414bf880a1306">&#9670;&#160;</a></span>objectiveChainLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::objectiveChainLength </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Longueur, en cases de grille, de la <b>chaîne d'objectifs</b> du niveau. </p>
+<p>Parcourt la même succession d'objectifs immédiats que la récompense (<span class="tt"><a class="el" href="#a72b8d383d7626ce3d84aa8a7b5e6ea97" title="Construit le champ de distances de l&#39;objectif immédiat courant (LOT-ANNEXE-21).">buildObjectiveDistanceField</a></span>, <span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>) : depuis l'entrée, on rejoint la cible la plus proche parmi la sortie et les déclencheurs dont la porte est encore fermée ; si c'est un déclencheur, on l'active (toutes les portes qui partagent cette position s'ouvrent) et on recommence depuis lui. Le budget dérivé couvre donc exactement l'itinéraire que la récompense demande à l'agent de suivre, sans qu'aucun des deux ne connaisse l'ordre de résolution attendu.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau chargé. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La somme des distances de plus court chemin de chaque tronçon, ou <span class="tt">-1</span> si un objectif de la chaîne est inatteignable (niveau sans solution, ou clé enfermée derrière la porte qu'elle ouvre). </dd></dl>
 
 </div>
 </div>
@@ -1525,6 +1663,39 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
+<a id="a5a5b09eb2a788b66e94b11ed55339284" name="a5a5b09eb2a788b66e94b11ed55339284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5b09eb2a788b66e94b11ed55339284">&#9670;&#160;</a></span>stuckThresholdForBudget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::stuckThresholdForBudget </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stepBudget</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Seuil de blocage associé à <code class="param">stepBudget</code> : <span class="tt"><a class="el" href="#a5c6ea6bfe2a503720332899798f6ca22">max</a>(<a class="el" href="#a3d0b8fe9cff0bd7e663070b37fcef620" title="Plancher du seuil de blocage.">MIN_STUCK_THRESHOLD</a>, budget / 8)</span>. </p>
+<p>Proportionnel au budget, parce qu'un long niveau comporte de longues portions sans gain de distance (attente d'un danger temporisé, trajet en plateforme, remontée d'un puits) qu'un seuil fixe couperait au milieu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stepBudget</td><td>Budget de pas de l'épisode. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a41369536fdb13a5c63d9c11d09d5d586" name="a41369536fdb13a5c63d9c11d09d5d586"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41369536fdb13a5c63d9c11d09d5d586">&#9670;&#160;</a></span>subtract()</h2>
 
@@ -1618,7 +1789,7 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <a id="a45874eecdbf9a34fd9448a5ab97d8162" name="a45874eecdbf9a34fd9448a5ab97d8162"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45874eecdbf9a34fd9448a5ab97d8162">&#9670;&#160;</a></span>toPlayerInput()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45874eecdbf9a34fd9448a5ab97d8162">&#9670;&#160;</a></span>toPlayerInput() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1642,6 +1813,45 @@ template&lt;typename T&gt; </div>
 
 <p>Traduit une action discrète en <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>, consommé par <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">HeadlessLevelEnvironment::step</a></span> (<span class="tt">LOT-ANNEXE-05</span>). </p>
 <p><span class="tt">moveX</span> vaut <span class="tt">-1</span>/<span class="tt">0</span>/<span class="tt">1</span> selon <span class="tt"><a class="el" href="#a8b91e4ce2193d2729de1836c406dcc90" title="Direction de déplacement horizontal discrète (voir la décision de cadrage de l&#39;épic : core::PlayerInp...">Direction</a></span>, <span class="tt">moveY</span> est toujours <span class="tt">0</span> (décision de cadrage de l'épic). <span class="tt">interactPressed</span> est reporté tel quel ; <span class="tt">interactHeld</span>/<span class="tt">interactReleased</span> restent à <span class="tt">false</span> (aucun mécanisme du jeu ne les consulte, seul le front <span class="tt">interactPressed</span> compte pour le ramassage d'une clé, <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#ae58f158d3609cc2c267ce0f77e62d7a5" title="Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),...">core::MechanismController::update</a></span>). </p>
+
+</div>
+</div>
+<a id="ae2fe5edc667a20766236d6b3ddced15b" name="ae2fe5edc667a20766236d6b3ddced15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2fe5edc667a20766236d6b3ddced15b">&#9670;&#160;</a></span>toPlayerInput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a> aisolver::toPlayerInput </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structAction.html">Action</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>action</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>frameWithinRepeat</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entrées de la <code class="param">frameWithinRepeat-ième</code> image d'une action <b>répétée</b>. </p>
+<p>Une politique qui retire parmi <span class="tt">48</span> actions à chaque image de <span class="tt">1/60 s</span> produit une marche aléatoire : les directions tirées se compensent et l'agent n'avance pas, quel que soit son entraînement. Maintenir la même action quelques images rend l'exploration directionnelle, sans rien changer à la physique — c'est exactement ce qu'un joueur fait en gardant une touche enfoncée.</p>
+<p>Les <b>fronts</b> ne se répètent pas : <span class="tt">jumpPressed</span>, <span class="tt">dashPressed</span> et <span class="tt">interactPressed</span> ne valent que sur la première image (<span class="tt">frameWithinRepeat == 0</span>). Les répéter déclencherait un nouveau saut à chaque image, épuisant le saut aérien dès la première montée (<span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html#abace20f722f5e29091ae284e75294c1c" title="Partie « 0a.">core::CharacterPhysicsSystem::applyJump</a></span>). <span class="tt">jumpHeld</span> et <span class="tt">moveX</span>, eux, décrivent un état maintenu et se répètent tels quels — c'est <span class="tt">jumpHeld</span> qui module la hauteur du saut. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td><a class="el" href="structaisolver_1_1Action.html" title="Une action discrète : produit cartésien direction × saut-appuyé × saut-maintenu × dash × interagir.">Action</a> décidée au début de la répétition. </td></tr>
+    <tr><td class="paramname">frameWithinRepeat</td><td>Index de l'image dans la répétition, <span class="tt">0</span> pour la première. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1780,6 +1990,81 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
+<a id="a72110b725fe5eaa95ab18246a506d098" name="a72110b725fe5eaa95ab18246a506d098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72110b725fe5eaa95ab18246a506d098">&#9670;&#160;</a></span>MAX_STEP_BUDGET</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::MAX_STEP_BUDGET = 15000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est inatteignable, où la chaîne n'a pas de longueur. </p>
+<p>Fixe aussi la borne haute de la pénalité de temps cumulée d'un épisode (voir <span class="tt"><a class="el" href="structaisolver_1_1RewardConfig.html" title="Constantes de la fonction de récompense (EX-IA-009).">RewardConfig</a></span>, <span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>). </p>
+
+</div>
+</div>
+<a id="a8d4613e499e3dcb40244ea325d1ba052" name="a8d4613e499e3dcb40244ea325d1ba052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4613e499e3dcb40244ea325d1ba052">&#9670;&#160;</a></span>MIN_STEP_BUDGET</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::MIN_STEP_BUDGET = 1200</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plancher du budget : en deçà, un niveau trivial n'offrirait pas de quoi corriger une erreur. </p>
+<p>C'est lui, et non le coût par case, qui borne les niveaux courts dont le temps est dominé par une <b>attente</b> : <span class="tt">demo-plateforme.json</span> ne compte que <span class="tt">16</span> cases de chaîne mais son tracé de référence demande <span class="tt">730</span> pas, l'essentiel passé à attendre la plateforme (<span class="tt">1</span> case/s, soit <span class="tt">60</span> pas par case parcourue). </p>
+
+</div>
+</div>
+<a id="a3d0b8fe9cff0bd7e663070b37fcef620" name="a3d0b8fe9cff0bd7e663070b37fcef620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0b8fe9cff0bd7e663070b37fcef620">&#9670;&#160;</a></span>MIN_STUCK_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::MIN_STUCK_THRESHOLD = 400</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plancher du seuil de blocage. </p>
+<p>Une stagnation du champ d'objectif n'a rien d'anormal : attendre qu'un danger temporisé s'éteigne coûte jusqu'à <span class="tt">120</span> pas, monter un puits au saut de mur n'en gagne aucune pendant la remontée, et une plateforme mobile met <span class="tt">60</span> pas à franchir une case. Mesure faite sur les tracés de référence : <span class="tt">114</span> pas de stagnation sur <span class="tt">demo-plateforme.json</span>, <b><span class="tt">807</span></b> sur <span class="tt">demo-final.json</span> — un joueur qui résout le niveau, pas un agent qui tourne en rond. </p>
+
+</div>
+</div>
 <a id="a1442f909369c172e067dd62fe6afa24b" name="a1442f909369c172e067dd62fe6afa24b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1442f909369c172e067dd62fe6afa24b">&#9670;&#160;</a></span>REPLAY_FORMAT_VERSION</h2>
 
@@ -1802,6 +2087,82 @@ template&lt;typename T&gt; </div>
 
 <p>Version courante du format de rejeu (<span class="tt">EX-IA-008</span>), même principe que <span class="tt"><a class="el" href="namespacecore.html#a29f56cd5e629fb74668126bbf151066e" title="Version courante du format de niveau JSON (EX-LVL-005).">core::LEVEL_FORMAT_VERSION</a></span> (<span class="tt">EX-LVL-005</span>) : un fichier sans champ <span class="tt">formatVersion</span> est lu comme la version initiale (0), sans erreur. </p>
 <p>La version 2 ajoute <span class="tt">totalDurationSeconds</span> et <span class="tt">algorithmId</span> à la version 1. La lecture reste ascendante : un fichier en version 1 ne porte pas ces deux champs et se lit sans erreur, avec leur valeur sentinelle (<span class="tt">0.0f</span> et <span class="tt">""</span>). </p>
+
+</div>
+</div>
+<a id="a79cf908c52485a5256d4ae883c0bbb01" name="a79cf908c52485a5256d4ae883c0bbb01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79cf908c52485a5256d4ae883c0bbb01">&#9670;&#160;</a></span>STEP_BUDGET_MARGIN_PERCENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::STEP_BUDGET_MARGIN_PERCENT = 60</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marge appliquée au coût nominal, en pourcentage. </p>
+<p>Un agent n'emprunte pas le plus court chemin : il doit pouvoir tâtonner sans être coupé avant d'avoir eu une chance d'atteindre l'objectif suivant. La marge borne ce tâtonnement sans laisser un épisode tourner indéfiniment. </p>
+
+</div>
+</div>
+<a id="abe523b87f4dfeb1bcf01bfa438975ba1" name="abe523b87f4dfeb1bcf01bfa438975ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe523b87f4dfeb1bcf01bfa438975ba1">&#9670;&#160;</a></span>STEPS_PER_OBJECTIVE_CELL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::STEPS_PER_OBJECTIVE_CELL = 30</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Coût nominal, en pas fixes, d'une case de la chaîne d'objectifs. </p>
+<p>Une case de marche pure coûte <span class="tt">1 / (moveSpeed × 1/60) = 20</span> pas (<span class="tt"><a class="el" href="structcore_1_1PhysicsConfig.html" title="Paramètres réglables de la physique du personnage, regroupés pour faciliter le tuning.">core::PhysicsConfig</a>::
+moveSpeed = 3</span>). Les montées au saut de mur, les attentes devant un danger temporisé (période de <span class="tt">120</span> pas) et les trajets en plateforme mobile (<span class="tt">1</span> case/s, soit <span class="tt">60</span> pas/case) portent le coût moyen constaté au-dessus de ce plancher : <span class="tt">demo-final.json</span> compte <span class="tt">137</span> cases de chaîne pour un tracé scripté de près de <span class="tt">4 000</span> pas, soit <span class="tt">29</span> pas par case. La valeur retenue est <b>fixée par le test de calibration</b> <span class="tt">StepBudgetTest.BudgetCouvreChaqueTraceScripte</span> (<span class="tt"><a class="el" href="test__budget__pas_8cpp.html" title="Calibration du budget de pas et du seuil de blocage dérivés du niveau (AiSolver/Env/StepBudget....">Source/Test/Integration/test_budget_pas.cpp</a></span>), qui la confronte aux 22 tracés joués par le test système — elle n'est pas estimée à la lecture. </p>
+
+</div>
+</div>
+<a id="ab28a9a80cd377ca6a1dacf582e2eedfe" name="ab28a9a80cd377ca6a1dacf582e2eedfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab28a9a80cd377ca6a1dacf582e2eedfe">&#9670;&#160;</a></span>STUCK_THRESHOLD_BUDGET_DIVISOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aisolver::STUCK_THRESHOLD_BUDGET_DIVISOR = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fraction du budget accordée à une stagnation avant de déclarer l'épisode bloqué. </p>
+<p>Un quart, pas un huitième : à un huitième, <span class="tt">demo-final.json</span> obtenait <span class="tt">834</span> pas contre les <span class="tt">807</span> que consomme déjà son tracé <b>parfait</b> — trois pour cent de marge, quand un agent qui apprend hésite forcément plus qu'un script. Le budget dur reste la borne qui garantit la terminaison ; ce seuil-ci n'est là que pour ne pas payer un épisode entier à regarder un agent immobile. </p>
 
 </div>
 </div>

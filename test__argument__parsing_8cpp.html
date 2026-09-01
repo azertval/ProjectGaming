@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -136,6 +136,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:af69221f6e7033bd64bb038560cc94cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#af81379ab0670ccf1f6ddc55331c46305" title="Analyse les arguments de export-replay (hors nom de sous-commande).">parseExportReplayArgs</a></span> analyse un appel complet avec <span class="tt">--seed</span>.  <br /></td></tr>
 <tr class="memitem:a5e8e4cddba91c477180411669aafb71d" id="r_a5e8e4cddba91c477180411669aafb71d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e8e4cddba91c477180411669aafb71d">TEST</a> (ParseTrainArgsTest, ValeurNumeriqueInvalideRefuseeSansLever)</td></tr>
 <tr class="memdesc:a5e8e4cddba91c477180411669aafb71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur numerique invalide produit un message d'usage, jamais un plantage.  <br /></td></tr>
+<tr class="memitem:a728959f76a44a1f3ef9ac662959635ac" id="r_a728959f76a44a1f3ef9ac662959635ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a728959f76a44a1f3ef9ac662959635ac">TEST</a> (ParseTrainArgsTest, LitLesHyperparametresEvolutionnistesEtLaTopologie)</td></tr>
+<tr class="memdesc:a728959f76a44a1f3ef9ac662959635ac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> lit les hyperparametres evolutionnistes et de topologie ajoutes par LOT-ANNEXE-22, jusqu'ici accessibles par le seul fichier <span class="tt">--config</span>.  <br /></td></tr>
+<tr class="memitem:a78c97fe1ce46b187675a2a3af3300a94" id="r_a78c97fe1ce46b187675a2a3af3300a94"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a78c97fe1ce46b187675a2a3af3300a94">TEST</a> (ParseTrainArgsTest, LitLesHuitHyperparametresDqn)</td></tr>
+<tr class="memdesc:a78c97fe1ce46b187675a2a3af3300a94"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> lit les huit hyperparametres DQN, que <span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> declarait sans qu'aucun drapeau ne les alimente.  <br /></td></tr>
+<tr class="memitem:a24671894688d8f57be9ea0dd59aaf80d" id="r_a24671894688d8f57be9ea0dd59aaf80d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a24671894688d8f57be9ea0dd59aaf80d">TEST</a> (ParseTrainArgsTest, RejetteUneValeurNonNumeriqueSurUnNouveauDrapeau)</td></tr>
+<tr class="memdesc:a24671894688d8f57be9ea0dd59aaf80d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un nouveau drapeau mal forme produit le message d'usage de la sous-commande, jamais une exception ni une valeur tronquee.  <br /></td></tr>
+<tr class="memitem:a4faf722b0af23a0b0748e5d531d9378b" id="r_a4faf722b0af23a0b0748e5d531d9378b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4faf722b0af23a0b0748e5d531d9378b">TEST</a> (ParseTrainArgsTest, NouveauxDrapeauxAbsentsNePosentAucuneSurcharge)</td></tr>
+<tr class="memdesc:a4faf722b0af23a0b0748e5d531d9378b"><td class="mdescLeft">&#160;</td><td class="mdescRight">En l'absence des nouveaux drapeaux, aucune surcharge n'est posee : les defauts documentes restent en place.  <br /></td></tr>
+<tr class="memitem:a04a48f3076eda0c955ae3552b2f9e70a" id="r_a04a48f3076eda0c955ae3552b2f9e70a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a04a48f3076eda0c955ae3552b2f9e70a">TEST</a> (ParseEvaluateArgsTest, LitBudgetDePasGraineEtModeDeDecodage)</td></tr>
+<tr class="memdesc:a04a48f3076eda0c955ae3552b2f9e70a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> couvre le reste de <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span> : budget de pas, graine et mode de decodage.  <br /></td></tr>
 <tr class="memitem:ade8fa1868816e9e0eb448cd9e642e7ae" id="r_ade8fa1868816e9e0eb448cd9e642e7ae"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade8fa1868816e9e0eb448cd9e642e7ae">findOption</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
 <tr class="memdesc:ade8fa1868816e9e0eb448cd9e642e7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche <span class="tt">--name valeur</span> dans <code class="param">args</code> et retourne <span class="tt">valeur</span>.  <br /></td></tr>
 <tr class="memitem:abdcffd0275a6e91a2b6f3efa9bd7f0e6" id="r_abdcffd0275a6e91a2b6f3efa9bd7f0e6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abdcffd0275a6e91a2b6f3efa9bd7f0e6">hasFlag</a> (const std::vector&lt; std::string &gt; &amp;args, std::string_view name)</td></tr>
@@ -336,7 +346,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a700956c23045de82678cb50fe69e6de4" name="a700956c23045de82678cb50fe69e6de4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a700956c23045de82678cb50fe69e6de4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a700956c23045de82678cb50fe69e6de4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +376,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac181d357e507278c478453037d767bc4" name="ac181d357e507278c478453037d767bc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac181d357e507278c478453037d767bc4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac181d357e507278c478453037d767bc4">&#9670;&#160;</a></span>TEST() <span class="overload">[2/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,7 +406,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a61e64e9645f2f6d0b837156326d0d159" name="a61e64e9645f2f6d0b837156326d0d159"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61e64e9645f2f6d0b837156326d0d159">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e64e9645f2f6d0b837156326d0d159">&#9670;&#160;</a></span>TEST() <span class="overload">[3/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,7 +436,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6c76752443507d4739914ded5b81e973" name="a6c76752443507d4739914ded5b81e973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c76752443507d4739914ded5b81e973">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c76752443507d4739914ded5b81e973">&#9670;&#160;</a></span>TEST() <span class="overload">[4/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,8 +466,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a04a48f3076eda0c955ae3552b2f9e70a" name="a04a48f3076eda0c955ae3552b2f9e70a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04a48f3076eda0c955ae3552b2f9e70a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseEvaluateArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LitBudgetDePasGraineEtModeDeDecodage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span> couvre le reste de <span class="tt"><a class="el" href="structBenchmarkConfig.html">BenchmarkConfig</a></span> : budget de pas, graine et mode de decodage. </p>
+<p><b>Cas de test :</b> Drapeaux <span class="tt">--max-steps</span>, <span class="tt">--seed</span> et <span class="tt">--decoding</span> de <span class="tt">evaluate</span>.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Arguments <span class="tt">evaluate</span> complets avec <span class="tt">--max-steps</span>, <span class="tt">--seed</span> et <span class="tt">--decoding
+ stochastic</span>.<br  />
+2. <span class="tt"><a class="el" href="#ab33f7a79233d89171c80842b7c1d3541" title="Analyse les arguments de evaluate (hors nom de sous-commande).">parseEvaluateArgs</a></span>.<br  />
+3. Recommencer avec <span class="tt">--decoding inconnu</span>.<br  />
+ <b>Resultat attendu :</b> Les trois valeurs sont lues ; un mode de decodage inconnu est refuse avec un message nommant les valeurs attendues. </p>
+
+</div>
+</div>
 <a id="a2193174387507d555f4b867b5e5249a3" name="a2193174387507d555f4b867b5e5249a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2193174387507d555f4b867b5e5249a3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2193174387507d555f4b867b5e5249a3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -487,7 +529,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af69221f6e7033bd64bb038560cc94cd9" name="af69221f6e7033bd64bb038560cc94cd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af69221f6e7033bd64bb038560cc94cd9">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af69221f6e7033bd64bb038560cc94cd9">&#9670;&#160;</a></span>TEST() <span class="overload">[7/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -518,7 +560,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5f3cbe24d667d8ad645b90107efd0471" name="a5f3cbe24d667d8ad645b90107efd0471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f3cbe24d667d8ad645b90107efd0471">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f3cbe24d667d8ad645b90107efd0471">&#9670;&#160;</a></span>TEST() <span class="overload">[8/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -548,7 +590,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af349dad9819b6113a7d477941970a272" name="af349dad9819b6113a7d477941970a272"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af349dad9819b6113a7d477941970a272">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af349dad9819b6113a7d477941970a272">&#9670;&#160;</a></span>TEST() <span class="overload">[9/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -578,7 +620,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a42c9c25e449f94a190c495bd09b5171f" name="a42c9c25e449f94a190c495bd09b5171f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42c9c25e449f94a190c495bd09b5171f">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42c9c25e449f94a190c495bd09b5171f">&#9670;&#160;</a></span>TEST() <span class="overload">[10/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -607,8 +649,98 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a78c97fe1ce46b187675a2a3af3300a94" name="a78c97fe1ce46b187675a2a3af3300a94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c97fe1ce46b187675a2a3af3300a94">&#9670;&#160;</a></span>TEST() <span class="overload">[11/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseTrainArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LitLesHuitHyperparametresDqn</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> lit les huit hyperparametres DQN, que <span class="tt"><a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a></span> declarait sans qu'aucun drapeau ne les alimente. </p>
+<p><b>Cas de test :</b> Les huit drapeaux <span class="tt">--dqn-*</span> de <span class="tt">train</span>.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Arguments <span class="tt">--algo avance</span> avec les huit drapeaux <span class="tt">--dqn-*</span>.<br  />
+2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
+ <b>Resultat attendu :</b> Les huit champs sont renseignes : l'ecran Mode IA les exposait deja, la ligne de commande ne les atteignait que par fichier de configuration. </p>
+
+</div>
+</div>
+<a id="a728959f76a44a1f3ef9ac662959635ac" name="a728959f76a44a1f3ef9ac662959635ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a728959f76a44a1f3ef9ac662959635ac">&#9670;&#160;</a></span>TEST() <span class="overload">[12/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseTrainArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LitLesHyperparametresEvolutionnistesEtLaTopologie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> lit les hyperparametres evolutionnistes et de topologie ajoutes par LOT-ANNEXE-22, jusqu'ici accessibles par le seul fichier <span class="tt">--config</span>. </p>
+<p><b>Cas de test :</b> Drapeaux <span class="tt">train</span> de topologie et de critere d'arret.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Arguments <span class="tt">--level</span>/<span class="tt">--algo evo</span> plus <span class="tt">--hidden-size</span>, <span class="tt">--tournament-size</span>, <span class="tt">--mutation-strength</span>, <span class="tt">--max-generations</span> et <span class="tt">--required-successes</span>.<br  />
+2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
+ <b>Resultat attendu :</b> Chaque valeur est portee par le champ correspondant de <span class="tt"><a class="el" href="structTrainArgs.html" title="Arguments de train.">TrainArgs</a></span>, sans quoi le plafond de generations resterait au defaut quelle que soit la demande. </p>
+
+</div>
+</div>
+<a id="a4faf722b0af23a0b0748e5d531d9378b" name="a4faf722b0af23a0b0748e5d531d9378b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4faf722b0af23a0b0748e5d531d9378b">&#9670;&#160;</a></span>TEST() <span class="overload">[13/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseTrainArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NouveauxDrapeauxAbsentsNePosentAucuneSurcharge</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>En l'absence des nouveaux drapeaux, aucune surcharge n'est posee : les defauts documentes restent en place. </p>
+<p><b>Cas de test :</b> Nouveaux drapeaux absents -&gt; aucune surcharge.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Arguments reduits a <span class="tt">--level</span> et <span class="tt">--algo</span>.<br  />
+2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
+ <b>Resultat attendu :</b> Tous les champs optionnels ajoutes restent vides, sans quoi un run sans option n'utiliserait plus les defauts documentes. </p>
+
+</div>
+</div>
 <a id="ad47d37f7048ec21b5547c3d5b35a9d68" name="ad47d37f7048ec21b5547c3d5b35a9d68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad47d37f7048ec21b5547c3d5b35a9d68">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47d37f7048ec21b5547c3d5b35a9d68">&#9670;&#160;</a></span>TEST() <span class="overload">[14/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -638,7 +770,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5cae28f35748750378487ff301e52980" name="a5cae28f35748750378487ff301e52980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cae28f35748750378487ff301e52980">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cae28f35748750378487ff301e52980">&#9670;&#160;</a></span>TEST() <span class="overload">[15/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,8 +799,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a24671894688d8f57be9ea0dd59aaf80d" name="a24671894688d8f57be9ea0dd59aaf80d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24671894688d8f57be9ea0dd59aaf80d">&#9670;&#160;</a></span>TEST() <span class="overload">[16/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ParseTrainArgsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RejetteUneValeurNonNumeriqueSurUnNouveauDrapeau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un nouveau drapeau mal forme produit le message d'usage de la sous-commande, jamais une exception ni une valeur tronquee. </p>
+<p><b>Cas de test :</b> Valeur non numerique sur un nouveau drapeau de <span class="tt">train</span>.<br  />
+ <b>Categorie :</b> Unitaire · AiSolver Cli<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Arguments valides plus <span class="tt">--max-generations abc</span>.<br  />
+2. <span class="tt"><a class="el" href="#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span>.<br  />
+ <b>Resultat attendu :</b> Aucun resultat, et un message d'erreur nommant le drapeau fautif et la valeur recue (<span class="tt">EX-NFR-040</span>). </p>
+
+</div>
+</div>
 <a id="a71c3a37914f91d555ede3b3b89928c5b" name="a71c3a37914f91d555ede3b3b89928c5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71c3a37914f91d555ede3b3b89928c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c3a37914f91d555ede3b3b89928c5b">&#9670;&#160;</a></span>TEST() <span class="overload">[17/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -698,7 +860,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5e8e4cddba91c477180411669aafb71d" name="a5e8e4cddba91c477180411669aafb71d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e8e4cddba91c477180411669aafb71d">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e8e4cddba91c477180411669aafb71d">&#9670;&#160;</a></span>TEST() <span class="overload">[18/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

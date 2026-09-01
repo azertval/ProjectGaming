@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-57-tache-04-deduplication-raccourcis.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-57-editeur-information_2tache-04-deduplication-raccourcis"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-57.html#md_Lot_2LOT-57-editeur-information_2epic" title="Lot/LOT-57-editeur-information/epic.md">LOT-57</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Input</span>, <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2719"></a>
 Contexte</h1>
 <p>Plusieurs états de l'éditeur sont pilotables depuis deux contrôles distincts : la couche d'un décor se règle dans le panneau Outils <b>et</b> dans l'onglet Décors ; le mode d'affichage Physique/Texture bascule par sa touche <b>et</b> par une case à cocher. Deux contrôles pour une valeur, c'est une divergence possible et une question sans réponse pour l'utilisateur : lequel fait autorité.</p>
 <p>La dette la plus nette est ailleurs. <span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::EditorKeyBindings</a></span> définit <b>dix</b> actions d'éditeur remappables, les charge au démarrage et les enregistre dans le fichier de configuration partagé avec les raccourcis de jeu. Le viewport n'en consulte <b>qu'une seule</b> : celle de l'outil d'assignation de texture. Les neuf autres — enregistrer, annuler, refaire, copier, coller, essayer, grille, aide, renommer — sont écrites dans le fichier et <b>jamais lues</b> : les touches correspondantes sont interceptées en dur dans le viewport, donc non remappables, et deux d'entre elles (aide et renommer) ne sont implémentées nulle part.</p>
 <p>Symétriquement, aucun écran n'expose ces raccourcis : l'écran de remappage ne présente que les six actions de <b>jeu</b>. Les dix clés de traduction correspondantes existent pourtant dans les deux catalogues et ne sont référencées par aucun code — le travail a été fait à moitié, puis oublié.</p>
 <p><span class="tt">EX-EDIT-015</span> exige enfin « un aperçu des raccourcis clavier » depuis le <span class="tt">LOT-15</span> : il n'existe pas, et la touche qui devrait l'ouvrir est justement l'une des actions définies mais non branchées.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2714"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2720"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Un état, un contrôle</b> : suppression du sélecteur de couche de décor dupliqué, en conservant celui qui est le plus proche du geste d'édition. Suppression de la case doublant la bascule Physique/Texture, remplacée par une entrée unique du menu Affichage <b>affichant son raccourci</b>.</li>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 <li><b>Aperçu des raccourcis</b> atteignable depuis l'application, listant les commandes et leurs touches <b>actuelles</b> — donc alimenté par les actions, pas par un texte figé.</li>
 <li><b>Traduction</b> : libellés dans les deux catalogues ; aucune clé orpheline ne subsiste.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2715"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2721"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Input/EditorKeyBindings.{h,cpp}</span> — actions effectivement branchées.</li>
@@ -123,7 +123,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 <li><span class="tt"><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_editor_key_bindings.cpp</a></span> — complété.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2716"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2722"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aucune action orpheline</b> : chaque action définie dans les raccourcis d'éditeur correspond à une commande effectivement déclenchable — un test qui échoue si une action est ajoutée sans être branchée. C'est le garde-fou contre la réapparition exacte du défaut corrigé.</li>
@@ -132,7 +132,7 @@ Tests (obligatoires)</h1>
 <li><b>Aucun raccourci en double</b> entre actions d'éditeur, et aucune collision avec les raccourcis de jeu utilisés en mode essai.</li>
 <li><b>Aucune clé de traduction orpheline</b> : toutes les clés d'action d'éditeur sont référencées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2717"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2723"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un raccourci clavier n'est pas un doublon à supprimer.</b> L'objectif est qu'une commande ait une <b>définition</b> unique, pas un seul chemin d'accès. Enregistrer doit rester atteignable par le menu et par sa touche — mais depuis la même action.</li>
@@ -141,12 +141,12 @@ Points d'attention</h1>
 <li>Retirer une action plutôt que la brancher est un <b>choix légitime</b>, à condition d'être explicite : retirer aussi sa clé de traduction et le mentionner dans le lot, plutôt que de laisser une définition morte.</li>
 <li>L'aperçu des raccourcis doit lire les touches <b>effectives</b> : un aperçu figé redeviendrait faux dès le premier remappage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2718"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2724"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Aucun état n'est pilotable depuis deux contrôles distincts ; chaque commande a une définition unique fournissant menu, bouton et raccourci ; toutes les actions d'éditeur définies sont effectives et remappables depuis les Options, ou retirées explicitement ; un aperçu des raccourcis effectifs est atteignable ; aucune clé de traduction orpheline ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2719"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2725"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-062</span> (une commande, un endroit) ; concrétise la partie « aperçu des raccourcis » d'<span class="tt">EX-EDIT-015</span> (découvrabilité) ; réutilise <span class="tt">EX-IHM-055</span> (actions, <span class="tt">LOT-56</span>), <span class="tt">EX-CTRL-012</span> (raccourcis d'éditeur remappables), <span class="tt">EX-EDIT-044</span> (visibilité des calques), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

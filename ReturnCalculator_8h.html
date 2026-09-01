@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,6 +100,11 @@ $(function(){initNavTree('ReturnCalculator_8h.html','',''); });
 </div>
 <p><a href="ReturnCalculator_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:aisolver_3A_3Atraining_3A_3AWeightStatistics" id="r_aisolver_3A_3Atraining_3A_3AWeightStatistics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">aisolver::training::WeightStatistics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne et écart-type d'un lot de poids de policy gradient (retours ou avantages).  <a href="structaisolver_1_1training_1_1WeightStatistics.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:aisolver" id="r_aisolver"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver.html">aisolver</a></td></tr>
@@ -109,6 +114,10 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ab4eecaaa8132cd4c0592e3176185a4aa" id="r_ab4eecaaa8132cd4c0592e3176185a4aa"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#ab4eecaaa8132cd4c0592e3176185a4aa">aisolver::training::computeReturns</a> (const <a class="el" href="structTrajectory.html">Trajectory</a> &amp;trajectory, float gamma)</td></tr>
 <tr class="memdesc:ab4eecaaa8132cd4c0592e3176185a4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retour actualisé <span class="tt">G_t = reward_t + gamma * G_{t+1}</span> (<span class="tt">G_T = reward_T</span> au dernier pas), par parcours arrière linéaire de <span class="tt">trajectory</span> — fonction pure, ne dépend d'aucun état d'environnement ni de réseau.  <br /></td></tr>
+<tr class="memitem:abfcfde10f4887788c0b872c47d594696" id="r_abfcfde10f4887788c0b872c47d594696"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#abfcfde10f4887788c0b872c47d594696">aisolver::training::weightStatistics</a> (const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;batch)</td></tr>
+<tr class="memdesc:abfcfde10f4887788c0b872c47d594696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moyenne et écart-type de <b>tous</b> les poids d'un lot d'épisodes.  <br /></td></tr>
+<tr class="memitem:ab9f354097faa13fb5b683c4fa3d46301" id="r_ab9f354097faa13fb5b683c4fa3d46301"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespaceaisolver_1_1training.html#ab9f354097faa13fb5b683c4fa3d46301">aisolver::training::normalizeWeights</a> (std::vector&lt; float &gt; &amp;weights, <a class="el" href="structaisolver_1_1training_1_1WeightStatistics.html">WeightStatistics</a> statistics)</td></tr>
+<tr class="memdesc:ab9f354097faa13fb5b683c4fa3d46301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centre et réduit <code class="param">weights</code> d'après <code class="param">statistics</code>, en place.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Calcul du retour actualisé par pas d'une trajectoire (<span class="tt">LOT-ANNEXE-12</span>, TACHE-02, <span class="tt">EX-IA-013</span>). </p>

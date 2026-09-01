@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,20 +100,21 @@ $(function(){initNavTree('classaisolver_1_1training_1_1TrajectoryCollector.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a22b4c48c47c2ad25308cc5715f550b7d" id="r_a22b4c48c47c2ad25308cc5715f550b7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a22b4c48c47c2ad25308cc5715f550b7d">TrajectoryCollector</a> (int stuckThreshold=<a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee">evolutionary::DEFAULT_STUCK_THRESHOLD</a>)</td></tr>
+<tr class="memitem:a5114d360d0e2655c7f79835bf490b284" id="r_a5114d360d0e2655c7f79835bf490b284"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5114d360d0e2655c7f79835bf490b284">TrajectoryCollector</a> (int actionRepeat=<a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833">DEFAULT_ACTION_REPEAT</a>, float explorationFloor=<a class="el" href="namespaceaisolver_1_1training.html#a80818638d24c39c3f6c3b863f04a4fb6">DEFAULT_EXPLORATION_FLOOR</a>)</td></tr>
 <tr class="memitem:a6333c72b9d62ab2a705f853e30f539bf" id="r_a6333c72b9d62ab2a705f853e30f539bf"><td class="memItemLeft"><a class="el" href="structTrajectory.html">Trajectory</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6333c72b9d62ab2a705f853e30f539bf">collectEpisode</a> (<a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, <a class="el" href="classaisolver_1_1nn_1_1Network.html">nn::Network</a> &amp;policy, <a class="el" href="classRng.html">Rng</a> &amp;rng) const</td></tr>
 <tr class="memdesc:a6333c72b9d62ab2a705f853e30f539bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue <span class="tt">policy</span> sur <span class="tt">environment</span> jusqu'à fin d'épisode, en échantillonnant chaque action selon la distribution produite par le réseau (jamais <span class="tt">argmax</span>, cf.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a64969c8eda18887849ebd0f31f67471f" id="r_a64969c8eda18887849ebd0f31f67471f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a64969c8eda18887849ebd0f31f67471f">_stuckThreshold</a></td></tr>
+<tr class="memitem:a5f860528514449871141d534736e34f1" id="r_a5f860528514449871141d534736e34f1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5f860528514449871141d534736e34f1">_actionRepeat</a></td></tr>
+<tr class="memitem:abf1fc3b55c9163eca227d5f6e831c93e" id="r_abf1fc3b55c9163eca227d5f6e831c93e"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#abf1fc3b55c9163eca227d5f6e831c93e">_explorationFloor</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé. </p>
-<p>Contrairement à <span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evolutionary::evaluateFitness</a></span> (<span class="tt">LOT-ANNEXE-10</span>), ne réinitialise jamais <span class="tt">environment</span> elle-même : l'appelant (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>, <span class="tt">LOT-ANNEXE-12</span> TACHE-04) est seul responsable de <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span> avant chaque appel, pour garder ce collecteur agnostique du chemin de niveau et testable sur un environnement construit à la main. </p>
+<p>Contrairement à <span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evolutionary::evaluateFitness</a></span> (<span class="tt">LOT-ANNEXE-10</span>), ne réinitialise jamais <span class="tt">environment</span> elle-même : l'appelant (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1ReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>, <span class="tt">LOT-ANNEXE-12</span> TACHE-04) est seul responsable de <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span> avant chaque appel, pour garder ce collecteur agnostique du chemin de niveau et testable sur un environnement construit à la main. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a22b4c48c47c2ad25308cc5715f550b7d" name="a22b4c48c47c2ad25308cc5715f550b7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22b4c48c47c2ad25308cc5715f550b7d">&#9670;&#160;</a></span>TrajectoryCollector()</h2>
+<a id="a5114d360d0e2655c7f79835bf490b284" name="a5114d360d0e2655c7f79835bf490b284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5114d360d0e2655c7f79835bf490b284">&#9670;&#160;</a></span>TrajectoryCollector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,8 +125,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">aisolver::training::TrajectoryCollector::TrajectoryCollector </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#aa31c6abaffe4f7606b29a4b4e203dbee">evolutionary::DEFAULT_STUCK_THRESHOLD</a></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>actionRepeat</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833">DEFAULT_ACTION_REPEAT</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>explorationFloor</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceaisolver_1_1training.html#a80818638d24c39c3f6c3b863f04a4fb6">DEFAULT_EXPLORATION_FLOOR</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -136,7 +141,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stuckThreshold</td><td>Seuil de blocage transmis à <span class="tt"><a class="el" href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971" title="Classe la fin d&#39;épisode à partir de l&#39;issue du jeu et des compteurs de pas/progression.">classifyEpisode</a></span> (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>), même défaut que <span class="tt"><a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evolutionary::evaluateFitness</a></span> pour rester cohérent entre familles d'algorithmes. </td></tr>
+    <tr><td class="paramname">actionRepeat</td><td>Nombre d'images pendant lesquelles chaque action décidée est maintenue (<span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a5d987cb3ff3bb394139b9200d46aa833" title="Nombre d&#39;images fixes pendant lesquelles une action décidée est maintenue.">DEFAULT_ACTION_REPEAT</a></span>). Un pas de trajectoire couvre toute la répétition : sa récompense est la somme de celles des images qu'elle recouvre, et le gradient porte sur la décision, pas sur chacune de ses images.</td></tr>
+    <tr><td class="paramname">explorationFloor</td><td>Part de tirage uniforme mélangée à la distribution de la politique au moment d'échantillonner (<span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a80818638d24c39c3f6c3b863f04a4fb6" title="Part de tirage uniforme mélangée à la politique à l&#39;échantillonnage (entraînement seul).">DEFAULT_EXPLORATION_FLOOR</a></span>) ; <span class="tt">0</span> échantillonne la politique telle quelle. </td></tr>
   </table>
   </dd>
 </dl>
@@ -190,8 +196,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a64969c8eda18887849ebd0f31f67471f" name="a64969c8eda18887849ebd0f31f67471f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64969c8eda18887849ebd0f31f67471f">&#9670;&#160;</a></span>_stuckThreshold</h2>
+<a id="a5f860528514449871141d534736e34f1" name="a5f860528514449871141d534736e34f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f860528514449871141d534736e34f1">&#9670;&#160;</a></span>_actionRepeat</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +206,29 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int aisolver::training::TrajectoryCollector::_stuckThreshold</td>
+          <td class="memname">int aisolver::training::TrajectoryCollector::_actionRepeat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf1fc3b55c9163eca227d5f6e831c93e" name="abf1fc3b55c9163eca227d5f6e831c93e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf1fc3b55c9163eca227d5f6e831c93e">&#9670;&#160;</a></span>_explorationFloor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::TrajectoryCollector::_explorationFloor</td>
         </tr>
       </table>
   </td>

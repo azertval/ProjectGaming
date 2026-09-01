@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -121,7 +121,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2d43895118384262149603a42a7d35d5" id="r_a2d43895118384262149603a42a7d35d5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2d43895118384262149603a42a7d35d5">runTrain</a> (const <a class="el" href="structTrainArgs.html">TrainArgs</a> &amp;args)</td></tr>
 <tr class="memdesc:a2d43895118384262149603a42a7d35d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt">train</span> : construit et lance un entraînement complet sur <span class="tt">args.level</span>, journalise (<span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>), sauvegarde les poids du modèle final et exporte un rejeu si résolu.  <br /></td></tr>
 <tr class="memitem:a96fcc0165b6691ab9a7bce381a780f64" id="r_a96fcc0165b6691ab9a7bce381a780f64"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a96fcc0165b6691ab9a7bce381a780f64">runEvaluate</a> (const <a class="el" href="structEvaluateArgs.html">EvaluateArgs</a> &amp;args)</td></tr>
-<tr class="memdesc:a96fcc0165b6691ab9a7bce381a780f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt">evaluate</span> : charge le modèle, l'exécute via <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, affiche le résultat sur <span class="tt">stdout</span> et écrit optionnellement un rapport CSV.  <br /></td></tr>
+<tr class="memdesc:a96fcc0165b6691ab9a7bce381a780f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt">evaluate</span> : charge le modèle, l'exécute via <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, affiche le résultat sur <span class="tt">stdout</span> et écrit optionnellement un rapport CSV.  <br /></td></tr>
 <tr class="memitem:a2f05de45dc35c051e33b5550793ed293" id="r_a2f05de45dc35c051e33b5550793ed293"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2f05de45dc35c051e33b5550793ed293">runExportReplay</a> (const <a class="el" href="structExportReplayArgs.html">ExportReplayArgs</a> &amp;args)</td></tr>
 <tr class="memdesc:a2f05de45dc35c051e33b5550793ed293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <span class="tt">export-replay</span> : charge le modèle, le rejoue en mode <span class="tt">Argmax</span> et écrit un fichier de rejeu.  <br /></td></tr>
 <tr class="memitem:af3ff45c03f528343fcd566389265aaee" id="r_af3ff45c03f528343fcd566389265aaee"><td class="memItemLeft"><a class="el" href="structTrainingConfig.html">TrainingConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#af3ff45c03f528343fcd566389265aaee">loadTrainingConfig</a> (const std::optional&lt; std::filesystem::path &gt; &amp;configFile, const <a class="el" href="structCommandLineOverrides.html">CommandLineOverrides</a> &amp;overrides)</td></tr>
@@ -130,8 +130,44 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5a2ddbb91586b43f38bc7d36f165f4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit la configuration résolue <code class="param">config</code> dans <code class="param">path</code> (<span class="tt">config.json</span> du dossier de run), pour qu'un run passé reste reproductible sans connaître les valeurs par défaut du code de l'époque.  <br /></td></tr>
 <tr class="memitem:a98a4851fff34724311010336fa9094a3" id="r_a98a4851fff34724311010336fa9094a3"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a98a4851fff34724311010336fa9094a3">hiddenSizeForModel</a> (const std::filesystem::path &amp;modelPath)</td></tr>
 <tr class="memdesc:a98a4851fff34724311010336fa9094a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille de couche cachée avec laquelle <code class="param">modelPath</code> a été entraîné.  <br /></td></tr>
+<tr class="memitem:a36660f4118a03742a48c850b5a71e013" id="r_a36660f4118a03742a48c850b5a71e013"><td class="memItemLeft"><a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a36660f4118a03742a48c850b5a71e013">environmentConfigForModel</a> (const std::filesystem::path &amp;modelPath)</td></tr>
+<tr class="memdesc:a36660f4118a03742a48c850b5a71e013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration d'environnement (budget de pas, seuil de blocage) avec laquelle <code class="param">modelPath</code> a été entraîné.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a36660f4118a03742a48c850b5a71e013" name="a36660f4118a03742a48c850b5a71e013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36660f4118a03742a48c850b5a71e013">&#9670;&#160;</a></span>environmentConfigForModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structEnvironmentConfig.html">EnvironmentConfig</a> aisolver::cli::environmentConfigForModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>modelPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configuration d'environnement (budget de pas, seuil de blocage) avec laquelle <code class="param">modelPath</code> a été entraîné. </p>
+<p>Même raison d'être que <span class="tt"><a class="el" href="#a98a4851fff34724311010336fa9094a3" title="Taille de couche cachée avec laquelle modelPath a été entraîné.">hiddenSizeForModel</a></span> : un rejeu produit sous un budget plus court que celui de l'entraînement serait tronqué avant la fin du niveau, et le modèle déclaré incapable de le résoudre alors qu'il le résout. La valeur est donc relue dans le <span class="tt">config.json</span> déposé à côté du modèle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">modelPath</td><td>Chemin du fichier de poids ; son dossier est celui du run. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La configuration lue, ou la configuration par défaut (budget dérivé du niveau) si le <span class="tt">config.json</span> est absent — seule valeur supposable alors. </dd></dl>
+
+</div>
+</div>
 <a id="ade8fa1868816e9e0eb448cd9e642e7ae" name="ade8fa1868816e9e0eb448cd9e642e7ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade8fa1868816e9e0eb448cd9e642e7ae">&#9670;&#160;</a></span>findOption()</h2>
 
@@ -440,7 +476,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Exécute <span class="tt">evaluate</span> : charge le modèle, l'exécute via <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, affiche le résultat sur <span class="tt">stdout</span> et écrit optionnellement un rapport CSV. </p>
+<p>Exécute <span class="tt">evaluate</span> : charge le modèle, l'exécute via <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, affiche le résultat sur <span class="tt">stdout</span> et écrit optionnellement un rapport CSV. </p>
 <dl class="section return"><dt>Returns</dt><dd>Code de sortie (<span class="tt">0</span> si succès, non nul sinon) ; message d'erreur sur <span class="tt">stderr</span>. </dd></dl>
 
 </div>

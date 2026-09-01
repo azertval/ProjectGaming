@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-31.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>✅ terminé</b>. Quatre nouvelles variantes de la tuile <span class="tt">Danger</span> (<span class="tt">EX-GP-031</span>) : directionnel (pics), mobile (va-et-vient autonome), commuté (lié à un interrupteur/plaque) et temporisé (clignotant) — un seul lot, une tâche par variante. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1704"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1710"></a>
 Objectif</h1>
 <p>La tuile <span class="tt">Danger</span> (<span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></span>) est aujourd'hui <b>unique</b> : case pleine, statique, mortelle sur toute sa surface, vérifiée par simple recouvrement AABB dans <span class="tt"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span> (<span class="tt"><a class="el" href="LevelOutcome_8cpp.html">Source/Core/Levels/LevelOutcome.cpp</a></span>). Ce vocabulaire est suffisant pour un danger « mur » ou « fosse », mais ne permet aucun des motifs classiques du genre plateforme/puzzle évoqués par <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> (« boîte à outils classique... dangers ») : pics contre lesquels on peut se tenir sans mourir, danger qui patrouille, piège désactivé tant qu'on n'a pas déclenché un mécanisme, ou minuterie à mémoriser. Ce lot ajoute ces quatre variantes sans toucher à la règle de fin de niveau elle-même (<span class="tt">EX-GP-031</span> : contact = échec, <span class="tt">EX-GP-032</span> : redémarrage) — seules la <b>géométrie</b> et l'<b>activation</b> du danger varient.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1705"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1711"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1706"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1712"></a>
 Inclus</h2>
 <ul>
 <li><b>Danger directionnel</b> (<span class="tt">EX-GP-050</span>) : quatre nouveaux types (un par bord — haut/bas/gauche/ droite), hitbox = bande étroite le long du bord concerné plutôt que la case entière. Même infrastructure de test que <span class="tt">Danger</span> (recouvrement AABB dans <span class="tt">LevelOutcome</span>), juste un rectangle plus petit et décalé — pas de notion de face d'approche/sens de déplacement.</li>
@@ -111,7 +111,7 @@ Inclus</h2>
 <li>Intégration éditeur (palette — nouvelle sous-catégorie sous « Piège », rendu) et jeu (résolution de fin de niveau, rendu) pour les quatre variantes.</li>
 <li>Niveau(x) de démonstration illustrant au moins une des nouvelles variantes.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1707"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1713"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Dégâts progressifs / vies multiples</b> : le contact avec un danger (quelle que soit la variante) reste un échec <b>instantané</b> du niveau (<span class="tt">EX-GP-031</span>), pas de système de vie — cohérent avec le reste du jeu.</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Édition numérique en jeu de la vitesse/portée du mobile ou de la période/déphasage du temporisé</b> : valeurs de conception (constantes ou champs JSON à valeur par défaut), éditables en modifiant le fichier de niveau mais pas via un nouveau widget numérique de l'éditeur — cohérent avec <span class="tt">jumpBudget</span>/<span class="tt">dashBudget</span> (<span class="tt">EX-GP-024</span>), déjà non exposés dans l'éditeur aujourd'hui. L'éditeur place la tuile (et, pour le mobile, l'axe/la portée par un second clic façon waypoint) ; le réglage fin reste dans le fichier.</li>
 <li><b>Danger commuté porté par une plaque de pression avec poids différencié par tuile</b> : reprend telle quelle la limite déjà actée en <span class="tt">LOT-19</span> (seuil global, pas de poids configurable par case).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1708"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1714"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Un seul lot, quatre tâches</b> (une par variante) plutôt que quatre lots séparés : décidé avec le demandeur — les quatre variantes partagent la même case d'entrée (<span class="tt">TileType</span>, <span class="tt">LevelLoader</span>/ <span class="tt">LevelWriter</span>, <span class="tt">LevelOutcome</span>, palette, rendu) et gagnent à être revues ensemble plutôt qu'en série de petites PR qui retouchent les mêmes fichiers.</li>
@@ -128,7 +128,7 @@ Décisions de cadrage</h1>
 <li><b>Danger commuté réutilise le même schéma de liaison par identifiant</b> (<span class="tt">switch.id</span> ↔ <span class="tt">opensWith</span>) que l'interrupteur/porte, mais via une struct <b>dupliquée</b> (<span class="tt"><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a></span>, résolue dans une liste séparée) plutôt qu'une généralisation de <span class="tt"><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></span> — tranché en TACHE-01 une fois constaté que <span class="tt">Mechanism::doorPosition</span> est consommé par nom dans une trentaine de sites (contrôleur, éditeur, tests), tous spécifiques à une porte.</li>
 <li><b>Danger temporisé n'a aucune dépendance à un interrupteur</b> : sa période/déphasage sont des champs propres à la tuile, pas une variante du danger commuté — les deux mécanismes d'activation (minuterie vs. déclencheur) restent séparés plutôt que fusionnés en un seul type paramétrable, pour rester lisible dans la palette et le format JSON.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1709"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1715"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-050</span> — danger directionnel.</li>
@@ -137,7 +137,7 @@ Exigences couvertes</h1>
 <li><span class="tt">EX-GP-053</span> — danger temporisé.</li>
 <li>Étend <span class="tt">EX-GP-031</span>/<span class="tt">EX-GP-032</span> (échec/redémarrage, comportement inchangé) et <span class="tt">EX-EDIT-002</span>/ <span class="tt">EX-EDIT-003</span> (palette, liaison visuelle de mécanismes) aux quatre nouvelles variantes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1710"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1716"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-31-tache-04-documentation-verification.html#md_Lot_2LOT-31-blocs-danger-avances_2tache-04-documentation-verification" title="Lot/LOT-31-blocs-danger-avances/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1711"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1717"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Les quatre nouvelles variantes sont peignables depuis la palette de l'éditeur, s'enregistrent et se rechargent fidèlement au format JSON (round-trip, <span class="tt">EX-EDIT-011</span>).</li>
@@ -163,12 +163,12 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau de démonstration (<span class="tt">demo-dangers-avances</span>) illustre les <b>quatre</b> nouvelles variantes et est intégré à la séquence jouée.</li>
 <li>Logique nouvelle couverte aux <b>trois niveaux de test</b> du projet : Unit (chaque brique isolée — <span class="tt">dangerHitbox</span>, <span class="tt">DangerController</span>, parsing JSON), Integration (<span class="tt">DangerController</span> assemblé à <span class="tt">LevelOutcome</span>/<span class="tt">CharacterPhysicsSystem</span>, un scénario par variante), Système (<span class="tt">demo-dangers-avances</span> rejoué bout en bout dans <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>, et round-trip d'édition dans <span class="tt"><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">test_parcours_edition.cpp</a></span>). Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen (vérifié avec le binaire 1.9.8 de la CI avant tout push) et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1712"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1718"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>/<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span> (<span class="tt">LOT-07</span>), <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> (<span class="tt">LOT-08</span>, liaison interrupteur↔porte), <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> (<span class="tt">LOT-21</span>, pour contraste — non réutilisé) et la palette par catégories (<span class="tt">LOT-27</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1713"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1719"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-31-tache-01-modele-dangers-avances.html" title="TACHE-01 — Modèle (types, format, généralisation des liaisons)">TACHE-01 — Modèle (types, format, généralisation des liaisons)</a></li>

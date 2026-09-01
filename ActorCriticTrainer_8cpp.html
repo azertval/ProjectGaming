@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,9 +93,13 @@ $(function(){initNavTree('ActorCriticTrainer_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ActorCriticTrainer_8h_source.html">AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="Episode_8h_source.html">AiSolver/Env/Episode.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Node_8h_source.html">AiSolver/Math/Autodiff/Node.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Ops_8h_source.html">AiSolver/Math/Autodiff/Ops.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="OptimizerUtils_8h_source.html">AiSolver/Optim/OptimizerUtils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ActorCriticLoss_8h_source.html">AiSolver/Training/ActorCritic/ActorCriticLoss.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AdvantageCalculator_8h_source.html">AiSolver/Training/ActorCritic/AdvantageCalculator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CriticLoss_8h_source.html">AiSolver/Training/ActorCritic/CriticLoss.h</a>&quot;</code><br />

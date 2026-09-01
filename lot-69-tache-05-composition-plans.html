@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-69-tache-05-composition-plans.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-05-composition-plans"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3289"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3295"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span> est déclaré comme <b>le seul ordonnancement de calques du projet</b> (<span class="tt">EX-REN-014</span>), et son en-tête interdit explicitement d'en inventer un concurrent. Or le nombre de plans est <b>libre</b> : leur donner une valeur d'énumération chacun figerait dans le rendu ce que le format déclare variable, et ferait enfler <span class="tt">RENDER_LAYER_COUNT</span>, donc <span class="tt">LayerVisibility</span>.</p>
 <p>L'échappement existe déjà : <span class="tt">ComposedScene::sort()</span> trie par calque, puis par rang de texture, puis par <span class="tt">sortOrder</span> — ce dernier étant le tri <b>fin à l'intérieur</b> d'un calque, exactement l'usage que faisait le rang d'un décor.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3290"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3296"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">PlaneVisuals.{h,cpp}</span> (nouveau) : <span class="tt">planeRenderLayer(PlaneDepth)</span> — <span class="tt">Behind</span> vers le calque de décor, <span class="tt">Front</span> vers celui de premier plan ; <span class="tt">resolvePlaneTexture</span> avec repli damier (<span class="tt">EX-NFR-040</span>) ; et <span class="tt">composePlanes(...)</span>, fonction <b>pure</b> testable par <span class="tt">QuadRecorder</span>, qui émet <b>un quad par plan</b> couvrant <span class="tt">[0,0]</span>–<span class="tt">[width, height]</span> en unités monde, UV pleines, filtrage <em>nearest</em>.</li>
@@ -107,24 +107,24 @@ Travail à réaliser</h1>
 <li>Résolution disque → GPU aux côtés de celle du fond, avec cache par nom de fichier.</li>
 <li>Ne <b>rien</b> émettre en <span class="tt">RenderMode::Physique</span>, comme le fait déjà la composition du fond.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3291"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3297"></a>
 Fichiers impactés</h1>
 <p><span class="tt">Source/HMI/Graphics/{PlaneVisuals,PlaneVisibility}.{h,cpp}</span> (nouveaux), <span class="tt"><a class="el" href="RenderLayer_8h.html" title="Ordonnancement de calques unique et explicite du rendu (EX-REN-014).">RenderLayer.h</a></span>, <span class="tt"><a class="el" href="LayerVisibility_8h.html" title="Jeu de visibilités par calque du mode d&#39;inspection de l&#39;éditeur (LOT-51, EX-EDIT-044).">LayerVisibility.h</a></span> (documentation), <span class="tt">ComposedScene.{h,cpp}</span>, <span class="tt">SpriteRenderer.{h,cpp}</span>, <span class="tt">DraftRenderer.{h,cpp}</span>, <span class="tt">Source/HMI/CMakeLists.txt</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3292"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3298"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__plane__render_8cpp.html" title="Tests unitaires de la composition des plans picturaux (EX-REN-049, EX-DEC-040 à EX-DEC-042,...">test_plane_render.cpp</a></span> (nouveau) : <b>quatre plans composés dans le désordre ressortent dans l'ordre du niveau</b> ; profondeur → calque attendu ; quad couvrant exactement les bornes du niveau ; densité 8 → <b>même</b> quad et mêmes UV ; rien émis en <span class="tt">Physique</span> ; plan masqué n'émettant rien ; texture absente → damier.</li>
 <li><span class="tt"><a class="el" href="test__layer__visibility_8cpp.html" title="Tests unitaires du jeu de visibilités par calque du mode d&#39;inspection de l&#39;éditeur (LOT-51,...">test_layer_visibility.cpp</a></span> : adapté au renommage, comportement inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3293"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3299"></a>
 Points d'attention</h1>
 <p><b>Le piège d'ordre est le point dur de la tâche.</b> <span class="tt">ComposedScene::sort()</span> intercale le <b>rang de première apparition de texture</b> entre le calque et le <span class="tt">sortOrder</span>. Chaque plan portant sa propre texture, deux plans d'un même calque sont ordonnés par leur ordre de <em>première apparition</em>, non par leur <span class="tt">sortOrder</span>. C'est correct <b>à condition</b> que les plans soient composés en premier et dans l'ordre de la liste — acquis une fois les décors retirés, puisque le calque ne reçoit plus qu'eux. Cette propriété est <b>invisible</b> à la lecture : sans le test qui la fige, elle se casserait silencieusement au premier réordonnancement d'appels.</p>
 <p><b>Pas de découpage en tuiles de texture.</b> Le culling par boîte englobante n'écarterait aucun quad — un plan couvre toujours le cadrage — le GPU clippe déjà à l'écran, et découper multiplierait quads <em>et</em> textures liées, donc les passes. Le coût réel n'est pas la mémoire mais le <b>batch</b> : chaque plan est une texture distincte, donc une passe de plus par image, jamais cullée. C'est ce chiffre que <span class="tt">TACHE-09</span> doit figer.</p>
 <p>Propriété utile à énoncer : le coût des plans est <b>constant en taille de niveau</b>, contrairement aux tuiles.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3294"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3300"></a>
 Definition de fait (DoD)</h1>
 <p>Les plans se composent dans l'ordonnancement unique, dans l'ordre déclaré, avec repli sur asset manquant. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3295"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3301"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-049</span>, <span class="tt">EX-REN-014</span>, <span class="tt">EX-DEC-040</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-042</span>, <span class="tt">EX-DEC-003</span>, <span class="tt">EX-NFR-040</span>, <span class="tt">EX-NFR-005</span>. </p>
 </div></div><!-- contents -->

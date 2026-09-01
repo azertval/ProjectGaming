@@ -1,5 +1,6 @@
 var structDqnConfig =
 [
+    [ "actionRepeat", "structDqnConfig.html#ac6c6fe1d9a2a053c678c0f3742751846", null ],
     [ "batchSize", "structDqnConfig.html#af050ec4ff6b2d880e3e9b89343d8a898", null ],
     [ "epsilonDecaySteps", "structDqnConfig.html#ac3413ded43565b1be7570161552c4f9f", null ],
     [ "epsilonEnd", "structDqnConfig.html#a3bec1d9471a821dea5acedac78368e90", null ],

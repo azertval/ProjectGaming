@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -104,12 +104,229 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a14705485ea5f5439a96da4a09b5fa974" id="r_a14705485ea5f5439a96da4a09b5fa974"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a14705485ea5f5439a96da4a09b5fa974">mutationRate</a></td></tr>
 <tr class="memitem:a28f6dff7980f3e953e4b6d1a309b0e7d" id="r_a28f6dff7980f3e953e4b6d1a309b0e7d"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a28f6dff7980f3e953e4b6d1a309b0e7d">episodes</a></td></tr>
 <tr class="memitem:af0cf1f7ce84b9d7702655423ec0e2c70" id="r_af0cf1f7ce84b9d7702655423ec0e2c70"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af0cf1f7ce84b9d7702655423ec0e2c70">learningRate</a></td></tr>
+<tr class="memitem:a8136ca065874907445f94a8cfa210cfe" id="r_a8136ca065874907445f94a8cfa210cfe"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8136ca065874907445f94a8cfa210cfe">criticLearningRate</a></td></tr>
 <tr class="memitem:a6e70a117ef4f6d6eedd61e4b7de973b1" id="r_a6e70a117ef4f6d6eedd61e4b7de973b1"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6e70a117ef4f6d6eedd61e4b7de973b1">gamma</a></td></tr>
 <tr class="memitem:a291cc561d6dec182d71c53932606e3a3" id="r_a291cc561d6dec182d71c53932606e3a3"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a291cc561d6dec182d71c53932606e3a3">optimizer</a></td></tr>
+<tr class="memitem:a41dd35271bf71de45a8d542e593d5fd9" id="r_a41dd35271bf71de45a8d542e593d5fd9"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41dd35271bf71de45a8d542e593d5fd9">hiddenSize</a></td></tr>
+<tr class="memdesc:a41dd35271bf71de45a8d542e593d5fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topologie du réseau de politique, commune à tous les algorithmes.  <br /></td></tr>
+<tr class="memitem:a2ced9fafb98e726b4a90cee083d624b4" id="r_a2ced9fafb98e726b4a90cee083d624b4"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2ced9fafb98e726b4a90cee083d624b4">tournamentSize</a></td></tr>
+<tr class="memdesc:a2ced9fafb98e726b4a90cee083d624b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Évolutionniste (voir <span class="tt">training::evolutionary::EvolutionaryConfig</span>).  <br /></td></tr>
+<tr class="memitem:aceb36a55c5436465aa9e68a7cce583fd" id="r_aceb36a55c5436465aa9e68a7cce583fd"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aceb36a55c5436465aa9e68a7cce583fd">mutationStrength</a></td></tr>
+<tr class="memitem:ab6c68f2b2d5fc7c103869bb9ad8aa801" id="r_ab6c68f2b2d5fc7c103869bb9ad8aa801"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab6c68f2b2d5fc7c103869bb9ad8aa801">maxGenerations</a></td></tr>
+<tr class="memdesc:ab6c68f2b2d5fc7c103869bb9ad8aa801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critère d'arrêt évolutionniste (voir <span class="tt">training::StoppingConfig</span>).  <br /></td></tr>
+<tr class="memitem:abd8c666ee6fcb95b848219a1eddac648" id="r_abd8c666ee6fcb95b848219a1eddac648"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abd8c666ee6fcb95b848219a1eddac648">requiredConsecutiveSuccesses</a></td></tr>
+<tr class="memitem:a9d53f0f21f9649f5e5da035d72174b02" id="r_a9d53f0f21f9649f5e5da035d72174b02"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9d53f0f21f9649f5e5da035d72174b02">dqnReplayCapacity</a></td></tr>
+<tr class="memdesc:a9d53f0f21f9649f5e5da035d72174b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hyperparamètres DQN (voir <span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>), pertinents uniquement pour <span class="tt">--algo avance</span>.  <br /></td></tr>
+<tr class="memitem:a68e8ca94742e15cb644fdba54d3189b1" id="r_a68e8ca94742e15cb644fdba54d3189b1"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a68e8ca94742e15cb644fdba54d3189b1">dqnBatchSize</a></td></tr>
+<tr class="memitem:a7ba62253da7ddb235343afa2c6e54f2f" id="r_a7ba62253da7ddb235343afa2c6e54f2f"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7ba62253da7ddb235343afa2c6e54f2f">dqnWarmupSize</a></td></tr>
+<tr class="memitem:a2741a521185c4183cad06f881dd92052" id="r_a2741a521185c4183cad06f881dd92052"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2741a521185c4183cad06f881dd92052">dqnUpdatePeriodSteps</a></td></tr>
+<tr class="memitem:a712a2fff18a09dbe9db58148f03d07bd" id="r_a712a2fff18a09dbe9db58148f03d07bd"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a712a2fff18a09dbe9db58148f03d07bd">dqnTargetSyncPeriodSteps</a></td></tr>
+<tr class="memitem:a05890fba5ac276e2c10b0f59d79f0a1a" id="r_a05890fba5ac276e2c10b0f59d79f0a1a"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a05890fba5ac276e2c10b0f59d79f0a1a">dqnEpsilonStart</a></td></tr>
+<tr class="memitem:a8bac2e2d10643f1a13b17720b9ef2dcd" id="r_a8bac2e2d10643f1a13b17720b9ef2dcd"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8bac2e2d10643f1a13b17720b9ef2dcd">dqnEpsilonEnd</a></td></tr>
+<tr class="memitem:ac198e7926ed3e0783076b4e84cc9b5d8" id="r_ac198e7926ed3e0783076b4e84cc9b5d8"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac198e7926ed3e0783076b4e84cc9b5d8">dqnEpsilonDecaySteps</a></td></tr>
+<tr class="memitem:ae3683e593634333c3c7e2d001855187f" id="r_ae3683e593634333c3c7e2d001855187f"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae3683e593634333c3c7e2d001855187f">batchEpisodes</a></td></tr>
+<tr class="memdesc:ae3683e593634333c3c7e2d001855187f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réglages de policy gradient (voir <span class="tt">training::PolicyGradientTuning</span>), pertinents pour <span class="tt">--algo pg</span>/<span class="tt">ac</span>, et <span class="tt"><a class="el" href="#a9deaf2b67cbaedbdec2e464fce713ddc">actionRepeat</a></span> aussi pour <span class="tt">--algo avance</span>.  <br /></td></tr>
+<tr class="memitem:a1f7b509ac352c5b3dbe774a787340a5d" id="r_a1f7b509ac352c5b3dbe774a787340a5d"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1f7b509ac352c5b3dbe774a787340a5d">entropyCoefficient</a></td></tr>
+<tr class="memitem:a8abea97311cef7568069d928835d3e0f" id="r_a8abea97311cef7568069d928835d3e0f"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8abea97311cef7568069d928835d3e0f">gradientClipNorm</a></td></tr>
+<tr class="memitem:a9deaf2b67cbaedbdec2e464fce713ddc" id="r_a9deaf2b67cbaedbdec2e464fce713ddc"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9deaf2b67cbaedbdec2e464fce713ddc">actionRepeat</a></td></tr>
+<tr class="memitem:a96315a6c25527c0d449c1be843a19cd0" id="r_a96315a6c25527c0d449c1be843a19cd0"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a96315a6c25527c0d449c1be843a19cd0">explorationFloor</a></td></tr>
+<tr class="memitem:a53c8cf2993c615c5a74dd8378e11c15b" id="r_a53c8cf2993c615c5a74dd8378e11c15b"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a53c8cf2993c615c5a74dd8378e11c15b">crossoverRate</a></td></tr>
+<tr class="memdesc:a53c8cf2993c615c5a74dd8378e11c15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilité de croisement (évolutionniste).  <br /></td></tr>
+<tr class="memitem:a611e146b0192b8d890c618f35ec203a0" id="r_a611e146b0192b8d890c618f35ec203a0"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a611e146b0192b8d890c618f35ec203a0">maxSteps</a></td></tr>
+<tr class="memdesc:a611e146b0192b8d890c618f35ec203a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget de pas et seuil de blocage de l'environnement ; <span class="tt">0</span> = dérivés du niveau.  <br /></td></tr>
+<tr class="memitem:ab7089c1d6552854d88084a32791f25ad" id="r_ab7089c1d6552854d88084a32791f25ad"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7089c1d6552854d88084a32791f25ad">stuckThreshold</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surcharges d'arguments individuels de la ligne de commande (priorité la plus haute, voir <span class="tt"><a class="el" href="test__training__config_8cpp.html#af3ff45c03f528343fcd566389265aaee" title="Résout la configuration effective d&#39;un run : défauts documentés → fichier --config (s&#39;il est fourni) ...">loadTrainingConfig</a></span>). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a9deaf2b67cbaedbdec2e464fce713ddc" name="a9deaf2b67cbaedbdec2e464fce713ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9deaf2b67cbaedbdec2e464fce713ddc">&#9670;&#160;</a></span>actionRepeat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a9deaf2b67cbaedbdec2e464fce713ddc">aisolver::cli::CommandLineOverrides::actionRepeat</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3683e593634333c3c7e2d001855187f" name="ae3683e593634333c3c7e2d001855187f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3683e593634333c3c7e2d001855187f">&#9670;&#160;</a></span>batchEpisodes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#ae3683e593634333c3c7e2d001855187f">aisolver::cli::CommandLineOverrides::batchEpisodes</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Réglages de policy gradient (voir <span class="tt">training::PolicyGradientTuning</span>), pertinents pour <span class="tt">--algo pg</span>/<span class="tt">ac</span>, et <span class="tt"><a class="el" href="#a9deaf2b67cbaedbdec2e464fce713ddc">actionRepeat</a></span> aussi pour <span class="tt">--algo avance</span>. </p>
+
+</div>
+</div>
+<a id="a8136ca065874907445f94a8cfa210cfe" name="a8136ca065874907445f94a8cfa210cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8136ca065874907445f94a8cfa210cfe">&#9670;&#160;</a></span>criticLearningRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a8136ca065874907445f94a8cfa210cfe">aisolver::cli::CommandLineOverrides::criticLearningRate</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53c8cf2993c615c5a74dd8378e11c15b" name="a53c8cf2993c615c5a74dd8378e11c15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c8cf2993c615c5a74dd8378e11c15b">&#9670;&#160;</a></span>crossoverRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a53c8cf2993c615c5a74dd8378e11c15b">aisolver::cli::CommandLineOverrides::crossoverRate</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Probabilité de croisement (évolutionniste). </p>
+
+</div>
+</div>
+<a id="a68e8ca94742e15cb644fdba54d3189b1" name="a68e8ca94742e15cb644fdba54d3189b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68e8ca94742e15cb644fdba54d3189b1">&#9670;&#160;</a></span>dqnBatchSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a68e8ca94742e15cb644fdba54d3189b1">aisolver::cli::CommandLineOverrides::dqnBatchSize</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac198e7926ed3e0783076b4e84cc9b5d8" name="ac198e7926ed3e0783076b4e84cc9b5d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac198e7926ed3e0783076b4e84cc9b5d8">&#9670;&#160;</a></span>dqnEpsilonDecaySteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#ac198e7926ed3e0783076b4e84cc9b5d8">aisolver::cli::CommandLineOverrides::dqnEpsilonDecaySteps</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bac2e2d10643f1a13b17720b9ef2dcd" name="a8bac2e2d10643f1a13b17720b9ef2dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bac2e2d10643f1a13b17720b9ef2dcd">&#9670;&#160;</a></span>dqnEpsilonEnd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a8bac2e2d10643f1a13b17720b9ef2dcd">aisolver::cli::CommandLineOverrides::dqnEpsilonEnd</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05890fba5ac276e2c10b0f59d79f0a1a" name="a05890fba5ac276e2c10b0f59d79f0a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05890fba5ac276e2c10b0f59d79f0a1a">&#9670;&#160;</a></span>dqnEpsilonStart</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a05890fba5ac276e2c10b0f59d79f0a1a">aisolver::cli::CommandLineOverrides::dqnEpsilonStart</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d53f0f21f9649f5e5da035d72174b02" name="a9d53f0f21f9649f5e5da035d72174b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d53f0f21f9649f5e5da035d72174b02">&#9670;&#160;</a></span>dqnReplayCapacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a9d53f0f21f9649f5e5da035d72174b02">aisolver::cli::CommandLineOverrides::dqnReplayCapacity</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hyperparamètres DQN (voir <span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>), pertinents uniquement pour <span class="tt">--algo avance</span>. </p>
+
+</div>
+</div>
+<a id="a712a2fff18a09dbe9db58148f03d07bd" name="a712a2fff18a09dbe9db58148f03d07bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a712a2fff18a09dbe9db58148f03d07bd">&#9670;&#160;</a></span>dqnTargetSyncPeriodSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a712a2fff18a09dbe9db58148f03d07bd">aisolver::cli::CommandLineOverrides::dqnTargetSyncPeriodSteps</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2741a521185c4183cad06f881dd92052" name="a2741a521185c4183cad06f881dd92052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2741a521185c4183cad06f881dd92052">&#9670;&#160;</a></span>dqnUpdatePeriodSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a2741a521185c4183cad06f881dd92052">aisolver::cli::CommandLineOverrides::dqnUpdatePeriodSteps</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ba62253da7ddb235343afa2c6e54f2f" name="a7ba62253da7ddb235343afa2c6e54f2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba62253da7ddb235343afa2c6e54f2f">&#9670;&#160;</a></span>dqnWarmupSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a7ba62253da7ddb235343afa2c6e54f2f">aisolver::cli::CommandLineOverrides::dqnWarmupSize</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f7b509ac352c5b3dbe774a787340a5d" name="a1f7b509ac352c5b3dbe774a787340a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7b509ac352c5b3dbe774a787340a5d">&#9670;&#160;</a></span>entropyCoefficient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a1f7b509ac352c5b3dbe774a787340a5d">aisolver::cli::CommandLineOverrides::entropyCoefficient</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a28f6dff7980f3e953e4b6d1a309b0e7d" name="a28f6dff7980f3e953e4b6d1a309b0e7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28f6dff7980f3e953e4b6d1a309b0e7d">&#9670;&#160;</a></span>episodes</h2>
 
@@ -118,6 +335,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a28f6dff7980f3e953e4b6d1a309b0e7d">aisolver::cli::CommandLineOverrides::episodes</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96315a6c25527c0d449c1be843a19cd0" name="a96315a6c25527c0d449c1be843a19cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96315a6c25527c0d449c1be843a19cd0">&#9670;&#160;</a></span>explorationFloor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a96315a6c25527c0d449c1be843a19cd0">aisolver::cli::CommandLineOverrides::explorationFloor</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -138,6 +369,37 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8abea97311cef7568069d928835d3e0f" name="a8abea97311cef7568069d928835d3e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abea97311cef7568069d928835d3e0f">&#9670;&#160;</a></span>gradientClipNorm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a8abea97311cef7568069d928835d3e0f">aisolver::cli::CommandLineOverrides::gradientClipNorm</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41dd35271bf71de45a8d542e593d5fd9" name="a41dd35271bf71de45a8d542e593d5fd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41dd35271bf71de45a8d542e593d5fd9">&#9670;&#160;</a></span>hiddenSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a41dd35271bf71de45a8d542e593d5fd9">aisolver::cli::CommandLineOverrides::hiddenSize</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Topologie du réseau de politique, commune à tous les algorithmes. </p>
+<p>Surchargeable au même titre que le reste : un modèle n'est rechargeable que sur la topologie qui l'a produit (voir <span class="tt">hiddenSizeForModel</span>), donc la valeur d'un run doit pouvoir être choisie sans passer par un fichier de configuration. </p>
+
+</div>
+</div>
 <a id="af0cf1f7ce84b9d7702655423ec0e2c70" name="af0cf1f7ce84b9d7702655423ec0e2c70"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0cf1f7ce84b9d7702655423ec0e2c70">&#9670;&#160;</a></span>learningRate</h2>
 
@@ -152,6 +414,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab6c68f2b2d5fc7c103869bb9ad8aa801" name="ab6c68f2b2d5fc7c103869bb9ad8aa801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6c68f2b2d5fc7c103869bb9ad8aa801">&#9670;&#160;</a></span>maxGenerations</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#ab6c68f2b2d5fc7c103869bb9ad8aa801">aisolver::cli::CommandLineOverrides::maxGenerations</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Critère d'arrêt évolutionniste (voir <span class="tt">training::StoppingConfig</span>). </p>
+
+</div>
+</div>
+<a id="a611e146b0192b8d890c618f35ec203a0" name="a611e146b0192b8d890c618f35ec203a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a611e146b0192b8d890c618f35ec203a0">&#9670;&#160;</a></span>maxSteps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a611e146b0192b8d890c618f35ec203a0">aisolver::cli::CommandLineOverrides::maxSteps</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Budget de pas et seuil de blocage de l'environnement ; <span class="tt">0</span> = dérivés du niveau. </p>
+
+</div>
+</div>
 <a id="a14705485ea5f5439a96da4a09b5fa974" name="a14705485ea5f5439a96da4a09b5fa974"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14705485ea5f5439a96da4a09b5fa974">&#9670;&#160;</a></span>mutationRate</h2>
 
@@ -160,6 +454,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a14705485ea5f5439a96da4a09b5fa974">aisolver::cli::CommandLineOverrides::mutationRate</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aceb36a55c5436465aa9e68a7cce583fd" name="aceb36a55c5436465aa9e68a7cce583fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb36a55c5436465aa9e68a7cce583fd">&#9670;&#160;</a></span>mutationStrength</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#aceb36a55c5436465aa9e68a7cce583fd">aisolver::cli::CommandLineOverrides::mutationStrength</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,6 +499,50 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd8c666ee6fcb95b848219a1eddac648" name="abd8c666ee6fcb95b848219a1eddac648"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd8c666ee6fcb95b848219a1eddac648">&#9670;&#160;</a></span>requiredConsecutiveSuccesses</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#abd8c666ee6fcb95b848219a1eddac648">aisolver::cli::CommandLineOverrides::requiredConsecutiveSuccesses</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7089c1d6552854d88084a32791f25ad" name="ab7089c1d6552854d88084a32791f25ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7089c1d6552854d88084a32791f25ad">&#9670;&#160;</a></span>stuckThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#ab7089c1d6552854d88084a32791f25ad">aisolver::cli::CommandLineOverrides::stuckThreshold</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ced9fafb98e726b4a90cee083d624b4" name="a2ced9fafb98e726b4a90cee083d624b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ced9fafb98e726b4a90cee083d624b4">&#9670;&#160;</a></span>tournamentSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; <a class="el" href="structaisolver_1_1cli_1_1CommandLineOverrides.html#a2ced9fafb98e726b4a90cee083d624b4">aisolver::cli::CommandLineOverrides::tournamentSize</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Évolutionniste (voir <span class="tt">training::evolutionary::EvolutionaryConfig</span>). </p>
 
 </div>
 </div>

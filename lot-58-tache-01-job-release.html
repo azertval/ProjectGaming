@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-58-tache-01-job-release.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-58-verification-release-analyse_2tache-01-job-release"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-58.html#md_Lot_2LOT-58-verification-release-analyse_2epic" title="Lot/LOT-58-verification-release-analyse/epic.md">LOT-58</a> · <b>Emplacement :</b> <span class="tt">.github/workflows</span>, <span class="tt">CMakePresets.json</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2736"></a>
 Contexte</h1>
 <p><span class="tt">ci.yml</span> a deux jobs de build, et tous deux sont en <b>Debug</b> : le preset <span class="tt">vs</span> construit et teste avec <span class="tt">--config Debug</span>, le preset <span class="tt">ninja</span> fixe <span class="tt">CMAKE_BUILD_TYPE=Debug</span>. La configuration Release n'apparaît que dans <span class="tt">release.yml</span>, au job <span class="tt">versioned-release</span>, déclenché <b>par le tag</b>.</p>
 <p>L'ordre des opérations est donc : on tague, puis on découvre si le code compile en Release. Un tag est public et ne se rétracte pas proprement. Le dépôt garde la trace d'un cas réel — <span class="tt">90f85254 fix(core): correction d'une <a class="el" href="test__autodiff__backward_8cpp.html#a37e8e0528957d1ff05a956a1c1b8869b" title="Construit une feuille du graphe (paramètre ou entrée), sans parent.">variable</a> non utilisee en Release</span>, sur <span class="tt">LevelDraft</span> : une variable lue uniquement par une assertion, donc inutilisée sous <span class="tt">NDEBUG</span>, donc <span class="tt">/W4 /WX</span> en échec. La famille est classique et régulière : assertions portant la seule lecture d'une variable, <span class="tt">if constexpr (core::kDeveloperBuild)</span> masquant un paramètre, code de journalisation compilé hors Release.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2731"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2737"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Presets Release</b> : ajouter un preset de build et un preset de test en configuration Release pour le générateur Visual Studio, et un preset de configuration <span class="tt">ninja-release</span> (<span class="tt">CMAKE_BUILD_TYPE=Release</span>) — la symétrie avec les presets Debug existants est le but.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Contrôle requis pour merger</b> : le job rejoint la protection de branche, au même titre que <span class="tt">build-test-coverage</span>.</li>
 <li><b>Vérifier que le job attrape réellement la faute</b> : introduire temporairement une variable utilisée uniquement dans une assertion, constater l'échec, retirer.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2732"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2738"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">CMakePresets.json</span> — presets de build et de test Release.</li>
@@ -114,14 +114,14 @@ Fichiers impactés</h1>
 <li><span class="tt">CONTRIBUTING.md</span> — la liste « avant d'ouvrir une PR » mentionne la vérification Release.</li>
 <li><span class="tt">README.md</span> — section build, si les presets y sont énumérés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2733"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2739"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le job passe sur l'état actuel de <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span> (sinon, le corriger fait partie de cette tâche).</li>
 <li><b>Test négatif obligatoire</b> : sur une branche jetable, une variable lue seulement par un <span class="tt">CORE_ASSERT</span> fait échouer le job Release et <b>pas</b> le job Debug. C'est la preuve que la tâche sert à quelque chose ; sans elle, on ajoute un job qui ne vérifie rien.</li>
 <li><span class="tt">ctest</span> en Release passe à 100 % : les tests dépendant d'assertions actives doivent être identifiés, et adaptés ou explicitement conditionnés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2734"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2740"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Certains tests peuvent dépendre du comportement Debug</b> — notamment ceux de <span class="tt"><a class="el" href="test__assert_8cpp.html" title="Tests unitaires des assertions du projet.">Source/Test/Unit/Core/Diagnostics/test_assert.cpp</a></span>. S'ils échouent en Release, la bonne réponse est de les conditionner explicitement à <span class="tt">core::kDeveloperBuild</span>, pas de désactiver le job.</li>
@@ -129,12 +129,12 @@ Points d'attention</h1>
 <li>Durée de CI : le job est parallèle aux autres, mais Qt et le build s'ajoutent. Mesurer et consigner.</li>
 <li>Ne pas dupliquer la logique d'installation de Qt : les jobs existants ont déjà le bon bloc, avec le cache.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2735"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2741"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La CI construit et teste en Release sur chaque PR, le job est requis pour merger, une casse Release-only est démontrée refusée par un test négatif, <span class="tt">ctest</span> Release est à 100 %.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2742"></a>
 Exigences</h1>
 <p><span class="tt">EX-NFR-023</span> (vérification Release en CI) ; réutilise <span class="tt">EX-NFR-013</span> (compilation sans avertissement), <span class="tt">EX-NFR-022</span> (CI verte pour merger), <span class="tt">EX-NFR-030</span> (build via CMake), <span class="tt">EX-BUILD-010</span> (provisionnement de Qt en CI). </p>
 </div></div><!-- contents -->

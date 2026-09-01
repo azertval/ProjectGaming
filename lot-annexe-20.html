@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,26 +96,26 @@ $(function(){initNavTree('lot-annexe-20.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17</a> (validation de rejeu, empreinte FNV-1a) et <a class="el" href="lot-annexe-18.html" title="LOT-ANNEXE-18 — Mode « regarder l&#39;IA jouer » (intégration HMI)">LOT-ANNEXE-18</a> (rejeux réellement versionnés/joués en jeu). <a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21</a> a depuis été ajouté après celui-ci. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4221"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4258"></a>
 Objectif</h1>
 <p><span class="tt">LOT-ANNEXE-17</span> garantit qu'un rejeu <b>chargé par le jeu</b> est refusé s'il ne correspond plus à son niveau d'origine — mais cette vérification ne s'exécute qu'à l'exécution du jeu, jamais en intégration continue. Un niveau modifié par un commit ultérieur (rééquilibrage, correction) peut ainsi rendre un rejeu versionné silencieusement obsolète pendant des semaines, sans qu'aucune Pull Request ne le signale — jusqu'à ce qu'un joueur ou un testeur tente de le lancer et le voie échouer. Ce lot ferme cette fenêtre, sur le modèle exact de <span class="tt">scripts/check_demo_sequence.py</span> (déjà existant, qui compare deux endroits du code source pour détecter une désynchronisation de séquence de niveaux) : un script Python autonome, exécuté en CI à chaque Pull Request, qui détecte cette péremption <b>avant</b> qu'elle n'atteigne <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4259"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4223"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4260"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">scripts/check_ai_replays.py</span></b> : énumère les fichiers de rejeu versionnés (dossier de rejeux publiés introduit par <span class="tt">LOT-ANNEXE-18</span>, TACHE-02), pour chacun recalcule l'empreinte FNV-1a (réimplémentation Python pure, <b>même algorithme</b> que <span class="tt"><a class="el" href="namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">aisolver::computeLevelFingerprint</a></span>, <span class="tt">LOT-ANNEXE-17</span>) du fichier de niveau qu'il référence, et la compare à celle enregistrée dans le rejeu — échec du script (code de sortie non nul, message explicite par rejeu périmé) en cas de divergence ou de niveau introuvable.</li>
 <li><b>Intégration à <span class="tt">ci.yml</span></b> : nouvelle étape appelant ce script sur chaque Pull Request vers <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span>, au même niveau que les étapes existantes (<span class="tt">lint_exigences.py</span>, <span class="tt">check_demo_sequence.py</span>).</li>
 <li><b>Vérification locale</b> : le script s'exécute depuis la racine du dépôt, sans argument, comme tous les scripts de <span class="tt">scripts/</span> déjà en place (<span class="tt">python scripts/check_ai_replays.py</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4224"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4261"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Réparation automatique d'un rejeu périmé</b> (ré-export automatique déclenché par la CI) : un rejeu périmé est signalé, jamais régénéré automatiquement — la CI n'a pas accès à un entraînement complet (potentiellement long) dans le temps d'une vérification de Pull Request ; la remédiation reste un geste manuel (<span class="tt">aisolver-cli export-replay</span>, <span class="tt">LOT-ANNEXE-19</span>).</li>
 <li><b>Vérification de la logique d'entraînement ou de l'exactitude d'un rejeu au-delà de sa correspondance avec le niveau référencé</b> (ex. rejouer réellement le rejeu en CI pour vérifier qu'il aboutit toujours à <span class="tt">Won</span>) : coûteux (nécessiterait de builder et exécuter <span class="tt">AiSolver</span>/<span class="tt">HMI</span> en CI pour chaque rejeu, à chaque Pull Request) et redondant avec le test système dédié (<span class="tt">LOT-ANNEXE-18</span>, TACHE-03, qui couvre déjà au moins un rejeu de référence de bout en bout) — ce garde-fou se limite à la vérification d'empreinte, bon marché et suffisante pour détecter le cas visé (niveau modifié après export).</li>
 <li><b>Extension du script à d'autres artefacts générés</b> (modèles entraînés, CSV de statistiques) : ces fichiers vivent sous <span class="tt">/TrainingRuns/</span>, non versionné (<span class="tt">.gitignore</span>) — aucun artefact d'entraînement brut n'est jamais commité, seul un rejeu explicitement publié (<span class="tt">LOT-ANNEXE-18</span>, dossier de rejeux publiés, versionné) a besoin de ce garde-fou.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4262"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Réimplémentation Python pure de FNV-1a, pas d'appel à un binaire C++ compilé.</b> Cohérent avec le style déjà établi de <span class="tt">scripts/</span> (Python autonome, aucune dépendance de build C++ pour les vérifications de CI rapides) — <span class="tt">LOT-ANNEXE-17</span> documente déjà explicitement la convention d'octets (UTF-8 brut, aucune normalisation) précisément pour que cette réimplémentation reste possible sans ambiguïté ; ce lot en est la mise en pratique directe.</li>
@@ -123,16 +123,16 @@ Décisions de cadrage</h1>
 <li><b>Une divergence d'empreinte est un échec bloquant de Pull Request</b>, jamais un avertissement silencieux : cohérent avec le traitement des autres garde-fous du dépôt (<span class="tt">lint_exigences.py</span>, <span class="tt">check_demo_sequence.py</span>), qui font tous échouer la CI plutôt que d'émettre un simple message.</li>
 <li><b>Le script ne dépend d'aucune bibliothèque tierce Python</b> (implémentation manuelle de FNV-1a, lecture de fichiers JSON via la bibliothèque standard <span class="tt">json</span>) — cohérent avec l'esprit général « aucune nouvelle dépendance » du programme, étendu ici à l'outillage CI lui-même.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4263"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot est un script de garde-fou d'ingénierie logicielle (CI), réutilisant l'algorithme de hachage déjà motivé dans <a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4264"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-021" title="EX-IA-021"><span class="tt">EX-IA-021</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-IA-018</span> (empreinte de niveau, algorithme FNV-1a, convention d'octets), principe déjà établi par <span class="tt">scripts/check_demo_sequence.py</span> (non normalisé sous un identifiant <span class="tt">EX-…</span>, garde-fou de convention plutôt qu'exigence produit).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4228"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4265"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -145,7 +145,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-20-tache-02-integration-ci.html#md_Lot-Annexe_2LOT-ANNEXE-20-garde-fou-ci_2tache-02-integration-ci" title="Lot-Annexe/LOT-ANNEXE-20-garde-fou-ci/tache-02-integration-ci.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Intégration à la CI existante  </td><td class="markdownTableBodyNone"><span class="tt">.github/workflows</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4229"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4266"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt">python scripts/check_ai_replays.py</span>, exécuté depuis la racine du dépôt sur un ensemble de rejeux valides, se termine avec un code de sortie <span class="tt">0</span> et un message de succès (sur le modèle de <span class="tt">check_demo_sequence.py</span>).</li>
@@ -154,10 +154,10 @@ Critères d'acceptation du lot</h1>
 <li>L'empreinte calculée par ce script, sur un même fichier de niveau, est <b>strictement identique</b> à celle calculée par <span class="tt"><a class="el" href="namespaceaisolver.html#a0c132221c5ad7598dffec2bfb73bccc3" title="Calcule l&#39;empreinte du contenu brut (octets tels que lus, sans reformatage ni reparsing JSON) d&#39;un fi...">aisolver::computeLevelFingerprint</a></span> (<span class="tt">LOT-ANNEXE-17</span>) — vérifié par un cas de test partagé (même fichier de niveau, même valeur attendue documentée dans les deux implémentations).</li>
 <li>La CI (<span class="tt">ci.yml</span>) échoue si ce script échoue, exactement comme pour <span class="tt">lint_exigences.py</span> et <span class="tt">check_demo_sequence.py</span> déjà en place.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4230"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4267"></a>
 Dépendances</h1>
 <p>Réutilise l'algorithme et la convention d'octets de <a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17</a> (empreinte FNV-1a). Suppose l'existence de rejeux réellement versionnés par [LOT-ANNEXE-18](<a class="el" href="lot-annexe-18.html" title="LOT-ANNEXE-18 — Mode « regarder l&#39;IA jouer » (intégration HMI)">LOT-ANNEXE-18 — Mode « regarder l'IA jouer » (intégration HMI)</a>) (dossier de rejeux publiés) pour avoir un objet à vérifier. Aucun lot ultérieur n'en dépend (<span class="tt">LOT-ANNEXE-21</span> s'appuie sur <span class="tt">LOT-ANNEXE-18</span>/<span class="tt">19</span>, pas sur ce garde-fou CI).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4231"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4268"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-20-tache-01-check-ai-replays.html" title="TACHE-01 — scripts/check_ai_replays.py">TACHE-01 — scripts/check_ai_replays.py</a></li>

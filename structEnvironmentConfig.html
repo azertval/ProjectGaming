@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,21 +93,21 @@ $(function(){initNavTree('structEnvironmentConfig.html','','structEnvironmentCon
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression.  
+<p>Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas et seuil de blocage, tous deux <b>dérivés du niveau</b> par défaut.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="HeadlessLevelEnvironment_8h_source.html">HeadlessLevelEnvironment.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a41443052ea64cebb5799e46b0a0b505a" id="r_a41443052ea64cebb5799e46b0a0b505a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a41443052ea64cebb5799e46b0a0b505a">maxSteps</a> = 3000</td></tr>
-<tr class="memdesc:a41443052ea64cebb5799e46b0a0b505a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre maximal de pas simulables entre deux <span class="tt">reset</span> (même valeur par défaut que <span class="tt">playLevel()</span> dans <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>).  <br /></td></tr>
-<tr class="memitem:ab55bd465d71dd5e2ce8780d83990626d" id="r_ab55bd465d71dd5e2ce8780d83990626d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab55bd465d71dd5e2ce8780d83990626d">progressEpsilon</a> = 0.05f</td></tr>
-<tr class="memdesc:ab55bd465d71dd5e2ce8780d83990626d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance (unités monde) en dessous de laquelle un rapprochement de la sortie n'est pas considéré comme un progrès.  <br /></td></tr>
+<tr class="memitem:a41443052ea64cebb5799e46b0a0b505a" id="r_a41443052ea64cebb5799e46b0a0b505a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a41443052ea64cebb5799e46b0a0b505a">maxSteps</a> = 0</td></tr>
+<tr class="memdesc:a41443052ea64cebb5799e46b0a0b505a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre maximal de pas simulables entre deux <span class="tt">reset</span> ; <span class="tt">0</span> = dérivé du niveau (<span class="tt">estimateStepBudget</span>).  <br /></td></tr>
+<tr class="memitem:ae8ca20416b7679e69257fa08bca39f88" id="r_ae8ca20416b7679e69257fa08bca39f88"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae8ca20416b7679e69257fa08bca39f88">stuckThreshold</a> = 0</td></tr>
+<tr class="memdesc:ae8ca20416b7679e69257fa08bca39f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas consécutifs sans progression au-delà duquel l'épisode est jugé bloqué ; <span class="tt">0</span> = dérivé du budget (<span class="tt">stuckThresholdForBudget</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas dur et seuil de progression. </p>
-<p><span class="tt"><a class="el" href="#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset (même valeur par défaut que playLevel() dans Source...">maxSteps</a></span> est un budget de <b>sécurité</b> (empêcher un run pathologique de tourner indéfiniment), pas un réglage d'entraînement — la politique de détection de blocage réelle, généralement bien plus courte, appartient à l'algorithme consommateur (<span class="tt">LOT-ANNEXE-08</span>). </p>
+<div class="textblock"><p>Configuration d'un <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> : budget de pas et seuil de blocage, tous deux <b>dérivés du niveau</b> par défaut. </p>
+<p>Une constante globale ne peut convenir aux deux bouts du catalogue : <span class="tt">demo-wall-jump.json</span> se termine en quelques centaines de pas, <span class="tt">demo-final.json</span> en demande près de <span class="tt">4 000</span>. Les deux valeurs valent donc <span class="tt">0</span> = « dérive-la du niveau chargé » (<span class="tt"><a class="el" href="StepBudget_8h.html" title="Budget de pas et seuil de blocage dérivés du niveau, jamais d&#39;une constante globale.">StepBudget.h</a></span>) ; une valeur explicite non nulle reste respectée telle quelle — c'est ce dont se servent le harnais de benchmark et les tests qui veulent un budget fixé. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a41443052ea64cebb5799e46b0a0b505a" name="a41443052ea64cebb5799e46b0a0b505a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41443052ea64cebb5799e46b0a0b505a">&#9670;&#160;</a></span>maxSteps</h2>
@@ -116,28 +116,28 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a">aisolver::EnvironmentConfig::maxSteps</a> = 3000</td>
+          <td class="memname">int <a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a">aisolver::EnvironmentConfig::maxSteps</a> = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Nombre maximal de pas simulables entre deux <span class="tt">reset</span> (même valeur par défaut que <span class="tt">playLevel()</span> dans <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>). </p>
+<p>Nombre maximal de pas simulables entre deux <span class="tt">reset</span> ; <span class="tt">0</span> = dérivé du niveau (<span class="tt">estimateStepBudget</span>). </p>
 
 </div>
 </div>
-<a id="ab55bd465d71dd5e2ce8780d83990626d" name="ab55bd465d71dd5e2ce8780d83990626d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab55bd465d71dd5e2ce8780d83990626d">&#9670;&#160;</a></span>progressEpsilon</h2>
+<a id="ae8ca20416b7679e69257fa08bca39f88" name="ae8ca20416b7679e69257fa08bca39f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ca20416b7679e69257fa08bca39f88">&#9670;&#160;</a></span>stuckThreshold</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="structaisolver_1_1EnvironmentConfig.html#ab55bd465d71dd5e2ce8780d83990626d">aisolver::EnvironmentConfig::progressEpsilon</a> = 0.05f</td>
+          <td class="memname">int <a class="el" href="structaisolver_1_1EnvironmentConfig.html#ae8ca20416b7679e69257fa08bca39f88">aisolver::EnvironmentConfig::stuckThreshold</a> = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Distance (unités monde) en dessous de laquelle un rapprochement de la sortie n'est pas considéré comme un progrès. </p>
+<p>Nombre de pas consécutifs sans progression au-delà duquel l'épisode est jugé bloqué ; <span class="tt">0</span> = dérivé du budget (<span class="tt">stuckThresholdForBudget</span>). </p>
 
 </div>
 </div>

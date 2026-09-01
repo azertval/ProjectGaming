@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -101,17 +101,22 @@ $(function(){initNavTree('structaisolver_1_1RewardConfig.html','','structaisolve
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aa50ac87afac5b151832f9457e59c233b" id="r_aa50ac87afac5b151832f9457e59c233b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aa50ac87afac5b151832f9457e59c233b">progressScale</a> = 1.0f</td></tr>
-<tr class="memdesc:aa50ac87afac5b151832f9457e59c233b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de la récompense de progression (diminution de distance à la sortie).  <br /></td></tr>
+<tr class="memdesc:aa50ac87afac5b151832f9457e59c233b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de la récompense de progression (diminution de distance à l'objectif immédiat, en cases de grille).  <br /></td></tr>
 <tr class="memitem:a716760515b3f4bb2bc457c373c5ebe5d" id="r_a716760515b3f4bb2bc457c373c5ebe5d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a716760515b3f4bb2bc457c373c5ebe5d">completionBonus</a> = 100.0f</td></tr>
 <tr class="memdesc:a716760515b3f4bb2bc457c373c5ebe5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récompense fixe accordée uniquement à <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  <br /></td></tr>
-<tr class="memitem:a3ff137a83c8517afce739ed3a01f2d00" id="r_a3ff137a83c8517afce739ed3a01f2d00"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a3ff137a83c8517afce739ed3a01f2d00">deathPenalty</a> = -10.0f</td></tr>
+<tr class="memitem:a3ff137a83c8517afce739ed3a01f2d00" id="r_a3ff137a83c8517afce739ed3a01f2d00"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a3ff137a83c8517afce739ed3a01f2d00">deathPenalty</a> = -20.0f</td></tr>
 <tr class="memdesc:a3ff137a83c8517afce739ed3a01f2d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Récompense (négative) accordée uniquement à <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" title="Le personnage a touché un danger ou est sorti par le bas (EX-GP-031).">core::LevelOutcome::Lost</a></span>.  <br /></td></tr>
-<tr class="memitem:acb668febb3b1412d71e33b89f78c8080" id="r_acb668febb3b1412d71e33b89f78c8080"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acb668febb3b1412d71e33b89f78c8080">timePenalty</a> = 0.01f</td></tr>
+<tr class="memitem:acb668febb3b1412d71e33b89f78c8080" id="r_acb668febb3b1412d71e33b89f78c8080"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acb668febb3b1412d71e33b89f78c8080">timePenalty</a> = 0.001f</td></tr>
 <tr class="memdesc:acb668febb3b1412d71e33b89f78c8080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pénalité (positive, soustraite) appliquée à chaque pas, quelle que soit l'issue.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Constantes de la fonction de récompense (<span class="tt">EX-IA-009</span>). </p>
-<p>Valeurs par défaut choisies pour que <span class="tt"><a class="el" href="#a716760515b3f4bb2bc457c373c5ebe5d" title="Récompense fixe accordée uniquement à core::LevelOutcome::Won.">completionBonus</a></span> domine significativement la somme plausible des autres termes sur un épisode typique (quelques centaines de pas) : à <span class="tt"><a class="el" href="#acb668febb3b1412d71e33b89f78c8080" title="Pénalité (positive, soustraite) appliquée à chaque pas, quelle que soit l&#39;issue.">timePenalty</a> = 0.01</span> et <span class="tt"><a class="el" href="#aa50ac87afac5b151832f9457e59c233b" title="Multiplicateur de la récompense de progression (diminution de distance à la sortie).">progressScale</a> = 1.0</span>, un épisode de <span class="tt">1000</span> pas perd au plus <span class="tt">10</span> en pénalité de temps et gagne au plus quelques dizaines en progression cumulée (distance typique d'un niveau <span class="tt">demo-*.json</span>), largement dominé par le bonus de complétion de <span class="tt">100</span>. </p>
+<p>Deux inégalités déterminent ces valeurs par défaut, et elles sont vérifiées par un test (<span class="tt"><a class="el" href="test__reward_8cpp.html" title="Tests unitaires de aisolver::computeReward (LOT-ANNEXE-08, TACHE-01 ; amendement distance de grille,...">test_reward.cpp</a></span>) plutôt que laissées à la relecture :</p>
+<ol type="1">
+<li><span class="tt"><a class="el" href="namespaceaisolver.html#a72110b725fe5eaa95ab18246a506d098" title="Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est in...">MAX_STEP_BUDGET</a> × <a class="el" href="#acb668febb3b1412d71e33b89f78c8080" title="Pénalité (positive, soustraite) appliquée à chaque pas, quelle que soit l&#39;issue.">timePenalty</a> &lt; |deathPenalty|</span> — sinon <b>mourir tôt coûte moins cher que d'explorer jusqu'au bout</b>, et l'agent apprend à se jeter dans le premier danger venu. C'est l'inégalité que le budget de pas dérivé du niveau (<span class="tt"><a class="el" href="StepBudget_8h.html" title="Budget de pas et seuil de blocage dérivés du niveau, jamais d&#39;une constante globale.">StepBudget.h</a></span>) a rendue mordante : à l'ancien <span class="tt"><a class="el" href="#acb668febb3b1412d71e33b89f78c8080" title="Pénalité (positive, soustraite) appliquée à chaque pas, quelle que soit l&#39;issue.">timePenalty</a> = 0.01</span>, un épisode de <span class="tt">demo-final</span> perdait <span class="tt">70</span> en temps contre <span class="tt">10</span> de pénalité de mort.</li>
+<li><span class="tt">|deathPenalty| &lt; <a class="el" href="#a716760515b3f4bb2bc457c373c5ebe5d" title="Récompense fixe accordée uniquement à core::LevelOutcome::Won.">completionBonus</a></span> — terminer le niveau doit rester préférable à tout, et d'une marge qui dépasse la progression cumulée plausible (≈ <span class="tt">137</span> cases sur <span class="tt">demo-final</span>, le plus long des niveaux <span class="tt">demo-*.json</span>).</li>
+</ol>
+<dl class="section see"><dt>See also</dt><dd><span class="tt"><a class="el" href="StepBudget_8h.html" title="Budget de pas et seuil de blocage dérivés du niveau, jamais d&#39;une constante globale.">StepBudget.h</a></span> pour <span class="tt"><a class="el" href="namespaceaisolver.html#a72110b725fe5eaa95ab18246a506d098" title="Plafond du budget, quelle que soit la chaîne mesurée — y compris pour un niveau dont la sortie est in...">MAX_STEP_BUDGET</a></span>, la borne haute du budget dérivé d'un niveau. </dd></dl>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a716760515b3f4bb2bc457c373c5ebe5d" name="a716760515b3f4bb2bc457c373c5ebe5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a716760515b3f4bb2bc457c373c5ebe5d">&#9670;&#160;</a></span>completionBonus</h2>
@@ -136,7 +141,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float aisolver::RewardConfig::deathPenalty = -10.0f</td>
+          <td class="memname">float aisolver::RewardConfig::deathPenalty = -20.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,7 +162,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Multiplicateur de la récompense de progression (diminution de distance à la sortie). </p>
+<p>Multiplicateur de la récompense de progression (diminution de distance à l'objectif immédiat, en cases de grille). </p>
 
 </div>
 </div>
@@ -168,7 +173,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float aisolver::RewardConfig::timePenalty = 0.01f</td>
+          <td class="memname">float aisolver::RewardConfig::timePenalty = 0.001f</td>
         </tr>
       </table>
 </div><div class="memdoc">

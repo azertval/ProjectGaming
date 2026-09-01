@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-07-tache-03-format-rejeu-v1.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2tache-03-format-rejeu-v1"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-07.html#md_Lot-Annexe_2LOT-ANNEXE-07-espace-action-format-rejeu_2epic" title="Lot-Annexe/LOT-ANNEXE-07-espace-action-format-rejeu/epic.md">LOT-ANNEXE-07</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Replay</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3735"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3772"></a>
 Contexte</h1>
 <p>Une fois un niveau résolu par un algorithme d'entraînement (génération 2/3), le seul livrable durable et rejouable en jeu (sans aucune inférence live, décision transverse du programme) est une séquence enregistrée de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>. Cette tâche définit le format de fichier qui porte cette séquence, dès la génération 1, pour que <span class="tt">LOT-ANNEXE-11</span> (premier export réel, génération 2) dispose déjà d'une cible stable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3773"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1ReplayFile.html" title="Un fichier de rejeu : séquence déterministe de core::PlayerInput rejouable en jeu sans aucune inféren...">aisolver::ReplayFile</a></span></b> (<span class="tt"><a class="el" href="ReplayFile_8h.html" title="Format de rejeu v2 : séquence d&#39;actions gagnante exportée par un entraînement (LOT-ANNEXE-07,...">Source/AiSolver/Replay/ReplayFile.h</a></span>) : structure portant <span class="tt">uint32_t
@@ -106,13 +106,13 @@ Travail à réaliser</h1>
   <a class="el" href="ReplayFile_8cpp.html">AiSolver/Replay/ReplayFile.cpp</a></span>) : sérialisation JSON (réutilise <span class="tt">nlohmann::json</span>, déjà dépendance de <span class="tt">Core</span> — aucune nouvelle dépendance introduite), <span class="tt"><a class="el" href="structReplayLoadResult.html" title="Résultat d&#39;une lecture de fichier de rejeu : soit un ReplayFile, soit une erreur décrite.">ReplayLoadResult</a></span> porte un <span class="tt">std::optional&lt;ReplayFile&gt;</span> et un message d'erreur, sur le modèle de <span class="tt"><a class="el" href="structcore_1_1LevelLoadResult.html" title="Résultat d&#39;un chargement de niveau : soit un Level, soit une erreur décrite.">core::LevelLoadResult</a></span> (jamais d'exception, erreur récupérable).</li>
 <li>Documentation du format (schéma JSON en commentaire Doxygen du <span class="tt">.h</span>), à l'image de la documentation du format JSON de niveau dans <span class="tt"><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3774"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ReplayFile_8h.html" title="Format de rejeu v2 : séquence d&#39;actions gagnante exportée par un entraînement (LOT-ANNEXE-07,...">Source/AiSolver/Replay/ReplayFile.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers, lien vers <span class="tt">nlohmann_json</span> (déjà disponible via <span class="tt">Core</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3775"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Round-trip</b> : un <span class="tt">ReplayFile</span> écrit puis relu produit une structure identique champ par champ, y compris une séquence de plusieurs milliers de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span>.</li>
@@ -121,22 +121,22 @@ Tests (obligatoires)</h1>
 <li><b>Fichier JSON malformé</b> : <span class="tt"><a class="el" href="test__replay__export_8cpp.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">readReplay</a></span> sur un contenu non-JSON ou incomplet renvoie une erreur récupérable, jamais une exception ni un plantage.</li>
 <li><b>Séquence vide</b> : un <span class="tt">ReplayFile</span> sans aucun pas (<span class="tt">steps</span> vide) est un cas valide à l'écriture/lecture (utile pour tester le format indépendamment d'un entraînement réel), sans traitement spécial requis en aval de ce lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3776"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">levelFingerprint</span> est réservé mais non vérifié par ce lot</b> : le champ existe dans le format dès cette version pour éviter une migration de fichiers déjà écrits lorsque <span class="tt">LOT-ANNEXE-17</span> ajoutera la vérification — ce lot se contente de le sérialiser/désérialiser tel quel (<span class="tt">0</span> si absent), sans jugement de validité.</li>
 <li><b><span class="tt">levelPath</span> est un chemin relatif à <span class="tt">Source/Elements/Levels</span>, jamais un chemin absolu</b> : cohérent avec la portabilité du dépôt (un chemin absolu casserait sur une autre machine) — même logique que <span class="tt">PROJECTGAMING_LEVELS_DIR</span> (<span class="tt">Source/Test/CMakeLists.txt</span>), qui recompose un chemin absolu à partir d'un chemin relatif connu.</li>
 <li><b>Aucune exception ne doit jamais traverser <span class="tt"><a class="el" href="test__replay__export_8cpp.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">readReplay</a></span>/<span class="tt">writeReplay</span></b> : erreurs de parsing JSON (<span class="tt">nlohmann::json</span>) capturées et transformées en <span class="tt"><a class="el" href="structReplayLoadResult.html" title="Résultat d&#39;une lecture de fichier de rejeu : soit un ReplayFile, soit une erreur décrite.">ReplayLoadResult</a></span> en erreur, cohérent avec la politique du projet (<span class="tt"><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></span>, catégorie « erreur récupérable ») déjà appliquée par <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3777"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">ReplayFile</span>/<span class="tt">writeReplay</span>/<span class="tt"><a class="el" href="test__replay__export_8cpp.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">readReplay</a></span> disponibles et testés (<span class="tt">ctest</span> vert), format documenté ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-008</span> déclarée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3778"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — action, espace d'action, politique déterministe ou stochastique, exploration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3779"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-008</span> (nouvelle). </p>
 </div></div><!-- contents -->

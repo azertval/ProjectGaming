@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-69-tache-03-modele-plan.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-69-plans-picturaux_2tache-03-modele-plan"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-69.html#md_Lot_2LOT-69-plans-picturaux_2epic" title="Lot/LOT-69-plans-picturaux/epic.md">LOT-69</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3274"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3280"></a>
 Contexte</h1>
 <p><span class="tt">core::Decor</span> décrit un objet posé : <span class="tt">assetName</span>, <span class="tt">position</span>, <span class="tt">scale</span>, <span class="tt">rotation</span>, <span class="tt">layer</span>, <span class="tt">manipulable</span>. Un plan n'est rien de tout cela — il couvre le niveau entier, n'a ni position ni rotation, et porte à la place une densité, des facteurs de défilement et une profondeur. C'est un type nouveau, pas une évolution de l'ancien.</p>
 <p>Le nom <span class="tt">Plane</span> est libre : le code est en anglais (<span class="tt">Decor</span>, <span class="tt">Mechanism</span>, <span class="tt">DangerLink</span>, <span class="tt">TileTextureOverride</span>), la documentation en français, et aucun symbole <span class="tt">Plane</span> n'existe dans <span class="tt">Source</span>. « Layer » est déjà pris deux fois (<span class="tt">DecorLayer</span>, <span class="tt">RenderLayer</span>) et serait ambigu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3275"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3281"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer <span class="tt"><a class="el" href="Plane_8h.html" title="Plan pictural d&#39;un niveau : image couvrant le niveau entier (EX-DEC-040, LOT-69).">Source/Core/Levels/Plane.h</a></span> — donnée <b>pure</b> (<span class="tt">EX-ARCH-011</span>), sur le patron de <span class="tt">Decor</span> : <span class="tt">fileName</span>, <span class="tt">pixelsPerUnit</span> (défaut 16), <span class="tt">parallaxX</span>/<span class="tt">parallaxY</span> (défaut 1), <span class="tt">opacity</span> (défaut 1), <span class="tt">depth</span> (<span class="tt">PlaneDepth::Behind</span>/<span class="tt">Front</span>, défaut <span class="tt">Behind</span>). L'<b>ordre du vecteur est significatif</b>, comme il l'était pour les décors.</li>
@@ -109,10 +109,10 @@ Travail à réaliser</h1>
 <li><b>Écriture</b> (<span class="tt">LevelWriter</span>) : émettre <span class="tt">"planes"</span>, omettre tout champ à sa valeur par défaut (convention du <span class="tt">LOT-67</span>), omettre <span class="tt">"parallax"</span> quand il vaut <span class="tt">true</span>, et ne <b>jamais</b> réémettre <span class="tt">"decors"</span> — charger puis enregistrer suffit donc à migrer un fichier.</li>
 <li><b>Brouillon</b> (<span class="tt">LevelDraft</span>) : <span class="tt">addPlane</span>, <span class="tt">removePlane</span>, <span class="tt">setPlaneDensity</span>, <span class="tt">setPlaneParallax</span>, <span class="tt">setPlaneOpacity</span>, <span class="tt">setPlaneDepth</span>, <span class="tt">movePlaneForward</span>/<span class="tt">Backward</span>/<span class="tt">ToFront</span>/<span class="tt">ToBack</span>, <span class="tt">setLevelParallaxEnabled</span>. Reprendre les signatures des mutateurs de décor retirés, qui renvoyaient le nouveau rang en <span class="tt">std::optional&lt;std::size_t&gt;</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3276"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3282"></a>
 Fichiers impactés</h1>
 <p><span class="tt"><a class="el" href="Plane_8h.html" title="Plan pictural d&#39;un niveau : image couvrant le niveau entier (EX-DEC-040, LOT-69).">Source/Core/Levels/Plane.h</a></span> (nouveau), <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>, <span class="tt">LevelLoader.{h,cpp}</span>, <span class="tt">LevelWriter.{h,cpp}</span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt">Source/Core/CMakeLists.txt</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3277"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3283"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__plane_8cpp.html" title="Tests unitaires du plan pictural : modèle, format et brouillon annulable (LOT-69 TACHE-03,...">test_plane.cpp</a></span> (nouveau) : valeurs par défaut, invariants du type. Regroupés dans un <b><span class="tt"><a class="el" href="test__plane_8cpp.html" title="Tests unitaires du plan pictural : modèle, format et brouillon annulable (LOT-69 TACHE-03,...">test_plane.cpp</a></span></b> unique plutôt qu'éclatés entre <span class="tt">test_level_loader</span>, <span class="tt">test_level_writer</span> et <span class="tt">test_level_draft</span> : le lecteur qui cherche « comment se comporte un plan » trouve tout au même endroit, comme <span class="tt">test_decor.cpp</span> le faisait pour les décors.</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>Round-trip complet ; champs par défaut absents du JSON ; niveau sans plan n'écrivant ni <span class="tt">"planes"</span> ni <span class="tt">"parallax"</span> ; drapeau de parallaxe survivant au round-trip.</li>
 <li>Garde-fous : densité invalide, trop de plans, plan dépassant la limite de texture — <b>et</b> le cas symétrique où la même largeur passe à une densité plus faible, pour montrer que c'est la <em>combinaison</em> qui est refusée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3278"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3284"></a>
 Écart assumé par rapport au cadrage initial</h1>
 <p>Le cadrage plaçait ici le traitement du champ obsolète <span class="tt">"decors"</span> (ignoré avec avertissement). Il a été <b>déplacé vers <span class="tt">TACHE-04</span></b> pendant l'implémentation, pour une raison qui n'apparaissait qu'une fois le code sous les yeux : le faire ici rendrait cette tâche <b>destructive</b> — les décors cesseraient d'être chargés alors que le type et son rendu existent encore, cassant les tests de décor pour les rétablir deux tâches plus loin.</p>
 <p>Séparées, les deux tâches deviennent nettes : <span class="tt">TACHE-03</span> est <b>purement additive</b> — tous les tests préexistants passent sans une seule retouche — et <span class="tt">TACHE-04</span> porte l'intégralité du retrait, y compris le sort du champ dans le format. Le comportement final est identique ; seul le découpage change.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3279"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3285"></a>
 Points d'attention</h1>
 <p>Chaque mutateur doit appeler <span class="tt">pushUndo()</span>. L'oubli n'est pas théorique : le <span class="tt">LOT-67</span> a dû corriger après coup <span class="tt">setJumpBudget</span>/<span class="tt">setDashBudget</span>, seules propriétés de niveau non annulables du brouillon. Le test « chaque mutateur est annulable » est ce qui empêche la récidive.</p>
 <p><span class="tt">pixelsPerUnit</span> est un <span class="tt">int</span> et non un <span class="tt">enum</span> : il sert <b>directement</b> au calcul des dimensions attendues (<span class="tt">width × ppu</span>), et un <span class="tt">enum</span> imposerait une table de conversion à chaque site d'appel. La contrainte <span class="tt">{4, 8, 16}</span> est validée au chargement, pas portée par le type.</p>
 <p>Le constructeur de <span class="tt">Level</span> atteindra <b>19 paramètres</b>. Aucun lot ne l'a refactoré ; celui-ci n'est pas le bon endroit, sa surface étant déjà maximale. Dette signalée, non traitée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3280"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3286"></a>
 Definition de fait (DoD)</h1>
 <p>Le format lit et écrit les plans, ignore proprement l'ancien champ, tous les niveaux livrés se chargent, chaque mutateur est annulable. <span class="tt">ctest</span> à 100 %.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3281"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3287"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-040</span>, <span class="tt">EX-DEC-041</span>, <span class="tt">EX-DEC-042</span>, <span class="tt">EX-DEC-044</span>, <span class="tt">EX-LVL-009</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-LVL-005</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

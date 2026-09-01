@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){initNavTree('test__fitness__evaluator_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de <span class="tt"><a class="el" href="#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span>/<span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a></span> (LOT-ANNEXE-10, TACHE-02).  
+<p>Tests unitaires de <span class="tt"><a class="el" href="#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span>/<span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a></span> (LOT-ANNEXE-10, TACHE-02).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
@@ -137,11 +137,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a08e0bc710addf53ab9170d92a336018f" id="r_a08e0bc710addf53ab9170d92a336018f"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a08e0bc710addf53ab9170d92a336018f">indexOf</a> (const <a class="el" href="structAction.html">Action</a> &amp;action)</td></tr>
 <tr class="memitem:ac04a455df7a8844fe27f78b4da9d4515" id="r_ac04a455df7a8844fe27f78b4da9d4515"><td class="memItemLeft">std::unique_ptr&lt; nn::Network &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac04a455df7a8844fe27f78b4da9d4515">buildNetwork</a> (const <a class="el" href="#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:ac04a455df7a8844fe27f78b4da9d4515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un <span class="tt">nn::Network</span> neuf conforme à <code class="param">topology</code>.  <br /></td></tr>
-<tr class="memitem:a36cdc2f64579d87c8dfbf7731411a986" id="r_a36cdc2f64579d87c8dfbf7731411a986"><td class="memItemLeft">FitnessEvaluation&#160;</td><td class="memItemRight"><a class="el" href="#a36cdc2f64579d87c8dfbf7731411a986">evaluateFitness</a> (<a class="el" href="classIndividual.html">Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=DEFAULT_STUCK_THRESHOLD)</td></tr>
-<tr class="memdesc:a36cdc2f64579d87c8dfbf7731411a986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise <span class="tt">environment</span> sur <span class="tt">levelPath</span>, puis joue <span class="tt">individual</span> jusqu'à fin d'épisode : à chaque pas, encode l'observation courante (<span class="tt"><a class="el" href="classObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span>), propage <span class="tt">individual.network()</span> en avant, décode l'action en <span class="tt">argmax</span> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action et cumule la récompense (<span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>).  <br /></td></tr>
+<tr class="memitem:a13cf5c76422f4f18674036fc83bbf19d" id="r_a13cf5c76422f4f18674036fc83bbf19d"><td class="memItemLeft">FitnessEvaluation&#160;</td><td class="memItemRight"><a class="el" href="#a13cf5c76422f4f18674036fc83bbf19d">evaluateFitness</a> (<a class="el" href="classIndividual.html">Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
+<tr class="memdesc:a13cf5c76422f4f18674036fc83bbf19d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise <span class="tt">environment</span> sur <span class="tt">levelPath</span>, puis joue <span class="tt">individual</span> jusqu'à fin d'épisode : à chaque pas, encode l'observation courante (<span class="tt"><a class="el" href="classObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span>), propage <span class="tt">individual.network()</span> en avant, décode l'action en <span class="tt">argmax</span> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action et cumule la récompense (<span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de <span class="tt"><a class="el" href="#a36cdc2f64579d87c8dfbf7731411a986" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span>/<span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a></span> (LOT-ANNEXE-10, TACHE-02). </p>
+<div class="textblock"><p>Tests unitaires de <span class="tt"><a class="el" href="#a13cf5c76422f4f18674036fc83bbf19d" title="Réinitialise environment sur levelPath, puis joue individual jusqu&#39;à fin d&#39;épisode : à chaque pas,...">evaluateFitness</a></span>/<span class="tt"><a class="el" href="classPopulation.html#a10ed6aa6042d5725aab3cef32dd162c0" title="Évalue tous les individus, séquentiellement, sur la même instance d&#39;environnement.">Population::evaluateAll</a></span> (LOT-ANNEXE-10, TACHE-02). </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="aff53901ca4ce748a056cddca71b02c6c" name="aff53901ca4ce748a056cddca71b02c6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff53901ca4ce748a056cddca71b02c6c">&#9670;&#160;</a></span>NetworkTopology</h2>
@@ -249,8 +249,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a36cdc2f64579d87c8dfbf7731411a986" name="a36cdc2f64579d87c8dfbf7731411a986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36cdc2f64579d87c8dfbf7731411a986">&#9670;&#160;</a></span>evaluateFitness()</h2>
+<a id="a13cf5c76422f4f18674036fc83bbf19d" name="a13cf5c76422f4f18674036fc83bbf19d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cf5c76422f4f18674036fc83bbf19d">&#9670;&#160;</a></span>evaluateFitness()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,7 +259,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FitnessEvaluation <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a36cdc2f64579d87c8dfbf7731411a986">aisolver::training::evolutionary::evaluateFitness</a> </td>
+          <td class="memname">FitnessEvaluation <a class="el" href="namespaceaisolver_1_1training_1_1evolutionary.html#a13cf5c76422f4f18674036fc83bbf19d">aisolver::training::evolutionary::evaluateFitness</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classIndividual.html">Individual</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>individual</em></span>, </td>
         </tr>
@@ -271,12 +271,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span><span class="paramdefsep"> = </span><span class="paramdefval">DEFAULT_STUCK_THRESHOLD</span>&#160;)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -292,7 +287,6 @@ Functions</h2></td></tr>
     <tr><td class="paramname">individual</td><td>Individu évalué ; <span class="tt">fitness</span> mis à jour en sortie. </td></tr>
     <tr><td class="paramname">environment</td><td>Environnement réutilisé, réinitialisé en tout premier (aucun état ne fuit d'un appel au suivant). </td></tr>
     <tr><td class="paramname">levelPath</td><td>Niveau à charger (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>). </td></tr>
-    <tr><td class="paramname">stuckThreshold</td><td>Seuil de blocage transmis à <span class="tt">classifyEpisode</span> (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>). </td></tr>
   </table>
   </dd>
 </dl>

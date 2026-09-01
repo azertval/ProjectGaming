@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -123,7 +123,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a1be7bc369c822e38bffe71a2b082f1f7" id="r_a1be7bc369c822e38bffe71a2b082f1f7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1be7bc369c822e38bffe71a2b082f1f7">TEST</a> (CliCommandsTest, RunTrainRejetteUnNiveauIntrouvable)</td></tr>
 <tr class="memdesc:a1be7bc369c822e38bffe71a2b082f1f7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">runTrain</a></span> rejette un chemin de niveau introuvable sans planter.  <br /></td></tr>
 <tr class="memitem:a44de292aba634acdf719ce20a995075a" id="r_a44de292aba634acdf719ce20a995075a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a44de292aba634acdf719ce20a995075a">TEST</a> (CliCommandsTest, RunEvaluateCoherentAvecUnAppelDirectAuHarnais)</td></tr>
-<tr class="memdesc:a44de292aba634acdf719ce20a995075a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> produit un taux de reussite numeriquement identique a un appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> dans les memes conditions.  <br /></td></tr>
+<tr class="memdesc:a44de292aba634acdf719ce20a995075a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> produit un taux de reussite numeriquement identique a un appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> dans les memes conditions.  <br /></td></tr>
 <tr class="memitem:a13da574bbbc4f4520389d60d9110ac2d" id="r_a13da574bbbc4f4520389d60d9110ac2d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a13da574bbbc4f4520389d60d9110ac2d">TEST</a> (CliCommandsTest, RunExportReplayProduitUnRejeuValide)</td></tr>
 <tr class="memdesc:a13da574bbbc4f4520389d60d9110ac2d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2f05de45dc35c051e33b5550793ed293" title="Exécute export-replay : charge le modèle, le rejoue en mode Argmax et écrit un fichier de rejeu.">runExportReplay</a></span> produit un fichier de rejeu valide pour un modele entraine.  <br /></td></tr>
 </table>
@@ -149,14 +149,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> produit un taux de reussite numeriquement identique a un appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> dans les memes conditions. </p>
+<p><span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> produit un taux de reussite numeriquement identique a un appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> dans les memes conditions. </p>
 <p><b>Cas de test :</b> <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> vs appel direct -&gt; resultat identique.<br  />
  <b>Categorie :</b> Integration · AiSolver Cli<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Entrainement <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">runTrain</a></span> (<span class="tt">evo</span>) pour obtenir un modele.<br  />
 2. <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a96fcc0165b6691ab9a7bce381a780f64" title="Exécute evaluate : charge le modèle, l&#39;exécute via BenchmarkRunner::run, affiche le résultat sur stdo...">runEvaluate</a></span> sur ce modele, taux de reussite capture sur <span class="tt">stdout</span>.<br  />
-3. Appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> avec les memes repetitions/mode de decodage.<br  />
+3. Appel direct a <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> avec les memes repetitions/mode de decodage.<br  />
  <b>Resultat attendu :</b> Les deux taux de reussite sont strictement egaux (<span class="tt">EXPECT_DOUBLE_EQ</span>). </p>
 
 </div>

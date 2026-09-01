@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-annexe-14-tache-01-decision-ppo-dqn.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2tache-01-decision-ppo-dqn"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-14.html#md_Lot-Annexe_2LOT-ANNEXE-14-algorithme-avance_2epic" title="Lot-Annexe/LOT-ANNEXE-14-algorithme-avance/epic.md">LOT-ANNEXE-14</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Advanced</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4040"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4077"></a>
 Contexte</h1>
 <p>C'est la tâche charnière du lot : contrairement aux tâches habituelles, elle <b>commence</b> par une décision de cadrage — laquelle des deux familles d'algorithmes (PPO ou DQN) implémenter — avant de pouvoir écrire la moindre ligne de code. Cette décision n'est <b>pas prise dans l'épic</b> : elle appartient à l'ouverture de cette tâche, sur la base des résultats chiffrés de LOT-ANNEXE-13 (TACHE-04, comparaison REINFORCE vs acteur-critique). Les deux sous-sections ci-dessous décrivent concrètement le travail attendu pour <b>chaque</b> option, afin que la décision, une fois prise, dispose immédiatement d'un plan de travail détaillé sans nouvelle phase d'analyse.</p>
 <p><b>Avant d'écrire du code</b> : relire le résultat consigné dans <span class="tt"><a class="el" href="Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2epic_8md.html">Documentation/Lot-Annexe/LOT-ANNEXE-13-acteur-critique/epic.md</a></span> (critère d'acceptation 3) et trancher explicitement selon les deux critères de la décision de cadrage de cet épic (instabilité persistante → PPO ; convergence lente mais stable, espace d'action discret favorable → DQN). Documenter le choix retenu et sa justification en tête de ce fichier (ou dans une sous-section « Décision retenue ») avant de retirer la sous-section non choisie.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4041"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4078"></a>
 Travail à réaliser (si PPO)</h1>
 <ul>
 <li><b><span class="tt">aisolver::training::PpoTrainer</span></b> (<span class="tt">Source/AiSolver/Training/Advanced/PpoTrainer.h/.cpp</span>) : étend la boucle d'acteur-critique de LOT-ANNEXE-13 — collecte un <b>batch</b> de plusieurs trajectoires (pas une seule par mise à jour, contrairement à LOT-ANNEXE-12/13) avant chaque mise à jour de politique.</li>
@@ -107,7 +107,7 @@ Travail à réaliser (si PPO)</h1>
 <li><b>Plusieurs époques d'optimisation par batch</b> : la boucle réoptimise la politique (et le critique, réutilisé de LOT-ANNEXE-13 sans changement de nature) un nombre configurable de fois (ex. 3 à 10) sur le <b>même</b> batch de trajectoires collecté, avant de recollecter un nouveau batch — c'est la différence structurante avec LOT-ANNEXE-12/13 (une seule passe par trajectoire).</li>
 <li>Réutilise <span class="tt"><a class="el" href="classCriticNetwork.html" title="Réseau distinct de la politique (nn::Network, LOT-ANNEXE-03), même bibliothèque de couches,...">CriticNetwork</a></span>, <span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span> et <span class="tt"><a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span> de LOT-ANNEXE-13 sans modification pour la partie critique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4042"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4079"></a>
 Travail à réaliser (si DQN)</h1>
 <ul>
 <li><b><span class="tt">aisolver::nn::QNetwork</span></b> (<span class="tt">Source/AiSolver/Training/Advanced/QNetwork.h/.cpp</span>) : réseau construit avec la bibliothèque de LOT-ANNEXE-03, une sortie par action de l'espace discret de LOT-ANNEXE-07 (<span class="tt">Q(s, ·)</span>, vecteur de valeurs d'action plutôt qu'une distribution de probabilité ou un scalaire unique).</li>
@@ -118,20 +118,20 @@ Travail à réaliser (si DQN)</h1>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">aisolver::training::computeDqnLoss</a></span></b> (<span class="tt">Source/AiSolver/Training/Advanced/DqnLoss.h/.cpp</span>) : erreur quadratique entre <span class="tt">Q(s_t, a_t)</span> (réseau principal, nœud de graphe d'autodiff) et la cible de Bellman <span class="tt">reward_t + gamma × max_a Q_cible(s_{t+1}, a)</span> (réseau cible, valeur détachée du graphe — jamais rétropropagée), sur un mini-lot échantillonné du <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>.</li>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1DqnTrainer.html" title="Assemble QNetwork (principal + cible), ReplayBuffer, computeDqnLoss et un optimiseur (optim::IOptimiz...">aisolver::training::DqnTrainer</a></span></b> (<span class="tt">Source/AiSolver/Training/Advanced/DqnTrainer.h/.cpp</span>) : boucle qui joue des pas sur <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (action <span class="tt">ε</span>-greedy), pousse chaque transition dans le <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span>, tire un mini-lot et applique <span class="tt"><a class="el" href="test__dqn__loss_8cpp.html#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">computeDqnLoss</a></span> + <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> + <span class="tt">step()</span> (LOT-ANNEXE-04) à intervalle régulier, synchronise le réseau cible périodiquement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4043"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4080"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Selon l'option retenue, un sous-ensemble de : <span class="tt">Source/AiSolver/Training/Advanced/PpoTrainer.h/.cpp</span>, <span class="tt">PpoLoss.h/.cpp</span>, <span class="tt"><a class="el" href="QNetwork_8h.html" title="Réseau de valeur d&#39;action Q(s, ·) (LOT-ANNEXE-14, TACHE-01, EX-IA-015).">QNetwork.h</a>/.cpp</span>, <span class="tt"><a class="el" href="ReplayBuffer_8h.html" title="Mémoire de rejeu de transitions (LOT-ANNEXE-14, TACHE-01, EX-IA-015).">ReplayBuffer.h</a>/.cpp</span>, <span class="tt"><a class="el" href="DqnLoss_8h.html" title="Perte de Bellman (erreur quadratique) de DQN (LOT-ANNEXE-14, TACHE-01, EX-IA-015).">DqnLoss.h</a>/.cpp</span>, <span class="tt"><a class="el" href="DqnTrainer_8h.html" title="Boucle d&#39;entraînement DQN par pas, intégrée au harnais existant (LOT-ANNEXE-14, TACHE-01/TACHE-02,...">DqnTrainer.h</a>/.cpp</span>.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 <li>Ce fichier lui-même : sous-section retenue conservée et complétée, sous-section non retenue supprimée une fois la décision actée, décision et justification documentées en tête de fichier.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4044"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4081"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Si PPO</b> : le ratio de probabilité est correctement borné après clipping (test direct sur des valeurs synthétiques de log-probabilités ancienne/nouvelle) ; gradient checking de <span class="tt">computePpoClippedLoss</span> ; plusieurs époques d'optimisation sur un même batch font effectivement varier les poids à chaque époque (pas une seule mise à jour déguisée).</li>
 <li><b>Si DQN</b> : le <span class="tt"><a class="el" href="classReplayBuffer.html" title="Mémoire circulaire de capacité fixe : au-delà de sa capacité, chaque push évince la transition la plu...">ReplayBuffer</a></span> respecte sa capacité (les transitions les plus anciennes sont évincées au-delà) et son échantillonnage couvre l'ensemble du buffer sur un grand nombre de tirages (pas de biais vers les transitions les plus récentes) ; le réseau cible reste rigoureusement figé entre deux synchronisations (ses poids ne changent pas alors que le réseau principal change) ; gradient checking de <span class="tt"><a class="el" href="test__dqn__loss_8cpp.html#a182940e411c5c7c01ec3f01bca030580" title="Erreur quadratique moyenne, sur un mini-lot, entre Q(s_t, a_t) (réseau principal, nœud de graphe d&#39;au...">computeDqnLoss</a></span> (uniquement par rapport aux poids du réseau <b>principal</b>, la cible étant détachée) ; <span class="tt">ε</span> décroît bien selon le calendrier configuré.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4045"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4082"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas implémenter les deux options</b> : trancher avant d'écrire du code de production, retirer la sous-section non retenue de ce fichier une fois la décision prise et justifiée.</li>
@@ -139,15 +139,15 @@ Points d'attention</h1>
 <li><b>Si PPO</b> : un <span class="tt">clip_epsilon</span> mal calibré (trop petit) peut geler l'apprentissage (le ratio est presque toujours saturé) ; trop grand, il annule l'effet stabilisateur recherché — documenter la valeur retenue et la raison de son choix.</li>
 <li>Quel que soit le choix, l'espace d'action reste celui déjà défini par LOT-ANNEXE-07 : ce lot ne le modifie pas, il change uniquement la façon dont une politique/valeur est apprise sur cet espace.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4046"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4083"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Décision PPO/DQN documentée et justifiée par les résultats de LOT-ANNEXE-13 ; algorithme retenu implémenté et testé (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4047"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4084"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-ppo-dqn.html" title="PPO et DQN">PPO et DQN</a> — PPO (limitation du pas par <em>clipping</em>) et DQN (valeur d'action, rejeu d'expérience, réseau cible).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4048"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4085"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-015</span> (nouvelle, couverte par le lot). </p>
 </div></div><!-- contents -->

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(function(){initNavTree('guide-annexe-optimisation.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Guide-Annexe_2guide-annexe-optimisation"></a></p>
 <p><b>Lot concerné :</b> <a class="el" href="lot-annexe-04.html" title="LOT-ANNEXE-04 — Optimiseurs maison">LOT-ANNEXE-04</a> (optimiseurs maison). <b>Prérequis :</b> <a class="el" href="guide-annexe-autodiff.html" title="Différentiation automatique et rétropropagation">Autodiff</a> (le gradient, calculé par <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>, est l'ingrédient que ce chapitre transforme en mise à jour de poids).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md327"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md332"></a>
 Pourquoi ce chapitre</h1>
 <p>Le chapitre <a class="el" href="guide-annexe-autodiff.html" title="Différentiation automatique et rétropropagation">Autodiff</a> explique comment calculer un gradient — pour chaque poids, la direction et l'intensité dans lesquelles la perte varierait si ce poids changeait. Mais connaître un gradient ne suffit pas : il faut décider <b>comment</b> l'utiliser pour effectivement changer les poids et réduire la perte. C'est le rôle d'un <b>optimiseur</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md328"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md333"></a>
 1. L'intuition : descendre une pente</h1>
 <p>Imaginons la perte comme une <b>altitude</b> dans un paysage dont les coordonnées sont les poids du réseau — l'entraînement cherche le point le plus bas (la perte minimale). Le gradient indique, en chaque point, la direction de la <b>montée la plus raide</b> — pour descendre, il faut donc avancer dans la direction <b>opposée</b> au gradient. C'est exactement la règle de la <b>descente de gradient</b> (<em>gradient descent</em>) :</p>
 <div class="fragment"><div class="line">poids ← poids - tauxApprentissage × gradient</div>
@@ -106,14 +106,14 @@ Pourquoi ce chapitre</h1>
 <li><b>Trop petit</b> : la convergence est très lente (des milliers d'itérations pour un progrès minime).</li>
 </ul>
 <p>Il n'existe pas de valeur universellement bonne — c'est un paramètre d'expérience, ajusté par essai/erreur (ou, comme le montre §3, en partie automatisé par des optimiseurs plus sophistiqués).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md329"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md334"></a>
 2. Descente de gradient stochastique (SGD) et inertie</h1>
 <p>« Stochastique » (SGD, <em>Stochastic Gradient Descent</em>) fait référence au fait qu'en apprentissage profond, le gradient est en général calculé sur un <b>échantillon</b> des données (un exemple, ou un petit lot) plutôt que sur toutes les données à la fois — dans le programme Lot-Annexe, cela correspond à calculer le gradient sur un seul épisode de jeu à la fois (voir <a class="el" href="guide-annexe-reinforce.html" title="Policy gradient et REINFORCE">REINFORCE</a>). Le gradient ainsi obtenu est un peu <b>bruité</b> (il varie d'un échantillon à l'autre), ce qui peut faire « zigzaguer » la descente.</p>
 <p>L'<b>inertie</b> (<em>momentum</em>) atténue ce zigzag par une analogie physique : au lieu de sauter directement dans la direction du gradient courant, on accumule une <b>vitesse</b> qui garde la mémoire des directions précédentes :</p>
 <div class="fragment"><div class="line">vitesse ← momentum × vitesse - tauxApprentissage × gradient</div>
 <div class="line">poids ← poids + vitesse</div>
 </div><!-- fragment --><p><span class="tt">momentum</span> (typiquement <span class="tt">0.9</span>) contrôle combien de la vitesse précédente est conservée. Intuition : comme une bille qui roule dans une vallée — elle continue un peu sur sa lancée même quand la pente locale change légèrement de direction, ce qui lisse la trajectoire et peut accélérer la convergence dans une direction constante.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md335"></a>
 3. Adam : un taux d'apprentissage qui s'adapte</h1>
 <p>SGD (avec ou sans inertie) utilise le <b>même</b> taux d'apprentissage pour tous les poids, à tout moment de l'entraînement. <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a> (<em>Adaptive Moment Estimation</em>) ajuste ce taux <b>automatiquement</b>, poids par poids, en maintenant deux moyennes mobiles :</p>
 <ul>
@@ -126,10 +126,10 @@ Pourquoi ce chapitre</h1>
 <div class="line">poids ← poids - tauxApprentissage × m / (√v + ε)</div>
 </div><!-- fragment --><p>(<span class="tt">β₁ ≈ 0.9</span>, <span class="tt">β₂ ≈ 0.999</span>, <span class="tt">ε</span> un petit nombre pour éviter une division par zéro — voir <span class="tt">LOT-ANNEXE-04</span>, TACHE-02 pour les valeurs par défaut exactes et la correction de biais nécessaire au tout début de l'entraînement, quand <span class="tt">m</span>/<span class="tt">v</span> n'ont pas encore eu le temps de « se remplir »).</p>
 <p><b>Intuition de la division par <span class="tt">√v</span></b> : si un poids a récemment reçu de <b>grands</b> gradients (<span class="tt">v</span> grand), son pas effectif est <b>réduit</b> (on avance prudemment, la direction est peut-être instable) ; s'il a reçu de <b>petits</b> gradients (<span class="tt">v</span> petit), son pas effectif est <b>augmenté</b> (on peut se permettre d'avancer plus vite, la pente est douce). Ce comportement adaptatif rend <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a> nettement moins sensible au choix exact du taux d'apprentissage que SGD — l'une des raisons de sa popularité en pratique, et pourquoi <span class="tt">LOT-ANNEXE-04</span> le retient comme second optimiseur, aux côtés de SGD comme référence la plus simple.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md336"></a>
 4. Pourquoi tester la convergence sur des fonctions jouets avant tout usage réel</h1>
 <p>L'apprentissage par renforcement (générations 2/3 du programme) est un contexte où un entraînement peut échouer à progresser pour de multiples raisons à la fois — mauvaise récompense, mauvais réseau, mauvais optimiseur, tout en même temps. Pour isoler la responsabilité de l'optimiseur, <span class="tt">LOT-ANNEXE-04</span> (TACHE-03) le teste d'abord sur des problèmes <b>triviaux et connus</b> (une quadratique à minimum unique, une régression polynomiale à coefficients connus) — un optimiseur qui échoue déjà sur un problème aussi simple ne doit jamais être laissé entraîner un agent de jeu, où l'échec serait indiscernable du bruit inhérent à l'apprentissage par renforcement lui-même.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md337"></a>
 Sources</h1>
 <ul>
 <li>Robbins, H., Monro, S. (1951). <em>A Stochastic Approximation Method</em>. Annals of Mathematical Statistics 22(3), 400–407. — origine mathématique de l'approximation stochastique, fondement théorique de la descente de gradient stochastique.</li>

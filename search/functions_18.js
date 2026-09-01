@@ -23,8 +23,9 @@ var searchData=
   ['_7epixelpalettepanel_20',['~PixelPalettePanel',['../classhmi_1_1PixelPalettePanel.html#a52d40f7b00ff6084d50f0780b1f3edbe',1,'hmi::PixelPalettePanel']]],
   ['_7eplanespanel_21',['~PlanesPanel',['../classhmi_1_1PlanesPanel.html#aa0070b1f44bf8aaeb7ea7113f5b24e7d',1,'hmi::PlanesPanel']]],
   ['_7epropertiespanel_22',['~PropertiesPanel',['../classhmi_1_1PropertiesPanel.html#a02ee375a2d6f4c326a51d194913183eb',1,'hmi::PropertiesPanel']]],
-  ['_7espritebatch_23',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#a8beb3b957f3cccf4960939d0b203c5fb',1,'hmi::SpriteBatch']]],
-  ['_7etexturepanel_24',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]],
-  ['_7etrainedpolicy_25',['~TrainedPolicy',['../classaisolver_1_1eval_1_1TrainedPolicy.html#a095199304d235723c850417219d435b9',1,'aisolver::eval::TrainedPolicy::~TrainedPolicy()'],['../classTrainedPolicy.html#a095199304d235723c850417219d435b9',1,'TrainedPolicy::~TrainedPolicy()']]],
-  ['_7etrivialleveldirectory_26',['~TrivialLevelDirectory',['../classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386',1,'aisolver_test::TrivialLevelDirectory::~TrivialLevelDirectory()'],['../classTrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386',1,'TrivialLevelDirectory::~TrivialLevelDirectory()']]]
+  ['_7escopedloglevel_23',['~ScopedLogLevel',['../classcore_1_1ScopedLogLevel.html#a5eef4059dd4d37f99de622b55d6e854c',1,'core::ScopedLogLevel']]],
+  ['_7espritebatch_24',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#a8beb3b957f3cccf4960939d0b203c5fb',1,'hmi::SpriteBatch']]],
+  ['_7etexturepanel_25',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]],
+  ['_7etrainedpolicy_26',['~TrainedPolicy',['../classaisolver_1_1eval_1_1TrainedPolicy.html#a095199304d235723c850417219d435b9',1,'aisolver::eval::TrainedPolicy::~TrainedPolicy()'],['../classTrainedPolicy.html#a095199304d235723c850417219d435b9',1,'TrainedPolicy::~TrainedPolicy()']]],
+  ['_7etrivialleveldirectory_27',['~TrivialLevelDirectory',['../classaisolver__test_1_1TrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386',1,'aisolver_test::TrivialLevelDirectory::~TrivialLevelDirectory()'],['../classTrivialLevelDirectory.html#a7d8a20ac9b469d9459a472e1caab1386',1,'TrivialLevelDirectory::~TrivialLevelDirectory()']]]
 ];

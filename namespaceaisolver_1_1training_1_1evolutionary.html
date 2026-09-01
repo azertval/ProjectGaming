@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -115,12 +115,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a36cdc2f64579d87c8dfbf7731411a986" id="r_a36cdc2f64579d87c8dfbf7731411a986"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1evolutionary_1_1FitnessEvaluation.html">FitnessEvaluation</a>&#160;</td><td class="memItemRight"><a class="el" href="#a36cdc2f64579d87c8dfbf7731411a986">evaluateFitness</a> (<a class="el" href="classIndividual.html">Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath, int stuckThreshold=<a class="el" href="#aa31c6abaffe4f7606b29a4b4e203dbee">DEFAULT_STUCK_THRESHOLD</a>)</td></tr>
-<tr class="memdesc:a36cdc2f64579d87c8dfbf7731411a986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise <span class="tt">environment</span> sur <span class="tt">levelPath</span>, puis joue <span class="tt">individual</span> jusqu'à fin d'épisode : à chaque pas, encode l'observation courante (<span class="tt"><a class="el" href="classaisolver_1_1ObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span>), propage <span class="tt">individual.network()</span> en avant, décode l'action en <span class="tt">argmax</span> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action et cumule la récompense (<span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>).  <br /></td></tr>
+<tr class="memitem:a13cf5c76422f4f18674036fc83bbf19d" id="r_a13cf5c76422f4f18674036fc83bbf19d"><td class="memItemLeft"><a class="el" href="structaisolver_1_1training_1_1evolutionary_1_1FitnessEvaluation.html">FitnessEvaluation</a>&#160;</td><td class="memItemRight"><a class="el" href="#a13cf5c76422f4f18674036fc83bbf19d">evaluateFitness</a> (<a class="el" href="classIndividual.html">Individual</a> &amp;individual, <a class="el" href="classHeadlessLevelEnvironment.html">HeadlessLevelEnvironment</a> &amp;environment, const std::filesystem::path &amp;levelPath)</td></tr>
+<tr class="memdesc:a13cf5c76422f4f18674036fc83bbf19d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réinitialise <span class="tt">environment</span> sur <span class="tt">levelPath</span>, puis joue <span class="tt">individual</span> jusqu'à fin d'épisode : à chaque pas, encode l'observation courante (<span class="tt"><a class="el" href="classaisolver_1_1ObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">ObservationEncoder</a></span>), propage <span class="tt">individual.network()</span> en avant, décode l'action en <span class="tt">argmax</span> (jamais d'échantillonnage stochastique — décision de cadrage de l'épic), applique l'action et cumule la récompense (<span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>).  <br /></td></tr>
 <tr class="memitem:a23857a7b7fb86998bd3fb44951c58375" id="r_a23857a7b7fb86998bd3fb44951c58375"><td class="memItemLeft">const <a class="el" href="classIndividual.html">Individual</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a23857a7b7fb86998bd3fb44951c58375">selectParent</a> (const <a class="el" href="classPopulation.html">Population</a> &amp;population, const <a class="el" href="structEvolutionaryConfig.html">EvolutionaryConfig</a> &amp;config, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:a23857a7b7fb86998bd3fb44951c58375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection par tournoi : tire <span class="tt">config.tournamentSize</span> individus au hasard (avec remise) via <code class="param">rng</code>, retient celui de fitness maximal du groupe.  <br /></td></tr>
-<tr class="memitem:a43db92345513e57fb022398fc45015c9" id="r_a43db92345513e57fb022398fc45015c9"><td class="memItemLeft"><a class="el" href="classIndividual.html">Individual</a>&#160;</td><td class="memItemRight"><a class="el" href="#a43db92345513e57fb022398fc45015c9">crossover</a> (const <a class="el" href="classIndividual.html">Individual</a> &amp;parentA, const <a class="el" href="classIndividual.html">Individual</a> &amp;parentB, const <a class="el" href="#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
-<tr class="memdesc:a43db92345513e57fb022398fc45015c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Croisement par moyenne : le réseau enfant a, pour chaque poids, la moyenne des poids correspondants des deux parents (moyenne élément par élément des <span class="tt"><a class="el" href="classaisolver_1_1Tensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> de poids).  <br /></td></tr>
+<tr class="memitem:a07a87051339a5979c2a78c7a83637ead" id="r_a07a87051339a5979c2a78c7a83637ead"><td class="memItemLeft"><a class="el" href="classIndividual.html">Individual</a>&#160;</td><td class="memItemRight"><a class="el" href="#a07a87051339a5979c2a78c7a83637ead">crossover</a> (const <a class="el" href="classIndividual.html">Individual</a> &amp;parentA, const <a class="el" href="classIndividual.html">Individual</a> &amp;parentB, const <a class="el" href="#aff53901ca4ce748a056cddca71b02c6c">NetworkTopology</a> &amp;topology, const <a class="el" href="structEvolutionaryConfig.html">EvolutionaryConfig</a> &amp;config, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
+<tr class="memdesc:a07a87051339a5979c2a78c7a83637ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Croisement <b>uniforme</b> : chaque poids de l'enfant est repris, à pile ou face, de l'un ou l'autre parent.  <br /></td></tr>
 <tr class="memitem:aa6af6120d2cf15a72243ac398bf8bea0" id="r_aa6af6120d2cf15a72243ac398bf8bea0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6af6120d2cf15a72243ac398bf8bea0">mutate</a> (<a class="el" href="classIndividual.html">Individual</a> &amp;individual, const <a class="el" href="structEvolutionaryConfig.html">EvolutionaryConfig</a> &amp;config, <a class="el" href="classRng.html">Rng</a> &amp;rng)</td></tr>
 <tr class="memdesc:aa6af6120d2cf15a72243ac398bf8bea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutation en place : pour chaque poids du réseau, avec probabilité <span class="tt">config.mutationRate</span>, ajoute un bruit gaussien <span class="tt"><a class="el" href="classaisolver_1_1Rng.html#ac018c3c4ba800358b718e25f7a5d6cd5" title="Tirage gaussien (transformation de Box-Muller).">Rng::nextGaussian</a>(0, config.mutationStrength)</span>.  <br /></td></tr>
 <tr class="memitem:acfe23de9ebc1d58afbf31f097a56cf13" id="r_acfe23de9ebc1d58afbf31f097a56cf13"><td class="memItemLeft">const <a class="el" href="classIndividual.html">Individual</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acfe23de9ebc1d58afbf31f097a56cf13">bestIndividual</a> (const <a class="el" href="classPopulation.html">Population</a> &amp;population)</td></tr>
@@ -140,11 +140,11 @@ Variables</h2></td></tr>
 <tr class="memdesc:afcda4bda9b780b3c847f0dd9ec94252d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilité, par poids, qu'une mutation gaussienne soit appliquée.  <br /></td></tr>
 <tr class="memitem:a14231825c2265c9bd488192d8c3b3b2a" id="r_a14231825c2265c9bd488192d8c3b3b2a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a14231825c2265c9bd488192d8c3b3b2a">DEFAULT_MUTATION_STRENGTH</a> = 0.1f</td></tr>
 <tr class="memdesc:a14231825c2265c9bd488192d8c3b3b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écart-type du bruit gaussien ajouté à un poids muté.  <br /></td></tr>
-<tr class="memitem:aa31c6abaffe4f7606b29a4b4e203dbee" id="r_aa31c6abaffe4f7606b29a4b4e203dbee"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa31c6abaffe4f7606b29a4b4e203dbee">DEFAULT_STUCK_THRESHOLD</a> = 200</td></tr>
-<tr class="memdesc:aa31c6abaffe4f7606b29a4b4e203dbee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pas consécutifs sans amélioration de la meilleure distance atteinte au-delà duquel un épisode est jugé bloqué (<span class="tt"><a class="el" href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102">EpisodeStatus::Stuck</a></span>) : nettement inférieur au budget dur de <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset (même valeur par défaut que playLevel() dans Source...">EnvironmentConfig::maxSteps</a></span>, <span class="tt">3000</span> par défaut) pour que l'évaluation d'une politique aléatoire ou immobile reste rapide (des milliers d'évaluations par entraînement).  <br /></td></tr>
+<tr class="memitem:a6985d89754fa89b5f47fb7e36907276f" id="r_a6985d89754fa89b5f47fb7e36907276f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a6985d89754fa89b5f47fb7e36907276f">DEFAULT_CROSSOVER_RATE</a> = 0.7f</td></tr>
+<tr class="memdesc:a6985d89754fa89b5f47fb7e36907276f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilité qu'un enfant soit issu d'un croisement plutôt que d'une copie du premier parent.  <br /></td></tr>
 <tr class="memitem:abfefeda8c7d6844d92c1ea7be687792f" id="r_abfefeda8c7d6844d92c1ea7be687792f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#abfefeda8c7d6844d92c1ea7be687792f">UNEVALUATED_FITNESS</a> = -std::numeric_limits&lt;float&gt;::infinity()</td></tr>
 <tr class="memdesc:abfefeda8c7d6844d92c1ea7be687792f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fitness d'un individu jamais encore évalué : distinct de toute valeur atteignable par <span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span> (<span class="tt">LOT-ANNEXE-08</span>), qui ne produit jamais <span class="tt">-infini</span>.  <br /></td></tr>
-<tr class="memitem:a968451bde43bec9fcb231a8a165384ff" id="r_a968451bde43bec9fcb231a8a165384ff"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a968451bde43bec9fcb231a8a165384ff">DEFAULT_HIDDEN_SIZE</a> = 16</td></tr>
+<tr class="memitem:a968451bde43bec9fcb231a8a165384ff" id="r_a968451bde43bec9fcb231a8a165384ff"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a968451bde43bec9fcb231a8a165384ff">DEFAULT_HIDDEN_SIZE</a> = 64</td></tr>
 <tr class="memdesc:a968451bde43bec9fcb231a8a165384ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille de la couche cachée par défaut de <span class="tt"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2" title="Topologie standard « politique » du programme Lot-Annexe : une couche cachée tanh,...">policyTopology</a></span> : compromis capacité/coût de propagation avant pour une politique évaluée des milliers de fois par entraînement.  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
@@ -231,8 +231,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a43db92345513e57fb022398fc45015c9" name="a43db92345513e57fb022398fc45015c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43db92345513e57fb022398fc45015c9">&#9670;&#160;</a></span>crossover()</h2>
+<a id="a07a87051339a5979c2a78c7a83637ead" name="a07a87051339a5979c2a78c7a83637ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a87051339a5979c2a78c7a83637ead">&#9670;&#160;</a></span>crossover()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,6 +258,11 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="structEvolutionaryConfig.html">EvolutionaryConfig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classRng.html">Rng</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rng</em></span>&#160;)</td>
         </tr>
       </table>
@@ -268,13 +273,15 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Croisement par moyenne : le réseau enfant a, pour chaque poids, la moyenne des poids correspondants des deux parents (moyenne élément par élément des <span class="tt"><a class="el" href="classaisolver_1_1Tensor.html" title="Conteneur numérique N-dimensionnel à forme et stride explicites.">Tensor</a></span> de poids). </p>
-<p>Déterministe une fois les deux parents choisis : <code class="param">rng</code> n'intervient jamais dans le calcul de la moyenne, seulement pour matérialiser le réseau enfant via <span class="tt"><a class="el" href="#ac04a455df7a8844fe27f78b4da9d4515" title="Construit un nn::Network neuf conforme à topology.">buildNetwork</a></span>, dont les poids sont immédiatement écrasés par la moyenne — conservé en paramètre pour une éventuelle variante future (hors périmètre ici). Écart assumé à la signature de l'épic : <span class="tt">topology</span> est ajouté en paramètre parce qu'un <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span> n'est pas introspectable après construction — la topologie doit être fournie explicitement. </p>
+<p>Croisement <b>uniforme</b> : chaque poids de l'enfant est repris, à pile ou face, de l'un ou l'autre parent. </p>
+<p>Pas une moyenne. Moyenner deux réseaux ne combine pas ce qu'ils ont trouvé : les neurones cachés n'ont aucune raison de se correspondre d'un réseau à l'autre, et la moyenne de deux solutions également bonnes est ordinairement moins bonne que chacune. Un tirage par poids conserve au moins des valeurs qui ont réellement fonctionné quelque part, au lieu d'en fabriquer une troisième qui n'a fonctionné nulle part.</p>
+<p>Avec probabilité <span class="tt">1 - config.crossoverRate</span>, aucun croisement n'a lieu : l'enfant copie <code class="param">parentA</code> tel quel, et seule la mutation le fera diverger — c'est le seul chemin par lequel une trouvaille survit intacte d'une génération à l'autre en dehors de l'unique élite.</p>
+<p>Écart assumé à la signature de l'épic : <span class="tt">topology</span> est ajouté en paramètre parce qu'un <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Network.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">nn::Network</a></span> n'est pas introspectable après construction — la topologie doit être fournie explicitement. </p>
 
 </div>
 </div>
-<a id="a36cdc2f64579d87c8dfbf7731411a986" name="a36cdc2f64579d87c8dfbf7731411a986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36cdc2f64579d87c8dfbf7731411a986">&#9670;&#160;</a></span>evaluateFitness()</h2>
+<a id="a13cf5c76422f4f18674036fc83bbf19d" name="a13cf5c76422f4f18674036fc83bbf19d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cf5c76422f4f18674036fc83bbf19d">&#9670;&#160;</a></span>evaluateFitness()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,12 +302,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stuckThreshold</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#aa31c6abaffe4f7606b29a4b4e203dbee">DEFAULT_STUCK_THRESHOLD</a></span>&#160;)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>levelPath</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -316,7 +318,6 @@ Variables</h2></td></tr>
     <tr><td class="paramname">individual</td><td>Individu évalué ; <span class="tt">fitness</span> mis à jour en sortie. </td></tr>
     <tr><td class="paramname">environment</td><td>Environnement réutilisé, réinitialisé en tout premier (aucun état ne fuit d'un appel au suivant). </td></tr>
     <tr><td class="paramname">levelPath</td><td>Niveau à charger (<span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">HeadlessLevelEnvironment::reset</a></span>). </td></tr>
-    <tr><td class="paramname">stuckThreshold</td><td>Seuil de blocage transmis à <span class="tt"><a class="el" href="namespaceaisolver.html#a59583736f24a97702e07be216ee2c971" title="Classe la fin d&#39;épisode à partir de l&#39;issue du jeu et des compteurs de pas/progression.">classifyEpisode</a></span> (<span class="tt"><a class="el" href="Episode_8h.html" title="Classification de fin d&#39;épisode partagée par tout algorithme d&#39;apprentissage (LOT-ANNEXE-08,...">Episode.h</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -428,6 +429,32 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a6985d89754fa89b5f47fb7e36907276f" name="a6985d89754fa89b5f47fb7e36907276f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6985d89754fa89b5f47fb7e36907276f">&#9670;&#160;</a></span>DEFAULT_CROSSOVER_RATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float aisolver::training::evolutionary::DEFAULT_CROSSOVER_RATE = 0.7f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Probabilité qu'un enfant soit issu d'un croisement plutôt que d'une copie du premier parent. </p>
+<p>Le croisement était <b>toujours</b> appliqué, et c'était une moyenne arithmétique des deux réseaux parents. Or moyenner deux réseaux de neurones ne combine pas ce que chacun a trouvé : deux solutions également bonnes obtenues par des routes différentes donnent une moyenne moins bonne que l'une comme que l'autre (les neurones cachés n'ont aucune raison de se correspondre d'un réseau à l'autre). Appliqué à chaque enfant sauf l'élite, l'opérateur détruisait donc à chaque génération l'essentiel de ce que la précédente avait gagné.</p>
+<p>À <span class="tt">0,7</span>, trois enfants sur dix descendent d'un seul parent muté — le seul chemin par lequel une trouvaille locale survit intacte d'une génération à l'autre. </p>
+
+</div>
+</div>
 <a id="a968451bde43bec9fcb231a8a165384ff" name="a968451bde43bec9fcb231a8a165384ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a968451bde43bec9fcb231a8a165384ff">&#9670;&#160;</a></span>DEFAULT_HIDDEN_SIZE</h2>
 
@@ -438,7 +465,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t aisolver::training::evolutionary::DEFAULT_HIDDEN_SIZE = 16</td>
+          <td class="memname">std::size_t aisolver::training::evolutionary::DEFAULT_HIDDEN_SIZE = 64</td>
         </tr>
       </table>
   </td>
@@ -449,6 +476,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Taille de la couche cachée par défaut de <span class="tt"><a class="el" href="#aeaf47d1d255cef866aa8de90bdf3bcd2" title="Topologie standard « politique » du programme Lot-Annexe : une couche cachée tanh,...">policyTopology</a></span> : compromis capacité/coût de propagation avant pour une politique évaluée des milliers de fois par entraînement. </p>
+<p><span class="tt">16</span> unités pour un vecteur d'observation de plus de mille entrées formaient un goulet d'étranglement, pas un compromis. Mesure sur <span class="tt">demo-saut.json</span> (REINFORCE, <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>, <span class="tt">600</span> épisodes) : <span class="tt">388</span> victoires à <span class="tt">64</span> unités, contre quelques dizaines à <span class="tt">16</span>. Le coût de la propagation avant croît linéairement avec cette taille, et c'est le poste dominant d'un entraînement — la valeur reste donc réglable (<span class="tt">--hidden-size</span>). </p>
 
 </div>
 </div>
@@ -473,6 +501,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Probabilité, par poids, qu'une mutation gaussienne soit appliquée. </p>
+<p>Même statut que les deux constantes précédentes : un taux de mutation faible (quelques pourcents par poids) est la valeur usuelle pour éviter qu'une mutation gaussienne détruise plus de progrès qu'elle n'en explore ; non chiffré par un calcul spécifique à ce projet. </p>
 
 </div>
 </div>
@@ -497,6 +526,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Écart-type du bruit gaussien ajouté à un poids muté. </p>
+<p>Même statut : ordre de grandeur usuel pour un poids initialisé proche de zéro, non chiffré par un calcul spécifique à ce projet. </p>
 
 </div>
 </div>
@@ -521,30 +551,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Taille de population par défaut : compromis diversité (plus d'individus explorent plus de directions par génération) / coût d'évaluation (chaque individu joue un niveau complet). </p>
-
-</div>
-</div>
-<a id="aa31c6abaffe4f7606b29a4b4e203dbee" name="aa31c6abaffe4f7606b29a4b4e203dbee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa31c6abaffe4f7606b29a4b4e203dbee">&#9670;&#160;</a></span>DEFAULT_STUCK_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int aisolver::training::evolutionary::DEFAULT_STUCK_THRESHOLD = 200</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nombre de pas consécutifs sans amélioration de la meilleure distance atteinte au-delà duquel un épisode est jugé bloqué (<span class="tt"><a class="el" href="namespaceaisolver.html#adda23dcaaf73b2335b5a52701af05d68aa2c4543906f921f4589e33086abcc102">EpisodeStatus::Stuck</a></span>) : nettement inférieur au budget dur de <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (<span class="tt"><a class="el" href="structaisolver_1_1EnvironmentConfig.html#a41443052ea64cebb5799e46b0a0b505a" title="Nombre maximal de pas simulables entre deux reset (même valeur par défaut que playLevel() dans Source...">EnvironmentConfig::maxSteps</a></span>, <span class="tt">3000</span> par défaut) pour que l'évaluation d'une politique aléatoire ou immobile reste rapide (des milliers d'évaluations par entraînement). </p>
+<p>Valeur reprise de l'ordre de grandeur usuel des algorithmes génétiques appliqués à de petits réseaux de neurones (dizaines à basse centaine d'individus, voir <span class="tt"><a class="el" href="guide-annexe-algorithmes-evolutionnistes_8md.html">Documentation/Guide-Annexe/guide-annexe-algorithmes-evolutionnistes.md</a></span>) — ni chiffrée par un calcul propre au projet (contrairement aux poids de <span class="tt"><a class="el" href="structaisolver_1_1RewardConfig.html" title="Constantes de la fonction de récompense (EX-IA-009).">RewardConfig</a></span>, voir <span class="tt"><a class="el" href="Reward_8h.html" title="Signal de récompense unique et partagé de tous les algorithmes d&#39;apprentissage du programme (LOT-ANNE...">Reward.h</a></span>), ni tunée empiriquement ici : c'est un point de départ raisonnable, pas un optimum mesuré. </p>
 
 </div>
 </div>
@@ -569,6 +576,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'individus tirés (avec remise) par sélection par tournoi : <span class="tt">O(tournamentSize)</span> par tirage, sans trier toute la population — suffisant pour une population de taille modeste. </p>
+<p>Même origine que <span class="tt"><a class="el" href="#ab851aa207dc417337f1443db7c4ca063" title="Taille de population par défaut : compromis diversité (plus d&#39;individus explorent plus de directions ...">DEFAULT_POPULATION_SIZE</a></span> : une valeur typique de la littérature (souvent 2 à 5 pour une population de quelques dizaines d'individus), pas un résultat de tuning propre à ce projet. </p>
 
 </div>
 </div>

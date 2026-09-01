@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-60.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>code, tests et documentation faits ; essai manuel humain final restant</b> (voir État de <a class="el" href="lot-60-tache-05-documentation-verification.html#md_Lot_2LOT-60-audio-bruitages_2tache-05-documentation-verification" title="Lot/LOT-60-audio-bruitages/tache-05-documentation-verification.md">TACHE-05</a>). Prérequis : <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a> (écrans de pause et de fin de niveau — un bruitage de victoire a besoin d'un moment où exister), <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a> (une nouvelle dépendance tierce arrive après le durcissement, pas avant). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2842"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2848"></a>
 Objectif</h1>
 <p>Donner un son au jeu. Sauter, atterrir, dasher, actionner un interrupteur, mourir, gagner : chacun de ces événements est aujourd'hui <b>totalement silencieux</b>.</p>
 <p><span class="tt">EX-REN-040</span> (« ⚠️ souhaité ») demande des bruitages depuis les premières spécifications, et <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> place explicitement les « bruitages simples » <b>dans</b> le MVP — seule la « bande-son musicale élaborée » en est écartée. Les dossiers <span class="tt">Source/HMI/Audio/</span> et <span class="tt">Source/Elements/Audio/</span> existent depuis le <span class="tt">LOT-04</span> et ne contiennent qu'un <span class="tt">README.md</span>.</p>
 <p>L'absence de son est, avec l'absence d'effets (<span class="tt">LOT-53</span>), ce qui distingue le plus nettement le rendu actuel de celui d'un jeu fini — d'autant que tout le travail de <em>game feel</em> des <span class="tt">LOT-09</span> à <span class="tt">LOT-11</span> reste sans confirmation sensorielle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2843"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2849"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2844"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2850"></a>
 Inclus</h2>
 <ul>
 <li><b>Socle audio dans <span class="tt">HMI</span></b> : lecture d'échantillons courts à faible latence, plusieurs sons simultanés, volume global.</li>
@@ -113,7 +113,7 @@ Inclus</h2>
 <li><b>Réglage de volume</b> dans <span class="tt"><a class="el" href="classhmi_1_1OptionsPage.html" title="Page Options unique, affichée dans la fenêtre principale (pas en pop-up), au style du menu principal ...">hmi::OptionsPage</a></span>, persisté comme le V-Sync et la langue.</li>
 <li><b>Dégradation propre</b> : aucun périphérique audio, ou fichier de son manquant, laisse le jeu parfaitement jouable (<span class="tt">EX-NFR-040</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2845"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2851"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Musique de fond, boucles musicales, transitions musicales — hors MVP par <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span>.</li>
@@ -122,7 +122,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Édition de sons dans l'éditeur, assignation d'un son par tuile ou par mécanisme : les sons sont attachés aux <b>événements</b>, pas au contenu.</li>
 <li>Sons attachés aux décors ou à l'ambiance.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2846"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2852"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Qt Multimedia, pour la cohérence du choix de bibliothèques.</b> L'application est déjà intégralement Qt depuis le <span class="tt">LOT-38</span> : fenêtre, widgets, thème, chargement d'images, persistance des réglages, et jusqu'au décodage PNG de l'atelier pixel art. Ajouter une bibliothèque audio tierce (miniaudio, ou XAudio2 directement) introduirait un second modèle de ressources, un second cycle de vie et un second style d'API pour un besoin que Qt couvre. <span class="tt">QSoundEffect</span> est précisément conçu pour des échantillons courts à faible latence — le cas d'usage exact d'un bruitage de saut — et <span class="tt">windeployqt</span> sait déjà déployer ses bibliothèques, ce qui laisse le processus de release inchangé.</li>
@@ -132,14 +132,14 @@ Décisions de cadrage</h1>
 <li><b>Volume global unique.</b> Un mixage par catégorie sans musique reviendrait à régler une seule catégorie sous deux noms.</li>
 <li><b>Le silence n'est jamais une erreur bloquante.</b> Machine sans carte son, périphérique occupé, fichier absent : le jeu se joue. C'est la politique d'erreurs du projet (<span class="tt">EX-NFR-040</span>), déjà appliquée aux textures manquantes par le repli procédural.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2847"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2853"></a>
 Exigences couvertes</h1>
 <ul>
 <li><b>Levée</b> : <span class="tt">EX-REN-040</span> (⚠️ souhaité → livré) — bruitages de saut, interrupteur, victoire, échec.</li>
 <li>Nouvelles : <span class="tt">EX-REN-047</span> (socle audio dans <span class="tt">HMI</span>, déclenché par les transitions d'état de <span class="tt">Core</span>, sans effet sur la simulation), <span class="tt">EX-REN-048</span> (volume réglable et persisté ; absence de son ou de périphérique traitée en erreur récupérable).</li>
 <li>Réutilisées : <span class="tt">EX-BUILD-010</span> (provisionnement reproductible d'une dépendance non gérable par <span class="tt">FetchContent</span>), <span class="tt">EX-ARCH-012</span> (présentation sans effet sur la simulation), <span class="tt">EX-NFR-010</span> (<span class="tt">Core</span> testable sans périphérique), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-IHM-001</span> (interface hors-jeu en Qt), <span class="tt">EX-NFR-031</span> (version épinglée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2848"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2854"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -158,7 +158,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-60-tache-05-documentation-verification.html#md_Lot_2LOT-60-audio-bruitages_2tache-05-documentation-verification" title="Lot/LOT-60-audio-bruitages/tache-05-documentation-verification.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2849"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2855"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Sauter, atterrir, dasher, actionner un mécanisme, mourir et terminer un tableau produisent chacun un son distinct et reconnaissable.</li>
@@ -169,10 +169,10 @@ Critères d'acceptation du lot</h1>
 <li>Le zip de release démarre sur une machine sans Qt installé, sons compris.</li>
 <li>Build <span class="tt">/W4 /WX</span>, <span class="tt">ctest</span> à 100 %, Doxygen et lints verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2850"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2856"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-59.html" title="LOT-59 — Boucle de jeu complète : pause, fin de niveau, progression">LOT-59</a> (écrans de pause et de fin de niveau, où vivent les sons de victoire et de navigation) et <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a> (application Qt, options persistées). Suit <a class="el" href="lot-58.html" title="LOT-58 — Vérification Release, sanitizer et analyse statique">LOT-58</a>. Prérequis de <a class="el" href="lot-53.html" title="LOT-53 — Effets et particules">LOT-53</a>, qui réutilise ses déclencheurs.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2851"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2857"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-60-tache-01-socle-qt-multimedia.html" title="TACHE-01 — Provisionnement de Qt Multimedia et socle de lecture">TACHE-01 — Provisionnement de Qt Multimedia et socle de lecture</a></li>

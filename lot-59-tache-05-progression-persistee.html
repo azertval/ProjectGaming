@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-59-tache-05-progression-persistee.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-59-boucle-de-jeu_2tache-05-progression-persistee"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-59.html#md_Lot_2LOT-59-boucle-de-jeu_2epic" title="Lot/LOT-59-boucle-de-jeu/epic.md">LOT-59</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2818"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2824"></a>
 Contexte</h1>
 <p>Rien n'est conservé entre deux lancements. Quinze tableaux se jouent d'une traite ou pas du tout — fermer l'application ramène au premier. <span class="tt"><a class="el" href="vision_8md.html">vision.md</a></span> classait la sauvegarde de progression « hors périmètre MVP » ; le MVP est livré, et une <span class="tt">0.1.0</span> qui perd la partie à chaque fermeture n'est pas un jeu qu'on distribue.</p>
 <p>Le projet sait déjà persister un réglage : <span class="tt"><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::GameKeyBindings</a></span> et <span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::EditorKeyBindings</a></span> écrivent un JSON à côté de l'exécutable, tolèrent son absence et ignorent une entrée malformée plutôt que d'abandonner le fichier entier. La progression suit ce patron, sans en inventer un second.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2819"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2825"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Modèle de progression</b> : identifiant de la séquence, indice du tableau atteint, et ensemble des tableaux <b>terminés</b> (par nom de fichier, pas par indice — un réordonnancement de la séquence ne doit pas rendre la progression fausse).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Points d'écriture explicites et rares</b> : à la fin d'un tableau (<span class="tt">TACHE-03</span>), et nulle part ailleurs. Pas d'écriture par image ni par pas.</li>
 <li><b>Réinitialisation</b> : <em>Nouvelle partie</em> efface la progression après confirmation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2820"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2826"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Game/Progression.{h,cpp}</span> (nouveau) — logique pure, sans Qt.</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (compiler <span class="tt"><a class="el" href="Progression_8cpp.html">Progression.cpp</a></span> dans <span class="tt">UnitTests</span>).</li>
 <li><span class="tt">.gitignore</span> — vérifié : <span class="tt">Settings/</span> produit à l'exécution vit sous <span class="tt">build/</span> (déjà ignoré en bloc, <span class="tt">[Bb]uild/</span>), rien à ajouter.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2821"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2827"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aller-retour : écrire une progression, la relire, obtenir exactement la même.</li>
@@ -128,24 +128,24 @@ Tests (obligatoires)</h1>
 <li>Réordonner la séquence conserve les tableaux terminés (c'est ce que garantit le stockage par nom).</li>
 <li>Tests purs, sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2822"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2828"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Stocker des noms, pas des indices.</b> Un indice devient faux dès qu'on insère un tableau au milieu de la séquence — et l'ajout de tableaux est précisément ce que <span class="tt">TACHE-04</span> rend facile.</li>
 <li>Le fichier est écrit dans le dossier de l'exécutable : sur une installation en lecture seule l'écriture échoue. C'est une erreur <b>récupérable</b> (le jeu continue, la progression n'est pas conservée, un avertissement est journalisé), pas une condition d'arrêt.</li>
 <li>Ne pas verser la progression dans <span class="tt">QSettings</span> : le projet y met la <b>disposition des panneaux</b> (<span class="tt">EX-IHM-011</span>), qui est un réglage d'outil ; la progression est du contenu de partie, et doit vivre à côté de l'exécutable pour partir avec le zip.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2823"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2829"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La progression survit à un redémarrage, se corrompt sans dommage, résiste au réordonnancement de la séquence, s'écrit atomiquement et rarement ; couverte par des tests purs ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2824"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2830"></a>
 État</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1Progression.html" title="Progression dans une séquence de niveaux : tableaux terminés et tableau atteint (celui où reprendre),...">hmi::Progression</a></span> suit le patron de persistance de <span class="tt">GameKeyBindings</span> (construction par défaut = partie neuve, <span class="tt">save</span> membre/<span class="tt">load</span> statique, lecture tolérante), mais avec une écriture <b>atomique</b> (fichier temporaire puis <span class="tt">std::filesystem::rename</span>), comme demandé — <span class="tt">GameKeyBindings::save</span> lui-même n'est <b>pas</b> atomique (écrit directement le fichier final), donc le modèle exact suivi pour l'écriture est <span class="tt"><a class="el" href="namespacehmi.html#ae4e98112a456615557383e9b5d0d6252" title="Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de decodeImageFile.">hmi::encodeImageFile</a></span> (<span class="tt"><a class="el" href="TextureLoader_8cpp.html">HMI/Graphics/TextureLoader.cpp</a></span>, <span class="tt">LOT-54</span>), transposé sans Qt. Stockage par nom partout (<span class="tt">sequenceId</span>, <span class="tt">currentLevel</span>, <span class="tt">completedLevels</span>), <span class="tt">std::set</span> pour l'ensemble des terminés : marquer deux fois le même tableau est idempotent sans code dédié — couvre directement l'exigence de la <span class="tt">TACHE-03</span> (« marqué une seule fois, même traversé deux fois »).</p>
 <p><span class="tt">MainWindow</span> charge la progression une fois à la construction et l'écrit à un seul point : <span class="tt">openLevelComplete</span>, après la transition d'écran (comme les autres handlers d'écran de ce fichier — <span class="tt">quitPauseToMenu</span>, <span class="tt">restartFromPause</span> — qui n'agissent qu'après une transition acceptée). Le tableau suivant (<span class="tt">GameViewport::nextGameLevelName</span>, nouveau, miroir de <span class="tt">currentGameLevelName</span>) devient <span class="tt">currentLevel</span> ; vide en fin de séquence, sans effet tant que rien ne le lit encore.</p>
 <p><b>« Nouvelle partie » n'est pas câblée</b> : le bouton n'existe pas avant la <span class="tt">TACHE-06</span> (qui remplace « Jouer » par Continuer/Nouvelle partie/Choisir un niveau) — <span class="tt">Progression::reset()</span> existe et est testé, prêt à être appelé depuis là après confirmation, mais rien ne l'invoque encore. De même, <span class="tt">showGame()</span> ne lit pas encore <span class="tt">_progression.currentLevel()</span> : le jeu recommence toujours au premier tableau jusqu'à la <span class="tt">TACHE-06</span>, qui décide <em>où</em> reprendre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2825"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2831"></a>
 Exigences</h1>
 <p><span class="tt">EX-LVL-014</span> (progression persistée) ; réutilise <span class="tt">EX-LVL-013</span> (séquence en donnée), <span class="tt">EX-NFR-040</span> (erreur récupérable), <span class="tt">EX-NFR-010</span> (testable sans GPU), <span class="tt">EX-CTRL-012</span> (patron de persistance des réglages). </p>
 </div></div><!-- contents -->

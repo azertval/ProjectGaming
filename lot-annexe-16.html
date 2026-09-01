@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.2</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,43 +96,43 @@ $(function(){initNavTree('lot-annexe-16.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a> (harnais de benchmark), dont ce lot réutilise intégralement l'infrastructure sans la dupliquer. Dernier lot de la génération 4. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4100"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4137"></a>
 Objectif</h1>
 <p>L'entraînement reste strictement <b>niveau par niveau</b> (décision transverse du programme Lot-Annexe, réaffirmée à chaque génération concernée) : rien dans le programme ne cherche à produire un modèle généraliste. Mais une question reste ouverte et légitime, distincte de cet objectif d'entraînement : un modèle entraîné sur le niveau A, une fois exécuté sur un niveau B qu'il n'a jamais vu, se comporte-t-il un minimum sensément (progresse-t-il, même sans réussir), ou bien s'effondre-t-il totalement (comportement incohérent dès la première tuile inconnue) ? La réponse renseigne sur la <b>nature</b> de ce qu'un algorithme a appris — une trajectoire précise mémorisée, ou des réflexes un minimum transférables — sans jamais faire de cette question un objectif d'entraînement. Ce lot mesure, il ne cherche pas à améliorer.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4101"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4138"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4102"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4139"></a>
 Inclus</h2>
 <ul>
-<li><b>Exécution croisée</b> : réutilise <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>, TACHE-01) tel quel, en lui passant un <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> chargé depuis le niveau A et un <span class="tt">levelPath</span> pointant vers le niveau B — aucune modification du harnais lui-même.</li>
+<li><b>Exécution croisée</b> : réutilise <span class="tt"><a class="el" href="classaisolver_1_1eval_1_1BenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">aisolver::eval::BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>, TACHE-01) tel quel, en lui passant un <span class="tt"><a class="el" href="classTrainedPolicy.html" title="Interface minimale permettant à BenchmarkRunner de traiter n&#39;importe quel modèle entraîné (évolutionn...">TrainedPolicy</a></span> chargé depuis le niveau A et un <span class="tt">levelPath</span> pointant vers le niveau B — aucune modification du harnais lui-même.</li>
 <li><b>Rapport de taux de réussite par paire (A, B)</b> : réutilise <span class="tt">aisolver::BenchmarkReport</span> (<span class="tt">LOT-ANNEXE-15</span>, TACHE-02) avec une colonne supplémentaire distinguant le niveau d'entraînement du niveau d'exécution (le rapport de <span class="tt">LOT-ANNEXE-15</span> ne distingue pas les deux, puisqu'il suppose toujours qu'ils coïncident).</li>
 <li><b>Documentation des résultats observés</b>, dans <span class="tt">Documentation/Lot-Annexe</span>, présentée explicitement comme une mesure de référence, pas une conclusion sur la qualité d'un algorithme.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4103"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4140"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Toute amélioration du transfert</b> (entraînement multi-niveaux, augmentation de données, domaine de randomisation) : hors du régime d'entraînement niveau par niveau du programme — ce lot mesure un fait, il ne cherche pas à le changer. Une éventuelle génération future de généralisation partirait de ces mesures, sans que ce lot ne préjuge de sa nécessité.</li>
 <li><b>Choix des paires (A, B) exhaustif</b> (toutes les combinaisons possibles de niveaux <span class="tt">demo-*.json</span>) : un sous-ensemble représentatif (quelques paires couvrant des mécaniques partagées et des mécaniques totalement différentes) suffit à répondre à la question posée, sans exploser le temps d'exécution d'une campagne (héritier direct du coût CPU déjà assumé par <span class="tt">LOT-ANNEXE-15</span>).</li>
 <li><b>Interprétation automatique des résultats</b> (seuil de « bon » ou « mauvais » transfert codé en dur) : les chiffres sont rapportés, leur lecture reste humaine — cohérent avec le principe déjà retenu pour tout le harnais de la génération 4.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4104"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4141"></a>
 Décisions de cadrage</h1>
 <ul>
-<li><b>Ce lot ne modifie ni le harnais (<span class="tt">LOT-ANNEXE-15</span>) ni aucun module d'entraînement.</b> Il l'utilise à travers son API publique existante (<span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, <span class="tt"><a class="el" href="classBenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>), exactement comme le ferait un troisième appelant quelconque — la seule nouveauté est le choix d'exécuter un modèle sur un niveau différent de celui qui l'a produit, une combinaison déjà permise par la signature de <span class="tt">run</span> (elle prend un <span class="tt">levelPath</span> indépendant du modèle chargé).</li>
+<li><b>Ce lot ne modifie ni le harnais (<span class="tt">LOT-ANNEXE-15</span>) ni aucun module d'entraînement.</b> Il l'utilise à travers son API publique existante (<span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>, <span class="tt"><a class="el" href="classBenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>), exactement comme le ferait un troisième appelant quelconque — la seule nouveauté est le choix d'exécuter un modèle sur un niveau différent de celui qui l'a produit, une combinaison déjà permise par la signature de <span class="tt">run</span> (elle prend un <span class="tt">levelPath</span> indépendant du modèle chargé).</li>
 <li><b>Les attentes sont documentées comme réalistes avant toute mesure : un transfert probablement faible.</b> Un modèle entraîné niveau par niveau, sans aucune pression d'entraînement à généraliser, n'a structurellement aucune raison de bien se comporter sur une géométrie de niveau inédite — documenter cette attente à l'avance évite de lire après coup un résultat faible comme un échec du programme plutôt que comme une confirmation attendue de son régime d'entraînement assumé.</li>
 <li><b>Le choix des paires (A, B) privilégie la lisibilité pédagogique</b> (une paire de niveaux partageant une mécanique proche, ex. deux niveaux à interrupteur/porte ; une paire de niveaux n'ayant presque rien en commun, ex. un niveau de déplacement simple contre un niveau à salles) — pour que la mesure elle-même serve à illustrer la question posée, pas seulement à produire des chiffres.</li>
 <li><b>Aucune conclusion normative n'est tirée dans la documentation de résultats</b> (TACHE-02) : le texte rapporte les chiffres et les met en regard des mécaniques communes/différentes entre A et B, sans affirmer qu'un algorithme est « meilleur » qu'un autre sur cette seule base — cohérent avec le caractère strictement descriptif de toute la génération 4.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4105"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4142"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a>, section 5 (transfert entre niveaux comme mesure, pas comme objectif). Aucune source nouvelle par rapport à ce chapitre — ce lot applique directement son principe à une paire de niveaux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4106"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4143"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-017" title="EX-IA-017"><span class="tt">EX-IA-017</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-IA-016</span> (harnais de benchmark, <span class="tt">LOT-ANNEXE-15</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4107"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4144"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -145,22 +145,22 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-16-tache-02-documentation-resultats.html#md_Lot-Annexe_2LOT-ANNEXE-16-evaluation-hors-niveau_2tache-02-documentation-resultats" title="Lot-Annexe/LOT-ANNEXE-16-evaluation-hors-niveau/tache-02-documentation-resultats.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Documentation des résultats observés  </td><td class="markdownTableBodyNone"><span class="tt">Documentation/Lot-Annexe</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4108"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4145"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
-<li><span class="tt"><a class="el" href="classBenchmarkRunner.html#a67ee7156480835f4e1bc4baf730e68e2" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>) est appelé sans aucune modification de sa signature ni de son comportement pour exécuter un modèle du niveau A sur le niveau B.</li>
+<li><span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> (<span class="tt">LOT-ANNEXE-15</span>) est appelé sans aucune modification de sa signature ni de son comportement pour exécuter un modèle du niveau A sur le niveau B.</li>
 <li>Le rapport croisé distingue explicitement, pour chaque ligne, le niveau d'entraînement du niveau d'exécution (deux colonnes distinctes, jamais confondues).</li>
 <li>La documentation des résultats énonce explicitement, avant toute mesure, l'attente d'un transfert faible et le fait que ce lot mesure sans chercher à l'améliorer.</li>
 <li>Aucune ligne de <span class="tt">Source/AiSolver/Eval/BenchmarkRunner.*</span>, <span class="tt"><a class="el" href="classBenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a>.*</span> ni d'aucun module <span class="tt">Source/AiSolver/Training/*</span> n'est modifiée par ce lot (vérifiable par diff).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4109"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4146"></a>
 Dépendances</h1>
 <p>Réutilise intégralement <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a> (<span class="tt"><a class="el" href="classBenchmarkRunner.html">BenchmarkRunner</a></span>, <span class="tt"><a class="el" href="classBenchmarkReport.html" title="Accumule des BenchmarkResult (sortie de BenchmarkRunner, un par modèle exécuté) au fil d&#39;une campagne...">BenchmarkReport</a></span>), sans dépendance directe supplémentaire au-delà de ce que <span class="tt">LOT-ANNEXE-15</span> référence déjà. Dernier lot de la génération 4 : aucun lot de cette génération n'en dépend.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4110"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4147"></a>
 Résultats</h1>
 <p>Campagne exécutée (2 paires de niveaux, modèle évolutionniste entraîné sur le niveau trivial) : transfert nul mesuré dans les deux cas, y compris sur la paire de mécanique partagée — voir le détail du protocole, les chiffres et leur lecture dans <a class="el" href="lot-annexe-16-resultats-transfert.html" title="Résultats — Évaluation hors-niveau (transfert)">Résultats — Évaluation hors-niveau (transfert)</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4111"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4148"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-16-tache-01-execution-croisee.html" title="TACHE-01 — Exécution croisée (modèle de A exécuté sur B)">TACHE-01 — Exécution croisée (modèle de A exécuté sur B)</a></li>
