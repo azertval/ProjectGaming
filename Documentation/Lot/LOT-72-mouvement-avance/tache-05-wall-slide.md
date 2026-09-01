@@ -6,8 +6,7 @@ fait
 ## Contexte
 Le cadrage initial de ce lot proposait un « wall slide contrôlé » comme nouvelle mécanique.
 Relecture du code avant implémentation
-(`resolveVelocity` dans `Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp`, section
-« 2b. Wall slide ») :
+(`Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp::resolveVelocity`, section « 2b. Wall slide ») :
 **la mécanique existe déjà**, livrée en `LOT-10` sous `EX-GP-016` — « Au contact d'un mur en l'air,
 le personnage doit **glisser** le long de celui-ci (wall slide) ». `PhysicsConfig::wallSlideSpeed`
 clampe déjà `velocity.value.y` quand `wallDirection != 0 && !grounded && velocity.value.y > 0`.
