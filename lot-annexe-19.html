@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-19.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Regroupe l'ensemble des générations 2 à 4 sous une interface en ligne de commande unique. Deuxième lot de la génération 5. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4231"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4313"></a>
 Objectif</h1>
 <p>Chaque algorithme d'entraînement (génération 2, 3), le harnais de benchmark et l'export de rejeu existent, à ce stade du programme, comme des bibliothèques C++ (<span class="tt">Source/AiSolver</span>) sans point d'entrée exécutable direct — les utiliser suppose d'écrire un petit programme <span class="tt"><a class="el" href="AiSolver_2Cli_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></span> ad hoc à chaque fois. Ce lot rassemble ces capacités déjà écrites sous une interface en ligne de commande unique, sans réimplémenter la moindre logique d'entraînement ou d'évaluation : un exécutable, plusieurs sous-commandes, chacune un mince habillage autour d'une API déjà cadrée par un lot antérieur.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4232"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4314"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4233"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4315"></a>
 Inclus</h2>
 <ul>
 <li><b>Exécutable <span class="tt">aisolver-cli</span></b> (<span class="tt">Source/AiSolver/Cli</span>), sous-commandes :<ul>
@@ -113,7 +113,7 @@ Inclus</h2>
 </li>
 <li><b>Configuration des hyperparamètres</b> : fichier JSON optionnel ou arguments individuels (taille de population, taux de mutation, taux d'apprentissage, <span class="tt">gamma</span>, etc. selon la sous-commande) — toujours journalisée dans les métadonnées produites (CSV, fichier de rejeu), pour qu'un run passé reste reproductible à partir de ses seules traces écrites.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4234"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4316"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Toute nouvelle logique d'entraînement, d'évaluation ou d'export</b> : ce lot n'est qu'une interface — toute règle métier vit déjà dans les lots amont (générations 2 à 4, <span class="tt">LOT-ANNEXE-07</span>/ <span class="tt">17</span>). Un bug de comportement d'entraînement ne se corrige jamais dans <span class="tt">Source/AiSolver/Cli</span>.</li>
@@ -121,7 +121,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Orchestration multi-runs</b> (lancer automatiquement un entraînement sur toute la séquence <span class="tt">demo-*.json</span>) : chaque invocation de <span class="tt">train</span> porte sur un seul niveau (régime d'entraînement niveau par niveau, décision transverse) — enchaîner plusieurs invocations reste un geste manuel ou scripté par l'utilisateur en dehors de <span class="tt">aisolver-cli</span> lui-même.</li>
 <li><b>Auto-complétion shell, distribution packagée</b> : hors de portée d'un outil d'expérimentation interne, sans utilisateur externe identifié.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4235"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4317"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Chaque sous-commande est un habillage mince, jamais un second point d'entrée vers une logique dupliquée.</b> <span class="tt">train</span>/<span class="tt">evaluate</span>/<span class="tt">export-replay</span> construisent et appellent directement les types déjà cadrés (<span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>, <span class="tt"><a class="el" href="classBenchmarkRunner.html">BenchmarkRunner</a></span>, <span class="tt">writeReplay</span>) — aucune règle de décision (critère d'arrêt, calcul de fitness, format de sortie) n'est réimplémentée dans <span class="tt">Cli</span>.</li>
@@ -129,16 +129,16 @@ Décisions de cadrage</h1>
 <li><b><span class="tt">aisolver-cli</span> ne lance jamais deux runs concurrents dans le même processus</b> : un run d'entraînement bloque jusqu'à son critère d'arrêt (résolution ou plafond de générations, <span class="tt">LOT-ANNEXE-11</span>) — cohérent avec la boucle mono-thread déjà actée pour tout le programme (<span class="tt">LOT-ANNEXE-01</span>).</li>
 <li><b>Le format de configuration (fichier JSON optionnel) reste propre à <span class="tt">AiSolver</span></b>, sans lien avec le format de niveau ou de rejeu — un fichier de configuration décrit des hyperparamètres d'entraînement, jamais un niveau ni une séquence d'actions, pour ne pas mélanger des préoccupations distinctes dans un même schéma.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4236"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4318"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot est un habillage en ligne de commande des capacités déjà cadrées par les lots amont — voir leurs propres sections « Notions abordées » respectives pour les sources pertinentes selon la sous-commande utilisée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4237"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4319"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-020" title="EX-IA-020"><span class="tt">EX-IA-020</span></a>.</li>
 <li>Réutilisées (inchangées) : les exigences de tous les lots exposés — non renumérotées ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4238"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4320"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-19-tache-02-configuration-tracabilite.html#md_Lot-Annexe_2LOT-ANNEXE-19-outillage-cli_2tache-02-configuration-tracabilite" title="Lot-Annexe/LOT-ANNEXE-19-outillage-cli/tache-02-configuration-tracabilite.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Configuration des hyperparamètres et traçabilité  </td><td class="markdownTableBodyNone"><span class="tt">Source/AiSolver/Cli</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4239"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4321"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt">aisolver-cli train --level &lt;chemin&gt; --algo evo</span> lance un entraînement évolutionniste complet sur le niveau donné et produit un CSV (<span class="tt">LOT-ANNEXE-09</span>) et, en cas de résolution, un fichier de rejeu (<span class="tt">LOT-ANNEXE-11</span>/<span class="tt">07</span>).</li>
@@ -163,10 +163,10 @@ Critères d'acceptation du lot</h1>
    Cli</span> (vérifiable par revue : chaque sous-commande délègue à un type déjà cadré par un lot amont).</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4240"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4322"></a>
 Dépendances</h1>
 <p>Expose, sans les dupliquer, les capacités de <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>/[11](<a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu</a>) (génération 2), <a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a> à <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">14</a> (génération 3), <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a> (harnais de benchmark), [LOT-ANNEXE-09](<a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09 — Journalisation CSV des statistiques d'entraînement</a>) (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>) et <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a>/[17](<a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu</a>) (format de rejeu).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4241"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4323"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-19-tache-01-sous-commandes.html" title="TACHE-01 — Sous-commandes train/evaluate/export-replay">TACHE-01 — Sous-commandes train/evaluate/export-replay</a></li>

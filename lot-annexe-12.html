@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-annexe-12.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-02.html" title="LOT-ANNEXE-02 — Moteur d&#39;autodiff maison">LOT-ANNEXE-02</a> (autodiff), <a class="el" href="lot-annexe-04.html" title="LOT-ANNEXE-04 — Optimiseurs maison">LOT-ANNEXE-04</a> (optimiseurs), <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (environnement headless), <a class="el" href="lot-annexe-08.html" title="LOT-ANNEXE-08 — Fonction de récompense et critères d&#39;épisode">LOT-ANNEXE-08</a> (récompense), <a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09</a> (statistiques). Premier lot de la génération 3 (apprentissage par gradient) et point d'entrée de l'exigence ferme d'un modèle <b>appris par rétropropagation</b>, par opposition à la recherche aveugle par population de la génération 2 (<a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3970"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4052"></a>
 Objectif</h1>
 <p>La génération 2 a produit un agent fonctionnel — l'algorithme évolutionniste de LOT-ANNEXE-10 fait progresser une population de politiques par sélection/mutation, sans jamais calculer le moindre gradient. C'est une ligne de base valide, mais elle n'exploite <b>rien</b> de la génération 0 (bibliothèque tensorielle, moteur d'autodiff maison avec <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> et gradient checking) : le gradient de la récompense par rapport aux paramètres de la politique n'est jamais calculé ni utilisé pour orienter la recherche.</p>
 <p>Ce lot introduit <b>REINFORCE</b>, l'algorithme de policy gradient le plus direct : la politique est un réseau de neurones (bibliothèque de LOT-ANNEXE-03) qui produit une distribution sur l'espace d'action (<a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a>) ; on <b>échantillonne</b> une action selon cette distribution, on joue un épisode complet sur l'environnement headless (LOT-ANNEXE-05), et on <b>rétropropage</b> — via le moteur d'autodiff maison de LOT-ANNEXE-02, pas une approximation — le gradient de <span class="tt">-log(probabilité de l'action prise) × retour</span> à travers le réseau, puis on met à jour les poids avec un optimiseur de LOT-ANNEXE-04 (SGD ou <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>). C'est la <b>première fois</b> dans le programme que la mise à jour des poids est <b>dirigée par un gradient calculé exactement</b>, plutôt que par un tirage aléatoire de mutations retenu ou rejeté après coup. L'utilisateur a explicitement écarté de s'arrêter à l'évolutionniste seul : ce lot est la réponse directe à cette exigence.</p>
 <p>L'entraînement reste <b>niveau par niveau</b>, comme tous les lots des générations 2 et 3 (aucun entraînement joint multi-niveaux, cf. <a class="el" href="lots-annexe.html" title="Lots annexes — IA de résolution autonome">lots-annexe.md</a>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3971"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4053"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3972"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4054"></a>
 Inclus</h2>
 <ul>
 <li><b>Collecte de trajectoires</b> sur un épisode complet (un niveau, du départ jusqu'à victoire, échec ou timeout au sens de LOT-ANNEXE-08) : à chaque pas, observation encodée (LOT-ANNEXE-06), action échantillonnée selon la distribution produite par le réseau de politique, log-probabilité de cette action, récompense immédiate — via <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (LOT-ANNEXE-05).</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><b>Boucle d'entraînement par épisodes</b> : collecte → retours → perte → <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> → pas d'optimiseur (LOT-ANNEXE-04) → journalisation (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, LOT-ANNEXE-09) — répétée sur un budget d'épisodes configurable, sur un seul niveau à la fois.</li>
 <li>Tests de non-régression numérique : <b>gradient checking</b> spécifique à la perte REINFORCE (différences finies vs gradient rétropropagé, même infrastructure que LOT-ANNEXE-02), et suivi de progression (récompense moyenne croissante) sur un niveau de contrôle simple et déterministe.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3973"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4055"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Réduction de variance (baseline/critique)</b> : REINFORCE brut a une variance de gradient connue pour être élevée (le retour complet sert de signal, sans rien pour le recentrer) — c'est traité spécifiquement par LOT-ANNEXE-13 (acteur-critique), qui réutilise directement la perte de ce lot en y substituant l'avantage au retour brut.</li>
@@ -121,7 +121,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Export en séquence d'actions déterministe rejouable en jeu</b> : déjà couvert par le format v1 de LOT-ANNEXE-07 et l'export de LOT-ANNEXE-11 ; ce lot produit un modèle entraîné, pas un rejeu.</li>
 <li><b>Entraînement multi-niveaux ou généralisation</b> : hors régime niveau-par-niveau (décision transverse de tout le programme, mesurée en génération 4).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3974"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4056"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Retour Monte-Carlo complet, sans baseline.</b> Un épisode se termine toujours (victoire, échec ou timeout, LOT-ANNEXE-08) : le retour de chaque pas peut donc être calculé exactement en fin d'épisode, sans bootstrap sur une estimation de valeur. Introduire une baseline maintenant anticiperait sur le rôle du critique de LOT-ANNEXE-13 ; ce lot reste volontairement l'algorithme le plus simple qui exploite réellement l'autodiff.</li>
@@ -131,16 +131,16 @@ Décisions de cadrage</h1>
 <li><b>Un épisode = un niveau joué jusqu'à son critère de fin</b> (LOT-ANNEXE-08), pas un nombre de pas fixe : la longueur d'épisode varie selon que l'agent réussit vite, échoue vite ou va jusqu'au timeout, ce que la boucle d'entraînement doit accepter sans hypothèse de longueur constante.</li>
 <li><b>Aucune normalisation de retour inter-épisodes dans ce lot</b> (ex. centrage/réduction sur un lot d'épisodes) : à un seul épisode par mise à jour, une telle normalisation n'a pas de population sur laquelle se calculer ; elle redeviendrait pertinente avec des mises à jour par lot, hors périmètre ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3975"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4057"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-reinforce.html" title="Policy gradient et REINFORCE">Policy gradient et REINFORCE</a> (astuce du log-gradient, règle de mise à jour REINFORCE, retour actualisé). Sources directes : Williams (1992, article d'origine de REINFORCE) ; Sutton, McAllester, Singh, Mansour (1999/2000, théorème du gradient de politique) — bibliographie complète dans le chapitre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3976"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4058"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-013" title="EX-IA-013"><span class="tt">EX-IA-013</span></a>.</li>
 <li>Réutilisées (inchangées) : les exigences des lots amont — bibliothèque tensorielle et RNG (LOT-ANNEXE-01), moteur d'autodiff et gradient checking (LOT-ANNEXE-02), bibliothèque de réseaux de neurones (LOT-ANNEXE-03), optimiseurs SGD/Adam (LOT-ANNEXE-04), environnement headless (LOT-ANNEXE-05), encodage d'observation (LOT-ANNEXE-06), espace d'action et format de rejeu v1 (LOT-ANNEXE-07), récompense et critères d'épisode (LOT-ANNEXE-08), <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09) — non renumérotées ici.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3977"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4059"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -159,7 +159,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-12-tache-05-tests-gradient-checking.html#md_Lot-Annexe_2LOT-ANNEXE-12-policy-gradient-reinforce_2tache-05-tests-gradient-checking" title="Lot-Annexe/LOT-ANNEXE-12-policy-gradient-reinforce/tache-05-tests-gradient-checking.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Tests : gradient checking et non-régression de progression  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Unit/AiSolver/Training</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3978"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4060"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Sur un niveau de contrôle simple et déterministe, la récompense moyenne par épisode <b>progresse</b> sur la durée de l'entraînement (tendance croissante mesurable dans le CSV produit par <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>), signe d'un apprentissage effectivement dirigé par le gradient.</li>
@@ -169,10 +169,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucune nouvelle dépendance tierce n'a été ajoutée (<span class="tt">External/CMakeLists.txt</span> inchangé).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4061"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-02.html" title="LOT-ANNEXE-02 — Moteur d&#39;autodiff maison">LOT-ANNEXE-02</a> (moteur d'autodiff, <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span>, gradient checking), <a class="el" href="lot-annexe-03.html" title="LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison">LOT-ANNEXE-03</a> (réseaux de neurones), <a class="el" href="lot-annexe-04.html" title="LOT-ANNEXE-04 — Optimiseurs maison">LOT-ANNEXE-04</a> (optimiseurs), <a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05</a> (<span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>), <a class="el" href="lot-annexe-06.html" title="LOT-ANNEXE-06 — Encodage observation">LOT-ANNEXE-06</a> (encodage d'observation), <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (espace d'action), <a class="el" href="lot-annexe-08.html" title="LOT-ANNEXE-08 — Fonction de récompense et critères d&#39;épisode">LOT-ANNEXE-08</a> (récompense, critères d'épisode) et <a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09</a> (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>). Sert de base commune à <a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a> (acteur-critique, qui réutilise sa perte) et, en aval, à <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14</a>. Comparé, sans en dépendre techniquement, à <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> (évolutionniste, ligne de base sans gradient).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4062"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-12-tache-01-collecte-trajectoires.html" title="TACHE-01 — Collecte de trajectoires sur un épisode complet">TACHE-01 — Collecte de trajectoires sur un épisode complet</a></li>

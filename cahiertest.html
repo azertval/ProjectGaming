@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>1622 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1647 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (1491)</h1>
+Tests unitaires (1516)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 AiSolver</h2>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
@@ -636,8 +636,8 @@ Vérifie que <span class="tt">tileTensor.shape()</span> vaut <span class="tt">ex
 Vérifie que <span class="tt">mechanismTensor.shape()</span> vaut <span class="tt">expectedMechanismShape(radius)</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ObservationBordsCarteTest.CarteUnicaseAvecRayonLargeProduitDesCasesNullesAutourDuCentre</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__observation__bords__carte_8cpp.html" title="Stabilité dimensionnelle de l&#39;observation près des bords de carte (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_bords_carte.cpp</a>:89</span></sub>  </td><td class="markdownTableBodyNone">Carte 1x1 : une seule case reelle, les 48 autres en vecteur nul.  </td><td class="markdownTableBodyNone">1. Construire une <span class="tt">TileMap</span> 1x1 (<span class="tt">TileType::Solid</span>).<br  />
-2. Encoder avec <span class="tt">radius = 3</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">encoded.shape()</span> vaut <span class="tt">(std::vector&lt;std::size_t&gt;{33, 7, 7})</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__observation__bords__carte_8cpp.html" title="Stabilité dimensionnelle de l&#39;observation près des bords de carte (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_bords_carte.cpp</a>:90</span></sub>  </td><td class="markdownTableBodyNone">Carte 1x1 : une seule case reelle, les 48 autres en vecteur nul.  </td><td class="markdownTableBodyNone">1. Construire une <span class="tt">TileMap</span> 1x1 (<span class="tt">TileType::Solid</span>).<br  />
+2. Encoder avec <span class="tt">radius = 3</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">encoded.shape()</span> vaut <span class="tt">(std::vector&lt;std::size_t&gt;{CHANNELS, 7, 7})</span>.<br  />
 Vérifie que <span class="tt">row</span> vaut <span class="tt">3u</span>.<br  />
 Vérifie que <span class="tt">column</span> vaut <span class="tt">3u</span>.<br  />
 Vérifie que <span class="tt">encoded.at({static_cast&lt;std::size_t&gt;(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a>), row, column})</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
@@ -1581,7 +1581,7 @@ Vérifie que <span class="tt">scaledFromMatrix.at({1, 0})</span> vaut <span clas
 Vérifie que <span class="tt">scaledFromMatrix.at({1, 1})</span> vaut <span class="tt">scaledFromView.at({3})</span>, à <span class="tt">TOLERANCE</span> près.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
-Nn (29)</h3>
+Nn (30)</h3>
 <p><b><span class="tt"><a class="el" href="test__activations_8cpp.html" title="Tests unitaires des activations aisolver::nn::sigmoid/softmax (LOT-ANNEXE-03, TACHE-02) : bornes,...">test_activations.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1747,6 +1747,13 @@ Vérifie que <span class="tt">weightsBefore.data()[i]</span> vaut <span class="t
 2. Recommencer avec un rang correct mais une dimension enorme, sans les valeurs correspondantes.<br  />
 3. <span class="tt">loadWeights</span> sur les deux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">aisolver::nn::loadWeights(*network, rangAberrant)</span> est faux.<br  />
 Vérifie que <span class="tt">aisolver::nn::loadWeights(*network, dimensionEnorme)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SerializationTest.RejetDUnModeleALAncienneLargeurDObservation</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__serialization_8cpp.html" title="Tests unitaires de aisolver::nn::saveWeights/loadWeights (LOT-ANNEXE-03, TACHE-04) : sauvegarde/recha...">Source/Test/Unit/AiSolver/Nn/test_serialization.cpp</a>:260</span></sub>  </td><td class="markdownTableBodyNone">Serialization : un modèle à l'ancienne largeur d'entrée est refusé.  </td><td class="markdownTableBodyNone">1. Sauvegarder un réseau dont la première couche attend l'ANCIENNE largeur d'observation.<br  />
+2. Le recharger dans un réseau bâti sur la largeur COURANTE.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">aisolver::nn::saveWeights(ancien, filePath)</span> est vrai.<br  />
+Vérifie que <span class="tt">aisolver::nn::loadWeights(courant, filePath)</span> est faux.<br  />
+Vérifie que <span class="tt">poidsAvant.size()</span> vaut <span class="tt">poidsApres.size()</span>.<br  />
+Vérifie que <span class="tt">poidsAvant.data()[i]</span> vaut <span class="tt">poidsApres.data()[i]</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__weight__init_8cpp.html" title="Tests statistiques de aisolver::nn::initializeWeights (LOT-ANNEXE-03, TACHE-04) : bornes Xavier,...">test_weight_init.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2100,7 +2107,7 @@ Vérifie que <span class="tt">observed[1].rewardDelta</span> est strictement sup
 Vérifie que <span class="tt">observed[2].rewardDelta</span> est strictement supérieur à <span class="tt">0.0f</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-Training (105)</h3>
+Training (115)</h3>
 <p><b><span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html" title="Gradient checking de computeActorCriticLoss (LOT-ANNEXE-13, TACHE-02), par rapport aux poids de la po...">test_actor_critic_loss.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2120,24 +2127,24 @@ Training (105)</h3>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ActorCriticTrainerTest.ConvergenceDuCritiqueAPolitiqueFigee</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : à politique figée, le critique converge.  </td><td class="markdownTableBodyNone">1. Run de <span class="tt">80</span> épisodes, optimiseur de la politique à taux nul (politique inchangée).<br  />
+<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:87</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : à politique figée, le critique converge.  </td><td class="markdownTableBodyNone">1. Run de <span class="tt">80</span> épisodes, optimiseur de la politique à taux nul (politique inchangée).<br  />
 2. Comparer l'erreur quadratique moyenne du critique des 10 premiers et des 10 derniers épisodes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">policyWeightsBefore.data()[i]</span> vaut <span class="tt">policyWeightsAfter.data()[i]</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">EPISODE_COUNT + 1</span>.<br  />
 Vérifie que <span class="tt">lastTen</span> est strictement inférieur à <span class="tt">firstTen</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ActorCriticTrainerTest.IndependanceDesDeuxOptimisations</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:151</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : indépendance des deux optimisations.  </td><td class="markdownTableBodyNone">1. Run avec <span class="tt">updateCritic = false</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:157</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : indépendance des deux optimisations.  </td><td class="markdownTableBodyNone">1. Run avec <span class="tt">updateCritic = false</span>.<br  />
 2. Comparer les poids du critique avant/après (inchangés) et ceux de la politique (changés).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">criticWeightsBefore.size()</span> vaut <span class="tt">criticWeightsAfter.size()</span>.<br  />
 Vérifie que <span class="tt">criticWeightsBefore.data()[i]</span> vaut <span class="tt">criticWeightsAfter.data()[i]</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">anyChanged</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ActorCriticTrainerTest.RemiseAZeroDesGradientsDesDeuxReseaux</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:202</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : remise à zéro des gradients des deux réseaux.  </td><td class="markdownTableBodyNone">1. Run complet (10 épisodes).<br  />
+<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:208</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : remise à zéro des gradients des deux réseaux.  </td><td class="markdownTableBodyNone">1. Run complet (10 épisodes).<br  />
 2. Lire le gradient de chaque paramètre des deux réseaux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">parameter-&gt;grad.data()[i]</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">parameter-&gt;grad.data()[i]</span> vaut <span class="tt">0.0f</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ActorCriticTrainerTest.CsvDePerteDuCritiqueBienForme</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:245</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : CSV de perte du critique bien formé.  </td><td class="markdownTableBodyNone">1. Run de <span class="tt">20</span> épisodes avec chemin de CSV de perte du critique.<br  />
+<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:251</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : CSV de perte du critique bien formé.  </td><td class="markdownTableBodyNone">1. Run de <span class="tt">20</span> épisodes avec chemin de CSV de perte du critique.<br  />
 2. Lire le fichier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">lines.size()</span> vaut <span class="tt">21u</span>.<br  />
 Vérifie que <span class="tt">lines[0]</span> vaut <span class="tt">"index,criticLoss"</span>.<br  />
 Vérifie que <span class="tt">comma</span> diffère de <span class="tt">std::string::npos</span>.<br  />
@@ -2145,7 +2152,7 @@ Vérifie que <span class="tt">std::isfinite(value)</span> est vrai.<br  />
 Vérifie que <span class="tt">value</span> est supérieur ou égal à <span class="tt">0.0f</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ActorCriticTrainerTest.ShouldStopInterromptAvantLePremierEpisode</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:289</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : <span class="tt">shouldStop</span> interrompt avant le premier épisode.  </td><td class="markdownTableBodyNone">1. <span class="tt">run(10, true, shouldStop)</span> avec un <span class="tt">shouldStop</span> qui renvoie <span class="tt">true</span> dès le premier appel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">trainer.episodeIndex()</span> vaut <span class="tt">0</span>.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__actor__critic__trainer_8cpp.html" title="Test de bout en bout de ActorCriticTrainer (LOT-ANNEXE-13, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_actor_critic_trainer.cpp</a>:295</span></sub>  </td><td class="markdownTableBodyNone"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a> : <span class="tt">shouldStop</span> interrompt avant le premier épisode.  </td><td class="markdownTableBodyNone">1. <span class="tt">run(10, true, shouldStop)</span> avec un <span class="tt">shouldStop</span> qui renvoie <span class="tt">true</span> dès le premier appel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">trainer.episodeIndex()</span> vaut <span class="tt">0</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html" title="Tests unitaires de computeAdvantages (LOT-ANNEXE-13, TACHE-02).">test_advantage_calculator.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2196,6 +2203,80 @@ Vérifie que <span class="tt">first-&gt;steps[index].jumpPressed</span> vaut <sp
 2. <span class="tt"><a class="el" href="test__argmax__rollout_8cpp.html#adb8a3c669b3b89e1c99290bf67963d46" title="Rejoue policy en mode Argmax sur environment/levelPath, jusqu&#39;à fin d&#39;épisode ou budget de pas — même...">argmaxRollout</a></span> avec un budget de pas réduit.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">result-&gt;status</span> diffère de <span class="tt">EpisodeStatus::Ongoing</span>.<br  />
 Vérifie que <span class="tt">result-&gt;steps.size()</span> est inférieur ou égal à <span class="tt">static_cast&lt;std::size_t&gt;(STEP_BUDGET)</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">test_best_policy_snapshot.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PolicyScore.UneReussiteBatToujoursUnEchecMemeMoinsRecompensee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:78</span></sub>  </td><td class="markdownTableBodyNone">Une réussite l'emporte sur un échec, quelle que soit la récompense.  </td><td class="markdownTableBodyNone">1. Comparer une réussite très mal récompensée (-100) et lente (500 pas) à un échec très bien récompensé (1000) et rapide (10 pas).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">won.betterThan(lost)</span> est vrai.<br  />
+Vérifie que <span class="tt">lost.betterThan(won)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PolicyScore.EntreDeuxReussitesLaPlusCourteGagne</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">À réussite égale, le trajet le plus court gagne.  </td><td class="markdownTableBodyNone">1. Comparer deux réussites : l'une en 120 pas moins récompensée, l'autre en 300 pas mieux récompensée.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">quick.betterThan(slow)</span> est vrai.<br  />
+Vérifie que <span class="tt">slow.betterThan(quick)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PolicyScore.EntreDeuxEchecsLaMieuxRecompenseeGagne</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">À échec égal, la mieux récompensée gagne.  </td><td class="markdownTableBodyNone">1. Comparer deux échecs de même longueur, l'un récompensé 4, l'autre -2.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">near.betterThan(far)</span> est vrai.<br  />
+Vérifie que <span class="tt">far.betterThan(near)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.VideTantQuAucunCandidatNAEteSoumis</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:132</span></sub>  </td><td class="markdownTableBodyNone">Un cliché neuf est vide et ne restaure rien.  </td><td class="markdownTableBodyNone">1. Construire un cliché sans lui soumettre le moindre candidat.<br  />
+2. Interroger son état et tenter une restauration.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.hasSnapshot()</span> est faux.<br  />
+Vérifie que <span class="tt">snapshot.bestReplay().has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.LePremierCandidatEstToujoursRetenu</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:151</span></sub>  </td><td class="markdownTableBodyNone">Le premier candidat est retenu, même s'il échoue.  </td><td class="markdownTableBodyNone">1. Soumettre un unique candidat dont l'épisode expire (<span class="tt">TimedOut</span>).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::TimedOut, -5.0f, 40))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.hasSnapshot()</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.bestScore().solved</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.UnCandidatMoinsBonNeRemplacePasLeCliche</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:169</span></sub>  </td><td class="markdownTableBodyNone">Un candidat moins bon ne remplace pas le cliché.  </td><td class="markdownTableBodyNone">1. Soumettre une génération gagnante.<br  />
+2. Dégrader les poids en place, puis soumettre un échec mieux récompensé.<br  />
+3. Restaurer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Won, 12.0f, 100))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Lost, 30.0f, 20))</span> est faux.<br  />
+Vérifie que <span class="tt">snapshot.bestScore().solved</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.bestScore().stepCount</span> vaut <span class="tt">100</span>.<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est vrai.<br  />
+Vérifie que <span class="tt">parameterSum(*network)</span> vaut <span class="tt">winningSum</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.RestaureLesPoidsDeLaMeilleureGenerationApresUnDernierEpisodeRate</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:196</span></sub>  </td><td class="markdownTableBodyNone">Un run qui finit mal restaure sa meilleure génération.  </td><td class="markdownTableBodyNone">1. Faire gagner une génération intermédiaire.<br  />
+2. Dégrader les poids et faire expirer la dernière génération.<br  />
+3. Restaurer et relire le rejeu conservé.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Won, 10.0f, 200))</span> est vrai.<br  />
+Vérifie que <span class="tt">winningSum</span> diffère de <span class="tt">failingSum</span>.<br  />
+Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::TimedOut, -3.0f, 400))</span> est faux.<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est vrai.<br  />
+Vérifie que <span class="tt">parameterSum(*network)</span> vaut <span class="tt">winningSum</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">snapshot.bestReplay().has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.bestReplay()-&gt;status</span> vaut <span class="tt">EpisodeStatus::Won</span>.<br  />
+Vérifie que <span class="tt">snapshot.bestReplay()-&gt;steps.size()</span> vaut <span class="tt">200u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.UneReussitePlusCourteRemplaceLaPrecedente</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:229</span></sub>  </td><td class="markdownTableBodyNone">Une réussite plus courte remplace la précédente.  </td><td class="markdownTableBodyNone">1. Conserver une réussite en 300 pas.<br  />
+2. Soumettre une réussite en 150 pas avec d'autres poids.<br  />
+3. Écraser les poids courants puis restaurer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Won, 10.0f, 300))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Won, 8.0f, 150))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.bestScore().stepCount</span> vaut <span class="tt">150</span>.<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est vrai.<br  />
+Vérifie que <span class="tt">parameterSum(*network)</span> vaut <span class="tt">shorterSum</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.LeClicheEstUneCopieProfondeInsensibleAuxMisesAJourUlterieures</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:255</span></sub>  </td><td class="markdownTableBodyNone">Le cliché est une copie profonde, réutilisable.  </td><td class="markdownTableBodyNone">1. Conserver un réseau gagnant.<br  />
+2. Continuer à mettre à jour ses poids EN PLACE.<br  />
+3. Restaurer deux fois de suite, en réécrivant les poids entre les deux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*network, makeReplay(EpisodeStatus::Won, 1.0f, 50))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est vrai.<br  />
+Vérifie que <span class="tt">parameterSum(*network)</span> vaut <span class="tt">capturedSum</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">snapshot.restore(*network)</span> est vrai.<br  />
+Vérifie que <span class="tt">parameterSum(*network)</span> vaut <span class="tt">capturedSum</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BestPolicySnapshot.RefuseUneTopologieIncompatibleSansToucherAuReseau</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__best__policy__snapshot_8cpp.html" title="Conservation du meilleur réseau d&#39;un run par gradient (BestPolicySnapshot).">Source/Test/Unit/AiSolver/Training/test_best_policy_snapshot.cpp</a>:284</span></sub>  </td><td class="markdownTableBodyNone">Une topologie incompatible est refusée, réseau intact.  </td><td class="markdownTableBodyNone">1. Conserver un cliché sur un réseau donné.<br  />
+2. Tenter de le restaurer dans un réseau de couche cachée plus large.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">snapshot.consider(*trained, makeReplay(EpisodeStatus::Won, 1.0f, 50))</span> est vrai.<br  />
+Vérifie que <span class="tt">snapshot.restore(*other)</span> est faux.<br  />
+Vérifie que <span class="tt">parameterSum(*other)</span> vaut <span class="tt">untouchedSum</span> (comparaison flottante).  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__critic__loss_8cpp.html" title="Gradient checking de computeCriticLoss (LOT-ANNEXE-13, TACHE-03).">test_critic_loss.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3352,7 +3433,7 @@ Vérifie que <span class="tt">log</span> vaut <span class="tt">(std::vector&lt;i
 Vérifie que <span class="tt">visited.front()</span> vaut <span class="tt">both</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Gameplay (56)</h3>
+Gameplay (70)</h3>
 <p><b><span class="tt"><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">test_block_controller.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3724,6 +3805,88 @@ Vérifie que <span class="tt">loop.cycleLength</span> vaut <span class="tt">8.0<
 <sub><span class="tt"><a class="el" href="test__platform__path_8cpp.html" title="Tests unitaires de la route d&#39;une plateforme mobile (core::PlatformPath, LOT-67, EX-GP-054) — la prim...">Source/Test/Unit/Core/Gameplay/test_platform_path.cpp</a>:122</span></sub>  </td><td class="markdownTableBodyNone">Une distance négative est repliée sur le cycle.  </td><td class="markdownTableBodyNone">1. Interroger la position a une distance negative et a son equivalent positif.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">path.cycleLength</span> vaut <span class="tt">8.0</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">negative.x</span> vaut <span class="tt">positive.x</span>, à <span class="tt">1e-4f</span> près.<br  />
 Vérifie que <span class="tt">negative.y</span> vaut <span class="tt">positive.y</span>, à <span class="tt">1e-4f</span> près.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">test_sinking_block_controller.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.ImmobileTantQuIlNEstPasTouche</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant non arme reste immobile indefiniment.  </td><td class="markdownTableBodyNone">1. Poser un bloc descendant en (2, 1) avec du vide en dessous.<br  />
+2. Avancer 600 pas fixes sans jamais approcher le personnage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.count()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">controller.isArmedAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.boxAt(0).min.y</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">controller.samples().size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.ArmeParLeDessous</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:76</span></sub>  </td><td class="markdownTableBodyNone">Un contact par le dessous arme un bloc descendant.  </td><td class="markdownTableBodyNone">1. Approcher la boite du personnage PAR LE DESSOUS du bloc (2, 2).<br  />
+2. Avancer un pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isArmedAt(0)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.ArmementIrreversible</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:95</span></sub>  </td><td class="markdownTableBodyNone">Un bloc arme continue de descendre apres que le personnage s'est eloigne.  </td><td class="markdownTableBodyNone">1. Toucher le bloc une seule fois.<br  />
+2. Eloigner le personnage et avancer 120 pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isArmedAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">controller.boxAt(0).min.y</span> est strictement supérieur à <span class="tt">1.0f</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.DescenteDeterministeEtAVitesseConstante</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:117</span></sub>  </td><td class="markdownTableBodyNone">La descente d'un bloc est deterministe et a vitesse constante.  </td><td class="markdownTableBodyNone">1. Armer deux controleurs identiques et les avancer du meme nombre de pas.<br  />
+2. Comparer les positions ; verifier la distance parcourue en une seconde.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">first.boxAt(0).min.y</span> vaut <span class="tt">second.boxAt(0).min.y</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">first.boxAt(0).min.y - 1.0f</span> vaut <span class="tt"><a class="el" href="classcore_1_1SinkingBlockController.html#a49a28301d87796672ade115e046a91b3" title="Vitesse de descente, en cases par seconde.">core::SinkingBlockController::SINK_SPEED_CELLS_PER_SECOND</a></span>, à <span class="tt">0.05f</span> près.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.SArreteContreLaMatiereEtNeRepartPas</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:144</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant s'arrete definitivement contre la matiere pleine.  </td><td class="markdownTableBodyNone">1. Armer un bloc au-dessus d'un sol proche et le laisser descendre longuement.<br  />
+2. Retirer ensuite la case pleine sous lui et avancer encore.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.boxAt(0).min.y</span> vaut <span class="tt">3.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">controller.isRemovedAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.boxAt(0).min.y</span> vaut <span class="tt">3.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.SortDuTableauParLeBas</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:173</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant qui franchit le bord bas est retire du niveau.  </td><td class="markdownTableBodyNone">1. Construire un niveau dont la colonne du bloc est entierement vide sous lui.<br  />
+2. Armer le bloc et avancer largement de quoi traverser toute la hauteur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isRemovedAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">controller.samples().empty()</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">test_volatile_block_controller.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeGroundPoundBriseUnBlocFragile</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:57</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound par le dessus brise un bloc fragile.  </td><td class="markdownTableBodyNone">1. Poser une dalle fragile en (2, 3).<br  />
+2. Passer un pas avec le personnage au-dessus et <span class="tt">groundPounding</span> vrai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.count()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">controller.blocksGoneThisStep().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">controller.blocksGoneThisStep()[0]</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 3})</span>.<br  />
+Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.SansGroundPoundLeBlocFragileSurvit</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">Sans ground pound, un bloc fragile survit a tout contact.  </td><td class="markdownTableBodyNone">1. Passer 600 pas avec le personnage POSE sur la dalle, <span class="tt">groundPounding</span> faux.<br  />
+2. Verifier l'etat de la dalle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.UnGroundPoundACoteNeBrisePas</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:103</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound decale lateralement ne brise pas un bloc fragile.  </td><td class="markdownTableBodyNone">1. Passer un pas avec <span class="tt">groundPounding</span> vrai, mais le personnage sur une autre colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeBlocEphemereResteTantQuOnEstDessus</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:121</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere ne disparait pas sous les pieds du personnage.  </td><td class="markdownTableBodyNone">1. Rester pose sur la dalle pendant 600 pas, tres au-dela du delai de disparition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeBlocEphemereDisparaitApresLeDelaiExact</b> (Bloquant)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:143</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere disparait exactement N pas apres le depart du personnage.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, puis la quitter.<br  />
+2. Compter les pas jusqu'a la disparition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.PasserSousUnBlocEphemereNeLArmePas</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:169</span></sub>  </td><td class="markdownTableBodyNone">Passer sous un bloc ephemere ne declenche pas sa disparition.  </td><td class="markdownTableBodyNone">1. Placer le personnage sous la dalle, puis l'eloigner.<br  />
+2. Avancer largement au-dela du delai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.RevenirNAnnulePasLaDisparition</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:197</span></sub>  </td><td class="markdownTableBodyNone">Un retour pendant le compte a rebours n'annule pas la disparition.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, la quitter, puis y revenir immediatement.<br  />
+2. Avancer au-dela du delai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LaCarteDuNiveauResteImmuable</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:220</span></sub>  </td><td class="markdownTableBodyNone">Un bloc disparu laisse la carte du niveau inchangee.  </td><td class="markdownTableBodyNone">1. Briser une dalle fragile au ground pound.<br  />
+2. Relire la carte du <span class="tt">Level</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">level.tileMap().tile(2, 3)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad29ef67b6f2980da6cfbc841a8a3db90">core::TileType::FragileBlock</a></span>.<br  />
+Vérifie que <span class="tt">reloaded.isGoneAt(0)</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Levels (218)</h3>
@@ -7125,13 +7288,13 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a8158375fa94
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TileTaxonomy.ChaqueTypeFigureExactementUneFois</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__taxonomy_8cpp.html">Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp</a>:41</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile figure exactement une fois dans la taxonomie.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__tile__taxonomy_8cpp.html">Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp</a>:43</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile figure exactement une fois dans la taxonomie.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">types.size()</span> vaut <span class="tt">TILE_TYPE_COUNT</span>.<br  />
 Vérifie que <span class="tt">unique.size()</span> vaut <span class="tt">types.size()</span>.<br  />
 Vérifie que <span class="tt">unique.size()</span> vaut <span class="tt">TILE_TYPE_COUNT</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TileTaxonomy.ChaqueEntreeAUnLibelle</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__tile__taxonomy_8cpp.html">Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__tile__taxonomy_8cpp.html">Source/Test/Unit/HMI/Editor/test_tile_taxonomy.cpp</a>:65</span></sub>  </td><td class="markdownTableBodyNone">Chaque catégorie, sous-groupe et tuile de la taxonomie porte un libellé non vide.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">category.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">entry.label.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">subgroup.label.empty()</span> est faux.<br  />
@@ -11032,14 +11195,14 @@ Couverture Mecaniques — <span class="tt">test_couverture_mecaniques.cpp</span>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CouvertureMecaniques.InventaireDeriveDeLEnumeration</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:286</span></sub>  </td><td class="markdownTableBodyNone">L'inventaire des types de tuile dérive de l'énumération du code : chaque type produit a un nom qui se relit exactement au même type.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:287</span></sub>  </td><td class="markdownTableBodyNone">L'inventaire des types de tuile dérive de l'énumération du code : chaque type produit a un nom qui se relit exactement au même type.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">types.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">type</span> diffère de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span>.<br  />
 Vérifie que <span class="tt">roundTrip.has_value()</span> est vrai.<br  />
 Vérifie que <span class="tt">*roundTrip</span> vaut <span class="tt">type</span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>CouvertureMecaniques.GardeFouSensibleAUneMecaniqueManquante</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:314</span></sub>  </td><td class="markdownTableBodyNone">Retirer les occurrences d'un type de tuile, ou n'en laisser qu'une, fait échouer le garde-fou de couverture, qui le nomme précisément.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:315</span></sub>  </td><td class="markdownTableBodyNone">Retirer les occurrences d'un type de tuile, ou n'en laisser qu'une, fait échouer le garde-fou de couverture, qui le nomme précisément.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">missing.size()</span> vaut <span class="tt">1U</span>.<br  />
 Vérifie que <span class="tt">missing.front()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></span>.<br  />
 Vérifie que <span class="tt">shallow.size()</span> vaut <span class="tt">1U</span>.<br  />
@@ -11049,7 +11212,7 @@ Vérifie que <span class="tt">missingModes.size()</span> vaut <span class="tt">1
 Vérifie que <span class="tt">missingModes.front()</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a5c6444096b9bc21a78b1f1157e9070b6a3903aab323863bd2e9b68218a7a65ebd" title="Caméra de suivi du personnage (zone morte, anticipation, bornage).">core::CameraFramingMode::Follow</a></span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>CouvertureMecaniques.ChaqueMecaniqueLivreeEstCouverteParLaSequence</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:364</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque mode de cadrage comme chaque variante significative y est employé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__couverture__mecaniques_8cpp.html" title="Garde-fou de couverture des mécaniques par le contenu livré (EX-LVL-015, LOT-65 TACHE-01).">Source/Test/Systeme/test_couverture_mecaniques.cpp</a>:365</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile livré est posé au moins trois fois dans la séquence, et chaque mode de cadrage comme chaque variante significative y est employé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">allCovered</span> est vrai.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
@@ -11059,18 +11222,18 @@ Parcours Complet — <span class="tt">test_parcours_complet.cpp</span> (4)</h2>
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ParcoursCompletSysteme.FranchitTouteLaSequence</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1321</span></sub>  </td><td class="markdownTableBodyNone">Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, et aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1426</span></sub>  </td><td class="markdownTableBodyNone">Parcours complet : chaque niveau de la séquence est franchi (<span class="tt">Won</span>) dans l'ordre, et aucune de ses tuiles de mécanique n'est hors de portée du trajet parcouru.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sequence.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">trace.outcome</span> vaut <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.<br  />
 Vérifie que <span class="tt">withinReach(cell, trace.centers)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ParcoursCompletSysteme.AucunTableauNEstFranchissableEnMaintenantDroite</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1361</span></sub>  </td><td class="markdownTableBodyNone">Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite », hors exclusions nommées.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1466</span></sub>  </td><td class="markdownTableBodyNone">Aucun tableau de la séquence livrée n'est franchissable en maintenant « droite », hors exclusions nommées.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">files.empty()</span> est faux.<br  />
 Vérifie que <span class="tt">playLevel({file.c_str(), rightOnly()})</span> diffère de <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ParcoursCompletSysteme.GardeFouDeProximiteSignaleUneMecaniqueHorsDePortee</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1388</span></sub>  </td><td class="markdownTableBodyNone">Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1493</span></sub>  </td><td class="markdownTableBodyNone">Une tuile de mécanique posée hors de portée d'un saut au-dessus du trajet est signalée par le garde-fou de proximité ; la même tuile sur le trajet ne l'est pas.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">withinReach(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{.column = 5, .row = 5}, centers)</span> est vrai.<br  />
 Vérifie que <span class="tt">withinReach(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{.column = 5, .row = 2}, centers)</span> est faux.<br  />
 Vérifie que <span class="tt">withinReach(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{.column = 20, .row = 6}, centers)</span> est faux.<br  />
@@ -11083,7 +11246,7 @@ Vérifie que <span class="tt">isMechanicTile(core::TileType::SlopeDownRight)</sp
 Vérifie que <span class="tt">isMechanicTile(core::TileType::DangerBlink)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ParcoursCompletSystemeHeadlessEnvironment.FideliteParPas</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1431</span></sub>  </td><td class="markdownTableBodyNone">Les deux orchestrations (référence et <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) restent identiques pas à pas, position/vitesse/issue, sur toute la séquence livrée.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:1536</span></sub>  </td><td class="markdownTableBodyNone">Les deux orchestrations (référence et <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>) restent identiques pas à pas, position/vitesse/issue, sur toute la séquence livrée.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sequence.empty()</span> est faux.  </td></tr>
 </table>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>

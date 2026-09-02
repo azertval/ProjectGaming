@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-21-tache-02-ai-mode-screen.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-21-mode-ia-ihm_2tache-02-ai-mode-screen"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-21.html#md_Lot-Annexe_2LOT-ANNEXE-21-mode-ia-ihm_2epic" title="Lot-Annexe/LOT-ANNEXE-21-mode-ia-ihm/epic.md">LOT-ANNEXE-21</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4386"></a>
 Contexte</h1>
 <p><span class="tt">TACHE-01</span> fournit <span class="tt">TrainingWorker</span> ; cette tâche construit l'écran Qt qui l'utilise, avec les onglets Validation &amp; sauvegarde et Rejeu. Maquettes de référence validées avant implémentation (revue utilisateur, trois itérations).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4387"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">Elements/UI/AiModeScreen.ui</span></b> : <span class="tt">QTabWidget</span> trois onglets, portée identité (<span class="tt">#AiModeScreen</span> dans <span class="tt">theme.qss</span>, même patron que <span class="tt">#OptionsPage</span>/<span class="tt">#LevelSelectScreen</span>).<ul>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt"><a class="el" href="AiModeScreen_8h.html" title="Écran « Mode IA » du menu principal (LOT-ANNEXE-21, EX-IA-022) : trois onglets (Entraînement,...">HMI/Interface/AiModeScreen.h</a>/.cpp</span></b> : construit/possède le <span class="tt">TrainingWorker</span> et son <span class="tt">QThread</span> (créé à la demande, jamais avant <span class="tt">Lancer l'entraînement</span> ; détruit proprement après <span class="tt">finished</span>/ <span class="tt">requestStop</span>), connecte ses signaux aux widgets, gère la bascule Rejeu 3D (relance <span class="tt">GameViewport::startReplay</span> sur <span class="tt">previewReady</span>) et Statistiques (ajoute une ligne au tableau sur <span class="tt">progress</span>).</li>
 <li><b>Infobulles</b> (<span class="tt">setToolTip</span>) sur chaque champ/bouton des onglets Entraînement et Validation &amp; sauvegarde, expliquant son rôle (voir maquettes pour le texte de référence).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4388"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/UI/AiModeScreen.ui</span> — nouveau.</li>
@@ -118,28 +118,28 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Localization/en.lang</span>/<span class="tt">fr.lang</span> — modifiés (nouvelles clés).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> — modifié (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4389"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Bascule Rejeu 3D/Statistiques sans interrompre le run</b> : basculer de vue pendant un entraînement actif ne redémarre ni n'interrompt le <span class="tt">TrainingWorker</span>.</li>
 <li><b>Validation &amp; sauvegarde cohérente avec un appel direct</b> : même critère que <span class="tt">LOT-ANNEXE-19</span>/TACHE-01 CLI — résultat numériquement identique à <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> appelé directement dans les mêmes conditions.</li>
 <li><b>Rejeu invalide signalé</b> : un rejeu dont le niveau référencé a changé affiche un message d'erreur explicite, jamais un plantage ni un écran de jeu partiellement affiché.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4308"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4390"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le <span class="tt">QThread</span> de <span class="tt">TrainingWorker</span> est toujours arrêté proprement avant la destruction de l'écran</b> (<span class="tt">requestStop</span> puis <span class="tt">wait()</span>) : une fermeture de fenêtre pendant un run actif ne doit jamais laisser un thread orphelin.</li>
 <li><b>Un seul <span class="tt">TrainingWorker</span> actif à la fois</b> : <span class="tt">Lancer l'entraînement</span> est désactivé tant qu'un run est en cours (même règle que <span class="tt">aisolver-cli</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4309"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4391"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Écran fonctionnel de bout en bout (test manuel guidé par les maquettes) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4310"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4392"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre IHM (Qt, disposition, threading). Le vocabulaire employé est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4311"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4393"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-022</span> (nouvelle, partagée avec TACHE-01/03 du même lot). </p>
 </div></div><!-- contents -->

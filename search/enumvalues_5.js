@@ -11,5 +11,6 @@ var searchData=
   ['follow_8',['Follow',['../namespacecore.html#a5c6444096b9bc21a78b1f1157e9070b6a3903aab323863bd2e9b68218a7a65ebd',1,'core']]],
   ['font_9',['Font',['../namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a194f5394ae2e9c74dc3c441b92862d1d',1,'hmi']]],
   ['foreground_10',['Foreground',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground'],['../namespacehmi.html#acaf7f33926fae2f8294ef4ee5d24ba52a45bd1d5b32931106efbf1a82fe6a732f',1,'hmi::Foreground']]],
-  ['front_11',['Front',['../namespacecore.html#a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde',1,'core']]]
+  ['fragileblock_11',['FragileBlock',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad29ef67b6f2980da6cfbc841a8a3db90',1,'core']]],
+  ['front_12',['Front',['../namespacecore.html#a6dc89438a55a80980ab04f7da513f731a5835bab1ade0060909e31a06af2e2cde',1,'core']]]
 ];

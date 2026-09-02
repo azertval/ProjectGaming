@@ -94,17 +94,17 @@ $(function(){initNavTree('lot-annexe-13-tache-03-perte-critique-optimisation-con
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2tache-03-perte-critique-optimisation-conjointe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-13.html#md_Lot-Annexe_2LOT-ANNEXE-13-acteur-critique_2epic" title="Lot-Annexe/LOT-ANNEXE-13-acteur-critique/epic.md">LOT-ANNEXE-13</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/ActorCritic</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4049"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4131"></a>
 Contexte</h1>
 <p>Le critique (TACHE-01) doit lui-même être entraîné pour que son estimation de valeur devienne fiable — sans quoi l'avantage (TACHE-02) resterait un signal bruité, ne réduisant en rien la variance recherchée. Cette tâche ajoute la perte d'entraînement du critique et assemble la boucle complète qui optimise <b>les deux réseaux à chaque épisode</b>, en réutilisant et en étendant <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> (LOT-ANNEXE-12).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4050"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4132"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">aisolver::training::computeCriticLoss</a></span></b> (<span class="tt"><a class="el" href="CriticLoss_8h.html" title="Perte d&#39;entraînement du critique : erreur quadratique moyenne vis-à-vis du retour observé (LOT-ANNEXE...">Source/AiSolver/Training/ActorCritic/CriticLoss.h</a>/.cpp</span>) : fonction <span class="tt">autodiff::NodePtr <a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a>(training::CriticNetwork&amp; critic, const <a class="el" href="structTrajectory.html" title="Trajectoire complète d&#39;un épisode : un pas par appel à HeadlessLevelEnvironment::step,...">Trajectory</a>&amp; trajectory, const std::vector&lt;float&gt;&amp; returns)</span> — pour chaque pas, rejoue <span class="tt">critic.forward</span> sur l'observation (nœud de graphe, poids du critique actuels), calcule l'écart quadratique <span class="tt">(valeur_t − returns[t])²</span>, moyenne sur l'épisode. Graphe d'autodiff indépendant de celui de la perte de politique (TACHE-02).</li>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1ActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">aisolver::training::ActorCriticTrainer</a></span></b> (<span class="tt"><a class="el" href="ActorCriticTrainer_8h.html" title="Boucle d&#39;entraînement acteur-critique par épisodes (LOT-ANNEXE-13, TACHE-03, EX-IA-014) — même ossatu...">Source/AiSolver/Training/ActorCritic/ActorCriticTrainer.h</a>/.cpp</span>) : construit à partir des mêmes éléments que <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span> (LOT-ANNEXE-12) plus un <span class="tt"><a class="el" href="classCriticNetwork.html" title="Réseau distinct de la politique (nn::Network, LOT-ANNEXE-03), même bibliothèque de couches,...">CriticNetwork</a></span> et un <b>second</b> optimiseur (indépendant de celui de la politique). Méthode <span class="tt">void run(std::size_t episodeCount)</span> : pour chaque épisode — collecte de trajectoire (<a class="el" href="classTrajectoryCollector.html" title="Collecte une trajectoire complète sur un environnement déjà chargé/réinitialisé.">TrajectoryCollector</a>, LOT-ANNEXE-12, inchangé), calcul des retours (<span class="tt"><a class="el" href="test__return__calculator_8cpp.html#ab4eecaaa8132cd4c0592e3176185a4aa" title="Retour actualisé G_t = reward_t + gamma * G_{t+1} (G_T = reward_T au dernier pas),...">computeReturns</a></span>, LOT-ANNEXE-12, inchangé), calcul des avantages (<span class="tt"><a class="el" href="test__advantage__calculator_8cpp.html#a9c627d75f8bb215c30409e37bbcfbe06" title="Calcule advantage_t = returns[t] − critic.forward(observation_t), pour chaque pas.">computeAdvantages</a></span>, TACHE-02), perte de politique (<span class="tt"><a class="el" href="test__actor__critic__loss_8cpp.html#a7c018bcd482518cdc3b7eb83459c1e69" title="Construit le graphe mean_t(-log(pi(a_t|s_t)) * advantage_t).">computeActorCriticLoss</a></span>, TACHE-02) et perte du critique (<span class="tt"><a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span>, ci-dessus) — <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> et <span class="tt">step()</span> de l'<b>optimiseur de la politique</b> sur la perte de politique, <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> et <span class="tt">step()</span> de l'<b>optimiseur du critique</b> sur la perte du critique, <b>remise à zéro des gradients des deux réseaux</b> avant l'épisode suivant, journalisation via <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09) incluant désormais la perte du critique en plus des colonnes déjà présentes pour LOT-ANNEXE-12.</li>
 <li>Ordre des deux mises à jour <b>non significatif</b> dans ce lot (aucune dépendance entre les deux passages arrière, puisque l'avantage utilisé dans la perte de politique est une valeur détachée du graphe du critique, cf. TACHE-02) — documenté explicitement pour éviter qu'un futur lot suppose un ordre implicite.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4051"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4133"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="CriticLoss_8h.html" title="Perte d&#39;entraînement du critique : erreur quadratique moyenne vis-à-vis du retour observé (LOT-ANNEXE...">Source/AiSolver/Training/ActorCritic/CriticLoss.h</a></span> (nouveau).</li>
@@ -113,7 +113,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="ActorCriticTrainer_8cpp.html">Source/AiSolver/Training/ActorCritic/ActorCriticTrainer.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveaux fichiers).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4052"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4134"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Gradient checking de <span class="tt"><a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span></b> : gradient rétropropagé vs différences finies, même méthodologie que LOT-ANNEXE-02/12.</li>
@@ -122,22 +122,22 @@ Tests (obligatoires)</h1>
 <li><b>Gradients remis à zéro correctement pour les deux réseaux</b> entre deux épisodes consécutifs (pas de fuite d'un épisode à l'autre, ni entre acteur et critique).</li>
 <li><b>CSV enrichi cohérent</b> : la colonne de perte du critique est présente et numériquement plausible (finie, décroissante en tendance) sur un run court.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4053"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4135"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Deux graphes d'autodiff bien séparés par épisode</b> : construire la perte de politique et la perte du critique comme deux appels indépendants, chacun suivi de son propre <span class="tt"><a class="el" href="test__autodiff__backward_8cpp.html#a5bc4035c679bde8e0d20f2a83b4b9eb1" title="Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable depuis roo...">backward()</a></span> — ne jamais les combiner dans un seul nœud scalaire final (cela recréerait un couplage de gradient que la décision de cadrage « pas de poids partagés » exclut explicitement).</li>
 <li><b>Ne pas oublier de remettre à zéro les gradients du critique</b> en plus de ceux de la politique entre deux épisodes — piège d'oubli facile en étendant <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>, qui ne gérait qu'un seul réseau.</li>
 <li>Le format CSV <b>étend</b> celui de LOT-ANNEXE-09/12 (colonne supplémentaire), il ne le <b>remplace</b> pas : les runs REINFORCE bruts déjà produits par LOT-ANNEXE-12 restent lisibles et comparables sans transformation, condition nécessaire à TACHE-04.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4054"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4136"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__critic__loss_8cpp.html#a9e34ec7fba384cf00159367fb67ebea2" title="Construit le graphe mean_t((valeur_t − returns[t])^2).">computeCriticLoss</a></span> et <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span> disponibles et testés (<span class="tt">ctest</span> vert), convergence du critique observée sur le niveau de contrôle ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-014</span> déclarée dans l'épic.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4055"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4137"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-acteur-critique.html" title="Acteur-critique">Acteur-critique</a> — variance du gradient, fonction de valeur, critique, avantage.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4056"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4138"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-014</span> (nouvelle). </p>
 </div></div><!-- contents -->

@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-04.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-02.html" title="LOT-ANNEXE-02 — Moteur d&#39;autodiff maison">LOT-ANNEXE-02</a> (autodiff, source des gradients) et <a class="el" href="lot-annexe-03.html" title="LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison">LOT-ANNEXE-03</a> (réseaux, source des paramètres à optimiser). Dernier lot de la génération 0 : ferme la chaîne de calcul qui rend l'apprentissage par gradient (génération 3) possible. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3616"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3698"></a>
 Objectif</h1>
 <p><span class="tt">LOT-ANNEXE-02</span> calcule un gradient par nœud (<span class="tt">autodiff::Node::grad()</span>), <span class="tt">LOT-ANNEXE-03</span> expose les paramètres d'un réseau (<span class="tt">nn::Network::parameters()</span>), mais rien ne relie encore les deux : un gradient calculé et jamais appliqué ne change rien. Ce lot écrit ce dernier maillon — les règles de mise à jour des poids à partir de leur gradient accumulé — sans lequel aucun algorithme de la génération 3 (REINFORCE, acteur-critique, algorithme avancé) ne pourrait effectivement apprendre. Deux règles suffisent à couvrir les besoins identifiés : SGD (avec/sans inertie), la plus simple et la référence de calibration, et <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>, la plus robuste au choix du taux d'apprentissage — le choix entre les deux reste un paramètre d'expérience de chaque lot de génération 3, pas une décision figée ici.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3617"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3699"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3618"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3700"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1optim_1_1Sgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">aisolver::optim::Sgd</a></span></b> : mise à jour <span class="tt">poids -= tauxApprentissage × gradient</span>, avec un terme d'inertie (<em>momentum</em>) optionnel et configurable (<span class="tt">vitesse = momentum × vitesse - taux × gradient
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Interface commune</b> (<span class="tt"><a class="el" href="classaisolver_1_1optim_1_1IOptimizer.html" title="Règle de mise à jour de paramètres à partir de leur gradient accumulé.">aisolver::optim::IOptimizer</a></span>) : <span class="tt">step(paramètres)</span> applique une mise à jour à partir des gradients déjà accumulés sur chaque <span class="tt">autodiff::Node</span> ; <span class="tt">zeroGrad(paramètres)</span> remet les gradients à zéro entre deux passes — nécessaire puisque <span class="tt">LOT-ANNEXE-02</span> accumule (<span class="tt">+=</span>) plutôt que d'écraser.</li>
 <li><b>Tests de convergence sur fonctions jouets</b> (ex. régression sur un polynôme connu, minimisation d'une quadratique à minimum connu) — condition <b>bloquante</b> avant tout usage par la génération 3, au même titre que le gradient checking de <span class="tt">LOT-ANNEXE-02</span>.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3619"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3701"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Autres optimiseurs</b> (RMSProp, Adagrad, variantes à taux d'apprentissage adaptatif par paramètre autres qu'<a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>) : SGD et <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a> couvrent l'éventail usuel (référence simple / référence robuste) sans qu'aucun besoin supplémentaire ne soit identifié par la génération 3.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Écrêtage de gradient</b> (<em>gradient clipping</em>) : aucune divergence numérique observée avant tout entraînement réel (la génération 3 n'a pas encore tourné) ; à introduire seulement si les tests de <span class="tt">LOT-ANNEXE-12</span> révèlent un besoin concret, pas de façon préventive.</li>
 <li><b>Optimisation multi-paramètres par groupes</b> (taux différent par couche) : chaque paramètre reçoit le même taux d'apprentissage de l'optimiseur qui le porte — suffisant pour des réseaux de la taille visée (<span class="tt">LOT-ANNEXE-03</span>, couches denses peu nombreuses).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3620"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3702"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>L'optimiseur ne connaît que des <span class="tt">autodiff::Node</span> porteurs de gradient, jamais le réseau ou l'algorithme d'apprentissage qui les a produits.</b> <span class="tt">step(parameters)</span> prend en entrée exactement ce que <span class="tt">nn::Network::parameters()</span> expose (<span class="tt">LOT-ANNEXE-03</span>) — aucun couplage à <span class="tt">PolicyGradient</span>, <span class="tt">Evolutionary</span> ou tout autre module de génération 2/3, cohérent avec le principe déjà appliqué à <span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span> (bibliothèque de calcul pure, sans logique d'entraînement spécifique au jeu).</li>
@@ -127,16 +127,16 @@ Décisions de cadrage</h1>
 <li><b>Aucun optimiseur ne modifie le graphe d'autodiff.</b> <span class="tt">step</span> lit <span class="tt">Node::grad()</span> et écrit directement dans le tenseur de valeur du paramètre (<span class="tt">Node::value()</span>), en dehors de toute construction de graphe — l'optimiseur n'est jamais différentié lui-même, cohérent avec le périmètre de <span class="tt">LOT-ANNEXE-02</span> (dérivées du premier ordre uniquement).</li>
 <li><b>Les tests de convergence sur fonctions jouets sont bloquants avant tout usage par la génération 3</b>, exactement comme le gradient checking de <span class="tt">LOT-ANNEXE-02</span> : un optimiseur qui ne fait pas converger une régression polynomiale connue ne doit pas être laissé entraîner un agent réel — le signal d'échec serait alors noyé dans le bruit inhérent à l'apprentissage par renforcement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3621"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3703"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-optimisation.html" title="Descente de gradient et optimiseurs">Descente de gradient et optimiseurs</a> (descente de gradient, taux d'apprentissage, inertie, <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>). Sources directes : Robbins &amp; Monro (1951, approximation stochastique, fondement de SGD) ; Kingma &amp; Ba (2015, article d'origine d'<a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>) ; Ruder (2016, synthèse comparative) — bibliographie complète dans le chapitre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3622"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3704"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-004" title="EX-IA-004"><span class="tt">EX-IA-004</span></a>.</li>
 <li>Réutilisées : <span class="tt">EX-IA-002</span> (moteur d'autodiff, source des gradients), <span class="tt">EX-IA-003</span> (réseaux de neurones, source des paramètres), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-NFR-012</span>/<span class="tt">EX-NFR-013</span>/<span class="tt">EX-NFR-020</span> (testabilité headless, conventions, <span class="tt">/W4 /WX</span>, couverture de tests), <span class="tt">EX-ARCH-001</span> (sens de dépendance <span class="tt">AiSolver → Core</span>, jamais l'inverse).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3623"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3705"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-04-tache-03-tests-convergence.html#md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2tache-03-tests-convergence" title="Lot-Annexe/LOT-ANNEXE-04-optimiseurs/tache-03-tests-convergence.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Tests de convergence sur fonctions jouets (bloquant)  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Unit/AiSolver/Optim</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3624"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3706"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> (sans inertie) minimise une fonction quadratique convexe connue jusqu'à une tolérance documentée, en un nombre d'itérations cohérent avec le taux d'apprentissage choisi.</li>
@@ -160,10 +160,10 @@ Critères d'acceptation du lot</h1>
 <li><span class="tt">zeroGrad</span> remet effectivement à zéro les gradients de tous les paramètres fournis, vérifié par test dédié distinct des tests de convergence.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et <span class="tt">scripts/lint_exigences.py</span> verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3707"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-02.html" title="LOT-ANNEXE-02 — Moteur d&#39;autodiff maison">LOT-ANNEXE-02</a> (<span class="tt">autodiff::Node::grad()</span>) et <a class="el" href="lot-annexe-03.html" title="LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison">LOT-ANNEXE-03</a> (<span class="tt">nn::Network::parameters()</span>). Dernier lot de la génération 0 : <a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a>, <a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13</a> et <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14</a> (génération 3, apprentissage par gradient) en dépendent directement pour la mise à jour de leurs réseaux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3708"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-04-tache-01-sgd.html" title="TACHE-01 — SGD (avec/sans inertie)">TACHE-01 — SGD (avec/sans inertie)</a></li>

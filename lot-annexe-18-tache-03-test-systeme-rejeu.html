@@ -94,43 +94,43 @@ $(function(){initNavTree('lot-annexe-18-tache-03-test-systeme-rejeu.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2tache-03-test-systeme-rejeu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-18.html#md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2epic" title="Lot-Annexe/LOT-ANNEXE-18-mode-regarder-ia-jouer/epic.md">LOT-ANNEXE-18</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Systeme</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4305"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> prouve, pour la séquence <span class="tt">demo-*.json</span>, que des scripts d'entrée codés en dur mènent bien à <span class="tt">Won</span> sur chaque niveau. Cette tâche apporte la preuve symétrique pour un fichier de rejeu réel : que la relecture d'un fichier produit par un algorithme d'entraînement (génération 2 ou 3) reproduit fidèlement, à travers <span class="tt">GameSession</span>/<span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> (TACHE-01), la victoire observée à l'entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4224"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4306"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__rejeu__ia_8cpp.html" title="Test système : un fichier de rejeu réel (produit par un entraînement) rejoue jusqu&#39;à Won (LOT-ANNEXE-...">Source/Test/Systeme/test_rejeu_ia.cpp</a></span></b> (nouveau) : charge un fichier de rejeu de test fixe (produit une fois, à l'écriture de ce test, par un entraînement réel sur un niveau simple — committé comme fixture, à l'image des fichiers <span class="tt">demo-*.json</span> de <span class="tt">Source/Elements/Levels</span>), construit un <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> et un <span class="tt"><a class="el" href="classhmi_1_1ReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">hmi::ReplayPlayback</a></span> sur ce fichier, boucle <span class="tt"><a class="el" href="classReplayPlayback.html#a66b63484e3ff4dbd0939fbf27d465c0f" title="Renvoie le prochain core::PlayerInput de la séquence enregistrée.">ReplayPlayback::nextInput()</a></span> → <span class="tt">GameSession::update(playerInput, fixedDelta)</span> jusqu'à <span class="tt">Won</span>/ <span class="tt">Lost</span> ou épuisement de la séquence, et vérifie <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>.</li>
 <li>Fixture de rejeu de test : <span class="tt">Source/Test/Systeme/Fixtures/rejeu-test-deplacement.json</span> (ou équivalent), généré une fois manuellement (ou via <span class="tt">LOT-ANNEXE-19</span>, CLI, une fois ce lot livré) à partir d'un modèle entraîné sur un niveau simple et déterministe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4225"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4307"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__rejeu__ia_8cpp.html" title="Test système : un fichier de rejeu réel (produit par un entraînement) rejoue jusqu&#39;à Won (LOT-ANNEXE-...">Source/Test/Systeme/test_rejeu_ia.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/Systeme/Fixtures/rejeu-test-deplacement.json</span> (ou chemin équivalent) — nouveau, fixture committée.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout du nouveau fichier à la cible <span class="tt">SystemTests</span>, avec le même mécanisme <span class="tt">PROJECTGAMING_LEVELS_DIR</span> déjà en place pour localiser le niveau référencé par la fixture.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4226"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4308"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Rejeu de la fixture aboutit à <span class="tt">Won</span></b> : condition d'acceptation directe, symétrique à <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>.</li>
 <li><b>Rejeu invalidé si la fixture de niveau change</b> : un test complémentaire modifie volontairement (dans une copie temporaire, pas le fichier committé) le contenu du niveau référencé et vérifie que <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span>/<span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span> (<span class="tt">LOT-ANNEXE-17</span>) refuse la lecture, cohérent avec le critère d'acceptation 2 de l'épic.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4227"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4309"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La fixture de rejeu doit rester stable dans le temps</b> : si <span class="tt">Core</span> évolue de façon à changer la physique (peu probable une fois le moteur stabilisé, mais possible), ce test peut casser légitimement — dans ce cas, régénérer la fixture (via un entraînement réel ou <span class="tt">LOT-ANNEXE-19</span> CLI) plutôt que d'ajuster artificiellement le test.</li>
 <li><b>Ce test est le pendant système du test unitaire d'équivalence des deux surcharges de <span class="tt">GameSession::update</span></b> (TACHE-01) : celui-là vérifie l'équivalence mécanique, celui-ci vérifie le résultat de bout en bout sur un rejeu réel — les deux sont nécessaires, aucun ne remplace l'autre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4228"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4310"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__rejeu__ia_8cpp.html" title="Test système : un fichier de rejeu réel (produit par un entraînement) rejoue jusqu&#39;à Won (LOT-ANNEXE-...">test_rejeu_ia.cpp</a></span> vert (<span class="tt">ctest</span>), fixture committée et documentée ; build <span class="tt">/W4 /WX</span> sans avertissement ; <span class="tt">EX-IA-019</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4229"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4311"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4230"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4312"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-019</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

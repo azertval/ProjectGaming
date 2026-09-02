@@ -96,10 +96,10 @@ $(function(){initNavTree('lot-annexe-21.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-20](<a class="el" href="lot-annexe-20.html" title="LOT-ANNEXE-20 — Garde-fou CI">LOT-ANNEXE-20 — Garde-fou CI</a>) à ce titre). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4285"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4367"></a>
 Objectif</h1>
 <p><span class="tt">LOT-ANNEXE-19</span> expose l'entraînement, l'évaluation et l'export de rejeu via <span class="tt">aisolver-cli</span>, une ligne de commande — un outil d'expérimentation, jamais pensé pour un joueur ou un testeur sans terminal. Ce lot ajoute un écran <b>« Mode IA »</b> au menu principal du jeu, IHM Qt complète pour les mêmes trois capacités, avec deux façons de suivre un entraînement : <b>avec IHM</b> (rejeu en direct du meilleur individu courant dans la scène du niveau) ou <b>sans IHM</b> (tableau de statistiques, confirmant la progression sans plantage). L'entrée de menu historique « Regarder l'IA jouer » (<span class="tt">LOT-ANNEXE-18</span>) est absorbée par l'onglet Rejeu de ce nouvel écran.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4286"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4368"></a>
 Amendement à une décision de cadrage antérieure</h1>
 <p><span class="tt">LOT-ANNEXE-18</span> (epic.md, section Exclus) pose une règle transverse, rappelée avec insistance : « Toute inférence de réseau de neurones dans <span class="tt">HMI</span> ou <span class="tt">Core</span> » est hors périmètre — <span class="tt">HMI</span> ne référence jamais <span class="tt">Source/AiSolver/Nn</span>, <span class="tt">Autodiff</span> ni <span class="tt">Training</span>. Cette règle reste vraie pour tout le reste de <span class="tt">HMI</span> (<span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span>, <span class="tt">GameSession</span>, <span class="tt">GameViewport</span> en dehors de ce lot).</p>
 <p><b>Ce lot l'amende, explicitement et localement</b> : l'entraînement d'un modèle <b>doit</b> rester réactif à l'IHM (barre de progression, aperçu en direct, bouton Arrêter) — un simple lancement bloquant, comme <span class="tt">aisolver-cli train</span>, gèlerait la fenêtre pendant potentiellement plusieurs minutes. Un sous-processus externe (<span class="tt">QProcess</span> autour de <span class="tt">aisolver-cli</span>) aurait préservé la règle d'origine, mais au prix d'un arrêt brutal (aucune sauvegarde du dernier état avant <span class="tt">kill()</span>) et d'un aperçu en direct nécessitant que le sous-processus écrive lui-même un fichier de rejeu intermédiaire — complexité et fragilité jugées supérieures au bénéfice de la séparation stricte.</p>
@@ -108,9 +108,9 @@ Amendement à une décision de cadrage antérieure</h1>
 <li>Aucune règle d'apprentissage n'est réimplémentée : <span class="tt">HMI/Ai/TrainingWorker</span> délègue aux mêmes types que <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">aisolver::cli::runTrain</a></span> (<span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span>, <span class="tt"><a class="el" href="classReinforceTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector), calcul de retour (ReturnCalculator),...">ReinforceTrainer</a></span>, <span class="tt"><a class="el" href="classActorCriticTrainer.html" title="Assemble collecte de trajectoire (TrajectoryCollector, LOT-ANNEXE-12, inchangée), calcul de retour (c...">ActorCriticTrainer</a></span>, <span class="tt"><a class="el" href="classDqnTrainer.html" title="Assemble QNetwork (principal + cible), ReplayBuffer, computeDqnLoss et un optimiseur (optim::IOptimiz...">DqnTrainer</a></span>), avec deux points d'extension ajoutés <b>dans <span class="tt">AiSolver</span></b> (jamais dans <span class="tt">HMI</span>) pour rester observable/interruptible : <span class="tt"><a class="el" href="classTrainingStatsRecorder.html#ad2a7d87e8bbe6028149d30b76a176930" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span> et un paramètre <span class="tt">shouldStop</span> optionnel sur chaque <span class="tt">run()</span> — voir leurs en-têtes respectifs.</li>
 <li>L'entraînement continue de s'exécuter sur un <span class="tt">QThread</span> séparé du thread d'IHM (jamais bloquant), et un seul run à la fois (même règle que <span class="tt">aisolver-cli</span>, <span class="tt">LOT-ANNEXE-19</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4287"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4369"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4288"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4370"></a>
 Inclus</h2>
 <ul>
 <li><b>Entrée de menu unique « Mode IA »</b>, remplaçant « Regarder l'IA jouer » dans <span class="tt">MainMenu</span>.</li>
@@ -123,23 +123,23 @@ Inclus</h2>
 <li><b><span class="tt">HMI/Ai/TrainingWorker</span></b> : dispatch d'algorithme calqué sur <span class="tt"><a class="el" href="namespaceaisolver_1_1cli.html#a2d43895118384262149603a42a7d35d5" title="Exécute train : construit et lance un entraînement complet sur args.level, journalise (TrainingStatsR...">aisolver::cli::runTrain</a></span>, sur <span class="tt">QThread</span>, progression/interruption/aperçu par signaux Qt.</li>
 <li><b>Extensions <span class="tt">AiSolver</span></b> (additives, jamais de rupture de compatibilité) : <span class="tt"><a class="el" href="classTrainingStatsRecorder.html#ad2a7d87e8bbe6028149d30b76a176930" title="Observateur optionnel, appelé à la fin de chaque record() avec la ligne qui vient d&#39;être journalisée ...">TrainingStatsRecorder::setOnRecord</a></span>, <span class="tt">shouldStop</span> sur <span class="tt"><a class="el" href="classLevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span>/ <span class="tt"><a class="el" href="classReinforceTrainer.html#abdc5e0dc105f310f1ad87c8dd53c8a11" title="Exécute episodeCount épisodes, par lots de tuning.batchEpisodes.">ReinforceTrainer::run</a></span>/<span class="tt"><a class="el" href="classActorCriticTrainer.html#a3cfe94f214fb54c28c9b382b27807c2f" title="Exécute episodeCount épisodes.">ActorCriticTrainer::run</a></span>/<span class="tt"><a class="el" href="classDqnTrainer.html#aba5cfdffa971f5c74ebbf4f1011ac85b" title="Exécute episodeCount épisodes complets (chacun jusqu&#39;à victoire/échec/timeout/ blocage),...">DqnTrainer::run</a></span>, <span class="tt">onGenerationChampion</span> sur <span class="tt"><a class="el" href="classLevelTrainingSession.html#ac96998249bc57117e8eb0dedc15632ff" title="Exécute des générations jusqu&#39;à ce que le champion reste invaincu et résolvant pendant StoppingConfig...">LevelTrainingSession::run</a></span> (accès au champion courant, nécessaire à l'aperçu évolutionniste). <span class="tt">AiSolver/Training/ArgmaxRollout</span> (extrait de <span class="tt"><a class="el" href="Commands_8cpp.html">Cli/Commands.cpp</a></span>, sans changement de comportement) : partagé entre la CLI et <span class="tt">TrainingWorker</span>, jamais dupliqué.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4289"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4371"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Toute modification de la logique d'entraînement, d'évaluation ou d'export elle-même</b> : ce lot reste un habillage IHM, même principe que <span class="tt">LOT-ANNEXE-19</span> pour la CLI — un désaccord de comportement entre l'IHM et <span class="tt">aisolver-cli</span> est un bug de ce lot, jamais une variante assumée.</li>
 <li><b>Reprise d'un entraînement interrompu</b> : « Arrêter » produit un résultat partiel (meilleur individu/modèle au moment de l'arrêt, sauvegardé), jamais un point de reprise ultérieur.</li>
 <li><b>Entraînement multi-niveaux ou file d'attente de runs</b> : un seul run actif à la fois (décision déjà actée par <span class="tt">LOT-ANNEXE-19</span>), enchaîner plusieurs niveaux reste manuel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4290"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4372"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot est un habillage IHM (Qt, threading) des capacités déjà cadrées par les lots amont — voir leurs sections « Notions abordées » respectives.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4291"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4373"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-022" title="EX-IA-022"><span class="tt">EX-IA-022</span></a>.</li>
 <li>Réutilisées (inchangées) : les exigences de tous les lots exposés (<span class="tt">LOT-ANNEXE-10</span> à <span class="tt">20</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4292"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4374"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-21-tache-03-integration-menu.html#md_Lot-Annexe_2LOT-ANNEXE-21-mode-ia-ihm_2tache-03-integration-menu" title="Lot-Annexe/LOT-ANNEXE-21-mode-ia-ihm/tache-03-integration-menu.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Intégration au menu principal  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Interface</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4293"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4375"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Depuis le menu principal, « Mode IA » ouvre un écran à trois onglets ; « Regarder l'IA jouer » n'existe plus comme entrée séparée.</li>
@@ -166,10 +166,10 @@ Critères d'acceptation du lot</h1>
 <li>Chaque champ/bouton des onglets Entraînement et Validation &amp; sauvegarde porte une infobulle au survol expliquant son rôle.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4294"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4376"></a>
 Dépendances</h1>
 <p>Expose, sans les dupliquer, les capacités de <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>/[11](<a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu</a>) (génération 2), <a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a> à <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">14</a> (génération 3), <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a> (harnais de benchmark), [LOT-ANNEXE-17](<a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu</a>)/<a class="el" href="lot-annexe-18.html" title="LOT-ANNEXE-18 — Mode « regarder l&#39;IA jouer » (intégration HMI)">18</a> (format de rejeu, intégration jeu) et <a class="el" href="lot-annexe-19.html" title="LOT-ANNEXE-19 — Outillage CLI">LOT-ANNEXE-19</a> (mêmes types de configuration <span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>/<span class="tt"><a class="el" href="structTrainArgs.html" title="Arguments de train.">TrainArgs</a></span>). Amende explicitement la décision de cadrage de <span class="tt">LOT-ANNEXE-18</span> sur l'isolation <span class="tt">HMI</span>/<span class="tt">AiSolver</span> (voir section dédiée ci-dessus). Dernier lot du programme : aucun lot ultérieur n'en dépend.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4295"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4377"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-21-tache-01-training-worker.html" title="TACHE-01 — Hooks AiSolver + TrainingWorker">TACHE-01 — Hooks AiSolver + TrainingWorker</a></li>

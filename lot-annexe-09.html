@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-09.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Aucun prérequis fonctionnel direct (peut être développé en parallèle des autres lots de la génération 1). Dernier lot de la génération 1 : exigence explicite de l'utilisateur — en complément de la démo rejouée en jeu, savoir <b>rapidement</b> si l'IA a atteint son plafond sur le niveau en cours d'entraînement. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3824"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3906"></a>
 Objectif</h1>
 <p>Un entraînement (génération 2 : évolutionniste, génération 3 : par gradient) peut durer des milliers de générations/épisodes sans qu'aucun signal autre que « ça tourne encore » ne soit disponible tant qu'il n'est pas terminé. L'utilisateur a demandé explicitement — en plus du rejeu final observable en jeu — un fichier CSV, produit <b>au fil de l'entraînement</b>, permettant de répondre en quelques secondes à « est-ce que ça progresse encore, ou est-ce que ça a atteint un plafond ? » sans attendre la fin d'un entraînement potentiellement infructueux. Ce lot livre ce mécanisme, une seule fois, réutilisé sans duplication par tous les algorithmes des générations 2 et 3.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3825"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3907"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3826"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3908"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1TrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">aisolver::TrainingStatsRecorder</a></span></b> : interface générique <span class="tt">record(int generationOrEpisodeIndex,
@@ -111,7 +111,7 @@ Inclus</h2>
 <li><b>Un fichier CSV par run d'entraînement</b>, sous <span class="tt">/TrainingRuns/&lt;niveau&gt;/&lt;run-id&gt;/stats.csv</span> (dossier racine déjà ajouté à <span class="tt">.gitignore</span> par le cadrage général du programme — ce lot ne le recrée pas, il y écrit).</li>
 <li>Tests : écriture/relecture, stabilité du format de colonnes entre lignes successives.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3827"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3909"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Visualisation graphique</b> (courbes, tableau de bord) : le format CSV est choisi précisément pour rester consultable par un tableur générique sans outil dédié — une visualisation intégrée est une amélioration future possible, non demandée ici (voir aussi la génération 5, qui n'en prévoit pas non plus dans son périmètre actuel).</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Agrégation multi-runs</b> (comparer plusieurs fichiers CSV entre eux) : chaque fichier documente un run unique ; la comparaison inter-algorithmes structurée est le rôle du harnais de benchmark (<span class="tt">LOT-ANNEXE-15</span>, génération 4), qui réutilise ce même format de colonnes sans le dupliquer.</li>
 <li><b>Compression ou rotation des fichiers CSV</b> : un entraînement de quelques milliers de lignes produit un fichier de taille modeste (quelques centaines de kilo-octets au plus) — aucun besoin de gestion de taille identifié.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3828"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3910"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Une seule implémentation, réutilisée par les générations 2 et 3, jamais un recorder par algorithme.</b> Sans cette contrainte, comparer un run évolutionniste et un run REINFORCE supposerait déjà de réconcilier deux formats de fichier différents avant même de comparer les chiffres — le harnais de benchmark (<span class="tt">LOT-ANNEXE-15</span>) part du principe que tous les CSV du programme partagent exactement les mêmes colonnes.</li>
@@ -128,16 +128,16 @@ Décisions de cadrage</h1>
 <li><b>Le nom de fichier/dossier encode le niveau et un identifiant de run (horodatage), jamais un compteur global partagé entre niveaux différents.</b> Cohérent avec le régime d'entraînement niveau par niveau (décision transverse du programme) : deux runs sur deux niveaux différents ne se marchent jamais dessus, et deux runs successifs sur le <b>même</b> niveau restent chacun consultables séparément (utile pour comparer un réglage d'hyperparamètres à un autre sur le même niveau).</li>
 <li><b>Toute donnée déjà disponible ailleurs (graine, nom de niveau) est dupliquée dans le CSV plutôt que déduite du nom de fichier/dossier.</b> Un fichier CSV doit rester interprétable seul, même sorti de son arborescence de dossier (ex. copié ailleurs pour comparaison) — redondance délibérée, pas un oubli de normalisation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3829"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3911"></a>
 Notions abordées</h1>
 <p>Voir <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>, section 7 (« Pourquoi mesurer un plafond de performance ») et <a class="el" href="guide-annexe-evaluation-rl.html" title="Évaluation et reproductibilité en RL">Évaluation et reproductibilité en RL</a> pour le lien avec la mesure rigoureuse d'un entraînement. Aucune source académique nouvelle : ce lot est un outil d'observabilité, pas une notion d'apprentissage en soi.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3830"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3912"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-010" title="EX-IA-010"><span class="tt">EX-IA-010</span></a>.</li>
 <li>Réutilisées : <span class="tt">EX-NFR-040</span> (erreur récupérable, pas de plantage — écriture de fichier).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3831"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3913"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -156,7 +156,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-09-tache-05-tests.html#md_Lot-Annexe_2LOT-ANNEXE-09-journalisation-statistiques_2tache-05-tests" title="Lot-Annexe/LOT-ANNEXE-09-journalisation-statistiques/tache-05-tests.md">TACHE-05</a>  </td><td class="markdownTableBodyNone">Tests : écriture/relecture, stabilité du format  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Unit/AiSolver/Stats</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3832"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3914"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><span class="tt"><a class="el" href="classTrainingStatsRecorder.html#a4f468c0c31b586b6f6e1a988b059181a" title="Ajoute une ligne au fichier CSV et force son écriture sur disque (flush).">TrainingStatsRecorder::record</a></span> accepte la même structure de ligne quel que soit l'algorithme appelant (évolutionniste ou par gradient), sans branchement spécifique à une famille d'algorithme.</li>
@@ -165,10 +165,10 @@ Critères d'acceptation du lot</h1>
 <li>Un run interrompu à la ligne <span class="tt">k</span> laisse un fichier CSV valide et exploitable contenant exactement <span class="tt">k</span> lignes de données.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe, sans GPU. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3833"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3915"></a>
 Dépendances</h1>
 <p>Aucune dépendance fonctionnelle amont au sein du programme annexe (peut être développé dès la génération 1, en parallèle des autres lots). Consommé directement par <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>/<a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">11</a> (génération 2) et par toute la génération 3 (<a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12</a> à <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">14</a>), puis réutilisé (format de colonnes) par le harnais de benchmark de la génération 4 (<a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15</a>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3834"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3916"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-09-tache-01-training-stats-recorder.html" title="TACHE-01 — `TrainingStatsRecorder` : interface générique">TACHE-01 — `TrainingStatsRecorder` : interface générique</a></li>

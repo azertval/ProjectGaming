@@ -137,6 +137,8 @@ var annotated_dup =
       [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
       [ "PlatformController", "classcore_1_1PlatformController.html", "classcore_1_1PlatformController" ],
       [ "PlatformPath", "structcore_1_1PlatformPath.html", "structcore_1_1PlatformPath" ],
+      [ "SinkingBlockController", "classcore_1_1SinkingBlockController.html", "classcore_1_1SinkingBlockController" ],
+      [ "VolatileBlockController", "classcore_1_1VolatileBlockController.html", "classcore_1_1VolatileBlockController" ],
       [ "CameraZone", "structcore_1_1CameraZone.html", "structcore_1_1CameraZone" ],
       [ "CameraFramingConfig", "structcore_1_1CameraFramingConfig.html", "structcore_1_1CameraFramingConfig" ],
       [ "GridPosition", "structcore_1_1GridPosition.html", "structcore_1_1GridPosition" ],

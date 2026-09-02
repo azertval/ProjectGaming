@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-22-tache-04-onglet-validation.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2tache-04-onglet-validation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-22.html#md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2epic" title="Lot-Annexe/LOT-ANNEXE-22-mode-ia-ihm-complete/epic.md">LOT-ANNEXE-22</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4340"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4422"></a>
 Contexte</h1>
 <p>L'onglet appelait <span class="tt">evaluateModel</span> <b>directement depuis le thread d'IHM</b> : une campagne rejoue le niveau <span class="tt">repetitions</span> fois, chacune jusqu'à <span class="tt">maxStepsPerEpisode</span> pas, et figeait donc la fenêtre aussi sûrement qu'un entraînement — alors que l'entraînement, lui, avait son travailleur depuis <span class="tt">LOT-ANNEXE-21</span>. Le niveau était déduit du nom du dossier de run et le modèle imposé (<span class="tt">runDir/model.bin</span>) : ni évaluation croisée, ni modèle extérieur. Le rapport CSV de <span class="tt">evaluate --report</span> n'avait pas d'équivalent. Enfin, « Exporter comme rejeu » était une <span class="tt">copy_file</span> du <span class="tt">replay.json</span> du run — inopérante dès que ce fichier manque, alors que le modèle sauvegardé reste rejouable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4341"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4423"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">HMI/Ai/EvaluationWorker</span></b> : <span class="tt">QObject</span> déplacé sur un <span class="tt">QThread</span> par l'écran, même patron que <span class="tt">TrainingWorker</span>. Délègue à <span class="tt">evaluateModel</span> ; le rappel de progression sert aussi d'interruption.</li>
@@ -108,7 +108,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt">runCombo</span></b> : libellé enrichi de l'algorithme du run, relu dans son <span class="tt">config.json</span>. Choisir un run <b>pré-remplit</b> modèle et niveau sans les y figer — l'évaluation croisée est précisément ce que la ligne de commande permettait et que cet onglet interdisait.</li>
 <li><b>« Reprendre les réglages de ce run »</b> : recharge le <span class="tt">config.json</span> du run dans l'onglet Entraînement, par le même chemin de code que les presets.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4424"></a>
 Critères de validation</h1>
 <ul>
 <li>Une évaluation de 100 répétitions laisse la fenêtre réactive, montre sa progression, et s'annule.</li>

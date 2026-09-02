@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-01-tache-01-rng-deterministe.html','',''); 
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2tache-01-rng-deterministe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">LOT-ANNEXE-01</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Math</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3474"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3556"></a>
 Contexte</h1>
 <p>Première tâche du programme annexe : elle crée le module <span class="tt">Source/AiSolver</span> lui-même (aucun fichier n'y existe encore). Avant même le conteneur tensoriel (TACHE-02), le programme a besoin d'une source d'aléatoire déterministe partagée — initialisation des poids (<span class="tt">LOT-ANNEXE-03</span>), mutation évolutionniste (génération 2), échantillonnage stochastique de politique (génération 3) — pour que chaque exécution d'entraînement soit <b>rejouable à l'identique</b> à partir de sa seule graine, et qu'aucun lot ultérieur ne réimplémente sa propre variante.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3475"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3557"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Squelette du module</b> : <span class="tt">Source/AiSolver/CMakeLists.txt</span>, calqué sur <span class="tt">Source/Core/CMakeLists.txt</span> (<span class="tt">add_library(AiSolver STATIC <a class="el" href="Rng_8cpp.html">Math/Rng.cpp</a>)</span>, <span class="tt">target_include_directories(AiSolver PUBLIC
@@ -113,7 +113,7 @@ Travail à réaliser</h1>
 </li>
 <li><b><span class="tt"><a class="el" href="Rng_8cpp.html">Source/AiSolver/Math/Rng.cpp</a></span></b> : implémentation. <b>Aucune <span class="tt">std::…_distribution</span> n'est utilisée</b> : la norme C++ ne spécifie pas la suite de valeurs qu'une distribution standard produit pour un moteur et une graine donnés (seul <span class="tt">std::mt19937_64</span> lui-même est spécifié bit à bit). S'appuyer dessus rendrait la « reproductibilité à partir de la seule graine » dépendante du compilateur et de la version de la bibliothèque standard — inacceptable pour un programme dont les rejeux exportés (LOT-ANNEXE-11/17) sont relus et vérifiés en intégration continue (LOT-ANNEXE-20). Les quatre méthodes ci-dessus dérivent donc toutes leurs valeurs de <span class="tt">_engine()</span> par des opérations arithmétiques explicites, elles-mêmes portables.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3476"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3558"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> (nouveau).</li>
@@ -123,7 +123,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__rng_8cpp.html" title="Tests unitaires du générateur pseudo-aléatoire déterministe aisolver::Rng (LOT-ANNEXE-01,...">Unit/AiSolver/Math/test_rng.cpp</a></span> à <span class="tt">UnitTests</span>, ajout de <span class="tt">AiSolver</span> à <span class="tt">target_link_libraries(UnitTests PRIVATE …)</span>).</li>
 <li><span class="tt"><a class="el" href="test__rng_8cpp.html" title="Tests unitaires du générateur pseudo-aléatoire déterministe aisolver::Rng (LOT-ANNEXE-01,...">Source/Test/Unit/AiSolver/Math/test_rng.cpp</a></span> (nouveau, cf. TACHE-05).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3477"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3559"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Reproductibilité à seed fixée</b> : deux instances de <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> construites avec la <b>même</b> graine produisent exactement la <b>même</b> séquence de sorties, sur les quatre méthodes.</li>
@@ -132,7 +132,7 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">nextGaussian</span> moyenne/écart-type plausibles</b> : sur un grand nombre de tirages, la moyenne et l'écart-type empiriques restent proches (tolérance large) des paramètres demandés — test statistique <b>faible</b>, pas une preuve, juste un garde-fou contre une implémentation inversée.</li>
 <li><b>Valeurs de référence figées (<em>golden values</em>)</b> : les cinq premières valeurs de <span class="tt">nextFloat()</span> pour la graine <span class="tt">42</span> sont écrites <b>en dur</b> dans le test, comparées à <span class="tt">1e-6</span> près. C'est le test qui donne sa valeur à la décision « aucune <span class="tt">std::…_distribution</span> » ci-dessus : il échoue si l'implémentation change de formule, donc il détecte qu'un rejeu enregistré avant le changement ne serait plus reproductible. Les valeurs sont obtenues à la première implémentation puis figées (avec un commentaire le disant explicitement, pour qu'une future revue ne les prenne pas pour un résultat calculé à la main).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3478"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3560"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Pas de graine par défaut basée sur l'horloge</b> : casserait la reproductibilité qui est la raison d'être de cette classe (rejouabilité d'un entraînement, comparaison de deux runs).</li>
@@ -140,15 +140,15 @@ Points d'attention</h1>
 <li><b><span class="tt">std::log</span>/<span class="tt">std::cos</span> sont portables mais pas identiques au dernier bit d'une plateforme à l'autre</b> : la reproductibilité garantie ici est celle d'une même machine et d'un même binaire (l'usage réel : rejouer un entraînement, comparer deux réglages). Le test de valeurs de référence ci-dessus porte donc sur <span class="tt">nextFloat()</span> (arithmétique entière exacte), pas sur <span class="tt">nextGaussian</span>.</li>
 <li><b><span class="tt">std::mt19937_64</span> n'est pas cryptographiquement sûr</b> — sans importance ici (aucun usage sécuritaire), mais à ne pas réutiliser hors de ce contexte si un jour un besoin cryptographique apparaissait ailleurs dans le projet.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3479"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3561"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">Source/AiSolver</span> compile comme bibliothèque CMake indépendante, liée à <span class="tt">Core</span>. <span class="tt"><a class="el" href="classaisolver_1_1Rng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">aisolver::Rng</a></span> disponible et testé (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-001</span> déclarée (au niveau de l'épic, cette tâche n'introduit pas d'exigence propre).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3480"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3562"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algebre-tensorielle.html" title="Algèbre tensorielle et calcul numérique">Algèbre tensorielle et calcul numérique</a> (tenseurs, forme et <em>stride</em>, produit matriciel, réductions, générateurs pseudo-aléatoires), en particulier sa section 7 (générateurs pseudo-aléatoires déterministes, graine, transformation de Box-Muller).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3481"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3563"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-001</span> (déclarée dans <a class="el" href="lot-annexe-01.html#md_Lot-Annexe_2LOT-ANNEXE-01-bibliotheque-tensorielle-rng_2epic" title="Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

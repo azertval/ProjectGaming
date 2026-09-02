@@ -110,8 +110,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a3d7346f8eca14d6fd7e1455359c06530" id="r_a3d7346f8eca14d6fd7e1455359c06530"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a3d7346f8eca14d6fd7e1455359c06530">CHANNEL_COUNT</a> = 33</td></tr>
-<tr class="memdesc:a3d7346f8eca14d6fd7e1455359c06530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> au moment de ce lot (33 : <span class="tt">Empty</span>…<span class="tt">MovingPlatform</span>).  <br /></td></tr>
+<tr class="memitem:a3d7346f8eca14d6fd7e1455359c06530" id="r_a3d7346f8eca14d6fd7e1455359c06530"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a3d7346f8eca14d6fd7e1455359c06530">CHANNEL_COUNT</a> = <a class="el" href="namespacecore.html#a319e1d0258052359525fdc83ee93f269">core::TILE_TYPE_COUNT</a></td></tr>
+<tr class="memdesc:a3d7346f8eca14d6fd7e1455359c06530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>, dérivé de l'énumération elle-même (36 depuis le <span class="tt">LOT-74</span> : <span class="tt">Empty</span>…<span class="tt">VanishingBlock</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -179,7 +179,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de canaux catégoriels = nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> (<span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></span>). </p>
-<p><b>Non dérivé automatiquement</b> (<span class="tt">Core</span> n'expose pas de compte de catégories) : à mettre à jour manuellement si <span class="tt">TileType</span> gagne une valeur — risque documenté, pas mitigé par ce lot (aucune modification de <span class="tt">Core</span>). </p>
+<p><b>Dérivé</b> de <span class="tt"><a class="el" href="namespacecore.html#a319e1d0258052359525fdc83ee93f269" title="Nombre de valeurs de core::TileType — seule source de vérité de la fin de l&#39;énumération (EX-GP-027/EX...">core::TILE_TYPE_COUNT</a></span> depuis le <span class="tt">LOT-74</span> TACHE-02 : ajouter un type de tuile met cette valeur à jour toute seule, là où elle était auparavant un littéral à corriger à la main.</p>
+<p>⚠️ Une valeur qui change modifie la <b>forme</b> du tenseur d'observation, donc rend inutilisables les modèles entraînés avant ce changement (voir <span class="tt">AiSolver</span> pour le refus explicite au chargement). La <b>signification</b> des canaux existants, elle, est préservée tant que les nouveaux types sont ajoutés en <b>fin</b> d'énumération — c'est précisément la raison pour laquelle le <span class="tt">LOT-74</span> a ajouté ses trois blocs volatils après <span class="tt">MovingPlatform</span> plutôt que de les insérer. </p>
 
 </div>
 </div>
@@ -281,7 +282,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int aisolver::TileWindowEncoder::CHANNEL_COUNT = 33</td>
+          <td class="memname">int aisolver::TileWindowEncoder::CHANNEL_COUNT = <a class="el" href="namespacecore.html#a319e1d0258052359525fdc83ee93f269">core::TILE_TYPE_COUNT</a></td>
         </tr>
       </table>
   </td>
@@ -291,7 +292,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> au moment de ce lot (33 : <span class="tt">Empty</span>…<span class="tt">MovingPlatform</span>). </p>
+<p>Nombre de valeurs de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>, dérivé de l'énumération elle-même (36 depuis le <span class="tt">LOT-74</span> : <span class="tt">Empty</span>…<span class="tt">VanishingBlock</span>). </p>
 
 </div>
 </div>

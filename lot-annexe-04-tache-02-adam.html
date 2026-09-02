@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-04-tache-02-adam.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2tache-02-adam"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-04.html#md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2epic" title="Lot-Annexe/LOT-ANNEXE-04-optimiseurs/epic.md">LOT-ANNEXE-04</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Optim</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3635"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3717"></a>
 Contexte</h1>
 <p>SGD (TACHE-01) exige un taux d'apprentissage bien calibré manuellement — trop grand, il diverge ; trop petit, il stagne. <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a> maintient des moyennes mobiles du gradient (premier moment) et de son carré (second moment), normalisant la mise à jour par l'amplitude récente du gradient : plus robuste au choix du taux d'apprentissage, au prix d'un état interne plus riche par paramètre. Choix retenu comme second optimiseur (<span class="tt">LOT-ANNEXE-04</span>, épic) pour couvrir les cas où SGD peine à converger, notamment attendu pour les algorithmes de génération 3 (<span class="tt">LOT-ANNEXE-12</span>/<span class="tt">13</span>/<span class="tt">14</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3636"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3718"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1optim_1_1Adam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">aisolver::optim::Adam</a></span></b> (<span class="tt"><a class="el" href="Adam_8h.html" title="Optimiseur Adam (moments d&#39;ordre 1/2, correction de biais) (LOT-ANNEXE-04).">Source/AiSolver/Optim/Adam.h</a>/.cpp</span>) : constructeur <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>(float
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
   mHat / (sqrt(vHat) + epsilon)</span> (toutes opérations élément par élément).</li>
 <li><b><span class="tt">zeroGrad</span></b> : réutilise directement la fonction libre de TACHE-01 (<span class="tt"><a class="el" href="OptimizerUtils_8h.html" title="Utilitaires partagés entre optimiseurs (LOT-ANNEXE-04) : remise à zéro des gradients.">OptimizerUtils.h</a></span>), pas de réimplémentation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3637"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3719"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Adam_8h.html" title="Optimiseur Adam (moments d&#39;ordre 1/2, correction de biais) (LOT-ANNEXE-04).">Source/AiSolver/Optim/Adam.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3638"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3720"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Convergence sur une régression polynomiale connue</b> : <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> atteint une tolérance documentée en un nombre d'itérations donné, avec un taux d'apprentissage pour lequel <span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> sans inertie (TACHE-01) diverge ou stagne sur le même cas — démontre concrètement l'intérêt pratique d'<a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>, pas seulement sa formule.</li>
@@ -123,21 +123,21 @@ Tests (obligatoires)</h1>
 <li><b>Compteur de pas partagé</b> : deux paramètres distincts optimisés par la <b>même</b> instance d'<span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> partagent le même <span class="tt">_stepCount</span> (incrémenté une fois par <span class="tt">step</span>, pas une fois par paramètre à l'intérieur d'un même appel).</li>
 <li><b>Absence de NaN/inf</b> : sur un gradient nul persistant (paramètre déjà à l'optimum), <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> ne produit ni <span class="tt">NaN</span> ni <span class="tt">inf</span> malgré la division par <span class="tt">sqrt(vHat) + epsilon</span> (le terme <span class="tt">epsilon</span> évite la division par une valeur nulle).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3639"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3721"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">epsilon</span> dans le dénominateur n'est pas un détail cosmétique</b> : sans lui, un paramètre dont le gradient est resté nul depuis le début (donc <span class="tt">vHat == 0</span>) produirait une division par zéro dès le premier pas où son gradient redevient non nul avec une magnitude infime.</li>
 <li><b>Le compteur de pas est un état de l'optimiseur, pas du paramètre</b> : une même instance d'<span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> appliquée à plusieurs réseaux distincts partagerait un compteur unique, ce qui serait incorrect — chaque réseau optimisé doit avoir sa propre instance d'<span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> (documenté explicitement, pas imposé par le type lui-même).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3640"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3722"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> disponible et testé (<span class="tt">ctest</span> vert), convergence démontrée sur un cas où SGD peine ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3641"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3723"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-optimisation.html" title="Descente de gradient et optimiseurs">Descente de gradient et optimiseurs</a> — descente de gradient, taux d'apprentissage, inertie, <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3642"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3724"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-004</span> (nouvelle, partagée avec TACHE-01/03 du même lot). </p>
 </div></div><!-- contents -->

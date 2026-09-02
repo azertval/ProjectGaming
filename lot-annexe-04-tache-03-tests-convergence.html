@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-04-tache-03-tests-convergence.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2tache-03-tests-convergence"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-04.html#md_Lot-Annexe_2LOT-ANNEXE-04-optimiseurs_2epic" title="Lot-Annexe/LOT-ANNEXE-04-optimiseurs/epic.md">LOT-ANNEXE-04</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Optim</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3643"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3725"></a>
 Contexte</h1>
 <p><span class="tt">LOT-ANNEXE-02</span> impose le gradient checking comme condition bloquante avant qu'une opération différentiable soit consommée en aval ; ce lot applique le même principe à l'étage au-dessus : un optimiseur qui ne fait pas converger un problème <b>connu et trivial</b> ne doit jamais être laissé entraîner un agent réel (génération 3), où un échec de convergence serait indiscernable du bruit inhérent à l'apprentissage par renforcement lui-même. Cette tâche consolide, en une suite dédiée, les cas de convergence déjà exercés unitairement par TACHE-01/02 et y ajoute la comparaison croisée entre les deux optimiseurs sur des cas partagés.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3644"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3726"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Problèmes jouets communs</b> (<span class="tt"><a class="el" href="ToyProblems_8h.html" title="Problèmes jouets à solution connue, communs à test_sgd.cpp/test_adam.cpp/ test_convergence....">Source/Test/Unit/AiSolver/Optim/ToyProblems.h</a></span>, utilitaire de test partagé, pas dupliqué entre suites) : une quadratique convexe à minimum connu (<span class="tt">f(x) = (x -
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li><b>Suite de tests dédiée</b> (<span class="tt"><a class="el" href="test__convergence_8cpp.html" title="Tests de convergence des optimiseurs sur des problèmes jouets (LOT-ANNEXE-04, TACHE-03).">Source/Test/Unit/AiSolver/Optim/test_convergence.cpp</a></span>) : exécute <span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> (avec/sans inertie) et <span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> sur chaque problème jouet, avec les mêmes conditions initiales (graine <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> fixe), et vérifie la convergence à une tolérance documentée en un nombre d'itérations borné.</li>
 <li><b>Comparaison croisée</b> : sur le même problème et avec le <b>même</b> taux d'apprentissage choisi pour faire diverger ou stagner <span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> sans inertie, vérifie qu'<span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> converge — matérialise explicitement la décision de cadrage de <span class="tt">LOT-ANNEXE-04</span> sur l'intérêt pratique d'<a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3645"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3727"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="ToyProblems_8h.html" title="Problèmes jouets à solution connue, communs à test_sgd.cpp/test_adam.cpp/ test_convergence....">Source/Test/Unit/AiSolver/Optim/ToyProblems.h</a></span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="test__convergence_8cpp.html" title="Tests de convergence des optimiseurs sur des problèmes jouets (LOT-ANNEXE-04, TACHE-03).">Source/Test/Unit/AiSolver/Optim/test_convergence.cpp</a></span> — nouveau.</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> — ajout des nouveaux fichiers à la cible <span class="tt">UnitTests</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3646"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3728"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> sans inertie converge</b> sur la quadratique convexe, tolérance documentée, nombre d'itérations borné.</li>
@@ -121,21 +121,21 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt"><a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a></span> converge là où <span class="tt"><a class="el" href="classSgd.html" title="SGD : value -= learningRate * grad, avec un terme d&#39;inertie optionnel.">Sgd</a></span> sans inertie diverge/stagne</b>, à taux d'apprentissage identique et choisi précisément pour ce contraste.</li>
 <li><b>Reproductibilité</b> : deux exécutions de la même suite, même graine <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span>, produisent une trajectoire de convergence identique (même nombre d'itérations, mêmes valeurs intermédiaires).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3647"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3729"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Cette suite est bloquante avant tout usage des optimiseurs par la génération 3</b> : un échec ici doit interrompre l'intégration continue avant que quiconque ne commence un entraînement réel sur un niveau du jeu — documenté explicitement en commentaire en tête de fichier, à l'image de <span class="tt"><a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a></span> (<span class="tt">LOT-ANNEXE-02</span>).</li>
 <li><b>Les problèmes jouets restent volontairement triviaux</b> (convexes, à solution connue en forme close) : le but n'est pas de tester la qualité de l'apprentissage par renforcement (hors de portée d'un test unitaire déterministe), seulement l'exactitude mécanique de la règle de mise à jour elle-même.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3648"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3730"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Suite <span class="tt"><a class="el" href="test__convergence_8cpp.html" title="Tests de convergence des optimiseurs sur des problèmes jouets (LOT-ANNEXE-04, TACHE-03).">test_convergence.cpp</a></span> verte pour les deux optimiseurs sur les deux problèmes jouets ; build <span class="tt">/W4 /WX</span> sans avertissement ; <span class="tt">EX-IA-004</span> déclarée dans l'<span class="tt">epic.md</span> du lot.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3649"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3731"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-optimisation.html" title="Descente de gradient et optimiseurs">Descente de gradient et optimiseurs</a> — descente de gradient, taux d'apprentissage, inertie, <a class="el" href="classAdam.html" title="Adam : moyennes mobiles du gradient et de son carré, normalisation par leur amplitude récente — plus ...">Adam</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3650"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3732"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-004</span> (nouvelle, partagée avec TACHE-01/02 du même lot). </p>
 </div></div><!-- contents -->

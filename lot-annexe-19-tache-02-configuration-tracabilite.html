@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-19-tache-02-configuration-tracabilite.html'
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-19-outillage-cli_2tache-02-configuration-tracabilite"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-19.html#md_Lot-Annexe_2LOT-ANNEXE-19-outillage-cli_2epic" title="Lot-Annexe/LOT-ANNEXE-19-outillage-cli/epic.md">LOT-ANNEXE-19</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Cli</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4250"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4332"></a>
 Contexte</h1>
 <p>TACHE-01 pose les sous-commandes avec leurs arguments minimaux (niveau, modèle, algorithme) ; cette tâche ajoute le réglage fin des hyperparamètres propres à chaque algorithme et garantit que la configuration <b>effectivement utilisée</b> — valeurs par défaut incluses — reste toujours retrouvable après coup, condition de reproductibilité d'un run passé (critère d'acceptation 5 de l'épic).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4251"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4333"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="structaisolver_1_1cli_1_1TrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">aisolver::cli::TrainingConfig</a></span></b> (<span class="tt"><a class="el" href="TrainingConfig_8h.html" title="Hyperparamètres résolus d&#39;un run aisolver-cli train, traçables de bout en bout (LOT-ANNEXE-19,...">Source/AiSolver/Cli/TrainingConfig.h</a>/.cpp</span>) : structure agrégeant les hyperparamètres pertinents selon l'algorithme choisi (taille de population, taux de mutation, élitisme pour l'évolutionniste ; taux d'apprentissage, <span class="tt">gamma</span>, choix d'optimiseur pour les algorithmes de gradient) — chaque champ porte une valeur par défaut documentée.</li>
@@ -105,35 +105,35 @@ Travail à réaliser</h1>
   configFile, const <a class="el" href="structCommandLineOverrides.html" title="Surcharges d&#39;arguments individuels de la ligne de commande (priorité la plus haute,...">CommandLineOverrides</a>&amp;)</span> — charge un fichier JSON optionnel (<span class="tt">--config</span>), puis applique les surcharges d'arguments individuels (<span class="tt">--population-size</span>, <span class="tt">--mutation-rate</span>, etc.), chaque source (défaut → fichier → argument) documentée par ordre de priorité croissante.</li>
 <li><b>Traçabilité</b> : <span class="tt">runTrain</span> (TACHE-01) sérialise la <span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span> <b>résolue</b> (après application des trois sources) dans les métadonnées du CSV (<span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span>, colonne ou fichier annexe <span class="tt">config.json</span> dans le même dossier de run, <span class="tt">LOT-ANNEXE-09</span> TACHE-04) et dans les métadonnées du fichier de rejeu final (<span class="tt">ReplayFile</span>, <span class="tt">LOT-ANNEXE-07</span>) si l'entraînement aboutit à un export.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4252"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4334"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TrainingConfig_8h.html" title="Hyperparamètres résolus d&#39;un run aisolver-cli train, traçables de bout en bout (LOT-ANNEXE-19,...">Source/AiSolver/Cli/TrainingConfig.h</a>/.cpp</span> — nouveau.</li>
 <li><span class="tt"><a class="el" href="Commands_8cpp.html">Source/AiSolver/Cli/Commands.cpp</a></span> — modifié (utilise <span class="tt"><a class="el" href="test__training__config_8cpp.html#af3ff45c03f528343fcd566389265aaee" title="Résout la configuration effective d&#39;un run : défauts documentés → fichier --config (s&#39;il est fourni) ...">loadTrainingConfig</a></span>, écrit la configuration résolue).</li>
 <li><span class="tt">Source/AiSolver/CMakeLists.txt</span> — ajout des nouveaux fichiers.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4253"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4335"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Priorité des sources</b> : un hyperparamètre présent à la fois dans un fichier de configuration et en argument individuel retient la valeur de l'argument (priorité la plus haute) ; un hyperparamètre absent des deux retient sa valeur par défaut documentée.</li>
 <li><b>Fichier de configuration absent</b> : <span class="tt">loadTrainingConfig(std::nullopt, overrides)</span> produit une configuration entièrement issue des défauts et des arguments, sans erreur.</li>
 <li><b>Traçabilité effective</b> : après un <span class="tt">runTrain</span>, la configuration résolue (valeurs réellement utilisées, pas seulement ce qui a été explicitement passé) est retrouvable dans le dossier de run produit (<span class="tt">config.json</span> ou équivalent), avec des valeurs correspondant exactement à celles utilisées pendant l'entraînement (vérifié en relisant la config et en comparant aux paramètres effectivement passés aux constructeurs internes).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4254"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4336"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La configuration résolue écrite doit être complète</b>, jamais une simple copie du fichier/des arguments fournis par l'utilisateur (qui peuvent être partiels) — c'est précisément la valeur ajoutée de cette tâche par rapport à un simple passage d'arguments : reconstituer un run passé ne doit jamais nécessiter de connaître les valeurs par défaut de la version du code utilisée à l'époque.</li>
 <li><b>Le format du fichier de configuration reste propre à <span class="tt">AiSolver</span></b>, distinct du format de niveau et du format de rejeu (décision de cadrage de l'épic) — pas de schéma partagé par commodité.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4255"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4337"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="structTrainingConfig.html" title="Hyperparamètres agrégés de toutes les familles d&#39;algorithmes exposées par train, chaque champ portant...">TrainingConfig</a></span>/<span class="tt"><a class="el" href="test__training__config_8cpp.html#af3ff45c03f528343fcd566389265aaee" title="Résout la configuration effective d&#39;un run : défauts documentés → fichier --config (s&#39;il est fourni) ...">loadTrainingConfig</a></span> disponibles et testés (<span class="tt">ctest</span> vert), traçabilité vérifiée de bout en bout ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour ; <span class="tt">EX-IA-020</span> déclarée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4256"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4338"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent) est défini dans <a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4257"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4339"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-020</span> (nouvelle, du même lot). </p>
 </div></div><!-- contents -->

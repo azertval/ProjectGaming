@@ -1,9 +1,9 @@
 var lots =
 [
-    [ "Lots", "lots.html#autotoc_md3459", null ],
-    [ "Apres le programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3460", null ],
-    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3461", null ],
-    [ "Programme annexe", "lots.html#autotoc_md3462", null ],
+    [ "Lots", "lots.html#autotoc_md3541", null ],
+    [ "Apres le programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3542", null ],
+    [ "Programme <span class=\"tt\">0.1.0</span>", "lots.html#autotoc_md3543", null ],
+    [ "Programme annexe", "lots.html#autotoc_md3544", null ],
     [ "LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)", "lot-01.html", "lot-01" ],
     [ "LOT-02 — Journalisation &amp; diagnostics", "lot-02.html", "lot-02" ],
     [ "LOT-03 — Fondation ECS &amp; mathématiques Core", "lot-03.html", "lot-03" ],
@@ -85,5 +85,6 @@ var lots =
     [ "LOT-69 — Plans picturaux, parallaxe réglable et mode création", "lot-69.html", "lot-69" ],
     [ "LOT-70 — Parallaxe à trois profondeurs des tableaux qui défilent", "lot-70.html", "lot-70" ],
     [ "LOT-72 — Mouvement avancé (dash chargé, poussée, pentes, ground pound, combo)", "lot-72.html", "lot-72" ],
-    [ "LOT-73 — Refonte IHM : taille, réactivité, mode IA", "lot-73.html", "lot-73" ]
+    [ "LOT-73 — Refonte IHM : taille, réactivité, mode IA", "lot-73.html", "lot-73" ],
+    [ "LOT-74 — Blocs interactifs volatils (descendant, fragile, éphémère)", "lot-74.html", "lot-74" ]
 ];

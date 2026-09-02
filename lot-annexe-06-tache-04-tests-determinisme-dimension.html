@@ -94,42 +94,42 @@ $(function(){initNavTree('lot-annexe-06-tache-04-tests-determinisme-dimension.ht
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-06-encodage-observation_2tache-04-tests-determinisme-dimension"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-06.html#md_Lot-Annexe_2LOT-ANNEXE-06-encodage-observation_2epic" title="Lot-Annexe/LOT-ANNEXE-06-encodage-observation/epic.md">LOT-ANNEXE-06</a> · <b>Emplacement :</b> <span class="tt">Source/Test/Unit/AiSolver/Env</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3819"></a>
 Contexte</h1>
 <p>TACHE-01 à 03 couvrent chacune leurs cas unitaires propres. Cette tâche ajoute la couche de tests <b>transverse</b> aux trois encodeurs, sur les deux garanties dont dépend tout le reste du programme annexe : le déterminisme (mêmes entrées <span class="tt">Core</span> → même tenseur, condition d'un entraînement reproductible) et la stabilité de forme près des bords de carte (condition d'un réseau à topologie fixe, LOT-ANNEXE-03).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3820"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="test__observation__determinisme_8cpp.html" title="Déterminisme de l&#39;observation complète assemblée (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_determinisme.cpp</a></span></b> (nouveau) : charge un niveau réel (<span class="tt">PROJECTGAMING_LEVELS_DIR</span>) via <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">aisolver::HeadlessLevelEnvironment</a></span>, avance de quelques pas avec un script d'entrée fixe, encode l'observation complète (les trois encodeurs de TACHE-01/02/03 assemblés) <b>deux fois</b> sur le même état (sans avancer entre les deux), compare bit-à-bit. Répété sur plusieurs niveaux de la séquence de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> (au moins un par famille de mécanique : mécanisme, bloc, danger avancé).</li>
 <li><b><span class="tt"><a class="el" href="test__observation__bords__carte_8cpp.html" title="Stabilité dimensionnelle de l&#39;observation près des bords de carte (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_bords_carte.cpp</a></span></b> (nouveau) : pour chaque coin et chaque bord d'un niveau réel (personnage placé, via un <span class="tt">reset</span> suivi d'entrées scriptées ou d'un niveau dédié minimal, à <span class="tt">column = 0</span>, <span class="tt">column = width - 1</span>, <span class="tt">row = 0</span>, <span class="tt">row = height - 1</span>), encode l'observation avec plusieurs rayons (<span class="tt">0</span>, <span class="tt">1</span>, <span class="tt">3</span>, <span class="tt">5</span>) et vérifie que la forme du tenseur catégoriel et celle du tenseur de mécanisme sont <b>exactement</b> celles attendues (<span class="tt">(29, 2r+1, 2r+1)</span> et <span class="tt">(2, 2r+1, 2r+1)</span>), y compris quand <span class="tt">2r + 1</span> dépasse la dimension de la carte (rayon plus grand que le niveau lui-même).</li>
 <li><b>Cas limite carte 1×1</b> (<span class="tt">TileMap</span> minimale construite en test, pas un fichier niveau) : un personnage sur une carte à une seule case, avec <span class="tt">radius = 3</span>, produit un tenseur <span class="tt">(29, 7, 7)</span> où une seule case est réellement dans la grille, les 48 autres en vecteur nul.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3821"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="test__observation__determinisme_8cpp.html" title="Déterminisme de l&#39;observation complète assemblée (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_determinisme.cpp</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="test__observation__bords__carte_8cpp.html" title="Stabilité dimensionnelle de l&#39;observation près des bords de carte (LOT-ANNEXE-06, TACHE-04).">Source/Test/Unit/AiSolver/Env/test_observation_bords_carte.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout des deux fichiers à <span class="tt">UnitTests</span>, dans la liste déjà mise à jour par LOT-ANNEXE-05/TACHE-04 pour lier <span class="tt">AiSolver</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3822"></a>
 Tests (obligatoires)</h1>
 <p>Cette tâche <b>est</b> la suite de tests (voir « Travail à réaliser » ci-dessus) ; pas de sous-ensemble distinct.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3741"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3823"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le déterminisme testé ici couvre l'assemblage complet</b>, pas seulement chaque encodeur pris isolément (déjà couvert par TACHE-01/02/03) : une source d'aléa introduite dans l'assemblage (itération sur une structure non ordonnée, par exemple) ne serait détectée qu'à ce niveau.</li>
 <li><b>Les tests de bord doivent utiliser un niveau réel des assets livrés en plus du cas 1×1 synthétique</b> : un niveau réel exerce des tuiles non triviales près des bords (souvent <span class="tt">Solid</span>, les murs de bordure), le cas 1×1 isole la mécanique pure d'un <span class="tt">radius</span> qui dépasse largement la carte.</li>
 <li><b>Pas de comparaison de valeurs flottantes approximatives</b> (<span class="tt">EXPECT_NEAR</span>) pour le déterminisme : l'encodage est un remplissage direct de constantes (<span class="tt">0.0f</span>/<span class="tt">1.0f</span>) et de lectures de champs, sans aucune opération flottante qui justifierait une tolérance — une égalité bit-à-bit (<span class="tt">EXPECT_EQ</span>) est le bon niveau d'exigence, et sa violation serait un signal fort d'un bug réel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3742"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3824"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux fichiers de test compilent et passent (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3743"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3825"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-apprentissage-renforcement.html" title="Vocabulaire de l&#39;apprentissage par renforcement">Vocabulaire de l'apprentissage par renforcement</a> — état et observation, conception d'une observation : one-hot, normalisation, observation partielle.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3744"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3826"></a>
 Exigences</h1>
 <p><span class="tt">EX-IA-006</span> (nouvelle). </p>
 </div></div><!-- contents -->

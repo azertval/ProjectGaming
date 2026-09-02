@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-03-tache-01-couche-dense.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2tache-01-couche-dense"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">LOT-ANNEXE-03</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Nn</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3568"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3650"></a>
 Contexte</h1>
 <p>Première tâche du lot, et premier fichier du module <span class="tt">Source/AiSolver/Nn</span> (n'existe pas encore). <span class="tt">autodiff::matmul</span>/<span class="tt">add</span> (<span class="tt">LOT-ANNEXE-02</span>) suffisent en théorie à exprimer <span class="tt">y = W·x + b</span>, mais composer ces deux opérations à la main pour chaque couche d'un réseau serait répétitif et fragile. <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> encapsule ce motif comme une classe réutilisable, porteuse de ses propres paramètres.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3569"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3651"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="Dense_8h.html" title="Couche dense (transformation affine) du réseau de neurones maison (LOT-ANNEXE-03).">Source/AiSolver/Nn/Dense.h</a></span></b> : classe <span class="tt"><a class="el" href="classaisolver_1_1nn_1_1Dense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">aisolver::nn::Dense</a></span>, non copiable (les paramètres sont des <span class="tt">autodiff::NodePtr</span>, partagés par référence, jamais dupliqués implicitement).<ul>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 </li>
 <li><b><span class="tt"><a class="el" href="Dense_8cpp.html">Source/AiSolver/Nn/Dense.cpp</a></span></b> : implémentation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3570"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3652"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Dense_8h.html" title="Couche dense (transformation affine) du réseau de neurones maison (LOT-ANNEXE-03).">Source/AiSolver/Nn/Dense.h</a></span> (nouveau).</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout de <span class="tt"><a class="el" href="test__dense_8cpp.html" title="Tests unitaires de la couche dense aisolver::nn::Dense (LOT-ANNEXE-03, TACHE-01) : forme de sortie,...">Unit/AiSolver/Nn/test_dense.cpp</a></span>).</li>
 <li><span class="tt"><a class="el" href="test__dense_8cpp.html" title="Tests unitaires de la couche dense aisolver::nn::Dense (LOT-ANNEXE-03, TACHE-01) : forme de sortie,...">Source/Test/Unit/AiSolver/Nn/test_dense.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3653"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Forme de sortie</b> : <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense(4, 3, ...)</a>.forward(entrée [4,1])</span> produit une sortie de forme <span class="tt">[3,
@@ -130,22 +130,22 @@ Tests (obligatoires)</h1>
 <li><b><span class="tt">forward</span> différentiable de bout en bout</b> : <span class="tt">autodiff::backward()</span> appliqué à une perte scalaire construite sur la sortie de <span class="tt">forward()</span> produit des gradients <b>non nuls</b> sur <span class="tt">_weights</span> et <span class="tt">_bias</span> (démontre que <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> s'intègre correctement au graphe de <span class="tt">LOT-ANNEXE-02</span>, sans encore vérifier leur exactitude numérique — couvert par TACHE-06 via <span class="tt"><a class="el" href="GradientCheck_8h.html" title="Vérification de gradient par différences finies centrées (LOT-ANNEXE-02, TACHE-04),...">GradientCheck.h</a></span>).</li>
 <li><b>Deux couches indépendantes ont des poids différents</b> (avec une graine de <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> différente, ou la même graine consommée séquentiellement) : garde-fou contre une initialisation accidentellement constante.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3654"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> ne connaît aucune activation</b> : appliquer <span class="tt">relu</span>/<span class="tt">sigmoid</span>/etc. après <span class="tt">forward()</span> est la responsabilité de l'appelant (<span class="tt"><a class="el" href="classNetwork.html" title="Séquence de couches Dense, chacune suivie d&#39;une activation optionnelle.">Network</a></span>, TACHE-03) — une couche dense reste une transformation affine, cohérent avec la séparation couche/activation habituelle et avec le fait qu'une même couche pourrait en théorie être suivie de différentes activations selon le contexte.</li>
 <li><b><span class="tt">_weights</span>/<span class="tt">_bias</span> sont créés une seule fois, à la construction</b> : ne jamais les recréer dans <span class="tt">forward()</span>, sous peine de perdre le lien avec les gradients accumulés d'une itération d'entraînement à l'autre (cf. décision de cadrage de l'épic).</li>
 <li><b><span class="tt"><a class="el" href="test__dense_8cpp.html#ab374c0a391def6d6b2004dee7652aeb4" title="Schéma d&#39;initialisation des poids d&#39;une couche dense.">WeightInitScheme</a></span> et <span class="tt"><a class="el" href="test__weight__init_8cpp.html#a0e929d0cc1af12e1d24e1acace342af7" title="Initialise weights en place selon scheme, fanIn/fanOut déduits de sa forme [outputSize,...">initializeWeights</a></span> sont livrés complets dès cette tâche</b>, contrairement au découpage envisagé à la planification (contrat ici, corps en TACHE-04) : le DoD de TACHE-01 exige un test (« deux couches ont des poids différents ») qui ne peut pas passer sans une initialisation réellement aléatoire — un corps différé aurait laissé <span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> non testable telle quelle. TACHE-04 se recentre donc sur la seule sérialisation ; ses propres tests statistiques (bornes Xavier, plausibilité He, reproductibilité par graine) restent dans son périmètre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3655"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classDense.html" title="Couche dense (entièrement connectée) : y = W·x + b, poids et biais différentiables.">Dense</a></span> disponible et testé (<span class="tt">ctest</span> vert) pour la forme, les paramètres exposés et l'intégration au graphe d'autodiff ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3656"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-reseaux-neurones.html" title="Réseaux de neurones">Réseaux de neurones</a> — neurone, couche dense, fonctions d'activation, initialisation des poids.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3657"></a>
 Exigences</h1>
 <p>Contribue à <span class="tt">EX-IA-003</span> (déclarée dans <a class="el" href="lot-annexe-03.html#md_Lot-Annexe_2LOT-ANNEXE-03-bibliotheque-reseaux-neurones_2epic" title="Lot-Annexe/LOT-ANNEXE-03-bibliotheque-reseaux-neurones/epic.md">l'épic</a>) ; aucune exigence propre à cette tâche. </p>
 </div></div><!-- contents -->

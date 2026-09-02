@@ -133,6 +133,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5d2540ae1ccbee109f7ea2f77bddc009"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">loadWeights</span> sur un chemin inexistant renvoie <span class="tt">false</span> proprement.  <br /></td></tr>
 <tr class="memitem:a9463160cdb9037e56e23f350e3e60eab" id="r_a9463160cdb9037e56e23f350e3e60eab"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9463160cdb9037e56e23f350e3e60eab">TEST</a> (SerializationTest, RejetFormeSurdimensionneeSansAllouer)</td></tr>
 <tr class="memdesc:a9463160cdb9037e56e23f350e3e60eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier annoncant des dimensions qu'il ne porte pas est refuse sans allouer.  <br /></td></tr>
+<tr class="memitem:af91fd39230c06c5ea2a48a291c9e8593" id="r_af91fd39230c06c5ea2a48a291c9e8593"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af91fd39230c06c5ea2a48a291c9e8593">TEST</a> (SerializationTest, RejetDUnModeleALAncienneLargeurDObservation)</td></tr>
+<tr class="memdesc:af91fd39230c06c5ea2a48a291c9e8593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle entraîné <b>avant</b> l'élargissement de l'observation est refusé, sans plantage ni conversion silencieuse (<span class="tt">LOT-74</span> TACHE-07).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de <span class="tt"><a class="el" href="namespaceaisolver_1_1nn.html#a5304810d4943c4f16efdf96e13ae8464" title="Écrit les poids de network dans path (magique, version, nombre de couches, puis par couche : forme et...">aisolver::nn::saveWeights</a></span>/<span class="tt">loadWeights</span> (LOT-ANNEXE-03, TACHE-04) : sauvegarde/rechargement, rejet de fichier invalide/absent/incompatible. </p>
@@ -180,8 +182,39 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="af91fd39230c06c5ea2a48a291c9e8593" name="af91fd39230c06c5ea2a48a291c9e8593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af91fd39230c06c5ea2a48a291c9e8593">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SerializationTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RejetDUnModeleALAncienneLargeurDObservation</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un modèle entraîné <b>avant</b> l'élargissement de l'observation est refusé, sans plantage ni conversion silencieuse (<span class="tt">LOT-74</span> TACHE-07). </p>
+<p>Le <span class="tt">LOT-74</span> ajoute trois <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span>, donc trois canaux catégoriels : l'entrée du réseau passe de 33 à 36 canaux par case. La structure garde le <b>même nombre de couches</b> qu'avant — seule la largeur de la première change —, si bien que le rejet ne peut pas venir du contrôle de nombre de couches déjà testé plus haut. Ce test verrouille le cas réel.</p>
+<p>Aucun code n'a été écrit pour cela : <span class="tt">loadWeights</span> valide déjà la forme de <b>chaque</b> couche avant de toucher au réseau. Compléter un ancien modèle par des canaux nuls aurait été tentant et faux — le réseau n'a jamais vu ces tuiles, et un agent qui <em>paraît</em> fonctionner est pire qu'un refus franc. <b>Cas de test :</b> <b>Serialization : un modèle à l'ancienne largeur d'entrée est refusé.</b><br  />
+ <b>Categorie :</b> Unitaire · Nn<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Sauvegarder un réseau dont la première couche attend l'ANCIENNE largeur d'observation.<br  />
+2. Le recharger dans un réseau bâti sur la largeur COURANTE.<br  />
+ <b>Resultat attendu :</b> <span class="tt">loadWeights</span> renvoie <span class="tt">false</span> et le réseau cible garde ses poids : erreur récupérable (<span class="tt">EX-NFR-040</span>), jamais un chargement silencieusement décalé. </p>
+
+</div>
+</div>
 <a id="a5d2540ae1ccbee109f7ea2f77bddc009" name="a5d2540ae1ccbee109f7ea2f77bddc009"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d2540ae1ccbee109f7ea2f77bddc009">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d2540ae1ccbee109f7ea2f77bddc009">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,7 +243,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9463160cdb9037e56e23f350e3e60eab" name="a9463160cdb9037e56e23f350e3e60eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9463160cdb9037e56e23f350e3e60eab">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9463160cdb9037e56e23f350e3e60eab">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,7 +274,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af5e69704f2ba0c0767cf802980255052" name="af5e69704f2ba0c0767cf802980255052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e69704f2ba0c0767cf802980255052">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e69704f2ba0c0767cf802980255052">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +304,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aeaa3e90230ab8c9e363255e9de5c608c" name="aeaa3e90230ab8c9e363255e9de5c608c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeaa3e90230ab8c9e363255e9de5c608c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa3e90230ab8c9e363255e9de5c608c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +334,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a895016ac1ea86562907a584a5b8435ee" name="a895016ac1ea86562907a584a5b8435ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895016ac1ea86562907a584a5b8435ee">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a895016ac1ea86562907a584a5b8435ee">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +364,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0e70233af80cfeb4b410f3f66884a130" name="a0e70233af80cfeb4b410f3f66884a130"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e70233af80cfeb4b410f3f66884a130">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e70233af80cfeb4b410f3f66884a130">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

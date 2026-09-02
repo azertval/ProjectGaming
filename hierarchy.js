@@ -330,6 +330,8 @@ var hierarchy =
     [ "hmi::ScreenDressing", "structhmi_1_1ScreenDressing.html", null ],
     [ "hmi::ScreenShakeState", "structhmi_1_1ScreenShakeState.html", null ],
     [ "hmi::ScreenState", "structhmi_1_1ScreenState.html", null ],
+    [ "core::SinkingBlockController::SinkingBlock", "structcore_1_1SinkingBlockController_1_1SinkingBlock.html", null ],
+    [ "core::SinkingBlockController", "classcore_1_1SinkingBlockController.html", null ],
     [ "hmi::SizeTokens", "structhmi_1_1SizeTokens.html", null ],
     [ "hmi::SkinCatalog", "classhmi_1_1SkinCatalog.html", null ],
     [ "hmi::SkinCatalogResult", "structhmi_1_1SkinCatalogResult.html", null ],
@@ -411,6 +413,8 @@ var hierarchy =
     [ "core::Velocity", "structcore_1_1Velocity.html", null ],
     [ "hmi::SpriteBatch::Vertex", "structhmi_1_1SpriteBatch_1_1Vertex.html", null ],
     [ "core::View&lt; Components &gt;", "classcore_1_1View.html", null ],
+    [ "core::VolatileBlockController::VolatileBlock", "structcore_1_1VolatileBlockController_1_1VolatileBlock.html", null ],
+    [ "core::VolatileBlockController", "classcore_1_1VolatileBlockController.html", null ],
     [ "aisolver::training::WeightStatistics", "structaisolver_1_1training_1_1WeightStatistics.html", null ],
     [ "hmi::WorkspaceDressing", "structhmi_1_1WorkspaceDressing.html", null ],
     [ "core::World", "classcore_1_1World.html", null ]

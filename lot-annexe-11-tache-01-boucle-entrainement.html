@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-11-tache-01-boucle-entrainement.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2tache-01-boucle-entrainement"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-11.html#md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/epic.md">LOT-ANNEXE-11</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3937"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4019"></a>
 Contexte</h1>
 <p>LOT-ANNEXE-10 fournit <span class="tt"><a class="el" href="classEvolutionaryTrainer.html#a5dfa25a6eac22f7eb6b5fa0f038cac15" title="Exécute exactement une génération : (1) évalue tous les individus, (2) journalise la génération coura...">EvolutionaryTrainer::runGeneration()</a></span>, une mécanique générique agnostique de toute notion de « niveau résolu ». Cette tâche l'applique à un fichier de niveau précis, avec un critère d'arrêt métier réel : c'est ici que la décision transverse « un run = un niveau » prend sa forme la plus concrète du programme Lot-Annexe.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3938"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4020"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">aisolver::training::LevelTrainingSession</a></span></b> : construite à partir d'un <b>unique</b> chemin de fichier niveau (<span class="tt">std::filesystem::path</span>), d'une <span class="tt"><a class="el" href="structEvolutionaryConfig.html" title="Regroupe les paramètres de l&#39;algorithme évolutionniste, valeurs par défaut documentées ci-dessus (con...">EvolutionaryConfig</a></span> (LOT-ANNEXE-10), d'une configuration d'arrêt (<span class="tt">requiredConsecutiveSuccesses</span>, <span class="tt">maxGenerations</span>), d'une seed <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> et d'un chemin de sortie pour <span class="tt"><a class="el" href="classTrainingStatsRecorder.html" title="Enregistreur CSV incrémental : un fichier par instance, une ligne par appel à record,...">TrainingStatsRecorder</a></span> (LOT-ANNEXE-09).</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
   <a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual</a></span> — permet à l'appelant de distinguer un arrêt par résolution d'un arrêt par plafond, et donne accès au meilleur individu pour TACHE-02.</li>
 <li><span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> ne connaît <b>jamais</b> de liste de niveaux ni de mécanisme de progression : un seul appel à <span class="tt">core::LevelLoader::load</span> par session, aucune structure d'itération sur plusieurs fichiers niveau nulle part dans cette classe.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3939"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4021"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelTrainingSession_8h.html" title="Boucle d&#39;entraînement pour un unique niveau et critère d&#39;arrêt (LOT-ANNEXE-11, EX-IA-012).">Source/AiSolver/Training/LevelTrainingSession.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li><span class="tt"><a class="el" href="TrainingResult_8h.html" title="Issue d&#39;une session d&#39;entraînement niveau-par-niveau (LOT-ANNEXE-11, EX-IA-012).">Source/AiSolver/Training/TrainingResult.h</a></span> (nouveau).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__level__training__session_8cpp.html" title="Boucle d&#39;entraînement pour un niveau et critère d&#39;arrêt (LOT-ANNEXE-11, TACHE-01).">Source/Test/Unit/AiSolver/Training/test_level_training_session.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3940"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4022"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Arrêt par résolution</b> : sur un niveau trivial, la session s'arrête via le critère « résolu N fois d'affilée » avant d'atteindre un plafond de générations volontairement large ; <span class="tt"><a class="el" href="structTrainingResult.html#a2582fc33e1c37f4ee67c6cefbc1a7628" title="true si le meilleur individu a résolu le niveau et est resté invaincu comme champion pendant le nombr...">TrainingResult::solved</a> == true</span>.</li>
@@ -122,22 +122,22 @@ Tests (obligatoires)</h1>
 <li><b>Réinitialisation du compteur de succès consécutifs</b> : un scénario où le champion change avant d'avoir atteint le seuil (fitness/succès contrôlés via une fixture de test) remet bien le compteur à zéro plutôt que de le laisser progresser à tort.</li>
 <li><b>Un seul chargement de niveau</b> : <span class="tt">core::LevelLoader::load</span> n'est appelé qu'une fois par session (vérifiable par compteur d'appels ou identité d'objet), pas une fois par génération.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3941"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4023"></a>
 Points d'attention</h1>
 <ul>
 <li><b>« N fois d'affilée » n'est pas une répétition de tirages aléatoires</b> : l'évaluation et le rejeu sont déterministes (LOT-ANNEXE-10) — répéter l'évaluation du même individu inchangé donnerait toujours le même résultat. Le critère est donc une exigence de <b>stabilité inter-générationnelle</b> (le champion reste invaincu et résolvant pendant N générations), pas une garantie statistique contre un aléa d'évaluation qui n'existe pas ici (voir décision de cadrage de l'épic).</li>
 <li><b>Le plafond de générations doit être réellement atteignable en test</b>, pas une valeur symbolique jamais exercée — au moins un test doit effectivement sortir par ce chemin pour que le cas « la ligne de base n'apprend pas ce niveau » soit couvert.</li>
 <li><b><span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> ne fait aucune hypothèse sur le contenu du fichier niveau</b> (pas de chemin en dur vers un niveau de démonstration particulier) — reste utilisable sur tout niveau valide du jeu, y compris ceux qui n'existent pas encore.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3942"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4024"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> disponible et testée (<span class="tt">ctest</span> vert), les deux chemins d'arrêt exercés ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3943"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4025"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — boucle générationnelle, élitisme, reproductibilité d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3944"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4026"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-012</span> (déclarée en TACHE-03). </p>
 </div></div><!-- contents -->

@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-11.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Dépend de <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> (algorithme évolutionniste) et <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (format de rejeu v1, décodage <span class="tt">argmax</span>). Dernier lot de la génération 2 : applique l'algorithme à un niveau réel du jeu et produit un livrable concret — une séquence d'actions rejouable en jeu, sans aucune inférence live. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3926"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4008"></a>
 Objectif</h1>
 <p>LOT-ANNEXE-10 livre une <b>mécanique</b> générique — une génération à la fois, sans savoir ce qu'est un niveau résolu ni quand s'arrêter. Ce lot en fait un <b>usage</b> concret : l'appliquer à <b>un</b> fichier de niveau donné, avec un vrai critère d'arrêt, puis transformer le meilleur individu obtenu en un livrable exploitable — une séquence d'actions déterministe, exportée au format de rejeu v1 (LOT-ANNEXE-07). C'est la première fois que le programme Lot-Annexe produit quelque chose qui pourrait, une fois un lot d'intégration ultérieur écrit (génération 5), être rejoué <b>en jeu</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3927"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4009"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3928"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4010"></a>
 Inclus</h2>
 <ul>
 <li><b>Boucle d'entraînement pour un fichier de niveau donné</b> (<span class="tt"><a class="el" href="classaisolver_1_1training_1_1LevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">aisolver::training::LevelTrainingSession</a></span>) : charge un niveau, construit son <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>, pilote <span class="tt"><a class="el" href="classEvolutionaryTrainer.html#a5dfa25a6eac22f7eb6b5fa0f038cac15" title="Exécute exactement une génération : (1) évalue tous les individus, (2) journalise la génération coura...">EvolutionaryTrainer::runGeneration()</a></span> (LOT-ANNEXE-10) génération après génération jusqu'à un critère d'arrêt.</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Export</b> de cette séquence au format de rejeu v1 (LOT-ANNEXE-07, <span class="tt">Source/AiSolver/Replay</span>), avec refus explicite d'exporter un résultat non résolu.</li>
 <li><b>Documentation d'un ordre de niveaux indicatif</b> pour l'usage manuel de ce lot — reprend l'ordre de la séquence <span class="tt">demo-*.json</span> existante (un mécanisme à la fois, difficulté croissante), sans aucun mécanisme logiciel d'enchaînement.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3929"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4011"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Progression automatique d'un niveau à l'autre</b> : aucun enchaînement de runs, aucune liste de niveaux consommée par le code — décision ferme, transverse au programme Lot-Annexe, réaffirmée ici avec la plus grande insistance parce que c'est le lot le plus susceptible d'être tenté d'y déroger « pour automatiser le curriculum ». Chaque exécution d'entraînement porte sur <b>un seul</b> fichier de niveau, sans état partagé avec une exécution précédente ou suivante.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Rejeu en jeu du fichier exporté</b> (lecture/exécution du format v1 dans <span class="tt">HMI</span>) : ce lot <b>écrit</b> le fichier de rejeu, il ne le <b>consomme</b> pas — la lecture en jeu est un lot d'intégration futur.</li>
 <li><b>Auto-tuning de la configuration évolutionniste par niveau</b> (taille de population, taux de mutation ajustés automatiquement selon la difficulté perçue) : les valeurs par défaut de LOT-ANNEXE-10 sont réutilisées telles quelles, ajustables manuellement via <span class="tt"><a class="el" href="structEvolutionaryConfig.html" title="Regroupe les paramètres de l&#39;algorithme évolutionniste, valeurs par défaut documentées ci-dessus (con...">EvolutionaryConfig</a></span>, jamais choisies par une heuristique automatique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3930"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4012"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Un run = un niveau, strictement, sans exception.</b> <span class="tt"><a class="el" href="classLevelTrainingSession.html" title="Entraîne un algorithme évolutionniste (LOT-ANNEXE-10) sur un seul fichier de niveau,...">LevelTrainingSession</a></span> prend un unique chemin de fichier niveau en entrée ; il n'existe, nulle part dans ce lot, de type ou de fonction acceptant une liste de niveaux. C'est la mise en application concrète de la décision transverse du programme Lot-Annexe — ce lot est celui où elle est le plus visible et le plus facilement vérifiable par simple lecture du code (aucun <span class="tt">std::vector&lt;Level&gt;</span> en entrée d'une session).</li>
@@ -128,16 +128,16 @@ Décisions de cadrage</h1>
 <li><b>L'ordre de niveaux (TACHE-04) est une note d'usage, pas du code.</b> Aucune structure de données ne l'encode ; c'est un tableau documentaire destiné à qui lance manuellement des sessions d'entraînement, sur le modèle du curriculum pédagogique du jeu lui-même (<span class="tt">Source/Elements/Levels/
   README.md</span>, séquence <span class="tt">demo-*.json</span>, <span class="tt">LOT-25</span>) — un mécanisme introduit à la fois, sans qu'aucun run d'entraînement n'en dépende programmatiquement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3931"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4013"></a>
 Notions abordées</h1>
 <p>Applique directement <a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> (LOT-ANNEXE-10) à un niveau réel — aucune notion nouvelle par rapport à ce chapitre ; le curriculum indicatif (TACHE-04) s'inspire du principe pédagogique « un mécanisme à la fois » déjà appliqué par le jeu lui-même (<span class="tt">Source/Elements/Levels/README.md</span>), pas d'une source académique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3932"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4014"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-012" title="EX-IA-012"><span class="tt">EX-IA-012</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-IA-011</span> (algorithme évolutionniste, LOT-ANNEXE-10), format de rejeu v1 et décodage <span class="tt">argmax</span> de LOT-ANNEXE-07.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3933"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4015"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-11-tache-04-ordre-niveaux-curriculum.html#md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2tache-04-ordre-niveaux-curriculum" title="Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/tache-04-ordre-niveaux-curriculum.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation de l'ordre de niveaux indicatif  </td><td class="markdownTableBodyNone"><span class="tt">Documentation/Lot-Annexe</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3934"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4016"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une exécution d'entraînement prend en entrée un unique chemin de fichier niveau et ne charge/consulte jamais aucun autre niveau — aucune progression automatique n'existe dans le code.</li>
@@ -165,10 +165,10 @@ Critères d'acceptation du lot</h1>
    <a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>).</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, <span class="tt">ctest</span> vert, Doxygen à jour, <span class="tt">EX-IA-012</span> déclarée.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3935"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4017"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a> (algorithme évolutionniste) et [LOT-ANNEXE-07](<a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07 — Espace d'action, décodage politique et format de rejeu v1</a>) (format de rejeu v1, décodage <span class="tt">argmax</span>), transitivement sur toute la chaîne dont LOT-ANNEXE-10 dépend (LOT-ANNEXE-01/03/05/06/08/09). Dernier lot de la génération 2 : aucun lot de cette génération n'en dépend. La génération 3 (LOT-ANNEXE-12 et suivants) ne dépend pas non plus de ce lot — elle réutilise <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span>/la récompense/les statistiques en amont, pas cet algorithme évolutionniste lui-même, qui reste sa <b>ligne de base de comparaison</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3936"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4018"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-11-tache-01-boucle-entrainement.html" title="TACHE-01 — Boucle d&#39;entraînement pour un niveau et critère d&#39;arrêt">TACHE-01 — Boucle d'entraînement pour un niveau et critère d'arrêt</a></li>

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-11-tache-02-rejeu-deterministe.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2tache-02-rejeu-deterministe"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-11.html#md_Lot-Annexe_2LOT-ANNEXE-11-entrainement-niveau-par-niveau_2epic" title="Lot-Annexe/LOT-ANNEXE-11-entrainement-niveau-par-niveau/epic.md">LOT-ANNEXE-11</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3945"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4027"></a>
 Contexte</h1>
 <p>TACHE-01 produit un <span class="tt"><a class="el" href="structTrainingResult.html" title="Distingue un arrêt par résolution d&#39;un arrêt par plafond de générations, et donne accès au meilleur i...">TrainingResult</a></span> contenant le meilleur individu (poids figés) au moment de l'arrêt. Cette tâche transforme cette politique en une séquence concrète d'actions, en la faisant rejouer une dernière fois de façon strictement déterministe — c'est cette séquence, et non le réseau lui-même, qui sera exportée (TACHE-03) et qui pourrait un jour être rejouée en jeu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3946"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4028"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="namespaceaisolver_1_1training.html#a91d6787088b7c461e08748234f34ca3b" title="Rejoue individual de façon strictement déterministe sur environment/levelPath, produisant la séquence...">aisolver::training::replayBestIndividual</a>(const <a class="el" href="classIndividual.html" title="Politique pure : poids propres (copie indépendante, jamais partagée) et dernier fitness connu.">Individual</a>&amp;, <a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a>&amp;) -&gt;
@@ -106,13 +106,13 @@ Travail à réaliser</h1>
 <li><b>Cas <span class="tt">solved == false</span></b> : le rejeu est produit quand même (comportement du meilleur individu trouvé, utile en diagnostic) mais TACHE-03 ne doit jamais l'exporter comme solution valide.</li>
 <li>Le réseau de l'individu n'est jamais modifié pendant le rejeu (lecture seule, aucune mutation résiduelle, aucun apprentissage en ligne).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3947"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4029"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="DeterministicReplay_8h.html" title="Rejeu déterministe du meilleur individu d&#39;un entraînement (LOT-ANNEXE-11, EX-IA-012).">Source/AiSolver/Training/DeterministicReplay.h</a></span>/<span class="tt">.cpp</span> (nouveaux).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__deterministic__replay_8cpp.html" title="Rejeu déterministe du meilleur individu (LOT-ANNEXE-11, TACHE-02).">Source/Test/Unit/AiSolver/Training/test_deterministic_replay.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3948"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4030"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Rejeu indépendant réussi</b> : le rejeu d'un individu connu pour résoudre un niveau trivial produit une séquence d'actions qui, rejouée sur une <b>nouvelle</b> instance <span class="tt"><a class="el" href="classHeadlessLevelEnvironment.html" title="Joue un seul niveau, pas à pas, sans aucun état de rendu — enveloppe de simulation pure derrière une ...">HeadlessLevelEnvironment</a></span> (même niveau), atteint bien la sortie — double vérification indépendante de la boucle d'entraînement.</li>
@@ -120,22 +120,22 @@ Tests (obligatoires)</h1>
 <li><b>Borne de longueur</b> : la séquence produite ne dépasse jamais la limite de pas maximum définie par LOT-ANNEXE-08 (pas de rejeu infini pour un individu non résolvant).</li>
 <li><b>Rejeu d'un individu non résolvant</b> : produit une séquence exploitable sans exception ni plantage, correctement marquée comme non résolue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3949"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4031"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ce rejeu n'est pas une nouvelle inférence en jeu</b> : c'est un aller simple hors ligne (headless) dont le seul livrable est la séquence d'actions elle-même — cohérent avec la décision transverse « aucune inférence live » du programme Lot-Annexe.</li>
 <li><b>Même code de décodage que l'évaluation de fitness</b> (LOT-ANNEXE-10) : réutiliser la fonction plutôt que la réécrire élimine par construction tout risque de divergence entre « ce que l'algorithme a mesuré » et « ce qui est effectivement exporté ».</li>
 <li><b>Aucune mutation du réseau pendant le rejeu</b> : les poids de l'individu rejoué doivent être identiques avant et après l'appel (vérifiable par comparaison, si besoin, dans les tests).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3950"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4032"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rejeu déterministe disponible, testé (<span class="tt">ctest</span> vert), cohérent avec l'évaluation de fitness de LOT-ANNEXE-10 ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3951"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4033"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — boucle générationnelle, élitisme, reproductibilité d'un entraînement.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3952"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4034"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-012</span> (déclarée en TACHE-03). </p>
 </div></div><!-- contents -->

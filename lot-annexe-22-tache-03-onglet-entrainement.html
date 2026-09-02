@@ -94,13 +94,13 @@ $(function(){initNavTree('lot-annexe-22-tache-03-onglet-entrainement.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2tache-03-onglet-entrainement"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-22.html#md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2epic" title="Lot-Annexe/LOT-ANNEXE-22-mode-ia-ihm-complete/epic.md">LOT-ANNEXE-22</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span>, <span class="tt">Source/Elements/UI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4337"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4419"></a>
 Contexte</h1>
 <p>Trois défauts distincts se cumulaient dans cet onglet.</p>
 <p><b>Un champ qui ne pilotait rien.</b> <span class="tt">TrainingWorker</span> recopiait la saisie « Épisodes / générations max » dans <span class="tt">config.episodes</span>, que l'algorithme évolutionniste n'utilise pas : son plafond vit dans <span class="tt">config.stopping</span>, laissé aux défauts. Un run évolutionniste allait donc à 200 générations quelle que soit la valeur affichée — écart si visible qu'il fallait le documenter dans le manuel, et que la barre de progression était forcée en indéterminé faute de plafond connu.</p>
 <p><b>Des indicateurs morts.</b> <span class="tt">stabilityValue</span>, <span class="tt">dqnEpsilonCurrentValue</span> et <span class="tt">trainingEtaLabel</span> étaient posés dans le <span class="tt">.ui</span> sans qu'aucune ligne de C++ ne les référence : ils affichaient « — » pour toujours.</p>
 <p><b>Des mesures jetées.</b> <span class="tt">TrainingStatsRow</span> porte neuf champs et le <span class="tt">stats.csv</span> du run les écrit tous ; le signal <span class="tt">progress</span> n'en transportait que quatre, et le tableau n'en affichait que quatre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4338"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4420"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">TrainingProgress</span></b> (<span class="tt"><a class="el" href="TrainingWorker_8h.html" title="Exécute un entraînement (LOT-ANNEXE-21, EX-IA-022) sur un QThread séparé, pour que l&#39;onglet Entraînem...">HMI/Ai/TrainingWorker.h</a></span>) : remplace les quatre paramètres du signal <span class="tt">progress</span> par une structure portant toute la ligne journalisée, plus <span class="tt">epsilon</span> (chemin DQN) et le couple stabilité/seuil (chemin évolutionniste). Enregistrée auprès du système de métatypes de Qt : le signal traverse une frontière de thread.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 <li><b>Temps restant estimé</b> : calculé côté IHM (une durée n'a de sens qu'affichée), par moyenne cumulée du temps par étape plutôt que par écart instantané — le coût d'une génération varie trop pour qu'un écart instantané ne fasse pas osciller l'affichage.</li>
 <li><b><span class="tt">MainWindow::confirmLeavingActiveTraining</span></b> : premier appelant de <span class="tt">AiModeScreen::trainingActive()</span>. « Voir en jeu » pendant un run n'est <b>pas</b> entravé — c'est le suivi en direct voulu par <span class="tt">LOT-ANNEXE-21</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4339"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4421"></a>
 Critères de validation</h1>
 <ul>
 <li>Un run évolutionniste à « Générations max » = <span class="tt">N</span> s'arrête à <span class="tt">N</span>, barre de progression à l'appui.</li>

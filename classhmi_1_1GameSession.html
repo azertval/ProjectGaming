@@ -129,6 +129,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a872c364ddc81ce08e017c066ab4bb564" id="r_a872c364ddc81ce08e017c066ab4bb564"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a> ()</td></tr>
 <tr class="memitem:a43560771bed59659c4bd82016fb8127b" id="r_a43560771bed59659c4bd82016fb8127b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a43560771bed59659c4bd82016fb8127b">refreshPlatformVisuals</a> ()</td></tr>
 <tr class="memdesc:a43560771bed59659c4bd82016fb8127b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace chaque entité-tuile de plateforme mobile à sa position COURANTE (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>), même patron que <span class="tt"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a></span> pour un danger mobile.  <br /></td></tr>
+<tr class="memitem:a29cb946a81f21f912c9065021f12f068" id="r_a29cb946a81f21f912c9065021f12f068"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29cb946a81f21f912c9065021f12f068">refreshSinkingBlockVisuals</a> ()</td></tr>
+<tr class="memdesc:a29cb946a81f21f912c9065021f12f068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recale l'entité-tuile de chaque bloc descendant sur sa position courante, et efface celles des blocs sortis du tableau (<span class="tt">EX-GP-027</span>, <span class="tt">LOT-74</span>).  <br /></td></tr>
+<tr class="memitem:a0c777f1508e7b870d8e6cc77e23f3c09" id="r_a0c777f1508e7b870d8e6cc77e23f3c09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c777f1508e7b870d8e6cc77e23f3c09">refreshVolatileBlockVisuals</a> ()</td></tr>
+<tr class="memdesc:a0c777f1508e7b870d8e6cc77e23f3c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface l'entité-tuile de chaque bloc volatil disparu et fait clignoter les blocs éphémères dont le compte à rebours court (<span class="tt">EX-GP-028</span>/<span class="tt">EX-GP-029</span>, <span class="tt">LOT-74</span>).  <br /></td></tr>
 <tr class="memitem:a2a575a6cc519a25b3a6bee83876d11bb" id="r_a2a575a6cc519a25b3a6bee83876d11bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a575a6cc519a25b3a6bee83876d11bb">updateMechanismVisuals</a> (float fixedDelta)</td></tr>
 <tr class="memdesc:a2a575a6cc519a25b3a6bee83876d11bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence des mécanismes pilotée par leur état logique (<span class="tt">LOT-47</span>, <span class="tt">EX-REN-006</span>) : projette l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au <b>pas fixe</b> — la simulation n'en dépend jamais, seule l'apparence en résulte (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
 <tr class="memitem:a4577277ae3fbf8339c2cbfae5f3ca1db" id="r_a4577277ae3fbf8339c2cbfae5f3ca1db"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4577277ae3fbf8339c2cbfae5f3ca1db">applyMechanismVisual</a> (<a class="el" href="structcore_1_1Entity.html">core::Entity</a> entity, bool active, <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;state, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float fixedDelta)</td></tr>
@@ -178,6 +182,18 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aca2d5eda97dfe78bcc5fcf7ea6161b44" id="r_aca2d5eda97dfe78bcc5fcf7ea6161b44"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aca2d5eda97dfe78bcc5fcf7ea6161b44">_platforms</a></td></tr>
 <tr class="memitem:a50cb7e93c41899e6e1d981500f121c94" id="r_a50cb7e93c41899e6e1d981500f121c94"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a50cb7e93c41899e6e1d981500f121c94">_platformEntities</a></td></tr>
 <tr class="memdesc:a50cb7e93c41899e6e1d981500f121c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile de chaque plateforme mobile, même ordre que <span class="tt"><a class="el" href="classcore_1_1Level.html#a275f59e0e83694c5bac2f8b9000cc9f2">core::Level::platformConfigs()</a></span> (<span class="tt">EX-GP-026</span>, <span class="tt">LOT-63</span>).  <br /></td></tr>
+<tr class="memitem:a6e446009240eb0ab48aa6d172efdf929" id="r_a6e446009240eb0ab48aa6d172efdf929"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1VolatileBlockController.html">core::VolatileBlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6e446009240eb0ab48aa6d172efdf929">_volatileBlocks</a></td></tr>
+<tr class="memdesc:a6e446009240eb0ab48aa6d172efdf929"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocs volatils du tableau : fragile (<span class="tt">EX-GP-028</span>) et éphémère (<span class="tt">EX-GP-029</span>), <span class="tt">LOT-74</span>.  <br /></td></tr>
+<tr class="memitem:ad50402795bcac2c9dd9d23b3f76d0f0f" id="r_ad50402795bcac2c9dd9d23b3f76d0f0f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad50402795bcac2c9dd9d23b3f76d0f0f">_volatileBlockEntities</a></td></tr>
+<tr class="memdesc:ad50402795bcac2c9dd9d23b3f76d0f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile de chaque bloc volatil, même ordre que <span class="tt"><a class="el" href="classcore_1_1VolatileBlockController.html" title="Fait vivre les blocs fragile (TileType::FragileBlock, EX-GP-028) et éphémère (TileType::VanishingBloc...">core::VolatileBlockController</a></span>.  <br /></td></tr>
+<tr class="memitem:ad0e126bc027534a92f6a728e1a6977ad" id="r_ad0e126bc027534a92f6a728e1a6977ad"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1SinkingBlockController.html">core::SinkingBlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad0e126bc027534a92f6a728e1a6977ad">_sinkingBlocks</a></td></tr>
+<tr class="memdesc:ad0e126bc027534a92f6a728e1a6977ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocs descendants du tableau (<span class="tt">EX-GP-027</span>, <span class="tt">LOT-74</span>).  <br /></td></tr>
+<tr class="memitem:aa7caf11f35668d3085ecd1a8a19ab0e1" id="r_aa7caf11f35668d3085ecd1a8a19ab0e1"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa7caf11f35668d3085ecd1a8a19ab0e1">_sinkingBlockEntities</a></td></tr>
+<tr class="memdesc:aa7caf11f35668d3085ecd1a8a19ab0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile de chaque bloc descendant, même ordre que <span class="tt"><a class="el" href="classcore_1_1SinkingBlockController.html" title="Fait vivre les blocs descendants d&#39;un niveau (TileType::SinkingBlock, EX-GP-027).">core::SinkingBlockController</a></span>.  <br /></td></tr>
+<tr class="memitem:a49140f56dd131af4f2e3765227cef6e7" id="r_a49140f56dd131af4f2e3765227cef6e7"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">core::PlatformSample</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49140f56dd131af4f2e3765227cef6e7">_supportSamples</a></td></tr>
+<tr class="memdesc:a49140f56dd131af4f2e3765227cef6e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échantillons des supports mobiles du pas courant : plateformes mobiles <b>puis</b> blocs descendants, concaténés (<span class="tt">LOT-74</span> TACHE-06).  <br /></td></tr>
+<tr class="memitem:a26ccf7236a6ad9078d8b0e9241b91be3" id="r_a26ccf7236a6ad9078d8b0e9241b91be3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a26ccf7236a6ad9078d8b0e9241b91be3">_volatileBlinkStep</a> = 0</td></tr>
+<tr class="memdesc:a26ccf7236a6ad9078d8b0e9241b91be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteur de pas du clignotement d'avertissement d'un bloc éphémère (<span class="tt">EX-GP-029</span>) — un confort d'affichage, sans effet sur la simulation.  <br /></td></tr>
 <tr class="memitem:af755f8c1e80831f2d69c64d18bca52e9" id="r_af755f8c1e80831f2d69c64d18bca52e9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af755f8c1e80831f2d69c64d18bca52e9">_moverEntities</a></td></tr>
 <tr class="memitem:acebf42823674c41eb144c5b734dd898c" id="r_acebf42823674c41eb144c5b734dd898c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acebf42823674c41eb144c5b734dd898c">_dangerSwitchedEntities</a></td></tr>
 <tr class="memitem:a4626f94bae8605ca5ec679db25e96527" id="r_a4626f94bae8605ca5ec679db25e96527"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4626f94bae8605ca5ec679db25e96527">_dangerBlinkEntities</a></td></tr>
@@ -723,6 +739,60 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29cb946a81f21f912c9065021f12f068" name="a29cb946a81f21f912c9065021f12f068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29cb946a81f21f912c9065021f12f068">&#9670;&#160;</a></span>refreshSinkingBlockVisuals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::refreshSinkingBlockVisuals </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recale l'entité-tuile de chaque bloc descendant sur sa position courante, et efface celles des blocs sortis du tableau (<span class="tt">EX-GP-027</span>, <span class="tt">LOT-74</span>). </p>
+
+</div>
+</div>
+<a id="a0c777f1508e7b870d8e6cc77e23f3c09" name="a0c777f1508e7b870d8e6cc77e23f3c09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c777f1508e7b870d8e6cc77e23f3c09">&#9670;&#160;</a></span>refreshVolatileBlockVisuals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::refreshVolatileBlockVisuals </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Efface l'entité-tuile de chaque bloc volatil disparu et fait clignoter les blocs éphémères dont le compte à rebours court (<span class="tt">EX-GP-028</span>/<span class="tt">EX-GP-029</span>, <span class="tt">LOT-74</span>). </p>
 
 </div>
 </div>
@@ -2114,6 +2184,79 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
 
 </div>
 </div>
+<a id="aa7caf11f35668d3085ecd1a8a19ab0e1" name="aa7caf11f35668d3085ecd1a8a19ab0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7caf11f35668d3085ecd1a8a19ab0e1">&#9670;&#160;</a></span>_sinkingBlockEntities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::GameSession::_sinkingBlockEntities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entité-tuile de chaque bloc descendant, même ordre que <span class="tt"><a class="el" href="classcore_1_1SinkingBlockController.html" title="Fait vivre les blocs descendants d&#39;un niveau (TileType::SinkingBlock, EX-GP-027).">core::SinkingBlockController</a></span>. </p>
+
+</div>
+</div>
+<a id="ad0e126bc027534a92f6a728e1a6977ad" name="ad0e126bc027534a92f6a728e1a6977ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0e126bc027534a92f6a728e1a6977ad">&#9670;&#160;</a></span>_sinkingBlocks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classcore_1_1SinkingBlockController.html">core::SinkingBlockController</a>&gt; hmi::GameSession::_sinkingBlocks</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Blocs descendants du tableau (<span class="tt">EX-GP-027</span>, <span class="tt">LOT-74</span>). </p>
+
+</div>
+</div>
+<a id="a49140f56dd131af4f2e3765227cef6e7" name="a49140f56dd131af4f2e3765227cef6e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49140f56dd131af4f2e3765227cef6e7">&#9670;&#160;</a></span>_supportSamples</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1PlatformSample.html">core::PlatformSample</a>&gt; hmi::GameSession::_supportSamples</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Échantillons des supports mobiles du pas courant : plateformes mobiles <b>puis</b> blocs descendants, concaténés (<span class="tt">LOT-74</span> TACHE-06). </p>
+<p>Membre plutôt que variable locale pour que la référence reste valable pendant tout le pas, comme celle de <span class="tt">PlatformController::samples()</span>. </p>
+
+</div>
+</div>
 <a id="acc0e74d080c43350649b3580a5d574ec" name="acc0e74d080c43350649b3580a5d574ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc0e74d080c43350649b3580a5d574ec">&#9670;&#160;</a></span>_switchEntities</h2>
 
@@ -2226,6 +2369,78 @@ lastScene</span>, <span class="tt">EX-NFR-005</span>) : composées, écartées, 
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26ccf7236a6ad9078d8b0e9241b91be3" name="a26ccf7236a6ad9078d8b0e9241b91be3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26ccf7236a6ad9078d8b0e9241b91be3">&#9670;&#160;</a></span>_volatileBlinkStep</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::GameSession::_volatileBlinkStep = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compteur de pas du clignotement d'avertissement d'un bloc éphémère (<span class="tt">EX-GP-029</span>) — un confort d'affichage, sans effet sur la simulation. </p>
+
+</div>
+</div>
+<a id="ad50402795bcac2c9dd9d23b3f76d0f0f" name="ad50402795bcac2c9dd9d23b3f76d0f0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50402795bcac2c9dd9d23b3f76d0f0f">&#9670;&#160;</a></span>_volatileBlockEntities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::GameSession::_volatileBlockEntities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entité-tuile de chaque bloc volatil, même ordre que <span class="tt"><a class="el" href="classcore_1_1VolatileBlockController.html" title="Fait vivre les blocs fragile (TileType::FragileBlock, EX-GP-028) et éphémère (TileType::VanishingBloc...">core::VolatileBlockController</a></span>. </p>
+
+</div>
+</div>
+<a id="a6e446009240eb0ab48aa6d172efdf929" name="a6e446009240eb0ab48aa6d172efdf929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e446009240eb0ab48aa6d172efdf929">&#9670;&#160;</a></span>_volatileBlocks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classcore_1_1VolatileBlockController.html">core::VolatileBlockController</a>&gt; hmi::GameSession::_volatileBlocks</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Blocs volatils du tableau : fragile (<span class="tt">EX-GP-028</span>) et éphémère (<span class="tt">EX-GP-029</span>), <span class="tt">LOT-74</span>. </p>
 
 </div>
 </div>

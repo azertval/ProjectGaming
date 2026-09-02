@@ -139,6 +139,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a85c8a331b479f56b600b54cd718816e9" id="r_a85c8a331b479f56b600b54cd718816e9"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a85c8a331b479f56b600b54cd718816e9">_mechanisms</a></td></tr>
 <tr class="memitem:a2f8dac0e1c0a588b438ff3b9da575a11" id="r_a2f8dac0e1c0a588b438ff3b9da575a11"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2f8dac0e1c0a588b438ff3b9da575a11">_dangers</a></td></tr>
 <tr class="memitem:a94f70160689fafb64f44b4181e0b5da4" id="r_a94f70160689fafb64f44b4181e0b5da4"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1PlatformController.html">core::PlatformController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a94f70160689fafb64f44b4181e0b5da4">_platforms</a></td></tr>
+<tr class="memitem:a17436979da590f1b9c541a8c8b425a54" id="r_a17436979da590f1b9c541a8c8b425a54"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1VolatileBlockController.html">core::VolatileBlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a17436979da590f1b9c541a8c8b425a54">_volatileBlocks</a></td></tr>
+<tr class="memdesc:a17436979da590f1b9c541a8c8b425a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocs volatils (<span class="tt">EX-GP-028</span>/<span class="tt">EX-GP-029</span>) et descendants (<span class="tt">EX-GP-027</span>), <span class="tt">LOT-74</span> : presents ici pour la meme raison que <span class="tt"><a class="el" href="#a94f70160689fafb64f44b4181e0b5da4">_platforms</a></span> &ndash; cette orchestration doit rester fidele pas a pas a <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span>, garde-fou <span class="tt">FideliteParPas</span>.  <br /></td></tr>
+<tr class="memitem:a4b5da87fb1bca9d61a8402f26ca0dbda" id="r_a4b5da87fb1bca9d61a8402f26ca0dbda"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1SinkingBlockController.html">core::SinkingBlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4b5da87fb1bca9d61a8402f26ca0dbda">_sinkingBlocks</a></td></tr>
+<tr class="memitem:aa7dcc127b5f6967fdf7168fabe0176f8" id="r_aa7dcc127b5f6967fdf7168fabe0176f8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">core::PlatformSample</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa7dcc127b5f6967fdf7168fabe0176f8">_supportSamples</a></td></tr>
+<tr class="memdesc:aa7dcc127b5f6967fdf7168fabe0176f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echantillons des supports mobiles du pas : plateformes puis blocs descendants.  <br /></td></tr>
 <tr class="memitem:afc73379b8a2ed5231ab499e8c0e0212c" id="r_afc73379b8a2ed5231ab499e8c0e0212c"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c">_collision</a></td></tr>
 <tr class="memdesc:afc73379b8a2ed5231ab499e8c0e0212c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de collision composée du dernier pas (portes + blocs), voir <span class="tt"><a class="el" href="#a99144ec8d144e28f4e30f4018e290057">collisionMap()</a></span>.  <br /></td></tr>
 <tr class="memitem:ac98cbb97fea00f82fd8df992e6779945" id="r_ac98cbb97fea00f82fd8df992e6779945"><td class="memItemLeft">ObjectiveDistanceFieldCache&#160;</td><td class="memItemRight"><a class="el" href="#ac98cbb97fea00f82fd8df992e6779945">_objectiveCache</a></td></tr>
@@ -970,6 +975,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4b5da87fb1bca9d61a8402f26ca0dbda" name="a4b5da87fb1bca9d61a8402f26ca0dbda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b5da87fb1bca9d61a8402f26ca0dbda">&#9670;&#160;</a></span>_sinkingBlocks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classcore_1_1SinkingBlockController.html">core::SinkingBlockController</a>&gt; <a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a4b5da87fb1bca9d61a8402f26ca0dbda">aisolver::HeadlessLevelEnvironment::_sinkingBlocks</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4fddeb421527b2ef4249cec874b9041a" name="a4fddeb421527b2ef4249cec874b9041a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4fddeb421527b2ef4249cec874b9041a">&#9670;&#160;</a></span>_stepBudget</h2>
 
@@ -1057,6 +1084,54 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7dcc127b5f6967fdf7168fabe0176f8" name="aa7dcc127b5f6967fdf7168fabe0176f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7dcc127b5f6967fdf7168fabe0176f8">&#9670;&#160;</a></span>_supportSamples</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1PlatformSample.html">core::PlatformSample</a>&gt; <a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#aa7dcc127b5f6967fdf7168fabe0176f8">aisolver::HeadlessLevelEnvironment::_supportSamples</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Echantillons des supports mobiles du pas : plateformes puis blocs descendants. </p>
+
+</div>
+</div>
+<a id="a17436979da590f1b9c541a8c8b425a54" name="a17436979da590f1b9c541a8c8b425a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17436979da590f1b9c541a8c8b425a54">&#9670;&#160;</a></span>_volatileBlocks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classcore_1_1VolatileBlockController.html">core::VolatileBlockController</a>&gt; <a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a17436979da590f1b9c541a8c8b425a54">aisolver::HeadlessLevelEnvironment::_volatileBlocks</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Blocs volatils (<span class="tt">EX-GP-028</span>/<span class="tt">EX-GP-029</span>) et descendants (<span class="tt">EX-GP-027</span>), <span class="tt">LOT-74</span> : presents ici pour la meme raison que <span class="tt"><a class="el" href="#a94f70160689fafb64f44b4181e0b5da4">_platforms</a></span> &ndash; cette orchestration doit rester fidele pas a pas a <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span>, garde-fou <span class="tt">FideliteParPas</span>. </p>
 
 </div>
 </div>

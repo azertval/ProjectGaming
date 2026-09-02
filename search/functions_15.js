@@ -16,6 +16,7 @@ var searchData=
   ['visibilitytoggled_13',['visibilityToggled',['../classhmi_1_1PlanesPanel.html#ab40ebbb834c9d848a2c8919dcb7f14b1',1,'hmi::PlanesPanel']]],
   ['visible_14',['visible',['../classhmi_1_1LayerVisibility.html#af2c7fae361305eca683260d4fcd4f995',1,'hmi::LayerVisibility::visible()'],['../classhmi_1_1PlaneVisibility.html#a332247afe983597010120cca6f9cacd2',1,'hmi::PlaneVisibility::visible()']]],
   ['visiblebounds_15',['visibleBounds',['../classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb',1,'hmi::Camera2D']]],
-  ['volume_16',['volume',['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine']]],
-  ['vsyncenabled_17',['vsyncEnabled',['../classhmi_1_1GameViewport.html#afc6cd76360f0150625ee748f25ddd98f',1,'hmi::GameViewport']]]
+  ['volatileblockcontroller_16',['VolatileBlockController',['../classcore_1_1VolatileBlockController.html#a4e2283a33b0c26efd38ac75227f16a30',1,'core::VolatileBlockController']]],
+  ['volume_17',['volume',['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine']]],
+  ['vsyncenabled_18',['vsyncEnabled',['../classhmi_1_1GameViewport.html#afc6cd76360f0150625ee748f25ddd98f',1,'hmi::GameViewport']]]
 ];

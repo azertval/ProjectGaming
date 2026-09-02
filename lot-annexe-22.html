@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-annexe-22.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Dernier lot du programme Lot-Annexe (remplace [LOT-ANNEXE-21](<a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21 — Mode IA (IHM)</a>) à ce titre). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4320"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4402"></a>
 Objectif</h1>
 <p><a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21</a> a livré l'écran <b>Mode IA</b> comme habillage Qt de <span class="tt">aisolver-cli</span> (<a class="el" href="lot-annexe-19.html" title="LOT-ANNEXE-19 — Outillage CLI">LOT-ANNEXE-19</a>). L'audit de cet écran montre que l'habillage était partiel sur quatre points, et ce lot les ferme :</p>
 <ol type="1">
@@ -106,13 +106,13 @@ Objectif</h1>
 <li><b>L'onglet Validation &amp; sauvegarde était en net retrait de <span class="tt">evaluate</span>/<span class="tt">export-replay</span></b> : évaluation bloquant le thread d'IHM, niveau et modèle imposés par le run choisi, pas d'export du rapport CSV, et un « export de rejeu » qui n'était qu'une copie de fichier.</li>
 </ol>
 <p>L'objectif est que l'écran Mode IA expose <b>au moins</b> tout ce que sait faire <span class="tt">aisolver-cli</span>, plus le suivi en direct qu'une ligne de commande ne peut pas offrir.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4321"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4403"></a>
 Décision de cadrage : <span class="tt">IHM ⊇ CLI</span></h1>
 <p><span class="tt">LOT-ANNEXE-21</span> pose qu'« un désaccord de comportement entre l'IHM et <span class="tt">aisolver-cli</span> est un bug ». Ce lot en tire la conséquence dans les deux sens : tout hyperparamètre exposé d'un côté l'est de l'autre. En pratique, l'IHM était <b>en avance</b> sur la CLI (les huit hyperparamètres DQN y étaient réglables, alors que <span class="tt"><a class="el" href="test__argument__parsing_8cpp.html#aae8244b40b1c253b01c5b0febe5adcf7" title="Analyse les arguments de train (hors nom de sous-commande).">parseTrainArgs</a></span> ne lisait aucun <span class="tt">--dqn-*</span>) et <b>en retard</b> sur elle (<span class="tt">--config</span>, <span class="tt">--runs-root</span>, <span class="tt">--report</span>, choix libre du niveau et du modèle à évaluer). Les deux écarts sont corrigés.</p>
 <p>Corollaire appliqué aux valeurs par défaut : l'écran au démarrage doit décrire le même run que <span class="tt">aisolver-cli train</span> sans option. Deux champs y dérogeaient (taille de population <span class="tt">64</span> au lieu de <span class="tt">32</span>, taux de mutation <span class="tt">0,08</span> au lieu de <span class="tt">0,05</span>) et sont alignés sur les constantes documentées de <span class="tt"><a class="el" href="structEvolutionaryConfig.html" title="Regroupe les paramètres de l&#39;algorithme évolutionniste, valeurs par défaut documentées ci-dessus (con...">EvolutionaryConfig</a></span> — le bouton « Réinitialiser aux défauts » lit ces mêmes constantes, jamais une seconde liste de valeurs inscrite dans l'écran.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4322"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4404"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4323"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4405"></a>
 Inclus</h2>
 <ul>
 <li><b>Extensions <span class="tt">AiSolver</span></b> (additives, aucune rupture de signature) :<ul>
@@ -128,20 +128,20 @@ Inclus</h2>
 <li><b>Onglet Validation &amp; sauvegarde</b> : évaluation asynchrone avec progression et annulation, choix libre du modèle et du niveau (évaluation croisée), budget de pas, graine et mode de décodage, pas moyen sur toutes les répétitions, export du rapport CSV, reprise des réglages d'un run passé, et véritable export de rejeu argmax.</li>
 <li><b><span class="tt">MainWindow::confirmLeavingActiveTraining</span></b> : <span class="tt">AiModeScreen::trainingActive()</span> et <span class="tt">stopTrainingIfActive()</span> existaient depuis <span class="tt">LOT-ANNEXE-21</span> sans qu'aucun appelant ne les utilise — quitter l'écran laissait un entraînement tourner sans plus aucun moyen de le voir ni de l'arrêter.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4324"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4406"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Reprise d'un entraînement interrompu</b>, <b>entraînement multi-niveaux</b> et <b>file d'attente de runs</b> : décisions de cadrage de <span class="tt">LOT-ANNEXE-21</span>, non rouvertes ici.</li>
 <li><b>Export d'un rejeu que le modèle ne résout pas</b> : un rejeu <b>publié</b> ne peut être qu'une réussite validée (décision de cadrage de <a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">LOT-ANNEXE-11</a>, appliquée aussi par <span class="tt">aisolver-cli export-replay</span>). L'écran produit désormais le même diagnostic explicite que la ligne de commande au lieu d'un message d'absence de fichier, mais n'écrit toujours rien.</li>
 <li><b>Comparaison de plusieurs runs dans une même vue</b> et <b>suppression de runs depuis l'écran</b> : hors du périmètre « exposer ce que fait la CLI ».</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4325"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4407"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot reste un habillage IHM, comme <span class="tt">LOT-ANNEXE-21</span>. Les hyperparamètres nouvellement exposés sont décrits par les lots qui les ont introduits (<a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>, <a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">11</a>, [14](<a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)</a>), <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">15</a>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4326"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4408"></a>
 Exigences couvertes</h1>
 <p>Réutilisées (inchangées) : <a class="el" href="spec-ia.html#EX-IA-022" title="EX-IA-022"><span class="tt">EX-IA-022</span></a> (écran Mode IA), et les exigences des lots exposés (<span class="tt">LOT-ANNEXE-10</span> à <span class="tt">21</span>). Aucune exigence nouvelle : ce lot complète une capacité déjà spécifiée, il n'en ajoute pas.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4327"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4409"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -158,7 +158,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-22-tache-04-onglet-validation.html#md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2tache-04-onglet-validation" title="Lot-Annexe/LOT-ANNEXE-22-mode-ia-ihm-complete/tache-04-onglet-validation.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Onglet Validation &amp; sauvegarde  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI</span>, <span class="tt">Source/Elements/UI</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4328"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4410"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Tout hyperparamètre lu par une boucle d'entraînement est réglable <b>et</b> dans l'écran Mode IA, <b>et</b> par un drapeau <span class="tt">aisolver-cli train</span> — aucun n'est accessible par le seul fichier <span class="tt">--config</span>.</li>
@@ -171,10 +171,10 @@ Critères d'acceptation du lot</h1>
 <li>Quitter l'écran pendant un entraînement demande confirmation et arrête le run.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4329"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4411"></a>
 Dépendances</h1>
 <p>Complète <a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21</a> sans le remplacer : l'écran, ses trois onglets et <span class="tt">TrainingWorker</span> restent ceux de ce lot. Expose plus complètement les capacités de <a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10</a>/<a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">11</a>, <a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">14</a>, <a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">15</a> et <a class="el" href="lot-annexe-19.html" title="LOT-ANNEXE-19 — Outillage CLI">19</a>. Dernier lot du programme : aucun lot ultérieur n'en dépend.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4412"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-22-tache-01-parametres-cli.html" title="TACHE-01 — Hyperparamètres et drapeaux `aisolver-cli`">TACHE-01 — Hyperparamètres et drapeaux `aisolver-cli`</a></li>

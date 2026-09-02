@@ -32,9 +32,12 @@ var classaisolver_1_1HeadlessLevelEnvironment =
     [ "_physics", "classaisolver_1_1HeadlessLevelEnvironment.html#acdbbd8a3ffcc1b6b1a8938ce5636efd7", null ],
     [ "_platforms", "classaisolver_1_1HeadlessLevelEnvironment.html#a94f70160689fafb64f44b4181e0b5da4", null ],
     [ "_player", "classaisolver_1_1HeadlessLevelEnvironment.html#a8cc9527ed638b550e4f04301a01a145a", null ],
+    [ "_sinkingBlocks", "classaisolver_1_1HeadlessLevelEnvironment.html#a4b5da87fb1bca9d61a8402f26ca0dbda", null ],
     [ "_stepBudget", "classaisolver_1_1HeadlessLevelEnvironment.html#a4fddeb421527b2ef4249cec874b9041a", null ],
     [ "_stepIndex", "classaisolver_1_1HeadlessLevelEnvironment.html#ac2735c5a03edaf25e9e224be69fa938c", null ],
     [ "_stepsSinceProgress", "classaisolver_1_1HeadlessLevelEnvironment.html#a3d6f8cf26e1ceaa32da4f7f96774f7d1", null ],
     [ "_stuckThreshold", "classaisolver_1_1HeadlessLevelEnvironment.html#ad66ffe8bbc16b43c4a38d27fff6cd6a2", null ],
+    [ "_supportSamples", "classaisolver_1_1HeadlessLevelEnvironment.html#aa7dcc127b5f6967fdf7168fabe0176f8", null ],
+    [ "_volatileBlocks", "classaisolver_1_1HeadlessLevelEnvironment.html#a17436979da590f1b9c541a8c8b425a54", null ],
     [ "_world", "classaisolver_1_1HeadlessLevelEnvironment.html#a25cf5d40feecd3c694fe824503cd980f", null ]
 ];

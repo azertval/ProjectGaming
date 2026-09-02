@@ -98,7 +98,7 @@ $(function(){initNavTree('lots-annexe.html','',''); });
 <p><b>Numérotation propre</b> : <span class="tt">LOT-ANNEXE-NN</span> est un identifiant indépendant de <span class="tt">LOT-01</span>…<span class="tt">LOT-55</span>, stable une fois attribué (même règle que les lots principaux : jamais réordonné).</p>
 <p><b>Régime d'entraînement</b> : chaque lot des générations 2 et 3 entraîne un modèle sur <b>un seul niveau à la fois</b> — pas d'entraînement joint multi-niveaux. La génération 4 mesure ce que ces modèles niveau-par-niveau donnent en dehors de leur niveau d'origine, à titre de mesure de référence, pas comme objectif de généralisation.</p>
 <p><b>Pour apprendre les notions avant d'implémenter</b> : <a class="el" href="guide-annexe.html" title="Guide Annexe — Notions d&#39;IA">Guide Annexe — Notions d'IA</a> est un tutoriel autonome (aucun accès Internet nécessaire), avec les sources citées à la fin de chaque chapitre. Chaque <span class="tt">epic.md</span> ci-dessous a sa propre section « Notions abordées » renvoyant au(x) chapitre(s) concerné(s).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4425"></a>
 Génération 0 — Fondations numériques</h1>
 <p><em>Bibliothèque de calcul pure, sans dépendance au jeu, testable en isolation.</em></p><ul>
 <li><a class="el" href="lot-annexe-01.html" title="LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison">LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison</a></li>
@@ -106,7 +106,7 @@ Génération 0 — Fondations numériques</h1>
 <li><a class="el" href="lot-annexe-03.html" title="LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison">LOT-ANNEXE-03 — Bibliothèque de réseaux de neurones maison</a></li>
 <li><a class="el" href="lot-annexe-04.html" title="LOT-ANNEXE-04 — Optimiseurs maison">LOT-ANNEXE-04 — Optimiseurs maison</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4426"></a>
 Génération 1 — Pont avec le jeu et observabilité</h1>
 <p><em>Rendre le jeu observable/pilotable et mesurable, sur la base de <span class="tt">Core</span> sans le modifier.</em></p><ul>
 <li><a class="el" href="lot-annexe-05.html" title="LOT-ANNEXE-05 — Environnement de simulation headless">LOT-ANNEXE-05 — Environnement de simulation headless</a></li>
@@ -115,26 +115,26 @@ Génération 1 — Pont avec le jeu et observabilité</h1>
 <li><a class="el" href="lot-annexe-08.html" title="LOT-ANNEXE-08 — Fonction de récompense et critères d&#39;épisode">LOT-ANNEXE-08 — Fonction de récompense et critères d'épisode</a></li>
 <li><a class="el" href="lot-annexe-09.html" title="LOT-ANNEXE-09 — Journalisation CSV des statistiques d&#39;entraînement">LOT-ANNEXE-09 — Journalisation CSV des statistiques d'entraînement</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4427"></a>
 Génération 2 — Premier agent fonctionnel (évolutionniste)</h1>
 <p><em>Chemin le plus court vers un agent qui termine réellement un niveau — sert de ligne de base.</em></p><ul>
 <li><a class="el" href="lot-annexe-10.html" title="LOT-ANNEXE-10 — Algorithme évolutionniste maison">LOT-ANNEXE-10 — Algorithme évolutionniste maison</a></li>
 <li><a class="el" href="lot-annexe-11.html" title="LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu">LOT-ANNEXE-11 — Entraînement niveau-par-niveau et export de rejeu</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4428"></a>
 Génération 3 — Apprentissage par gradient</h1>
 <p><em>Exigence ferme : un vrai modèle appris par rétropropagation, pas seulement une recherche aveugle.</em></p><ul>
 <li><a class="el" href="lot-annexe-12.html" title="LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)">LOT-ANNEXE-12 — Policy gradient maison (REINFORCE)</a></li>
 <li><a class="el" href="lot-annexe-13.html" title="LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)">LOT-ANNEXE-13 — Réduction de variance : critique et avantage (acteur-critique)</a></li>
 <li><a class="el" href="lot-annexe-14.html" title="LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)">LOT-ANNEXE-14 — Algorithme avancé (PPO maison ou Q-learning à mémoire de rejeu)</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4429"></a>
 Génération 4 — Évaluation et robustesse</h1>
 <ul>
 <li><a class="el" href="lot-annexe-15.html" title="LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes">LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes</a></li>
 <li><a class="el" href="lot-annexe-16.html" title="LOT-ANNEXE-16 — Évaluation hors-niveau (transfert)">LOT-ANNEXE-16 — Évaluation hors-niveau (transfert)</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4430"></a>
 Génération 5 — Intégration jeu et outillage</h1>
 <ul>
 <li><a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu</a></li>

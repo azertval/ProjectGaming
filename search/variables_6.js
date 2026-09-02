@@ -25,11 +25,12 @@ var searchData=
   ['fonts_5fsubdirectory_22',['FONTS_SUBDIRECTORY',['../namespacehmi.html#a5d007c47b6f8696b0b71cf94afe65d18',1,'hmi']]],
   ['format_5fversion_23',['FORMAT_VERSION',['../classhmi_1_1SoundCatalog.html#a0904fbd25b44f19ea87496deaf32943d',1,'hmi::SoundCatalog::FORMAT_VERSION'],['../classhmi_1_1PixelPalette.html#af0f9ba35c5a891faaee4e90fa12fdc5e',1,'hmi::PixelPalette::FORMAT_VERSION'],['../classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75',1,'hmi::AnimationCatalog::FORMAT_VERSION'],['../classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729',1,'hmi::SkinCatalog::FORMAT_VERSION']]],
   ['formatversion_24',['formatVersion',['../structaisolver_1_1ReplayFile.html#a1049dee72c033952da18d152807b5472',1,'aisolver::ReplayFile']]],
-  ['frameduration_25',['frameDuration',['../structcore_1_1AnimationClip.html#a816a1ce26647a4bb356e0f18a1761226',1,'core::AnimationClip']]],
-  ['frameheight_26',['frameHeight',['../structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2',1,'hmi::AnimationDescription']]],
-  ['frameindex_27',['frameIndex',['../structcore_1_1Animation.html#a8d315fb44059a2c141db8653f7417c32',1,'core::Animation']]],
-  ['frames_28',['frames',['../structcore_1_1AnimationClip.html#a4d3c673e04630c780aeceb031707a127',1,'core::AnimationClip']]],
-  ['framespersecond_29',['framesPerSecond',['../structhmi_1_1DiagnosticsMeasurements.html#aa4012ca819a87e7db6625662fdde6438',1,'hmi::DiagnosticsMeasurements']]],
-  ['framethickness_30',['frameThickness',['../structhmi_1_1IdentityBaseScale.html#a6363a5795e414ce3656600f895a3dc8f',1,'hmi::IdentityBaseScale']]],
-  ['framewidth_31',['frameWidth',['../structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909',1,'hmi::AnimationDescription']]]
+  ['fragile_25',['fragile',['../structcore_1_1VolatileBlockController_1_1VolatileBlock.html#a4977b54b7d1f2d566834c757ae77842a',1,'core::VolatileBlockController::VolatileBlock']]],
+  ['frameduration_26',['frameDuration',['../structcore_1_1AnimationClip.html#a816a1ce26647a4bb356e0f18a1761226',1,'core::AnimationClip']]],
+  ['frameheight_27',['frameHeight',['../structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2',1,'hmi::AnimationDescription']]],
+  ['frameindex_28',['frameIndex',['../structcore_1_1Animation.html#a8d315fb44059a2c141db8653f7417c32',1,'core::Animation']]],
+  ['frames_29',['frames',['../structcore_1_1AnimationClip.html#a4d3c673e04630c780aeceb031707a127',1,'core::AnimationClip']]],
+  ['framespersecond_30',['framesPerSecond',['../structhmi_1_1DiagnosticsMeasurements.html#aa4012ca819a87e7db6625662fdde6438',1,'hmi::DiagnosticsMeasurements']]],
+  ['framethickness_31',['frameThickness',['../structhmi_1_1IdentityBaseScale.html#a6363a5795e414ce3656600f895a3dc8f',1,'hmi::IdentityBaseScale']]],
+  ['framewidth_32',['frameWidth',['../structhmi_1_1AnimationDescription.html#a18d25eef98c2ac2863e7d87b35bd4909',1,'hmi::AnimationDescription']]]
 ];

@@ -109,7 +109,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a5b142fe038cea52a8b76f6752b47d5a0" id="r_a5b142fe038cea52a8b76f6752b47d5a0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5b142fe038cea52a8b76f6752b47d5a0">TEST</a> (ObservationBordsCarteTest, FormeExacteAChaqueCoinQuelQueSoitLeRayon)</td></tr>
 <tr class="memdesc:a5b142fe038cea52a8b76f6752b47d5a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque coin/bord d'un niveau reel produit la forme exacte attendue, a plusieurs rayons.  <br /></td></tr>
 <tr class="memitem:ae1e5a657022e3921d2e1a4c3fc996ad2" id="r_ae1e5a657022e3921d2e1a4c3fc996ad2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae1e5a657022e3921d2e1a4c3fc996ad2">TEST</a> (ObservationBordsCarteTest, CarteUnicaseAvecRayonLargeProduitDesCasesNullesAutourDuCentre)</td></tr>
-<tr class="memdesc:ae1e5a657022e3921d2e1a4c3fc996ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte 1x1 avec <span class="tt">radius = 3</span> produit un tenseur <span class="tt">(33, 7, 7)</span> : une seule case reelle, les 48 autres en vecteur nul.  <br /></td></tr>
+<tr class="memdesc:ae1e5a657022e3921d2e1a4c3fc996ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte 1x1 avec <span class="tt">radius = 3</span> produit un tenseur <span class="tt">(CHANNEL_COUNT, 7, 7)</span> : une seule case reelle, les 48 autres en vecteur nul.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Stabilité dimensionnelle de l'observation près des bords de carte (LOT-ANNEXE-06, TACHE-04). </p>
@@ -133,14 +133,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une carte 1x1 avec <span class="tt">radius = 3</span> produit un tenseur <span class="tt">(33, 7, 7)</span> : une seule case reelle, les 48 autres en vecteur nul. </p>
+<p>Une carte 1x1 avec <span class="tt">radius = 3</span> produit un tenseur <span class="tt">(CHANNEL_COUNT, 7, 7)</span> : une seule case reelle, les 48 autres en vecteur nul. </p>
 <p><b>Cas de test :</b> <b>Carte 1x1 : une seule case reelle, les 48 autres en vecteur nul.</b><br  />
  <b>Categorie :</b> Unitaire · AiSolver Env<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Construire une <span class="tt">TileMap</span> 1x1 (<span class="tt">TileType::Solid</span>).<br  />
 2. Encoder avec <span class="tt">radius = 3</span>.<br  />
- <b>Resultat attendu :</b> La forme est <span class="tt">(33, 7, 7)</span> ; la case centrale (3, 3) encode <span class="tt">Solid</span>, les 48 autres cases ont leurs 33 canaux a <span class="tt">0.0f</span>. </p>
+ <b>Resultat attendu :</b> La forme est <span class="tt">(CHANNEL_COUNT, 7, 7)</span> ; la case centrale (3, 3) encode <span class="tt">Solid</span>, les 48 autres cases ont tous leurs canaux a <span class="tt">0.0f</span>. </p>
 
 </div>
 </div>
@@ -170,7 +170,8 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Charger <span class="tt">demo-deplacement.json</span>.<br  />
 2. Pour chaque coin (<span class="tt">(0,0)</span>, <span class="tt">(width-1,0)</span>, <span class="tt">(0,height-1)</span>, <span class="tt">(width-1,height-1)</span>) et chaque rayon (<span class="tt">0, 1, 3, 5</span>), encoder la fenetre de tuiles et l'etat des mecanismes.<br  />
- <b>Resultat attendu :</b> La forme du tenseur categoriel est exactement <span class="tt">(33, 2r+1, 2r+1)</span>, celle du tenseur de mecanisme <span class="tt">(2, 2r+1, 2r+1)</span>, y compris quand <span class="tt">2r+1</span> depasse la dimension de la carte. </p>
+ <b>Resultat attendu :</b> La forme du tenseur categoriel est exactement <span class="tt">(TileWindowEncoder::CHANNEL_COUNT, 2r+1,
+ 2r+1)</span>, celle du tenseur de mecanisme <span class="tt">(2, 2r+1, 2r+1)</span>, y compris quand <span class="tt">2r+1</span> depasse la dimension de la carte. </p>
 
 </div>
 </div>

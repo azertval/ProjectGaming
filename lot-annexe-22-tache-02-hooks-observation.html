@@ -94,7 +94,7 @@ $(function(){initNavTree('lot-annexe-22-tache-02-hooks-observation.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2tache-02-hooks-observation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-22.html#md_Lot-Annexe_2LOT-ANNEXE-22-mode-ia-ihm-complete_2epic" title="Lot-Annexe/LOT-ANNEXE-22-mode-ia-ihm-complete/epic.md">LOT-ANNEXE-22</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training</span>, <span class="tt">Source/AiSolver/Eval</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4334"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4416"></a>
 Contexte</h1>
 <p>Deux grandeurs que l'écran Mode IA doit montrer n'étaient observables par aucun appelant :</p>
 <ul>
@@ -102,14 +102,14 @@ Contexte</h1>
 <li>une <b>campagne d'évaluation</b> (<span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span>) s'exécute jusqu'au bout sans point de sortie, ce qui interdit toute progression comme toute annulation.</li>
 </ul>
 <p>Même patron additif que les hooks posés par <a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21</a> (<span class="tt">setOnRecord</span>, <span class="tt">shouldStop</span>, <span class="tt">onGenerationChampion</span>) : paramètres et observateurs optionnels, aucune rupture de signature pour les appelants existants.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4335"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4417"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="classLevelTrainingSession.html#a6ef4943d7abb3151c7fad0e159f551cd" title="Branche onStabilityChanged, appelé après chaque génération avec l&#39;avancement du critère d&#39;arrêt par s...">LevelTrainingSession::setOnStabilityChanged</a></span></b> : observateur optionnel appelé après chaque génération avec le compteur courant et le seuil exigé. Observation pure — la décision d'arrêt reste celle de <span class="tt">run()</span>.</li>
 <li><b><span class="tt">eval::RepetitionObserver</span></b> et le paramètre <span class="tt">onRepetition</span> de <span class="tt"><a class="el" href="classBenchmarkRunner.html#a567ae8f91e1f4287e5c518d80e13ff03" title="Exécute config.repetitions répétitions de policy sur levelPath, chacune sur un HeadlessLevelEnvironme...">BenchmarkRunner::run</a></span> / <span class="tt">runWithNoise</span> : appelé après chaque répétition, renvoyer <span class="tt">false</span> interrompt la campagne, qui rapporte alors les seules répétitions déjà jouées. La granularité est la <b>répétition</b>, jamais le pas de simulation — un appel indirect par image simulée serait payé pour rien.</li>
 <li><span class="tt"><a class="el" href="classDqnTrainer.html" title="Assemble QNetwork (principal + cible), ReplayBuffer, computeDqnLoss et un optimiseur (optim::IOptimiz...">DqnTrainer</a></span> n'a besoin d'aucune extension : <span class="tt">currentEpsilon()</span> et <span class="tt">totalSteps()</span> existent déjà, et le paramètre <span class="tt">dqnStatsCsvPath</span> de son constructeur n'attendait qu'un appelant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4336"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4418"></a>
 Critères de validation</h1>
 <ul>
 <li>La séquence de compteurs émise par l'observateur de stabilité correspond à la logique déjà testée de <span class="tt"><a class="el" href="test__level__training__session_8cpp.html#aa8e28f430662fd6d2a2e1580306d1d01" title="Met à jour le compteur de générations consécutives où le champion reste invaincu et résolvant,...">updateConsecutiveStableWins</a></span>.</li>

@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-annexe-10-tache-03-selection-croisement-mutation.h
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2tache-03-selection-croisement-mutation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-annexe-10.html#md_Lot-Annexe_2LOT-ANNEXE-10-algorithme-evolutionniste_2epic" title="Lot-Annexe/LOT-ANNEXE-10-algorithme-evolutionniste/epic.md">LOT-ANNEXE-10</a> · <b>Emplacement :</b> <span class="tt">Source/AiSolver/Training/Evolutionary</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3902"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3984"></a>
 Contexte</h1>
 <p>TACHE-02 assigne un fitness à chaque individu d'une génération évaluée. Cette tâche fournit les opérateurs génétiques qui produisent la génération suivante à partir de celle-ci : choisir des parents plus aptes (sélection), les combiner (croisement), introduire de la variation (mutation), et garantir la non-régression du meilleur individu (élitisme).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3903"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3985"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Sélection par tournoi</b> (<span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#a23857a7b7fb86998bd3fb44951c58375" title="Sélection par tournoi : tire config.tournamentSize individus au hasard (avec remise) via rng,...">selectParent</a>(const <a class="el" href="classPopulation.html" title="Ensemble de taille fixe N d&#39;individus de même topologie, poids indépendants.">Population</a>&amp;, <a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a>&amp;)</span>) : tire <span class="tt">TOURNAMENT_SIZE</span> individus au hasard via <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> (avec remise), retient celui de fitness maximal du groupe. Choix du tournoi plutôt que d'une sélection par rang : complexité <span class="tt">O(TOURNAMENT_SIZE)</span> par tirage, sans trier toute la population à chaque appel — suffisant pour une population de taille modeste.</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li><b>Élitisme</b> : fonction utilitaire <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual</a>(const <a class="el" href="classPopulation.html" title="Ensemble de taille fixe N d&#39;individus de même topologie, poids indépendants.">Population</a>&amp;)</span> retournant l'individu de fitness maximal — utilisée par TACHE-04 pour recopier cet individu <b>inchangé</b> (sans passer par sélection/croisement/mutation) dans la génération suivante.</li>
 <li><b><span class="tt"><a class="el" href="structEvolutionaryConfig.html" title="Regroupe les paramètres de l&#39;algorithme évolutionniste, valeurs par défaut documentées ci-dessus (con...">EvolutionaryConfig</a></span></b> (struct) : regroupe <span class="tt">tournamentSize</span>, <span class="tt">mutationRate</span>, <span class="tt">mutationStrength</span>, avec des valeurs par défaut documentées (constantes nommées, ex. <span class="tt">DEFAULT_TOURNAMENT_SIZE = 3</span>, <span class="tt">DEFAULT_MUTATION_RATE = 0.05f</span>, <span class="tt">DEFAULT_MUTATION_STRENGTH = 0.1f</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3904"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3986"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="GeneticOperators_8h.html" title="Sélection, croisement, mutation et élitisme (LOT-ANNEXE-10, EX-IA-011).">Source/AiSolver/Training/Evolutionary/GeneticOperators.h</a></span>/<span class="tt">.cpp</span> (nouveaux : sélection, croisement, mutation, <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual</a></span>).</li>
 <li><span class="tt"><a class="el" href="EvolutionaryConfig_8h.html" title="Constantes et configuration de l&#39;algorithme évolutionniste (LOT-ANNEXE-10, EX-IA-011).">Source/AiSolver/Training/Evolutionary/EvolutionaryConfig.h</a></span> (nouveau).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__genetic__operators_8cpp.html" title="Tests unitaires de sélection/croisement/mutation/élitisme (LOT-ANNEXE-10, TACHE-03).">Source/Test/Unit/AiSolver/Training/test_genetic_operators.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3905"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3987"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Tournoi ne perd jamais un meilleur candidat présent dans le tirage</b> : avec des fitness connus et un tirage contrôlé (seed fixée), la sélection retourne bien le meilleur du groupe tiré, jamais un individu de fitness strictement inférieur à un autre membre du même tirage.</li>
@@ -125,22 +125,22 @@ Tests (obligatoires)</h1>
 <li><b>Mutation à taux plein, reproductible</b> : <span class="tt">mutationRate = 1</span> modifie tous les poids ; à seed fixée, la perturbation appliquée est strictement identique entre deux exécutions.</li>
 <li><b><span class="tt"><a class="el" href="test__genetic__operators_8cpp.html#acfe23de9ebc1d58afbf31f097a56cf13" title="Élitisme : l&#39;individu de fitness maximal de population.">bestIndividual</a></span></b> : retourne bien l'individu du plus haut fitness dans une population aux fitness distincts et connus.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3906"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3988"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ces opérateurs ne touchent jamais la topologie</b>, fixée par LOT-ANNEXE-03 — uniquement les poids (pas d'évolution de structure, décision de cadrage de l'épic).</li>
 <li><b>Toute la stochasticité passe par l'instance <span class="tt"><a class="el" href="classRng.html" title="Source d&#39;aléatoire déterministe et reproductible à partir d&#39;une seule graine.">Rng</a></span> transmise en paramètre</b>, jamais une source globale — condition de reproductibilité de tout le lot.</li>
 <li><b>Risque de perte de diversité</b> : le croisement par moyenne, combiné à un taux de mutation trop faible, peut faire converger la population vers des poids proches au fil des générations. Ce lot ne corrige pas ce risque algorithmiquement (pas d'auto-adaptation, hors périmètre) — à surveiller expérimentalement via les CSV de LOT-ANNEXE-09.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3907"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3989"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Opérateurs génétiques disponibles et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3908"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3990"></a>
 Notions abordées</h1>
 <p><a class="el" href="guide-annexe-algorithmes-evolutionnistes.html" title="Algorithmes évolutionnistes">Algorithmes évolutionnistes</a> — population, fitness, sélection, croisement, mutation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3909"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3991"></a>
 Exigences</h1>
 <p>Aucune exigence propre — contribue à <span class="tt">EX-IA-011</span> (déclarée en TACHE-04). </p>
 </div></div><!-- contents -->

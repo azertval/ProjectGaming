@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-annexe-18.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17</a> (format de rejeu validé). Premier lot de la génération 5 et <b>seule</b> pièce de tout le programme Lot-Annexe qui touche <span class="tt">HMI</span> — tout le reste (générations 0 à 4) vit exclusivement dans le nouveau module <span class="tt">Source/AiSolver</span>, jamais dans <span class="tt">Core</span> ni <span class="tt">HMI</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4196"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4278"></a>
 Objectif</h1>
 <p>Le programme Lot-Annexe a, jusqu'ici, produit des fichiers de rejeu validés (<span class="tt">LOT-ANNEXE-17</span>) mais aucun moyen de les <b>jouer</b> dans le vrai jeu. La décision transverse du programme est ferme : <b>rejeu uniquement</b>, aucune inférence live, aucune nouvelle dépendance d'inférence dans <span class="tt">Core</span>/ <span class="tt">HMI</span>. Ce lot tient cette promesse à la lettre : il ne branche <b>aucun</b> réseau de neurones sur le jeu, seulement une séquence de <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> déjà figée, rejouée par la boucle de simulation existante — le même mécanisme qui garantit déjà, par construction, qu'un rejeu produit la trajectoire exacte observée pendant l'entraînement (<span class="tt">EX-NFR-002</span>, déterminisme au pas fixe de <span class="tt">Core</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4197"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4279"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4198"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4280"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt"><a class="el" href="classhmi_1_1ReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">hmi::ReplayPlayback</a></span></b> (<span class="tt">Source/HMI/Game</span>) : charge un fichier de rejeu via <span class="tt"><a class="el" href="namespaceaisolver.html#a1d0765d18d448f2bbb6ff13d818a8685" title="Lit un fichier de rejeu au format JSON.">aisolver::readReplay</a></span> (<span class="tt">LOT-ANNEXE-07</span>), le fait valider par <span class="tt"><a class="el" href="namespaceaisolver.html#aae9da93cacb6498823404bc00c7b9cc3" title="Valide un rejeu déjà désérialisé : le niveau qu&#39;il référence doit exister et son empreinte doit corre...">aisolver::validateReplay</a></span> (<span class="tt">LOT-ANNEXE-17</span>) avant tout usage, puis fournit un <span class="tt"><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></span> par pas fixe à la demande de la boucle de jeu.</li>
@@ -110,7 +110,7 @@ Inclus</h2>
 <li><b>Entrée de menu dédiée</b> (Qt, <span class="tt">Source/HMI/Interface</span>) : liste les fichiers de rejeu disponibles (répertoire connu, ex. <span class="tt">TrainingRuns/**/replay.json</span> ou un dossier de rejeux « publiés » distinct — précisé à l'implémentation), lance une partie pilotée par <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> au lieu de l'entrée clavier/manette habituelle.</li>
 <li><b>Test système</b> : rejeu d'un fichier de rejeu réel (produit par un algorithme d'entraînement) aboutit à <span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></span>, sur le modèle exact de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> mais à partir d'un fichier plutôt que d'un script d'entrée codé en dur.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4199"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4281"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Toute inférence de réseau de neurones dans <span class="tt">HMI</span> ou <span class="tt">Core</span></b> : décision ferme, transverse au programme entier, rappelée ici avec la plus grande insistance parce que c'est le lot le plus susceptible d'être tenté d'y déroger « pour aller plus vite ». <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> ne charge ni ne référence jamais <span class="tt">Source/AiSolver/Nn</span>, <span class="tt">Autodiff</span> ni aucun module de <span class="tt">Source/AiSolver/Training</span>. <b>Amendée, explicitement et localement, par <a class="el" href="lot-annexe-21.html" title="LOT-ANNEXE-21 — Mode IA (IHM)">LOT-ANNEXE-21</a></b> : l'entraînement interactif depuis l'IHM (barre de progression, aperçu en direct, arrêt propre) exige un accès direct à <span class="tt">AiSolver/Training</span>/<span class="tt">Nn</span>/<span class="tt">Optim</span>, limité au seul espace de noms <span class="tt">HMI/Ai</span> — cette règle reste vraie pour tout le reste de <span class="tt">HMI</span>, <span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> inclus.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Rejeu partiel ou navigable</b> (avance/recul dans la séquence, pause) : un rejeu se joue du début à la fin, comme une partie normale — l'ajout d'une scrubbing bar ou d'un contrôle de vitesse n'a aucun besoin identifié pour ce lot.</li>
 <li><b>Génération ou sélection automatique du « meilleur » rejeu disponible</b> (ex. parmi plusieurs runs sur le même niveau) : la sélection reste manuelle, via la liste de l'entrée de menu — aucune heuristique de choix automatique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4200"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4282"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b><span class="tt">GameSession</span> reçoit une nouvelle surface publique, pas une classe parallèle qui dupliquerait sa boucle de simulation.</b> Réutiliser <span class="tt">GameSession</span> tel quel (moins la seule étape de traduction d'entrée) élimine tout risque de divergence entre le jeu joué normalement et le jeu rejoué — le scénario que <span class="tt">LOT-ANNEXE-05</span> a précisément refusé de risquer en gardant son environnement headless séparé de <span class="tt">GameSession</span> ; ici, à l'inverse, c'est <span class="tt">GameSession</span> lui-même qui est réutilisé, donc aucun risque de divergence ne peut apparaître.</li>
@@ -127,16 +127,16 @@ Décisions de cadrage</h1>
 <li><b>Le déterminisme de <span class="tt">Core</span> (<span class="tt">EX-NFR-002</span>) est la seule raison pour laquelle ce lot fonctionne</b> : aucune synchronisation particulière n'est nécessaire entre l'enregistrement (génération 2/3, en environnement headless) et la lecture (ce lot, dans le vrai jeu, rendu compris) — le pas fixe produit la même trajectoire quel que soit le contexte d'exécution, pourvu que la séquence d'entrées et le niveau soient identiques (garanti par la validation).</li>
 <li><b><span class="tt"><a class="el" href="classReplayPlayback.html" title="Charge et valide un fichier de rejeu, puis fournit sa séquence de core::PlayerInput,...">ReplayPlayback</a></span> ne modifie jamais un fichier de rejeu</b> : lecture seule stricte, cohérent avec le rôle de <span class="tt">HMI</span> en général vis-à-vis des données de simulation (ne mute jamais ce qu'il affiche sans passer par une action explicite de l'utilisateur, ici aucune action de ce type n'existe).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4201"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4283"></a>
 Notions abordées</h1>
 <p>Aucune notion d'apprentissage automatique nouvelle : ce lot est de l'intégration logicielle pure (branchement d'une séquence enregistrée sur la boucle de jeu existante) — le seul principe théorique en jeu est le déterminisme au pas fixe (<span class="tt">EX-NFR-002</span>), déjà une propriété de <span class="tt">Core</span>, pas une notion introduite par le programme Lot-Annexe.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4202"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4284"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle, déclarée dans <a class="el" href="spec-ia.html" title="Solveur IA">la spécification IA</a> : <a class="el" href="spec-ia.html#EX-IA-019" title="EX-IA-019"><span class="tt">EX-IA-019</span></a>.</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-IA-008</span> (format de rejeu v1), <span class="tt">EX-IA-018</span> (validation à la lecture), <span class="tt">EX-NFR-002</span> (déterminisme au pas fixe, condition de fidélité du rejeu).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4203"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4285"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-annexe-18-tache-03-test-systeme-rejeu.html#md_Lot-Annexe_2LOT-ANNEXE-18-mode-regarder-ia-jouer_2tache-03-test-systeme-rejeu" title="Lot-Annexe/LOT-ANNEXE-18-mode-regarder-ia-jouer/tache-03-test-systeme-rejeu.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Test système : le rejeu aboutit à <span class="tt">Won</span>  </td><td class="markdownTableBodyNone"><span class="tt">Source/Test/Systeme</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4204"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4286"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un fichier de rejeu valide, chargé et joué via le nouveau mode, produit exactement la trajectoire observée lors de son enregistrement (même issue finale, mêmes positions à chaque pas).</li>
@@ -160,10 +160,10 @@ Critères d'acceptation du lot</h1>
 <li>Aucun symbole de <span class="tt">Source/AiSolver/Nn</span>, <span class="tt">Autodiff</span>, <span class="tt">Optim</span> ou <span class="tt">Training/*</span> n'est référencé depuis <span class="tt">Source/HMI</span> (vérifiable par les dépendances de compilation de la cible <span class="tt">HMI</span>).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), Doxygen et lint des exigences verts. Build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4205"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4287"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-annexe-17.html" title="LOT-ANNEXE-17 — Validation et stabilisation du format de rejeu">LOT-ANNEXE-17</a> (format de rejeu validé) et, transitivement, <a class="el" href="lot-annexe-07.html" title="LOT-ANNEXE-07 — Espace d&#39;action, décodage politique et format de rejeu v1">LOT-ANNEXE-07</a> (format v1). Réutilise <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>/<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Widget de rendu (QRhiWidget) où la scène est dessinée, composé avec le reste de l&#39;interface.">hmi::GameViewport</a></span> (lus, étendus a minima, jamais réécrits). <a class="el" href="lot-annexe-19.html" title="LOT-ANNEXE-19 — Outillage CLI">LOT-ANNEXE-19</a> (CLI) et <a class="el" href="lot-annexe-20.html" title="LOT-ANNEXE-20 — Garde-fou CI">LOT-ANNEXE-20</a> (garde-fou CI) supposent l'existence de ce mode pour avoir un sens pratique (un rejeu qu'on ne peut jamais jouer en jeu n'a pas besoin d'outillage de production ni de garde-fou de péremption).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4206"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4288"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-annexe-18-tache-01-lecture-rejeu-alimentation-gamesession.html" title="TACHE-01 — Lecture du rejeu et alimentation de GameSession">TACHE-01 — Lecture du rejeu et alimentation de GameSession</a></li>

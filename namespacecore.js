@@ -36,6 +36,8 @@ var namespacecore =
     [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
     [ "PlatformController", "classcore_1_1PlatformController.html", "classcore_1_1PlatformController" ],
     [ "PlatformPath", "structcore_1_1PlatformPath.html", "structcore_1_1PlatformPath" ],
+    [ "SinkingBlockController", "classcore_1_1SinkingBlockController.html", "classcore_1_1SinkingBlockController" ],
+    [ "VolatileBlockController", "classcore_1_1VolatileBlockController.html", "classcore_1_1VolatileBlockController" ],
     [ "CameraZone", "structcore_1_1CameraZone.html", "structcore_1_1CameraZone" ],
     [ "CameraFramingConfig", "structcore_1_1CameraFramingConfig.html", "structcore_1_1CameraFramingConfig" ],
     [ "GridPosition", "structcore_1_1GridPosition.html", "structcore_1_1GridPosition" ],
@@ -160,7 +162,10 @@ var namespacecore =
       [ "DangerBlink", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de", null ],
       [ "Key", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a897356954c2cd3d41b221e3f24f99bba", null ],
       [ "LockedDoor", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6029de17465e002643abfb52e2cb4c97", null ],
-      [ "MovingPlatform", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b", null ]
+      [ "MovingPlatform", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3bcc08b00f6aaac65d7a125de705dd4b", null ],
+      [ "SinkingBlock", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc", null ],
+      [ "FragileBlock", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad29ef67b6f2980da6cfbc841a8a3db90", null ],
+      [ "VanishingBlock", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a1d2e4d25446ec76a318b8ddc679617f5", null ]
     ] ],
     [ "advanceAnimation", "namespacecore.html#a209ceac8415ddadd8463746b94934eed", null ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
@@ -239,5 +244,6 @@ var namespacecore =
     [ "PLAYER_CLIP_RUN", "namespacecore.html#a07165b3796d0b5e77c2ecbc046696a5a", null ],
     [ "PLAYER_CLIP_WALLSLIDE", "namespacecore.html#ab778e77cf62b7d1c11d8038f75cbf020", null ],
     [ "PLAYER_HEIGHT", "namespacecore.html#a3e638fa357e74af32512b3eb91a6fcf6", null ],
-    [ "PLAYER_WIDTH", "namespacecore.html#a841ea8f763991419331d87ffd89758a0", null ]
+    [ "PLAYER_WIDTH", "namespacecore.html#a841ea8f763991419331d87ffd89758a0", null ],
+    [ "TILE_TYPE_COUNT", "namespacecore.html#a319e1d0258052359525fdc83ee93f269", null ]
 ];
