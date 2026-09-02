@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"PaletteAppearance_8cpp.html":[14,0,5,3,3,27],
+"PaletteAppearance_8h.html":[14,0,5,3,3,28],
+"PaletteAppearance_8h_source.html":[14,0,5,3,3,28],
 "PalettePanel_8cpp.html":[14,0,5,3,3,29],
 "PalettePanel_8h.html":[14,0,5,3,3,30],
 "PalettePanel_8h_source.html":[14,0,5,3,3,30],
@@ -119,11 +122,11 @@ var NAVTREEINDEX2 =
 "PlayerStateEncoder_8h_source.html":[14,0,5,0,1,17],
 "Player_8h.html":[14,0,5,1,1,0,3],
 "Player_8h_source.html":[14,0,5,1,1,0,3],
-"PolicyGradientLoss_8cpp.html":[14,0,5,0,8,10],
-"PolicyGradientLoss_8h.html":[14,0,5,0,8,11],
-"PolicyGradientLoss_8h_source.html":[14,0,5,0,8,11],
-"PolicyGradientTuning_8h.html":[14,0,5,0,8,12],
-"PolicyGradientTuning_8h_source.html":[14,0,5,0,8,12],
+"PolicyGradientLoss_8cpp.html":[14,0,5,0,8,12],
+"PolicyGradientLoss_8h.html":[14,0,5,0,8,13],
+"PolicyGradientLoss_8h_source.html":[14,0,5,0,8,13],
+"PolicyGradientTuning_8h.html":[14,0,5,0,8,14],
+"PolicyGradientTuning_8h_source.html":[14,0,5,0,8,14],
 "Population_8cpp.html":[14,0,5,0,8,2,10],
 "Population_8h.html":[14,0,5,0,8,2,11],
 "Population_8h_source.html":[14,0,5,0,8,2,11],
@@ -172,9 +175,9 @@ var NAVTREEINDEX2 =
 "ReplayBuffer_8cpp.html":[14,0,5,0,8,1,6],
 "ReplayBuffer_8h.html":[14,0,5,0,8,1,7],
 "ReplayBuffer_8h_source.html":[14,0,5,0,8,1,7],
-"ReplayExport_8cpp.html":[14,0,5,0,8,13],
-"ReplayExport_8h.html":[14,0,5,0,8,14],
-"ReplayExport_8h_source.html":[14,0,5,0,8,14],
+"ReplayExport_8cpp.html":[14,0,5,0,8,15],
+"ReplayExport_8h.html":[14,0,5,0,8,16],
+"ReplayExport_8h_source.html":[14,0,5,0,8,16],
 "ReplayFile_8cpp.html":[14,0,5,0,6,2],
 "ReplayFile_8h.html":[14,0,5,0,6,3],
 "ReplayFile_8h_source.html":[14,0,5,0,6,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "SpriteRenderer_8h_source.html":[14,0,5,3,5,60],
 "Sprite_8h.html":[14,0,5,1,1,0,4],
 "Sprite_8h_source.html":[14,0,5,1,1,0,4],
-"StepBudget_8cpp.html":[14,0,5,0,1,20],
-"StepBudget_8h.html":[14,0,5,0,1,21],
-"StepBudget_8h_source.html":[14,0,5,0,1,21],
-"StyleSheetTemplate_8cpp.html":[14,0,5,3,7,54]
+"StepBudget_8cpp.html":[14,0,5,0,1,20]
 };

@@ -9,6 +9,7 @@ var searchData=
   ['benchmarkreportrow_6',['BenchmarkReportRow',['../structaisolver_1_1eval_1_1BenchmarkReportRow.html',1,'aisolver::eval']]],
   ['benchmarkresult_7',['BenchmarkResult',['../structaisolver_1_1eval_1_1BenchmarkResult.html',1,'aisolver::eval::BenchmarkResult'],['../structBenchmarkResult.html',1,'BenchmarkResult']]],
   ['benchmarkrunner_8',['BenchmarkRunner',['../classaisolver_1_1eval_1_1BenchmarkRunner.html',1,'aisolver::eval::BenchmarkRunner'],['../classBenchmarkRunner.html',1,'BenchmarkRunner']]],
-  ['bitmapfont_9',['BitmapFont',['../classhmi_1_1BitmapFont.html',1,'hmi']]],
-  ['blockcontroller_10',['BlockController',['../classcore_1_1BlockController.html',1,'core']]]
+  ['bestpolicysnapshot_9',['BestPolicySnapshot',['../classaisolver_1_1training_1_1BestPolicySnapshot.html',1,'aisolver::training::BestPolicySnapshot'],['../classBestPolicySnapshot.html',1,'BestPolicySnapshot']]],
+  ['bitmapfont_10',['BitmapFont',['../classhmi_1_1BitmapFont.html',1,'hmi']]],
+  ['blockcontroller_11',['BlockController',['../classcore_1_1BlockController.html',1,'core']]]
 ];

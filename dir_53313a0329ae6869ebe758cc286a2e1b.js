@@ -6,6 +6,8 @@ var dir_53313a0329ae6869ebe758cc286a2e1b =
     [ "PolicyGradient", "dir_c12bee86bac8d3f8d7e8d486e589e0e0.html", "dir_c12bee86bac8d3f8d7e8d486e589e0e0" ],
     [ "ArgmaxRollout.cpp", "ArgmaxRollout_8cpp.html", "ArgmaxRollout_8cpp" ],
     [ "ArgmaxRollout.h", "ArgmaxRollout_8h.html", "ArgmaxRollout_8h" ],
+    [ "BestPolicySnapshot.cpp", "BestPolicySnapshot_8cpp.html", null ],
+    [ "BestPolicySnapshot.h", "BestPolicySnapshot_8h.html", "BestPolicySnapshot_8h" ],
     [ "DeterministicReplay.cpp", "DeterministicReplay_8cpp.html", "DeterministicReplay_8cpp" ],
     [ "DeterministicReplay.h", "DeterministicReplay_8h.html", "DeterministicReplay_8h" ],
     [ "LevelTrainingSession.cpp", "LevelTrainingSession_8cpp.html", "LevelTrainingSession_8cpp" ],

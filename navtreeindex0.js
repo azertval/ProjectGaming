@@ -107,6 +107,9 @@ var NAVTREEINDEX0 =
 "BenchmarkRunner_8cpp.html":[14,0,5,0,2,10],
 "BenchmarkRunner_8h.html":[14,0,5,0,2,11],
 "BenchmarkRunner_8h_source.html":[14,0,5,0,2,11],
+"BestPolicySnapshot_8cpp.html":[14,0,5,0,8,6],
+"BestPolicySnapshot_8h.html":[14,0,5,0,8,7],
+"BestPolicySnapshot_8h_source.html":[14,0,5,0,8,7],
 "BitmapFont_8cpp.html":[14,0,5,3,5,8],
 "BitmapFont_8h.html":[14,0,5,3,5,9],
 "BitmapFont_8h_source.html":[14,0,5,3,5,9],
@@ -183,9 +186,9 @@ var NAVTREEINDEX0 =
 "DesignTokens_8h_source.html":[14,0,5,3,7,9],
 "DeterministicRandom_8h.html":[14,0,5,1,4,0],
 "DeterministicRandom_8h_source.html":[14,0,5,1,4,0],
-"DeterministicReplay_8cpp.html":[14,0,5,0,8,6],
-"DeterministicReplay_8h.html":[14,0,5,0,8,7],
-"DeterministicReplay_8h_source.html":[14,0,5,0,8,7],
+"DeterministicReplay_8cpp.html":[14,0,5,0,8,8],
+"DeterministicReplay_8h.html":[14,0,5,0,8,9],
+"DeterministicReplay_8h_source.html":[14,0,5,0,8,9],
 "DiagnosticsHud_8cpp.html":[14,0,5,3,4,0],
 "DiagnosticsHud_8h.html":[14,0,5,3,4,1],
 "DiagnosticsHud_8h_source.html":[14,0,5,3,4,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "ExecutableDirectory_8h.html":[14,0,5,3,9,1],
 "ExecutableDirectory_8h_source.html":[14,0,5,3,9,1],
 "FileLogSink_8cpp.html":[14,0,5,1,0,4],
-"FileLogSink_8h.html":[14,0,5,1,0,5],
-"FileLogSink_8h_source.html":[14,0,5,1,0,5],
-"FileOperationResult_8h.html":[14,0,5,3,3,12],
-"FileOperationResult_8h_source.html":[14,0,5,3,3,12]
+"FileLogSink_8h.html":[14,0,5,1,0,5]
 };

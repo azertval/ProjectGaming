@@ -9,9 +9,11 @@ var searchData=
   ['benchmarkresult_2eh_6',['BenchmarkResult.h',['../BenchmarkResult_8h.html',1,'']]],
   ['benchmarkrunner_2ecpp_7',['BenchmarkRunner.cpp',['../BenchmarkRunner_8cpp.html',1,'']]],
   ['benchmarkrunner_2eh_8',['BenchmarkRunner.h',['../BenchmarkRunner_8h.html',1,'']]],
-  ['bitmapfont_2ecpp_9',['BitmapFont.cpp',['../BitmapFont_8cpp.html',1,'']]],
-  ['bitmapfont_2eh_10',['BitmapFont.h',['../BitmapFont_8h.html',1,'']]],
-  ['blockcontroller_2ecpp_11',['BlockController.cpp',['../BlockController_8cpp.html',1,'']]],
-  ['blockcontroller_2eh_12',['BlockController.h',['../BlockController_8h.html',1,'']]],
-  ['buildconfig_2eh_13',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]]
+  ['bestpolicysnapshot_2ecpp_9',['BestPolicySnapshot.cpp',['../BestPolicySnapshot_8cpp.html',1,'']]],
+  ['bestpolicysnapshot_2eh_10',['BestPolicySnapshot.h',['../BestPolicySnapshot_8h.html',1,'']]],
+  ['bitmapfont_2ecpp_11',['BitmapFont.cpp',['../BitmapFont_8cpp.html',1,'']]],
+  ['bitmapfont_2eh_12',['BitmapFont.h',['../BitmapFont_8h.html',1,'']]],
+  ['blockcontroller_2ecpp_13',['BlockController.cpp',['../BlockController_8cpp.html',1,'']]],
+  ['blockcontroller_2eh_14',['BlockController.h',['../BlockController_8h.html',1,'']]],
+  ['buildconfig_2eh_15',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]]
 ];

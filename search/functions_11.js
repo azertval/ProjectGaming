@@ -113,7 +113,7 @@ var searchData=
   ['restartcurrentlevel_110',['restartCurrentLevel',['../classhmi_1_1GameViewport.html#a1bb9bdd02f61de519088e3616a70d83c',1,'hmi::GameViewport']]],
   ['restartfrompause_111',['restartFromPause',['../classhmi_1_1MainWindow.html#aef279fdecd9d472d3ae773b0494fe867',1,'hmi::MainWindow']]],
   ['restartrequested_112',['restartRequested',['../classhmi_1_1PauseScreen.html#ab81acb99ff5c5cb6e12a7be100927eb2',1,'hmi::PauseScreen']]],
-  ['restore_113',['restore',['../classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93',1,'core::LevelDraft']]],
+  ['restore_113',['restore',['../classaisolver_1_1training_1_1BestPolicySnapshot.html#a6200b4f19ebfc329d3691aa3d1c6b779',1,'aisolver::training::BestPolicySnapshot::restore()'],['../classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93',1,'core::LevelDraft::restore()'],['../classBestPolicySnapshot.html#a6200b4f19ebfc329d3691aa3d1c6b779',1,'BestPolicySnapshot::restore()']]],
   ['restorelayout_114',['restoreLayout',['../classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9',1,'hmi::MainWindow']]],
   ['restsontopofplatform_115',['restsOnTopOfPlatform',['../namespacecore.html#a058375c631f77cd8a357ee7bc8f197cc',1,'core']]],
   ['resumefrompause_116',['resumeFromPause',['../classhmi_1_1MainWindow.html#ab94899e24af6068fa65b14f017637d24',1,'hmi::MainWindow']]],

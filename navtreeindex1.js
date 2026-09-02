@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"FileLogSink_8h_source.html":[14,0,5,1,0,5],
+"FileOperationResult_8h.html":[14,0,5,3,3,12],
+"FileOperationResult_8h_source.html":[14,0,5,3,3,12],
 "FitnessEvaluator_8cpp.html":[14,0,5,0,8,2,3],
 "FitnessEvaluator_8h.html":[14,0,5,0,8,2,4],
 "FitnessEvaluator_8h_source.html":[14,0,5,0,8,2,4],
@@ -138,9 +141,9 @@ var NAVTREEINDEX1 =
 "LevelSequence_8cpp.html":[14,0,5,1,3,14],
 "LevelSequence_8h.html":[14,0,5,1,3,15],
 "LevelSequence_8h_source.html":[14,0,5,1,3,15],
-"LevelTrainingSession_8cpp.html":[14,0,5,0,8,8],
-"LevelTrainingSession_8h.html":[14,0,5,0,8,9],
-"LevelTrainingSession_8h_source.html":[14,0,5,0,8,9],
+"LevelTrainingSession_8cpp.html":[14,0,5,0,8,10],
+"LevelTrainingSession_8h.html":[14,0,5,0,8,11],
+"LevelTrainingSession_8h_source.html":[14,0,5,0,8,11],
 "LevelWriter_8cpp.html":[14,0,5,1,3,17],
 "LevelWriter_8h.html":[14,0,5,1,3,18],
 "LevelWriter_8h_source.html":[14,0,5,1,3,18],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "OptimizerUtils_8h_source.html":[14,0,5,0,5,4],
 "OptionsPage_8cpp.html":[14,0,5,3,7,36],
 "OptionsPage_8h.html":[14,0,5,3,7,37],
-"OptionsPage_8h_source.html":[14,0,5,3,7,37],
-"PaletteAppearance_8cpp.html":[14,0,5,3,3,27],
-"PaletteAppearance_8h.html":[14,0,5,3,3,28],
-"PaletteAppearance_8h_source.html":[14,0,5,3,3,28]
+"OptionsPage_8h_source.html":[14,0,5,3,7,37]
 };

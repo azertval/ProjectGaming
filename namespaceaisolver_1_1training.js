@@ -4,6 +4,8 @@ var namespaceaisolver_1_1training =
     [ "ActorCriticConfig", "structaisolver_1_1training_1_1ActorCriticConfig.html", "structaisolver_1_1training_1_1ActorCriticConfig" ],
     [ "ActorCriticTrainer", "classaisolver_1_1training_1_1ActorCriticTrainer.html", "classaisolver_1_1training_1_1ActorCriticTrainer" ],
     [ "CriticNetwork", "classaisolver_1_1training_1_1CriticNetwork.html", "classaisolver_1_1training_1_1CriticNetwork" ],
+    [ "PolicyScore", "structaisolver_1_1training_1_1PolicyScore.html", "structaisolver_1_1training_1_1PolicyScore" ],
+    [ "BestPolicySnapshot", "classaisolver_1_1training_1_1BestPolicySnapshot.html", "classaisolver_1_1training_1_1BestPolicySnapshot" ],
     [ "DeterministicReplayResult", "structaisolver_1_1training_1_1DeterministicReplayResult.html", "structaisolver_1_1training_1_1DeterministicReplayResult" ],
     [ "DqnConfig", "structaisolver_1_1training_1_1DqnConfig.html", "structaisolver_1_1training_1_1DqnConfig" ],
     [ "DqnTrainer", "classaisolver_1_1training_1_1DqnTrainer.html", "classaisolver_1_1training_1_1DqnTrainer" ],

@@ -4,6 +4,7 @@ var dir_097cade96c6046bf5bf9beabf8f07c34 =
     [ "test_actor_critic_trainer.cpp", "test__actor__critic__trainer_8cpp.html", "test__actor__critic__trainer_8cpp" ],
     [ "test_advantage_calculator.cpp", "test__advantage__calculator_8cpp.html", "test__advantage__calculator_8cpp" ],
     [ "test_argmax_rollout.cpp", "test__argmax__rollout_8cpp.html", "test__argmax__rollout_8cpp" ],
+    [ "test_best_policy_snapshot.cpp", "test__best__policy__snapshot_8cpp.html", "test__best__policy__snapshot_8cpp" ],
     [ "test_critic_loss.cpp", "test__critic__loss_8cpp.html", "test__critic__loss_8cpp" ],
     [ "test_critic_network.cpp", "test__critic__network_8cpp.html", "test__critic__network_8cpp" ],
     [ "test_deterministic_replay.cpp", "test__deterministic__replay_8cpp.html", "test__deterministic__replay_8cpp" ],
