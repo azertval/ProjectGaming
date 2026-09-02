@@ -40,9 +40,10 @@ namespace aisolver {
  * (`PlayerStateEncoder`), puis voisinage de l'objectif (`ObjectiveEncoder`).
  *
  * La fenêtre de tuiles est lue sur la grille de collision **composée** du pas courant
- * (`HeadlessLevelEnvironment::collisionMap` : portes à leur état, blocs à leur position), et non
- * sur la carte statique du fichier : un bloc poussé y resterait sinon dessiné à sa case d'origine,
- * et l'agent verrait un mur là où il vient d'ouvrir un passage.
+ * (`HeadlessLevelEnvironment::collisionMap` : portes à leur état, blocs — poussables, volatils et
+ * descendants — à leur position courante), et non sur la carte statique du fichier : un bloc poussé
+ * y resterait sinon dessiné à sa case d'origine, et l'agent verrait un mur là où il vient d'ouvrir
+ * un passage.
  */
 class ObservationEncoder {
 public:

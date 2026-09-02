@@ -197,3 +197,65 @@ TEST(SinkingBlockControllerTest, SortDuTableauParLeBas) {
     EXPECT_TRUE(controller.isRemovedAt(0));
     EXPECT_TRUE(controller.samples().empty());
 }
+
+/**
+ * @brief La grille composee montre le bloc la ou il est VRAIMENT, pas a sa case de fichier.
+ * \castest{<b>Un bloc descendant est reporte sur la grille a sa case courante.</b><br/>
+ * \tcat Unitaire · Sinking Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Armer un bloc en (2, 1) et le faire descendre de deux cases exactement (48 pas
+ * fixes a 2,5 cases/s).<br/>2. Composer la grille avec `collisionMap()`.<br/>
+ * \tattendu La case de depart (2, 1) est vide et le bloc apparait en (2, 3). Sans ce report,
+ * l'observation de l'agent (`aisolver::ObservationEncoder`) verrait eternellement le bloc a son
+ * point de depart et rien la ou il se trouve.}
+ */
+TEST(SinkingBlockControllerTest, LaGrilleComposeeSuitLaPositionCourante) {
+    core::Level level = makeLevel(8);  // sol en rangee 7, bloc en (2, 1)
+    core::SinkingBlockController controller(level);
+
+    EXPECT_EQ(controller.collisionMap(level.tileMap()).tile(2, 1), core::TileType::SinkingBlock)
+        << "non arme, le bloc reste sur sa case de depart";
+
+    controller.update(boxAt(2, 0), level.tileMap());  // armement : pas 0 de la descente
+    for (int step = 0; step < 48; ++step) {           // 48 pas a 2,5 cases/s = 2 cases pile
+        controller.update(farAway(), level.tileMap());
+    }
+    ASSERT_FLOAT_EQ(controller.boxAt(0).min.y, 3.0f);
+
+    const core::TileMap composed = controller.collisionMap(level.tileMap());
+    EXPECT_EQ(composed.tile(2, 1), core::TileType::Empty);
+    EXPECT_EQ(composed.tile(2, 3), core::TileType::SinkingBlock);
+    EXPECT_EQ(level.tileMap().tile(2, 1), core::TileType::SinkingBlock)
+        << "la carte du niveau reste immuable, comme pour les blocs volatils";
+}
+
+/**
+ * @brief Un bloc sorti du tableau n'apparait plus nulle part sur la grille composee.
+ * \castest{<b>Un bloc descendant retire disparait de la grille composee.</b><br/>
+ * \tcat Unitaire · Sinking Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Faire sortir un bloc par le bas du tableau.<br/>2. Composer la grille.<br/>
+ * \tattendu Sa case de depart est vide et aucune case de sa colonne ne porte de bloc descendant.}
+ */
+TEST(SinkingBlockControllerTest, UnBlocRetireDisparaitDeLaGrilleComposee) {
+    core::TileMap map(6, 8);
+    for (int column = 0; column < 6; ++column) {
+        map.setTile(column, 7, core::TileType::Solid);
+    }
+    map.setTile(2, 7, core::TileType::Empty);
+    map.setTile(2, 1, core::TileType::SinkingBlock);
+    core::Level level("puits", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 1},
+                      std::vector<core::Mechanism>{});
+    core::SinkingBlockController controller(level);
+
+    controller.update(boxAt(2, 0), level.tileMap());
+    for (int step = 0; step < 600; ++step) {
+        controller.update(farAway(), level.tileMap());
+    }
+    ASSERT_TRUE(controller.isRemovedAt(0));
+
+    const core::TileMap composed = controller.collisionMap(level.tileMap());
+    for (int row = 0; row < composed.height(); ++row) {
+        EXPECT_NE(composed.tile(2, row), core::TileType::SinkingBlock) << "rangee " << row;
+    }
+}

@@ -39,6 +39,14 @@ python scripts/generate_test_skins.py
 | `slope_stone.png` | 16×16 | le **détourage automatique** : carré plein, découpé par le moteur à la silhouette de chaque pente |
 | `entry.png` | 16×16 | un skin `single` pour le jalon `Entry` (arche verte, flèche entrante) |
 | `exit.png` | 16×16 | un skin `single` pour le jalon `Exit` (fanion doré) |
+| `sinking_block.png` | 16×16 | un skin `single` pour le bloc descendant (`EX-GP-027`) : dalle kaki à chevrons vers le bas |
+| `fragile_block.png` | 16×16 | un skin `single` pour le bloc fragile (`EX-GP-028`) : dalle rose déjà fendue |
+| `vanishing_block.png` | 16×16 | un skin `single` **partiellement transparent** pour le bloc éphémère (`EX-GP-029`) : dalle givrée à bordure pointillée |
+
+Les trois dalles des blocs volatils (`LOT-74`) partagent volontairement la même silhouette — elles
+se lisent comme une famille — et reprennent les teintes de l'atlas procédural de repli
+(`hmi::ProceduralAtlas`, cases (5,1) à (5,3)), pour qu'un tableau ait la même lecture avec ou sans
+skins.
 
 Le catalogue livré (`../skins.json`) les assigne dans un jeu nommé `test`, et propose un second jeu
 `aucun`, vide, pour vérifier d'un coup d'œil le sélecteur de jeu et le repli en damier.

@@ -142,9 +142,12 @@ public:
     /// continue courante, même raison que `blocks()`).
     [[nodiscard]] const core::PlatformController& platforms() const noexcept;
 
-    /// @return La grille de collision **composée** du dernier pas (portes du `MechanismController`
-    /// **et** blocs poussables à leur position courante), celle-là même que la physique vient de
-    /// résoudre. Mémorisée plutôt que recomposée : `step()` la construit déjà.
+    /// @return La grille de collision **composée** du dernier pas : portes du
+    /// `MechanismController`, blocs volatils disparus retirés, blocs descendants reportés à leur
+    /// case courante et blocs poussables à leur position courante. Celle-là même que la physique
+    /// vient de résoudre (le report des blocs descendants, non solides, n'y change rien d'autre que
+    /// ce que l'observation y **voit**). Mémorisée plutôt que recomposée : `step()` la construit
+    /// déjà.
     [[nodiscard]] const core::TileMap& collisionMap() const noexcept;
 
     /// @return Le champ de distances vers l'objectif immédiat pour l'état courant
@@ -212,7 +215,8 @@ private:
     std::optional<core::SinkingBlockController> _sinkingBlocks;
     /// Echantillons des supports mobiles du pas : plateformes puis blocs descendants.
     std::vector<core::PlatformSample> _supportSamples;
-    /// Grille de collision composée du dernier pas (portes + blocs), voir `collisionMap()`.
+    /// Grille de collision composée du dernier pas (portes + blocs volatils, descendants et
+    /// poussables), voir `collisionMap()`.
     std::optional<core::TileMap> _collision;
     ObjectiveDistanceFieldCache _objectiveCache;
     core::Entity _player{};

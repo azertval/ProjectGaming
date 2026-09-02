@@ -199,7 +199,11 @@ std::vector<core::Aabb> HeadlessLevelEnvironment::collectActiveDangerBoxes() con
 
 void HeadlessLevelEnvironment::refreshCollisionAndObjective(const core::Aabb& playerBox) {
     const unsigned long long revisionBefore = _objectiveCache.revision();
-    _collision = _blocks->collisionMap(_volatileBlocks->collisionMap(_mechanisms->collisionMap()));
+    // Les blocs descendants sont reportes a leur position COURANTE (leur tuile de fichier reste
+    // sinon figee a la case de depart) : c'est cette grille que lit l'observation de l'agent.
+    // Composition sans effet sur la solidite -- SinkingBlock n'est pas `core::isSolid`.
+    _collision = _blocks->collisionMap(
+        _sinkingBlocks->collisionMap(_volatileBlocks->collisionMap(_mechanisms->collisionMap())));
     static_cast<void>(
         _objectiveCache.field(*_level, *_mechanisms, *_collision, _blocks->positions()));
     if (revisionBefore != 0 && _objectiveCache.revision() != revisionBefore) {
@@ -249,7 +253,11 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
     // blocs descendants se concatenent a ceux des plateformes -- c'est cette seule concatenation
     // qui leur donne portage et collision continue.
     _volatileBlocks->update(previousBox, _world.getComponent<core::Player>(_player).groundPounding);
-    _sinkingBlocks->update(previousBox, _volatileBlocks->collisionMap(_mechanisms->collisionMap()));
+    // Grille « mecanismes + blocs volatils » : calculee UNE fois puis reutilisee jusqu'a la fin du
+    // pas (comme hmi::GameSession::update). Chaque appel copie une TileMap entiere, et ce pas est
+    // la boucle chaude de l'entrainement.
+    const core::TileMap mechanismMap = _volatileBlocks->collisionMap(_mechanisms->collisionMap());
+    _sinkingBlocks->update(previousBox, mechanismMap);
     _supportSamples = _platforms->samples();
     _supportSamples.insert(_supportSamples.end(), _sinkingBlocks->samples().begin(),
                            _sinkingBlocks->samples().end());
@@ -257,7 +265,6 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
 
     // 2. Mecanismes (lecture de la grille de collision) -> blocs (poussee/chute), avec la boite du
     //    personnage AVANT son propre deplacement de ce pas.
-    const core::TileMap mechanismMap = _volatileBlocks->collisionMap(_mechanisms->collisionMap());
     _blocks->update(previousBox, input.moveX, mechanismMap, platformSamples);
 
     // 3. Physique du personnage sur la grille des mecanismes completee par les blocs.

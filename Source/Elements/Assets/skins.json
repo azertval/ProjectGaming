@@ -34,7 +34,10 @@
       "concaveUpRight": { "asset": "slope_stone.png", "mode": "single" },
       "concaveUpLeft": { "asset": "slope_stone.png", "mode": "single" },
       "concaveDownRight": { "asset": "slope_stone.png", "mode": "single" },
-      "concaveDownLeft": { "asset": "slope_stone.png", "mode": "single" }
+      "concaveDownLeft": { "asset": "slope_stone.png", "mode": "single" },
+      "sinkingBlock": { "asset": "sinking_block.png", "mode": "single" },
+      "fragileBlock": { "asset": "fragile_block.png", "mode": "single" },
+      "vanishingBlock": { "asset": "vanishing_block.png", "mode": "single" }
     },
     "kenney": {
       "key": { "asset": "key.png", "mode": "single" },

@@ -75,8 +75,15 @@ public:
      *        descendre ceux qui sont armés.
      * @param playerBox     Boîte du personnage **avant** le pas physique courant (même convention
      *                      que `core::BlockController::update`).
-     * @param baseCollision Grille de collision déjà résolue par les mécanismes et les blocs
-     *                      poussables, utilisée pour savoir où un bloc doit s'arrêter.
+     * @param baseCollision Grille de collision résolue des **mécanismes et des blocs volatils**,
+     *                      utilisée pour savoir où un bloc doit s'arrêter. Elle n'inclut
+     *                      délibérément **pas** les blocs poussables : `core::BlockController`
+     *                      s'exécute *après* cette passe, dans les trois orchestrations
+     *                      (`hmi::GameSession::update`, `aisolver::HeadlessLevelEnvironment::step`
+     *                      et la référence de `test_parcours_complet.cpp`). Un bloc descendant
+     *                      traverse donc un bloc poussable placé sous lui, exactement comme il
+     *                      traverse un autre bloc descendant (`core::isSolid` vaut `false` pour ce
+     *                      type) : seule la matière *statique* l'arrête.
      */
     void update(const Aabb& playerBox, const TileMap& baseCollision);
 
@@ -105,6 +112,26 @@ public:
         return _blocks[index].armed;
     }
 
+    /**
+     * @brief Reporte les blocs descendants sur une grille de tuiles : chaque bloc quitte sa case de
+     *        **départ** (figée dans le fichier de niveau) pour la case qu'il occupe
+     *        **réellement**.
+     *
+     * Même patron de composition que `core::VolatileBlockController::collisionMap` et
+     * `core::BlockController::collisionMap` : `base` in, copie modifiée out.
+     *
+     * ⚠️ Ceci ne change **rien à la collision** : `core::isSolid` vaut `false` pour
+     * `TileType::SinkingBlock`, avant comme après. Ce report existe pour les lecteurs de la grille
+     * qui s'intéressent à ce qu'il y a *où* — au premier rang l'observation de l'agent
+     * (`aisolver::ObservationEncoder`), à qui la carte brute montrerait éternellement le bloc à son
+     * point de départ. Un bloc retiré (sorti par le bas) n'est reporté nulle part.
+     *
+     * La case courante est la case **la plus proche** de la position continue du bloc, et le report
+     * n'écrase jamais une tuile non vide : la matière statique et les blocs poussables déjà
+     * composés gardent la priorité.
+     */
+    [[nodiscard]] TileMap collisionMap(const TileMap& base) const;
+
     /// @return Les échantillons des blocs **encore présents**, dans l'ordre des indices — à
     ///         concaténer aux échantillons des plateformes mobiles par l'appelant. Un bloc retiré
     ///         n'y figure pas : un échantillon fantôme continuerait de porter le personnage.
@@ -128,8 +155,9 @@ private:
     };
 
     /// Ordonnée maximale que le bloc @p index peut atteindre sans entrer dans la matière de
-    /// @p baseCollision ; `std::nullopt` s'il n'y a aucune case pleine sous lui (le bloc sortira
-    /// alors du tableau).
+    /// @p baseCollision. @p hasLimit est mis à `true` si une case pleine existe sous le bloc, et
+    /// à `false` sinon (le bloc sortira alors du tableau) — dans ce dernier cas la valeur
+    /// **retournée n'a aucun sens** et ne doit pas être lue.
     [[nodiscard]] float stopLimitAt(std::size_t index, const TileMap& baseCollision,
                                     bool& hasLimit) const noexcept;
 
