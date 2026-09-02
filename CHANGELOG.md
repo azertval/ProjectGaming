@@ -42,6 +42,38 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     *signification* des canaux existants est en revanche préservée : les trois nouveaux types sont
     ajoutés en **fin** d'énumération, jamais insérés au milieu.
 
+- **Blocs volatils — correctifs de revue et habillage par défaut** (`LOT-74`). Cinq points relevés
+  à la relecture du lot, plus les trois skins qui lui manquaient.
+  - **Le ground pound traversait le sol.** La portée verticale de destruction d'un bloc fragile
+    valait une case **entière**, avec une comparaison inclusive : des pieds posés sur une case
+    pleine de la rangée *R* atteignaient donc un bloc fragile placé en *R+1*, de l'autre côté du
+    sol, et un ground pound sur une pile de deux dalles les brisait **toutes les deux** d'un coup.
+    La portée passe à **0,75 case** — elle couvre toujours la demi-case parcourue en un pas fixe à
+    la vitesse de chute imposée, avec 0,25 case de marge des deux côtés. Trois tests de régression,
+    dont un test *positif* qui verrouille la borne basse.
+  - **L'agent voyait les blocs descendants à leur case de départ.** L'observation lit la grille de
+    collision composée, où la tuile `sinkingBlock` restait figée à sa position de fichier : un bloc
+    descendu de deux cases était vu là où il n'était plus, et la case qu'il occupait réellement
+    paraissait libre. Nouveau `core::SinkingBlockController::collisionMap`, sur le même patron que
+    celui des blocs volatils et des blocs poussables, qui reporte chaque bloc encore présent sur sa
+    case **courante**. Sans effet sur la collision ni sur le champ de distances — `SinkingBlock`
+    n'est pas `core::isSolid` : seule change ce que la grille **montre**.
+  - **Deux copies de `TileMap` par pas en trop** dans la boucle d'entraînement
+    (`aisolver::HeadlessLevelEnvironment::step`), la grille « mécanismes + blocs volatils » étant
+    composée deux fois. Calculée une fois puis réutilisée, comme le fait déjà `hmi::GameSession`.
+  - **Deux commentaires de documentation faux** dans `core::SinkingBlockController` : le paramètre
+    `baseCollision` annoncé comme incluant les blocs poussables (aucun des trois appelants ne peut
+    le fournir, `core::BlockController` s'exécutant *après* cette passe — un bloc descendant
+    traverse donc un bloc poussable, comme il traverse un autre bloc descendant), et un
+    `stopLimitAt` décrit comme retournant `std::nullopt` alors qu'il signale l'absence de limite par
+    un paramètre de sortie.
+  - **Habillage par défaut des trois nouveaux types.** `sinkingBlock`, `fragileBlock` et
+    `vanishingBlock` n'étaient assignés dans aucun jeu de skins et retombaient sur le damier
+    magenta. Trois dalles 16×16 générées par `scripts/generate_test_skins.py` — chevrons vers le bas
+    en kaki, dalle rose fendue, dalle givrée à bordure pointillée et **partiellement transparente**
+    — assignées dans le jeu `test` de `Assets/skins.json`. Silhouette commune et teintes reprises de
+    l'atlas procédural de repli, pour que la lecture d'un tableau soit la même avec ou sans skins.
+
 ## [0.1.3] - 2026-09-01
 
 > Neuvième jalon. Le solveur IA de la version précédente **apprenait mal** : chaque épisode était

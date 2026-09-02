@@ -209,6 +209,79 @@ def slope_block() -> Image:
     return cell
 
 
+def _slab(base: Color, shade: Color, light: Color) -> Image:
+    """Dalle 16x16 commune aux trois blocs volatils : fond, liseré eclaire, bordure sombre.
+
+    Les trois partagent la meme silhouette pour se lire comme UNE famille ; seuls la couleur et le
+    motif interieur les distinguent, exactement comme dans l'atlas procedural de repli
+    (hmi::ProceduralAtlas, cases (5,1) a (5,3)) dont les teintes sont reprises ici.
+    """
+    cell = Image(TILE, TILE, base)
+    cell.fill_rect(0, 0, TILE, 2, light)  # dessus eclaire : lecture de plateforme
+    cell.fill_rect(0, 0, TILE, 1, shade)
+    cell.fill_rect(0, TILE - 1, TILE, 1, shade)
+    cell.fill_rect(0, 0, 1, TILE, shade)
+    cell.fill_rect(TILE - 1, 0, 1, TILE, shade)
+    return cell
+
+
+def sinking_block() -> Image:
+    """Bloc descendant (`EX-GP-027`) : dalle kaki marquee de deux chevrons vers le BAS.
+
+    Le motif dit le comportement sans texte : ce bloc part vers le bas des qu'on le touche.
+    """
+    base: Color = (140, 160, 60, 255)
+    shade: Color = (86, 100, 32, 255)
+    light: Color = (184, 204, 104, 255)
+
+    cell = _slab(base, shade, light)
+    for top in (4, 9):  # deux chevrons, pour que le sens se lise meme sur une seule case
+        for step in range(4):
+            cell.fill_rect(3 + step, top + step, 2, 1, shade)
+            cell.fill_rect(TILE - 5 - step, top + step, 2, 1, shade)
+    return cell
+
+
+def fragile_block() -> Image:
+    """Bloc fragile (`EX-GP-028`) : dalle rose deja FENDUE, cassable au ground pound."""
+    base: Color = (235, 150, 170, 255)
+    shade: Color = (162, 78, 100, 255)
+    light: Color = (252, 198, 210, 255)
+
+    cell = _slab(base, shade, light)
+    # Fissure en zigzag d'un bord a l'autre : la dalle est deja en train de ceder.
+    crack = [(2, 3), (4, 4), (5, 6), (7, 7), (6, 9), (8, 11), (10, 12), (13, 13)]
+    for index in range(len(crack) - 1):
+        (x0, y0), (x1, y1) = crack[index], crack[index + 1]
+        steps = max(abs(x1 - x0), abs(y1 - y0))
+        for step in range(steps + 1):
+            cell.set(x0 + (x1 - x0) * step // steps, y0 + (y1 - y0) * step // steps, shade)
+    for x, y in ((9, 4), (11, 6), (3, 11)):  # eclats detaches
+        cell.set(x, y, shade)
+    return cell
+
+
+def vanishing_block() -> Image:
+    """Bloc ephemere (`EX-GP-029`) : dalle givree a bordure POINTILLEE et interieur translucide.
+
+    Le pointille et la transparence partielle disent « pas la pour longtemps » -- la seule des
+    trois dalles qui ne soit pas opaque, ce qui la distingue au premier coup d'oeil.
+    """
+    base: Color = (160, 205, 240, 170)  # translucide : on voit le decor a travers
+    shade: Color = (72, 116, 158, 255)
+    light: Color = (214, 236, 252, 200)
+
+    cell = Image(TILE, TILE, base)
+    hatch(cell, light, step=4)
+    for i in range(TILE):
+        if i % 3 != 2:  # bordure pointillee : deux pixels poses, un manquant
+            cell.set(i, 0, shade)
+            cell.set(i, TILE - 1, shade)
+            cell.set(0, i, shade)
+            cell.set(TILE - 1, i, shade)
+    return cell
+
+
 SKINS = {
     "stone.png": stone_sheet,
     "crate.png": crate,
@@ -216,6 +289,9 @@ SKINS = {
     "slope_stone.png": slope_block,
     "entry.png": entry_icon,
     "exit.png": exit_icon,
+    "sinking_block.png": sinking_block,
+    "fragile_block.png": fragile_block,
+    "vanishing_block.png": vanishing_block,
 }
 
 

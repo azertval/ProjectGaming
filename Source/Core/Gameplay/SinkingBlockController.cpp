@@ -3,6 +3,8 @@
 
 #include "Core/Gameplay/SinkingBlockController.h"
 
+#include <cmath>
+
 #include "Core/Levels/TileType.h"
 
 namespace core {
@@ -106,6 +108,29 @@ Aabb SinkingBlockController::boxAt(std::size_t index) const noexcept {
     return Aabb::fromTopLeftSize(
         Vector2{static_cast<float>(_blocks[index].start.column), _blocks[index].currentY},
         Vector2{1.0F, 1.0F});
+}
+
+TileMap SinkingBlockController::collisionMap(const TileMap& base) const {
+    TileMap map = base;
+    // Deux passes : liberer TOUTES les cases de depart avant d'ecrire quoi que ce soit, sans quoi
+    // un bloc descendu d'une case effacerait la case ou vient de se reporter le bloc du dessus.
+    for (const SinkingBlock& block : _blocks) {
+        map.setTile(block.start.column, block.start.row, TileType::Empty);
+    }
+    for (const SinkingBlock& block : _blocks) {
+        if (block.removed) {
+            continue;  // sorti par le bas : il n'est plus nulle part
+        }
+        const int row = static_cast<int>(std::lround(block.currentY));
+        if (row < 0 || row >= map.height()) {
+            continue;
+        }
+        if (map.tile(block.start.column, row) != TileType::Empty) {
+            continue;  // matiere statique ou bloc poussable deja compose : priorite a l'existant
+        }
+        map.setTile(block.start.column, row, TileType::SinkingBlock);
+    }
+    return map;
 }
 
 void SinkingBlockController::refreshSamples() {

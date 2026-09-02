@@ -13,9 +13,11 @@ namespace {
 // Portee verticale d'un ground pound pour briser un bloc fragile, en cases. La boite du personnage
 // est celle d'AVANT le pas (voir update) et la chute imposee vaut 30 unites/s, soit 0,5 case par
 // pas fixe : ses pieds peuvent donc etre encore une demi-case au-dessus du bloc au moment ou l'on
-// decide. Une case entiere couvre ce cas avec de la marge, sans jamais atteindre un bloc situe un
-// etage plus bas.
-constexpr float POUND_REACH_CELLS = 1.0F;
+// decide. La portee doit couvrir cette demi-case avec de la marge, tout en restant STRICTEMENT
+// inferieure a une case : sinon des pieds poses sur une case pleine (rangee R) atteignent un bloc
+// situe en R+1, c'est-a-dire de l'autre cote du sol -- et, deux blocs fragiles empiles, briser
+// celui du dessus brise aussi celui du dessous. 0,75 laisse 0,25 case de marge des deux cotes.
+constexpr float POUND_REACH_CELLS = 0.75F;
 
 // Chevauchement horizontal strict (aire non nulle sur l'axe X).
 [[nodiscard]] bool overlapsHorizontally(const Aabb& a, const Aabb& b) {
