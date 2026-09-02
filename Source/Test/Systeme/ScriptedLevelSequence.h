@@ -239,6 +239,53 @@ std::vector<ScriptedLevel> scriptedSequence() {
              in.jumpPressed = player.grounded && atLedge(x, 11.0f, 0.6f);
              return in;
          }},
+        // 12bis. Bloc DESCENDANT (EX-GP-027, LOT-74) : deux fosses d'une case enjambees par des
+        //     blocs qui s'enfoncent des qu'on les touche -- par le dessus comme par le cote. Le
+        //     trace saute des qu'il est au sol : la traversee ne depend donc PAS du chrono, que le
+        //     bloc ait eu le temps de descendre ou non. Un cinquieme bloc, pose sur du sol plein,
+        //     montre qu'un bloc descendant ne traverse jamais la matiere.
+        {"demo-bloc-descendant.json",
+         [](int, const core::Player& player, float, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded;
+             return in;
+         }},
+        // 12ter. Bloc FRAGILE (EX-GP-028, LOT-74) : cinq dalles fragiles dans le sol. Le tableau
+        //     declare `dashCharges: 0`, si bien que « dash + bas » en l'air n'est plus un dash
+        //     vertical mais un GROUND POUND (EX-GP-058) -- le seul geste qui brise ces dalles. Le
+        //     trace en declenche un au-dessus de la premiere ; le reste du parcours marche sur les
+        //     autres sans les casser, ce qui montre que le contact seul ne suffit pas.
+        {"demo-bloc-fragile.json",
+         [](int, const core::Player& player, float x, float y) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             // Ground pound arme UNIQUEMENT au sommet d'un saut parti de la passerelle (y <= 1.5) :
+             // le plafond y borne l'apogee vers y = 1, alors qu'un saut parti du trou d'une case
+             // ouvert par la dalle brisee culmine une case plus bas. Sans cette garde d'altitude,
+             // le trace repound indefiniment depuis le trou et n'avance plus -- il ne s'agit pas
+             // d'un reglage cosmetique mais de la condition de terminaison du parcours.
+             if (!player.grounded && y <= 1.5f && x >= 5.6f && x <= 7.6f) {
+                 in.moveX = 0.0f;  // arme le pound (EX-GP-058 exige une visee purement verticale)
+                 in.moveY = 1.0f;
+                 in.dashPressed = true;
+                 return in;
+             }
+             in.jumpPressed = player.grounded;
+             return in;
+         }},
+        // 12quater. Bloc EPHEMERE (EX-GP-029, LOT-74) : cinq dalles qui s'effacent un court delai
+        //     apres qu'on les a QUITTEES -- le chemin se referme derriere soi. Les fosses ainsi
+        //     ouvertes ne font qu'une case : le tableau reste franchissable meme en tombant dedans,
+        //     ce qui est deliberé -- une disparition definitive (EX-GP-029) ne doit jamais pouvoir
+        //     enfermer le personnage dans un tableau de demonstration.
+        {"demo-bloc-ephemere.json",
+         [](int, const core::Player& player, float, float) {
+             core::PlayerInput in{1.0f};
+             in.jumpHeld = true;
+             in.jumpPressed = player.grounded;
+             return in;
+         }},
         // 14. Pentes et arrondis (EX-GP-003/004) : fusionne l'ancien demo-arrondi, qui reprenait le
         //     meme trace a une tuile pres. Trois marches inclinees a monter, une fosse a franchir
         //     -- c'est elle qui interdit de traverser le tableau en marchant --, puis une descente

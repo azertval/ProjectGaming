@@ -30,6 +30,10 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std:
 // pas d'importance, remplie de noir par convention), à l'exception de trois cases occupées par les
 // mécanismes de `LOT-63` (`EX-GP-023`/`EX-GP-026`) : `Key` (4,0), `LockedDoor` (3,4) — déjà libres
 // dans la grille 5×5 — et `MovingPlatform` (5,0), dans la sixième colonne ajoutée pour elle.
+// Le `LOT-74` y ajoute les trois blocs volatils (`EX-GP-027` à `EX-GP-029`) : `SinkingBlock` (5,1),
+// `FragileBlock` (5,2) et `VanishingBlock` (5,3) — toutes trois dans cette même sixième colonne,
+// donc sans toucher aux cinq premières et sans redécaler la moindre tuile déjà posée dans un
+// niveau livré.
 std::uint32_t tileColor(int tileIndex) {
     static const std::array<std::uint32_t, 36> palette{
         // Ligne 0
@@ -46,21 +50,21 @@ std::uint32_t tileColor(int tileIndex) {
         pack(230, 140, 40, 255),
         pack(140, 40, 230, 255),
         pack(0, 0, 0, 255),
-        pack(0, 0, 0, 255),
+        pack(140, 160, 60, 255),  // (5,1) SinkingBlock : kaki, distinct du vert de Entry
         // Ligne 2
         pack(120, 120, 120, 255),
         pack(80, 160, 120, 255),
         pack(160, 80, 120, 255),
         pack(120, 80, 160, 255),
         pack(0, 0, 0, 255),
-        pack(0, 0, 0, 255),
+        pack(235, 150, 170, 255),  // (5,2) FragileBlock : rose, distinct du rouge de Danger
         // Ligne 3
         pack(200, 200, 200, 255),
         pack(90, 90, 90, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),
-        pack(0, 0, 0, 255),
+        pack(160, 205, 240, 255),  // (5,3) VanishingBlock : givre, distinct des gris des blocs
         // Ligne 4
         pack(0, 0, 0, 255),
         pack(0, 0, 0, 255),

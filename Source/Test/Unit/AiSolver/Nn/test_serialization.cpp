@@ -243,3 +243,58 @@ TEST(SerializationTest, RejetFormeSurdimensionneeSansAllouer) {
     EXPECT_FALSE(aisolver::nn::loadWeights(*network, rangAberrant));
     EXPECT_FALSE(aisolver::nn::loadWeights(*network, dimensionEnorme));
 }
+
+/**
+ * @brief Un modèle entraîné **avant** l'élargissement de l'observation est refusé, sans plantage ni
+ *        conversion silencieuse (`LOT-74` TACHE-07).
+ *
+ * Le `LOT-74` ajoute trois `core::TileType`, donc trois canaux catégoriels : l'entrée du réseau
+ * passe de 33 à 36 canaux par case. La structure garde le **même nombre de couches** qu'avant —
+ * seule la largeur de la première change —, si bien que le rejet ne peut pas venir du contrôle de
+ * nombre de couches déjà testé plus haut. Ce test verrouille le cas réel.
+ *
+ * Aucun code n'a été écrit pour cela : `loadWeights` valide déjà la forme de **chaque** couche
+ * avant de toucher au réseau. Compléter un ancien modèle par des canaux nuls aurait été tentant et
+ * faux — le réseau n'a jamais vu ces tuiles, et un agent qui *paraît* fonctionner est pire qu'un
+ * refus franc.
+ * \castest{<b>Serialization : un modèle à l'ancienne largeur d'entrée est refusé.</b><br/>
+ * \tcat Unitaire · Nn<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Sauvegarder un réseau dont la première couche attend l'ANCIENNE largeur
+ * d'observation.<br/>2. Le recharger dans un réseau bâti sur la largeur COURANTE.<br/>
+ * \tattendu `loadWeights` renvoie `false` et le réseau cible garde ses poids : erreur récupérable
+ * (`EX-NFR-040`), jamais un chargement silencieusement décalé.}
+ */
+TEST(SerializationTest, RejetDUnModeleALAncienneLargeurDObservation) {
+    TempDirectory tempDir;
+    const std::filesystem::path filePath = tempDir.filePath("observation_33_canaux.ainn");
+
+    // Deux reseaux de MEME structure (une couche), qui ne different que par la largeur d'entree :
+    // l'ancienne (33 canaux) et la courante (36 depuis le LOT-74).
+    constexpr std::size_t ANCIENNE_LARGEUR = 33;
+    constexpr std::size_t LARGEUR_COURANTE = 36;
+    constexpr std::size_t SORTIE = 4;
+
+    Rng ancienRng(8009);
+    Network ancien;
+    ancien.addLayer(
+        std::make_unique<Dense>(ANCIENNE_LARGEUR, SORTIE, WeightInitScheme::He, ancienRng),
+        nullptr);
+    ASSERT_TRUE(aisolver::nn::saveWeights(ancien, filePath));
+
+    Rng courantRng(8010);
+    Network courant;
+    courant.addLayer(
+        std::make_unique<Dense>(LARGEUR_COURANTE, SORTIE, WeightInitScheme::He, courantRng),
+        nullptr);
+    const Tensor<float> poidsAvant = courant.parameters()[0]->value.clone();
+
+    EXPECT_FALSE(aisolver::nn::loadWeights(courant, filePath));
+
+    const Tensor<float>& poidsApres = courant.parameters()[0]->value;
+    ASSERT_EQ(poidsAvant.size(), poidsApres.size());
+    for (std::size_t i = 0; i < poidsAvant.size(); ++i) {
+        EXPECT_EQ(poidsAvant.data()[i], poidsApres.data()[i])
+            << "le reseau cible doit rester intact";
+    }
+}

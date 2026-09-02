@@ -6,6 +6,7 @@
 #include "AiSolver/Math/Tensor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
 
 /**
  * @file AiSolver/Env/TileWindowEncoder.h
@@ -45,9 +46,16 @@ public:
     [[nodiscard]] Tensor<float> encode(const core::TileMap& tiles, core::GridPosition center) const;
 
     /// Nombre de canaux catégoriels = nombre de valeurs de `core::TileType`
-    /// (`Core/Levels/TileType.h`). **Non dérivé automatiquement** (`Core` n'expose pas de compte de
-    /// catégories) : à mettre à jour manuellement si `TileType` gagne une valeur — risque
-    /// documenté, pas mitigé par ce lot (aucune modification de `Core`).
+    /// (`Core/Levels/TileType.h`). **Dérivé** de `core::TILE_TYPE_COUNT` depuis le `LOT-74`
+    /// TACHE-02 : ajouter un type de tuile met cette valeur à jour toute seule, là où elle était
+    /// auparavant un littéral à corriger à la main.
+    ///
+    /// ⚠️ Une valeur qui change modifie la **forme** du tenseur d'observation, donc rend
+    /// inutilisables les modèles entraînés avant ce changement (voir `AiSolver` pour le refus
+    /// explicite au chargement). La **signification** des canaux existants, elle, est préservée
+    /// tant que les nouveaux types sont ajoutés en **fin** d'énumération — c'est précisément la
+    /// raison pour laquelle le `LOT-74` a ajouté ses trois blocs volatils après `MovingPlatform`
+    /// plutôt que de les insérer.
     [[nodiscard]] int channelCount() const noexcept {
         return CHANNEL_COUNT;
     }
@@ -57,8 +65,9 @@ public:
         return 2 * _radius + 1;
     }
 
-    /// Nombre de valeurs de `core::TileType` au moment de ce lot (33 : `Empty`…`MovingPlatform`).
-    static constexpr int CHANNEL_COUNT = 33;
+    /// Nombre de valeurs de `core::TileType`, dérivé de l'énumération elle-même (36 depuis le
+    /// `LOT-74` : `Empty`…`VanishingBlock`).
+    static constexpr int CHANNEL_COUNT = core::TILE_TYPE_COUNT;
 
 private:
     int _radius;

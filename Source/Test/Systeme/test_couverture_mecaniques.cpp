@@ -44,15 +44,16 @@
 namespace {
 
 // Enumere tous les TileType significatifs pour le contenu (tout sauf Empty, jamais emis dans un
-// niveau -- cf. TileTypeName.cpp). Meme borne (`TileType::MovingPlatform`, le dernier enumerateur)
-// et meme technique que `core::parseTileType` (Core/Levels/TileTypeName.cpp) : un type ajoute APRES
-// MovingPlatform exigerait de bouger cette borne aux DEUX endroits, exactement comme
-// `parseTileType` -- ce n'est pas une limite propre a ce garde-fou. Un type INSERE avant
-// MovingPlatform (le cas courant) est en revanche pris en compte sans aucune modification ici : ni
-// liste recopiee, ni compteur a incrementer a la main.
+// niveau -- cf. TileTypeName.cpp). Meme technique que `core::parseTileType`
+// (Core/Levels/TileTypeName.cpp), et desormais meme BORNE : `core::TILE_TYPE_COUNT`
+// (Core/Levels/TileType.h), seule source de verite de la fin de l'enumeration depuis le LOT-74
+// TACHE-02. La borne « dernier enumerateur » etait jusque-la recopiee ici, dans `parseTileType` et
+// dans l'encodeur d'observation de l'IA -- trois copies d'un meme fait, dont un type ajoute EN FIN
+// d'enumeration exigeait la mise a jour manuelle. Un type ajoute n'importe ou est desormais pris en
+// compte sans aucune modification ici : ni liste recopiee, ni borne, ni compteur a incrementer.
 std::vector<core::TileType> allContentTileTypes() {
     std::vector<core::TileType> types;
-    for (int raw = 0; raw <= static_cast<int>(core::TileType::MovingPlatform); ++raw) {
+    for (int raw = 0; raw < core::TILE_TYPE_COUNT; ++raw) {
         const auto type = static_cast<core::TileType>(raw);
         if (type == core::TileType::Empty) {
             continue;  // jamais emis dans un niveau : les cases vides sont omises de 'tiles'.

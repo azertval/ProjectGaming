@@ -48,7 +48,13 @@ using aisolver_test::TrivialLevelDirectory;
 namespace {
 
 constexpr int REDUCED_MAX_STEPS = 40;
-constexpr std::size_t EPISODE_COUNT = 80;
+// Longueur du run necessaire pour que la decroissance du critique soit MESURABLE. Portee de 80 a
+// 200 au LOT-74 : l'observation a gagne trois canaux categoriels (trois TileType ajoutes), donc
+// la couche d'entree du critique s'est elargie a nombre de neurones caches constant (8). A 80
+// episodes, la moyenne des dix derniers repassait au-dessus de celle des dix premiers -- non
+// parce que le critique n'apprend plus, mais parce que le run etait calibre pour l'entree
+// precedente. La propriete testee est inchangee ; seule sa fenetre de mesure s'adapte.
+constexpr std::size_t EPISODE_COUNT = 200;
 constexpr std::size_t CRITIC_HIDDEN_SIZE = 8;
 
 std::string readWholeFile(const std::filesystem::path& path) {

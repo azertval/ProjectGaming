@@ -69,6 +69,12 @@ core::AtlasRegion regionForTile(core::TileType type) {
         case core::TileType::BlockQuarter:
             return TextureAtlas::tile(
                 0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
+        case core::TileType::SinkingBlock:
+            return TextureAtlas::tile(5, 1);  // kaki (EX-GP-027, LOT-74)
+        case core::TileType::FragileBlock:
+            return TextureAtlas::tile(5, 2);  // rose (EX-GP-028, LOT-74)
+        case core::TileType::VanishingBlock:
+            return TextureAtlas::tile(5, 3);  // givre (EX-GP-029, LOT-74)
         case core::TileType::Empty:
             break;
     }

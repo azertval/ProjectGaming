@@ -17,6 +17,8 @@
 #include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Gameplay/PlatformController.h"
+#include "Core/Gameplay/SinkingBlockController.h"
+#include "Core/Gameplay/VolatileBlockController.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
@@ -203,6 +205,13 @@ private:
     std::optional<core::MechanismController> _mechanisms;
     std::optional<core::DangerController> _dangers;
     std::optional<core::PlatformController> _platforms;
+    /// Blocs volatils (`EX-GP-028`/`EX-GP-029`) et descendants (`EX-GP-027`), `LOT-74` :
+    /// presents ici pour la meme raison que `_platforms` -- cette orchestration doit rester
+    /// fidele pas a pas a `hmi::GameSession::update`, garde-fou `FideliteParPas`.
+    std::optional<core::VolatileBlockController> _volatileBlocks;
+    std::optional<core::SinkingBlockController> _sinkingBlocks;
+    /// Echantillons des supports mobiles du pas : plateformes puis blocs descendants.
+    std::vector<core::PlatformSample> _supportSamples;
     /// Grille de collision composée du dernier pas (portes + blocs), voir `collisionMap()`.
     std::optional<core::TileMap> _collision;
     ObjectiveDistanceFieldCache _objectiveCache;

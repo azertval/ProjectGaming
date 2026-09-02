@@ -83,6 +83,24 @@ namespace core {
  * représente que cela. N'est jamais solide pour la grille classique (comme les blocs réduits,
  * `EX-GP-005`) : sa collision réelle est résolue par une passe dédiée boîte-contre-boîte
  * (`core::sweepAabbVsAabb`), pas par ce test statique.
+ * `SinkingBlock`/`FragileBlock`/`VanishingBlock` (`EX-GP-027`/`EX-GP-028`/`EX-GP-029`) sont les
+ * trois **blocs volatils** : de la matière qui ne survit pas au passage du personnage.
+ * `SinkingBlock` est **armé** par un contact quelconque (dessus, côté ou dessous — jamais un test
+ * de portage), puis descend en **portant** ce qui repose dessus jusqu'à buter sur la matière pleine
+ * ou à sortir par le bas du tableau ; comme `MovingPlatform`, sa position est **continue** et
+ * fonction du seul numéro de pas écoulé depuis l'armement (`core::SinkingBlockController`), de
+ * sorte que sa position dans le fichier n'est que son point de **départ** — et il n'est **jamais**
+ * solide pour la grille classique (`isSolid` ci-dessous), sa collision étant résolue
+ * boîte-contre-boîte (`core::sweepAabbVsAabb`) exactement comme celle d'une plateforme mobile.
+ * `FragileBlock` et `VanishingBlock`, eux, ne bougent **jamais** : ils sont solides comme un
+ * `Solid` et se contentent de **quitter** la grille de collision, résolus tous deux par
+ * `core::VolatileBlockController` sur une copie mutable du `TileMap` — même infrastructure que
+ * l'ouverture d'une porte, et jamais une modification de la carte du `Level`, qui reste immuable.
+ * `FragileBlock` est détruit par un **ground pound** (`EX-GP-058`) qui l'atteint par le dessus, et
+ * par ce geste seul : un dash, même vertical ou boosté, ne le brise pas. `VanishingBlock` disparaît
+ * après un délai fixe une fois que le personnage a cessé d'y **reposer** (un front de départ, pas
+ * un contact) ; dans les deux cas, la disparition est **définitive** jusqu'au rechargement du
+ * tableau.
  */
 enum class TileType {
     Empty,
@@ -118,7 +136,27 @@ enum class TileType {
     Key,
     LockedDoor,
     MovingPlatform,
+    SinkingBlock,
+    FragileBlock,
+    VanishingBlock,
 };
+
+/**
+ * @brief Nombre de valeurs de `core::TileType` — **seule** source de vérité de la fin de
+ *        l'énumération (`EX-GP-027`/`EX-GP-028`/`EX-GP-029`, `LOT-74` TACHE-02).
+ *
+ * Trois endroits recopiaient jusqu'ici la borne « dernier énumérateur » à la main
+ * (`core::parseTileType`, le garde-fou de couverture des mécaniques, l'encodeur d'observation de
+ * l'IA), et deux d'entre eux documentaient explicitement leur propre fragilité. Ajouter un type
+ * ne demande désormais **rien** d'autre que de l'ajouter ci-dessus : cette constante suit, et ses
+ * consommateurs avec elle.
+ *
+ * Volontairement une constante libre plutôt qu'un énumérateur `Count` : les `switch` sur `TileType`
+ * du projet sont **exhaustifs et sans `default`** (c'est ce qui fait que le compilateur désigne
+ * lui-même les points à mettre à jour), et un énumérateur sentinelle les obligerait tous à traiter
+ * un cas qui ne décrit aucune tuile.
+ */
+inline constexpr int TILE_TYPE_COUNT = static_cast<int>(TileType::VanishingBlock) + 1;
 
 /**
  * @brief Indique si un type de tuile bloque le déplacement de manière **statique**.
@@ -140,7 +178,8 @@ enum class TileType {
  */
 [[nodiscard]] constexpr bool isSolid(TileType type) noexcept {
     return type == TileType::Solid || type == TileType::Block || type == TileType::BlockHalf ||
-           type == TileType::BlockQuarter;
+           type == TileType::BlockQuarter || type == TileType::FragileBlock ||
+           type == TileType::VanishingBlock;
 }
 
 /**

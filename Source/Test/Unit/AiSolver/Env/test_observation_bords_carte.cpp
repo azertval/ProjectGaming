@@ -45,8 +45,9 @@ std::vector<std::size_t> expectedMechanismShape(int radius) {
  * \tetapes 1. Charger `demo-deplacement.json`.<br/>2. Pour chaque coin (`(0,0)`,
  * `(width-1,0)`, `(0,height-1)`, `(width-1,height-1)`) et chaque rayon (`0, 1, 3, 5`), encoder la
  * fenetre de tuiles et l'etat des mecanismes.<br/>
- * \tattendu La forme du tenseur categoriel est exactement `(33, 2r+1, 2r+1)`, celle du tenseur de
- * mecanisme `(2, 2r+1, 2r+1)`, y compris quand `2r+1` depasse la dimension de la carte.}
+ * \tattendu La forme du tenseur categoriel est exactement `(TileWindowEncoder::CHANNEL_COUNT, 2r+1,
+ * 2r+1)`, celle du tenseur de mecanisme `(2, 2r+1, 2r+1)`, y compris quand `2r+1` depasse la
+ * dimension de la carte.}
  */
 TEST(ObservationBordsCarteTest, FormeExacteAChaqueCoinQuelQueSoitLeRayon) {
     const core::LevelLoadResult loaded =
@@ -84,15 +85,15 @@ TEST(ObservationBordsCarteTest, FormeExacteAChaqueCoinQuelQueSoitLeRayon) {
 }
 
 /**
- * @brief Une carte 1x1 avec `radius = 3` produit un tenseur `(33, 7, 7)` : une seule case reelle,
- * les 48 autres en vecteur nul.
+ * @brief Une carte 1x1 avec `radius = 3` produit un tenseur `(CHANNEL_COUNT, 7, 7)` : une seule
+ * case reelle, les 48 autres en vecteur nul.
  * \castest{<b>Carte 1x1 : une seule case reelle, les 48 autres en vecteur nul.</b><br/>
  * \tcat Unitaire · AiSolver Env<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Construire une `TileMap` 1x1 (`TileType::Solid`).<br/>2. Encoder avec
  * `radius = 3`.<br/>
- * \tattendu La forme est `(33, 7, 7)` ; la case centrale (3, 3) encode `Solid`, les 48 autres cases
- * ont leurs 33 canaux a `0.0f`.}
+ * \tattendu La forme est `(CHANNEL_COUNT, 7, 7)` ; la case centrale (3, 3) encode `Solid`, les 48
+ * autres cases ont tous leurs canaux a `0.0f`.}
  */
 TEST(ObservationBordsCarteTest, CarteUnicaseAvecRayonLargeProduitDesCasesNullesAutourDuCentre) {
     core::TileMap tiles(1, 1);
@@ -100,13 +101,17 @@ TEST(ObservationBordsCarteTest, CarteUnicaseAvecRayonLargeProduitDesCasesNullesA
 
     const aisolver::TileWindowEncoder encoder(3);
     const aisolver::Tensor<float> encoded = encoder.encode(tiles, core::GridPosition{0, 0});
-    ASSERT_EQ(encoded.shape(), (std::vector<std::size_t>{33, 7, 7}));
+    // Nombre de canaux DERIVE de l'encodeur (LOT-74 TACHE-02) : un type de tuile ajoute
+    // change la forme du tenseur, ce que ce test ne doit pas figer a la main.
+    constexpr std::size_t CHANNELS =
+        static_cast<std::size_t>(aisolver::TileWindowEncoder::CHANNEL_COUNT);
+    ASSERT_EQ(encoded.shape(), (std::vector<std::size_t>{CHANNELS, 7, 7}));
 
     std::size_t nonZeroCells = 0;
     for (std::size_t row = 0; row < 7; ++row) {
         for (std::size_t column = 0; column < 7; ++column) {
             bool cellNonZero = false;
-            for (std::size_t channel = 0; channel < 33; ++channel) {
+            for (std::size_t channel = 0; channel < CHANNELS; ++channel) {
                 if (encoded.at({channel, row, column}) != 0.0f) {
                     cellNonZero = true;
                 }
