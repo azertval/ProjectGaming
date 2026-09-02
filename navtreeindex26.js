@@ -1,5 +1,7 @@
 var NAVTREEINDEX26 =
 {
+"lot-02-tache-02-sinks.html#autotoc_md534":[7,5,8,3],
+"lot-02-tache-02-sinks.html#autotoc_md535":[7,5,8,4],
 "lot-02-tache-02-sinks.html#autotoc_md536":[7,5,8,5],
 "lot-02-tache-02-sinks.html#autotoc_md537":[7,5,8,6],
 "lot-02-tache-03-macros-log.html":[7,5,9],
@@ -247,7 +249,5 @@ var NAVTREEINDEX26 =
 "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md752":[7,9,9,4],
 "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md753":[7,9,9,5],
 "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md754":[7,9,9,6],
-"lot-06-tache-03-catalogue-traduction.html":[7,9,10],
-"lot-06-tache-03-catalogue-traduction.html#autotoc_md755":[7,9,10,0],
-"lot-06-tache-03-catalogue-traduction.html#autotoc_md756":[7,9,10,1]
+"lot-06-tache-03-catalogue-traduction.html":[7,9,10]
 };

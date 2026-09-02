@@ -112,7 +112,7 @@ var searchData=
   ['unit_20hmi_20graphics_20test_5frender_5fbudget_20cpp_109',['Le test de non-régression du volume (&lt;span class=&quot;tt&quot;&gt;Source/Test/Unit/HMI/Graphics/test_render_budget.cpp&lt;/span&gt;)',['../guide-rendu.html#autotoc_md260',1,'']]],
   ['unitaire_110',['Vérification (visuelle, pas de test unitaire)',['../lot-08-tache-06-integration-jouable.html#autotoc_md897',1,'']]],
   ['unitaire_20—_20brique_20gpu_111',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md1032',1,'']]],
-  ['unitaires_201516_112',['Tests unitaires (1516)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['unitaires_201521_112',['Tests unitaires (1521)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['usage_20réel_113',['4. Pourquoi tester la convergence sur des fonctions jouets avant tout usage réel',['../guide-annexe-optimisation.html#autotoc_md336',1,'']]],
   ['utiles_114',['2. Le taux de réussite n&apos;est qu&apos;une des mesures utiles',['../guide-annexe-evaluation-rl.html#autotoc_md327',1,'']]],
   ['utilisé_20à_20l_20évaluation_20ou_20à_20l_20export_115',['5. Pourquoi le critique n&apos;est jamais utilisé à l&apos;évaluation ou à l&apos;export',['../guide-annexe-acteur-critique.html#autotoc_md273',1,'']]],

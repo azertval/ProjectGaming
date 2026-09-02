@@ -71,7 +71,7 @@ var searchData=
   ['15_68',['15',['../spec-editeur.html#autotoc_md419',1,'6. Robustesse et confort d&apos;édition (LOT-15)'],['../cahiertest.html#autotoc_md11',1,'Optim (15)']]],
   ['15_20—_20éditeur_20de_20niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_69',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],
   ['15_20—_20harnais_20de_20benchmark_20multi_20algorithmes_70',['LOT-ANNEXE-15 — Harnais de benchmark multi-algorithmes',['../lot-annexe-15.html',1,'lots-annexe']]],
-  ['1516_71',['Tests unitaires (1516)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['1521_71',['Tests unitaires (1521)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['16_72',['16',['../spec-editeur.html#autotoc_md420',1,'7. Niveaux de grande taille (LOT-16)'],['../cahiertest.html#autotoc_md12',1,'Replay (16)'],['../cahiertest.html#autotoc_md13',1,'Stats (16)']]],
   ['16_20—_20évaluation_20hors_20niveau_20transfert_73',['LOT-ANNEXE-16 — Évaluation hors-niveau (transfert)',['../lot-annexe-16.html',1,'lots-annexe']]],
   ['16_20—_20niveaux_20de_20grande_20taille_74',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]],

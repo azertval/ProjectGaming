@@ -1,5 +1,7 @@
 var NAVTREEINDEX32 =
 {
+"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1861":[7,37,12,6],
+"lot-34.html":[7,37],
 "lot-34.html#autotoc_md1815":[7,37,0],
 "lot-34.html#autotoc_md1816":[7,37,1],
 "lot-34.html#autotoc_md1817":[7,37,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX32 =
 "lot-40-tache-05-culling-salle.html#autotoc_md2078":[7,43,12,6],
 "lot-40.html":[7,43],
 "lot-40.html#autotoc_md2034":[7,43,0],
-"lot-40.html#autotoc_md2035":[7,43,1],
-"lot-40.html#autotoc_md2036":[7,43,1,0],
-"lot-40.html#autotoc_md2037":[7,43,1,1]
+"lot-40.html#autotoc_md2035":[7,43,1]
 };

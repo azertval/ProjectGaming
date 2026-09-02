@@ -1,5 +1,7 @@
 var NAVTREEINDEX42 =
 {
+"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4083":[8,17,11,4],
+"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4084":[8,17,11,5],
 "lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4085":[8,17,11,6],
 "lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4086":[8,17,11,7],
 "lot-annexe-12-tache-04-boucle-entrainement.html":[8,17,12],
@@ -247,7 +249,5 @@ var NAVTREEINDEX42 =
 "lot-annexe-18-tache-02-entree-menu-selection-rejeu.html#autotoc_md4304":[8,23,10,7],
 "lot-annexe-18-tache-03-test-systeme-rejeu.html":[8,23,11],
 "lot-annexe-18-tache-03-test-systeme-rejeu.html#autotoc_md4305":[8,23,11,0],
-"lot-annexe-18-tache-03-test-systeme-rejeu.html#autotoc_md4306":[8,23,11,1],
-"lot-annexe-18-tache-03-test-systeme-rejeu.html#autotoc_md4307":[8,23,11,2],
-"lot-annexe-18-tache-03-test-systeme-rejeu.html#autotoc_md4308":[8,23,11,3]
+"lot-annexe-18-tache-03-test-systeme-rejeu.html#autotoc_md4306":[8,23,11,1]
 };

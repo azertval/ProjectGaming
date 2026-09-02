@@ -1,5 +1,7 @@
 var NAVTREEINDEX55 =
 {
+"structhmi_1_1FollowCameraState.html#af067d1290877f56aee5db5f9e063a1a3":[12,0,3,88,1],
+"structhmi_1_1FollowCameraState.html#af067d1290877f56aee5db5f9e063a1a3":[13,0,3,88,1],
 "structhmi_1_1FontFamilyResolution.html":[12,0,3,147],
 "structhmi_1_1FontFamilyResolution.html":[13,0,3,147],
 "structhmi_1_1FontFamilyResolution.html#a5b1d0b78418b051e3f932d51feb538c3":[12,0,3,147,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX55 =
 "structhmi_1_1PathGestureState.html":[12,0,3,36],
 "structhmi_1_1PathGestureState.html":[13,0,3,36],
 "structhmi_1_1PathGestureState.html#a127467c75f8d3fe58bf69d78d0aa612a":[12,0,3,36,4],
-"structhmi_1_1PathGestureState.html#a127467c75f8d3fe58bf69d78d0aa612a":[13,0,3,36,4],
-"structhmi_1_1PathGestureState.html#a2b03d41e8fdfa4939e549f6753b503c0":[12,0,3,36,2],
-"structhmi_1_1PathGestureState.html#a2b03d41e8fdfa4939e549f6753b503c0":[13,0,3,36,2]
+"structhmi_1_1PathGestureState.html#a127467c75f8d3fe58bf69d78d0aa612a":[13,0,3,36,4]
 };

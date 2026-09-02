@@ -1,5 +1,7 @@
 var NAVTREEINDEX16 =
 {
+"classhmi_1_1GameViewport.html#af5803731561d226a0140c1cb35d162bb":[12,0,3,66,137],
+"classhmi_1_1GameViewport.html#af5803731561d226a0140c1cb35d162bb":[13,0,3,66,137],
 "classhmi_1_1GameViewport.html#af6532522269795110b249743401383a5":[12,0,3,66,207],
 "classhmi_1_1GameViewport.html#af6532522269795110b249743401383a5":[13,0,3,66,207],
 "classhmi_1_1GameViewport.html#af8d20efafa7b555b66981bf5db54c77d":[12,0,3,66,63],
@@ -247,7 +249,5 @@ var NAVTREEINDEX16 =
 "classhmi_1_1LevelCompleteScreen.html":[12,0,3,154],
 "classhmi_1_1LevelCompleteScreen.html":[13,0,3,154],
 "classhmi_1_1LevelCompleteScreen.html#a192b543eda90ad7ec314a10e08602b40":[12,0,3,154,5],
-"classhmi_1_1LevelCompleteScreen.html#a192b543eda90ad7ec314a10e08602b40":[13,0,3,154,5],
-"classhmi_1_1LevelCompleteScreen.html#a2c7c74536878245627b5eb070cffd4f9":[12,0,3,154,7],
-"classhmi_1_1LevelCompleteScreen.html#a2c7c74536878245627b5eb070cffd4f9":[13,0,3,154,7]
+"classhmi_1_1LevelCompleteScreen.html#a192b543eda90ad7ec314a10e08602b40":[13,0,3,154,5]
 };

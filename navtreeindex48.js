@@ -1,5 +1,7 @@
 var NAVTREEINDEX48 =
 {
+"namespacemembers_s.html":[12,1,0,17],
+"namespacemembers_t.html":[12,1,0,18],
 "namespacemembers_type.html":[12,1,3],
 "namespacemembers_u.html":[12,1,0,19],
 "namespacemembers_v.html":[12,1,0,20],
@@ -247,7 +249,5 @@ var NAVTREEINDEX48 =
 "structLayerTopology.html#a3e51f14ac02e6d62619046cb6f0532aa":[13,0,34,3],
 "structLayerTopology.html#a98ec697a7a97cc547a36e089a8681b9f":[13,0,34,0],
 "structLayerTopology.html#ac75d015dbeae07765ceb447d5fa0433c":[13,0,34,2],
-"structLayerTopology.html#af64b10aafa36f5eee095fdf29089e512":[13,0,34,1],
-"structNamedSeries.html":[13,0,36],
-"structNamedSeries.html#a235bc79f87109a297aaf2f2e2cdf592d":[13,0,36,1]
+"structLayerTopology.html#af64b10aafa36f5eee095fdf29089e512":[13,0,34,1]
 };

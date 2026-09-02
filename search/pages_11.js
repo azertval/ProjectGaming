@@ -34,7 +34,7 @@ var searchData=
   ['gamepadbindings_20lot_2030_31',['Remapper les touches et boutons : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1GameKeyBindings.html&quot; title=&quot;hmi::GameKeyBindings&quot;&gt;GameKeyBindings&lt;/a&gt;/&lt;a class=&quot;el&quot; href=&quot;classhmi_1_1EditorKeyBindings.html&quot; title=&quot;hmi::EditorKeyBindings&quot;&gt;EditorKeyBindings&lt;/a&gt; (LOT-29), &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1GamepadBindings.html&quot; title=&quot;hmi::GamepadBindings&quot;&gt;GamepadBindings&lt;/a&gt; (LOT-30)',['../guide-entrees.html#autotoc_md147',1,'']]],
   ['gameplay_32',['Gameplay',['../spec-gameplay.html',1,'specifications']]],
   ['gameplay_33',['gameplay',['../spec-vision.html#autotoc_md472',1,'Boucle de gameplay'],['../guide-entrees.html#autotoc_md139',1,'Le principe : ne jamais coder « en dur » une touche dans le gameplay'],['../lot-48-tache-03-orientation-non-regression.html',1,'TACHE-03 — Orientation et non-régression du gameplay']]],
-  ['gameplay_2070_34',['Gameplay (70)',['../cahiertest.html#autotoc_md18',1,'']]],
+  ['gameplay_2075_34',['Gameplay (75)',['../cahiertest.html#autotoc_md18',1,'']]],
   ['gameplay_20livrés_35',['TACHE-02 — Clips couvrant les états de gameplay livrés',['../lot-48-tache-02-nouveaux-clips.html',1,'lot-48']]],
   ['gameplay_20personnage_20_3a_20déplacement_20gravité_20et_20collisions_36',['LOT-08 — Gameplay personnage : déplacement, gravité et collisions',['../lot-08.html',1,'lots']]],
   ['gamescreen_20cadrage_20fixe_20succès_20échec_37',['TACHE-06 — Intégration jouable dans GameScreen (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],

@@ -1,5 +1,7 @@
 var NAVTREEINDEX49 =
 {
+"structNamedSeries.html":[13,0,36],
+"structNamedSeries.html#a235bc79f87109a297aaf2f2e2cdf592d":[13,0,36,1],
 "structNamedSeries.html#a45756688601293f0c6677a13e5b3ecbe":[13,0,36,0],
 "structNetwork_1_1Layer.html":[13,0,37,0],
 "structNetwork_1_1Layer.html#a86c8dff2bf4648c58dbab40cca971e03":[13,0,37,0,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX49 =
 "structaisolver_1_1TrainingStatsRow.html#ae7bdc965f67f53ca9a64feb8c4c054e6":[12,0,0,24,5],
 "structaisolver_1_1TrainingStatsRow.html#ae7bdc965f67f53ca9a64feb8c4c054e6":[13,0,0,23,5],
 "structaisolver_1_1TrainingStatsRow.html#af31a1ec01988e78455c673c6041d16ae":[12,0,0,24,7],
-"structaisolver_1_1TrainingStatsRow.html#af31a1ec01988e78455c673c6041d16ae":[13,0,0,23,7],
-"structaisolver_1_1cli_1_1CommandLineOverrides.html":[12,0,0,0,4],
-"structaisolver_1_1cli_1_1CommandLineOverrides.html":[13,0,0,0,4]
+"structaisolver_1_1TrainingStatsRow.html#af31a1ec01988e78455c673c6041d16ae":[13,0,0,23,7]
 };

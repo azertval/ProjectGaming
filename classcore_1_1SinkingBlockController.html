@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a615d1c3d03fafb9575f77e58ce48d503" id="r_a615d1c3d03fafb9575f77e58ce48d503"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a615d1c3d03fafb9575f77e58ce48d503">boxAt</a> (std::size_t index) const noexcept</td></tr>
 <tr class="memitem:a0356925378c460a020b592efad3c88be" id="r_a0356925378c460a020b592efad3c88be"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0356925378c460a020b592efad3c88be">isRemovedAt</a> (std::size_t index) const noexcept</td></tr>
 <tr class="memitem:aa22fbbaa78d7fb60ba37308316135468" id="r_aa22fbbaa78d7fb60ba37308316135468"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa22fbbaa78d7fb60ba37308316135468">isArmedAt</a> (std::size_t index) const noexcept</td></tr>
+<tr class="memitem:a14fcc3fe313c76381390cc6e79f081bc" id="r_a14fcc3fe313c76381390cc6e79f081bc"><td class="memItemLeft"><a class="el" href="classcore_1_1TileMap.html">TileMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a14fcc3fe313c76381390cc6e79f081bc">collisionMap</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;base) const</td></tr>
+<tr class="memdesc:a14fcc3fe313c76381390cc6e79f081bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reporte les blocs descendants sur une grille de tuiles : chaque bloc quitte sa case de <b>départ</b> (figée dans le fichier de niveau) pour la case qu'il occupe <b>réellement</b>.  <br /></td></tr>
 <tr class="memitem:afef9ff9d7972c3ccc92361eb1ab43b53" id="r_afef9ff9d7972c3ccc92361eb1ab43b53"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">PlatformSample</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#afef9ff9d7972c3ccc92361eb1ab43b53">samples</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -126,7 +128,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a57607fa5d78e5ac3ec40ac88fa9aaa68" id="r_a57607fa5d78e5ac3ec40ac88fa9aaa68"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a57607fa5d78e5ac3ec40ac88fa9aaa68">stopLimitAt</a> (std::size_t index, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;baseCollision, bool &amp;hasLimit) const noexcept</td></tr>
-<tr class="memdesc:a57607fa5d78e5ac3ec40ac88fa9aaa68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordonnée maximale que le bloc <code class="param">index</code> peut atteindre sans entrer dans la matière de <code class="param">baseCollision</code> ; <span class="tt">std::nullopt</span> s'il n'y a aucune case pleine sous lui (le bloc sortira alors du tableau).  <br /></td></tr>
+<tr class="memdesc:a57607fa5d78e5ac3ec40ac88fa9aaa68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordonnée maximale que le bloc <code class="param">index</code> peut atteindre sans entrer dans la matière de <code class="param">baseCollision</code>.  <br /></td></tr>
 <tr class="memitem:a5aeace07976d5ecb67c88866c520e1d9" id="r_a5aeace07976d5ecb67c88866c520e1d9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5aeace07976d5ecb67c88866c520e1d9">refreshSamples</a> ()</td></tr>
 <tr class="memdesc:a5aeace07976d5ecb67c88866c520e1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule <span class="tt"><a class="el" href="#ae40f21d5eb0bee63dcedb70c87143e13">_samples</a></span> pour le pas courant.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -199,6 +201,36 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La boîte <b>courante</b> du bloc <code class="param">index</code>, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="a14fcc3fe313c76381390cc6e79f081bc" name="a14fcc3fe313c76381390cc6e79f081bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14fcc3fe313c76381390cc6e79f081bc">&#9670;&#160;</a></span>collisionMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1TileMap.html">TileMap</a> core::SinkingBlockController::collisionMap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>base</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reporte les blocs descendants sur une grille de tuiles : chaque bloc quitte sa case de <b>départ</b> (figée dans le fichier de niveau) pour la case qu'il occupe <b>réellement</b>. </p>
+<p>Même patron de composition que <span class="tt"><a class="el" href="classcore_1_1VolatileBlockController.html#a03d9bffcbb85e523c4c170005693ccef" title="Complète base en retirant les blocs volatils déjà disparus.">core::VolatileBlockController::collisionMap</a></span> et <span class="tt"><a class="el" href="classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08">core::BlockController::collisionMap</a></span> : <span class="tt">base</span> in, copie modifiée out.</p>
+<p>⚠️ Ceci ne change <b>rien à la collision</b> : <span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> vaut <span class="tt">false</span> pour <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc">TileType::SinkingBlock</a></span>, avant comme après. Ce report existe pour les lecteurs de la grille qui s'intéressent à ce qu'il y a <em>où</em> — au premier rang l'observation de l'agent (<span class="tt"><a class="el" href="classaisolver_1_1ObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">aisolver::ObservationEncoder</a></span>), à qui la carte brute montrerait éternellement le bloc à son point de départ. Un bloc retiré (sorti par le bas) n'est reporté nulle part.</p>
+<p>La case courante est la case <b>la plus proche</b> de la position continue du bloc, et le report n'écrase jamais une tuile non vide : la matière statique et les blocs poussables déjà composés gardent la priorité. </p>
 
 </div>
 </div>
@@ -392,7 +424,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Ordonnée maximale que le bloc <code class="param">index</code> peut atteindre sans entrer dans la matière de <code class="param">baseCollision</code> ; <span class="tt">std::nullopt</span> s'il n'y a aucune case pleine sous lui (le bloc sortira alors du tableau). </p>
+<p>Ordonnée maximale que le bloc <code class="param">index</code> peut atteindre sans entrer dans la matière de <code class="param">baseCollision</code>. </p>
+<p><code class="param">hasLimit</code> est mis à <span class="tt">true</span> si une case pleine existe sous le bloc, et à <span class="tt">false</span> sinon (le bloc sortira alors du tableau) — dans ce dernier cas la valeur <b>retournée n'a aucun sens</b> et ne doit pas être lue. </p>
 
 </div>
 </div>
@@ -419,7 +452,7 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">playerBox</td><td>Boîte du personnage <b>avant</b> le pas physique courant (même convention que <span class="tt"><a class="el" href="classcore_1_1BlockController.html#af37e15354dffe68204a816e43b5b3e7a" title="Met à jour les blocs pour un pas : tente une poussée, porte les blocs posés sur une plateforme mobile...">core::BlockController::update</a></span>). </td></tr>
-    <tr><td class="paramname">baseCollision</td><td>Grille de collision déjà résolue par les mécanismes et les blocs poussables, utilisée pour savoir où un bloc doit s'arrêter. </td></tr>
+    <tr><td class="paramname">baseCollision</td><td>Grille de collision résolue des <b>mécanismes et des blocs volatils</b>, utilisée pour savoir où un bloc doit s'arrêter. Elle n'inclut délibérément <b>pas</b> les blocs poussables : <span class="tt"><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></span> s'exécute <em>après</em> cette passe, dans les trois orchestrations (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></span>, <span class="tt"><a class="el" href="classaisolver_1_1HeadlessLevelEnvironment.html#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">aisolver::HeadlessLevelEnvironment::step</a></span> et la référence de <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>). Un bloc descendant traverse donc un bloc poussable placé sous lui, exactement comme il traverse un autre bloc descendant (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span> vaut <span class="tt">false</span> pour ce type) : seule la matière <em>statique</em> l'arrête. </td></tr>
   </table>
   </dd>
 </dl>

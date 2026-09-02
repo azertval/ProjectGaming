@@ -1,5 +1,7 @@
 var NAVTREEINDEX25 =
 {
+"guide-design-ihm.html#autotoc_md90":[3,15,8,0],
+"guide-design-ihm.html#autotoc_md91":[3,15,9],
 "guide-design-ihm.html#autotoc_md92":[3,15,9,0],
 "guide-design-ihm.html#autotoc_md93":[3,15,10],
 "guide-design-ihm.html#autotoc_md94":[3,15,11],
@@ -247,7 +249,5 @@ var NAVTREEINDEX25 =
 "lot-02-tache-02-sinks.html":[7,5,8],
 "lot-02-tache-02-sinks.html#autotoc_md531":[7,5,8,0],
 "lot-02-tache-02-sinks.html#autotoc_md532":[7,5,8,1],
-"lot-02-tache-02-sinks.html#autotoc_md533":[7,5,8,2],
-"lot-02-tache-02-sinks.html#autotoc_md534":[7,5,8,3],
-"lot-02-tache-02-sinks.html#autotoc_md535":[7,5,8,4]
+"lot-02-tache-02-sinks.html#autotoc_md533":[7,5,8,2]
 };

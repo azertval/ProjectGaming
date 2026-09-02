@@ -1,5 +1,7 @@
 var NAVTREEINDEX19 =
 {
+"classhmi_1_1PalettePanel.html#a10233aeb65931df202507bb41fa053d4":[12,0,3,29,6],
+"classhmi_1_1PalettePanel.html#a10233aeb65931df202507bb41fa053d4":[13,0,3,29,6],
 "classhmi_1_1PalettePanel.html#a18b4b270d705ba582e3ba334852a8f4a":[12,0,3,29,21],
 "classhmi_1_1PalettePanel.html#a18b4b270d705ba582e3ba334852a8f4a":[13,0,3,29,21],
 "classhmi_1_1PalettePanel.html#a1a573b3201ad6ce9d9d5c86cad1c8154":[12,0,3,29,8],
@@ -247,7 +249,5 @@ var NAVTREEINDEX19 =
 "classhmi_1_1PixelFrameWidget.html":[12,0,3,163],
 "classhmi_1_1PixelFrameWidget.html":[13,0,3,163],
 "classhmi_1_1PixelFrameWidget.html#a1ff3ab15f26f859d77822f99abf76c83":[12,0,3,163,4],
-"classhmi_1_1PixelFrameWidget.html#a1ff3ab15f26f859d77822f99abf76c83":[13,0,3,163,4],
-"classhmi_1_1PixelFrameWidget.html#a28e02d8c86bc84f0798021ad60bc8a54":[12,0,3,163,2],
-"classhmi_1_1PixelFrameWidget.html#a28e02d8c86bc84f0798021ad60bc8a54":[13,0,3,163,2]
+"classhmi_1_1PixelFrameWidget.html#a1ff3ab15f26f859d77822f99abf76c83":[13,0,3,163,4]
 };

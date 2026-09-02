@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>1647 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>1652 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (1516)</h1>
+Tests unitaires (1521)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 AiSolver</h2>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
@@ -3433,7 +3433,7 @@ Vérifie que <span class="tt">log</span> vaut <span class="tt">(std::vector&lt;i
 Vérifie que <span class="tt">visited.front()</span> vaut <span class="tt">both</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
-Gameplay (70)</h3>
+Gameplay (75)</h3>
 <p><b><span class="tt"><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">test_block_controller.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -3842,6 +3842,19 @@ Vérifie que <span class="tt">controller.boxAt(0).min.y</span> vaut <span class=
 <sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:173</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant qui franchit le bord bas est retire du niveau.  </td><td class="markdownTableBodyNone">1. Construire un niveau dont la colonne du bloc est entierement vide sous lui.<br  />
 2. Armer le bloc et avancer largement de quoi traverser toute la hauteur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isRemovedAt(0)</span> est vrai.<br  />
 Vérifie que <span class="tt">controller.samples().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.LaGrilleComposeeSuitLaPositionCourante</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:203</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant est reporte sur la grille a sa case courante.  </td><td class="markdownTableBodyNone">1. Armer un bloc en (2, 1) et le faire descendre de deux cases exactement (48 pas fixes a 2,5 cases/s).<br  />
+2. Composer la grille avec <span class="tt">collisionMap()</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).tile(2, 1)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc">core::TileType::SinkingBlock</a></span>.<br  />
+Vérifie que <span class="tt">controller.boxAt(0).min.y</span> vaut <span class="tt">3.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">composed.tile(2, 1)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span>.<br  />
+Vérifie que <span class="tt">composed.tile(2, 3)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc">core::TileType::SinkingBlock</a></span>.<br  />
+Vérifie que <span class="tt">level.tileMap().tile(2, 1)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc">core::TileType::SinkingBlock</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SinkingBlockControllerTest.UnBlocRetireDisparaitDeLaGrilleComposee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__sinking__block__controller_8cpp.html" title="Tests unitaires des blocs descendants (SinkingBlockController, EX-GP-027).">Source/Test/Unit/Core/Gameplay/test_sinking_block_controller.cpp</a>:234</span></sub>  </td><td class="markdownTableBodyNone">Un bloc descendant retire disparait de la grille composee.  </td><td class="markdownTableBodyNone">1. Faire sortir un bloc par le bas du tableau.<br  />
+2. Composer la grille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isRemovedAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">composed.tile(2, row)</span> diffère de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4ca6e8b44caa461d0e76e596d009afbc">core::TileType::SinkingBlock</a></span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">test_volatile_block_controller.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -3849,7 +3862,7 @@ Vérifie que <span class="tt">controller.samples().empty()</span> est vrai.  </t
 <th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeGroundPoundBriseUnBlocFragile</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:57</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound par le dessus brise un bloc fragile.  </td><td class="markdownTableBodyNone">1. Poser une dalle fragile en (2, 3).<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:69</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound par le dessus brise un bloc fragile.  </td><td class="markdownTableBodyNone">1. Poser une dalle fragile en (2, 3).<br  />
 2. Passer un pas avec le personnage au-dessus et <span class="tt">groundPounding</span> vrai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.count()</span> vaut <span class="tt">1u</span>.<br  />
 Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
 Vérifie que <span class="tt">controller.blocksGoneThisStep().size()</span> vaut <span class="tt">1u</span>.<br  />
@@ -3857,36 +3870,52 @@ Vérifie que <span class="tt">controller.blocksGoneThisStep()[0]</span> vaut <sp
 Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.SansGroundPoundLeBlocFragileSurvit</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">Sans ground pound, un bloc fragile survit a tout contact.  </td><td class="markdownTableBodyNone">1. Passer 600 pas avec le personnage POSE sur la dalle, <span class="tt">groundPounding</span> faux.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:92</span></sub>  </td><td class="markdownTableBodyNone">Sans ground pound, un bloc fragile survit a tout contact.  </td><td class="markdownTableBodyNone">1. Passer 600 pas avec le personnage POSE sur la dalle, <span class="tt">groundPounding</span> faux.<br  />
 2. Verifier l'etat de la dalle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
 Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.UnGroundPoundACoteNeBrisePas</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:103</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound decale lateralement ne brise pas un bloc fragile.  </td><td class="markdownTableBodyNone">1. Passer un pas avec <span class="tt">groundPounding</span> vrai, mais le personnage sur une autre colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.  </td></tr>
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound decale lateralement ne brise pas un bloc fragile.  </td><td class="markdownTableBodyNone">1. Passer un pas avec <span class="tt">groundPounding</span> vrai, mais le personnage sur une autre colonne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeBlocEphemereResteTantQuOnEstDessus</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:121</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere ne disparait pas sous les pieds du personnage.  </td><td class="markdownTableBodyNone">1. Rester pose sur la dalle pendant 600 pas, tres au-dela du delai de disparition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:133</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere ne disparait pas sous les pieds du personnage.  </td><td class="markdownTableBodyNone">1. Rester pose sur la dalle pendant 600 pas, tres au-dela du delai de disparition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
 Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeBlocEphemereDisparaitApresLeDelaiExact</b> (Bloquant)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:143</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere disparait exactement N pas apres le depart du personnage.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, puis la quitter.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:155</span></sub>  </td><td class="markdownTableBodyNone">Un bloc ephemere disparait exactement N pas apres le depart du personnage.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, puis la quitter.<br  />
 2. Compter les pas jusqu'a la disparition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
 Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
 Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 3)</span> est faux.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.PasserSousUnBlocEphemereNeLArmePas</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:169</span></sub>  </td><td class="markdownTableBodyNone">Passer sous un bloc ephemere ne declenche pas sa disparition.  </td><td class="markdownTableBodyNone">1. Placer le personnage sous la dalle, puis l'eloigner.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:181</span></sub>  </td><td class="markdownTableBodyNone">Passer sous un bloc ephemere ne declenche pas sa disparition.  </td><td class="markdownTableBodyNone">1. Placer le personnage sous la dalle, puis l'eloigner.<br  />
 2. Avancer largement au-dela du delai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.RevenirNAnnulePasLaDisparition</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:197</span></sub>  </td><td class="markdownTableBodyNone">Un retour pendant le compte a rebours n'annule pas la disparition.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, la quitter, puis y revenir immediatement.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:209</span></sub>  </td><td class="markdownTableBodyNone">Un retour pendant le compte a rebours n'annule pas la disparition.  </td><td class="markdownTableBodyNone">1. Se poser sur la dalle, la quitter, puis y revenir immediatement.<br  />
 2. Avancer au-dela du delai.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LaCarteDuNiveauResteImmuable</b> (Majeur)<br  />
-<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:220</span></sub>  </td><td class="markdownTableBodyNone">Un bloc disparu laisse la carte du niveau inchangee.  </td><td class="markdownTableBodyNone">1. Briser une dalle fragile au ground pound.<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:232</span></sub>  </td><td class="markdownTableBodyNone">Un bloc disparu laisse la carte du niveau inchangee.  </td><td class="markdownTableBodyNone">1. Briser une dalle fragile au ground pound.<br  />
 2. Relire la carte du <span class="tt">Level</span>.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
 Vérifie que <span class="tt">level.tileMap().tile(2, 3)</span> vaut <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad29ef67b6f2980da6cfbc841a8a3db90">core::TileType::FragileBlock</a></span>.<br  />
 Vérifie que <span class="tt">reloaded.isGoneAt(0)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.UnGroundPoundNeTraversePasLeSol</b> (?)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:254</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound sur le sol ne brise pas la dalle fragile situee dessous. cat Unitaire · Volatile Block Controller crit Bloquant etapes 1. Poser un sol plein en rangee 3 et une dalle fragile en (2, 4), donc de l'autre cote du sol. 2. Passer un pas avec le personnage pose sur le sol, <span class="tt">groundPounding</span> vrai. attendu La dalle est intacte : la portee du ground pound (<span class="tt">POUND_REACH_CELLS</span>) est strictement inferieure a une case, sans quoi des pieds poses en rangee R atteindraient un bloc en R+1 a travers la matiere.  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.count()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">controller.isGoneAt(0)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.blocksGoneThisStep().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.UnGroundPoundNeBriseQuUneDalleDUnePile</b> (?)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:276</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound sur une pile de dalles fragiles ne brise que celle du dessus. cat Unitaire · Volatile Block Controller crit Majeur etapes 1. Empiler deux dalles fragiles en (2, 3) et (2, 4). 2. Passer un pas avec le personnage pose sur celle du dessus, <span class="tt">groundPounding</span> vrai. attendu Seule la dalle du dessus a disparu ; celle du dessous est intacte et sa case reste solide &ndash; il faudra un second ground pound, une fois retombe dessus, pour l'atteindre.  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.count()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.<br  />
+Vérifie que <span class="tt">controller.isGoneAt(1)</span> est faux.<br  />
+Vérifie que <span class="tt">controller.blocksGoneThisStep().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">controller.blocksGoneThisStep()[0]</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 3})</span>.<br  />
+Vérifie que <span class="tt">controller.collisionMap(level.tileMap()).isSolid(2, 4)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>VolatileBlockControllerTest.LeGroundPoundBriseDepuisUneDemiCaseAuDessus</b> (?)<br  />
+<sub><span class="tt"><a class="el" href="test__volatile__block__controller_8cpp.html" title="Tests unitaires des blocs fragile (EX-GP-028) et éphémère (EX-GP-029).">Source/Test/Unit/Core/Gameplay/test_volatile_block_controller.cpp</a>:308</span></sub>  </td><td class="markdownTableBodyNone">Un ground pound brise la dalle alors que les pieds sont encore une demi-case au-dessus. cat Unitaire · Volatile Block Controller crit Bloquant etapes 1. Passer un pas avec <span class="tt">groundPounding</span> vrai et une boite dont les pieds sont a 0,5 case au-dessus de la dalle &ndash; exactement le deplacement d'un pas fixe a la vitesse de chute imposee. attendu La dalle est brisee : la boite examinee est celle d'AVANT le pas, la portee doit donc couvrir la demi-case parcourue pendant le pas.  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isGoneAt(0)</span> est vrai.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Levels (218)</h3>

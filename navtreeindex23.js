@@ -1,5 +1,7 @@
 var NAVTREEINDEX23 =
 {
+"classhmi_1_1TrainingChartWidget.html#a9394a65caf700031b141649e3bb17dd4":[12,0,3,169,16],
+"classhmi_1_1TrainingChartWidget.html#a9394a65caf700031b141649e3bb17dd4":[13,0,3,169,16],
 "classhmi_1_1TrainingChartWidget.html#a9a80b8ce4ad92d8bf6fa44dfbaf93c27":[12,0,3,169,2],
 "classhmi_1_1TrainingChartWidget.html#a9a80b8ce4ad92d8bf6fa44dfbaf93c27":[13,0,3,169,2],
 "classhmi_1_1TrainingChartWidget.html#aa43f885c849b7acddbd77ec3fef2a528":[12,0,3,169,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX23 =
 "functions_func_u.html":[13,3,1,20],
 "functions_func_v.html":[13,3,1,21],
 "functions_func_w.html":[13,3,1,22],
-"functions_func_z.html":[13,3,1,23],
-"functions_func_~.html":[13,3,1,24],
-"functions_g.html":[13,3,0,7]
+"functions_func_z.html":[13,3,1,23]
 };

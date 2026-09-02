@@ -1,5 +1,7 @@
 var NAVTREEINDEX31 =
 {
+"lot-28.html#autotoc_md1608":[7,31,1,1],
+"lot-28.html#autotoc_md1609":[7,31,2],
 "lot-28.html#autotoc_md1610":[7,31,3],
 "lot-28.html#autotoc_md1611":[7,31,4],
 "lot-28.html#autotoc_md1612":[7,31,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX31 =
 "lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1857":[7,37,12,2],
 "lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1858":[7,37,12,3],
 "lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1859":[7,37,12,4],
-"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1860":[7,37,12,5],
-"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1861":[7,37,12,6],
-"lot-34.html":[7,37]
+"lot-34-tache-04-niveau-jouable-doc.html#autotoc_md1860":[7,37,12,5]
 };

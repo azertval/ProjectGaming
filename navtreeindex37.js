@@ -1,5 +1,7 @@
 var NAVTREEINDEX37 =
 {
+"lot-62.html#autotoc_md2937":[7,65,6],
+"lot-62.html#autotoc_md2938":[7,65,7],
 "lot-63-tache-01-action-interagir.html":[7,66,8],
 "lot-63-tache-01-action-interagir.html#autotoc_md2970":[7,66,8,0],
 "lot-63-tache-01-action-interagir.html#autotoc_md2971":[7,66,8,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX37 =
 "lot-66-tache-03-statuts-referentiel.html#autotoc_md3187":[7,69,10,6],
 "lot-66-tache-04-bascule-0-1-0.html":[7,69,11],
 "lot-66-tache-04-bascule-0-1-0.html#autotoc_md3188":[7,69,11,0],
-"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3189":[7,69,11,1],
-"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3190":[7,69,11,2],
-"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3191":[7,69,11,3]
+"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3189":[7,69,11,1]
 };

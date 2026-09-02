@@ -124,12 +124,18 @@ Functions</h2></td></tr>
 <tr class="memdesc:a333fcc4aa8cc58117ce4a3b7d6f1833a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revenir sur un bloc ephemere pendant son compte a rebours ne l'annule pas.  <br /></td></tr>
 <tr class="memitem:a37d05ad3caeb5c987352d843da249555" id="r_a37d05ad3caeb5c987352d843da249555"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a37d05ad3caeb5c987352d843da249555">TEST</a> (VolatileBlockControllerTest, LaCarteDuNiveauResteImmuable)</td></tr>
 <tr class="memdesc:a37d05ad3caeb5c987352d843da249555"><td class="mdescLeft">&#160;</td><td class="mdescRight">La disparition ne touche jamais la carte du niveau, seulement la grille de collision.  <br /></td></tr>
+<tr class="memitem:a326c72177a0fa52a268f15df8189a78a" id="r_a326c72177a0fa52a268f15df8189a78a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a326c72177a0fa52a268f15df8189a78a">TEST</a> (VolatileBlockControllerTest, UnGroundPoundNeTraversePasLeSol)</td></tr>
+<tr class="memdesc:a326c72177a0fa52a268f15df8189a78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un ground pound ne traverse pas le sol : la portee verticale reste sous une case entiere.  <br /></td></tr>
+<tr class="memitem:aaf8853e2e98d7701a92a829332d12f43" id="r_aaf8853e2e98d7701a92a829332d12f43"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaf8853e2e98d7701a92a829332d12f43">TEST</a> (VolatileBlockControllerTest, UnGroundPoundNeBriseQuUneDalleDUnePile)</td></tr>
+<tr class="memdesc:aaf8853e2e98d7701a92a829332d12f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux dalles fragiles empilees se brisent une par une, jamais les deux d'un coup.  <br /></td></tr>
+<tr class="memitem:a489934bf6ab5dffdec41b7a16712aafe" id="r_a489934bf6ab5dffdec41b7a16712aafe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a489934bf6ab5dffdec41b7a16712aafe">TEST</a> (VolatileBlockControllerTest, LeGroundPoundBriseDepuisUneDemiCaseAuDessus)</td></tr>
+<tr class="memdesc:a489934bf6ab5dffdec41b7a16712aafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">La portee reduite couvre encore le pas de chute impose par le ground pound.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des blocs fragile (<span class="tt">EX-GP-028</span>) et éphémère (<span class="tt">EX-GP-029</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a37d05ad3caeb5c987352d843da249555" name="a37d05ad3caeb5c987352d843da249555"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37d05ad3caeb5c987352d843da249555">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d05ad3caeb5c987352d843da249555">&#9670;&#160;</a></span>TEST() <span class="overload">[1/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +165,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7bb253d32f4006f5361b15d5ca64f29a" name="a7bb253d32f4006f5361b15d5ca64f29a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bb253d32f4006f5361b15d5ca64f29a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb253d32f4006f5361b15d5ca64f29a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +195,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a54a1001d539858dd23c7f3239be6d73b" name="a54a1001d539858dd23c7f3239be6d73b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54a1001d539858dd23c7f3239be6d73b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a1001d539858dd23c7f3239be6d73b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,8 +223,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a489934bf6ab5dffdec41b7a16712aafe" name="a489934bf6ab5dffdec41b7a16712aafe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a489934bf6ab5dffdec41b7a16712aafe">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">VolatileBlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeGroundPoundBriseDepuisUneDemiCaseAuDessus</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La portee reduite couvre encore le pas de chute impose par le ground pound. </p>
+<p><b>Cas de test :</b> <b>Un ground pound brise la dalle alors que les pieds sont encore une demi-case au-dessus.</b><br  />
+ cat Unitaire · Volatile Block Controller<br  />
+ crit Bloquant<br  />
+ etapes 1. Passer un pas avec <span class="tt">groundPounding</span> vrai et une boite dont les pieds sont a 0,5 case au-dessus de la dalle &ndash; exactement le deplacement d'un pas fixe a la vitesse de chute imposee.<br  />
+ attendu La dalle est brisee : la boite examinee est celle d'AVANT le pas, la portee doit donc couvrir la demi-case parcourue pendant le pas. </p>
+
+</div>
+</div>
 <a id="a52e3da88e532391584418027ed4175f1" name="a52e3da88e532391584418027ed4175f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52e3da88e532391584418027ed4175f1">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a52e3da88e532391584418027ed4175f1">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +282,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1bd2dd7a31298f6d7c0b80684f869eac" name="a1bd2dd7a31298f6d7c0b80684f869eac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bd2dd7a31298f6d7c0b80684f869eac">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd2dd7a31298f6d7c0b80684f869eac">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +312,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a333fcc4aa8cc58117ce4a3b7d6f1833a" name="a333fcc4aa8cc58117ce4a3b7d6f1833a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a333fcc4aa8cc58117ce4a3b7d6f1833a">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a333fcc4aa8cc58117ce4a3b7d6f1833a">&#9670;&#160;</a></span>TEST() <span class="overload">[7/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +342,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a35d6e6db2b6d0408722c7e1043e37846" name="a35d6e6db2b6d0408722c7e1043e37846"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35d6e6db2b6d0408722c7e1043e37846">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a35d6e6db2b6d0408722c7e1043e37846">&#9670;&#160;</a></span>TEST() <span class="overload">[8/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +372,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae1acbbabfd9eb08a50d9b323fb9a5bd9" name="ae1acbbabfd9eb08a50d9b323fb9a5bd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1acbbabfd9eb08a50d9b323fb9a5bd9">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1acbbabfd9eb08a50d9b323fb9a5bd9">&#9670;&#160;</a></span>TEST() <span class="overload">[9/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,6 +397,64 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Passer un pas avec <span class="tt">groundPounding</span> vrai, mais le personnage sur une autre colonne.<br  />
  <b>Resultat attendu :</b> La dalle est intacte. </p>
+
+</div>
+</div>
+<a id="aaf8853e2e98d7701a92a829332d12f43" name="aaf8853e2e98d7701a92a829332d12f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf8853e2e98d7701a92a829332d12f43">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">VolatileBlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGroundPoundNeBriseQuUneDalleDUnePile</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deux dalles fragiles empilees se brisent une par une, jamais les deux d'un coup. </p>
+<p><b>Cas de test :</b> <b>Un ground pound sur une pile de dalles fragiles ne brise que celle du dessus.</b><br  />
+ cat Unitaire · Volatile Block Controller<br  />
+ crit Majeur<br  />
+ etapes 1. Empiler deux dalles fragiles en (2, 3) et (2, 4).<br  />
+2. Passer un pas avec le personnage pose sur celle du dessus, <span class="tt">groundPounding</span> vrai.<br  />
+ attendu Seule la dalle du dessus a disparu ; celle du dessous est intacte et sa case reste solide &ndash; il faudra un second ground pound, une fois retombe dessus, pour l'atteindre. </p>
+
+</div>
+</div>
+<a id="a326c72177a0fa52a268f15df8189a78a" name="a326c72177a0fa52a268f15df8189a78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326c72177a0fa52a268f15df8189a78a">&#9670;&#160;</a></span>TEST() <span class="overload">[11/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">VolatileBlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGroundPoundNeTraversePasLeSol</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un ground pound ne traverse pas le sol : la portee verticale reste sous une case entiere. </p>
+<p><b>Cas de test :</b> <b>Un ground pound sur le sol ne brise pas la dalle fragile situee dessous.</b><br  />
+ cat Unitaire · Volatile Block Controller<br  />
+ crit Bloquant<br  />
+ etapes 1. Poser un sol plein en rangee 3 et une dalle fragile en (2, 4), donc de l'autre cote du sol.<br  />
+2. Passer un pas avec le personnage pose sur le sol, <span class="tt">groundPounding</span> vrai.<br  />
+ attendu La dalle est intacte : la portee du ground pound (<span class="tt">POUND_REACH_CELLS</span>) est strictement inferieure a une case, sans quoi des pieds poses en rangee R atteindraient un bloc en R+1 a travers la matiere. </p>
 
 </div>
 </div>

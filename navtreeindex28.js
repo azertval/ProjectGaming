@@ -1,5 +1,7 @@
 var NAVTREEINDEX28 =
 {
+"lot-10-tache-02-mapping-dash.html#autotoc_md976":[7,13,9,6],
+"lot-10-tache-03-double-saut.html":[7,13,10],
 "lot-10-tache-03-double-saut.html#autotoc_md977":[7,13,10,0],
 "lot-10-tache-03-double-saut.html#autotoc_md978":[7,13,10,1],
 "lot-10-tache-03-double-saut.html#autotoc_md979":[7,13,10,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX28 =
 "lot-15-tache-06-decouvrabilite.html#autotoc_md1193":[7,18,13,4],
 "lot-15-tache-06-decouvrabilite.html#autotoc_md1194":[7,18,13,5],
 "lot-15-tache-06-decouvrabilite.html#autotoc_md1195":[7,18,13,6],
-"lot-15-tache-06-decouvrabilite.html#autotoc_md1196":[7,18,13,7],
-"lot-15-tache-07-essai-memoire-erreurs-structurees.html":[7,18,14],
-"lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md1197":[7,18,14,0]
+"lot-15-tache-06-decouvrabilite.html#autotoc_md1196":[7,18,13,7]
 };

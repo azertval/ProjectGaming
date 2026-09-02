@@ -120,12 +120,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad0532f825d9d2aff7c1a2dfb8895f066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc descendant ne traverse jamais la matiere, et ne repart pas si elle se libere.  <br /></td></tr>
 <tr class="memitem:a2610e9200b847b85cd15104e8f4c5c84" id="r_a2610e9200b847b85cd15104e8f4c5c84"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2610e9200b847b85cd15104e8f4c5c84">TEST</a> (SinkingBlockControllerTest, SortDuTableauParLeBas)</td></tr>
 <tr class="memdesc:a2610e9200b847b85cd15104e8f4c5c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans rien dessous, le bloc finit par sortir du tableau et cesse d'exister.  <br /></td></tr>
+<tr class="memitem:ae29798ef0576343f0c2d1fcbbd21ef91" id="r_ae29798ef0576343f0c2d1fcbbd21ef91"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae29798ef0576343f0c2d1fcbbd21ef91">TEST</a> (SinkingBlockControllerTest, LaGrilleComposeeSuitLaPositionCourante)</td></tr>
+<tr class="memdesc:ae29798ef0576343f0c2d1fcbbd21ef91"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille composee montre le bloc la ou il est VRAIMENT, pas a sa case de fichier.  <br /></td></tr>
+<tr class="memitem:aaad3bdd8950da1119bd2797582024bbc" id="r_aaad3bdd8950da1119bd2797582024bbc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaad3bdd8950da1119bd2797582024bbc">TEST</a> (SinkingBlockControllerTest, UnBlocRetireDisparaitDeLaGrilleComposee)</td></tr>
+<tr class="memdesc:aaad3bdd8950da1119bd2797582024bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc sorti du tableau n'apparait plus nulle part sur la grille composee.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des blocs descendants (<span class="tt">SinkingBlockController</span>, <span class="tt">EX-GP-027</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="acfa5dc703e916eea328c05caecc45303" name="acfa5dc703e916eea328c05caecc45303"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfa5dc703e916eea328c05caecc45303">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acfa5dc703e916eea328c05caecc45303">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,7 +159,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0ecabf4f0f3e1b32a26d806adf12bb03" name="a0ecabf4f0f3e1b32a26d806adf12bb03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ecabf4f0f3e1b32a26d806adf12bb03">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ecabf4f0f3e1b32a26d806adf12bb03">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +189,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4da0418556f67608f020149503f52a7c" name="a4da0418556f67608f020149503f52a7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4da0418556f67608f020149503f52a7c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da0418556f67608f020149503f52a7c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +219,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a69e5dfd711d4fce11054d01502855b45" name="a69e5dfd711d4fce11054d01502855b45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69e5dfd711d4fce11054d01502855b45">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e5dfd711d4fce11054d01502855b45">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,8 +248,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae29798ef0576343f0c2d1fcbbd21ef91" name="ae29798ef0576343f0c2d1fcbbd21ef91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae29798ef0576343f0c2d1fcbbd21ef91">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SinkingBlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaGrilleComposeeSuitLaPositionCourante</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La grille composee montre le bloc la ou il est VRAIMENT, pas a sa case de fichier. </p>
+<p><b>Cas de test :</b> <b>Un bloc descendant est reporte sur la grille a sa case courante.</b><br  />
+ <b>Categorie :</b> Unitaire · Sinking Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Armer un bloc en (2, 1) et le faire descendre de deux cases exactement (48 pas fixes a 2,5 cases/s).<br  />
+2. Composer la grille avec <span class="tt">collisionMap()</span>.<br  />
+ <b>Resultat attendu :</b> La case de depart (2, 1) est vide et le bloc apparait en (2, 3). Sans ce report, l'observation de l'agent (<span class="tt"><a class="el" href="classaisolver_1_1ObservationEncoder.html" title="Concatène, dans un ordre fixe et documenté, les trois encodeurs d&#39;observation en un seul vecteur d&#39;en...">aisolver::ObservationEncoder</a></span>) verrait eternellement le bloc a son point de depart et rien la ou il se trouve. </p>
+
+</div>
+</div>
 <a id="ad0532f825d9d2aff7c1a2dfb8895f066" name="ad0532f825d9d2aff7c1a2dfb8895f066"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0532f825d9d2aff7c1a2dfb8895f066">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0532f825d9d2aff7c1a2dfb8895f066">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +309,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2610e9200b847b85cd15104e8f4c5c84" name="a2610e9200b847b85cd15104e8f4c5c84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2610e9200b847b85cd15104e8f4c5c84">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2610e9200b847b85cd15104e8f4c5c84">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,6 +335,36 @@ Functions</h2></td></tr>
  1. Construire un niveau dont la colonne du bloc est entierement vide sous lui.<br  />
 2. Armer le bloc et avancer largement de quoi traverser toute la hauteur.<br  />
  <b>Resultat attendu :</b> Le bloc est marque retire et n'emet PLUS d'echantillon : un echantillon fantome continuerait de porter le personnage. </p>
+
+</div>
+</div>
+<a id="aaad3bdd8950da1119bd2797582024bbc" name="aaad3bdd8950da1119bd2797582024bbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad3bdd8950da1119bd2797582024bbc">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SinkingBlockControllerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnBlocRetireDisparaitDeLaGrilleComposee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bloc sorti du tableau n'apparait plus nulle part sur la grille composee. </p>
+<p><b>Cas de test :</b> <b>Un bloc descendant retire disparait de la grille composee.</b><br  />
+ <b>Categorie :</b> Unitaire · Sinking Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Faire sortir un bloc par le bas du tableau.<br  />
+2. Composer la grille.<br  />
+ <b>Resultat attendu :</b> Sa case de depart est vide et aucune case de sa colonne ne porte de bloc descendant. </p>
 
 </div>
 </div>

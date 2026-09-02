@@ -1,5 +1,7 @@
 var NAVTREEINDEX24 =
 {
+"functions_func_~.html":[13,3,1,24],
+"functions_g.html":[13,3,0,7],
 "functions_h.html":[13,3,0,8],
 "functions_i.html":[13,3,0,9],
 "functions_j.html":[13,3,0,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX24 =
 "guide-design-ihm.html#autotoc_md86":[3,15,7,0],
 "guide-design-ihm.html#autotoc_md87":[3,15,7,1],
 "guide-design-ihm.html#autotoc_md88":[3,15,7,2],
-"guide-design-ihm.html#autotoc_md89":[3,15,8],
-"guide-design-ihm.html#autotoc_md90":[3,15,8,0],
-"guide-design-ihm.html#autotoc_md91":[3,15,9]
+"guide-design-ihm.html#autotoc_md89":[3,15,8]
 };

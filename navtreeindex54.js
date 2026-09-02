@@ -1,5 +1,7 @@
 var NAVTREEINDEX54 =
 {
+"structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2":[12,0,3,70,1],
+"structhmi_1_1AnimationDescription.html#aeb65e0a5103ba71be4e5158465f20ef2":[13,0,3,70,1],
 "structhmi_1_1AnimationDescriptionResult.html":[12,0,3,71],
 "structhmi_1_1AnimationDescriptionResult.html":[13,0,3,71],
 "structhmi_1_1AnimationDescriptionResult.html#a3cdcee7012ff94ee9d1035738c33edaf":[12,0,3,71,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX54 =
 "structhmi_1_1FollowCameraState.html#a72db7ef3af947acd7febdb8c59939480":[12,0,3,88,3],
 "structhmi_1_1FollowCameraState.html#a72db7ef3af947acd7febdb8c59939480":[13,0,3,88,3],
 "structhmi_1_1FollowCameraState.html#aad1ea32f2aa02eb8b804f243ec21cff4":[12,0,3,88,0],
-"structhmi_1_1FollowCameraState.html#aad1ea32f2aa02eb8b804f243ec21cff4":[13,0,3,88,0],
-"structhmi_1_1FollowCameraState.html#af067d1290877f56aee5db5f9e063a1a3":[12,0,3,88,1],
-"structhmi_1_1FollowCameraState.html#af067d1290877f56aee5db5f9e063a1a3":[13,0,3,88,1]
+"structhmi_1_1FollowCameraState.html#aad1ea32f2aa02eb8b804f243ec21cff4":[13,0,3,88,0]
 };

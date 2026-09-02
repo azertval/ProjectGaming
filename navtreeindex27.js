@@ -1,5 +1,7 @@
 var NAVTREEINDEX27 =
 {
+"lot-06-tache-03-catalogue-traduction.html#autotoc_md755":[7,9,10,0],
+"lot-06-tache-03-catalogue-traduction.html#autotoc_md756":[7,9,10,1],
 "lot-06-tache-03-catalogue-traduction.html#autotoc_md757":[7,9,10,2],
 "lot-06-tache-03-catalogue-traduction.html#autotoc_md758":[7,9,10,3],
 "lot-06-tache-03-catalogue-traduction.html#autotoc_md759":[7,9,10,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX27 =
 "lot-10-tache-02-mapping-dash.html#autotoc_md972":[7,13,9,2],
 "lot-10-tache-02-mapping-dash.html#autotoc_md973":[7,13,9,3],
 "lot-10-tache-02-mapping-dash.html#autotoc_md974":[7,13,9,4],
-"lot-10-tache-02-mapping-dash.html#autotoc_md975":[7,13,9,5],
-"lot-10-tache-02-mapping-dash.html#autotoc_md976":[7,13,9,6],
-"lot-10-tache-03-double-saut.html":[7,13,10]
+"lot-10-tache-02-mapping-dash.html#autotoc_md975":[7,13,9,5]
 };

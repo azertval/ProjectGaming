@@ -3,6 +3,7 @@ var classcore_1_1SinkingBlockController =
     [ "SinkingBlock", "structcore_1_1SinkingBlockController_1_1SinkingBlock.html", "structcore_1_1SinkingBlockController_1_1SinkingBlock" ],
     [ "SinkingBlockController", "classcore_1_1SinkingBlockController.html#affac5fb311ca80603179969e4f0adf98", null ],
     [ "boxAt", "classcore_1_1SinkingBlockController.html#a615d1c3d03fafb9575f77e58ce48d503", null ],
+    [ "collisionMap", "classcore_1_1SinkingBlockController.html#a14fcc3fe313c76381390cc6e79f081bc", null ],
     [ "count", "classcore_1_1SinkingBlockController.html#aeaf554a394f70a364653647e93596428", null ],
     [ "isArmedAt", "classcore_1_1SinkingBlockController.html#aa22fbbaa78d7fb60ba37308316135468", null ],
     [ "isRemovedAt", "classcore_1_1SinkingBlockController.html#a0356925378c460a020b592efad3c88be", null ],

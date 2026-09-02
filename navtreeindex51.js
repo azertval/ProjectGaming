@@ -1,5 +1,7 @@
 var NAVTREEINDEX51 =
 {
+"structaisolver_1_1eval_1_1CrossLevelPair.html":[12,0,0,1,12],
+"structaisolver_1_1eval_1_1CrossLevelPair.html":[13,0,0,1,11],
 "structaisolver_1_1eval_1_1CrossLevelPair.html#a463b510c1ff198f8a750484e68277ca4":[12,0,0,1,12,2],
 "structaisolver_1_1eval_1_1CrossLevelPair.html#a463b510c1ff198f8a750484e68277ca4":[13,0,0,1,11,2],
 "structaisolver_1_1eval_1_1CrossLevelPair.html#a87c7430ae16a03f2bcc768ee449c47ab":[12,0,0,1,12,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX51 =
 "structcore_1_1AtlasRegion.html#ae9205702dd6b5eaef583116869e8ce73":[12,0,2,15,1],
 "structcore_1_1AtlasRegion.html#ae9205702dd6b5eaef583116869e8ce73":[13,0,2,15,1],
 "structcore_1_1CameraFramingConfig.html":[12,0,2,39],
-"structcore_1_1CameraFramingConfig.html":[13,0,2,39],
-"structcore_1_1CameraFramingConfig.html#a6d169bf7896002d862c862213d070c1f":[12,0,2,39,3],
-"structcore_1_1CameraFramingConfig.html#a6d169bf7896002d862c862213d070c1f":[13,0,2,39,3]
+"structcore_1_1CameraFramingConfig.html":[13,0,2,39]
 };

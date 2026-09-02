@@ -1,5 +1,7 @@
 var NAVTREEINDEX38 =
 {
+"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3190":[7,69,11,2],
+"lot-66-tache-04-bascule-0-1-0.html#autotoc_md3191":[7,69,11,3],
 "lot-66-tache-04-bascule-0-1-0.html#autotoc_md3192":[7,69,11,4],
 "lot-66-tache-04-bascule-0-1-0.html#autotoc_md3193":[7,69,11,5],
 "lot-66-tache-04-bascule-0-1-0.html#autotoc_md3194":[7,69,11,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX38 =
 "lot-72-tache-06-combo-dash-saut.html#autotoc_md3408":[7,73,13,1],
 "lot-72-tache-06-combo-dash-saut.html#autotoc_md3409":[7,73,13,2],
 "lot-72-tache-06-combo-dash-saut.html#autotoc_md3410":[7,73,13,3],
-"lot-72-tache-06-combo-dash-saut.html#autotoc_md3411":[7,73,13,4],
-"lot-72-tache-06-combo-dash-saut.html#autotoc_md3412":[7,73,13,5],
-"lot-72-tache-06-combo-dash-saut.html#autotoc_md3413":[7,73,13,6]
+"lot-72-tache-06-combo-dash-saut.html#autotoc_md3411":[7,73,13,4]
 };

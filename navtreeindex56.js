@@ -1,5 +1,7 @@
 var NAVTREEINDEX56 =
 {
+"structhmi_1_1PathGestureState.html#a2b03d41e8fdfa4939e549f6753b503c0":[12,0,3,36,2],
+"structhmi_1_1PathGestureState.html#a2b03d41e8fdfa4939e549f6753b503c0":[13,0,3,36,2],
 "structhmi_1_1PathGestureState.html#ab5e99ebf0782aa647fb5dd0a8471458d":[12,0,3,36,3],
 "structhmi_1_1PathGestureState.html#ab5e99ebf0782aa647fb5dd0a8471458d":[13,0,3,36,3],
 "structhmi_1_1PathGestureState.html#abc23c98243de63a6eb11ff0848ad90bd":[12,0,3,36,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX56 =
 "structhmi_1_1ProceduralAtlasImage.html#ace67941b19f6214c0367d2c23d71ce7d":[12,0,3,97,0],
 "structhmi_1_1ProceduralAtlasImage.html#ace67941b19f6214c0367d2c23d71ce7d":[13,0,3,97,0],
 "structhmi_1_1ProceduralFont.html":[12,0,3,102],
-"structhmi_1_1ProceduralFont.html":[13,0,3,102],
-"structhmi_1_1ProceduralFont.html#a688c94f0dcc8e378212602baf9727c9c":[12,0,3,102,0],
-"structhmi_1_1ProceduralFont.html#a688c94f0dcc8e378212602baf9727c9c":[13,0,3,102,0]
+"structhmi_1_1ProceduralFont.html":[13,0,3,102]
 };

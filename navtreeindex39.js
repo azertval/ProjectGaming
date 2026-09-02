@@ -1,5 +1,7 @@
 var NAVTREEINDEX39 =
 {
+"lot-72-tache-06-combo-dash-saut.html#autotoc_md3412":[7,73,13,5],
+"lot-72-tache-06-combo-dash-saut.html#autotoc_md3413":[7,73,13,6],
 "lot-72-tache-07-validation-croisee.html":[7,73,14],
 "lot-72-tache-07-validation-croisee.html#autotoc_md3414":[7,73,14,0],
 "lot-72-tache-07-validation-croisee.html#autotoc_md3415":[7,73,14,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX39 =
 "lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3631":[8,7,12,0],
 "lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3632":[8,7,12,1],
 "lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3633":[8,7,12,2],
-"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3634":[8,7,12,3],
-"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3635":[8,7,12,4],
-"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3636":[8,7,12,5]
+"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3634":[8,7,12,3]
 };

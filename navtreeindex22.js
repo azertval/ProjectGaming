@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"classhmi_1_1SpriteBatch.html#afcfcb3f0f6cf5f2b96f21d72c04a7868":[12,0,3,114,28],
+"classhmi_1_1SpriteBatch.html#afcfcb3f0f6cf5f2b96f21d72c04a7868":[13,0,3,114,28],
 "classhmi_1_1SpriteRenderer.html":[12,0,3,115],
 "classhmi_1_1SpriteRenderer.html":[13,0,3,115],
 "classhmi_1_1SpriteRenderer.html#a04fd47eebcd7ecb9d26079bb3281e79e":[12,0,3,115,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX22 =
 "classhmi_1_1TrainingChartWidget.html#a6689ccdc74e7b2b30027cfa2318cf847":[12,0,3,169,13],
 "classhmi_1_1TrainingChartWidget.html#a6689ccdc74e7b2b30027cfa2318cf847":[13,0,3,169,13],
 "classhmi_1_1TrainingChartWidget.html#a8dab573339d22e001485c2396ecefc12":[12,0,3,169,3],
-"classhmi_1_1TrainingChartWidget.html#a8dab573339d22e001485c2396ecefc12":[13,0,3,169,3],
-"classhmi_1_1TrainingChartWidget.html#a9394a65caf700031b141649e3bb17dd4":[12,0,3,169,16],
-"classhmi_1_1TrainingChartWidget.html#a9394a65caf700031b141649e3bb17dd4":[13,0,3,169,16]
+"classhmi_1_1TrainingChartWidget.html#a8dab573339d22e001485c2396ecefc12":[13,0,3,169,3]
 };

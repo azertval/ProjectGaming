@@ -1,5 +1,7 @@
 var NAVTREEINDEX41 =
 {
+"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3859":[8,12,11,5],
+"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3860":[8,12,11,6],
 "lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3861":[8,12,11,7],
 "lot-annexe-07-tache-04-tests.html":[8,12,12],
 "lot-annexe-07-tache-04-tests.html#autotoc_md3862":[8,12,12,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX41 =
 "lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4079":[8,17,11,0],
 "lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4080":[8,17,11,1],
 "lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4081":[8,17,11,2],
-"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4082":[8,17,11,3],
-"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4083":[8,17,11,4],
-"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4084":[8,17,11,5]
+"lot-annexe-12-tache-03-perte-reinforce.html#autotoc_md4082":[8,17,11,3]
 };

@@ -1,5 +1,7 @@
 var NAVTREEINDEX40 =
 {
+"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3635":[8,7,12,4],
+"lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3636":[8,7,12,5],
 "lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3637":[8,7,12,6],
 "lot-annexe-02-tache-04-verification-gradient.html#autotoc_md3638":[8,7,12,7],
 "lot-annexe-02.html":[8,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX40 =
 "lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3855":[8,12,11,1],
 "lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3856":[8,12,11,2],
 "lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3857":[8,12,11,3],
-"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3858":[8,12,11,4],
-"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3859":[8,12,11,5],
-"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3860":[8,12,11,6]
+"lot-annexe-07-tache-03-format-rejeu-v1.html#autotoc_md3858":[8,12,11,4]
 };

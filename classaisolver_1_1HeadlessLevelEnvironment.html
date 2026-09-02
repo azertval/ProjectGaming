@@ -127,7 +127,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a0663e00028eb66f137cb8236d00b6e19" id="r_a0663e00028eb66f137cb8236d00b6e19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0663e00028eb66f137cb8236d00b6e19">updateProgress</a> (const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;playerBox)</td></tr>
 <tr class="memdesc:a0663e00028eb66f137cb8236d00b6e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour <span class="tt"><a class="el" href="#abe27d1cca89831947e114ac8fcd8c7e1">_bestObjectiveDistance</a></span>/<span class="tt"><a class="el" href="#a3d6f8cf26e1ceaa32da4f7f96774f7d1">_stepsSinceProgress</a></span> d'après la boîte du personnage à l'issue de ce pas (TACHE-03).  <br /></td></tr>
 <tr class="memitem:a03756d5bd5b0f5cf51700e4764bd0f44" id="r_a03756d5bd5b0f5cf51700e4764bd0f44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a03756d5bd5b0f5cf51700e4764bd0f44">refreshCollisionAndObjective</a> (const <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &amp;playerBox)</td></tr>
-<tr class="memdesc:a03756d5bd5b0f5cf51700e4764bd0f44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recompose <span class="tt"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c" title="Grille de collision composée du dernier pas (portes + blocs), voir collisionMap().">_collision</a></span> (portes + blocs) et rafraîchit le champ d'objectif d'après l'état courant ; appelée par <span class="tt"><a class="el" href="#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset()</a></span> et à la fin de chaque <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span>.  <br /></td></tr>
+<tr class="memdesc:a03756d5bd5b0f5cf51700e4764bd0f44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recompose <span class="tt"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c" title="Grille de collision composée du dernier pas (portes + blocs volatils, descendants et poussables),...">_collision</a></span> (portes + blocs) et rafraîchit le champ d'objectif d'après l'état courant ; appelée par <span class="tt"><a class="el" href="#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset()</a></span> et à la fin de chaque <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -145,7 +145,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa7dcc127b5f6967fdf7168fabe0176f8" id="r_aa7dcc127b5f6967fdf7168fabe0176f8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PlatformSample.html">core::PlatformSample</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa7dcc127b5f6967fdf7168fabe0176f8">_supportSamples</a></td></tr>
 <tr class="memdesc:aa7dcc127b5f6967fdf7168fabe0176f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echantillons des supports mobiles du pas : plateformes puis blocs descendants.  <br /></td></tr>
 <tr class="memitem:afc73379b8a2ed5231ab499e8c0e0212c" id="r_afc73379b8a2ed5231ab499e8c0e0212c"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c">_collision</a></td></tr>
-<tr class="memdesc:afc73379b8a2ed5231ab499e8c0e0212c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de collision composée du dernier pas (portes + blocs), voir <span class="tt"><a class="el" href="#a99144ec8d144e28f4e30f4018e290057">collisionMap()</a></span>.  <br /></td></tr>
+<tr class="memdesc:afc73379b8a2ed5231ab499e8c0e0212c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de collision composée du dernier pas (portes + blocs volatils, descendants et poussables), voir <span class="tt"><a class="el" href="#a99144ec8d144e28f4e30f4018e290057">collisionMap()</a></span>.  <br /></td></tr>
 <tr class="memitem:ac98cbb97fea00f82fd8df992e6779945" id="r_ac98cbb97fea00f82fd8df992e6779945"><td class="memItemLeft"><a class="el" href="classaisolver_1_1ObjectiveDistanceFieldCache.html">ObjectiveDistanceFieldCache</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac98cbb97fea00f82fd8df992e6779945">_objectiveCache</a></td></tr>
 <tr class="memitem:a8cc9527ed638b550e4f04301a01a145a" id="r_a8cc9527ed638b550e4f04301a01a145a"><td class="memItemLeft"><a class="el" href="structcore_1_1Entity.html">core::Entity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8cc9527ed638b550e4f04301a01a145a">_player</a> {}</td></tr>
 <tr class="memitem:a5b249175efd8bf5ffd665e1ef5fdad05" id="r_a5b249175efd8bf5ffd665e1ef5fdad05"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5b249175efd8bf5ffd665e1ef5fdad05">_loadError</a></td></tr>
@@ -316,7 +316,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La grille de collision <b>composée</b> du dernier pas (portes du <span class="tt">MechanismController</span> <b>et</b> blocs poussables à leur position courante), celle-là même que la physique vient de résoudre. Mémorisée plutôt que recomposée : <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span> la construit déjà. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La grille de collision <b>composée</b> du dernier pas : portes du <span class="tt">MechanismController</span>, blocs volatils disparus retirés, blocs descendants reportés à leur case courante et blocs poussables à leur position courante. Celle-là même que la physique vient de résoudre (le report des blocs descendants, non solides, n'y change rien d'autre que ce que l'observation y <b>voit</b>). Mémorisée plutôt que recomposée : <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span> la construit déjà. </dd></dl>
 
 </div>
 </div>
@@ -525,7 +525,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Recompose <span class="tt"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c" title="Grille de collision composée du dernier pas (portes + blocs), voir collisionMap().">_collision</a></span> (portes + blocs) et rafraîchit le champ d'objectif d'après l'état courant ; appelée par <span class="tt"><a class="el" href="#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset()</a></span> et à la fin de chaque <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span>. </p>
+<p>Recompose <span class="tt"><a class="el" href="#afc73379b8a2ed5231ab499e8c0e0212c" title="Grille de collision composée du dernier pas (portes + blocs volatils, descendants et poussables),...">_collision</a></span> (portes + blocs) et rafraîchit le champ d'objectif d'après l'état courant ; appelée par <span class="tt"><a class="el" href="#a0f5782ba82dad6e0cb8886ca6ddd471b" title="Charge un niveau et fait apparaître le personnage à l&#39;entrée.">reset()</a></span> et à la fin de chaque <span class="tt"><a class="el" href="#a37d992c7525ce998acd5116c40ee9301" title="Avance la simulation d&#39;exactement un pas fixe (1/60 s).">step()</a></span>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">playerBox</td><td>Boîte du personnage à cet instant, pour ré-amorcer le record de progression si l'ensemble des objectifs vient de changer. </td></tr>
@@ -773,7 +773,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Grille de collision composée du dernier pas (portes + blocs), voir <span class="tt"><a class="el" href="#a99144ec8d144e28f4e30f4018e290057">collisionMap()</a></span>. </p>
+<p>Grille de collision composée du dernier pas (portes + blocs volatils, descendants et poussables), voir <span class="tt"><a class="el" href="#a99144ec8d144e28f4e30f4018e290057">collisionMap()</a></span>. </p>
 
 </div>
 </div>
