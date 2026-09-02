@@ -84,6 +84,10 @@ add_library(AiSolver STATIC
     # LOT-ANNEXE-21) : partage entre aisolver-cli (Commands.cpp) et l'IHM (HMI/Ai/TrainingWorker),
     # jamais duplique.
     Training/ArgmaxRollout.cpp
+    # Meilleur reseau d'un run par gradient (equivalent de TrainingResult::bestIndividual pour
+    # evo) : les familles pg/ac/avance entrainent un reseau EN PLACE et sauvegardaient donc l'etat
+    # du dernier episode, pas le meilleur du run. Partage entre aisolver-cli et l'IHM.
+    Training/BestPolicySnapshot.cpp
     # Resolution/tracabilite des hyperparametres (LOT-ANNEXE-19, TACHE-02) : dans la bibliotheque
     # (pas seulement l'executable aisolver-cli, cf. add_executable ci-dessous) pour que
     # HMI/Ai/TrainingWorker (LOT-ANNEXE-21) reutilise les memes types/defauts sans les dupliquer.

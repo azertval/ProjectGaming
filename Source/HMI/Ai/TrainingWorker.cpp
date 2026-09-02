@@ -28,6 +28,7 @@
 #include "AiSolver/Training/ActorCritic/ActorCriticTrainer.h"
 #include "AiSolver/Training/ActorCritic/CriticNetwork.h"
 #include "AiSolver/Training/ArgmaxRollout.h"
+#include "AiSolver/Training/BestPolicySnapshot.h"
 #include "AiSolver/Training/DeterministicReplay.h"
 #include "AiSolver/Training/Dqn/DqnTrainer.h"
 #include "AiSolver/Training/Dqn/QNetwork.h"
@@ -187,11 +188,24 @@ void TrainingWorker::run() {
     // flux en troncature sur le meme chemin des que l'algorithme est evolutionniste.
     std::optional<TrainingStatsRecorder> recorder;
 
+    // Meilleur reseau rencontre par un run par gradient (pg/ac/avance). Ces familles entrainent un
+    // reseau EN PLACE : sans ce cliche, le modele sauvegarde est celui du DERNIER episode, qu'un
+    // episode rate juste avant l'arret suffit a rendre mauvais alors que des generations
+    // anterieures reussissaient le niveau. Equivalent de `TrainingResult::bestIndividual`, dont le
+    // chemin evolutionniste dispose deja.
+    training::BestPolicySnapshot bestSnapshot;
+
     // Aperçu périodique du champion courant (pg/ac/avance) : un rejeu Argmax déterministe complet
     // à CHAQUE épisode ralentirait un niveau rapide pour rien -- rythme borné par PREVIEW_INTERVAL,
     // même raison que le chemin évolutionniste (`onGenerationChampion` ci-dessous).
-    const auto maybeEmitPreview = [&](eval::TrainedPolicy& evalPolicy, const std::string& name,
-                                      const std::string& id, int generation) {
+    //
+    // C'est aussi le seul point du run ou la politique GLOUTONNE est mesuree : le cliche du
+    // meilleur reseau se nourrit donc de ce meme rejeu, deja calcule ici. Note sur la politique
+    // gloutonne et non sur la recompense de l'episode d'entrainement, qui dependrait de
+    // l'exploration aleatoire de cet episode plutot que de ce que vaut le reseau sauvegarde.
+    const auto maybeEmitPreview = [&](eval::TrainedPolicy& evalPolicy, const nn::Network& network,
+                                      const std::string& name, const std::string& id,
+                                      int generation) {
         const Clock::time_point now = Clock::now();
         if (now - lastPreview < PREVIEW_INTERVAL) {
             return;
@@ -200,9 +214,12 @@ void TrainingWorker::run() {
         HeadlessLevelEnvironment previewEnvironment(environmentConfig);
         const std::optional<training::DeterministicReplayResult> replay =
             training::argmaxRollout(evalPolicy, previewEnvironment, levelPath);
+        if (!replay) {
+            return;
+        }
+        bestSnapshot.consider(network, *replay);
         const std::filesystem::path previewPath = previewPathFor(generation);
-        if (replay &&
-            writePreviewReplay(*replay, levelPath, previewPath, name, _request.seed, id)) {
+        if (writePreviewReplay(*replay, levelPath, previewPath, name, _request.seed, id)) {
             emit previewReady(QString::fromStdString(previewPath.string()),
                               QString::fromStdString(id),
                               QString::fromStdString(_request.levelPath), generation);
@@ -298,6 +315,42 @@ void TrainingWorker::run() {
         return;
     }
 
+    // Fin de run commune aux trois familles par gradient : note le reseau FINAL comme un candidat
+    // de plus, restaure le meilleur du run, PUIS sauvegarde et exporte. L'ordre compte -- sauver
+    // avant la restauration reproduirait exactement le defaut corrige ici (modele du dernier
+    // episode, rejeu d'un echec alors qu'une generation anterieure reussissait).
+    //
+    // Le rejeu publie est celui memorise avec les poids restaures, jamais un rejeu recalcule : il
+    // a deja ete produit par `maybeEmitPreview` sur ces memes poids, le refaire coûterait un rejeu
+    // complet pour un resultat identique par construction.
+    // @return `false` si la sauvegarde a echoue (`failed` deja emis, l'appelant doit sortir).
+    const auto finalizeGradientRun = [&](eval::TrainedPolicy& evalPolicy, nn::Network& network) {
+        // Meme configuration d'environnement que l'entrainement et les apercus : sous un budget de
+        // pas different, un rejeu final serait tronque la ou l'apercu allait au bout, et
+        // comparerait des notes qui ne veulent pas dire la meme chose.
+        HeadlessLevelEnvironment rolloutEnvironment(environmentConfig);
+        std::optional<training::DeterministicReplayResult> replay =
+            training::argmaxRollout(evalPolicy, rolloutEnvironment, levelPath);
+        if (replay) {
+            bestSnapshot.consider(network, *replay);
+        }
+        if (bestSnapshot.restore(network)) {
+            replay = bestSnapshot.bestReplay();
+        }
+        if (!nn::saveWeights(network, modelPath)) {
+            emit failed(QStringLiteral("ai_mode.error_model_save"),
+                        QString::fromStdString(modelPath.string()));
+            return false;
+        }
+        if (replay) {
+            solved = replay->status == EpisodeStatus::Won;
+            const training::ReplayExportResult exportResult = training::exportReplay(
+                *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
+            solved = solved && exportResult.exported;
+        }
+        return true;
+    };
+
     // Familles par gradient (pg/ac/avance) : reseau/optimiseur possedes localement, comme
     // aisolver::cli::runTrain -- meme construction, jamais dupliquee au-dela de ce dispatch.
     const auto topology = training::evolutionary::policyTopology(inputSize, config.hiddenSize);
@@ -320,29 +373,19 @@ void TrainingWorker::run() {
         // et sert donc a la fois a l'apercu periodique (pendant) et au rejeu final (apres).
         eval::ReinforceTrainedPolicy evalPolicy(*policy);
         recorder.emplace(statsPath);
-        recorder->setOnRecord(
-            [this, &evalPolicy, &maybeEmitPreview, &algorithmName, &stepsCompleted, &algorithmId](
-                const TrainingStatsRow& row, const aisolver::TrainingStatsDerived& derived) {
-                stepsCompleted = row.index + 1;
-                emit progress(toProgress(row, derived));
-                maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
-            });
+        recorder->setOnRecord([this, &evalPolicy, &policy, &maybeEmitPreview, &algorithmName,
+                               &stepsCompleted,
+                               &algorithmId](const TrainingStatsRow& row,
+                                             const aisolver::TrainingStatsDerived& derived) {
+            stepsCompleted = row.index + 1;
+            emit progress(toProgress(row, derived));
+            maybeEmitPreview(evalPolicy, *policy, algorithmName, algorithmId, row.index);
+        });
         training::ReinforceTrainer trainer(*policy, *optimizer, environment, levelPath,
                                            reinforceConfig, *recorder, levelName);
         trainer.run(config.episodes, shouldStop);
-        if (!nn::saveWeights(*policy, modelPath)) {
-            emit failed(QStringLiteral("ai_mode.error_model_save"),
-                        QString::fromStdString(modelPath.string()));
+        if (!finalizeGradientRun(evalPolicy, *policy)) {
             return;
-        }
-        HeadlessLevelEnvironment rolloutEnvironment;
-        const std::optional<training::DeterministicReplayResult> replay =
-            training::argmaxRollout(evalPolicy, rolloutEnvironment, levelPath);
-        if (replay) {
-            solved = replay->status == EpisodeStatus::Won;
-            const training::ReplayExportResult exportResult = training::exportReplay(
-                *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
-            solved = solved && exportResult.exported;
         }
     } else if (requestedAlgorithm == "ac") {
         algorithmName = "acteur-critique";
@@ -364,30 +407,20 @@ void TrainingWorker::run() {
         actorCriticConfig.tuning = config.tuning;
         eval::ActorCriticTrainedPolicy evalPolicy(*policy);
         recorder.emplace(statsPath);
-        recorder->setOnRecord(
-            [this, &evalPolicy, &maybeEmitPreview, &algorithmName, &stepsCompleted, &algorithmId](
-                const TrainingStatsRow& row, const aisolver::TrainingStatsDerived& derived) {
-                stepsCompleted = row.index + 1;
-                emit progress(toProgress(row, derived));
-                maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
-            });
+        recorder->setOnRecord([this, &evalPolicy, &policy, &maybeEmitPreview, &algorithmName,
+                               &stepsCompleted,
+                               &algorithmId](const TrainingStatsRow& row,
+                                             const aisolver::TrainingStatsDerived& derived) {
+            stepsCompleted = row.index + 1;
+            emit progress(toProgress(row, derived));
+            maybeEmitPreview(evalPolicy, *policy, algorithmName, algorithmId, row.index);
+        });
         training::ActorCriticTrainer trainer(*policy, *policyOptimizer, critic, *criticOptimizer,
                                              environment, levelPath, actorCriticConfig, *recorder,
                                              levelName);
         trainer.run(config.episodes, true, shouldStop);
-        if (!nn::saveWeights(*policy, modelPath)) {
-            emit failed(QStringLiteral("ai_mode.error_model_save"),
-                        QString::fromStdString(modelPath.string()));
+        if (!finalizeGradientRun(evalPolicy, *policy)) {
             return;
-        }
-        HeadlessLevelEnvironment rolloutEnvironment;
-        const std::optional<training::DeterministicReplayResult> replay =
-            training::argmaxRollout(evalPolicy, rolloutEnvironment, levelPath);
-        if (replay) {
-            solved = replay->status == EpisodeStatus::Won;
-            const training::ReplayExportResult exportResult = training::exportReplay(
-                *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
-            solved = solved && exportResult.exported;
         }
     } else {
         algorithmName = "dqn";
@@ -418,7 +451,7 @@ void TrainingWorker::run() {
         // qu'apres. D'ou ce pointeur, renseigne juste apres la construction et lu seulement
         // pendant `run()` -- jamais nul quand le rappel se declenche.
         const training::DqnTrainer* runningTrainer = nullptr;
-        recorder->setOnRecord([this, &evalPolicy, &maybeEmitPreview, &algorithmName,
+        recorder->setOnRecord([this, &evalPolicy, &mainNetwork, &maybeEmitPreview, &algorithmName,
                                &stepsCompleted, &algorithmId,
                                &runningTrainer](const TrainingStatsRow& row,
                                                 const aisolver::TrainingStatsDerived& derived) {
@@ -433,7 +466,8 @@ void TrainingWorker::run() {
                 step.totalSteps = runningTrainer->totalSteps();
             }
             emit progress(step);
-            maybeEmitPreview(evalPolicy, algorithmName, algorithmId, row.index);
+            maybeEmitPreview(evalPolicy, mainNetwork.network(), algorithmName, algorithmId,
+                             row.index);
         });
         // CSV secondaire (index,replayBufferSize,epsilon), meme fichier que `aisolver-cli train` :
         // les deux grandeurs qui expliquent la forme d'une courbe DQN n'ont pas de colonne dans le
@@ -442,19 +476,8 @@ void TrainingWorker::run() {
                                      dqnConfig, *recorder, levelName, runDir / "dqn_stats.csv");
         runningTrainer = &trainer;
         trainer.run(config.episodes, shouldStop);
-        if (!nn::saveWeights(mainNetwork.network(), modelPath)) {
-            emit failed(QStringLiteral("ai_mode.error_model_save"),
-                        QString::fromStdString(modelPath.string()));
+        if (!finalizeGradientRun(evalPolicy, mainNetwork.network())) {
             return;
-        }
-        HeadlessLevelEnvironment rolloutEnvironment;
-        const std::optional<training::DeterministicReplayResult> replay =
-            training::argmaxRollout(evalPolicy, rolloutEnvironment, levelPath);
-        if (replay) {
-            solved = replay->status == EpisodeStatus::Won;
-            const training::ReplayExportResult exportResult = training::exportReplay(
-                *replay, solved, levelPath, replayPath, algorithmName, _request.seed, algorithmId);
-            solved = solved && exportResult.exported;
         }
     }
 
