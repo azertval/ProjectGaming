@@ -334,6 +334,47 @@ void GameSession::loadLevel(core::Level level) {
         }
         _platformEntities.push_back(platformEntity);
     }
+    // Blocs descendants (EX-GP-027, LOT-74) : position CONTINUE comme une plateforme mobile, donc
+    // meme patron d'entite-tuile interpolee au rendu (PreviousPosition).
+    _sinkingBlocks.emplace(levelRef);
+    _sinkingBlockEntities.clear();
+    for (std::size_t index = 0; index < _sinkingBlocks->count(); ++index) {
+        const core::GridPosition start = _sinkingBlocks->startPositionAt(index);
+        core::Entity sinkingEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == start.column &&
+                    static_cast<int>(transform.position.y) == start.row) {
+                    sinkingEntity = entity;
+                    found = true;
+                }
+            });
+        if (found && _world.hasComponent<core::Transform>(sinkingEntity)) {
+            _world.addComponent(
+                sinkingEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(sinkingEntity).position});
+        }
+        _sinkingBlockEntities.push_back(sinkingEntity);
+    }
+    // Blocs volatils (EX-GP-028/EX-GP-029, LOT-74) : ils ne bougent JAMAIS, donc aucune
+    // PreviousPosition ni interpolation -- seule leur VISIBILITE change, quand ils disparaissent.
+    _volatileBlocks.emplace(levelRef);
+    _volatileBlockEntities.clear();
+    for (std::size_t index = 0; index < _volatileBlocks->count(); ++index) {
+        const core::GridPosition position = _volatileBlocks->positionAt(index);
+        core::Entity volatileEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == position.column &&
+                    static_cast<int>(transform.position.y) == position.row) {
+                    volatileEntity = entity;
+                    found = true;
+                }
+            });
+        _volatileBlockEntities.push_back(volatileEntity);
+    }
     // Capacites du tableau (EX-GP-055) : un niveau peut redefinir le nombre de sauts aeriens et de
     // charges de dash, tous deux recharges au contact du sol -- a distinguer des BUDGETS poses sur
     // le personnage dans spawnPlayer, qui se consomment une fois pour toutes. Sans champ, on garde
@@ -605,6 +646,49 @@ void GameSession::refreshPlatformVisuals() {
         core::Transform& transform = _world.getComponent<core::Transform>(platform);
         transform.position = _platforms->boxAt(index).min;
     }
+}
+
+void GameSession::refreshSinkingBlockVisuals() {
+    for (std::size_t index = 0; index < _sinkingBlockEntities.size(); ++index) {
+        const core::Entity block = _sinkingBlockEntities[index];
+        if (!_world.hasComponent<core::Transform>(block)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(block);
+        if (_sinkingBlocks->isRemovedAt(index)) {
+            // Sorti par le bas : plus aucun echantillon, donc plus aucune collision -- il ne doit
+            // pas non plus rester dessine a sa derniere position. core::Sprite n'a pas de drapeau
+            // de visibilite : la teinte entierement transparente est le moyen disponible.
+            if (_world.hasComponent<core::Sprite>(block)) {
+                _world.getComponent<core::Sprite>(block).tint.a = 0.0f;
+            }
+            continue;
+        }
+        transform.position = _sinkingBlocks->boxAt(index).min;
+    }
+}
+
+void GameSession::refreshVolatileBlockVisuals() {
+    for (std::size_t index = 0; index < _volatileBlockEntities.size(); ++index) {
+        const core::Entity block = _volatileBlockEntities[index];
+        if (!_world.hasComponent<core::Sprite>(block)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Sprite& sprite = _world.getComponent<core::Sprite>(block);
+        if (_volatileBlocks->isGoneAt(index)) {
+            sprite.tint.a = 0.0f;  // core::Sprite n'a pas de drapeau de visibilite
+            continue;
+        }
+        // Clignotement d'avertissement pendant le compte a rebours d'un bloc ephemere
+        // (EX-GP-029) : confort de lisibilite, jamais une mecanique -- la disparition ne depend en
+        // rien de ce qui est affiche. Rythme derive du pas fixe (jamais du rythme de rendu, pour
+        // rester deterministe -- EX-NFR-002), comme les tuiles animees.
+        constexpr int BLINK_PERIOD_STEPS = 6;
+        const bool dimmed = _volatileBlocks->isVanishingAt(index) &&
+                            (_volatileBlinkStep / BLINK_PERIOD_STEPS) % 2 == 1;
+        sprite.tint.a = dimmed ? 0.35f : 1.0f;
+    }
+    ++_volatileBlinkStep;
 }
 
 std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() {
@@ -901,7 +985,6 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
     // consomment sa position DEJA a jour pour ce pas.
     _platforms->update();
     refreshPlatformVisuals();
-    const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
 
     // 1ter. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
     // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent. Poussee RENFORCEE
@@ -919,7 +1002,30 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
     const float dashPushSpeed = (previousPlayer.dashTimer > 0.0f && previousPlayer.dashIsBoosted)
                                     ? previousVelocity.value.x
                                     : 0.0f;
-    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap(), platformSamples,
+
+    // 1ter-a. Blocs VOLATILS (EX-GP-028/EX-GP-029, LOT-74) : resolus AVANT la physique de ce pas,
+    // avec la boite du personnage TELLE QUE LAISSEE par le pas precedent -- meme argument que la
+    // poussee des blocs ci-dessous. Resolue APRES la physique, la destruction d'un bloc fragile
+    // arriverait trop tard : le ground pound se serait deja arrete d'un pas sur un bloc qu'il est
+    // precisement cense traverser en le brisant, et le joueur verrait un a-coup.
+    _volatileBlocks->update(previousBox, previousPlayer.groundPounding);
+    refreshVolatileBlockVisuals();
+
+    // 1ter-b. Blocs DESCENDANTS (EX-GP-027, LOT-74) : armes au contact puis descendus, sur la
+    // grille de collision deja resolue par les mecanismes ET par la disparition ci-dessus (un bloc
+    // volatil brise ne doit plus arreter un bloc descendant). Leurs echantillons sont concatenes a
+    // ceux des plateformes : c'est cette seule concatenation qui leur donne portage du personnage,
+    // collision continue et portage des blocs poussables, sans aucun code de collision dedie.
+    const core::TileMap mechanismAndVolatileCollision =
+        _volatileBlocks->collisionMap(_mechanisms->collisionMap());
+    _sinkingBlocks->update(previousBox, mechanismAndVolatileCollision);
+    refreshSinkingBlockVisuals();
+    _supportSamples = _platforms->samples();
+    _supportSamples.insert(_supportSamples.end(), _sinkingBlocks->samples().begin(),
+                           _sinkingBlocks->samples().end());
+    const std::vector<core::PlatformSample>& platformSamples = _supportSamples;
+
+    _blocks->update(previousBox, intent.moveX, mechanismAndVolatileCollision, platformSamples,
                     dashPushSpeed);
     refreshBlockVisuals();
     // Momentum herite (EX-GP-057/EX-GP-061) : arme la fenetre AVANT que la physique de ce pas ne
@@ -932,7 +1038,7 @@ core::LevelOutcome GameSession::update(const core::PlayerInput& intent, float fi
 
     // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la position
     //    COURANTE des blocs (resolue ci-dessus).
-    const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    const core::TileMap collision = _blocks->collisionMap(mechanismAndVolatileCollision);
     // Vitesse verticale AVANT ce pas (LOT-53 TACHE-02) : la physique remet velocity.y a zero au
     // contact du sol -- c'est donc la derniere valeur disponible qui approxime la vitesse
     // d'impact d'un atterrissage survenant CE pas (intensite de la poussiere, cf. plus bas).

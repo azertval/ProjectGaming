@@ -93,6 +93,12 @@ std::string tileTypeName(TileType type) {
             return "lockedDoor";
         case TileType::MovingPlatform:
             return "movingPlatform";
+        case TileType::SinkingBlock:
+            return "sinkingBlock";
+        case TileType::FragileBlock:
+            return "fragileBlock";
+        case TileType::VanishingBlock:
+            return "vanishingBlock";
     }
     return "empty";  // inatteignable : le switch ci-dessus couvre tout l'enum.
 }
@@ -100,13 +106,16 @@ std::string tileTypeName(TileType type) {
 std::optional<TileType> parseTileType(std::string_view name) {
     // Table construite une fois a partir de tileTypeName : la reciprocite des deux conversions est
     // ainsi structurelle, pas seulement testee. Ajouter un TileType suffit donc a le rendre
-    // lisible. Les cles sont des std::string (proprietaires) : tileTypeName renvoie une valeur,
-    // dont un string_view ne survivrait pas.
+    // lisible -- la borne d'iteration vient de core::TILE_TYPE_COUNT (Core/Levels/TileType.h),
+    // seule source de verite de la fin de l'enumeration depuis le LOT-74 : il n'y a plus de
+    // dernier enumerateur recopie ici, donc plus rien a mettre a jour a la main. Les cles sont des
+    // std::string (proprietaires) : tileTypeName renvoie une valeur, dont un string_view ne
+    // survivrait pas.
     using NameTable =
         std::unordered_map<std::string, TileType, TransparentStringHash, std::equal_to<>>;
     static const NameTable byName = [] {
         NameTable table;
-        for (int raw = 0; raw <= static_cast<int>(TileType::MovingPlatform); ++raw) {
+        for (int raw = 0; raw < TILE_TYPE_COUNT; ++raw) {
             const auto type = static_cast<TileType>(raw);
             table.emplace(tileTypeName(type), type);
         }

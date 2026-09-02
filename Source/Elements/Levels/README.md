@@ -84,7 +84,7 @@ au joueur :
 Voir `Documentation/Guide/guide-niveaux.md` et la doctrine de conception dans
 `Documentation/Specification/niveaux.md`, Sec. 3.
 
-### Inventaire des vingt-deux tableaux
+### Inventaire des vingt-cinq tableaux
 
 Le `LOT-65` a refondu cette séquence en **deux temps**. Le premier (`TACHE-00` à `TACHE-04`) a
 remplacé les dix-sept bancs d'essai nus hérités du `LOT-25` par des tableaux habillés couvrant
@@ -110,16 +110,19 @@ dans `Documentation/Specification/niveaux.md`, Sec. 3.
 | 10 | `demo-bloc.json` | Bloc poussable (`EX-GP-022`) comblant une fosse | Niveau entier | 1 saut |
 | 11 | `demo-bloc-reduit.json` | Bloc `×0.5` (`EX-GP-005`), deux fosses | Niveau entier | 2 sauts |
 | 12 | `demo-bloc-quart.json` | Bloc `×0.25` (`EX-GP-005`) — texture par instance | Niveau entier | 1 saut |
-| 13 | `demo-pente.json` | Pentes **et** arrondis de sol (`EX-GP-003`/`004`), montée et descente | Niveau entier | 0 dash |
-| 14 | `demo-pente-gauche.json` | Variantes montant vers la **gauche** ; l'entrée est à droite | Niveau entier | 0 dash |
-| 15 | `demo-concave.json` | Arrondis concaves (`EX-GP-007`), sol sur le chemin et plafond bas | Niveau entier | 0 dash |
-| 16 | `demo-plafond.json` | Les quatre plafonds inclinés (`EX-GP-006`) bordant le couloir | Niveau entier | 0 dash |
-| 17 | `demo-dangers-directionnels.json` | Les quatre orientations (`EX-GP-050`) **sur** le chemin | Niveau entier | — |
-| 18 | `demo-dangers-avances.json` | Danger mobile, commuté, temporisé déphasé (`EX-GP-051`–`053`) | Niveau entier | — |
-| 19 | `demo-plateforme.json` | Plateforme mobile (`EX-GP-026`), verticale, portant un bloc | Niveau entier | — |
-| 20 | `demo-budget.json` | Budget de mouvements (`EX-GP-024`) : le trajet consomme tout | Niveau entier | 4 sauts, 2 dashs |
-| 21 | `demo-synthese.json` | Mécanismes, terrain et dangers **entrelacés** | Niveau entier | 6 sauts, 1 dash |
-| 22 | `demo-final.json` | **Final multi-salles** : une énigme par salle, quatre mécanismes en séquence (clé, plaque, interrupteur, clé) | Suivi | — |
+| 13 | `demo-bloc-descendant.json` | Bloc **descendant** (`EX-GP-027`) : deux fosses enjambées, un bloc bloqué par le sol plein | Niveau entier | — |
+| 14 | `demo-bloc-fragile.json` | Bloc **fragile** (`EX-GP-028`) brisé au ground pound (`EX-GP-058`) — `dashCharges: 0` pour rendre le geste atteignable | Niveau entier | 0 charge de dash |
+| 15 | `demo-bloc-ephemere.json` | Bloc **éphémère** (`EX-GP-029`) : le chemin se referme derrière soi | Niveau entier | — |
+| 16 | `demo-pente.json` | Pentes **et** arrondis de sol (`EX-GP-003`/`004`), montée et descente | Niveau entier | 0 dash |
+| 17 | `demo-pente-gauche.json` | Variantes montant vers la **gauche** ; l'entrée est à droite | Niveau entier | 0 dash |
+| 18 | `demo-concave.json` | Arrondis concaves (`EX-GP-007`), sol sur le chemin et plafond bas | Niveau entier | 0 dash |
+| 19 | `demo-plafond.json` | Les quatre plafonds inclinés (`EX-GP-006`) bordant le couloir | Niveau entier | 0 dash |
+| 20 | `demo-dangers-directionnels.json` | Les quatre orientations (`EX-GP-050`) **sur** le chemin | Niveau entier | — |
+| 21 | `demo-dangers-avances.json` | Danger mobile, commuté, temporisé déphasé (`EX-GP-051`–`053`) | Niveau entier | — |
+| 22 | `demo-plateforme.json` | Plateforme mobile (`EX-GP-026`), verticale, portant un bloc | Niveau entier | — |
+| 23 | `demo-budget.json` | Budget de mouvements (`EX-GP-024`) : le trajet consomme tout | Niveau entier | 4 sauts, 2 dashs |
+| 24 | `demo-synthese.json` | Mécanismes, terrain et dangers **entrelacés** | Niveau entier | 6 sauts, 1 dash |
+| 25 | `demo-final.json` | **Final multi-salles** : une énigme par salle, quatre mécanismes en séquence (clé, plaque, interrupteur, clé) | Suivi | — |
 
 `demo-arrondi.json` (fusionné dans `demo-pente`) et `demo-salles.json` (absorbé par le final, qui
 porte désormais le cadrage *par salle*) ont été supprimés au second temps.

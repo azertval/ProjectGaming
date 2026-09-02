@@ -72,7 +72,17 @@ cases, défauts respectifs `"horizontal"` et `2`), `dangerSwitched` (danger **co
 — mortel uniquement quand l'interrupteur/la plaque de pression qui lui est lié est actif ; champ
 `opensWith` comme `door`, même résolution par identifiant), `dangerBlink` (danger **temporisé**,
 `EX-GP-053` — alterne mortel/inoffensif selon une période fixe ; champs optionnels `period`,
-`phase` et `activeDuration`, en pas fixes, défauts respectifs `120`, `0` et `60`). Une case
+`phase` et `activeDuration`, en pas fixes, défauts respectifs `120`, `0` et `60`),
+`sinkingBlock` (bloc **descendant**, `EX-GP-027` — armé par un contact quelconque du personnage,
+puis descend à vitesse constante en portant ce qui repose dessus, jusqu'à buter sur la matière
+pleine ou à sortir par le bas du tableau ; position **continue** comme `movingPlatform`, donc
+jamais solide pour la grille classique, et **aucun champ** : sa vitesse est une constante du
+moteur), `fragileBlock` (bloc **fragile**, `EX-GP-028` — solide, détruit par un ground pound
+`EX-GP-058` qui l'atteint par le dessus et par ce geste seul ; aucun champ) et `vanishingBlock`
+(bloc **éphémère**, `EX-GP-029` — solide, disparaît un délai fixe après que le personnage a cessé
+d'y **reposer** ; aucun champ, le délai étant lui aussi une constante du moteur). Pour ces deux
+derniers, la disparition est **définitive** jusqu'au rechargement du tableau et ne touche que la
+grille de collision résolue, jamais la carte du niveau. Une case
 **vide** n'est pas listée (absence = vide).
 ```json
 {

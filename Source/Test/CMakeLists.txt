@@ -36,6 +36,8 @@ add_executable(UnitTests
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Gameplay/test_platform_controller.cpp
+    Unit/Core/Gameplay/test_sinking_block_controller.cpp
+    Unit/Core/Gameplay/test_volatile_block_controller.cpp
     Unit/Core/Gameplay/test_platform_path.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp

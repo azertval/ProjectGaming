@@ -143,6 +143,47 @@ Concrétise l'objectif produit `EX-VIS-003` (`vision.md`).
   (déplacer les plateformes, porter les entités posées, appliquer la physique du personnage) est
   **documenté et testé** ; le cas d'écrasement contre un plafond est **mortel** (décision de cadrage
   retenue, `LOT-63`), plutôt que de mettre la plateforme en pause.
+- \anchor EX-GP-027 **EX-GP-027** — Un **bloc descendant** doit être **armé** par un contact
+  quelconque du personnage (par le dessus, par le côté ou par le dessous — jamais un test de portage,
+  qui obligerait à définir un seuil de « vraiment posé dessus »), puis **descendre** à vitesse
+  constante en **portant** le personnage et les blocs poussables (`EX-GP-022`) qui reposent dessus,
+  aux mêmes conditions qu'une plateforme mobile (`EX-GP-026` : sans traversée, sans glissement cumulé
+  ni décollement). L'armement est un **aller simple** : il ne s'annule pas si le personnage s'éloigne,
+  et le bloc ne repart jamais en arrière. Le bloc **ne traverse jamais la matière** — il s'arrête
+  contre une case pleine et n'y repart pas si elle se libère —, et il est **retiré** du niveau s'il
+  franchit le bord bas du tableau. Un personnage écrasé entre un bloc descendant et le sol provoque
+  l'**échec** (`EX-GP-031`), même décision de cadrage que l'écrasement sous une plateforme mobile
+  (`LOT-63`), plutôt que de mettre le bloc en pause. Sa position est **continue** (jamais alignée sur
+  la grille) et fonction du seul **numéro de pas** écoulé depuis l'armement — jamais d'une
+  accumulation (`EX-NFR-002`) ; il n'est donc **jamais solide** pour la grille classique
+  (`core::isSolid`), sa collision étant résolue boîte-contre-boîte comme celle d'une plateforme
+  mobile. Sa vitesse est une **constante du moteur**, comme le délai du bloc éphémère
+  (`EX-GP-029`) et non une donnée de niveau : le constructeur de `core::Level` atteint déjà
+  19 paramètres et sa surface est actée comme maximale, si bien qu'ouvrir ce réglage par tuile
+  coûterait plus que ce qu'il apporte aujourd'hui. Le rendre réglable plus tard n'invalidera aucun
+  fichier existant, un champ optionnel absent valant le défaut. Concrétisé en `LOT-74`.
+- \anchor EX-GP-028 **EX-GP-028** — Un **bloc fragile** doit être **solide** comme une case pleine,
+  et **détruit** par un **ground pound** (`EX-GP-058`) qui l'atteint **par le dessus** — par ce geste
+  et par lui seul. Aucun autre contact ne le brise : ni la marche, ni le saut, ni un atterrissage
+  rapide, ni un dash (horizontal, vertical ou boosté, `EX-GP-056`), ni la poussée d'un bloc
+  (`EX-GP-022`/`EX-GP-057`). Cette restriction est **délibérée** : tant qu'une charge de dash existe,
+  « dash + bas » reste un dash vertical normal (`EX-GP-058`), donc en faire aussi un geste de
+  destruction rendrait le comportement du bloc dépendant du **budget de dash restant**, illisible
+  pour le joueur. La destruction doit être résolue **avant** la physique du personnage sur le même
+  pas, de sorte que le ground pound se poursuive au travers sans s'arrêter d'un pas sur un bloc qu'il
+  vient de briser. Elle est **définitive** jusqu'au rechargement du tableau, et ne modifie jamais la
+  carte du niveau elle-même, seulement la grille de **collision** résolue (même infrastructure que
+  l'ouverture d'une porte, `EX-GP-021`). Concrétisé en `LOT-74`.
+- \anchor EX-GP-029 **EX-GP-029** — Un **bloc éphémère** doit être **solide** tant que le personnage
+  repose dessus, quelle que soit la durée, puis **disparaître** après un délai fixe une fois qu'il
+  l'a **quitté** — un **front** de départ (le personnage reposait dessus au pas précédent et n'y
+  repose plus), jamais un simple contact : passer dessous ou le toucher par le côté ne l'arme pas.
+  Le délai est une constante du **moteur**, exprimée en pas fixes (`EX-NFR-002`), et non une donnée
+  de niveau. Revenir dessus pendant le compte à rebours ne l'annule pas. La disparition est
+  **définitive** jusqu'au rechargement du tableau, et se résout comme celle du bloc fragile
+  (`EX-GP-028`), sur la grille de collision et non sur la carte du niveau. Le risque de rendre un
+  tableau **insoluble** est assumé : il relève du level design, et le garde-fou système qui relève la
+  trajectoire réelle (`EX-NFR-021`) le détecte. Concrétisé en `LOT-74`.
 
 Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).
 

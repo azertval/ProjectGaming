@@ -6,6 +6,42 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Gameplay — blocs interactifs volatils** (`LOT-74`, `EX-GP-027` à `EX-GP-029`). Trois types de
+  tuile pour de la matière qui ne survit pas au passage du personnage, là où le moteur n'avait
+  jusqu'ici **aucun** bloc destructible, fragile ou disparaissant : une fois posé, un bloc était là
+  pour toujours.
+  - **Bloc descendant** (`EX-GP-027`, `sinkingBlock`) : armé par un contact quelconque — dessus,
+    côté ou dessous —, il descend ensuite à vitesse constante en **portant** le personnage et les
+    blocs poussables posés dessus, s'arrête définitivement contre la matière pleine, et quitte le
+    niveau s'il franchit le bord bas. Position **continue**, comme une plateforme mobile.
+  - **Bloc fragile** (`EX-GP-028`, `fragileBlock`) : détruit par un **ground pound**, et par lui
+    seul. Le geste, livré au `LOT-72`, n'avait jusqu'ici **aucune cible** — l'exclusion était
+    consignée deux fois dans le dossier de ce lot, faute d'un type de tuile à casser. La destruction
+    est résolue **avant** la physique du pas, pour que le pound traverse la dalle qu'il brise au lieu
+    de s'y arrêter d'un pas.
+  - **Bloc éphémère** (`EX-GP-029`, `vanishingBlock`) : solide tant qu'on est dessus quelle que soit
+    la durée, effacé un court délai après qu'on l'a **quitté** — un front de départ, jamais un simple
+    contact. La disparition est **définitive** jusqu'au rechargement du tableau.
+  - **Aucune passe de physique nouvelle.** Le bloc descendant émet des `core::PlatformSample`, le
+    type que la physique consomme déjà pour les plateformes mobiles : portage, collision continue et
+    interpolation d'affichage lui viennent de là, sans code de collision dédié. Les deux autres
+    réutilisent la copie mutable du `TileMap` déjà tenue pour les portes.
+  - **Trois tableaux de démonstration** (`demo-bloc-descendant`, `demo-bloc-fragile`,
+    `demo-bloc-ephemere`), portant la séquence livrée de 22 à **25** tableaux.
+  - **Dette soldée** : la borne « dernier énumérateur de `TileType` » était recopiée à la main dans
+    **quatre** fichiers — dont deux qui documentaient leur propre fragilité, et un quatrième que
+    seule la compilation a révélé. Elle n'existe plus qu'à un seul endroit
+    (`core::TILE_TYPE_COUNT`).
+  - **Écart de fidélité corrigé** : l'orchestration de référence des tests système n'appliquait pas
+    les **capacités de tableau** (`EX-GP-055` : sauts aériens, charges de dash), alors que le jeu et
+    l'environnement d'entraînement les appliquent tous deux. Sans conséquence tant qu'aucun tableau
+    livré ne déclarait ces champs ; mis au jour par `demo-bloc-fragile`, qui déclare
+    `dashCharges: 0`.
+  - ⚠️ **Rupture** : l'observation de l'IA passe de **33 à 36 canaux**. La *forme* du tenseur
+    d'entrée change, donc les modèles entraînés avant ce lot doivent être **réentraînés**. La
+    *signification* des canaux existants est en revanche préservée : les trois nouveaux types sont
+    ajoutés en **fin** d'énumération, jamais insérés au milieu.
+
 ## [0.1.3] - 2026-09-01
 
 > Neuvième jalon. Le solveur IA de la version précédente **apprenait mal** : chaque épisode était

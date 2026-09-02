@@ -17,6 +17,8 @@
 #include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Gameplay/PlatformController.h"
+#include "Core/Gameplay/SinkingBlockController.h"
+#include "Core/Gameplay/VolatileBlockController.h"
 #include "Core/Levels/CameraFraming.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
@@ -176,6 +178,12 @@ private:
     /// Replace chaque entité-tuile de plateforme mobile à sa position COURANTE (`EX-GP-026`,
     /// `LOT-63`), même patron que `refreshDangerVisuals` pour un danger mobile.
     void refreshPlatformVisuals();
+    /// Recale l'entité-tuile de chaque bloc descendant sur sa position courante, et efface celles
+    /// des blocs sortis du tableau (`EX-GP-027`, `LOT-74`).
+    void refreshSinkingBlockVisuals();
+    /// Efface l'entité-tuile de chaque bloc volatil disparu et fait clignoter les blocs éphémères
+    /// dont le compte à rebours court (`EX-GP-028`/`EX-GP-029`, `LOT-74`).
+    void refreshVolatileBlockVisuals();
     /// Apparence des mécanismes pilotée par leur état logique (`LOT-47`, `EX-REN-006`) : projette
     /// l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au **pas fixe**
     /// — la simulation n'en dépend jamais, seule l'apparence en résulte (`EX-ARCH-012`).
@@ -252,6 +260,21 @@ private:
     /// Entité-tuile de chaque plateforme mobile, même ordre que `core::Level::platformConfigs()`
     /// (`EX-GP-026`, `LOT-63`).
     std::vector<core::Entity> _platformEntities;
+    /// Blocs volatils du tableau : fragile (`EX-GP-028`) et éphémère (`EX-GP-029`), `LOT-74`.
+    std::optional<core::VolatileBlockController> _volatileBlocks;
+    /// Entité-tuile de chaque bloc volatil, même ordre que `core::VolatileBlockController`.
+    std::vector<core::Entity> _volatileBlockEntities;
+    /// Blocs descendants du tableau (`EX-GP-027`, `LOT-74`).
+    std::optional<core::SinkingBlockController> _sinkingBlocks;
+    /// Entité-tuile de chaque bloc descendant, même ordre que `core::SinkingBlockController`.
+    std::vector<core::Entity> _sinkingBlockEntities;
+    /// Échantillons des supports mobiles du pas courant : plateformes mobiles **puis** blocs
+    /// descendants, concaténés (`LOT-74` TACHE-06). Membre plutôt que variable locale pour que la
+    /// référence reste valable pendant tout le pas, comme celle de `PlatformController::samples()`.
+    std::vector<core::PlatformSample> _supportSamples;
+    /// Compteur de pas du clignotement d'avertissement d'un bloc éphémère (`EX-GP-029`) — un
+    /// confort d'affichage, sans effet sur la simulation.
+    int _volatileBlinkStep = 0;
     std::vector<core::Entity> _moverEntities;
     std::vector<core::Entity> _dangerSwitchedEntities;
     std::vector<core::Entity> _dangerBlinkEntities;

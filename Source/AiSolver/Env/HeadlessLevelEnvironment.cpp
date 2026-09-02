@@ -51,6 +51,8 @@ bool HeadlessLevelEnvironment::reset(const std::filesystem::path& levelPath) {
         _mechanisms.reset();
         _dangers.reset();
         _platforms.reset();
+        _volatileBlocks.reset();
+        _sinkingBlocks.reset();
         return false;
     }
     _loadError.clear();
@@ -72,6 +74,8 @@ bool HeadlessLevelEnvironment::reset(const std::filesystem::path& levelPath) {
     _mechanisms.emplace(levelRef);
     _dangers.emplace(levelRef);
     _platforms.emplace(levelRef);
+    _volatileBlocks.emplace(levelRef);
+    _sinkingBlocks.emplace(levelRef);
 
     // Entite joueur : memes quatre composants que spawn() dans test_parcours_complet.cpp, aucun
     // Sprite ni Animation (HeadlessLevelEnvironment ne rend jamais rien).
@@ -195,7 +199,7 @@ std::vector<core::Aabb> HeadlessLevelEnvironment::collectActiveDangerBoxes() con
 
 void HeadlessLevelEnvironment::refreshCollisionAndObjective(const core::Aabb& playerBox) {
     const unsigned long long revisionBefore = _objectiveCache.revision();
-    _collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    _collision = _blocks->collisionMap(_volatileBlocks->collisionMap(_mechanisms->collisionMap()));
     static_cast<void>(
         _objectiveCache.field(*_level, *_mechanisms, *_collision, _blocks->positions()));
     if (revisionBefore != 0 && _objectiveCache.revision() != revisionBefore) {
@@ -239,11 +243,21 @@ StepObservation HeadlessLevelEnvironment::step(const core::PlayerInput& input) {
     // (redige avant LOT-63), mais necessaires a la fidelite pas-a-pas garantie par TACHE-05 : les
     // deux orchestrations de reference les composent deja.
     _platforms->update();
-    const std::vector<core::PlatformSample>& platformSamples = _platforms->samples();
+
+    // 1ter. Blocs volatils puis descendants (EX-GP-027 a EX-GP-029, LOT-74) : meme ordre et meme
+    // convention de boite (celle d'AVANT le pas) que hmi::GameSession::update. Les echantillons des
+    // blocs descendants se concatenent a ceux des plateformes -- c'est cette seule concatenation
+    // qui leur donne portage et collision continue.
+    _volatileBlocks->update(previousBox, _world.getComponent<core::Player>(_player).groundPounding);
+    _sinkingBlocks->update(previousBox, _volatileBlocks->collisionMap(_mechanisms->collisionMap()));
+    _supportSamples = _platforms->samples();
+    _supportSamples.insert(_supportSamples.end(), _sinkingBlocks->samples().begin(),
+                           _sinkingBlocks->samples().end());
+    const std::vector<core::PlatformSample>& platformSamples = _supportSamples;
 
     // 2. Mecanismes (lecture de la grille de collision) -> blocs (poussee/chute), avec la boite du
     //    personnage AVANT son propre deplacement de ce pas.
-    const core::TileMap& mechanismMap = _mechanisms->collisionMap();
+    const core::TileMap mechanismMap = _volatileBlocks->collisionMap(_mechanisms->collisionMap());
     _blocks->update(previousBox, input.moveX, mechanismMap, platformSamples);
 
     // 3. Physique du personnage sur la grille des mecanismes completee par les blocs.

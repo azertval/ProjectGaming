@@ -82,8 +82,33 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-70
 - @subpage lot-72
 - @subpage lot-73
+- @subpage lot-74
 
 ## Apres le programme `0.1.0`
+
+Le [LOT-74](@ref lot-74) — **livré** — donne au level design des blocs qui ne
+survivent pas au passage du personnage : un bloc **descendant** que tout contact arme et qui emporte
+ce qui repose dessus (`EX-GP-027`), un bloc **fragile** que brise un ground pound (`EX-GP-028`), un
+bloc **éphémère** qui s'efface une fois qu'on l'a quitté (`EX-GP-029`). Il ne répond pas à un
+programme cadré mais à un manque que le dépôt avait **déjà consigné** : le `LOT-72` a livré le ground
+pound en excluant explicitement la casse de blocs fragiles, faute d'un `TileType` à casser — le geste
+existe donc depuis lors sans cible. Les trois blocs sont cadrés ensemble parce qu'ils partagent
+**exactement** la même chaîne de huit fichiers (type de tuile, chargeur, éditeur, rendu, contrôleur,
+contenu) pour trois comportements de quelques dizaines de lignes ; les séparer l'aurait payée trois
+fois. Le pari technique est qu'**aucune passe de physique nouvelle** n'est nécessaire : le portage
+d'un corps à position continue existe (`EX-GP-026`, plateformes mobiles) et le retrait de matière de
+la grille de collision aussi (portes et clés) — le lot réutilise les deux plutôt que d'ouvrir un
+troisième chemin de collision. Il solde au passage une dette consignée dans le code lui-même : la
+borne « dernier énumérateur de `TileType` », recopiée à la main dans trois fichiers, devient une
+sentinelle unique — elle s'y trouvait en réalité **quatre** fois, la quatrième n'ayant été révélée
+que par l'exécution des tests. Deux conséquences sont assumées et documentées : la disparition d'un
+bloc est **définitive** jusqu'au rechargement, et l'observation de l'IA passe de 33 à 36 canaux, ce
+qui **invalide les modèles entraînés** avant le lot (leur chargement est refusé sans conversion
+silencieuse, comportement qui existait déjà et que le lot se contente de tester). Le lot met enfin
+au jour deux dettes qu'il consigne sans les corriger : l'ordre de résolution du pas fixe est réécrit
+dans **quatre** orchestrations indépendantes, dont seules deux sont comparées automatiquement — et
+l'une d'elles n'appliquait pas les capacités de tableau (`EX-GP-055`), écart corrigé ici parce que
+`demo-bloc-fragile` est le premier tableau livré à en déclarer une.
 
 Le [LOT-73](@ref lot-73) — **livre** — reprend l'interface la ou trois symptomes rapportes a l'usage
 la rendaient penible : une fenetre qui reclamait plus grand que l'ecran, un gel de plusieurs secondes

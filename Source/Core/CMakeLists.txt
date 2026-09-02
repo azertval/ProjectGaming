@@ -28,6 +28,8 @@ add_library(Core STATIC
     Gameplay/DangerController.cpp
     Gameplay/PlatformController.cpp
     Gameplay/PlatformPath.cpp
+    Gameplay/SinkingBlockController.cpp
+    Gameplay/VolatileBlockController.cpp
     Physics/SweptCollision.cpp
     Physics/SlopeGeometry.cpp
     Physics/AabbVsAabb.cpp
