@@ -367,5 +367,11 @@
       "y": 3,
       "type": "sinkingBlock"
     }
+  ],
+  "planes": [
+    {
+      "file": "demo-bloc-descendant-fond.png",
+      "pixelsPerUnit": 8
+    }
   ]
 }

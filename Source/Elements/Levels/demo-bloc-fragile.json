@@ -363,5 +363,11 @@
       "y": 3,
       "type": "exit"
     }
+  ],
+  "planes": [
+    {
+      "file": "demo-bloc-fragile-fond.png",
+      "pixelsPerUnit": 8
+    }
   ]
 }

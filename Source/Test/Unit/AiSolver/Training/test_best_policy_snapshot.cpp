@@ -74,6 +74,7 @@ void fillParameters(Network& network, float value) {
 }  // namespace
 
 /**
+ * @brief Une réussite l'emporte sur un échec, quelle que soit la récompense.
  * \castest{<b>Une réussite l'emporte sur un échec, quelle que soit la récompense.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -92,6 +93,7 @@ TEST(PolicyScore, UneReussiteBatToujoursUnEchecMemeMoinsRecompensee) {
 }
 
 /**
+ * @brief À réussite égale, le trajet le plus court gagne.
  * \castest{<b>À réussite égale, le trajet le plus court gagne.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -109,6 +111,7 @@ TEST(PolicyScore, EntreDeuxReussitesLaPlusCourteGagne) {
 }
 
 /**
+ * @brief À échec égal, la mieux récompensée gagne.
  * \castest{<b>À échec égal, la mieux récompensée gagne.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -125,6 +128,7 @@ TEST(PolicyScore, EntreDeuxEchecsLaMieuxRecompenseeGagne) {
 }
 
 /**
+ * @brief Un cliché neuf est vide et ne restaure rien.
  * \castest{<b>Un cliché neuf est vide et ne restaure rien.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -143,6 +147,7 @@ TEST(BestPolicySnapshot, VideTantQuAucunCandidatNAEteSoumis) {
 }
 
 /**
+ * @brief Le premier candidat est toujours retenu, même s'il échoue.
  * \castest{<b>Le premier candidat est retenu, même s'il échoue.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Majeur<br/>
@@ -160,6 +165,7 @@ TEST(BestPolicySnapshot, LePremierCandidatEstToujoursRetenu) {
 }
 
 /**
+ * @brief Un candidat moins bon ne remplace pas le cliché.
  * \castest{<b>Un candidat moins bon ne remplace pas le cliché.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
@@ -186,6 +192,7 @@ TEST(BestPolicySnapshot, UnCandidatMoinsBonNeRemplacePasLeCliche) {
 }
 
 /**
+ * @brief Un run qui finit mal restaure sa meilleure génération.
  * \castest{<b>Un run qui finit mal restaure sa meilleure génération.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
@@ -218,6 +225,7 @@ TEST(BestPolicySnapshot, RestaureLesPoidsDeLaMeilleureGenerationApresUnDernierEp
 }
 
 /**
+ * @brief Une réussite plus courte remplace la précédente.
  * \castest{<b>Une réussite plus courte remplace la précédente.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
@@ -243,6 +251,7 @@ TEST(BestPolicySnapshot, UneReussitePlusCourteRemplaceLaPrecedente) {
 }
 
 /**
+ * @brief Le cliché est une copie profonde, et reste réutilisable après restauration.
  * \castest{<b>Le cliché est une copie profonde, réutilisable.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Bloquant<br/>
@@ -271,6 +280,7 @@ TEST(BestPolicySnapshot, LeClicheEstUneCopieProfondeInsensibleAuxMisesAJourUlter
 }
 
 /**
+ * @brief Une topologie incompatible est refusée sans toucher au réseau cible.
  * \castest{<b>Une topologie incompatible est refusée, réseau intact.</b><br/>
  * \tcat Unitaire · AiSolver Training<br/>
  * \tcrit Critique<br/>

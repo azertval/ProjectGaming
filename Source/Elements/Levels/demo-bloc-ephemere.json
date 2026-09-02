@@ -362,5 +362,11 @@
       "y": 3,
       "type": "exit"
     }
+  ],
+  "planes": [
+    {
+      "file": "demo-bloc-ephemere-fond.png",
+      "pixelsPerUnit": 8
+    }
   ]
 }
