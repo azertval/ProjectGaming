@@ -154,6 +154,9 @@ add_executable(UnitTests
     Unit/AiSolver/Training/test_replay_buffer.cpp
     Unit/AiSolver/Training/test_dqn_loss.cpp
     Unit/AiSolver/Training/test_dqn_trainer.cpp
+    # Meilleur reseau d'un run par gradient : un dernier episode rate ne doit plus ecraser le
+    # modele sauvegarde (equivalent de bestIndividual pour pg/ac/avance).
+    Unit/AiSolver/Training/test_best_policy_snapshot.cpp
     Unit/AiSolver/Eval/test_generation_comparator.cpp
     # Harnais de benchmark multi-algorithmes (LOT-ANNEXE-15), premier lot de la generation 4 :
     # adaptateurs TrainedPolicy uniformes (TACHE-01), execution automatisee repetee et reproductible
